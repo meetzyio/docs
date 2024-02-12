@@ -26,10 +26,6 @@
     "url": "https://ui.meetzy.io"
   },
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
   ],
   "anchors": [
     {
