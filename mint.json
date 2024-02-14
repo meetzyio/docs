@@ -41,7 +41,8 @@
   ],
   "navigation": [
     {
-      "group": "Introduction"
+      "group": "Introduction",
+      "pages":[]
     },
     {
       "group": "Essentials",
