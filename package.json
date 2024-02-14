@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mintlify": "^4.0.123"
   }
 }

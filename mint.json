@@ -41,8 +41,8 @@
   ],
   "navigation": [
     {
-      "group": "Introduction",
-      "pages":[]
+      "group": "API Reference",
+      "pages":["api-reference/introduction"]
     },
     {
       "group": "Essentials",
