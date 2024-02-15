@@ -39,7 +39,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Call"
+                  "$ref": "#/components/schemas/CallResponse"
                 }
               }
             }
@@ -69,15 +69,32 @@
         "type": "object",
         "properties": {
           "phone": {
-            "description": "The phone to call with country prefix (e.g. +34600000000)",
+            "description": "The phone to call with country prefix (e.g. +34600000000).",
             "type": "string"
           },
           "playbook_id": {
-            "description": "The id of the playbook",
+            "description": "The id of the playbook you want to use to make the call. You can get the list of playbooks using your dashboard (/playbook endpoint will be available soon).",
             "type": "string"
           },
           "voice_id": {
-            "description": "The number of the voice to use (values: 1, 2, 3, 4, 5, random) - Default 3",
+            "description": "The number of the voice to use (values: 1, 2, 3, 4, 5, random) - Default 3.",
+            "type": "string"
+          },
+          "language": {
+            "description": "The language used by Meetzy during the call",
+            "type": "string"
+          }
+        }
+      },
+      "CallResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "description": "If the call started successfully or not",
+            "type": "boolean"
+          },
+          "message": {
+            "description": "The message explaining the result of the call initiation",
             "type": "string"
           }
         }
@@ -90,10 +107,11 @@
         "type": "object",
         "properties": {
           "error": {
-            "type": "integer",
-            "format": "int32"
+            "description": "If the call started successfully or not",
+            "type": "boolean"
           },
           "message": {
+            "description": "The message explaining why the call initiation failed",
             "type": "string"
           }
         }
