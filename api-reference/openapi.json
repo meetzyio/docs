@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://ai.meetzy.io"
+      "url": "https://ai.meetzy.io"
     }
   ],
   "security": [
@@ -81,7 +81,19 @@
             "type": "string"
           },
           "language": {
-            "description": "The language used by Meetzy during the call",
+            "description": "The language used by Meetzy during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
+            "type": "string"
+          },
+          "<custom_param_1>": {
+            "description": "A custom param like firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
+            "type": "string"
+          },
+          "<custom_param_2>": {
+            "description": "A custom param like firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
+            "type": "string"
+          },
+          "<custom_param_N>": {
+            "description": "You can add as many custom params as you want. Meetzy will use this param to personalize the call.",
             "type": "string"
           }
         }
