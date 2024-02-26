@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/call": {
+    "/calls": {
       "post": {
         "description": "API that start a call using a pre-trained playbook.",
         "requestBody": {
@@ -55,6 +55,32 @@
             }
           }
         }
+      },
+      "get":{
+        "description": "API that get the list of calls made by users.",
+        "responses": {
+          "200": {
+            "description": "Call response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CallListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      
       }
     }
   },
@@ -84,6 +110,10 @@
             "description": "The language used by Meetzy during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
             "type": "string"
           },
+          "email": {
+            "description": "The email of the lead. Meetzy will use this param to personalize the call.",
+            "type": "string"
+          },
           "<custom_param_1>": {
             "description": "A custom param like firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
             "type": "string"
@@ -108,6 +138,90 @@
           "message": {
             "description": "The message explaining the result of the call initiation",
             "type": "string"
+          }
+        }
+      },
+      "CallListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The id of the call",
+              "type": "string"
+            },
+            "phone": {
+              "description": "The phone to call with country prefix (e.g. +34600000000).",
+              "type": "string"
+            },
+            "email": {
+              "description": "The email of the lead.",
+              "type": "string"
+            },
+            "firstname": {
+              "description": "The firstname of the lead.",
+              "type": "string"
+            },
+            "lastname": {
+              "description": "The lastname of the lead.",
+              "type": "string"
+            },
+            "playbook_id": {
+              "description": "The id of the playbook you want to use to make the call. You can get the list of playbooks using your dashboard (/playbook endpoint will be available soon).",
+              "type": "string"
+            },
+            "voice_id": {
+              "description": "The number of the voice to use (values: 1, 2, 3, 4, 5, random) - Default 3.",
+              "type": "string"
+            },
+            "language": {
+              "description": "The language used by Meetzy during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
+              "type": "string"
+            },
+            "duration": {
+              "description": "The duration of the call in seconds.",
+              "type": "integer"
+            },
+            "status": {
+              "description": "The status of the call (values: queued, ringing, completed, failed, routed).",
+              "type": "string"
+            },
+            "summary": {
+              "description": "The summary of the call.",
+              "type": "string"
+            },
+            "transcription:": {
+              "description": "The transcription of the call.",
+              "type": "string"
+            },
+            "sentiment:": {
+              "description": "The sentiment of the call (values: positive, neutral, negative, frustrated, angry, happy, sad, etc.",
+              "type": "string"
+            },
+            "recorded:": {
+              "description": "If the call was recorded or not.",
+              "type": "boolean"
+            },
+            "record_url:": {
+              "description": "The url of the recorded call.",
+              "type": "string"
+            },
+            "created_at": {
+              "description": "The date and time when the call was created.",
+              "type": "string"
+            },
+            "<custom_param_1>": {
+              "description": "A custom param you created when you created the call (like UTM, postal_code, program_of_insterest, etc.)",
+              "type": "string"
+            },
+            "<custom_param_2>": {
+              "description": "A custom param you created when you created the call (like UTM, postal_code, program_of_insterest, etc.)",
+              "type": "string"
+            },
+            "<custom_param_N>": {
+              "description": "You can add as many custom params as you want.",
+              "type": "string"
+            }
           }
         }
       },

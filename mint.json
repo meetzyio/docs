@@ -35,7 +35,8 @@
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/create"
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/list"
       ]
     }
   ],
