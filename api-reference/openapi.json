@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/calls": {
+    "/call": {
       "post": {
         "description": "API that start a call using a pre-trained playbook.",
         "requestBody": {
@@ -55,7 +55,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/calls": {
       "get":{
         "description": "API that get the list of calls made by users.",
         "responses": {
