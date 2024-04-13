@@ -55,7 +55,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/call/{callId}": {
       "get":{
         "description": "API that get a call.",
         "responses": {
