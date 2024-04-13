@@ -59,7 +59,7 @@
     },
     "/call/{callId}": {
       "get":{
-        "description": "API that get a call.",
+        "description": "Returns data about a specific call.",
         "responses": {
           "200": {
             "description": "Call response",
