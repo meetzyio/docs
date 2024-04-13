@@ -39,7 +39,32 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CallResponse"
+                  "$ref": "#/components/schemas/POST_CallResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get":{
+        "description": "API that get a call.",
+        "responses": {
+          "200": {
+            "description": "Call response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GET_CallResponse"
                 }
               }
             }
@@ -66,7 +91,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CallListResponse"
+                  "$ref": "#/components/schemas/GET_CallsResponse"
                 }
               }
             }
@@ -85,6 +110,7 @@
       
       }
     }
+    
   },
   "components": {
     "schemas": {
@@ -105,7 +131,11 @@
             "type": "string"
           },
           "voice_id": {
-            "description": "The number of the voice to use (values: 1, 2, 3, 4, 5, random) - Default 3.",
+            "description": "The number of the voice to use (values: 1, 2, 3, 4, 5, 6, 7) - Default 6.",
+            "type": "string"
+          },
+          "voice_model": {
+            "description": "Choose from our speech models: - 'fast' (less latency, nice voices) or 'human' (our natural sounding voices - (beta)) - Default model: 'fast'",
             "type": "string"
           },
           "language": {
@@ -130,9 +160,13 @@
           }
         }
       },
-      "CallResponse": {
+      "POST_CallResponse": {
         "type": "object",
         "properties": {
+          "id": {
+            "description": "The id of a the call",
+            "type": "string"
+          },
           "success": {
             "description": "If the call started successfully or not",
             "type": "boolean"
@@ -143,7 +177,7 @@
           }
         }
       },
-      "CallListResponse": {
+      "GET_CallsResponse": {
         "type": "array",
         "items": {
           "type": "object",
@@ -224,6 +258,63 @@
               "description": "You can add as many custom params as you want.",
               "type": "string"
             }
+          }
+        }
+      },
+      "GET_CallResponse":{
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Unique identifier of the call.",
+            "type": "string"
+          },
+          "playbook_name": {
+            "description": "Name of the playbook used during the call.",
+            "type": "string"
+          },
+          "playbook_id": {
+            "description": "Unique identifier of the playbook used during the call.",
+            "type": "string"
+          },
+          "from": {
+            "description": "Phone number that **initiated** the call.",
+            "type": "string"
+          },
+          "to": {
+            "description": "Phone number that **received** the call.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Current status of the call, possible values include: 'ringing', 'open', 'closed', 'no-answer', 'voicemail', 'busy', 'recall-scheduled', 'wrong-phone-format'.",
+            "type": "string"
+          },
+          "duration": {
+            "description": "Duration of the call in seconds.",
+            "type": "integer"
+          },
+          "transcript": {
+            "description": "Full transcription of the call in HTML format.",
+            "type": "string"  
+          },
+          "summary": {
+            "description": "Brief summary of the conversation during the call.",
+            "type": "string" 
+          },
+          "data": {
+            "description": "Parameters received to initiate the call.",
+            "type": "string"
+          },
+          "success": {
+            "description": "Indicates whether the objectives defined in the playbook were met.",
+            "type": "boolean"
+          },
+          "recording": {
+            "description": "Indicates whether the call was recorded.",
+            "type": "boolean"
+          },
+          "created_time": {
+            "description": "Timestamp for when the call was initiated, formatted as YYYY-MM-DD HH:MM:SS in UTC (Z). For example, a created_time of '2024-01-28 16:16:56' corresponds to '2024-01-28 18:16:56' in Spain (UTC +2).",
+            "type": "string"
           }
         }
       },
