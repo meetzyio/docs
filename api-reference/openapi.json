@@ -137,23 +137,23 @@
             "type": "string"
           },
           "voice_model": {
-            "description": "Choose from our speech models: - 'fast' (less latency, nice voices) or 'human' (our natural sounding voices - (beta)) - Default model: 'fast'",
+            "description": "Choose from our speech models: - 'fast' (less latency, nice voices) or 'human' (our natural sounding voices - (beta)) - Default model: 'human'",
             "type": "string"
           },
           "language": {
             "description": "The language used by Meetzy during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
             "type": "string"
           },
-          "email": {
-            "description": "The email of the lead. Meetzy will use this param to personalize the call.",
-            "type": "string"
+          "interrupt":{
+            "description": "If the user can interrupt to the IA during the call - Default false.",
+            "type": "boolean"
           },
           "<custom_param_1>": {
-            "description": "A custom param like firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
+            "description": "A custom param like email, firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
             "type": "string"
           },
           "<custom_param_2>": {
-            "description": "A custom param like firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
+            "description": "A custom param like email, firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
             "type": "string"
           },
           "<custom_param_N>": {
