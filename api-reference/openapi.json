@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Meetzy",
+    "title": "OpenAPI Flark",
     "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
     "license": {
       "name": "Private"
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://ai.meetzy.io"
+      "url": "https://api.flark.ai"
     }
   ],
   "security": [
@@ -141,7 +141,7 @@
             "type": "string"
           },
           "language": {
-            "description": "The language used by Meetzy during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
+            "description": "The language used by Flark during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
             "type": "string"
           },
           "interrupt":{
@@ -149,15 +149,15 @@
             "type": "boolean"
           },
           "<custom_param_1>": {
-            "description": "A custom param like email, firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
+            "description": "A custom param like email, firstname, lastname, email, program_of_insterest, etc. Flark will use this param to personalize the call.",
             "type": "string"
           },
           "<custom_param_2>": {
-            "description": "A custom param like email, firstname, lastname, email, program_of_insterest, etc. Meetzy will use this param to personalize the call.",
+            "description": "A custom param like email, firstname, lastname, email, program_of_insterest, etc. Flark will use this param to personalize the call.",
             "type": "string"
           },
           "<custom_param_N>": {
-            "description": "You can add as many custom params as you want. Meetzy will use this param to personalize the call.",
+            "description": "You can add as many custom params as you want. Flark will use this param to personalize the call.",
             "type": "string"
           }
         }
@@ -213,7 +213,7 @@
               "type": "string"
             },
             "language": {
-              "description": "The language used by Meetzy during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
+              "description": "The language used by Flark during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
               "type": "string"
             },
             "duration": {

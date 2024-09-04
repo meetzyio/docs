@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Meetzy Docs",
+  "name": "Flark Docs",
   "logo": {
     "dark": "/logo/dark.png",
     "light": "/logo/light.png"
@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:jorge@meetzy.io"
+      "url": "mailto:jorge@flark.io"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.meetzy.io"
+    "url": "https://dashboard.flark.io"
   },
   "tabs": [
   ],
