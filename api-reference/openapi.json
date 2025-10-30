@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.flark.ai"
+      "url": "https://ai.meetzy.io"
     }
   ],
   "security": [
