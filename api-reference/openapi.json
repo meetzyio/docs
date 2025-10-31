@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://ai.meetzy.io"
+      "url": "https://api.meetzy.io"
     }
   ],
   "security": [
