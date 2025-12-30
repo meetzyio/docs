@@ -1,0 +1,166 @@
+---
+title: 'Playbook Versioning'
+description: 'Understand how version control works for your playbooks and how to use specific versions in API calls.'
+---
+
+## Overview
+
+Flark supports version control for playbooks, allowing you to:
+- Keep a history of all changes made to your playbook
+- Designate a specific version as "production"
+- Test specific versions before deploying to production
+- Use historical versions for specific API calls
+
+## How Versioning Works
+
+### Production Version
+
+Every playbook has one version marked as **production**. This is the version that will be used for:
+
+- **Inbound calls**: All incoming calls to your Flark number
+- **Outbound calls via API**: When you don't specify a `version_id`
+- **Queued/scheduled calls**: Uses the version that was marked as production when the call was scheduled
+
+### Version Selection Priority
+
+When a call is initiated, the system follows this priority:
+
+1. **Specific version requested**: If you provide `version_id` in the API call, that exact version is used
+2. **Production version**: If no `version_id` is provided, the production version is used
+3. **Current configuration (fallback)**: If no versions exist for the playbook, the current playbook configuration is used
+
+## Using Versions in API Calls
+
+### Default Behavior (Recommended)
+
+Simply call the API without specifying a version. The production version will be used automatically:
+
+```bash
+curl -X POST https://api.meetzy.io/call \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "firstname": "John",
+    "lastname": "Doe"
+  }'
+```
+
+### Using a Specific Version
+
+To use a specific version (e.g., for testing), include the `version_id` parameter:
+
+```bash
+curl -X POST https://api.meetzy.io/call \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "version_id": "abc123-version-uuid",
+    "firstname": "John",
+    "lastname": "Doe"
+  }'
+```
+
+<Note>
+  The `version_id` must belong to the specified `playbook_id`. If the version doesn't exist or belongs to a different playbook, the API will fall back to the production version.
+</Note>
+
+## Response
+
+When you retrieve call details, the response includes the `version_id` that was used:
+
+```json
+{
+  "id": "call-uuid",
+  "playbook_id": "your-playbook-id",
+  "version_id": "abc123-version-uuid",
+  "status": "completed",
+  "duration": 120,
+  "...": "..."
+}
+```
+
+If `version_id` is empty or null, it means either:
+- No version control was active for this playbook at the time
+- The call used the legacy system (before version control was implemented)
+
+## Managing Versions in the Dashboard
+
+You can manage playbook versions in the Advanced Editor:
+
+1. **View History**: See all committed versions with their timestamps and commit messages
+2. **Mark as Production**: Designate any version as the production version
+3. **Restore Version**: Revert to a previous version's configuration
+4. **Compare Changes**: View differences between versions
+
+<Warning>
+  Changing the production version takes effect immediately for all new inbound calls and API calls that don't specify a version.
+</Warning>
+
+## Best Practices
+
+1. **Always commit changes before going live**: Use the commit system to create a snapshot before major changes
+2. **Test before marking as production**: Use the `version_id` parameter to test new versions with specific calls before making them production
+3. **Use descriptive commit messages**: This helps track what changed in each version
+4. **Keep production stable**: Only mark thoroughly tested versions as production
+
+## Use Cases
+
+### A/B Testing
+
+Test a new greeting or prompt with specific leads before rolling out to everyone:
+
+```bash
+# Test call with new version
+curl -X POST https://api.meetzy.io/call \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "version_id": "new-greeting-version-id"
+  }'
+```
+
+### Rollback
+
+If you notice issues with a new production version, you can:
+1. Go to the Advanced Editor → History tab
+2. Find a known-good version
+3. Click "Mark as Prod" to instantly roll back
+
+### Scheduled Campaigns
+
+When scheduling bulk calls, you can specify a version to ensure consistency even if you update the playbook later:
+
+```bash
+# Schedule calls with a locked version
+curl -X POST https://api.meetzy.io/call \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "version_id": "campaign-v1-version-id"
+  }'
+```
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="What happens if I don't have any versions?">
+    The system falls back to using the current playbook configuration. This ensures backwards compatibility with playbooks created before version control was implemented.
+  </Accordion>
+  
+  <Accordion title="Can I delete versions?">
+    Currently, versions cannot be deleted to maintain audit trail integrity. You can always mark a different version as production.
+  </Accordion>
+  
+  <Accordion title="Is there a limit to the number of versions?">
+    There is no hard limit on the number of versions. However, we recommend keeping meaningful commits rather than committing every small change.
+  </Accordion>
+  
+  <Accordion title="Do inbound calls use version control?">
+    Yes! Inbound calls always use the production version. This ensures your customers always experience the configuration you've designated as production-ready.
+  </Accordion>
+</AccordionGroup>
+

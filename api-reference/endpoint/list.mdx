@@ -1,6 +1,225 @@
 ---
-title: 'List calls'
-openapi: 'GET /calls'
+title: 'List Calls'
+api: 'GET /calls'
+description: 'Retrieve a list of calls with filtering options'
 ---
 
+## Overview
+
+This endpoint retrieves a list of calls associated with the authenticated user's assistants. You can filter calls by date range, status, and playbook.
+
+## Authentication
+
+This endpoint requires authentication using a Bearer token in the Authorization header.
+
+```bash
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+## Query Parameters
+
+<ParamField query="startDate" type="string" optional>
+  Start date for filtering calls. Format: `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss`
+  
+  If not provided, it will be calculated based on `daysFromNow` parameter.
+</ParamField>
+
+<ParamField query="endDate" type="string" optional>
+  End date for filtering calls. Format: `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss`
+  
+  If not provided, it will default to the current date/time.
+</ParamField>
+
+<ParamField query="daysFromNow" type="number" optional default="15">
+  Number of days to look back from today. Only used if `startDate` and `endDate` are not provided.
+  
+  - Minimum: 1
+  - Maximum: 90
+  - Default: 15
+</ParamField>
+
+<ParamField query="status" type="string" optional>
+  Filter calls by status. Valid values:
+  - `open` - Call is in progress or pending
+  - `closed` - Call has been completed successfully
+  - `rong-phone-forno-answer` - Wrong phone number or no answer
+  - `wmat` - Waiting for manual action
+  - `failed` - Call failed
+  - `recall-scheduled` - A recall has been scheduled
+  - `voicemail` - Call went to voicemail
+</ParamField>
+
+<ParamField query="playbook_id" type="string" optional>
+  Filter calls by a specific playbook (assistant) ID. Must be a valid UUID.
+</ParamField>
+
+## Response
+
+<ResponseField name="calls" type="array">
+  Array of call objects, ordered by `created_time` descending (most recent first).
+  
+  <Expandable title="Call Object">
+    <ResponseField name="id" type="string">
+      Unique identifier for the call (UUID)
+    </ResponseField>
+    
+    <ResponseField name="created_time" type="string">
+      When the call was created. Format: `YYYY-MM-DD HH:mm:ss` (UTC)
+    </ResponseField>
+    
+    <ResponseField name="timestamp" type="number">
+      Unix timestamp in milliseconds of when the call was created
+    </ResponseField>
+    
+    <ResponseField name="assistant_id" type="string">
+      ID of the assistant (playbook) that handled the call
+    </ResponseField>
+    
+    <ResponseField name="from" type="string">
+      Phone number that initiated the call. Empty if not available or invalid.
+    </ResponseField>
+    
+    <ResponseField name="to" type="string">
+      Phone number that received the call
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Current status of the call. See status parameter for possible values.
+    </ResponseField>
+    
+    <ResponseField name="duration" type="number">
+      Duration of the call in seconds
+    </ResponseField>
+    
+    <ResponseField name="recording" type="string">
+      URL to the call recording (if available)
+    </ResponseField>
+    
+    <ResponseField name="transcript" type="string">
+      HTML-formatted transcript of the call. Includes speaker labels formatted as `<b>[Speaker]</b>`.
+    </ResponseField>
+    
+    <ResponseField name="success" type="boolean">
+      Whether the call was successful
+    </ResponseField>
+    
+    <ResponseField name="summary" type="string">
+      AI-generated summary of the call
+    </ResponseField>
+    
+    <ResponseField name="output" type="object">
+      Structured output data from the call. Format depends on the playbook configuration.
+    </ResponseField>
+    
+    <ResponseField name="data" type="object">
+      Additional call data and parameters. Sensitive fields like voice_id, voice_model, text_model, and assistant_id are removed for security.
+      
+      <Expandable title="Data Object">
+        <ResponseField name="params" type="object">
+          Custom parameters passed to the call
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Example Requests
+
+### Get calls from the last 30 days
+
+```bash
+GET https://api.flark.io/calls?daysFromNow=30
+```
+
+### Get calls within a specific date range
+
+```bash
+GET https://api.flark.io/calls?startDate=2024-01-01&endDate=2024-01-31
+```
+
+### Get only closed calls
+
+```bash
+GET https://api.flark.io/calls?status=closed
+```
+
+### Get calls for a specific playbook
+
+```bash
+GET https://api.flark.io/calls?playbook_id=550e8400-e29b-41d4-a716-446655440000
+```
+
+### Combine filters
+
+```bash
+GET https://api.flark.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400-e29b-41d4-a716-446655440000
+```
+
+## Example Response
+
+```json
+[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "created_time": "2024-11-12 10:30:00",
+    "timestamp": 1731407400000,
+    "assistant_id": "550e8400-e29b-41d4-a716-446655440000",
+    "from": "+34612345678",
+    "to": "+34987654321",
+    "status": "closed",
+    "duration": 180,
+    "recording": "https://recordings.flark.io/call-123.mp3",
+    "transcript": "<b>[Agent]</b> Hello, this is Sarah from Flark...<br><br><b>[Customer]</b> Hi Sarah...",
+    "success": true,
+    "summary": "Customer was interested in the premium plan...",
+    "output": {
+      "appointment_scheduled": true,
+      "date": "2024-11-15",
+      "time": "14:00"
+    },
+    "data": {
+      "params": {
+        "campaign_id": "summer-2024",
+        "lead_source": "website"
+      }
+    }
+  }
+]
+```
+
+## Error Responses
+
+<ResponseField name="401 Unauthorized" type="object">
+  Authentication failed or token is invalid
+  
+  ```json
+  {
+    "error": "Unauthorized"
+  }
+  ```
+</ResponseField>
+
+<ResponseField name="403 Forbidden" type="object">
+  User does not have permission to access this resource
+  
+  ```json
+  "Unauthorized"
+  ```
+</ResponseField>
+
+<ResponseField name="500 Internal Server Error" type="object">
+  An error occurred on the server
+  
+  ```json
+  "Internal Server Error"
+  ```
+</ResponseField>
+
+## Notes
+
+- All dates are handled in Europe/Madrid timezone and converted to UTC in the response
+- The `from` field is automatically sanitized to remove invalid entries like "phoneNumber.phoneNumber"
+- Transcripts are formatted with HTML tags for better readability in UI applications
+- The endpoint automatically filters calls to only show those belonging to assistants owned by the authenticated user
+- Maximum date range when using `daysFromNow` is 90 days
 

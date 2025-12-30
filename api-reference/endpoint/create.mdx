@@ -3,4 +3,44 @@ title: 'Init a call'
 openapi: 'POST /call'
 ---
 
+## Overview
+
+This endpoint initiates an outbound call using a pre-trained playbook. The call will be made using your configured phone number and the AI will follow the playbook's instructions.
+
+## Version Control
+
+By default, this endpoint uses the **production version** of your playbook. This ensures that all API calls use the same configuration you've designated as production-ready in the dashboard.
+
+<Tip>
+  You can optionally specify a `version_id` parameter to use a specific version of your playbook. This is useful for testing new versions before marking them as production. See [Playbook Versioning](/api-reference/endpoint/versioning) for more details.
+</Tip>
+
+### Default Behavior
+
+When you call this endpoint without a `version_id`:
+1. The system looks for the playbook's **production version**
+2. If found, it uses that version's configuration (prompt, voice, settings, etc.)
+3. If no versions exist, it falls back to the current playbook configuration
+
+### Using a Specific Version
+
+```json
+{
+  "phone": "+34600000000",
+  "playbook_id": "your-playbook-id",
+  "version_id": "optional-version-uuid"
+}
+```
+
+## Response
+
+A successful response includes the call ID which you can use to track the call status:
+
+```json
+{
+  "success": true,
+  "id": "call-uuid",
+  "message": "Call processing started"
+}
+```
 
