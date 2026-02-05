@@ -1,0 +1,60 @@
+---
+title: 'Obtener una llamada'
+openapi: 'GET /call/{callId}'
+---
+
+## Descripción General
+
+Este endpoint recupera los detalles de una llamada específica usando su ID único.
+
+## Autenticación
+
+Este endpoint requiere autenticación usando un token Bearer en el header Authorization.
+
+```bash
+Authorization: Bearer TU_API_TOKEN
+```
+
+## Parámetros de Ruta
+
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| callId | string | ID único de la llamada (UUID) |
+
+## Respuesta
+
+La respuesta incluye todos los detalles de la llamada:
+
+```json
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "created_time": "2024-11-12 10:30:00",
+  "assistant_id": "550e8400-e29b-41d4-a716-446655440000",
+  "from": "+34612345678",
+  "to": "+34987654321",
+  "status": "closed",
+  "duration": 180,
+  "recording": "https://recordings.meetzy.io/call-123.mp3",
+  "transcript": "...",
+  "success": true,
+  "summary": "...",
+  "output": {}
+}
+```
+
+## Campos de Respuesta
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| id | string | Identificador único de la llamada |
+| created_time | string | Cuándo fue creada la llamada |
+| assistant_id | string | ID del agente que manejó la llamada |
+| from | string | Número de teléfono origen |
+| to | string | Número de teléfono destino |
+| status | string | Estado actual de la llamada |
+| duration | number | Duración en segundos |
+| recording | string | URL de la grabación |
+| transcript | string | Transcripción de la llamada |
+| success | boolean | Si la llamada fue exitosa |
+| summary | string | Resumen generado por IA |
+| output | object | Datos estructurados extraídos |

@@ -1,0 +1,183 @@
+---
+title: 'Permisos y Roles'
+description: 'Entendiendo los permisos de usuario y control de acceso en Meetzy.'
+---
+
+## Descripción General
+
+Meetzy utiliza un sistema basado en permisos para controlar lo que cada miembro del equipo puede hacer dentro de la plataforma. Los permisos se asignan individualmente al invitar o editar miembros.
+
+## Permisos Disponibles
+
+### Can Edit Agents
+
+| Estado | Nivel de Acceso |
+|--------|-----------------|
+| ✅ Activado | Puede modificar configuraciones, prompts y ajustes de agentes |
+| ❌ Desactivado | Acceso solo de lectura a agentes asignados |
+
+Los miembros con este permiso pueden:
+- Editar nombres y configuraciones básicas de agentes
+- Modificar saludos y prompts
+- Configurar parámetros de entrada/salida
+- Cambiar configuraciones de voz
+
+### Can Use Advanced Editor
+
+| Estado | Nivel de Acceso |
+|--------|-----------------|
+| ✅ Activado | Acceso completo al Editor Avanzado |
+| ❌ Desactivado | Limitado a configuración básica de agentes |
+
+Los miembros con este permiso pueden:
+- Acceder a todos los paneles del Editor Avanzado
+- Configurar documentos de Knowledge Base
+- Configurar Actions & Tools (webhooks, transferencias)
+- Usar el Playground para pruebas
+- Acceder al asistente Copilot
+- Gestionar historial de versiones y ramas
+- Publicar cambios a producción
+
+<Tip>
+Activa "Can use advanced editor" para miembros del equipo que necesiten hacer cambios sustanciales en el comportamiento del agente.
+</Tip>
+
+### Can Access CRM
+
+| Estado | Nivel de Acceso |
+|--------|-----------------|
+| ✅ Activado | Acceso completo a funciones CRM |
+| ❌ Desactivado | Sin acceso al menú CRM |
+
+Los miembros con este permiso pueden:
+- Ver y gestionar contactos
+- Importar contactos desde archivos o Google Sheets
+- Crear y gestionar segmentos
+- Programar y monitorear campañas
+- Exportar datos de contactos
+
+<Note>
+El acceso CRM solo es visible si tu cuenta tiene funciones CRM habilitadas. El administrador debe tener acceso CRM para otorgarlo a otros miembros.
+</Note>
+
+### Can View Billable Minutes
+
+| Estado | Nivel de Acceso |
+|--------|-----------------|
+| ✅ Activado | Puede ver información de uso y facturación |
+| ❌ Desactivado | Sin acceso a datos de facturación |
+
+Los miembros con este permiso pueden:
+- Ver estadísticas de duración de llamadas
+- Ver consumo de minutos facturables
+- Acceder a reportes de uso
+
+### Can View Recordings
+
+| Estado | Nivel de Acceso |
+|--------|-----------------|
+| ✅ Activado | Puede escuchar grabaciones de llamadas |
+| ❌ Desactivado | Sin acceso a grabaciones de audio |
+
+Los miembros con este permiso pueden:
+- Reproducir grabaciones desde los detalles de llamada
+- Descargar grabaciones (si está habilitado)
+
+<Warning>
+Ten cuidado al otorgar acceso a grabaciones. Las grabaciones de llamadas pueden contener información sensible del cliente.
+</Warning>
+
+## Acceso a Nivel de Agente
+
+Además de los permisos de funcionalidad, controlas a qué agentes puede acceder cada miembro:
+
+| Tipo de Acceso | Descripción |
+|----------------|-------------|
+| **Acceso Completo** | El miembro puede ver llamadas y editar el agente (si los permisos lo permiten) |
+| **Sin Acceso** | El agente está oculto para el miembro |
+
+### Cómo Funciona el Acceso a Agentes
+
+1. Los miembros solo ven agentes asignados a ellos
+2. El historial de llamadas se filtra para mostrar solo llamadas de agentes asignados
+3. Los datos CRM son accesibles a través de todos los agentes asignados
+4. Los reportes muestran datos solo de agentes asignados
+
+## Combinaciones de Permisos
+
+Aquí hay combinaciones comunes de permisos para diferentes roles:
+
+### Viewer (Solo Lectura)
+- ❌ Can edit agents
+- ❌ Can use advanced editor
+- ❌ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Ideal para: Líderes de equipo que necesitan monitorear llamadas sin hacer cambios.
+
+### Agent Operator
+- ✅ Can edit agents
+- ❌ Can use advanced editor
+- ❌ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Ideal para: Miembros del equipo que manejan configuración básica de agentes.
+
+### Agent Developer
+- ✅ Can edit agents
+- ✅ Can use advanced editor
+- ❌ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Ideal para: Miembros técnicos responsables del desarrollo de agentes.
+
+### Campaign Manager
+- ❌ Can edit agents
+- ❌ Can use advanced editor
+- ✅ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Ideal para: Miembros de marketing o ventas que gestionan campañas salientes.
+
+### Acceso Completo
+- ✅ Can edit agents
+- ✅ Can use advanced editor
+- ✅ Can access CRM
+- ✅ Can view billable minutes
+- ✅ Can view recordings
+
+Ideal para: Administradores de cuenta y miembros senior del equipo.
+
+## Sincronizar Permisos
+
+Si los permisos de un miembro parecen incorrectos, los administradores pueden sincronizar sus claims de Firebase:
+
+1. Encuentra al miembro en la lista
+2. Haz clic en el botón **Sync Claims** (solo visible para usuarios con editor avanzado)
+3. Confirma la sincronización
+
+Esto actualiza los tokens de autenticación del miembro con los permisos más recientes de la base de datos.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="¿Puedo crear roles personalizados?">
+    Actualmente, Meetzy usa permisos individuales en lugar de roles predefinidos. Puedes combinar permisos para crear cualquier nivel de acceso que necesites.
+  </Accordion>
+  
+  <Accordion title="¿Por qué no puedo ver el toggle de permiso CRM?">
+    El toggle de permiso CRM solo es visible si tú (como administrador) tienes acceso CRM habilitado en tu propia cuenta.
+  </Accordion>
+  
+  <Accordion title="¿Los permisos aplican inmediatamente?">
+    Sí, los cambios de permisos tienen efecto inmediato. Los miembros pueden necesitar refrescar su navegador para ver el acceso actualizado.
+  </Accordion>
+  
+  <Accordion title="¿Puede un miembro tener acceso a agentes de múltiples empresas?">
+    Sí, para cuentas multi-empresa, puedes asignar agentes de cualquier empresa. Los agentes están organizados por compañía en la lista de selección.
+  </Accordion>
+</AccordionGroup>

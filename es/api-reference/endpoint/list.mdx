@@ -1,0 +1,198 @@
+---
+title: 'Listar Llamadas'
+api: 'GET /calls'
+description: 'Recupera una lista de llamadas con opciones de filtrado'
+---
+
+## Descripción General
+
+Este endpoint recupera una lista de llamadas asociadas con los asistentes del usuario autenticado. Puedes filtrar llamadas por rango de fechas, estado y playbook.
+
+## Autenticación
+
+Este endpoint requiere autenticación usando un token Bearer en el header Authorization.
+
+```bash
+Authorization: Bearer TU_API_TOKEN
+```
+
+## Parámetros de Query
+
+<ParamField query="startDate" type="string" optional>
+  Fecha de inicio para filtrar llamadas. Formato: `YYYY-MM-DD` o `YYYY-MM-DD HH:mm:ss`
+  
+  Si no se proporciona, se calculará basándose en el parámetro `daysFromNow`.
+</ParamField>
+
+<ParamField query="endDate" type="string" optional>
+  Fecha de fin para filtrar llamadas. Formato: `YYYY-MM-DD` o `YYYY-MM-DD HH:mm:ss`
+  
+  Si no se proporciona, será por defecto la fecha/hora actual.
+</ParamField>
+
+<ParamField query="daysFromNow" type="number" optional default="15">
+  Número de días hacia atrás desde hoy. Solo se usa si `startDate` y `endDate` no se proporcionan.
+  
+  - Mínimo: 1
+  - Máximo: 90
+  - Por defecto: 15
+</ParamField>
+
+<ParamField query="status" type="string" optional>
+  Filtrar llamadas por estado. Valores válidos:
+  - `open` - Llamada en progreso o pendiente
+  - `closed` - Llamada completada exitosamente
+  - `rong-phone-forno-answer` - Número equivocado o sin respuesta
+  - `wmat` - Esperando acción manual
+  - `failed` - Llamada fallida
+  - `recall-scheduled` - Rellamada programada
+  - `voicemail` - Llamada fue al buzón de voz
+</ParamField>
+
+<ParamField query="playbook_id" type="string" optional>
+  Filtrar llamadas por un ID de playbook (asistente) específico. Debe ser un UUID válido.
+</ParamField>
+
+## Respuesta
+
+<ResponseField name="calls" type="array">
+  Array de objetos de llamada, ordenados por `created_time` descendente (más recientes primero).
+  
+  <Expandable title="Objeto de Llamada">
+    <ResponseField name="id" type="string">
+      Identificador único de la llamada (UUID)
+    </ResponseField>
+    
+    <ResponseField name="created_time" type="string">
+      Cuándo fue creada la llamada. Formato: `YYYY-MM-DD HH:mm:ss` (UTC)
+    </ResponseField>
+    
+    <ResponseField name="timestamp" type="number">
+      Timestamp Unix en milisegundos de cuándo fue creada la llamada
+    </ResponseField>
+    
+    <ResponseField name="assistant_id" type="string">
+      ID del asistente (playbook) que manejó la llamada
+    </ResponseField>
+    
+    <ResponseField name="from" type="string">
+      Número de teléfono que inició la llamada. Vacío si no está disponible o es inválido.
+    </ResponseField>
+    
+    <ResponseField name="to" type="string">
+      Número de teléfono que recibió la llamada
+    </ResponseField>
+    
+    <ResponseField name="status" type="string">
+      Estado actual de la llamada. Ver parámetro status para valores posibles.
+    </ResponseField>
+    
+    <ResponseField name="duration" type="number">
+      Duración de la llamada en segundos
+    </ResponseField>
+    
+    <ResponseField name="recording" type="string">
+      URL de la grabación de la llamada (si está disponible)
+    </ResponseField>
+    
+    <ResponseField name="transcript" type="string">
+      Transcripción formateada en HTML de la llamada. Incluye etiquetas de hablante formateadas como `<b>[Hablante]</b>`.
+    </ResponseField>
+    
+    <ResponseField name="success" type="boolean">
+      Si la llamada fue exitosa
+    </ResponseField>
+    
+    <ResponseField name="summary" type="string">
+      Resumen de la llamada generado por IA
+    </ResponseField>
+    
+    <ResponseField name="output" type="object">
+      Datos de salida estructurados de la llamada. El formato depende de la configuración del playbook.
+    </ResponseField>
+    
+    <ResponseField name="data" type="object">
+      Datos adicionales de la llamada y parámetros.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+## Ejemplos de Peticiones
+
+### Obtener llamadas de los últimos 30 días
+
+```bash
+GET https://api.meetzy.io/calls?daysFromNow=30
+```
+
+### Obtener llamadas en un rango de fechas específico
+
+```bash
+GET https://api.meetzy.io/calls?startDate=2024-01-01&endDate=2024-01-31
+```
+
+### Obtener solo llamadas cerradas
+
+```bash
+GET https://api.meetzy.io/calls?status=closed
+```
+
+### Obtener llamadas para un playbook específico
+
+```bash
+GET https://api.meetzy.io/calls?playbook_id=550e8400-e29b-41d4-a716-446655440000
+```
+
+### Combinar filtros
+
+```bash
+GET https://api.meetzy.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400-e29b-41d4-a716-446655440000
+```
+
+## Ejemplo de Respuesta
+
+```json
+[
+  {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "created_time": "2024-11-12 10:30:00",
+    "timestamp": 1731407400000,
+    "assistant_id": "550e8400-e29b-41d4-a716-446655440000",
+    "from": "+34612345678",
+    "to": "+34987654321",
+    "status": "closed",
+    "duration": 180,
+    "recording": "https://recordings.meetzy.io/call-123.mp3",
+    "transcript": "<b>[Agente]</b> Hola, soy Sara de Meetzy...<br><br><b>[Cliente]</b> Hola Sara...",
+    "success": true,
+    "summary": "El cliente estaba interesado en el plan premium...",
+    "output": {
+      "appointment_scheduled": true,
+      "date": "2024-11-15",
+      "time": "14:00"
+    },
+    "data": {
+      "params": {
+        "campaign_id": "verano-2024",
+        "lead_source": "website"
+      }
+    }
+  }
+]
+```
+
+## Respuestas de Error
+
+| Código | Descripción |
+|--------|-------------|
+| 401 | Autenticación fallida o token inválido |
+| 403 | El usuario no tiene permiso para acceder a este recurso |
+| 500 | Ocurrió un error en el servidor |
+
+## Notas
+
+- Todas las fechas se manejan en zona horaria Europe/Madrid y se convierten a UTC en la respuesta
+- El campo `from` se sanitiza automáticamente para eliminar entradas inválidas
+- Las transcripciones están formateadas con etiquetas HTML para mejor legibilidad
+- El endpoint filtra automáticamente las llamadas para mostrar solo las pertenecientes a asistentes del usuario autenticado
+- El rango máximo de fechas usando `daysFromNow` es 90 días

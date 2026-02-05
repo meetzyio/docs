@@ -96,6 +96,8 @@
     {
       "group": "Account",
       "pages": [
+        "account/team-members",
+        "account/permissions",
         "account/api-tokens"
       ]
     },
@@ -115,66 +117,6 @@
       "group": "Advanced Features",
       "pages": [
         "api-reference/endpoint/versioning"
-      ]
-    },
-    {
-      "group": "Primeros Pasos",
-      "pages": [
-        "es/getting-started/introduction",
-        "es/getting-started/create-agent"
-      ]
-    },
-    {
-      "group": "Agentes",
-      "pages": [
-        "es/agents/manage-agents",
-        "es/agents/phone-numbers",
-        "es/agents/phone-health"
-      ]
-    },
-    {
-      "group": "Editor Avanzado",
-      "pages": [
-        "es/advanced-editor/introduction",
-        "es/advanced-editor/basic-settings",
-        "es/advanced-editor/greetings",
-        "es/advanced-editor/knowledge-base",
-        "es/advanced-editor/actions-tools",
-        "es/advanced-editor/input-params",
-        "es/advanced-editor/output-settings",
-        "es/advanced-editor/evaluations",
-        "es/advanced-editor/playground",
-        "es/advanced-editor/copilot",
-        "es/advanced-editor/version-history"
-      ]
-    },
-    {
-      "group": "Biblioteca de Voces",
-      "pages": [
-        "es/voices/choose-voice",
-        "es/voices/voice-designer"
-      ]
-    },
-    {
-      "group": "Llamadas",
-      "pages": [
-        "es/calls/call-history",
-        "es/calls/call-details",
-        "es/calls/reporting"
-      ]
-    },
-    {
-      "group": "CRM",
-      "pages": [
-        "es/crm/import-contacts",
-        "es/crm/segments",
-        "es/crm/campaigns"
-      ]
-    },
-    {
-      "group": "Cuenta",
-      "pages": [
-        "es/account/api-tokens"
       ]
     }
   ],

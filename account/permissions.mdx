@@ -1,0 +1,183 @@
+---
+title: 'Permissions & Roles'
+description: 'Understanding user permissions and access control in Meetzy.'
+---
+
+## Overview
+
+Meetzy uses a permission-based system to control what each team member can do within the platform. Permissions are assigned individually when inviting or editing members.
+
+## Available Permissions
+
+### Can Edit Agents
+
+| Status | Access Level |
+|--------|--------------|
+| ✅ Enabled | Can modify agent settings, prompts, and configurations |
+| ❌ Disabled | View-only access to assigned agents |
+
+Members with this permission can:
+- Edit agent names and basic settings
+- Modify greetings and prompts
+- Configure input/output parameters
+- Change voice settings
+
+### Can Use Advanced Editor
+
+| Status | Access Level |
+|--------|--------------|
+| ✅ Enabled | Full access to the Advanced Editor |
+| ❌ Disabled | Limited to basic agent configuration |
+
+Members with this permission can:
+- Access all Advanced Editor panels
+- Configure Knowledge Base documents
+- Set up Actions & Tools (webhooks, transfers)
+- Use the Playground for testing
+- Access Copilot AI assistant
+- Manage version history and branches
+- Publish changes to production
+
+<Tip>
+Enable "Can use advanced editor" for team members who need to make substantial changes to agent behavior.
+</Tip>
+
+### Can Access CRM
+
+| Status | Access Level |
+|--------|--------------|
+| ✅ Enabled | Full access to CRM features |
+| ❌ Disabled | No access to CRM menu |
+
+Members with this permission can:
+- View and manage contacts
+- Import contacts from files or Google Sheets
+- Create and manage segments
+- Schedule and monitor campaigns
+- Export contact data
+
+<Note>
+CRM access is only visible if your account has CRM features enabled. The administrator must have CRM access to grant it to other members.
+</Note>
+
+### Can View Billable Minutes
+
+| Status | Access Level |
+|--------|--------------|
+| ✅ Enabled | Can see usage and billing information |
+| ❌ Disabled | No access to billing data |
+
+Members with this permission can:
+- View call duration statistics
+- See billable minutes consumption
+- Access usage reports
+
+### Can View Recordings
+
+| Status | Access Level |
+|--------|--------------|
+| ✅ Enabled | Can listen to call recordings |
+| ❌ Disabled | Cannot access audio recordings |
+
+Members with this permission can:
+- Play call recordings from the call details
+- Download recordings (if enabled)
+
+<Warning>
+Be careful when granting recording access. Call recordings may contain sensitive customer information.
+</Warning>
+
+## Agent-Level Access
+
+In addition to feature permissions, you control which agents each member can access:
+
+| Access Type | Description |
+|-------------|-------------|
+| **Full Access** | Member can view calls and edit the agent (if permissions allow) |
+| **No Access** | Agent is hidden from the member entirely |
+
+### How Agent Access Works
+
+1. Members only see agents they're assigned to
+2. Call history is filtered to show only calls from assigned agents
+3. CRM data is accessible across all assigned agents
+4. Reporting shows data from assigned agents only
+
+## Permission Combinations
+
+Here are common permission combinations for different roles:
+
+### Viewer (Read-Only)
+- ❌ Can edit agents
+- ❌ Can use advanced editor
+- ❌ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Best for: Team leads who need to monitor calls without making changes.
+
+### Agent Operator
+- ✅ Can edit agents
+- ❌ Can use advanced editor
+- ❌ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Best for: Team members who handle basic agent configuration.
+
+### Agent Developer
+- ✅ Can edit agents
+- ✅ Can use advanced editor
+- ❌ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Best for: Technical team members responsible for agent development.
+
+### Campaign Manager
+- ❌ Can edit agents
+- ❌ Can use advanced editor
+- ✅ Can access CRM
+- ❌ Can view billable minutes
+- ✅ Can view recordings
+
+Best for: Marketing or sales team members managing outbound campaigns.
+
+### Full Access
+- ✅ Can edit agents
+- ✅ Can use advanced editor
+- ✅ Can access CRM
+- ✅ Can view billable minutes
+- ✅ Can view recordings
+
+Best for: Account administrators and senior team members.
+
+## Syncing Permissions
+
+If a member's permissions seem incorrect, administrators can sync their Firebase claims:
+
+1. Find the member in the list
+2. Click the **Sync Claims** button (only visible for advanced editor users)
+3. Confirm the sync
+
+This updates the member's authentication tokens with the latest permissions from the database.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I create custom roles?">
+    Currently, Meetzy uses individual permissions rather than predefined roles. You can combine permissions to create any access level you need.
+  </Accordion>
+  
+  <Accordion title="Why can't I see the CRM permission toggle?">
+    The CRM permission toggle is only visible if you (as the administrator) have CRM access enabled on your own account.
+  </Accordion>
+  
+  <Accordion title="Do permissions apply immediately?">
+    Yes, permission changes take effect immediately. Members may need to refresh their browser to see updated access.
+  </Accordion>
+  
+  <Accordion title="Can a member have access to agents from multiple companies?">
+    Yes, for multi-company accounts, you can assign agents from any company. Agents are organized by company in the selection list.
+  </Accordion>
+</AccordionGroup>

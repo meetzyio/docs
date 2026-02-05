@@ -1,0 +1,153 @@
+---
+title: 'Introducción'
+description: 'Explora nuestra Referencia de API para integrar Meetzy con tus sistemas.'
+---
+
+## Bienvenido a la API de Meetzy
+
+La API de Meetzy te permite iniciar llamadas programáticamente, recuperar datos de llamadas e integrar agentes de voz con IA en tus sistemas existentes.
+
+## URL Base
+
+Todas las peticiones de API se hacen a:
+
+```
+https://api.meetzy.io
+```
+
+## Autenticación
+
+Todas las peticiones de API requieren autenticación usando un token Bearer.
+
+### Obtener tu Token de API
+
+1. Inicia sesión en tu [Dashboard de Meetzy](https://dashboard.meetzy.io)
+2. Navega a **Account** → **API Tokens**
+3. Copia tu token de API
+
+### Usar tu Token
+
+Incluye el token en el header `Authorization`:
+
+```bash
+curl -X GET https://api.meetzy.io/calls \
+  -H "Authorization: Bearer TU_API_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+<Warning>
+Mantén tu token de API en secreto. Nunca lo expongas en código del lado del cliente o repositorios públicos.
+</Warning>
+
+## Formato de Petición
+
+Todas las peticiones deben incluir el header `Content-Type: application/json` al enviar datos.
+
+```json
+{
+  "phone": "+1234567890",
+  "playbook_id": "pb_abc123",
+  "params": {
+    "customer_name": "Juan García"
+  }
+}
+```
+
+## Formato de Respuesta
+
+Todas las respuestas se devuelven en formato JSON:
+
+```json
+{
+  "success": true,
+  "data": {
+    "call_id": "call_xyz789",
+    "status": "initiated"
+  }
+}
+```
+
+### Respuestas de Error
+
+Los errores incluyen un código de error y mensaje:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "invalid_phone",
+    "message": "El número de teléfono proporcionado es inválido"
+  }
+}
+```
+
+## Códigos de Estado HTTP
+
+| Código | Descripción |
+|--------|-------------|
+| 200 | Éxito |
+| 201 | Creado |
+| 400 | Bad Request - Parámetros inválidos |
+| 401 | Unauthorized - Token inválido o faltante |
+| 403 | Forbidden - Permisos insuficientes |
+| 404 | Not Found - El recurso no existe |
+| 429 | Too Many Requests - Rate limited |
+| 500 | Internal Server Error |
+
+## Rate Limiting
+
+Las peticiones de API tienen límite de tasa para asegurar uso justo:
+
+- **Estándar**: 100 peticiones por minuto
+- **Ráfaga**: 10 peticiones por segundo
+
+Cuando excedas el límite, recibirás una respuesta `429` con información de reintento.
+
+## SDKs y Librerías
+
+SDKs oficiales próximamente. Mientras tanto, usa cualquier cliente HTTP:
+
+<CodeGroup>
+```javascript Node.js (axios)
+const axios = require('axios');
+
+const client = axios.create({
+  baseURL: 'https://api.meetzy.io',
+  headers: {
+    'Authorization': `Bearer ${process.env.MEETZY_API_TOKEN}`,
+    'Content-Type': 'application/json'
+  }
+});
+```
+
+```python Python (requests)
+import requests
+
+headers = {
+    'Authorization': f'Bearer {API_TOKEN}',
+    'Content-Type': 'application/json'
+}
+
+response = requests.get(
+    'https://api.meetzy.io/calls',
+    headers=headers
+)
+```
+</CodeGroup>
+
+## ¿Necesitas Ayuda?
+
+<CardGroup cols={2}>
+  <Card title="Crear una Llamada" icon="phone" href="/api-reference/endpoint/create">
+    Aprende cómo iniciar llamadas via API.
+  </Card>
+  <Card title="Obtener Detalles de Llamada" icon="info-circle" href="/api-reference/endpoint/get">
+    Recupera información detallada de llamadas.
+  </Card>
+  <Card title="Listar Llamadas" icon="list" href="/api-reference/endpoint/list">
+    Recupera tu historial de llamadas.
+  </Card>
+  <Card title="Soporte" icon="life-ring" href="mailto:support@meetzy.io">
+    Contacta a nuestro equipo de soporte.
+  </Card>
+</CardGroup>

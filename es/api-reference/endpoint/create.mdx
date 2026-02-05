@@ -1,0 +1,45 @@
+---
+title: 'Iniciar una llamada'
+openapi: 'POST /call'
+---
+
+## Descripción General
+
+Este endpoint inicia una llamada saliente usando un playbook pre-entrenado. La llamada se realizará usando tu número de teléfono configurado y la IA seguirá las instrucciones del playbook.
+
+## Control de Versiones
+
+Por defecto, este endpoint usa la **versión de producción** de tu playbook. Esto asegura que todas las llamadas API usen la misma configuración que has designado como lista para producción en el dashboard.
+
+<Tip>
+  Opcionalmente puedes especificar un parámetro `version_id` para usar una versión específica de tu playbook. Esto es útil para probar nuevas versiones antes de marcarlas como producción. Ver [Versionado de Agentes](/api-reference/endpoint/versioning) para más detalles.
+</Tip>
+
+### Comportamiento por Defecto
+
+Cuando llamas a este endpoint sin un `version_id`:
+1. El sistema busca la **versión de producción** del playbook
+2. Si la encuentra, usa la configuración de esa versión (prompt, voz, ajustes, etc.)
+3. Si no existen versiones, usa la configuración actual del playbook
+
+### Usar una Versión Específica
+
+```json
+{
+  "phone": "+34600000000",
+  "playbook_id": "your-playbook-id",
+  "version_id": "optional-version-uuid"
+}
+```
+
+## Respuesta
+
+Una respuesta exitosa incluye el ID de llamada que puedes usar para rastrear el estado:
+
+```json
+{
+  "success": true,
+  "id": "call-uuid",
+  "message": "Call processing started"
+}
+```

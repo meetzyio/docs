@@ -128,31 +128,31 @@ Authorization: Bearer YOUR_API_TOKEN
 ### Get calls from the last 30 days
 
 ```bash
-GET https://api.flark.io/calls?daysFromNow=30
+GET https://api.meetzy.io/calls?daysFromNow=30
 ```
 
 ### Get calls within a specific date range
 
 ```bash
-GET https://api.flark.io/calls?startDate=2024-01-01&endDate=2024-01-31
+GET https://api.meetzy.io/calls?startDate=2024-01-01&endDate=2024-01-31
 ```
 
 ### Get only closed calls
 
 ```bash
-GET https://api.flark.io/calls?status=closed
+GET https://api.meetzy.io/calls?status=closed
 ```
 
 ### Get calls for a specific playbook
 
 ```bash
-GET https://api.flark.io/calls?playbook_id=550e8400-e29b-41d4-a716-446655440000
+GET https://api.meetzy.io/calls?playbook_id=550e8400-e29b-41d4-a716-446655440000
 ```
 
 ### Combine filters
 
 ```bash
-GET https://api.flark.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400-e29b-41d4-a716-446655440000
+GET https://api.meetzy.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400-e29b-41d4-a716-446655440000
 ```
 
 ## Example Response
@@ -168,8 +168,8 @@ GET https://api.flark.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400-
     "to": "+34987654321",
     "status": "closed",
     "duration": 180,
-    "recording": "https://recordings.flark.io/call-123.mp3",
-    "transcript": "<b>[Agent]</b> Hello, this is Sarah from Flark...<br><br><b>[Customer]</b> Hi Sarah...",
+    "recording": "https://recordings.meetzy.io/call-123.mp3",
+    "transcript": "<b>[Agent]</b> Hello, this is Sarah from Meetzy...<br><br><b>[Customer]</b> Hi Sarah...",
     "success": true,
     "summary": "Customer was interested in the premium plan...",
     "output": {

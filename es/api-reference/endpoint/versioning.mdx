@@ -1,0 +1,165 @@
+---
+title: 'Versionado de Agentes'
+description: 'Entiende cómo funciona el control de versiones para tus playbooks y cómo usar versiones específicas en llamadas API.'
+---
+
+## Descripción General
+
+Meetzy soporta control de versiones para playbooks, permitiéndote:
+- Mantener un historial de todos los cambios hechos a tu playbook
+- Designar una versión específica como "producción"
+- Probar versiones específicas antes de desplegar a producción
+- Usar versiones históricas para llamadas API específicas
+
+## Cómo Funciona el Versionado
+
+### Versión de Producción
+
+Cada playbook tiene una versión marcada como **producción**. Esta es la versión que se usará para:
+
+- **Llamadas entrantes**: Todas las llamadas entrantes a tu número de Meetzy
+- **Llamadas salientes via API**: Cuando no especificas un `version_id`
+- **Llamadas en cola/programadas**: Usa la versión que estaba marcada como producción cuando la llamada fue programada
+
+### Prioridad de Selección de Versión
+
+Cuando se inicia una llamada, el sistema sigue esta prioridad:
+
+1. **Versión específica solicitada**: Si proporcionas `version_id` en la llamada API, esa versión exacta se usa
+2. **Versión de producción**: Si no se proporciona `version_id`, se usa la versión de producción
+3. **Configuración actual (fallback)**: Si no existen versiones para el playbook, se usa la configuración actual del playbook
+
+## Usar Versiones en Llamadas API
+
+### Comportamiento por Defecto (Recomendado)
+
+Simplemente llama a la API sin especificar una versión. La versión de producción se usará automáticamente:
+
+```bash
+curl -X POST https://api.meetzy.io/call \
+  -H "Authorization: Bearer TU_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "firstname": "Juan",
+    "lastname": "García"
+  }'
+```
+
+### Usar una Versión Específica
+
+Para usar una versión específica (ej. para pruebas), incluye el parámetro `version_id`:
+
+```bash
+curl -X POST https://api.meetzy.io/call \
+  -H "Authorization: Bearer TU_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "version_id": "abc123-version-uuid",
+    "firstname": "Juan",
+    "lastname": "García"
+  }'
+```
+
+<Note>
+  El `version_id` debe pertenecer al `playbook_id` especificado. Si la versión no existe o pertenece a un playbook diferente, la API usará la versión de producción como fallback.
+</Note>
+
+## Respuesta
+
+Cuando recuperas detalles de llamada, la respuesta incluye el `version_id` que se usó:
+
+```json
+{
+  "id": "call-uuid",
+  "playbook_id": "your-playbook-id",
+  "version_id": "abc123-version-uuid",
+  "status": "completed",
+  "duration": 120,
+  "...": "..."
+}
+```
+
+Si `version_id` está vacío o null, significa:
+- No había control de versiones activo para este playbook en ese momento
+- La llamada usó el sistema legacy (antes de implementar control de versiones)
+
+## Gestionar Versiones en el Dashboard
+
+Puedes gestionar versiones de playbook en el Editor Avanzado:
+
+1. **Ver Historial**: Ve todas las versiones con sus timestamps y mensajes de commit
+2. **Marcar como Producción**: Designa cualquier versión como la versión de producción
+3. **Restaurar Versión**: Revierte a la configuración de una versión anterior
+4. **Comparar Cambios**: Ve diferencias entre versiones
+
+<Warning>
+  Cambiar la versión de producción tiene efecto inmediato para todas las nuevas llamadas entrantes y llamadas API que no especifiquen una versión.
+</Warning>
+
+## Mejores Prácticas
+
+1. **Siempre haz commit antes de ir a producción**: Usa el sistema de commit para crear un snapshot antes de cambios importantes
+2. **Prueba antes de marcar como producción**: Usa el parámetro `version_id` para probar nuevas versiones con llamadas específicas antes de hacerlas producción
+3. **Usa mensajes de commit descriptivos**: Esto ayuda a rastrear qué cambió en cada versión
+4. **Mantén producción estable**: Solo marca como producción versiones completamente probadas
+
+## Casos de Uso
+
+### A/B Testing
+
+Prueba un nuevo saludo o prompt con leads específicos antes de desplegarlo a todos:
+
+```bash
+# Llamada de prueba con nueva versión
+curl -X POST https://api.meetzy.io/call \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "version_id": "new-greeting-version-id"
+  }'
+```
+
+### Rollback
+
+Si notas problemas con una nueva versión de producción, puedes:
+1. Ir al Editor Avanzado → pestaña Historial
+2. Encontrar una versión conocida como buena
+3. Hacer clic en "Mark as Prod" para hacer rollback instantáneo
+
+### Campañas Programadas
+
+Al programar llamadas masivas, puedes especificar una versión para asegurar consistencia incluso si actualizas el playbook después:
+
+```bash
+# Programar llamadas con versión bloqueada
+curl -X POST https://api.meetzy.io/call \
+  -d '{
+    "phone": "+34600000000",
+    "playbook_id": "your-playbook-id",
+    "version_id": "campaign-v1-version-id"
+  }'
+```
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="¿Qué pasa si no tengo versiones?">
+    El sistema hace fallback a usar la configuración actual del playbook. Esto asegura compatibilidad hacia atrás con playbooks creados antes de implementar el control de versiones.
+  </Accordion>
+  
+  <Accordion title="¿Puedo eliminar versiones?">
+    Actualmente, las versiones no pueden eliminarse para mantener la integridad del audit trail. Siempre puedes marcar una versión diferente como producción.
+  </Accordion>
+  
+  <Accordion title="¿Hay un límite en el número de versiones?">
+    No hay límite estricto en el número de versiones. Sin embargo, recomendamos mantener commits significativos en lugar de hacer commit de cada pequeño cambio.
+  </Accordion>
+  
+  <Accordion title="¿Las llamadas entrantes usan control de versiones?">
+    ¡Sí! Las llamadas entrantes siempre usan la versión de producción. Esto asegura que tus clientes siempre experimenten la configuración que has designado como lista para producción.
+  </Accordion>
+</AccordionGroup>
