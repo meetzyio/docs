@@ -1,0 +1,139 @@
+---
+title: 'Configuración Básica'
+description: 'Configura nombre del agente, idioma, voz y modelo de IA'
+icon: 'gear'
+---
+
+## Resumen
+
+Configuración Básica es la primera sección en el Editor Avanzado donde configuras las propiedades fundamentales de tu agente de IA. Estos ajustes definen cómo suena tu agente, qué idioma habla y qué modelo de IA impulsa su inteligencia.
+
+## Opciones de Configuración
+
+### Nombre del Agente
+
+Dale a tu agente un nombre descriptivo que te ayude a identificarlo en tu panel.
+
+<Tip>
+Usa convenciones de nombres claras como "Soporte Cliente - Español" o "Ventas Outbound - Inglés" para gestionar fácilmente múltiples agentes.
+</Tip>
+
+### Idioma
+
+Selecciona el idioma principal que tu agente hablará y entenderá. El ajuste de idioma afecta:
+
+- Pronunciación de síntesis de voz
+- Precisión del reconocimiento de voz
+- Disponibilidad de plantillas de saludo
+
+**Idiomas Soportados:**
+- 🇺🇸 Inglés
+- 🇪🇸 Español
+- 🇫🇷 Francés
+- 🇩🇪 Alemán
+- 🇮🇹 Italiano
+- 🇵🇹 Portugués
+- Y más...
+
+### Selección de Voz
+
+Elige la voz que representa a tu agente. Puedes:
+
+1. **Seleccionar de la Biblioteca de Voces** - Explorar voces preconfiguradas
+2. **Previsualizar voces** - Escuchar muestras antes de seleccionar
+3. **Usar voces personalizadas** - Seleccionar voces creadas en Voice Designer
+
+<Info>
+Características de voz como velocidad, naturalidad y consistencia pueden ajustarse en la Biblioteca de Voces antes de asignarlas a tu agente.
+</Info>
+
+### Modelo de IA (LLM)
+
+Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia de tu agente. Diferentes modelos ofrecen diferentes equilibrios entre velocidad, costo y capacidad.
+
+#### Modelos Disponibles
+
+<Tabs>
+  <Tab title="Anthropic">
+    | Modelo | Mejor Para |
+    |-------|----------|
+    | Claude Haiku 4.5 | Respuestas rápidas, rentable |
+  </Tab>
+  <Tab title="OpenAI">
+    | Modelo | Mejor Para |
+    |-------|----------|
+    | GPT-4o | Alta inteligencia, velocidad equilibrada |
+    | GPT-4.1 | Últimas capacidades |
+    | GPT-4.1 Mini | Más rápido, rentable |
+    | GPT-4.1 Nano | Opción más rápida de OpenAI |
+  </Tab>
+  <Tab title="Google">
+    | Modelo | Mejor Para |
+    |-------|----------|
+    | Gemini 3 Flash Preview | Último modelo de Google |
+    | Gemini 2.5 Flash | Alto rendimiento |
+    | Gemini 2.5 Flash Lite | Opción equilibrada |
+    | Gemini 2.0 Flash | Respuestas rápidas |
+    | Gemini 2.0 Flash Lite | Rentable |
+    | Gemini 1.5 Pro | Razonamiento complejo |
+    | Gemini 1.5 Flash | Procesamiento rápido |
+  </Tab>
+</Tabs>
+
+#### Guía de Selección de Modelo
+
+<AccordionGroup>
+  <Accordion title="Priorizar Velocidad" icon="bolt">
+    Elige modelos ligeros como **GPT-4.1 Nano**, **Gemini 2.0 Flash Lite**, o **Claude Haiku 4.5** para tiempos de respuesta más rápidos.
+  </Accordion>
+  <Accordion title="Priorizar Inteligencia" icon="brain">
+    Para conversaciones complejas que requieren comprensión matizada, usa **GPT-4.1**, **Gemini 1.5 Pro**, o **Gemini 2.5 Flash**.
+  </Accordion>
+  <Accordion title="Equilibrar Costo y Calidad" icon="scale-balanced">
+    Modelos como **GPT-4.1 Mini** y **Gemini 2.5 Flash Lite** ofrecen un buen equilibrio entre capacidad y costo.
+  </Accordion>
+</AccordionGroup>
+
+## Mejores Prácticas
+
+<Warning>
+Cambiar el modelo de IA puede afectar el comportamiento de tu agente. Siempre prueba en el Playground después de cambiar modelos.
+</Warning>
+
+1. **Prueba Múltiples Modelos** - Diferentes modelos pueden funcionar mejor para casos de uso específicos
+2. **Considera la Latencia** - Modelos más rápidos proporcionan mejor experiencia de usuario en llamadas telefónicas
+3. **Monitorea Costos** - Modelos más capaces típicamente cuestan más por llamada
+4. **Coincide Idioma** - Asegúrate de que los ajustes de voz e idioma sean compatibles
+
+## Parámetros de Configuración de Voz
+
+Cuando seleccionas una voz, estos parámetros pueden ajustarse:
+
+| Parámetro | Rango | Descripción |
+|-----------|-------|-------------|
+| Velocidad | 0.70x - 1.20x | Controla qué tan rápido habla el agente |
+| Naturalidad | 0.0 - 1.0 | Menor = sonido más natural |
+| Consistencia | 0.0 - 1.0 | Valores altos pueden causar artefactos |
+
+<Tip>
+Comienza con valores por defecto y ajusta basándote en pruebas. Una velocidad de 1.0x y naturalidad de 0.3 funciona bien para la mayoría de casos.
+</Tip>
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Saludos"
+    icon="hand-wave"
+    href="/es/advanced-editor/greetings"
+  >
+    Configura mensajes de bienvenida
+  </Card>
+  <Card
+    title="Prompt del Sistema"
+    icon="file-lines"
+    href="/es/getting-started/create-agent#prompt-del-sistema"
+  >
+    Define personalidad del agente
+  </Card>
+</CardGroup>

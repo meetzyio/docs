@@ -1,0 +1,212 @@
+---
+title: 'Evaluations'
+description: 'Create automated quality tests for your AI agent'
+icon: 'check-double'
+---
+
+## What are Evaluations?
+
+Evaluations are automated tests that assess your agent's performance after each call. They help you measure success rates, identify issues, and maintain quality standards across all conversations.
+
+<Info>
+Evaluations provide quantitative metrics to track your agent's performance over time.
+</Info>
+
+## How Evaluations Work
+
+Each evaluation is a **yes/no question** that the AI analyzes based on the conversation transcript. After every call, Meetzy runs all configured evaluations and stores the results.
+
+### Example Evaluations
+
+| Evaluation | Question |
+|------------|----------|
+| Appointment Scheduled | Did the customer schedule an appointment? |
+| Customer Satisfied | Did the customer express satisfaction with the service? |
+| Issue Resolved | Was the customer's issue successfully resolved? |
+| Information Collected | Did the agent collect all required information? |
+| Objection Handled | Did the agent successfully address customer objections? |
+
+## Creating Evaluations
+
+<Steps>
+  <Step title="Open Evaluations Section">
+    Navigate to the Evaluations section in the left panel (✅ icon).
+  </Step>
+  <Step title="Add Evaluation">
+    Click "Add Evaluation" to create a new test.
+  </Step>
+  <Step title="Enter Name">
+    Give your evaluation a descriptive name.
+  </Step>
+  <Step title="Write Question">
+    Create a clear yes/no question that can be answered from the transcript.
+  </Step>
+  <Step title="Save">
+    Save the evaluation to add it to your agent.
+  </Step>
+</Steps>
+
+### Evaluation Properties
+
+| Property | Description | Example |
+|----------|-------------|---------|
+| Name | Short identifier | "Appointment Scheduled" |
+| Question | Yes/no prompt for AI | "Did the customer schedule an appointment during this call?" |
+
+## Writing Effective Questions
+
+<Tip>
+The clearer your question, the more accurate the evaluation results will be.
+</Tip>
+
+### Good Questions
+
+- ✅ "Did the customer agree to schedule a follow-up call?"
+- ✅ "Did the agent verify the customer's contact information?"
+- ✅ "Was the customer's primary concern addressed during the call?"
+- ✅ "Did the agent mention the current promotion?"
+
+### Poor Questions
+
+- ❌ "Was the call good?" (too vague)
+- ❌ "How satisfied was the customer?" (not yes/no)
+- ❌ "Rate the agent's performance" (not answerable from transcript)
+
+## Using Templates
+
+Meetzy provides pre-built evaluation templates for common use cases:
+
+<Tabs>
+  <Tab title="Sales">
+    - "Did the customer express interest in the product?"
+    - "Was pricing discussed during the call?"
+    - "Did the agent attempt to close the sale?"
+    - "Were all customer objections addressed?"
+  </Tab>
+  <Tab title="Support">
+    - "Was the customer's issue resolved?"
+    - "Did the agent follow the troubleshooting protocol?"
+    - "Was an escalation necessary?"
+    - "Did the customer confirm their issue was fixed?"
+  </Tab>
+  <Tab title="Appointments">
+    - "Was an appointment successfully scheduled?"
+    - "Did the agent confirm the appointment details?"
+    - "Were alternative times offered if the preferred slot was unavailable?"
+    - "Did the customer receive confirmation of the appointment?"
+  </Tab>
+</Tabs>
+
+### Applying Templates
+
+<Steps>
+  <Step title="Click Templates">
+    Click the "Templates" button in the Evaluations section.
+  </Step>
+  <Step title="Browse Categories">
+    Select a category relevant to your use case.
+  </Step>
+  <Step title="Select Evaluations">
+    Choose which evaluations to add.
+  </Step>
+  <Step title="Customize">
+    Modify the questions to match your specific needs.
+  </Step>
+</Steps>
+
+## Managing Evaluations
+
+### Editing Evaluations
+
+1. Click the edit icon (✏️) next to any evaluation
+2. Modify the name or question
+3. Save changes
+
+### Deleting Evaluations
+
+1. Click the delete icon (🗑️) next to the evaluation
+2. Confirm deletion
+
+<Warning>
+Deleting an evaluation removes it from future calls. Historical evaluation data is preserved.
+</Warning>
+
+### Reordering Evaluations
+
+Drag and drop evaluations to change their display order.
+
+## Viewing Results
+
+Evaluation results are available in multiple places:
+
+| Location | What You See |
+|----------|--------------|
+| Call Details | Individual evaluation results for each call |
+| Analytics Dashboard | Aggregated success rates over time |
+| Webhook Output | Raw evaluation data sent to your systems |
+| API Response | Programmatic access to results |
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start Simple" icon="circle-1">
+    Begin with 3-5 core evaluations that measure your most important KPIs.
+  </Accordion>
+  <Accordion title="Be Specific" icon="bullseye">
+    The more specific your question, the more reliable the evaluation.
+  </Accordion>
+  <Accordion title="Avoid Overlap" icon="layer-group">
+    Don't create multiple evaluations that measure the same thing.
+  </Accordion>
+  <Accordion title="Review Regularly" icon="calendar-check">
+    Periodically review evaluation results to calibrate questions.
+  </Accordion>
+  <Accordion title="Use for Training" icon="graduation-cap">
+    Low-scoring evaluations highlight areas for agent improvement.
+  </Accordion>
+</AccordionGroup>
+
+## Common Evaluation Patterns
+
+### Goal Achievement
+```
+Name: Primary Goal Met
+Question: Did the call achieve its primary objective (sale, appointment, resolution, etc.)?
+```
+
+### Compliance
+```
+Name: Disclosure Made
+Question: Did the agent provide the required legal disclosure at the beginning of the call?
+```
+
+### Quality
+```
+Name: Professional Tone
+Question: Did the agent maintain a professional and courteous tone throughout the call?
+```
+
+### Data Collection
+```
+Name: Contact Info Verified
+Question: Did the agent verify or collect the customer's email and phone number?
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test evaluations in real-time
+  </Card>
+  <Card
+    title="Output Settings"
+    icon="arrow-right-from-bracket"
+    href="/advanced-editor/output-settings"
+  >
+    Include evaluations in webhooks
+  </Card>
+</CardGroup>

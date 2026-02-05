@@ -1,0 +1,161 @@
+---
+title: 'Call History'
+description: 'Search, filter, and review all your AI agent calls'
+icon: 'phone'
+---
+
+# Call History
+
+The Call History section provides a comprehensive view of all calls made by your AI agents. You can search, filter, and analyze call data to monitor performance and identify insights.
+
+## Accessing Call History
+
+Navigate to **Calls** in the main menu to access your complete call history.
+
+## Interface Overview
+
+The calls interface consists of:
+
+| Section | Description |
+|---------|-------------|
+| 📊 Header | Title, description, and selection status |
+| 🔍 Filter Bar | Advanced filtering controls |
+| 📋 Call Table | List of all calls with key information |
+| 📄 Details Modal | Detailed view of individual calls |
+
+## Filtering Calls
+
+### Date Range Filter
+
+Filter calls by predefined time periods or custom date ranges:
+
+- **Today** - Calls from the current day
+- **Yesterday** - Calls from the previous day
+- **Last 7 Days** - Calls from the past week
+- **Last 30 Days** - Calls from the past month
+- **Custom Range** - Select specific start and end dates with time
+
+<Tip>
+Use the datetime picker to set precise time ranges for your searches.
+</Tip>
+
+### Agent Filter
+
+Filter calls by specific agents (playbooks):
+
+1. Click the **Agents** dropdown
+2. Select one or multiple agents
+3. The filter shows "X agents selected" when active
+
+### Status Filter
+
+Filter by call status:
+
+| Status | Description |
+|--------|-------------|
+| 🟢 Completed | Call finished successfully |
+| 🟡 In Progress | Call currently active |
+| 🔴 Failed | Call encountered an error |
+| ⚪ No Answer | Recipient didn't answer |
+| 🔵 Transferred | Call was transferred |
+
+### Direction Filter
+
+- **Inbound** - Calls received by your agents
+- **Outbound** - Calls initiated by your agents
+- **All** - Both directions
+
+### Success Filter
+
+Filter by call outcome:
+
+- **Successful** - Calls marked as successful based on your evaluations
+- **Unsuccessful** - Calls that didn't meet success criteria
+- **All** - All calls regardless of outcome
+
+### Search by Call ID
+
+When you have a specific call ID:
+
+1. Enter the call ID in the search field
+2. Other filters are temporarily disabled
+3. The exact call matching that ID is displayed
+
+<Info>
+Call ID search takes priority over all other filters for precise lookups.
+</Info>
+
+## Call Table
+
+The call table displays key information for each call:
+
+| Column | Description |
+|--------|-------------|
+| Selection | Checkbox to select calls |
+| Status | Call status badge |
+| Success | ✓ or ✗ indicator |
+| Agent | Name of the agent that handled the call |
+| Direction | 📞 Inbound or 📲 Outbound |
+| From | Caller phone number |
+| To | Recipient phone number |
+| Duration | Call length in minutes:seconds |
+| Date | When the call occurred |
+
+### Bulk Actions
+
+When you select multiple calls:
+
+1. A selection indicator appears showing "X selected"
+2. Click **Clear Selection** to deselect all
+3. Bulk export options become available
+
+### Sorting
+
+Click column headers to sort:
+
+- Click once for ascending order
+- Click again for descending order
+- An arrow indicates the current sort direction
+
+## Pagination
+
+- Use **Previous** and **Next** buttons to navigate pages
+- Change page size (10, 25, 50, 100 calls per page)
+- Current position shows "Showing X to Y of Z calls"
+
+## Quick Actions
+
+For each call row:
+
+| Action | Description |
+|--------|-------------|
+| 👁️ View | Open call details modal |
+| 📋 Copy ID | Copy call ID to clipboard |
+
+## Tips for Efficient Searching
+
+<CardGroup cols={2}>
+  <Card title="Use Date Presets" icon="calendar">
+    Start with date presets like "Last 7 Days" for quick searches, then narrow down if needed.
+  </Card>
+  <Card title="Combine Filters" icon="filter">
+    Combine multiple filters to quickly find specific calls (e.g., "Failed + Outbound + Last 24h").
+  </Card>
+  <Card title="Export Results" icon="download">
+    Export filtered results for offline analysis or reporting.
+  </Card>
+  <Card title="Use Call ID" icon="hashtag">
+    When debugging a specific issue, use the exact call ID for instant lookup.
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Call Details" icon="info-circle" href="/calls/call-details">
+    Learn about the detailed information available for each call.
+  </Card>
+  <Card title="Reporting" icon="chart-line" href="/calls/reporting">
+    Generate comprehensive reports from your call data.
+  </Card>
+</CardGroup>

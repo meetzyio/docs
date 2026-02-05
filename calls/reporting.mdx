@@ -1,0 +1,192 @@
+---
+title: 'Reporting'
+description: 'Generate detailed reports and analytics from your call data'
+icon: 'chart-line'
+---
+
+# Reporting
+
+The Reporting section allows you to generate comprehensive reports on agent performance. Analyze metrics, track trends, and export data for further analysis.
+
+<Note>
+Reporting is currently in **BETA**. Features may change and improve based on user feedback.
+</Note>
+
+## Accessing Reports
+
+Navigate to **Calls** → **Reporting** or click the "Agent Reports" button from the Call History page.
+
+## Report Overview
+
+Reports provide aggregated metrics by:
+- Individual agents
+- Date ranges
+- Custom time periods
+
+## Metrics Available
+
+| Metric | Description |
+|--------|-------------|
+| 📊 Leads | Number of contacts/calls |
+| 🎯 Quality | Call quality score |
+| 📞 Total Calls | All calls in period |
+| ✅ Completed | Successfully finished calls |
+| 🔄 Conversions | Successful outcomes |
+| 📈 Conversion Rate | Percentage of successful calls |
+| 📥 Inbound | Incoming calls |
+| 📤 Outbound | Outgoing calls |
+| ↗️ Transfers | Calls transferred to humans |
+| ⏱️ Avg Duration | Average call length |
+| 🗣️ Talk Time | Total conversation time |
+| ⭐ NPS | Net Promoter Score (if enabled) |
+
+## Generating a Report
+
+<Steps>
+  <Step title="Select Date Range">
+    Choose the time period for your report using the date picker.
+  </Step>
+  <Step title="Filter Agents">
+    Select specific agents or include all.
+  </Step>
+  <Step title="Generate Report">
+    Click the generate button to create the report.
+  </Step>
+  <Step title="Review Data">
+    Analyze the results in the table view.
+  </Step>
+</Steps>
+
+## Report Table
+
+The report displays data in a comprehensive table:
+
+### Fixed Columns
+
+- **#** - Row number
+- **Date/Agent** - Grouping identifier
+
+### Scrollable Metrics
+
+Scroll horizontally to view all metrics:
+- Leads, Quality, Calls, Completed
+- Conversions, Conversion Rate
+- Inbound, Outbound, Transfers
+- Avg Duration, Talk Time, NPS
+
+<Tip>
+The first columns remain fixed while you scroll horizontally through the metrics for easier reference.
+</Tip>
+
+## Exporting Reports
+
+### Export Formats
+
+Click **Export to** to download your report:
+
+| Format | Description | Use Case |
+|--------|-------------|----------|
+| 📊 CSV | Comma-separated values | Excel, Google Sheets, data analysis |
+| 📑 Excel | .xlsx format | Direct Excel import with formatting |
+
+### Export Process
+
+1. Click **Export to** button
+2. Select your preferred format
+3. File downloads automatically
+4. The button shows "Exporting..." during generation
+
+<Info>
+Large reports may take a few seconds to generate. The button will be disabled during export.
+</Info>
+
+## Understanding Metrics
+
+### Conversion Rate
+
+```
+Conversion Rate = (Successful Calls / Completed Calls) × 100
+```
+
+A call is "successful" based on your defined evaluations in the agent configuration.
+
+### Average Duration
+
+Average length of completed calls, excluding calls that didn't connect.
+
+### Talk Time
+
+Total accumulated conversation time for all calls in the period.
+
+## Filtering Tips
+
+<CardGroup cols={2}>
+  <Card title="Compare Periods" icon="calendar-days">
+    Run reports for different date ranges to track trends over time.
+  </Card>
+  <Card title="Per-Agent Analysis" icon="robot">
+    Filter by individual agents to compare performance.
+  </Card>
+  <Card title="Weekly Reviews" icon="chart-bar">
+    Schedule weekly report exports for team meetings.
+  </Card>
+  <Card title="Identify Patterns" icon="magnifying-glass-chart">
+    Look for patterns in inbound vs outbound success rates.
+  </Card>
+</CardGroup>
+
+## Dashboard Integration
+
+Reports can be used to:
+
+- Track team KPIs
+- Identify training opportunities
+- Measure campaign effectiveness
+- Compare agent performance
+
+## Best Practices
+
+### Regular Reporting Cadence
+
+| Frequency | Purpose |
+|-----------|---------|
+| Daily | Operational monitoring |
+| Weekly | Team performance reviews |
+| Monthly | Business metrics tracking |
+| Quarterly | Strategic analysis |
+
+### Key Metrics to Track
+
+<Steps>
+  <Step title="Conversion Rate">
+    Primary success indicator for your agents.
+  </Step>
+  <Step title="Call Duration">
+    Helps identify efficiency opportunities.
+  </Step>
+  <Step title="Transfer Rate">
+    Shows when human handoff is needed.
+  </Step>
+  <Step title="Quality Score">
+    Overall call quality metric.
+  </Step>
+</Steps>
+
+## Limitations
+
+Current beta limitations:
+
+- Maximum 90-day report range
+- Export limited to 10,000 rows
+- Real-time data may have a 5-minute delay
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Call History" icon="phone" href="/calls/call-history">
+    Dive into individual calls from your reports.
+  </Card>
+  <Card title="Agent Management" icon="robot" href="/agents/manage-agents">
+    Optimize agents based on report insights.
+  </Card>
+</CardGroup>

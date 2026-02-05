@@ -1,0 +1,214 @@
+---
+title: 'Playground'
+description: 'Prueba tu agente de IA en tiempo real sin hacer llamadas telefónicas'
+icon: 'gamepad'
+---
+
+## ¿Qué es el Playground?
+
+El Playground es un entorno de pruebas en el Editor Avanzado donde puedes interactuar con tu agente en tiempo real. Te permite simular conversaciones, probar diferentes escenarios y validar el comportamiento de tu agente antes de desplegar a producción.
+
+<Info>
+Probar en el Playground ahorra tiempo y dinero al detectar problemas antes de que afecten a llamadas reales de clientes.
+</Info>
+
+## Accediendo al Playground
+
+El Playground está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Playground" para acceder.
+
+## Tipos de Llamada
+
+Puedes simular dos tipos de llamadas:
+
+| Tipo | Descripción | Caso de Uso |
+|------|-------------|----------|
+| 📞 Entrante | Cliente llamando a tu agente | Probar flujo de bienvenida, escenarios de soporte |
+| 📤 Saliente | Agente llamando a un cliente | Probar introducciones, scripts de ventas |
+
+<Tip>
+Cambia entre tipos de llamada para probar ambos saludos y asegurar que tu agente maneja cada escenario correctamente.
+</Tip>
+
+## Enviando Mensajes
+
+### Entrada de Texto
+
+Escribe mensajes en el campo de entrada y presiona Enter o haz clic en Enviar. El agente responderá como lo haría en una llamada real.
+
+### Entrada de Voz
+
+Haz clic en el icono del micrófono para decir tu mensaje. El agente:
+1. Transcribirá tu voz
+2. Procesará el mensaje
+3. Responderá con voz sintetizada
+
+<Info>
+Las pruebas de voz ayudan a verificar la precisión del reconocimiento de voz y la calidad de la síntesis de voz.
+</Info>
+
+## Vista de Conversación
+
+El Playground muestra mensajes cronológicamente:
+
+| Elemento | Descripción |
+|---------|-------------|
+| 👤 Mensaje de Usuario | Tus entradas (texto o voz transcrita) |
+| 🤖 Mensaje del Agente | Respuestas del agente |
+| 🔧 Llamada de Herramienta | Cuando el agente dispara un webhook o acción |
+| ✅ Resultado de Herramienta | Respuesta del webhook o acción |
+
+### Reproducción de Audio
+
+Para cada respuesta del agente, puedes:
+- ▶️ Reproducir la respuesta de audio
+- ⏸️ Pausar reproducción
+- 🔁 Repetir mensajes
+
+## Variables de Contexto
+
+Prueba cómo tu agente maneja diferentes parámetros de entrada:
+
+<Steps>
+  <Step title="Abrir Variables de Contexto">
+    Haz clic en el panel "Variables de Contexto" en el Playground.
+  </Step>
+  <Step title="Establecer Valores">
+    Ingresa valores de prueba para cada parámetro de entrada.
+  </Step>
+  <Step title="Iniciar Conversación">
+    Comienza a probar con el contexto configurado.
+  </Step>
+</Steps>
+
+### Ejemplo de Contexto
+
+```json
+{
+  "nombre_cliente": "Juan García",
+  "numero_pedido": "PED-12345",
+  "es_cliente_premium": true,
+  "saldo_cuenta": 1250.50
+}
+```
+
+## Test de Fiabilidad
+
+Ejecuta múltiples iteraciones de la misma conversación para probar consistencia:
+
+<Steps>
+  <Step title="Configurar Escenario">
+    Configura tu conversación de prueba y variables de contexto.
+  </Step>
+  <Step title="Establecer Iteraciones">
+    Elige cuántas veces ejecutar la prueba (ej., 10, 50, 100).
+  </Step>
+  <Step title="Ejecutar Prueba">
+    Haz clic en "Ejecutar Test de Fiabilidad" para comenzar.
+  </Step>
+  <Step title="Revisar Resultados">
+    Analiza la consistencia en todas las iteraciones.
+  </Step>
+</Steps>
+
+<Info>
+Los tests de fiabilidad ayudan a identificar casos edge donde el agente podría comportarse inconsistentemente.
+</Info>
+
+## Probando Características
+
+### Probar Llamadas de Herramientas
+
+Cuando tu agente dispara un webhook:
+
+1. La llamada de herramienta aparece en la conversación
+2. Puedes ver los parámetros que se envían
+3. La respuesta (o respuesta simulada) se muestra
+
+### Probar Evaluaciones
+
+Después de una conversación, puedes ejecutar evaluaciones para verificar que funcionan correctamente:
+
+1. Termina la conversación naturalmente
+2. Haz clic en "Ejecutar Evaluaciones"
+3. Revisa qué evaluaciones pasan o fallan
+
+### Probar Base de Conocimiento
+
+Verifica que tu agente puede encontrar y usar contenido de la base de conocimiento:
+
+1. Haz preguntas que requieran búsqueda en KB
+2. Observa si el agente recupera información correcta
+3. Verifica si las respuestas son precisas y relevantes
+
+## Mejores Prácticas
+
+<AccordionGroup>
+  <Accordion title="Prueba Casos Edge" icon="flask">
+    Prueba entradas inusuales, interrupciones y respuestas inesperadas para ver cómo las maneja tu agente.
+  </Accordion>
+  <Accordion title="Varía el Contexto" icon="shuffle">
+    Prueba con diferentes combinaciones de parámetros de entrada para asegurar que la personalización funciona correctamente.
+  </Accordion>
+  <Accordion title="Prueba Ambos Tipos de Llamada" icon="phone">
+    Siempre prueba escenarios tanto entrantes como salientes.
+  </Accordion>
+  <Accordion title="Verifica Integraciones de Herramientas" icon="plug">
+    Verifica que los webhooks se llaman con los parámetros correctos.
+  </Accordion>
+  <Accordion title="Ejecuta Tests de Fiabilidad" icon="rotate">
+    Ejecuta periódicamente tests de múltiples iteraciones para asegurar consistencia.
+  </Accordion>
+</AccordionGroup>
+
+## Escenarios Comunes de Prueba
+
+### Camino Feliz
+Prueba el flujo de conversación ideal donde todo va como se espera.
+
+### Manejo de Errores
+Prueba qué pasa cuando:
+- El usuario proporciona información inválida
+- Los webhooks fallan
+- El usuario no responde
+
+### Manejo de Objeciones
+Prueba cómo responde el agente a:
+- "No estoy interesado"
+- "Llámame más tarde"
+- "Necesito pensarlo"
+
+### Casos Edge
+Prueba escenarios inusuales:
+- Respuestas muy cortas
+- Entradas largas y divagantes
+- Preguntas fuera de tema
+- Múltiples preguntas a la vez
+
+## Troubleshooting
+
+| Problema | Solución |
+|-------|----------|
+| Agente no responde | Verifica que el modelo LLM está configurado correctamente |
+| Saludo incorrecto | Verifica que el tipo de llamada (entrante/saliente) está configurado correctamente |
+| Falta personalización | Asegura que las variables de contexto están configuradas |
+| Webhook no se dispara | Verifica descripciones y condiciones de herramientas |
+| Respuestas lentas | Prueba con un modelo LLM más rápido |
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Copilot"
+    icon="robot"
+    href="/es/advanced-editor/copilot"
+  >
+    Obtén ayuda de IA para mejorar tus prompts
+  </Card>
+  <Card
+    title="Historial de Versiones"
+    icon="clock-rotate-left"
+    href="/es/advanced-editor/version-history"
+  >
+    Rastrea y gestiona cambios
+  </Card>
+</CardGroup>

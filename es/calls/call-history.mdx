@@ -1,0 +1,161 @@
+---
+title: 'Historial de Llamadas'
+description: 'Busca, filtra y revisa todas las llamadas de tus agentes de IA'
+icon: 'phone'
+---
+
+# Historial de Llamadas
+
+La sección de Historial de Llamadas proporciona una vista completa de todas las llamadas realizadas por tus agentes de IA. Puedes buscar, filtrar y analizar datos de llamadas para monitorear el rendimiento e identificar insights.
+
+## Acceder al Historial
+
+Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas.
+
+## Vista General de la Interfaz
+
+La interfaz de llamadas consiste en:
+
+| Sección | Descripción |
+|---------|-------------|
+| 📊 Cabecera | Título, descripción y estado de selección |
+| 🔍 Barra de Filtros | Controles avanzados de filtrado |
+| 📋 Tabla de Llamadas | Lista de todas las llamadas con información clave |
+| 📄 Modal de Detalles | Vista detallada de llamadas individuales |
+
+## Filtrar Llamadas
+
+### Filtro de Rango de Fechas
+
+Filtra llamadas por períodos predefinidos o rangos personalizados:
+
+- **Today** - Llamadas del día actual
+- **Yesterday** - Llamadas del día anterior
+- **Last 7 Days** - Llamadas de la última semana
+- **Last 30 Days** - Llamadas del último mes
+- **Custom Range** - Selecciona fechas y horas específicas
+
+<Tip>
+Usa el selector de fecha y hora para establecer rangos precisos en tus búsquedas.
+</Tip>
+
+### Filtro de Agente
+
+Filtra llamadas por agentes específicos:
+
+1. Haz clic en el dropdown **Agents**
+2. Selecciona uno o varios agentes
+3. El filtro muestra "X agents selected" cuando está activo
+
+### Filtro de Estado
+
+Filtra por estado de la llamada:
+
+| Estado | Descripción |
+|--------|-------------|
+| 🟢 Completed | Llamada finalizada correctamente |
+| 🟡 In Progress | Llamada actualmente activa |
+| 🔴 Failed | Llamada con error |
+| ⚪ No Answer | El destinatario no contestó |
+| 🔵 Transferred | Llamada transferida |
+
+### Filtro de Dirección
+
+- **Inbound** - Llamadas recibidas por tus agentes
+- **Outbound** - Llamadas iniciadas por tus agentes
+- **All** - Ambas direcciones
+
+### Filtro de Éxito
+
+Filtra por resultado de la llamada:
+
+- **Successful** - Llamadas marcadas como exitosas
+- **Unsuccessful** - Llamadas que no cumplieron los criterios
+- **All** - Todas las llamadas
+
+### Buscar por Call ID
+
+Cuando tienes un ID de llamada específico:
+
+1. Ingresa el call ID en el campo de búsqueda
+2. Los otros filtros se desactivan temporalmente
+3. Se muestra la llamada exacta con ese ID
+
+<Info>
+La búsqueda por Call ID tiene prioridad sobre todos los demás filtros para búsquedas precisas.
+</Info>
+
+## Tabla de Llamadas
+
+La tabla muestra información clave de cada llamada:
+
+| Columna | Descripción |
+|---------|-------------|
+| Selección | Checkbox para seleccionar llamadas |
+| Status | Badge de estado de la llamada |
+| Success | Indicador ✓ o ✗ |
+| Agent | Nombre del agente que manejó la llamada |
+| Direction | 📞 Inbound o 📲 Outbound |
+| From | Número de teléfono origen |
+| To | Número de teléfono destino |
+| Duration | Duración en minutos:segundos |
+| Date | Cuándo ocurrió la llamada |
+
+### Acciones en Lote
+
+Cuando seleccionas múltiples llamadas:
+
+1. Aparece un indicador de selección mostrando "X selected"
+2. Haz clic en **Clear Selection** para deseleccionar
+3. Las opciones de exportación en lote se activan
+
+### Ordenamiento
+
+Haz clic en los encabezados de columna para ordenar:
+
+- Un clic para orden ascendente
+- Otro clic para orden descendente
+- Una flecha indica la dirección actual
+
+## Paginación
+
+- Usa los botones **Previous** y **Next** para navegar
+- Cambia el tamaño de página (10, 25, 50, 100 llamadas)
+- La posición actual muestra "Showing X to Y of Z calls"
+
+## Acciones Rápidas
+
+Para cada fila de llamada:
+
+| Acción | Descripción |
+|--------|-------------|
+| 👁️ View | Abrir modal de detalles |
+| 📋 Copy ID | Copiar ID de llamada al portapapeles |
+
+## Consejos para Búsquedas Eficientes
+
+<CardGroup cols={2}>
+  <Card title="Usa Presets de Fecha" icon="calendar">
+    Comienza con presets como "Last 7 Days" para búsquedas rápidas.
+  </Card>
+  <Card title="Combina Filtros" icon="filter">
+    Combina múltiples filtros para encontrar llamadas específicas rápidamente.
+  </Card>
+  <Card title="Exporta Resultados" icon="download">
+    Exporta resultados filtrados para análisis offline o reportes.
+  </Card>
+  <Card title="Usa Call ID" icon="hashtag">
+    Cuando debuguees un problema específico, usa el call ID exacto.
+  </Card>
+</CardGroup>
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Detalles de Llamada" icon="info-circle" href="/es/calls/call-details">
+    Aprende sobre la información detallada disponible para cada llamada.
+  </Card>
+  <Card title="Reportes" icon="chart-line" href="/es/calls/reporting">
+    Genera reportes completos de tus datos de llamadas.
+  </Card>
+</CardGroup>

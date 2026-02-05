@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Flark Docs",
+  "name": "Meetzy Docs",
   "logo": {
     "dark": "/logo/dark.png",
     "light": "/logo/light.png"
@@ -18,19 +18,90 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:jorge@flark.io"
+      "url": "mailto:support@meetzy.io"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.flark.io"
+    "url": "https://dashboard.meetzy.io"
   },
   "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
   ],
+  "i18n": {
+    "default": "en",
+    "locales": {
+      "en": "English",
+      "es": "Español"
+    }
+  },
   "navigation": [
     {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/introduction",
+        "getting-started/create-agent"
+      ]
+    },
+    {
+      "group": "Agents",
+      "pages": [
+        "agents/manage-agents",
+        "agents/phone-numbers",
+        "agents/phone-health"
+      ]
+    },
+    {
+      "group": "Advanced Editor",
+      "pages": [
+        "advanced-editor/introduction",
+        "advanced-editor/basic-settings",
+        "advanced-editor/greetings",
+        "advanced-editor/knowledge-base",
+        "advanced-editor/actions-tools",
+        "advanced-editor/input-params",
+        "advanced-editor/output-settings",
+        "advanced-editor/evaluations",
+        "advanced-editor/playground",
+        "advanced-editor/copilot",
+        "advanced-editor/version-history"
+      ]
+    },
+    {
+      "group": "Voice Library",
+      "pages": [
+        "voices/choose-voice",
+        "voices/voice-designer"
+      ]
+    },
+    {
+      "group": "Calls",
+      "pages": [
+        "calls/call-history",
+        "calls/call-details",
+        "calls/reporting"
+      ]
+    },
+    {
+      "group": "CRM",
+      "pages": [
+        "crm/import-contacts",
+        "crm/segments",
+        "crm/campaigns"
+      ]
+    },
+    {
+      "group": "Account",
+      "pages": [
+        "account/api-tokens"
+      ]
+    },
+    {
       "group": "API Reference",
-      "pages":["api-reference/introduction"]
+      "pages": ["api-reference/introduction"]
     },
     {
       "group": "Endpoints",
@@ -45,11 +116,70 @@
       "pages": [
         "api-reference/endpoint/versioning"
       ]
+    },
+    {
+      "group": "Primeros Pasos",
+      "pages": [
+        "es/getting-started/introduction",
+        "es/getting-started/create-agent"
+      ]
+    },
+    {
+      "group": "Agentes",
+      "pages": [
+        "es/agents/manage-agents",
+        "es/agents/phone-numbers",
+        "es/agents/phone-health"
+      ]
+    },
+    {
+      "group": "Editor Avanzado",
+      "pages": [
+        "es/advanced-editor/introduction",
+        "es/advanced-editor/basic-settings",
+        "es/advanced-editor/greetings",
+        "es/advanced-editor/knowledge-base",
+        "es/advanced-editor/actions-tools",
+        "es/advanced-editor/input-params",
+        "es/advanced-editor/output-settings",
+        "es/advanced-editor/evaluations",
+        "es/advanced-editor/playground",
+        "es/advanced-editor/copilot",
+        "es/advanced-editor/version-history"
+      ]
+    },
+    {
+      "group": "Biblioteca de Voces",
+      "pages": [
+        "es/voices/choose-voice",
+        "es/voices/voice-designer"
+      ]
+    },
+    {
+      "group": "Llamadas",
+      "pages": [
+        "es/calls/call-history",
+        "es/calls/call-details",
+        "es/calls/reporting"
+      ]
+    },
+    {
+      "group": "CRM",
+      "pages": [
+        "es/crm/import-contacts",
+        "es/crm/segments",
+        "es/crm/campaigns"
+      ]
+    },
+    {
+      "group": "Cuenta",
+      "pages": [
+        "es/account/api-tokens"
+      ]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/meetzy_io",
+    "linkedin": "https://www.linkedin.com/company/meetzy"
   }
 }

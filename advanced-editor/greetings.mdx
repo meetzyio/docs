@@ -1,0 +1,215 @@
+---
+title: 'Greetings'
+description: 'Configure welcome messages for inbound and outbound calls'
+icon: 'hand-wave'
+---
+
+## What are Greetings?
+
+Greetings are the initial messages your agent speaks when a call begins. Different greeting types are used depending on whether the call is inbound (customer calling you) or outbound (your agent calling the customer).
+
+<Info>
+A well-crafted greeting sets the tone for the entire conversation and helps establish trust with callers.
+</Info>
+
+## Types of Greetings
+
+### Inbound Greeting
+
+Used when a customer calls your phone number. The agent should:
+- Identify the company
+- Welcome the caller
+- Offer assistance
+
+**Example:**
+```
+Hello, thank you for calling Acme Corp. My name is Sarah, 
+how can I help you today?
+```
+
+### Outbound Greeting
+
+Used when your agent initiates a call to a customer. The agent should:
+- Introduce themselves
+- State the purpose of the call
+- Verify they're speaking with the right person
+
+**Example:**
+```
+Hello, am I speaking with {{customer_name}}? 
+Hi, this is Sarah from Acme Corp. I'm calling about 
+your recent inquiry regarding our services.
+```
+
+## Configuring Greetings
+
+<Steps>
+  <Step title="Open Greetings Section">
+    Navigate to the Greetings section in the left panel (👋 icon).
+  </Step>
+  <Step title="Enter Inbound Greeting">
+    Write your welcome message for incoming calls.
+  </Step>
+  <Step title="Enter Outbound Greeting">
+    Write your introduction for outgoing calls.
+  </Step>
+  <Step title="Save Changes">
+    Click Save to apply your greetings.
+  </Step>
+</Steps>
+
+## Using Input Parameters
+
+Make greetings personal by including input parameters:
+
+```
+Hello {{customer_name}}, this is Sarah from Acme Corp. 
+I'm calling about your order {{order_number}} which is 
+scheduled for delivery on {{delivery_date}}.
+```
+
+<Tip>
+Personalized greetings significantly improve customer engagement and call success rates.
+</Tip>
+
+## Language Templates
+
+The Advanced Editor provides pre-built greeting templates for multiple languages:
+
+### Available Languages
+
+<Tabs>
+  <Tab title="English">
+    **Inbound:**
+    - "Thank you for calling [Company]. How may I help you today?"
+    - "Hello, you've reached [Company]. How can I assist you?"
+    
+    **Outbound:**
+    - "Hello, may I speak with [Name]? This is [Agent] from [Company]."
+    - "Hi [Name], this is [Agent] calling from [Company] regarding..."
+  </Tab>
+  <Tab title="Spanish">
+    **Inbound:**
+    - "Gracias por llamar a [Empresa]. ¿En qué puedo ayudarle?"
+    - "Hola, ha contactado con [Empresa]. ¿Cómo puedo asistirle?"
+    
+    **Outbound:**
+    - "Hola, ¿hablo con [Nombre]? Soy [Agente] de [Empresa]."
+    - "Hola [Nombre], le llamo de [Empresa] en relación a..."
+  </Tab>
+  <Tab title="French">
+    **Inbound:**
+    - "Merci d'appeler [Entreprise]. Comment puis-je vous aider?"
+    - "Bonjour, vous avez joint [Entreprise]. Comment puis-je vous assister?"
+    
+    **Outbound:**
+    - "Bonjour, puis-je parler à [Nom]? Je suis [Agent] de [Entreprise]."
+    - "Bonjour [Nom], je vous appelle de [Entreprise] concernant..."
+  </Tab>
+</Tabs>
+
+### Using Templates
+
+<Steps>
+  <Step title="Click Templates">
+    Click the "Templates" button in the Greetings section.
+  </Step>
+  <Step title="Select Language">
+    Choose the language that matches your agent's configuration.
+  </Step>
+  <Step title="Select Template">
+    Pick a template for inbound or outbound calls.
+  </Step>
+  <Step title="Customize">
+    Modify the template to match your company's style.
+  </Step>
+</Steps>
+
+## Greeting Tips
+
+<AccordionGroup>
+  <Accordion title="Keep It Brief" icon="hourglass-half">
+    Long greetings can frustrate callers. Aim for 2-3 sentences maximum.
+  </Accordion>
+  <Accordion title="Be Professional" icon="user-tie">
+    Use professional language that matches your brand voice.
+  </Accordion>
+  <Accordion title="State Your Purpose" icon="bullseye">
+    For outbound calls, quickly explain why you're calling.
+  </Accordion>
+  <Accordion title="Verify Identity" icon="id-card">
+    For outbound calls, confirm you're speaking with the right person.
+  </Accordion>
+  <Accordion title="Match the Language" icon="language">
+    Ensure your greeting matches the language your agent is configured to speak.
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+### Do's
+
+- ✅ Identify your company immediately
+- ✅ Keep greetings concise
+- ✅ Use natural, conversational language
+- ✅ Include personalization when possible
+- ✅ Match the tone to your brand
+
+### Don'ts
+
+- ❌ Use overly formal or robotic language
+- ❌ Make greetings too long
+- ❌ Include unnecessary information
+- ❌ Forget to identify yourself (outbound)
+- ❌ Skip verification (outbound)
+
+## Example Greetings by Industry
+
+### Customer Support
+**Inbound:**
+```
+Thank you for calling Acme Support. My name is Sarah. 
+How can I help you today?
+```
+
+### Sales
+**Outbound:**
+```
+Hello, is this {{customer_name}}? Great! This is Sarah 
+from Acme Corp. I'm reaching out because you recently 
+showed interest in our services. Do you have a moment to chat?
+```
+
+### Appointments
+**Outbound:**
+```
+Hello {{customer_name}}, this is Sarah calling from 
+Dr. Smith's office. I'm calling to confirm your 
+appointment on {{appointment_date}} at {{appointment_time}}.
+```
+
+### Collections
+**Outbound:**
+```
+Hello, may I speak with {{customer_name}}? This is 
+a courtesy call from Acme Financial regarding your account.
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="System Prompt"
+    icon="file-lines"
+    href="/getting-started/create-agent#system-prompt"
+  >
+    Define agent personality
+  </Card>
+  <Card
+    title="Evaluations"
+    icon="check-double"
+    href="/advanced-editor/evaluations"
+  >
+    Test greeting effectiveness
+  </Card>
+</CardGroup>

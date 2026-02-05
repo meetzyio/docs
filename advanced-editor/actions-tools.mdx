@@ -1,0 +1,208 @@
+---
+title: 'Actions & Tools'
+description: 'Configure integrations, call transfers, webhooks, and automated actions'
+icon: 'wrench'
+---
+
+## Overview
+
+The Actions & Tools section allows you to configure what your agent can do during and after calls. This includes transferring calls, ending conversations, making API requests, and setting up automated follow-up protocols.
+
+## Call Transfer
+
+Configure how your agent handles call transfers to human agents or other departments.
+
+### Transfer Configuration
+
+| Setting | Description |
+|---------|-------------|
+| Transfer Number | Phone number to transfer calls to |
+| Transfer Prompt | Instructions for when to transfer |
+| Warm Transfer | Brief the receiving agent before transfer |
+
+<Tip>
+Use warm transfers when the receiving agent needs context about the conversation before taking over.
+</Tip>
+
+### Transfer Best Practices
+
+1. **Set Clear Triggers** - Define specific scenarios that warrant a transfer
+2. **Provide Context** - Configure what information to pass to the receiving agent
+3. **Have Fallbacks** - Set backup numbers if the primary line is busy
+
+## End Call
+
+Configure how your agent concludes conversations.
+
+### End Call Settings
+
+| Option | Description |
+|--------|-------------|
+| End Call Prompt | Conditions that trigger call ending |
+| Goodbye Message | Final message before hanging up |
+| Language Templates | Pre-configured messages in different languages |
+
+### Language Templates
+
+The system provides pre-built templates for common scenarios in multiple languages:
+
+<Tabs>
+  <Tab title="English">
+    - Professional goodbye
+    - Casual farewell
+    - Service completion message
+  </Tab>
+  <Tab title="Spanish">
+    - Despedida profesional
+    - Despedida casual
+    - Mensaje de servicio completado
+  </Tab>
+  <Tab title="French">
+    - Au revoir professionnel
+    - Adieu décontracté
+    - Message de service terminé
+  </Tab>
+</Tabs>
+
+## Webhook Tools
+
+Create custom integrations by defining webhook tools that your agent can trigger during conversations.
+
+### Creating a Webhook Tool
+
+<Steps>
+  <Step title="Add New Tool">
+    Click "Add Webhook Tool" to create a new integration.
+  </Step>
+  <Step title="Configure Basic Info">
+    Set the tool name and description (this helps the AI understand when to use it).
+  </Step>
+  <Step title="Set Endpoint">
+    Enter the webhook URL that will receive the request.
+  </Step>
+  <Step title="Choose Method">
+    Select HTTP method: GET, POST, PUT, or DELETE.
+  </Step>
+  <Step title="Define Parameters">
+    Add query parameters or body fields the agent should send.
+  </Step>
+</Steps>
+
+### Webhook Configuration
+
+| Field | Description |
+|-------|-------------|
+| Name | Identifier for the tool |
+| Description | When and why to use this tool |
+| URL | Endpoint to call |
+| Method | HTTP method (GET, POST, PUT, DELETE) |
+| Query Params | URL parameters |
+| Body Params | Request body fields |
+
+### Parameter Types
+
+Each parameter can be configured with:
+
+| Property | Description |
+|----------|-------------|
+| Name | Parameter identifier |
+| Type | string, number, boolean |
+| Description | What the parameter represents |
+| Required | Whether the agent must provide it |
+
+### Advanced Settings
+
+<AccordionGroup>
+  <Accordion title="Interruption Control" icon="pause">
+    Configure whether the agent pauses while waiting for the webhook response.
+    
+    - **Wait for response** - Agent pauses until API responds
+    - **Continue speaking** - Agent continues while request processes
+  </Accordion>
+  <Accordion title="Execution Mode" icon="play">
+    Control when the webhook executes:
+    
+    - **Immediate** - Execute as soon as triggered
+    - **Deferred** - Queue for execution after the call
+  </Accordion>
+</AccordionGroup>
+
+### Example Webhook: CRM Integration
+
+```json
+{
+  "name": "create_lead",
+  "description": "Create a new lead in the CRM when customer shows interest",
+  "url": "https://api.yourcrm.com/leads",
+  "method": "POST",
+  "body": {
+    "name": "Customer's full name",
+    "phone": "Customer's phone number",
+    "interest": "What product they're interested in"
+  }
+}
+```
+
+## Recall Protocol
+
+Set up automatic follow-up calls when certain conditions aren't met.
+
+### Recall Settings
+
+| Setting | Description |
+|---------|-------------|
+| Enable Recall | Turn on/off automatic callbacks |
+| Max Attempts | Maximum number of retry calls |
+| Schedule | Time between retry attempts |
+| Conditions | When to trigger a recall |
+
+<Warning>
+Use recall protocols responsibly. Too many callbacks can annoy customers and may violate regulations.
+</Warning>
+
+### Recall Schedule Options
+
+- 5 minutes
+- 15 minutes
+- 30 minutes
+- 1 hour
+- 2 hours
+- 4 hours
+- Next business day
+
+## Coming Soon
+
+The following integrations are in development:
+
+| Feature | Description | Status |
+|---------|-------------|--------|
+| 📧 Send Email | Send emails during or after calls | Coming Soon |
+| 💬 Send SMS | Send text messages to customers | Coming Soon |
+| 📱 Send WhatsApp | Send WhatsApp messages | Coming Soon |
+
+## Best Practices
+
+1. **Clear Descriptions** - Write detailed tool descriptions so the AI knows exactly when to use them
+2. **Handle Errors** - Your webhook should return appropriate error messages the agent can relay
+3. **Test Thoroughly** - Use the Playground to verify webhook integrations work correctly
+4. **Monitor Usage** - Track webhook calls to ensure they're firing as expected
+5. **Secure Endpoints** - Use authentication headers for sensitive APIs
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Input Params"
+    icon="arrow-right-to-bracket"
+    href="/advanced-editor/input-params"
+  >
+    Configure dynamic variables
+  </Card>
+  <Card
+    title="Output Settings"
+    icon="arrow-right-from-bracket"
+    href="/advanced-editor/output-settings"
+  >
+    Define data extraction
+  </Card>
+</CardGroup>

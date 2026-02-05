@@ -1,0 +1,239 @@
+---
+title: 'Output Settings'
+description: 'Configure what data your agent extracts from each call'
+icon: 'arrow-right-from-bracket'
+---
+
+## What are Output Settings?
+
+Output Settings define what information your agent should extract and capture from each conversation. This data is then available via webhooks or API for use in your CRM, analytics, or other systems.
+
+<Info>
+Well-configured output settings turn every call into structured, actionable data.
+</Info>
+
+## Output Parameters
+
+Output Parameters are custom fields that your agent extracts from the conversation.
+
+### Creating Output Parameters
+
+<Steps>
+  <Step title="Open Output Settings">
+    Navigate to the Output Settings section in the left panel.
+  </Step>
+  <Step title="Add Parameter">
+    Click "Add Output Parameter" to create a new field.
+  </Step>
+  <Step title="Configure Properties">
+    Set name, type, and description for the parameter.
+  </Step>
+</Steps>
+
+### Parameter Properties
+
+| Property | Description | Example |
+|----------|-------------|---------|
+| Name | Field identifier | `customer_interest` |
+| Type | Data type | string, number, boolean |
+| Description | What to extract | "Product the customer is interested in" |
+
+### Data Types
+
+| Type | Use Case | Example Value |
+|------|----------|---------------|
+| String | Names, products, feedback | "Premium Plan" |
+| Number | Quantities, ratings | 4.5 |
+| Boolean | Yes/no decisions | true |
+
+### Example Output Parameters
+
+```json
+{
+  "customer_interest": "string",
+  "appointment_scheduled": "boolean",
+  "preferred_date": "string",
+  "satisfaction_score": "number",
+  "follow_up_needed": "boolean"
+}
+```
+
+## Editing Modes
+
+You can configure output parameters using two modes:
+
+### UX Mode (Visual)
+
+<Steps>
+  <Step title="Add Parameter">
+    Click the "+" button to add a new output field.
+  </Step>
+  <Step title="Configure Details">
+    Fill in name, type, and description in the form.
+  </Step>
+  <Step title="Reorder">
+    Drag and drop to reorder parameters.
+  </Step>
+</Steps>
+
+### Text Mode (JSON)
+
+For advanced users, switch to Text Mode to edit parameters as JSON:
+
+```json
+[
+  {
+    "name": "customer_interest",
+    "type": "string",
+    "description": "Product or service the customer is interested in"
+  },
+  {
+    "name": "appointment_scheduled",
+    "type": "boolean",
+    "description": "Whether an appointment was successfully scheduled"
+  },
+  {
+    "name": "satisfaction_score",
+    "type": "number",
+    "description": "Customer satisfaction rating from 1-5"
+  }
+]
+```
+
+<Tip>
+Text Mode is useful when copying configurations between agents or importing from external sources.
+</Tip>
+
+## Output Enrichment
+
+Enable additional pre-defined fields to be included in your output:
+
+| Field | Description |
+|-------|-------------|
+| 📝 Transcription | Full conversation transcript |
+| 📋 Summary | AI-generated call summary |
+| ✅ Success Status | Whether call achieved its goal |
+| 🆔 Call ID | Unique call identifier |
+| 🤖 Agent ID | Playbook/agent identifier |
+| ⏱️ Duration | Call length in seconds |
+| 📅 Created | Call start timestamp |
+| 📊 Call Status | Final call status |
+| ✅ Evaluations | Results of evaluation tests |
+
+<Info>
+Enable only the fields you need to keep webhook payloads manageable.
+</Info>
+
+## Webhook Configuration
+
+Send call results to your external systems automatically.
+
+### Setting Up Webhooks
+
+<Steps>
+  <Step title="Enable Webhook">
+    Toggle on the webhook option in Output Settings.
+  </Step>
+  <Step title="Enter URL">
+    Provide the endpoint that will receive the data.
+  </Step>
+  <Step title="Select Method">
+    Choose HTTP method (typically POST).
+  </Step>
+  <Step title="Add Authentication">
+    Configure authentication headers if needed.
+  </Step>
+</Steps>
+
+### Webhook Configuration Options
+
+| Setting | Description |
+|---------|-------------|
+| URL | Your webhook endpoint |
+| Method | GET, POST, PUT, DELETE |
+| Auth Header | Authentication (e.g., Bearer token) |
+
+### Example Webhook Payload
+
+```json
+{
+  "call_id": "call_abc123",
+  "agent_id": "agent_xyz789",
+  "created_at": "2024-01-15T10:30:00Z",
+  "duration": 245,
+  "status": "completed",
+  "success": true,
+  "output_params": {
+    "customer_interest": "Premium Plan",
+    "appointment_scheduled": true,
+    "preferred_date": "2024-01-20",
+    "satisfaction_score": 5
+  },
+  "transcription": "...",
+  "summary": "Customer inquired about Premium Plan and scheduled an appointment for January 20th."
+}
+```
+
+## Best Practices
+
+<Warning>
+Write clear descriptions for output parameters. The AI uses these descriptions to understand what to extract.
+</Warning>
+
+1. **Be Specific** - "Customer's budget range" is better than "budget"
+2. **Use Appropriate Types** - Boolean for yes/no, number for quantities
+3. **Keep It Relevant** - Only capture data you'll actually use
+4. **Test Extraction** - Use the Playground to verify correct extraction
+5. **Secure Webhooks** - Always use authentication for sensitive data
+
+## Common Output Patterns
+
+### Sales Calls
+```json
+{
+  "interested_product": "string",
+  "budget_range": "string",
+  "decision_timeline": "string",
+  "follow_up_needed": "boolean",
+  "lead_score": "number"
+}
+```
+
+### Customer Support
+```json
+{
+  "issue_type": "string",
+  "resolution_status": "string",
+  "satisfaction_score": "number",
+  "escalation_needed": "boolean"
+}
+```
+
+### Appointment Scheduling
+```json
+{
+  "appointment_date": "string",
+  "appointment_time": "string",
+  "service_requested": "string",
+  "confirmation_sent": "boolean"
+}
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Greetings"
+    icon="hand-wave"
+    href="/advanced-editor/greetings"
+  >
+    Configure welcome messages
+  </Card>
+  <Card
+    title="Evaluations"
+    icon="check-double"
+    href="/advanced-editor/evaluations"
+  >
+    Set up quality tests
+  </Card>
+</CardGroup>

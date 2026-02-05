@@ -1,0 +1,187 @@
+---
+title: 'Call Details'
+description: 'View transcription, recording, input/output data, and more for each call'
+icon: 'file-lines'
+---
+
+# Call Details
+
+Every call generates detailed data that helps you understand what happened during the conversation. The Call Details modal provides access to all information captured during the call.
+
+## Opening Call Details
+
+Click on any call row in the Call History table, or click the **View** button to open the details modal.
+
+## Modal Layout
+
+The Call Details modal is organized in a three-column layout:
+
+| Panel | Content |
+|-------|---------|
+| ⬅️ Left | Input Parameters (JSON) |
+| 📊 Center | Call Information |
+| ➡️ Right | Output Response (JSON) |
+
+## Input Parameters
+
+The left panel displays the input JSON that was sent to initiate the call:
+
+```json
+{
+  "phone": "+1234567890",
+  "customer_name": "John Smith",
+  "appointment_date": "2024-02-15",
+  "custom_fields": {
+    "order_id": "ORD-12345"
+  }
+}
+```
+
+### Features
+
+- **Copy Button** - Copy the entire JSON to clipboard
+- **Syntax Highlighting** - Color-coded JSON for readability
+- **Expandable** - Scroll through large input payloads
+
+## Call Information
+
+The center panel shows key metadata about the call:
+
+| Field | Description |
+|-------|-------------|
+| Call ID | Unique identifier (monospace, copyable) |
+| Status | Current status with colored badge |
+| Success | ✓ Yes or ✗ No indicator |
+| Playbook | Agent name that handled the call |
+| Duration | Call length in human-readable format |
+| From | Origin phone number |
+| To | Destination phone number |
+| Email | Contact email (if provided) |
+| Created Time | Timestamp when call was initiated |
+| Tags | Labels applied to this call |
+
+### Status Badges
+
+| Status | Color | Description |
+|--------|-------|-------------|
+| completed | 🟢 Green | Call finished normally |
+| in-progress | 🔵 Blue | Call is currently active |
+| failed | 🔴 Red | Call encountered an error |
+| transferred | 🟣 Purple | Call was transferred |
+| no-answer | ⚪ Gray | Recipient didn't answer |
+
+## Output Response
+
+The right panel displays the output JSON containing all data captured during the call:
+
+```json
+{
+  "transcription": "Agent: Hello, this is Sarah from...",
+  "summary": "Customer confirmed appointment for...",
+  "sentiment": "positive",
+  "output_params": {
+    "appointment_confirmed": true,
+    "preferred_time": "morning",
+    "callback_requested": false
+  },
+  "evaluations": {
+    "successful_greeting": true,
+    "collected_requirements": true
+  }
+}
+```
+
+### Output Contents
+
+<AccordionGroup>
+  <Accordion title="Transcription">
+    Full conversation transcript between the agent and the caller, with speaker labels.
+  </Accordion>
+  <Accordion title="Summary">
+    AI-generated summary of the call's key points and outcomes.
+  </Accordion>
+  <Accordion title="Output Parameters">
+    Structured data extracted from the conversation based on your Output Settings configuration.
+  </Accordion>
+  <Accordion title="Evaluations">
+    Results of automated evaluations defined in your agent configuration.
+  </Accordion>
+  <Accordion title="Tool Calls">
+    If the agent invoked any tools or webhooks, their requests and responses are included.
+  </Accordion>
+</AccordionGroup>
+
+## Webhook Information
+
+If your agent has a webhook configured, the bottom of the right panel shows:
+
+| Field | Value |
+|-------|-------|
+| Method | POST, GET, etc. |
+| URL | Webhook endpoint |
+| Auth | Authorization header (masked) |
+
+<Info>
+The webhook section only appears if a webhook was configured and triggered for this call.
+</Info>
+
+## Recording Playback
+
+If call recording is enabled:
+
+1. An audio player appears at the top of the modal
+2. Controls include play/pause, seek, and volume
+3. Download option available for offline access
+
+<Warning>
+Call recordings are stored for a limited time based on your plan. Download important recordings for permanent storage.
+</Warning>
+
+## Copying Data
+
+### Copy Buttons
+
+- **Copy Input** - Copies the entire input JSON
+- **Copy Output** - Copies the entire output JSON
+- **Copy Call ID** - Copies just the call identifier
+
+### Feedback
+
+When you copy data:
+- The button changes to "Copied!" with a checkmark
+- Reverts to normal after 2 seconds
+
+## Common Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Debugging" icon="bug">
+    Review input params and output to diagnose why a call didn't perform as expected.
+  </Card>
+  <Card title="Quality Assurance" icon="check-double">
+    Listen to recordings and check transcriptions to ensure agent quality.
+  </Card>
+  <Card title="Integration Verification" icon="plug">
+    Verify that webhook data was sent correctly and contains expected values.
+  </Card>
+  <Card title="Training Data" icon="graduation-cap">
+    Export call details to improve agent prompts based on real conversations.
+  </Card>
+</CardGroup>
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Esc` | Close the modal |
+| Click outside | Close the modal |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Call History" icon="list" href="/calls/call-history">
+    Return to searching and filtering calls.
+  </Card>
+  <Card title="Reporting" icon="chart-line" href="/calls/reporting">
+    Generate reports from your call data.
+  </Card>
+</CardGroup>

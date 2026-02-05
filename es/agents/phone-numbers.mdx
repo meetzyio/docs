@@ -1,0 +1,185 @@
+---
+title: 'Configurar Números de Teléfono'
+description: 'Aprende a asignar, gestionar e intercambiar números de teléfono en tus agentes de Meetzy'
+---
+
+## Números de Teléfono en Meetzy
+
+Cada agente de Meetzy necesita al menos un número de teléfono para:
+
+- **Recibir llamadas entrantes**
+- **Realizar llamadas salientes**
+- **Identificarse** (caller ID)
+
+<Note>
+  Los números de teléfono son recursos exclusivos. Cada número solo puede estar asignado a un agente a la vez.
+</Note>
+
+## Asignar un Número al Crear un Agente
+
+Al crear un nuevo agente en el Editor Avanzado:
+
+1. Ve a la sección **Settings** (icono de Engranaje)
+2. Encuentra el campo **Phone Number**
+3. Selecciona un número disponible del dropdown
+
+### Si No Hay Números Disponibles
+
+Si el dropdown está vacío, verás un mensaje:
+
+```
+No available phone numbers for the selected account.
+All numbers are assigned or configured.
+```
+
+**Opciones:**
+- Libera un número de otro agente
+- Solicita nuevos números mediante el enlace "Request more numbers"
+
+## Ver Números Asignados
+
+Una vez asignado, el número aparece en modo solo lectura:
+
+```
+Phone Number: +34 612 345 678 (Equipo de Ventas) 🔒
+Phone number assigned to this agent
+```
+
+<Warning>
+  El número de teléfono no puede cambiarse directamente una vez asignado. Para cambiarlo, usa la función de Swap desde Phone Health.
+</Warning>
+
+## Múltiples Números por Agente
+
+Un agente puede tener varios números asignados. Esto es útil para:
+
+- **Distribución de volumen**: Reducir riesgo de spam
+- **Segmentación regional**: Diferentes números para diferentes áreas
+- **Redundancia**: Respaldo si un número tiene problemas
+
+### Cómo se Usan Múltiples Números
+
+| Tipo de Llamada | Comportamiento |
+|-----------------|----------------|
+| **Entrante** | El cliente puede llamar a cualquiera de los números |
+| **Saliente** | El sistema selecciona automáticamente el mejor número disponible |
+
+El número con mejor **Phone Health** tiene prioridad para llamadas salientes.
+
+## Intercambiar Números (Swap)
+
+Puedes intercambiar un número problemático por uno nuevo desde el reporte de Phone Health:
+
+<Steps>
+  <Step title="Abre Phone Health">
+    Haz clic en el indicador de salud del agente.
+  </Step>
+  <Step title="Identifica el número">
+    Busca el número con estado Warning o Spam.
+  </Step>
+  <Step title="Inicia el Swap">
+    Haz clic en el botón **Swap** junto al número.
+  </Step>
+  <Step title="Confirma">
+    El sistema muestra el nuevo número propuesto. Confirma el intercambio.
+  </Step>
+</Steps>
+
+### Qué Sucede Durante el Swap
+
+1. **Número antiguo** se desvincula y marca como "DEVOLVER"
+2. **Número nuevo** se asigna y está activo inmediatamente
+
+## Desconectar un Número
+
+Para eliminar un número sin reemplazarlo:
+
+1. Abre el reporte de **Phone Health**
+2. Haz clic en **Disconnect** junto al número
+3. Confirma la desconexión
+
+<Warning>
+  Si desconectas el único número del agente, este no podrá hacer ni recibir llamadas hasta que asignes otro.
+</Warning>
+
+## Solicitar Nuevos Números
+
+Para solicitar números adicionales:
+
+1. En el Editor Avanzado, sección Settings
+2. Haz clic en **"Request more numbers"**
+3. Serás redirigido al portal de solicitud
+
+Los números nuevos suelen estar disponibles en 24-48 horas.
+
+## Prefijos de País Soportados
+
+Meetzy soporta números de teléfono en múltiples países:
+
+| País | Prefijo | Disponibilidad |
+|------|---------|----------------|
+| Estados Unidos | +1 | Disponible |
+| España | +34 | Disponible |
+| México | +52 | Disponible |
+| Argentina | +54 | Disponible |
+| Colombia | +57 | Disponible |
+| Reino Unido | +44 | Disponible |
+
+<Tip>
+  Usa números locales del país de tus clientes para aumentar la tasa de respuesta. Los clientes son más propensos a contestar llamadas de números locales.
+</Tip>
+
+## Mejores Prácticas
+
+### Rotación de Números
+
+Para campañas de alto volumen:
+
+1. Asigna múltiples números al agente
+2. El sistema rota automáticamente
+3. Monitorea Phone Health regularmente
+4. Intercambia números antes de que lleguen a "Spam"
+
+### Identificación del Número
+
+Cada número tiene un **Friendly Name** para identificarlo:
+
+```
++34 612 345 678 (Equipo de Ventas)
+       │              │
+       │              └── Friendly Name
+       └── Número
+```
+
+Usa nombres descriptivos como:
+- "Equipo de Ventas"
+- "Línea de Soporte"
+- "Campaña Q1"
+
+## Preguntas Frecuentes
+
+<AccordionGroup>
+  <Accordion title="¿Puedo usar mi propio número de teléfono?">
+    Actualmente, Meetzy solo soporta números proporcionados a través de la plataforma. La portabilidad de números está en desarrollo.
+  </Accordion>
+  <Accordion title="¿Qué pasa si se agotan mis números?">
+    Las llamadas salientes fallarán y las entrantes irán a un buzón de error. Solicita más números antes de que esto ocurra.
+  </Accordion>
+  <Accordion title="¿Los números son exclusivos o compartidos?">
+    Cada número es exclusivo para tu cuenta. No se comparte entre diferentes clientes de Meetzy.
+  </Accordion>
+  <Accordion title="¿Puedo tener números de diferentes países en un agente?">
+    Sí, puedes asignar números de múltiples países al mismo agente.
+  </Accordion>
+</AccordionGroup>
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
+    Monitorea la salud y reputación de tus números.
+  </Card>
+  <Card title="Hacer Llamadas de Prueba" icon="phone-arrow-up-right" href="/es/agents/manage-agents#hacer-llamadas-de-prueba">
+    Aprende a probar tu agente con llamadas reales.
+  </Card>
+</CardGroup>

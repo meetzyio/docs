@@ -1,0 +1,176 @@
+---
+title: 'Knowledge Base'
+description: 'Add documents, FAQs, and reference materials for your agent'
+icon: 'book'
+---
+
+## What is the Knowledge Base?
+
+The Knowledge Base is where you provide your agent with information it can reference during conversations. This includes product documentation, FAQs, company policies, pricing information, and any other content your agent needs to answer customer questions accurately.
+
+<Info>
+A well-populated Knowledge Base significantly improves your agent's ability to provide accurate, helpful responses.
+</Info>
+
+## Adding Documents
+
+You can add knowledge to your agent in three ways:
+
+### 1. URL Import
+
+Import content directly from web pages.
+
+<Steps>
+  <Step title="Click 'Add URL'">
+    Open the Knowledge Base section and select the URL option.
+  </Step>
+  <Step title="Enter the URL">
+    Paste the full URL of the webpage you want to import.
+  </Step>
+  <Step title="Confirm Import">
+    The system will fetch and process the content automatically.
+  </Step>
+</Steps>
+
+**Best for:** Product pages, help center articles, documentation sites.
+
+### 2. Text Entry
+
+Manually enter or paste text content.
+
+<Steps>
+  <Step title="Click 'Add Text'">
+    Select the text entry option.
+  </Step>
+  <Step title="Enter Content">
+    Type or paste your content in the text area.
+  </Step>
+  <Step title="Save">
+    The content is processed and added to the knowledge base.
+  </Step>
+</Steps>
+
+**Best for:** Custom FAQs, internal guidelines, scripts.
+
+### 3. File Upload
+
+Upload documents directly.
+
+<Steps>
+  <Step title="Click 'Add File'">
+    Select the file upload option.
+  </Step>
+  <Step title="Select File">
+    Choose a file from your computer.
+  </Step>
+  <Step title="Upload">
+    The document is processed and indexed.
+  </Step>
+</Steps>
+
+**Supported formats:** PDF, TXT, DOC, DOCX, and more.
+
+## Usage Modes
+
+Each document in your Knowledge Base can be configured with a usage mode:
+
+| Mode | Icon | Description |
+|------|------|-------------|
+| Auto Search | 🔍 | Agent searches this document only when relevant |
+| In Prompt | 📋 | Content is always included in the agent's context |
+
+### When to Use Each Mode
+
+<AccordionGroup>
+  <Accordion title="Auto Search" icon="magnifying-glass">
+    Use for large documents or reference materials. The agent will only retrieve relevant portions when needed, keeping responses efficient.
+    
+    **Examples:**
+    - Product catalogs
+    - Full documentation
+    - Extensive FAQs
+  </Accordion>
+  <Accordion title="In Prompt" icon="file-import">
+    Use for critical information that should always be available. This content is included in every conversation.
+    
+    **Examples:**
+    - Company name and key details
+    - Pricing tiers
+    - Core policies
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+Using "In Prompt" for large documents can increase costs and slow down responses. Use it only for essential, concise information.
+</Warning>
+
+## Managing Documents
+
+### Document List
+
+All added documents appear in a list showing:
+
+| Column | Description |
+|--------|-------------|
+| Name | Document title or URL |
+| Type | URL, Text, or File icon |
+| Mode | Auto Search or In Prompt |
+| Actions | Edit or Delete buttons |
+
+### Editing Documents
+
+1. Click the edit icon (✏️) next to any document
+2. Modify the content or settings
+3. Save changes
+
+### Deleting Documents
+
+1. Click the delete icon (🗑️) next to the document
+2. Confirm deletion
+
+<Warning>
+Deleted documents cannot be recovered. Make sure to export important content before deleting.
+</Warning>
+
+## Best Practices
+
+<Tip>
+Keep your Knowledge Base organized and up-to-date for optimal agent performance.
+</Tip>
+
+1. **Keep Content Current** - Regularly update documents to reflect latest information
+2. **Be Specific** - Include exact phrases customers might use
+3. **Structure Well** - Use clear headings and bullet points
+4. **Avoid Duplication** - Don't repeat the same information in multiple documents
+5. **Test Thoroughly** - Verify the agent can find and use the information correctly
+
+## Example Knowledge Base Structure
+
+```
+📚 Knowledge Base
+├── 📄 Company Overview (In Prompt)
+├── 📄 Product Catalog (Auto Search)
+├── 🔗 Pricing Page URL (Auto Search)
+├── 📄 FAQ - Common Questions (Auto Search)
+├── 📄 Refund Policy (Auto Search)
+└── 📄 Contact Information (In Prompt)
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Actions & Tools"
+    icon="wrench"
+    href="/advanced-editor/actions-tools"
+  >
+    Configure integrations and webhooks
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test your agent with the knowledge base
+  </Card>
+</CardGroup>

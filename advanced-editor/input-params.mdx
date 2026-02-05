@@ -1,0 +1,214 @@
+---
+title: 'Input Parameters'
+description: 'Configure dynamic variables to personalize each call'
+icon: 'arrow-right-to-bracket'
+---
+
+## What are Input Parameters?
+
+Input Parameters are dynamic variables that allow you to personalize each call with customer-specific information. When initiating an outbound call or receiving an inbound call through your API, you can pass these variables to customize the agent's behavior and knowledge.
+
+<Info>
+Input Parameters are passed via API when initiating calls, making each conversation unique and personalized.
+</Info>
+
+## Common Use Cases
+
+| Use Case | Example Parameters |
+|----------|-------------------|
+| Customer Identification | `customer_name`, `customer_id` |
+| Appointment Booking | `appointment_date`, `appointment_time`, `service_type` |
+| Order Status | `order_number`, `order_status`, `delivery_date` |
+| Account Management | `account_balance`, `payment_due_date` |
+| Lead Qualification | `lead_source`, `product_interest` |
+
+## Configuring Input Parameters
+
+### Adding a Parameter
+
+<Steps>
+  <Step title="Open Input Params Section">
+    Navigate to the Input Parameters section in the left panel.
+  </Step>
+  <Step title="Add New Parameter">
+    Click "Add Parameter" to create a new variable.
+  </Step>
+  <Step title="Configure Properties">
+    Set the name, type, and description.
+  </Step>
+</Steps>
+
+### Parameter Properties
+
+| Property | Description | Required |
+|----------|-------------|----------|
+| Name | Variable identifier (e.g., `customer_name`) | Yes |
+| Type | Data type: string, number, boolean | Yes |
+| Description | What this parameter represents | Yes |
+| Default Value | Fallback if not provided | No |
+
+### Data Types
+
+<AccordionGroup>
+  <Accordion title="String" icon="font">
+    Text values like names, addresses, or identifiers.
+    
+    ```json
+    {
+      "customer_name": "John Smith",
+      "order_id": "ORD-12345"
+    }
+    ```
+  </Accordion>
+  <Accordion title="Number" icon="hashtag">
+    Numeric values like amounts, quantities, or IDs.
+    
+    ```json
+    {
+      "account_balance": 1250.50,
+      "order_count": 3
+    }
+    ```
+  </Accordion>
+  <Accordion title="Boolean" icon="toggle-on">
+    True/false values for flags and conditions.
+    
+    ```json
+    {
+      "is_premium_customer": true,
+      "has_pending_payment": false
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Using Parameters in Prompts
+
+Once defined, you can reference input parameters in your system prompt and greetings using the `{{parameter_name}}` syntax.
+
+### Example: Personalized Greeting
+
+**System Prompt:**
+```
+You are a customer service agent for Acme Corp.
+You are speaking with {{customer_name}}.
+Their account status is {{account_status}}.
+```
+
+**Greeting (Outbound):**
+```
+Hello {{customer_name}}, this is Sarah from Acme Corp. 
+I'm calling about your order {{order_number}}.
+```
+
+### Example: Conditional Behavior
+
+```
+{{#if is_premium_customer}}
+Treat this customer as a VIP. Offer priority support and exclusive deals.
+{{else}}
+Provide standard support. Mention upgrade options if relevant.
+{{/if}}
+```
+
+## API Integration
+
+When making API calls to initiate calls, include input parameters in your request:
+
+```bash
+curl -X POST https://api.meetzy.io/v1/calls \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent_id": "agent_123",
+    "phone_number": "+1234567890",
+    "input_params": {
+      "customer_name": "John Smith",
+      "order_number": "ORD-12345",
+      "is_premium_customer": true,
+      "account_balance": 1250.50
+    }
+  }'
+```
+
+## Testing Input Parameters
+
+Use the Playground to test how your agent handles different parameter values:
+
+<Steps>
+  <Step title="Open Playground">
+    Navigate to the Playground in the right panel.
+  </Step>
+  <Step title="Open Context Variables">
+    Click the "Context Variables" panel.
+  </Step>
+  <Step title="Set Test Values">
+    Enter values for each input parameter.
+  </Step>
+  <Step title="Start Conversation">
+    Test how the agent uses these values.
+  </Step>
+</Steps>
+
+## Best Practices
+
+<Tip>
+Use descriptive names and clear descriptions so the AI understands the context of each parameter.
+</Tip>
+
+1. **Use Clear Names** - `customer_name` is better than `cn`
+2. **Provide Descriptions** - Help the AI understand context
+3. **Set Default Values** - Prevent errors when parameters aren't provided
+4. **Validate Before Sending** - Ensure parameters have valid values
+5. **Document for Team** - Keep a reference of all parameters and their purposes
+
+## Common Parameter Patterns
+
+### Customer Information
+```json
+{
+  "customer_name": "string",
+  "customer_phone": "string",
+  "customer_email": "string",
+  "customer_id": "string"
+}
+```
+
+### Appointment Details
+```json
+{
+  "appointment_date": "string",
+  "appointment_time": "string",
+  "service_type": "string",
+  "location": "string"
+}
+```
+
+### Order Information
+```json
+{
+  "order_number": "string",
+  "order_total": "number",
+  "items_count": "number",
+  "delivery_date": "string"
+}
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Output Settings"
+    icon="arrow-right-from-bracket"
+    href="/advanced-editor/output-settings"
+  >
+    Configure data extraction
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test with different parameters
+  </Card>
+</CardGroup>

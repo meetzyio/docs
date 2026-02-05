@@ -1,0 +1,214 @@
+---
+title: 'Parámetros de Entrada'
+description: 'Configura variables dinámicas para personalizar cada llamada'
+icon: 'arrow-right-to-bracket'
+---
+
+## ¿Qué son los Parámetros de Entrada?
+
+Los Parámetros de Entrada son variables dinámicas que te permiten personalizar cada llamada con información específica del cliente. Al iniciar una llamada saliente o recibir una llamada entrante a través de tu API, puedes pasar estas variables para personalizar el comportamiento y conocimiento del agente.
+
+<Info>
+Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada conversación única y personalizada.
+</Info>
+
+## Casos de Uso Comunes
+
+| Caso de Uso | Parámetros de Ejemplo |
+|----------|-------------------|
+| Identificación del Cliente | `nombre_cliente`, `id_cliente` |
+| Reserva de Citas | `fecha_cita`, `hora_cita`, `tipo_servicio` |
+| Estado de Pedido | `numero_pedido`, `estado_pedido`, `fecha_entrega` |
+| Gestión de Cuenta | `saldo_cuenta`, `fecha_vencimiento_pago` |
+| Calificación de Lead | `fuente_lead`, `interes_producto` |
+
+## Configurando Parámetros de Entrada
+
+### Añadiendo un Parámetro
+
+<Steps>
+  <Step title="Abrir Sección de Parámetros de Entrada">
+    Navega a la sección de Parámetros de Entrada en el panel izquierdo.
+  </Step>
+  <Step title="Añadir Nuevo Parámetro">
+    Haz clic en "Añadir Parámetro" para crear una nueva variable.
+  </Step>
+  <Step title="Configurar Propiedades">
+    Establece el nombre, tipo y descripción.
+  </Step>
+</Steps>
+
+### Propiedades del Parámetro
+
+| Propiedad | Descripción | Requerido |
+|----------|-------------|----------|
+| Nombre | Identificador de variable (ej., `nombre_cliente`) | Sí |
+| Tipo | Tipo de dato: string, number, boolean | Sí |
+| Descripción | Qué representa este parámetro | Sí |
+| Valor por Defecto | Respaldo si no se proporciona | No |
+
+### Tipos de Datos
+
+<AccordionGroup>
+  <Accordion title="String" icon="font">
+    Valores de texto como nombres, direcciones o identificadores.
+    
+    ```json
+    {
+      "nombre_cliente": "Juan García",
+      "id_pedido": "PED-12345"
+    }
+    ```
+  </Accordion>
+  <Accordion title="Number" icon="hashtag">
+    Valores numéricos como cantidades, importes o IDs.
+    
+    ```json
+    {
+      "saldo_cuenta": 1250.50,
+      "cantidad_pedidos": 3
+    }
+    ```
+  </Accordion>
+  <Accordion title="Boolean" icon="toggle-on">
+    Valores verdadero/falso para flags y condiciones.
+    
+    ```json
+    {
+      "es_cliente_premium": true,
+      "tiene_pago_pendiente": false
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Usando Parámetros en Prompts
+
+Una vez definidos, puedes referenciar parámetros de entrada en tu prompt del sistema y saludos usando la sintaxis `{{nombre_parametro}}`.
+
+### Ejemplo: Saludo Personalizado
+
+**Prompt del Sistema:**
+```
+Eres un agente de servicio al cliente para Acme Corp.
+Estás hablando con {{nombre_cliente}}.
+El estado de su cuenta es {{estado_cuenta}}.
+```
+
+**Saludo (Saliente):**
+```
+Hola {{nombre_cliente}}, soy Sara de Acme Corp. 
+Le llamo sobre su pedido {{numero_pedido}}.
+```
+
+### Ejemplo: Comportamiento Condicional
+
+```
+{{#if es_cliente_premium}}
+Trata a este cliente como VIP. Ofrece soporte prioritario y ofertas exclusivas.
+{{else}}
+Proporciona soporte estándar. Menciona opciones de mejora si es relevante.
+{{/if}}
+```
+
+## Integración API
+
+Al hacer llamadas API para iniciar llamadas, incluye parámetros de entrada en tu petición:
+
+```bash
+curl -X POST https://api.meetzy.io/v1/calls \
+  -H "Authorization: Bearer TU_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent_id": "agente_123",
+    "phone_number": "+34612345678",
+    "input_params": {
+      "nombre_cliente": "Juan García",
+      "numero_pedido": "PED-12345",
+      "es_cliente_premium": true,
+      "saldo_cuenta": 1250.50
+    }
+  }'
+```
+
+## Probando Parámetros de Entrada
+
+Usa el Playground para probar cómo tu agente maneja diferentes valores de parámetros:
+
+<Steps>
+  <Step title="Abrir Playground">
+    Navega al Playground en el panel derecho.
+  </Step>
+  <Step title="Abrir Variables de Contexto">
+    Haz clic en el panel "Variables de Contexto".
+  </Step>
+  <Step title="Establecer Valores de Prueba">
+    Ingresa valores para cada parámetro de entrada.
+  </Step>
+  <Step title="Iniciar Conversación">
+    Prueba cómo el agente usa estos valores.
+  </Step>
+</Steps>
+
+## Mejores Prácticas
+
+<Tip>
+Usa nombres descriptivos y descripciones claras para que la IA entienda el contexto de cada parámetro.
+</Tip>
+
+1. **Usa Nombres Claros** - `nombre_cliente` es mejor que `nc`
+2. **Proporciona Descripciones** - Ayuda a la IA a entender el contexto
+3. **Establece Valores por Defecto** - Previene errores cuando no se proporcionan parámetros
+4. **Valida Antes de Enviar** - Asegura que los parámetros tienen valores válidos
+5. **Documenta para el Equipo** - Mantén una referencia de todos los parámetros y sus propósitos
+
+## Patrones Comunes de Parámetros
+
+### Información del Cliente
+```json
+{
+  "nombre_cliente": "string",
+  "telefono_cliente": "string",
+  "email_cliente": "string",
+  "id_cliente": "string"
+}
+```
+
+### Detalles de Cita
+```json
+{
+  "fecha_cita": "string",
+  "hora_cita": "string",
+  "tipo_servicio": "string",
+  "ubicacion": "string"
+}
+```
+
+### Información de Pedido
+```json
+{
+  "numero_pedido": "string",
+  "total_pedido": "number",
+  "cantidad_articulos": "number",
+  "fecha_entrega": "string"
+}
+```
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Configuración de Salida"
+    icon="arrow-right-from-bracket"
+    href="/es/advanced-editor/output-settings"
+  >
+    Configura extracción de datos
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba con diferentes parámetros
+  </Card>
+</CardGroup>

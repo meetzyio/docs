@@ -1,0 +1,192 @@
+---
+title: 'Reportes'
+description: 'Genera reportes detallados y análisis de tus datos de llamadas'
+icon: 'chart-line'
+---
+
+# Reportes
+
+La sección de Reportes te permite generar informes completos sobre el rendimiento de los agentes. Analiza métricas, rastrea tendencias y exporta datos para análisis adicional.
+
+<Note>
+Los Reportes están actualmente en **BETA**. Las funcionalidades pueden cambiar y mejorar basándose en el feedback de usuarios.
+</Note>
+
+## Acceder a Reportes
+
+Navega a **Calls** → **Reporting** o haz clic en el botón "Agent Reports" desde la página de Historial de Llamadas.
+
+## Vista General de Reportes
+
+Los reportes proporcionan métricas agregadas por:
+- Agentes individuales
+- Rangos de fechas
+- Períodos de tiempo personalizados
+
+## Métricas Disponibles
+
+| Métrica | Descripción |
+|---------|-------------|
+| 📊 Leads | Número de contactos/llamadas |
+| 🎯 Quality | Puntuación de calidad de llamada |
+| 📞 Total Calls | Todas las llamadas en el período |
+| ✅ Completed | Llamadas finalizadas exitosamente |
+| 🔄 Conversions | Resultados exitosos |
+| 📈 Conversion Rate | Porcentaje de llamadas exitosas |
+| 📥 Inbound | Llamadas entrantes |
+| 📤 Outbound | Llamadas salientes |
+| ↗️ Transfers | Llamadas transferidas a humanos |
+| ⏱️ Avg Duration | Duración promedio de llamada |
+| 🗣️ Talk Time | Tiempo total de conversación |
+| ⭐ NPS | Net Promoter Score (si está habilitado) |
+
+## Generar un Reporte
+
+<Steps>
+  <Step title="Selecciona Rango de Fechas">
+    Elige el período de tiempo para tu reporte usando el selector de fechas.
+  </Step>
+  <Step title="Filtra Agentes">
+    Selecciona agentes específicos o incluye todos.
+  </Step>
+  <Step title="Genera el Reporte">
+    Haz clic en el botón de generar para crear el reporte.
+  </Step>
+  <Step title="Revisa los Datos">
+    Analiza los resultados en la vista de tabla.
+  </Step>
+</Steps>
+
+## Tabla del Reporte
+
+El reporte muestra datos en una tabla completa:
+
+### Columnas Fijas
+
+- **#** - Número de fila
+- **Date/Agent** - Identificador de agrupación
+
+### Métricas con Scroll
+
+Desplázate horizontalmente para ver todas las métricas:
+- Leads, Quality, Calls, Completed
+- Conversions, Conversion Rate
+- Inbound, Outbound, Transfers
+- Avg Duration, Talk Time, NPS
+
+<Tip>
+Las primeras columnas permanecen fijas mientras te desplazas horizontalmente por las métricas para facilitar la referencia.
+</Tip>
+
+## Exportar Reportes
+
+### Formatos de Exportación
+
+Haz clic en **Export to** para descargar tu reporte:
+
+| Formato | Descripción | Caso de Uso |
+|---------|-------------|-------------|
+| 📊 CSV | Valores separados por comas | Excel, Google Sheets, análisis de datos |
+| 📑 Excel | Formato .xlsx | Importación directa a Excel con formato |
+
+### Proceso de Exportación
+
+1. Haz clic en el botón **Export to**
+2. Selecciona tu formato preferido
+3. El archivo se descarga automáticamente
+4. El botón muestra "Exporting..." durante la generación
+
+<Info>
+Los reportes grandes pueden tardar unos segundos en generarse. El botón se deshabilitará durante la exportación.
+</Info>
+
+## Entender las Métricas
+
+### Tasa de Conversión
+
+```
+Tasa de Conversión = (Llamadas Exitosas / Llamadas Completadas) × 100
+```
+
+Una llamada es "exitosa" basándose en tus evaluaciones definidas en la configuración del agente.
+
+### Duración Promedio
+
+Duración promedio de llamadas completadas, excluyendo llamadas que no conectaron.
+
+### Tiempo de Conversación
+
+Tiempo total acumulado de conversación para todas las llamadas en el período.
+
+## Consejos de Filtrado
+
+<CardGroup cols={2}>
+  <Card title="Compara Períodos" icon="calendar-days">
+    Ejecuta reportes para diferentes rangos de fechas para rastrear tendencias.
+  </Card>
+  <Card title="Análisis por Agente" icon="robot">
+    Filtra por agentes individuales para comparar rendimiento.
+  </Card>
+  <Card title="Revisiones Semanales" icon="chart-bar">
+    Programa exportaciones semanales de reportes para reuniones de equipo.
+  </Card>
+  <Card title="Identifica Patrones" icon="magnifying-glass-chart">
+    Busca patrones en tasas de éxito inbound vs outbound.
+  </Card>
+</CardGroup>
+
+## Integración con Dashboard
+
+Los reportes pueden usarse para:
+
+- Rastrear KPIs del equipo
+- Identificar oportunidades de entrenamiento
+- Medir efectividad de campañas
+- Comparar rendimiento de agentes
+
+## Mejores Prácticas
+
+### Cadencia Regular de Reportes
+
+| Frecuencia | Propósito |
+|------------|-----------|
+| Diario | Monitoreo operacional |
+| Semanal | Revisiones de rendimiento del equipo |
+| Mensual | Seguimiento de métricas de negocio |
+| Trimestral | Análisis estratégico |
+
+### Métricas Clave a Rastrear
+
+<Steps>
+  <Step title="Tasa de Conversión">
+    Indicador principal de éxito para tus agentes.
+  </Step>
+  <Step title="Duración de Llamada">
+    Ayuda a identificar oportunidades de eficiencia.
+  </Step>
+  <Step title="Tasa de Transferencia">
+    Muestra cuándo se necesita handoff humano.
+  </Step>
+  <Step title="Puntuación de Calidad">
+    Métrica general de calidad de llamada.
+  </Step>
+</Steps>
+
+## Limitaciones
+
+Limitaciones actuales del beta:
+
+- Rango máximo de reporte de 90 días
+- Exportación limitada a 10,000 filas
+- Los datos en tiempo real pueden tener un retraso de 5 minutos
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Historial de Llamadas" icon="phone" href="/es/calls/call-history">
+    Profundiza en llamadas individuales de tus reportes.
+  </Card>
+  <Card title="Gestión de Agentes" icon="robot" href="/es/agents/manage-agents">
+    Optimiza agentes basándote en insights de los reportes.
+  </Card>
+</CardGroup>

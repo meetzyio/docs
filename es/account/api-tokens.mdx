@@ -1,0 +1,198 @@
+---
+title: 'API Tokens'
+description: 'Genera y gestiona tokens de API para acceso programático'
+icon: 'key'
+---
+
+# API Tokens
+
+Los tokens de API te permiten autenticarte con la API de Meetzy para acceso programático a tu cuenta. Usa tokens para integrar Meetzy con tus sistemas, disparar llamadas y recuperar datos.
+
+## Acceder a API Tokens
+
+Navega a **Account** → **API Tokens** para ver y gestionar tus tokens.
+
+## Vista General de Tokens
+
+Tus tokens de API se listan con:
+
+| Campo | Descripción |
+|-------|-------------|
+| Name | Identificador del token |
+| Token | La clave secreta (parcialmente oculta) |
+| Expires In | Cuándo expirará el token |
+
+## Guías de Seguridad
+
+<Warning>
+**¡Mantén tus tokens de API en secreto!**
+
+- Nunca compartas tokens con otros
+- Nunca expongas tokens en código del lado del cliente
+- Nunca hagas commit de tokens a control de versiones
+- Meetzy puede deshabilitar automáticamente tokens filtrados
+</Warning>
+
+## Usando tu Token
+
+### Header de Autenticación
+
+Incluye tu token en el header `Authorization`:
+
+```bash
+curl -X POST https://api.meetzy.io/call \
+  -H "Authorization: Bearer TU_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"phone": "+1234567890", "playbook_id": "..."}'
+```
+
+### Ejemplos en Código
+
+<CodeGroup>
+```javascript Node.js
+const axios = require('axios');
+
+const response = await axios.post('https://api.meetzy.io/call', {
+  phone: '+1234567890',
+  playbook_id: 'your-playbook-id'
+}, {
+  headers: {
+    'Authorization': `Bearer ${process.env.MEETZY_API_TOKEN}`,
+    'Content-Type': 'application/json'
+  }
+});
+```
+
+```python Python
+import requests
+import os
+
+response = requests.post(
+    'https://api.meetzy.io/call',
+    json={
+        'phone': '+1234567890',
+        'playbook_id': 'your-playbook-id'
+    },
+    headers={
+        'Authorization': f'Bearer {os.environ["MEETZY_API_TOKEN"]}',
+        'Content-Type': 'application/json'
+    }
+)
+```
+</CodeGroup>
+
+## Copiando tu Token
+
+1. Encuentra el token en tu lista
+2. Haz clic en el botón **Copy** junto al token
+3. El botón cambia a "Copied!" cuando es exitoso
+4. Pega el token en tu aplicación
+
+<Info>
+Solo los primeros 40 caracteres se muestran por seguridad. La función de copiar copia el token completo.
+</Info>
+
+## Expiración del Token
+
+Los tokens tienen un período de expiración mostrado en la columna "Expires In":
+
+| Estado | Significado |
+|--------|-------------|
+| X días | Token expira en X días |
+| Expired | Token ya no funciona |
+| Never | Token no expira (no recomendado) |
+
+### Antes de la Expiración
+
+1. Genera un nuevo token
+2. Actualiza tus aplicaciones
+3. El token antiguo sigue funcionando hasta expirar
+4. Prueba con el nuevo token antes de que expire el antiguo
+
+## Mejores Prácticas
+
+<CardGroup cols={2}>
+  <Card title="Variables de Entorno" icon="gear">
+    Almacena tokens en variables de entorno, nunca en código.
+  </Card>
+  <Card title="Rota Regularmente" icon="arrows-rotate">
+    Genera nuevos tokens periódicamente por seguridad.
+  </Card>
+  <Card title="Permisos Mínimos" icon="shield-check">
+    Usa tokens solo donde sea necesario.
+  </Card>
+  <Card title="Monitorea Uso" icon="eye">
+    Rastrea llamadas API para detectar acceso no autorizado.
+  </Card>
+</CardGroup>
+
+## Configuración de Variables de Entorno
+
+<CodeGroup>
+```bash Linux/Mac
+export MEETZY_API_TOKEN="tu-token-aqui"
+```
+
+```powershell Windows
+$env:MEETZY_API_TOKEN="tu-token-aqui"
+```
+
+```env Archivo .env
+MEETZY_API_TOKEN=tu-token-aqui
+```
+</CodeGroup>
+
+## Permisos del Token
+
+Los tokens de API tienen acceso completo a tu cuenta, incluyendo:
+
+- ✅ Crear y gestionar llamadas
+- ✅ Acceder al historial y detalles de llamadas
+- ✅ Gestionar agentes (playbooks)
+- ✅ Acceder a datos del CRM
+- ✅ Ver analíticas
+
+<Note>
+El control granular de permisos llegará pronto. Actualmente, todos los tokens tienen acceso completo a la cuenta.
+</Note>
+
+## Solución de Problemas
+
+| Error | Solución |
+|-------|----------|
+| `401 Unauthorized` | Verifica que el token sea correcto y no haya expirado |
+| `403 Forbidden` | El token puede estar deshabilitado, contacta a soporte |
+| `Token not working` | Asegúrate de que no haya espacios extra al copiar |
+| `Rate limited` | Demasiadas peticiones, implementa backoff |
+
+## Si tu Token es Comprometido
+
+1. **Inmediatamente** ve a la página de API Tokens
+2. Contacta a soporte para deshabilitar el token
+3. Genera un nuevo token
+4. Actualiza todas las aplicaciones
+5. Revisa la actividad reciente de API para llamadas sospechosas
+
+## Crear Nuevos Tokens
+
+<Note>
+La creación de tokens actualmente es gestionada por soporte de Meetzy. Contáctanos para solicitar tokens adicionales.
+</Note>
+
+La futura creación self-service de tokens incluirá:
+
+- Nombres de token personalizados
+- Configuración de expiración
+- Alcances de permisos
+- Límites de uso
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="book" href="/api-reference/introduction">
+    Aprende sobre los endpoints de API disponibles.
+  </Card>
+  <Card title="Crear una Llamada" icon="phone" href="/api-reference/endpoint/create">
+    Haz tu primera llamada a la API.
+  </Card>
+</CardGroup>

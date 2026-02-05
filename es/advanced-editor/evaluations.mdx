@@ -1,0 +1,212 @@
+---
+title: 'Evaluaciones'
+description: 'Crea pruebas automatizadas de calidad para tu agente de IA'
+icon: 'check-double'
+---
+
+## ¿Qué son las Evaluaciones?
+
+Las Evaluaciones son pruebas automatizadas que evalúan el rendimiento de tu agente después de cada llamada. Te ayudan a medir tasas de éxito, identificar problemas y mantener estándares de calidad en todas las conversaciones.
+
+<Info>
+Las Evaluaciones proporcionan métricas cuantitativas para rastrear el rendimiento de tu agente a lo largo del tiempo.
+</Info>
+
+## Cómo Funcionan las Evaluaciones
+
+Cada evaluación es una **pregunta de sí/no** que la IA analiza basándose en la transcripción de la conversación. Después de cada llamada, Meetzy ejecuta todas las evaluaciones configuradas y almacena los resultados.
+
+### Ejemplos de Evaluaciones
+
+| Evaluación | Pregunta |
+|------------|----------|
+| Cita Programada | ¿El cliente programó una cita? |
+| Cliente Satisfecho | ¿El cliente expresó satisfacción con el servicio? |
+| Problema Resuelto | ¿Se resolvió exitosamente el problema del cliente? |
+| Información Recopilada | ¿El agente recopiló toda la información requerida? |
+| Objeción Manejada | ¿El agente abordó exitosamente las objeciones del cliente? |
+
+## Creando Evaluaciones
+
+<Steps>
+  <Step title="Abrir Sección de Evaluaciones">
+    Navega a la sección de Evaluaciones en el panel izquierdo (icono ✅).
+  </Step>
+  <Step title="Añadir Evaluación">
+    Haz clic en "Añadir Evaluación" para crear una nueva prueba.
+  </Step>
+  <Step title="Ingresar Nombre">
+    Dale a tu evaluación un nombre descriptivo.
+  </Step>
+  <Step title="Escribir Pregunta">
+    Crea una pregunta clara de sí/no que pueda responderse desde la transcripción.
+  </Step>
+  <Step title="Guardar">
+    Guarda la evaluación para añadirla a tu agente.
+  </Step>
+</Steps>
+
+### Propiedades de Evaluación
+
+| Propiedad | Descripción | Ejemplo |
+|----------|-------------|---------|
+| Nombre | Identificador corto | "Cita Programada" |
+| Pregunta | Prompt sí/no para IA | "¿El cliente programó una cita durante esta llamada?" |
+
+## Escribiendo Preguntas Efectivas
+
+<Tip>
+Cuanto más clara sea tu pregunta, más precisos serán los resultados de evaluación.
+</Tip>
+
+### Buenas Preguntas
+
+- ✅ "¿El cliente aceptó programar una llamada de seguimiento?"
+- ✅ "¿El agente verificó la información de contacto del cliente?"
+- ✅ "¿Se abordó la preocupación principal del cliente durante la llamada?"
+- ✅ "¿El agente mencionó la promoción actual?"
+
+### Malas Preguntas
+
+- ❌ "¿Fue buena la llamada?" (muy vago)
+- ❌ "¿Qué tan satisfecho estaba el cliente?" (no es sí/no)
+- ❌ "Califica el rendimiento del agente" (no se puede responder desde transcripción)
+
+## Usando Plantillas
+
+Meetzy proporciona plantillas de evaluación predefinidas para casos de uso comunes:
+
+<Tabs>
+  <Tab title="Ventas">
+    - "¿El cliente expresó interés en el producto?"
+    - "¿Se discutieron los precios durante la llamada?"
+    - "¿El agente intentó cerrar la venta?"
+    - "¿Se abordaron todas las objeciones del cliente?"
+  </Tab>
+  <Tab title="Soporte">
+    - "¿Se resolvió el problema del cliente?"
+    - "¿El agente siguió el protocolo de troubleshooting?"
+    - "¿Fue necesaria una escalación?"
+    - "¿El cliente confirmó que su problema se solucionó?"
+  </Tab>
+  <Tab title="Citas">
+    - "¿Se programó una cita exitosamente?"
+    - "¿El agente confirmó los detalles de la cita?"
+    - "¿Se ofrecieron horarios alternativos si el slot preferido no estaba disponible?"
+    - "¿El cliente recibió confirmación de la cita?"
+  </Tab>
+</Tabs>
+
+### Aplicando Plantillas
+
+<Steps>
+  <Step title="Hacer Clic en Plantillas">
+    Haz clic en el botón "Plantillas" en la sección de Evaluaciones.
+  </Step>
+  <Step title="Explorar Categorías">
+    Selecciona una categoría relevante para tu caso de uso.
+  </Step>
+  <Step title="Seleccionar Evaluaciones">
+    Elige qué evaluaciones añadir.
+  </Step>
+  <Step title="Personalizar">
+    Modifica las preguntas para que coincidan con tus necesidades específicas.
+  </Step>
+</Steps>
+
+## Gestionando Evaluaciones
+
+### Editando Evaluaciones
+
+1. Haz clic en el icono de editar (✏️) junto a cualquier evaluación
+2. Modifica el nombre o pregunta
+3. Guarda cambios
+
+### Eliminando Evaluaciones
+
+1. Haz clic en el icono de eliminar (🗑️) junto a la evaluación
+2. Confirma eliminación
+
+<Warning>
+Eliminar una evaluación la quita de futuras llamadas. Los datos históricos de evaluación se preservan.
+</Warning>
+
+### Reordenando Evaluaciones
+
+Arrastra y suelta evaluaciones para cambiar su orden de visualización.
+
+## Viendo Resultados
+
+Los resultados de evaluación están disponibles en múltiples lugares:
+
+| Ubicación | Lo Que Ves |
+|----------|--------------|
+| Detalles de Llamada | Resultados individuales de evaluación para cada llamada |
+| Panel de Analíticas | Tasas de éxito agregadas a lo largo del tiempo |
+| Salida de Webhook | Datos crudos de evaluación enviados a tus sistemas |
+| Respuesta API | Acceso programático a resultados |
+
+## Mejores Prácticas
+
+<AccordionGroup>
+  <Accordion title="Comienza Simple" icon="circle-1">
+    Empieza con 3-5 evaluaciones core que midan tus KPIs más importantes.
+  </Accordion>
+  <Accordion title="Sé Específico" icon="bullseye">
+    Cuanto más específica sea tu pregunta, más confiable será la evaluación.
+  </Accordion>
+  <Accordion title="Evita Solapamiento" icon="layer-group">
+    No crees múltiples evaluaciones que midan lo mismo.
+  </Accordion>
+  <Accordion title="Revisa Regularmente" icon="calendar-check">
+    Revisa periódicamente los resultados de evaluación para calibrar preguntas.
+  </Accordion>
+  <Accordion title="Usa para Entrenamiento" icon="graduation-cap">
+    Evaluaciones con puntuaciones bajas destacan áreas de mejora del agente.
+  </Accordion>
+</AccordionGroup>
+
+## Patrones Comunes de Evaluación
+
+### Logro de Objetivo
+```
+Nombre: Objetivo Principal Cumplido
+Pregunta: ¿La llamada logró su objetivo principal (venta, cita, resolución, etc.)?
+```
+
+### Cumplimiento
+```
+Nombre: Divulgación Realizada
+Pregunta: ¿El agente proporcionó la divulgación legal requerida al comienzo de la llamada?
+```
+
+### Calidad
+```
+Nombre: Tono Profesional
+Pregunta: ¿El agente mantuvo un tono profesional y cortés durante toda la llamada?
+```
+
+### Recopilación de Datos
+```
+Nombre: Info de Contacto Verificada
+Pregunta: ¿El agente verificó o recopiló el email y número de teléfono del cliente?
+```
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba evaluaciones en tiempo real
+  </Card>
+  <Card
+    title="Configuración de Salida"
+    icon="arrow-right-from-bracket"
+    href="/es/advanced-editor/output-settings"
+  >
+    Incluye evaluaciones en webhooks
+  </Card>
+</CardGroup>

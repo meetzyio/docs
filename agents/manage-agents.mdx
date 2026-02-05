@@ -1,0 +1,167 @@
+---
+title: 'Manage Agents'
+description: 'Learn how to view, edit, duplicate, and manage your voice agents in the Meetzy dashboard'
+---
+
+## Agents Overview
+
+The **Agents** section displays all your voice agents in a split-panel layout:
+
+| Panel | Content |
+|-------|---------|
+| **Left Panel** | Agent list with search and filters |
+| **Right Panel** | Details and actions for selected agent |
+
+## Search and Filter Agents
+
+### Search by Name
+
+Use the search field at the top of the left panel to filter agents by name.
+
+### Filter by Company
+
+If you have access to multiple companies, filter agents by organization:
+
+1. Click the **"All companies"** dropdown
+2. Search or select the desired company
+3. The list shows only agents from that company
+
+<Tip>
+  Use the **Clear Filters** button to reset all active filters.
+</Tip>
+
+## View Agent Details
+
+Click any agent to view its details in the right panel:
+
+### Information Displayed
+
+| Element | Description |
+|---------|-------------|
+| **Agent Name** | The identifier you assigned |
+| **Agent ID** | Unique identifier (click to copy) |
+| **Status Badges** | Training, Pause, Demo, or active version |
+| **Advanced Badge** | Indicates Advanced Editor is enabled |
+| **Phone Health** | Phone number health indicator |
+
+### Recent Calls
+
+The panel shows the last 200 calls with:
+
+| Column | Description |
+|--------|-------------|
+| ID | Call identifier |
+| Date | When the call occurred |
+| Duration | Call length |
+| Status | Completed, failed, etc. |
+| Destination | Called number |
+
+<Note>
+  Click **View All** to open the full calls page with more filtering options.
+</Note>
+
+## Edit an Agent
+
+### Advanced Editor Agents
+
+If the agent has the **"advanced"** badge, click the **Advanced Editor** button to open it.
+
+You can modify:
+- Basic settings
+- Greetings
+- System prompt
+- Knowledge Base
+- Actions & Tools
+- Output settings
+
+### Standard Agents
+
+For agents without the "advanced" badge, editing options are limited to the basic configuration panel.
+
+## Duplicate an Agent
+
+<Note>
+  Clone functionality is only available for admin users and advanced agents.
+</Note>
+
+To duplicate an agent:
+
+1. Select the agent in the list
+2. Click the **Clone Agent** button
+3. A copy is created with the name "[Original Name] (Copy)"
+4. Assign a phone number to the new agent
+
+Use cases for duplicating:
+- Create variants for A/B testing
+- Adapt an existing agent for another department
+- Maintain a backup version
+
+## Make Test Calls
+
+Each agent has an **Init Call** button that reveals testing options:
+
+### Inbound Call (Testing)
+
+The agent's phone number is displayed:
+
+```
+Phone to test inbound call:
++1 555 123 4567 [Copy]
+```
+
+To test:
+1. Copy the number or click to call
+2. Call from your personal phone
+3. The agent responds according to its configuration
+
+### Outbound Call (Testing)
+
+A form displays with configured fields:
+
+To test:
+1. Fill in required fields
+2. Select voice (optional)
+3. Click **Call Now**
+4. You'll receive the call at the specified number
+
+<Warning>
+  Test calls consume minutes from your plan just like regular calls.
+</Warning>
+
+### Version Selector (Advanced Agents)
+
+For advanced agents, you can select which version to test:
+
+```
+Agent Version (optional):
+- Production version (default)
+- v.1 - Initial version (Production)
+- v.2 - Greeting improvements
+- v.3 - New conversation flow
+```
+
+## Demo Agents
+
+Agents marked as **Demo** appear in a separate collapsible section:
+
+Demo agents are example templates you can use as reference.
+
+## Quick Actions
+
+| Action | How to Do It |
+|--------|--------------|
+| Copy ID | Click the copy icon next to the ID |
+| Refresh calls | **Refresh** button in calls panel |
+| View all calls | **View All** button to open calls page |
+| Close panel | Click X or select another agent |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Phone Numbers" icon="phone" href="/agents/phone-numbers">
+    Learn to assign and manage phone numbers.
+  </Card>
+  <Card title="Phone Health" icon="heart-pulse" href="/agents/phone-health">
+    Monitor your phone numbers' health.
+  </Card>
+</CardGroup>

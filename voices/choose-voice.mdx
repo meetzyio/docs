@@ -1,0 +1,233 @@
+---
+title: 'Choose a Voice'
+description: 'Browse and select from the available voice catalog for your AI agents'
+icon: 'microphone'
+---
+
+## Voice Library Overview
+
+The Voice Library is where you browse, preview, and select voices for your AI agents. Each voice has unique characteristics including gender, language support, and tonal qualities that affect how your agent sounds to callers.
+
+<Info>
+The right voice significantly impacts caller perception and engagement. Take time to find one that matches your brand and use case.
+</Info>
+
+## Accessing the Voice Library
+
+Navigate to **Voices** in the main navigation menu to access the Voice Library.
+
+## Browsing Voices
+
+The Voice Library displays all available voices in a table format:
+
+| Column | Description |
+|--------|-------------|
+| ID | Unique voice identifier |
+| Name | Voice name |
+| Gender | Male, Female, or Neutral |
+| Languages | Supported languages |
+| Sample | Play a sample |
+| Custom Audio | Generate custom samples |
+
+### Searching Voices
+
+Use the search bar to filter voices by:
+- Name
+- Description
+- Language
+- Labels
+
+<Tip>
+Search for specific characteristics like "warm", "professional", or "friendly" to find voices that match your needs.
+</Tip>
+
+## Previewing Voices
+
+### Playing Samples
+
+Each voice has a pre-recorded sample:
+
+<Steps>
+  <Step title="Find the Voice">
+    Locate the voice you want to preview.
+  </Step>
+  <Step title="Click Play">
+    Click the "▶️ Play" button in the Sample column.
+  </Step>
+  <Step title="Listen">
+    The sample plays through your speakers.
+  </Step>
+  <Step title="Stop">
+    Click "⏹️ Stop" to end playback.
+  </Step>
+</Steps>
+
+### Generating Custom Audio
+
+Test voices with your own text:
+
+<Steps>
+  <Step title="Enter Text">
+    Type your custom text in the "Custom Text for Audio Generation" field.
+  </Step>
+  <Step title="Click Generate">
+    Click "Generate" on the voice row you want to test.
+  </Step>
+  <Step title="Play">
+    Once generated, click "▶️ Play" to hear the result.
+  </Step>
+  <Step title="Download (Optional)">
+    Click "⬇️ Download" to save the audio file.
+  </Step>
+</Steps>
+
+<Tip>
+Use a sample greeting or common phrase from your use case to get an accurate preview of how the voice will sound.
+</Tip>
+
+## Voice Settings
+
+Fine-tune voice characteristics using the settings panel:
+
+### Speed
+
+| Range | Description |
+|-------|-------------|
+| 0.70x | Slower speech |
+| 1.00x | Normal speed |
+| 1.20x | Faster speech |
+
+**Best practice:** Start with 1.00x and adjust based on testing.
+
+### Naturalness (Stability)
+
+| Value | Description |
+|-------|-------------|
+| 0.0 | More natural, slight variations |
+| 0.5 | Balanced |
+| 1.0 | More consistent, less natural |
+
+**Best practice:** Lower values (0.2-0.4) typically sound more human.
+
+### Consistency (Similarity Boost)
+
+| Value | Description |
+|-------|-------------|
+| 0.0 | More variation |
+| 0.5 | Balanced |
+| 1.0 | Maximum consistency |
+
+<Warning>
+High consistency values may cause audio artifacts. Test thoroughly before using values above 0.7.
+</Warning>
+
+## Selecting a Voice for Your Agent
+
+Once you've found the right voice:
+
+<Steps>
+  <Step title="Note the Voice ID or Name">
+    Remember or copy the voice identifier.
+  </Step>
+  <Step title="Open Advanced Editor">
+    Navigate to your agent in the Advanced Editor.
+  </Step>
+  <Step title="Go to Basic Settings">
+    Open the Basic Settings section.
+  </Step>
+  <Step title="Select Voice">
+    Choose the voice from the dropdown.
+  </Step>
+  <Step title="Save">
+    Save your agent configuration.
+  </Step>
+</Steps>
+
+## Voice Characteristics
+
+### By Gender
+
+<Tabs>
+  <Tab title="Female">
+    - Generally perceived as friendly and approachable
+    - Popular for customer service and support
+    - Works well for healthcare and wellness
+  </Tab>
+  <Tab title="Male">
+    - Often perceived as authoritative
+    - Popular for finance and legal
+    - Works well for technical support
+  </Tab>
+  <Tab title="Neutral">
+    - Gender-neutral option
+    - Works for diverse audiences
+    - Modern and inclusive
+  </Tab>
+</Tabs>
+
+### By Use Case
+
+| Use Case | Recommended Characteristics |
+|----------|----------------------------|
+| Customer Support | Warm, patient, clear |
+| Sales | Energetic, persuasive, confident |
+| Healthcare | Calm, reassuring, professional |
+| Finance | Trustworthy, professional, clear |
+| Technology | Modern, clear, knowledgeable |
+
+## Language Support
+
+Voices may support one or multiple languages. Check the "Languages" column to ensure compatibility with your agent's language setting.
+
+**Supported Languages include:**
+- 🇺🇸 English (US)
+- 🇬🇧 English (UK)
+- 🇪🇸 Spanish
+- 🇫🇷 French
+- 🇩🇪 German
+- 🇮🇹 Italian
+- 🇵🇹 Portuguese
+- And more...
+
+<Warning>
+Using a voice with a language it doesn't support will result in poor quality or incorrect pronunciation.
+</Warning>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Match Brand Voice" icon="wand-magic-sparkles">
+    Choose a voice that aligns with your brand personality. A luxury brand might want a sophisticated voice, while a tech startup might prefer a modern, casual one.
+  </Accordion>
+  <Accordion title="Consider Your Audience" icon="users">
+    Think about who will be receiving calls. Different demographics may respond better to different voice characteristics.
+  </Accordion>
+  <Accordion title="Test with Real Content" icon="flask">
+    Generate custom audio using actual phrases from your scripts to hear how the voice handles your specific content.
+  </Accordion>
+  <Accordion title="Check Language Quality" icon="language">
+    If using non-English languages, test pronunciation of common terms and names.
+  </Accordion>
+  <Accordion title="Adjust Settings" icon="sliders">
+    Fine-tune speed and naturalness to match your use case. Support calls might benefit from slower, clearer speech.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Voice Designer"
+    icon="palette"
+    href="/voices/voice-designer"
+  >
+    Create custom voices
+  </Card>
+  <Card
+    title="Basic Settings"
+    icon="gear"
+    href="/advanced-editor/basic-settings"
+  >
+    Configure agent voice settings
+  </Card>
+</CardGroup>

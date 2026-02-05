@@ -1,0 +1,187 @@
+---
+title: 'Detalles de Llamada'
+description: 'Ver transcripción, grabación, datos de entrada/salida y más para cada llamada'
+icon: 'file-lines'
+---
+
+# Detalles de Llamada
+
+Cada llamada genera datos detallados que te ayudan a entender qué sucedió durante la conversación. El modal de Detalles de Llamada proporciona acceso a toda la información capturada.
+
+## Abrir Detalles de Llamada
+
+Haz clic en cualquier fila de la tabla de Historial de Llamadas, o haz clic en el botón **View** para abrir el modal de detalles.
+
+## Diseño del Modal
+
+El modal de Detalles está organizado en un layout de tres columnas:
+
+| Panel | Contenido |
+|-------|-----------|
+| ⬅️ Izquierda | Parámetros de Entrada (JSON) |
+| 📊 Centro | Información de la Llamada |
+| ➡️ Derecha | Respuesta de Salida (JSON) |
+
+## Parámetros de Entrada
+
+El panel izquierdo muestra el JSON de entrada enviado para iniciar la llamada:
+
+```json
+{
+  "phone": "+1234567890",
+  "customer_name": "Juan García",
+  "appointment_date": "2024-02-15",
+  "custom_fields": {
+    "order_id": "ORD-12345"
+  }
+}
+```
+
+### Funcionalidades
+
+- **Botón Copiar** - Copia todo el JSON al portapapeles
+- **Resaltado de Sintaxis** - JSON con colores para legibilidad
+- **Expandible** - Scroll para payloads grandes
+
+## Información de la Llamada
+
+El panel central muestra metadatos clave:
+
+| Campo | Descripción |
+|-------|-------------|
+| Call ID | Identificador único (monoespaciado, copiable) |
+| Status | Estado actual con badge de color |
+| Success | Indicador ✓ Sí o ✗ No |
+| Playbook | Nombre del agente que manejó la llamada |
+| Duration | Duración en formato legible |
+| From | Número de teléfono origen |
+| To | Número de teléfono destino |
+| Email | Email del contacto (si se proporcionó) |
+| Created Time | Timestamp de inicio de la llamada |
+| Tags | Etiquetas aplicadas a esta llamada |
+
+### Badges de Estado
+
+| Estado | Color | Descripción |
+|--------|-------|-------------|
+| completed | 🟢 Verde | Llamada terminada normalmente |
+| in-progress | 🔵 Azul | Llamada actualmente activa |
+| failed | 🔴 Rojo | Llamada con error |
+| transferred | 🟣 Morado | Llamada transferida |
+| no-answer | ⚪ Gris | El destinatario no contestó |
+
+## Respuesta de Salida
+
+El panel derecho muestra el JSON de salida con todos los datos capturados:
+
+```json
+{
+  "transcription": "Agente: Hola, soy Sara de...",
+  "summary": "El cliente confirmó la cita para...",
+  "sentiment": "positive",
+  "output_params": {
+    "appointment_confirmed": true,
+    "preferred_time": "morning",
+    "callback_requested": false
+  },
+  "evaluations": {
+    "successful_greeting": true,
+    "collected_requirements": true
+  }
+}
+```
+
+### Contenido de Salida
+
+<AccordionGroup>
+  <Accordion title="Transcripción">
+    Transcripción completa de la conversación entre el agente y el llamante, con etiquetas de hablante.
+  </Accordion>
+  <Accordion title="Resumen">
+    Resumen generado por IA de los puntos clave y resultados de la llamada.
+  </Accordion>
+  <Accordion title="Parámetros de Salida">
+    Datos estructurados extraídos de la conversación según tu configuración de Output Settings.
+  </Accordion>
+  <Accordion title="Evaluaciones">
+    Resultados de evaluaciones automáticas definidas en la configuración del agente.
+  </Accordion>
+  <Accordion title="Tool Calls">
+    Si el agente invocó herramientas o webhooks, sus peticiones y respuestas se incluyen.
+  </Accordion>
+</AccordionGroup>
+
+## Información de Webhook
+
+Si tu agente tiene un webhook configurado, la parte inferior del panel derecho muestra:
+
+| Campo | Valor |
+|-------|-------|
+| Method | POST, GET, etc. |
+| URL | Endpoint del webhook |
+| Auth | Header de autorización (oculto) |
+
+<Info>
+La sección de webhook solo aparece si se configuró y ejecutó un webhook para esta llamada.
+</Info>
+
+## Reproducción de Grabación
+
+Si la grabación de llamadas está habilitada:
+
+1. Aparece un reproductor de audio en la parte superior del modal
+2. Controles incluyen play/pause, seek y volumen
+3. Opción de descarga disponible para acceso offline
+
+<Warning>
+Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Descarga grabaciones importantes para almacenamiento permanente.
+</Warning>
+
+## Copiar Datos
+
+### Botones de Copiar
+
+- **Copy Input** - Copia todo el JSON de entrada
+- **Copy Output** - Copia todo el JSON de salida
+- **Copy Call ID** - Copia solo el identificador de llamada
+
+### Feedback
+
+Cuando copias datos:
+- El botón cambia a "Copied!" con un checkmark
+- Vuelve a la normalidad después de 2 segundos
+
+## Casos de Uso Comunes
+
+<CardGroup cols={2}>
+  <Card title="Debugging" icon="bug">
+    Revisa params de entrada y salida para diagnosticar problemas.
+  </Card>
+  <Card title="Control de Calidad" icon="check-double">
+    Escucha grabaciones y verifica transcripciones para asegurar calidad.
+  </Card>
+  <Card title="Verificación de Integración" icon="plug">
+    Verifica que los datos del webhook se enviaron correctamente.
+  </Card>
+  <Card title="Datos de Entrenamiento" icon="graduation-cap">
+    Exporta detalles de llamadas para mejorar prompts de agentes.
+  </Card>
+</CardGroup>
+
+## Atajos de Teclado
+
+| Atajo | Acción |
+|-------|--------|
+| `Esc` | Cerrar el modal |
+| Clic fuera | Cerrar el modal |
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Historial de Llamadas" icon="list" href="/es/calls/call-history">
+    Volver a buscar y filtrar llamadas.
+  </Card>
+  <Card title="Reportes" icon="chart-line" href="/es/calls/reporting">
+    Genera reportes de tus datos de llamadas.
+  </Card>
+</CardGroup>

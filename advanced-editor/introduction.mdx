@@ -1,0 +1,139 @@
+---
+title: 'Introduction to Advanced Editor'
+description: 'Learn about the Advanced Editor and when to use it for creating powerful AI agents'
+icon: 'wand-magic-sparkles'
+---
+
+## What is the Advanced Editor?
+
+The **Advanced Editor** is Meetzy's comprehensive agent configuration tool that gives you full control over every aspect of your AI agent's behavior. It provides a professional-grade interface for creating, testing, and deploying conversational AI agents.
+
+<Info>
+The Advanced Editor is the recommended tool for creating production-ready agents with custom behaviors, integrations, and advanced logic.
+</Info>
+
+## When to Use the Advanced Editor
+
+| Scenario | Recommended Tool |
+|----------|-----------------|
+| Creating a new agent from scratch | ✅ Advanced Editor |
+| Fine-tuning agent responses | ✅ Advanced Editor |
+| Adding knowledge base documents | ✅ Advanced Editor |
+| Configuring webhook integrations | ✅ Advanced Editor |
+| Testing agent in real-time | ✅ Advanced Editor |
+| Quick agent duplication | Agents Dashboard |
+
+## Interface Overview
+
+The Advanced Editor is divided into two main panels:
+
+### Left Panel - Configuration
+
+The left panel contains all configuration sections accessible via an icon bar:
+
+| Icon | Section | Description |
+|------|---------|-------------|
+| ⚙️ | Basic Settings | Name, language, voice, LLM model |
+| 👋 | Greetings | Welcome messages for inbound/outbound calls |
+| 📄 | System Prompt | Agent personality and instructions |
+| 📥 | Input Params | Dynamic variables for personalized calls |
+| 📚 | Knowledge Base | Documents, FAQs, and reference materials |
+| 🔧 | Actions & Tools | Integrations, transfers, webhooks |
+| ✅ | Evaluations | Automated quality tests |
+| 📤 | Output Settings | Data extraction and webhooks |
+
+### Right Panel - Testing & Tools
+
+| Tab | Purpose |
+|-----|---------|
+| 🎮 Playground | Test your agent in real-time with text or voice |
+| 🤖 Copilot | AI assistant to help improve your prompts |
+| 📜 Version History | Track changes and rollback if needed |
+
+## Top Toolbar
+
+The toolbar provides quick actions:
+
+| Action | Description |
+|--------|-------------|
+| ← Back | Return to agents list |
+| 🏷️ Version | Current version indicator |
+| ✓ Save | Save current changes |
+| ⬇️ Export | Download agent configuration |
+| 🚀 Publish | Deploy changes to production |
+
+## Workflow Best Practices
+
+<Steps>
+  <Step title="Configure Basic Settings">
+    Start with name, language, voice selection, and LLM model choice.
+  </Step>
+  <Step title="Set Up Greetings">
+    Define how your agent introduces itself for different call types.
+  </Step>
+  <Step title="Write System Prompt">
+    Describe your agent's role, personality, and conversation guidelines.
+  </Step>
+  <Step title="Add Knowledge Base">
+    Upload documents and FAQs the agent can reference.
+  </Step>
+  <Step title="Configure Actions">
+    Set up call transfers, webhooks, and other integrations.
+  </Step>
+  <Step title="Define Output">
+    Specify what data to extract from each call.
+  </Step>
+  <Step title="Test in Playground">
+    Validate agent behavior before publishing.
+  </Step>
+  <Step title="Publish">
+    Deploy your agent to production.
+  </Step>
+</Steps>
+
+## Key Concepts
+
+<AccordionGroup>
+  <Accordion title="Versions & Branches" icon="code-branch">
+    The Advanced Editor supports Git-like version control. You can create branches, track changes, and rollback to previous versions if needed.
+  </Accordion>
+  <Accordion title="Live vs Development" icon="rocket">
+    You can work on changes in development mode and only push them to production (Live) when you're satisfied with the results.
+  </Accordion>
+  <Accordion title="Real-time Testing" icon="play">
+    The Playground allows you to test your agent instantly without making actual phone calls, saving time and money.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Basic Settings"
+    icon="gear"
+    href="/advanced-editor/basic-settings"
+  >
+    Configure name, language, voice, and AI model
+  </Card>
+  <Card
+    title="Knowledge Base"
+    icon="book"
+    href="/advanced-editor/knowledge-base"
+  >
+    Add documents and FAQs for your agent
+  </Card>
+  <Card
+    title="Actions & Tools"
+    icon="wrench"
+    href="/advanced-editor/actions-tools"
+  >
+    Set up integrations and webhooks
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test your agent in real-time
+  </Card>
+</CardGroup>

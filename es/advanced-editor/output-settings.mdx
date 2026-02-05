@@ -1,0 +1,239 @@
+---
+title: 'Configuración de Salida'
+description: 'Configura qué datos extrae tu agente de cada llamada'
+icon: 'arrow-right-from-bracket'
+---
+
+## ¿Qué es la Configuración de Salida?
+
+La Configuración de Salida define qué información debe extraer y capturar tu agente de cada conversación. Estos datos están disponibles vía webhooks o API para uso en tu CRM, analíticas u otros sistemas.
+
+<Info>
+Una configuración de salida bien definida convierte cada llamada en datos estructurados y accionables.
+</Info>
+
+## Parámetros de Salida
+
+Los Parámetros de Salida son campos personalizados que tu agente extrae de la conversación.
+
+### Creando Parámetros de Salida
+
+<Steps>
+  <Step title="Abrir Configuración de Salida">
+    Navega a la sección de Configuración de Salida en el panel izquierdo.
+  </Step>
+  <Step title="Añadir Parámetro">
+    Haz clic en "Añadir Parámetro de Salida" para crear un nuevo campo.
+  </Step>
+  <Step title="Configurar Propiedades">
+    Establece nombre, tipo y descripción para el parámetro.
+  </Step>
+</Steps>
+
+### Propiedades del Parámetro
+
+| Propiedad | Descripción | Ejemplo |
+|----------|-------------|---------|
+| Nombre | Identificador del campo | `interes_cliente` |
+| Tipo | Tipo de dato | string, number, boolean |
+| Descripción | Qué extraer | "Producto en el que el cliente está interesado" |
+
+### Tipos de Datos
+
+| Tipo | Caso de Uso | Valor de Ejemplo |
+|------|----------|---------------|
+| String | Nombres, productos, feedback | "Plan Premium" |
+| Number | Cantidades, calificaciones | 4.5 |
+| Boolean | Decisiones sí/no | true |
+
+### Ejemplo de Parámetros de Salida
+
+```json
+{
+  "interes_cliente": "string",
+  "cita_programada": "boolean",
+  "fecha_preferida": "string",
+  "puntuacion_satisfaccion": "number",
+  "seguimiento_necesario": "boolean"
+}
+```
+
+## Modos de Edición
+
+Puedes configurar parámetros de salida usando dos modos:
+
+### Modo UX (Visual)
+
+<Steps>
+  <Step title="Añadir Parámetro">
+    Haz clic en el botón "+" para añadir un nuevo campo de salida.
+  </Step>
+  <Step title="Configurar Detalles">
+    Rellena nombre, tipo y descripción en el formulario.
+  </Step>
+  <Step title="Reordenar">
+    Arrastra y suelta para reordenar parámetros.
+  </Step>
+</Steps>
+
+### Modo Texto (JSON)
+
+Para usuarios avanzados, cambia al Modo Texto para editar parámetros como JSON:
+
+```json
+[
+  {
+    "name": "interes_cliente",
+    "type": "string",
+    "description": "Producto o servicio en el que el cliente está interesado"
+  },
+  {
+    "name": "cita_programada",
+    "type": "boolean",
+    "description": "Si se programó una cita exitosamente"
+  },
+  {
+    "name": "puntuacion_satisfaccion",
+    "type": "number",
+    "description": "Calificación de satisfacción del cliente del 1-5"
+  }
+]
+```
+
+<Tip>
+El Modo Texto es útil al copiar configuraciones entre agentes o importar desde fuentes externas.
+</Tip>
+
+## Enriquecimiento de Salida
+
+Habilita campos predefinidos adicionales para incluir en tu salida:
+
+| Campo | Descripción |
+|-------|-------------|
+| 📝 Transcripción | Transcripción completa de la conversación |
+| 📋 Resumen | Resumen de llamada generado por IA |
+| ✅ Estado de Éxito | Si la llamada logró su objetivo |
+| 🆔 ID de Llamada | Identificador único de llamada |
+| 🤖 ID de Agente | Identificador del agente/playbook |
+| ⏱️ Duración | Duración de llamada en segundos |
+| 📅 Creado | Timestamp de inicio de llamada |
+| 📊 Estado de Llamada | Estado final de la llamada |
+| ✅ Evaluaciones | Resultados de tests de evaluación |
+
+<Info>
+Habilita solo los campos que necesites para mantener los payloads de webhook manejables.
+</Info>
+
+## Configuración de Webhook
+
+Envía resultados de llamadas a tus sistemas externos automáticamente.
+
+### Configurando Webhooks
+
+<Steps>
+  <Step title="Habilitar Webhook">
+    Activa la opción de webhook en Configuración de Salida.
+  </Step>
+  <Step title="Ingresar URL">
+    Proporciona el endpoint que recibirá los datos.
+  </Step>
+  <Step title="Seleccionar Método">
+    Elige método HTTP (típicamente POST).
+  </Step>
+  <Step title="Añadir Autenticación">
+    Configura headers de autenticación si es necesario.
+  </Step>
+</Steps>
+
+### Opciones de Configuración de Webhook
+
+| Ajuste | Descripción |
+|---------|-------------|
+| URL | Tu endpoint de webhook |
+| Método | GET, POST, PUT, DELETE |
+| Header Auth | Autenticación (ej., Bearer token) |
+
+### Ejemplo de Payload de Webhook
+
+```json
+{
+  "call_id": "llamada_abc123",
+  "agent_id": "agente_xyz789",
+  "created_at": "2024-01-15T10:30:00Z",
+  "duration": 245,
+  "status": "completed",
+  "success": true,
+  "output_params": {
+    "interes_cliente": "Plan Premium",
+    "cita_programada": true,
+    "fecha_preferida": "2024-01-20",
+    "puntuacion_satisfaccion": 5
+  },
+  "transcription": "...",
+  "summary": "El cliente preguntó sobre el Plan Premium y programó una cita para el 20 de enero."
+}
+```
+
+## Mejores Prácticas
+
+<Warning>
+Escribe descripciones claras para parámetros de salida. La IA usa estas descripciones para entender qué extraer.
+</Warning>
+
+1. **Sé Específico** - "Rango de presupuesto del cliente" es mejor que "presupuesto"
+2. **Usa Tipos Apropiados** - Boolean para sí/no, number para cantidades
+3. **Mantén Relevancia** - Solo captura datos que realmente usarás
+4. **Prueba Extracción** - Usa el Playground para verificar extracción correcta
+5. **Asegura Webhooks** - Siempre usa autenticación para datos sensibles
+
+## Patrones Comunes de Salida
+
+### Llamadas de Ventas
+```json
+{
+  "producto_interesado": "string",
+  "rango_presupuesto": "string",
+  "plazo_decision": "string",
+  "seguimiento_necesario": "boolean",
+  "puntuacion_lead": "number"
+}
+```
+
+### Soporte al Cliente
+```json
+{
+  "tipo_incidencia": "string",
+  "estado_resolucion": "string",
+  "puntuacion_satisfaccion": "number",
+  "escalado_necesario": "boolean"
+}
+```
+
+### Programación de Citas
+```json
+{
+  "fecha_cita": "string",
+  "hora_cita": "string",
+  "servicio_solicitado": "string",
+  "confirmacion_enviada": "boolean"
+}
+```
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Saludos"
+    icon="hand-wave"
+    href="/es/advanced-editor/greetings"
+  >
+    Configura mensajes de bienvenida
+  </Card>
+  <Card
+    title="Evaluaciones"
+    icon="check-double"
+    href="/es/advanced-editor/evaluations"
+  >
+    Configura tests de calidad
+  </Card>
+</CardGroup>

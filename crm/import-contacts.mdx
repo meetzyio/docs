@@ -1,0 +1,228 @@
+---
+title: 'Import Contacts'
+description: 'Import contacts from Excel files or Google Sheets'
+icon: 'file-import'
+---
+
+# Import Contacts
+
+Meetzy allows you to import contacts in bulk from Excel files (.xlsx, .xls, .xlsm) or directly from Google Sheets. This enables you to quickly populate your contact database for campaigns.
+
+## Import Methods
+
+| Method | Description | Requirements |
+|--------|-------------|--------------|
+| 📊 Excel | Upload .xlsx, .xls, or .xlsm files | File up to 10MB |
+| 📗 Google Sheets | Connect directly to your spreadsheets | Google account integration |
+
+## Import Wizard
+
+The import process follows three steps:
+
+<Steps>
+  <Step title="Upload / Select">
+    Choose your source file or spreadsheet.
+  </Step>
+  <Step title="Configure">
+    Map columns and set import options.
+  </Step>
+  <Step title="Import">
+    Process contacts and view results.
+  </Step>
+</Steps>
+
+## Excel Import
+
+### Uploading a File
+
+1. Navigate to **CRM** → **Import Contacts**
+2. Select **Import from Excel**
+3. Drag and drop your file or click to browse
+4. Supported formats: `.xlsx`, `.xls`, `.xlsm`
+5. Maximum file size: 10MB
+
+<Tip>
+Drag and drop works directly on the upload zone. The border turns green when a valid file is detected.
+</Tip>
+
+### File Validation
+
+Once uploaded, the system analyzes your file:
+
+| Analysis | Description |
+|----------|-------------|
+| Total Rows | Number of data rows detected |
+| Valid Phones | Rows with valid phone numbers |
+| Duplicates | Duplicate phone numbers found |
+| No Phone | Rows missing phone numbers |
+
+<Warning>
+Rows without phone numbers will be skipped during import. Ensure your phone column is properly formatted.
+</Warning>
+
+## Google Sheets Import
+
+### Connecting Google Sheets
+
+If not connected:
+
+1. Click **Connect Google Sheets**
+2. Authorize with your Google account
+3. Grant access to your spreadsheets
+
+### Selecting a Spreadsheet
+
+1. Browse your available spreadsheets
+2. Use the search bar to find specific files
+3. Click on a spreadsheet to select it
+4. The system validates the sheet structure
+
+## Column Mapping
+
+### Required Fields
+
+| Field | Description | Required |
+|-------|-------------|----------|
+| Phone | Contact phone number | ✅ Yes |
+| Name | Contact name | No |
+| Email | Contact email | No |
+
+### Mapping Columns
+
+1. For each field, select the corresponding column from your file
+2. Preview data updates in real-time
+3. Highlighted columns indicate mapped fields
+
+### Custom Fields
+
+Add additional columns as custom fields:
+
+1. View available unmapped columns
+2. Click on a column name to include it
+3. Custom fields are stored with the contact
+4. Use them in agent prompts with input parameters
+
+<Info>
+Columns already mapped to standard fields (Phone, Name, Email) cannot be added as custom fields.
+</Info>
+
+## Data Preview
+
+Before importing, review your data:
+
+- First rows are displayed in a preview table
+- Mapped columns are highlighted in green
+- Verify data looks correct before proceeding
+
+## Sheet Selection
+
+If your file contains multiple sheets:
+
+1. A dropdown appears to select the sheet
+2. Choose the sheet containing your contacts
+3. Mapping updates based on the selected sheet's columns
+
+## Segment Assignment
+
+All imported contacts are automatically added to a segment:
+
+1. Enter a **Segment Name**
+2. This creates a new segment with your imports
+3. Use segments for targeted campaigns
+
+<Tip>
+Use descriptive segment names like "February 2024 Leads" or "Real Estate Prospects" for easy identification.
+</Tip>
+
+## Admin Features
+
+For admin users:
+
+### Company Selection
+
+1. A company selector appears at the top
+2. Search for a company by name
+3. Select to import contacts to that company
+4. "My Account" imports to your own account
+
+## Import Process
+
+Once configuration is complete:
+
+1. Click **Start Import**
+2. A progress circle shows completion percentage
+3. Live stats display:
+   - New contacts created
+   - Existing contacts updated
+   - Rows skipped
+
+### Import Duration
+
+Processing time depends on:
+- Number of rows
+- Network speed
+- Server load
+
+Large imports (10,000+ rows) may take several minutes.
+
+## Import Report
+
+After completion, you'll see:
+
+| Metric | Description |
+|--------|-------------|
+| ✅ Imported | New contacts created |
+| 🔄 Updated | Existing contacts updated |
+| ⏭️ Skipped | Rows not imported |
+| 📊 In Segment | Total contacts in segment |
+
+### Error Details
+
+If errors occurred:
+
+- View the errors table
+- Each row shows: Row number, Phone, Error message
+- Common errors: Invalid phone format, missing required data
+
+### Quick Actions
+
+- **View Segment** - Go to the created segment
+- **Import More** - Start a new import
+- **View All Contacts** - Browse your CRM
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Clean Data First" icon="broom">
+    Remove duplicates and format phone numbers before importing.
+  </Card>
+  <Card title="Use Headers" icon="heading">
+    Ensure your first row contains column headers for accurate mapping.
+  </Card>
+  <Card title="Phone Format" icon="phone">
+    Include country codes (e.g., +1 for US, +34 for Spain).
+  </Card>
+  <Card title="Test Small" icon="flask">
+    Test with a small batch first to verify mapping works correctly.
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "No phone numbers found" | Verify your phone column is selected correctly |
+| "Invalid phone format" | Add country codes to phone numbers |
+| "File too large" | Split into multiple files under 10MB |
+| "Google Sheets not connected" | Go to Integrations to reconnect |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Manage Contacts" icon="address-book" href="/crm/manage-contacts">
+    View and edit your imported contacts.
+  </Card>
+  <Card title="Segments" icon="layer-group" href="/crm/segments">
+    Organize contacts into targeted groups.
+  </Card>
+</CardGroup>

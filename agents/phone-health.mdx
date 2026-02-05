@@ -1,0 +1,183 @@
+---
+title: 'Phone Health'
+description: 'Monitor your phone numbers health and avoid being marked as spam'
+---
+
+## What is Phone Health?
+
+**Phone Health** is a monitoring system that analyzes the reputation of phone numbers assigned to your agents. It helps you identify numbers being marked as spam and take preventive action.
+
+<Note>
+  Numbers marked as spam have significantly lower answer rates. Keeping numbers "healthy" is crucial for campaign success.
+</Note>
+
+## Phone Health Indicator
+
+In the agents list, each agent with assigned numbers shows an indicator:
+
+### Indicator Colors
+
+| Color | Meaning | Affected Numbers |
+|-------|---------|------------------|
+| 🟢 Green | Healthy | 0 numbers affected |
+| 🟡 Yellow | Attention | 1-2 numbers affected |
+| 🟠 Orange | Warning | 3-5 numbers affected |
+| 🔴 Red | Critical | 6+ numbers affected |
+
+The number on the badge indicates how many numbers have spam issues.
+
+## View Phone Health Report
+
+To view the detailed report:
+
+1. Find the agent in the list
+2. Click the **signal/antenna icon** next to the name
+3. The **Phone Health Report** modal opens
+
+## Report Content
+
+### Summary
+
+The report shows three main metrics:
+
+| Metric | Description |
+|--------|-------------|
+| **Total Numbers** | Number of numbers assigned to the agent |
+| **Healthy Numbers** | Numbers without spam issues |
+| **Spam Numbers** | Numbers with high spam ratio |
+
+### Spam Threshold
+
+```
+Spam Threshold: Numbers with ≥50% spam ratio are considered problematic
+```
+
+A number is considered "spam" when more than 50% of its calls are marked or reported as spam.
+
+### Detailed Analysis
+
+The table shows each number with:
+
+| Column | Description |
+|--------|-------------|
+| **Phone Number** | The phone number |
+| **Status** | Healthy, Warning, or Spam |
+| **Total Calls** | Total calls made |
+| **Spam Calls** | Calls marked as spam |
+| **Completed Calls** | Successfully completed calls |
+| **Spam Ratio** | Spam percentage (with visual bar) |
+
+### Number Statuses
+
+| Status | Spam Ratio | Description |
+|--------|------------|-------------|
+| 🟢 **Healthy** | Less than 50% | Number is performing well |
+| 🟡 **Warning** | 50% - 70% | Take preventive action |
+| 🔴 **Spam** | Above 70% | Number should be replaced |
+
+## Available Actions
+
+### Swap Number
+
+For numbers with **Warning** or **Spam** status, you can swap them for a new number:
+
+1. Click the **Swap** button next to the number
+2. The system finds an available number
+3. Confirm the swap
+4. The old number is automatically unlinked
+
+<Warning>
+  The old number will be marked as "RETURN" and will no longer be used by this agent.
+</Warning>
+
+### Disconnect Number
+
+To remove a number without replacing it:
+
+1. Click the **Disconnect** button
+2. Confirm the action
+3. The number remains available but unassigned
+
+Use this option when:
+- You want to reduce the agent's number count
+- The number has severe issues
+- You'll request a new number manually
+
+## Best Practices
+
+### Preventing Spam
+
+<Steps>
+  <Step title="Monitor regularly">
+    Check Phone Health at least once a week.
+  </Step>
+  <Step title="Act early">
+    Swap numbers when they reach "Warning" (50%), don't wait for "Spam" (70%).
+  </Step>
+  <Step title="Distribute load">
+    If making many calls, use multiple numbers to distribute volume.
+  </Step>
+  <Step title="Respect schedules">
+    Avoid calling at inappropriate times that generate more spam reports.
+  </Step>
+</Steps>
+
+### Warning Signs
+
+Watch for:
+
+- Declining answer rates
+- Calls ending very quickly
+- Sudden increase in spam ratio
+- Customers mentioning they blocked the number
+
+## How Spam Ratio is Calculated
+
+```
+Spam Ratio = (Spam Calls / Total Calls) × 100
+```
+
+Calls are classified as "spam" based on:
+
+- Direct user reports to carriers
+- Public spam databases
+- Extremely short duration (< 3 seconds)
+- Systematic rejection patterns
+
+## Top Performer Number
+
+In the report, the best-performing number is marked with:
+
+```
+🏆 Top Performer
+```
+
+This is the recommended number to prioritize for important calls, as it has the best completion history.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="How often is Phone Health updated?">
+    Data is updated every hour. The indicator in the agents list reflects the latest available analysis.
+  </Accordion>
+  <Accordion title="Can I recover a number after swapping?">
+    Not automatically. Once swapped, the number is unlinked. Contact support if you need to recover it.
+  </Accordion>
+  <Accordion title="What happens to active calls during a Swap?">
+    Active calls are not interrupted. The change applies only to new calls.
+  </Accordion>
+  <Accordion title="Why does my new number already have spam?">
+    New numbers may inherit history from previous owners. If this happens, contact support.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Configure Numbers" icon="phone" href="/agents/phone-numbers">
+    Learn to assign and manage phone numbers.
+  </Card>
+  <Card title="Manage Agents" icon="list" href="/agents/manage-agents">
+    View and organize your agents.
+  </Card>
+</CardGroup>

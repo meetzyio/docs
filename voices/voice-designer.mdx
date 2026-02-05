@@ -1,0 +1,296 @@
+---
+title: 'Voice Designer'
+description: 'Create custom voices tailored to your specific needs'
+icon: 'palette'
+---
+
+## What is Voice Designer?
+
+Voice Designer is Meetzy's AI-powered tool for creating custom voices. Instead of choosing from the existing catalog, you can describe the exact voice characteristics you want, and the system generates multiple options for you to choose from.
+
+<Info>
+Voice Designer uses advanced AI to create unique voices based on your text description.
+</Info>
+
+## When to Use Voice Designer
+
+| Scenario | Recommendation |
+|----------|---------------|
+| Standard voice works fine | Use Voice Library |
+| Need specific accent or tone | Use Voice Designer |
+| Brand-specific voice | Use Voice Designer |
+| Custom character voice | Use Voice Designer |
+| Quick setup | Use Voice Library |
+
+## Creating a Custom Voice
+
+### Step 1: Open Voice Designer
+
+<Steps>
+  <Step title="Go to Voice Library">
+    Navigate to the Voices section.
+  </Step>
+  <Step title="Click Add New Voice">
+    Click the "➕ Add New Voice" button.
+  </Step>
+  <Step title="Voice Designer Opens">
+    The Voice Designer modal appears.
+  </Step>
+</Steps>
+
+### Step 2: Describe Your Voice
+
+Write a detailed description of the voice you want:
+
+**Good Description Example:**
+```
+A warm, friendly female voice with a slight British accent, 
+suitable for customer service. Should sound professional 
+but approachable, with a calm and reassuring tone.
+```
+
+**Required Length:** 20-1000 characters
+
+<Tip>
+Be specific about gender, accent, tone, and purpose for the best results.
+</Tip>
+
+### Description Best Practices
+
+Include these elements:
+
+| Element | Examples |
+|---------|----------|
+| Gender | Female, Male, Neutral |
+| Accent | British, American, Spanish |
+| Tone | Warm, Professional, Energetic |
+| Characteristics | Calm, Confident, Friendly |
+| Use Case | Customer service, Sales, Support |
+
+### Enhance Description
+
+Let AI improve your description:
+
+<Steps>
+  <Step title="Write Initial Description">
+    Enter your basic voice description.
+  </Step>
+  <Step title="Click Enhance">
+    Click the "⚡ Enhance Description" button.
+  </Step>
+  <Step title="Review">
+    Review the enhanced description.
+  </Step>
+  <Step title="Edit if Needed">
+    Make any final adjustments.
+  </Step>
+</Steps>
+
+### Step 3: Add Sample Text
+
+Provide text for generating voice samples:
+
+**Good Sample Text:**
+```
+Hello, thank you for calling Acme Corporation. My name is 
+Sarah and I'll be happy to assist you today. How may I 
+help you with your account?
+```
+
+**Required Length:** 100-1000 characters
+
+<Info>
+Use text that represents how your agent will actually speak. This helps you evaluate if the voice is right for your use case.
+</Info>
+
+### Generate Sample Text
+
+Let AI create sample text based on your description:
+
+<Steps>
+  <Step title="Click Generate Sample Text">
+    Click the "📝 Generate Sample Text" button.
+  </Step>
+  <Step title="Review">
+    Review the generated text.
+  </Step>
+  <Step title="Customize">
+    Modify as needed for your use case.
+  </Step>
+</Steps>
+
+### Step 4: Generate Voices
+
+<Steps>
+  <Step title="Click Generate Voices">
+    Click the "Generate Voices" button.
+  </Step>
+  <Step title="Wait">
+    Voice generation takes 1-2 minutes.
+  </Step>
+  <Step title="Review Options">
+    Multiple voice options are generated.
+  </Step>
+</Steps>
+
+## Selecting a Voice
+
+After generation, you'll see multiple voice options:
+
+### Listen to Options
+
+<Steps>
+  <Step title="Play Each Option">
+    Click the play button on each voice.
+  </Step>
+  <Step title="Compare">
+    Listen to all options to compare.
+  </Step>
+  <Step title="Select Favorite">
+    Click the radio button for your preferred voice.
+  </Step>
+</Steps>
+
+### Waveform Visualization
+
+When you select a voice, you'll see an audio waveform that animates during playback, helping you visualize the voice characteristics.
+
+## Saving Your Voice
+
+Once you've selected a voice:
+
+<Steps>
+  <Step title="Click Continue">
+    Click "Continue" after selecting your voice.
+  </Step>
+  <Step title="Enter Voice Name">
+    Give your voice a descriptive name.
+  </Step>
+  <Step title="Add Description">
+    Write a brief description (optional but recommended).
+  </Step>
+  <Step title="Select Gender">
+    Choose Male, Female, or Neutral.
+  </Step>
+  <Step title="Select Language">
+    Choose the primary language.
+  </Step>
+  <Step title="Add Labels">
+    Enter comma-separated labels for categorization.
+  </Step>
+  <Step title="Save">
+    Click "Save Voice" to add to your library.
+  </Step>
+</Steps>
+
+### Voice Properties
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| Name | Yes | Unique voice name |
+| Description | No | Voice characteristics (min 20 chars) |
+| Gender | Yes | Male, Female, or Neutral |
+| Language | Yes | Primary language |
+| Labels | No | Comma-separated tags |
+
+### Label Examples
+
+Use labels to organize your custom voices:
+
+```
+professional, customer-service, warm
+```
+
+```
+sales, energetic, american
+```
+
+```
+support, calm, british
+```
+
+## Managing Custom Voices
+
+### Finding Custom Voices
+
+Custom voices appear in the Voice Library alongside pre-built voices. Use the search or filter by your labels to find them quickly.
+
+### Using Custom Voices
+
+1. Note the voice name or ID
+2. Open your agent in Advanced Editor
+3. Go to Basic Settings
+4. Select your custom voice from the dropdown
+5. Save
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Be Descriptive" icon="align-left">
+    The more detailed your description, the better the AI can match your requirements. Include specific adjectives and characteristics.
+  </Accordion>
+  <Accordion title="Use Realistic Sample Text" icon="message">
+    Provide sample text that represents actual phrases your agent will speak. This helps you evaluate voice quality in context.
+  </Accordion>
+  <Accordion title="Compare All Options" icon="ear-listen">
+    Always listen to all generated options before selecting. Small differences can be significant in production.
+  </Accordion>
+  <Accordion title="Test in Context" icon="flask">
+    After saving, test the voice in the Playground with various conversation scenarios.
+  </Accordion>
+  <Accordion title="Use Meaningful Labels" icon="tags">
+    Good labels make it easier to find and manage voices across multiple agents and use cases.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Generation takes too long | Wait up to 2 minutes; can cancel and retry |
+| Voices don't match description | Try a more detailed description |
+| Poor quality audio | Adjust sample text length and content |
+| Can't find saved voice | Check labels and use search |
+
+## Example Voice Descriptions
+
+### Professional Support
+```
+A professional female voice with an American accent. 
+Calm, patient, and reassuring tone suitable for 
+customer support. Should sound knowledgeable but 
+approachable.
+```
+
+### Energetic Sales
+```
+An energetic male voice with enthusiasm and confidence. 
+Slightly faster pace, engaging and persuasive. 
+American accent, suitable for sales calls.
+```
+
+### Sophisticated Concierge
+```
+An elegant female voice with a subtle British accent. 
+Refined and polished, suitable for luxury hospitality 
+or high-end services. Warm but sophisticated.
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Voice Library"
+    icon="microphone"
+    href="/voices/choose-voice"
+  >
+    Browse all available voices
+  </Card>
+  <Card
+    title="Basic Settings"
+    icon="gear"
+    href="/advanced-editor/basic-settings"
+  >
+    Apply voice to your agent
+  </Card>
+</CardGroup>

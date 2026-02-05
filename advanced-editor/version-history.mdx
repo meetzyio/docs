@@ -1,0 +1,267 @@
+---
+title: 'Version History'
+description: 'Track changes, manage versions, and rollback your agent configurations'
+icon: 'clock-rotate-left'
+---
+
+## What is Version History?
+
+Version History provides Git-like version control for your agent configurations. It allows you to track changes, review previous versions, rollback to earlier configurations, and manage multiple development branches.
+
+<Info>
+Version History ensures you never lose your work and can always revert to a known-good configuration.
+</Info>
+
+## Accessing Version History
+
+Version History is located in the right panel of the Advanced Editor. Click the "Git Changes" or "History" tab to access it.
+
+## Key Concepts
+
+### Versions
+
+Each saved configuration is a version. Versions are numbered and timestamped:
+
+| Property | Description |
+|----------|-------------|
+| Version Number | Auto-incrementing identifier (v1, v2, v3...) |
+| Timestamp | When the version was created |
+| Commit Message | Description of changes |
+| Author | Who made the changes |
+
+### Branches
+
+Work on different variations of your agent simultaneously:
+
+| Branch Type | Description |
+|-------------|-------------|
+| Main | Primary development branch |
+| Live | Production version (what customers experience) |
+| Custom | Your own feature or testing branches |
+
+### Live Version
+
+The "Live" version is what's deployed to production. Only the Live version is used for actual customer calls.
+
+## Viewing Changes
+
+### Pending Changes
+
+See what modifications haven't been committed yet:
+
+<Steps>
+  <Step title="Open Changes Tab">
+    Click the "Changes" tab in Version History.
+  </Step>
+  <Step title="Review Modifications">
+    View a list of all unsaved changes.
+  </Step>
+  <Step title="Commit or Discard">
+    Choose to save changes or revert them.
+  </Step>
+</Steps>
+
+### Change Details
+
+Each pending change shows:
+- What was modified (greeting, prompt, settings, etc.)
+- Previous value
+- New value
+
+## Committing Changes
+
+Save your changes as a new version:
+
+<Steps>
+  <Step title="Review Changes">
+    Ensure all modifications are intentional.
+  </Step>
+  <Step title="Write Commit Message">
+    Describe what you changed and why.
+  </Step>
+  <Step title="Commit">
+    Click "Commit" to save the new version.
+  </Step>
+</Steps>
+
+### AI-Generated Commit Messages
+
+Let AI suggest a commit message based on your changes:
+
+1. Click the "✨ Generate" button
+2. Review the suggested message
+3. Edit if needed
+4. Commit
+
+<Tip>
+Good commit messages make it easier to understand what changed when reviewing history later.
+</Tip>
+
+## Browsing History
+
+View all previous versions:
+
+<Steps>
+  <Step title="Open History Tab">
+    Click the "History" tab in Version History.
+  </Step>
+  <Step title="Browse Versions">
+    Scroll through the list of all versions.
+  </Step>
+  <Step title="View Details">
+    Click any version to see its details and changes.
+  </Step>
+</Steps>
+
+### Version Information
+
+Each version entry shows:
+
+| Field | Description |
+|-------|-------------|
+| 🔢 Version | Version number |
+| 📅 Date | When it was created |
+| 💬 Message | Commit message |
+| 🏷️ Tags | Live, Latest, etc. |
+
+## Restoring Versions
+
+Rollback to a previous configuration:
+
+<Steps>
+  <Step title="Find the Version">
+    Browse history to find the version you want.
+  </Step>
+  <Step title="Click Restore">
+    Select "Restore" on the desired version.
+  </Step>
+  <Step title="Confirm">
+    Confirm you want to restore this version.
+  </Step>
+  <Step title="Test">
+    Test the restored configuration in Playground.
+  </Step>
+</Steps>
+
+<Warning>
+Restoring creates a new version with the old configuration. Your current changes will be preserved as a version in history.
+</Warning>
+
+## Managing Branches
+
+### Creating a Branch
+
+<Steps>
+  <Step title="Open Branches Tab">
+    Click the "Branches" tab in Version History.
+  </Step>
+  <Step title="Create New Branch">
+    Click "New Branch" and enter a name.
+  </Step>
+  <Step title="Start Working">
+    Switch to the new branch and make changes.
+  </Step>
+</Steps>
+
+### Switching Branches
+
+1. Open the Branches tab
+2. Click on the branch you want to use
+3. The editor loads that branch's configuration
+
+### Deleting Branches
+
+1. Open the Branches tab
+2. Click the delete icon on the branch
+3. Confirm deletion
+
+<Warning>
+Deleted branches cannot be recovered. Ensure you've merged or saved any important changes.
+</Warning>
+
+## Publishing to Live
+
+Deploy your changes to production:
+
+<Steps>
+  <Step title="Ensure Changes are Committed">
+    Commit any pending changes first.
+  </Step>
+  <Step title="Test in Playground">
+    Validate your configuration works correctly.
+  </Step>
+  <Step title="Mark as Live">
+    Click "Mark as Live" or "Publish" on the version.
+  </Step>
+  <Step title="Confirm">
+    Confirm you want to deploy to production.
+  </Step>
+</Steps>
+
+<Info>
+Only the Live version handles actual customer calls. Development versions don't affect production.
+</Info>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Commit Often" icon="floppy-disk">
+    Save versions frequently so you have more restore points.
+  </Accordion>
+  <Accordion title="Write Good Messages" icon="message">
+    Descriptive commit messages make history easier to navigate.
+  </Accordion>
+  <Accordion title="Use Branches for Experiments" icon="code-branch">
+    Create branches when testing major changes to avoid affecting your main configuration.
+  </Accordion>
+  <Accordion title="Test Before Publishing" icon="flask">
+    Always test in Playground before marking a version as Live.
+  </Accordion>
+  <Accordion title="Review Before Rollback" icon="eye">
+    Check what changed between versions before restoring an old one.
+  </Accordion>
+</AccordionGroup>
+
+## Common Workflows
+
+### Quick Fix
+
+1. Make change
+2. Test in Playground
+3. Commit with message
+4. Publish to Live
+
+### Major Update
+
+1. Create a new branch
+2. Make multiple changes
+3. Test thoroughly
+4. Merge to main
+5. Publish to Live
+
+### Rollback
+
+1. Identify the issue
+2. Find last working version
+3. Restore that version
+4. Publish to Live
+5. Debug the broken version
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test versions before publishing
+  </Card>
+  <Card
+    title="Basic Settings"
+    icon="gear"
+    href="/advanced-editor/basic-settings"
+  >
+    Configure agent settings
+  </Card>
+</CardGroup>

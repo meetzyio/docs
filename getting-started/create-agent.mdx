@@ -1,0 +1,308 @@
+---
+title: 'Create Your First Agent'
+description: 'Complete guide to creating and configuring an AI voice agent in Meetzy'
+---
+
+## Prerequisites
+
+Before creating an agent, ensure you have:
+
+- An active Meetzy account with dashboard access
+- At least one phone number available in your account
+- Basic understanding of your use case (sales, support, etc.)
+
+## The Advanced Editor
+
+The Advanced Editor is a three-panel interface for configuring your agent:
+
+| Panel | Description |
+|-------|-------------|
+| **Left Panel** | Navigation between configuration sections |
+| **Central Editor** | Main editing area for system prompt and settings |
+| **Right Panel** | Playground for testing and debugging |
+
+### Toolbar Actions
+
+| Button | Description |
+|--------|-------------|
+| ← **Back** | Return to agents list |
+| 🏷️ **Version Badge** | Current version (e.g., v.1, v.2) |
+| ✓ **Check** | Validate configuration |
+| ⬇️ **Pull** | Sync with latest version |
+| 🚀 **Publish** | Deploy to production |
+
+## Left Panel
+
+The left sidebar contains all configuration sections:
+
+| Icon | Section | Description |
+|------|---------|-------------|
+| ⚙️ | **Settings** | Basic agent configuration |
+| 👋 | **Greetings** | Welcome messages for calls |
+| 📄 | **Input Params** | Dynamic variables for personalization |
+| 📚 | **Knowledge Base** | Documents and FAQs the agent can reference |
+| 🔧 | **Actions & Tools** | Integrations and external APIs |
+| ✅ | **Evaluations** | Automated tests to validate agent behavior |
+| 📥 | **Output Settings** | Data the agent should capture |
+
+## Step 1: Basic Settings
+
+Click the **Settings** icon (Cog) to configure:
+
+### Agent Name
+
+Internal identifier for your agent. Choose a descriptive name like:
+- "Sales Qualification Agent"
+- "Customer Support - Billing"
+- "Appointment Reminder"
+
+### Company
+
+Select which company this agent belongs to (for multi-company accounts).
+
+### Twilio Account
+
+Choose the Twilio account for phone calls.
+
+### Phone Number
+
+<Note>
+  Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
+</Note>
+
+Select an available phone number from the dropdown. If none are available:
+- Release a number from another agent
+- Request new numbers via the "Request more numbers" link
+
+### Language Model (LLM)
+
+Select the AI model that powers your agent's conversations. Available models:
+
+#### Anthropic (Claude)
+
+| Model | Features |
+|-------|----------|
+| **Claude Haiku 4.5** | Recommended. Ultra Fast. Best for tool calling. |
+
+#### OpenAI (GPT)
+
+| Model | Features |
+|-------|----------|
+| **GPT-4o** | Balanced speed and quality |
+| **GPT-4.1** | Latest full model |
+| **GPT-4.1 Mini** | Faster, cost-effective |
+| **GPT-4.1 Nano** | Fastest, most economical |
+
+#### Google (Gemini)
+
+| Model | Features |
+|-------|----------|
+| **Gemini 3 Flash Preview** | Newest. Preview release. |
+| **Gemini 2.5 Flash** | Fast and capable |
+| **Gemini 2.5 Flash Lite** | Lighter, faster version |
+| **Gemini 2.0 Flash** | Stable, fast |
+| **Gemini 2.0 Flash Lite** | Lightweight version |
+| **Gemini 1.5 Pro** | Most capable, higher latency |
+| **Gemini 1.5 Flash** | Ultra Fast. Good balance. |
+
+<Tip>
+  For most use cases, start with **Claude Haiku 4.5** or **Gemini 2.5 Flash**. They offer the best balance of speed, quality, and cost.
+</Tip>
+
+### Call Recording
+
+Toggle to enable/disable call recordings. When enabled:
+- All calls are recorded and stored
+- Recordings are available in the Calls section
+- Required for quality assurance and training
+
+### Meetzy Foundation
+
+Optional base components that enhance your agent:
+
+| Component | Description |
+|-----------|-------------|
+| **Safety Guardrails** | Prevents harmful or inappropriate responses |
+| **Conversational Aspects** | Improves natural conversation flow |
+| **Agent Work Experience** | Pre-trained behaviors for common scenarios |
+
+## Step 2: Greetings
+
+Click the **Greetings** icon (Hand Raised) to configure welcome messages.
+
+### Inbound Greeting
+
+The first message when a customer calls your agent:
+
+```
+Hello! Thank you for calling {{company_name}}. How can I help you today?
+```
+
+### Outbound Greeting
+
+The first message when your agent calls a customer:
+
+```
+Hi {{customer_name}}, this is {{agent_name}} from {{company_name}}. 
+I'm calling regarding {{reason}}. Is this a good time to talk?
+```
+
+### Templates
+
+Select from pre-built greeting templates:
+- Sales Call
+- Customer Support
+- Appointment Reminder
+- Survey Introduction
+
+### Dynamic Variables
+
+Use variables to personalize greetings:
+
+| Variable | Example |
+|----------|---------|
+| `{{customer_name}}` | "John" |
+| `{{company_name}}` | "Acme Corp" |
+| `{{agent_name}}` | "Sarah" |
+| `{{appointment_date}}` | "March 15th at 2pm" |
+
+## Step 3: System Prompt
+
+The central editor contains the **System Prompt** - the core instructions that define your agent's behavior.
+
+### Structure
+
+A good system prompt includes:
+
+1. **Role Definition**: Who the agent is
+2. **Objective**: What the agent should accomplish
+3. **Guidelines**: How to handle specific situations
+4. **Constraints**: What the agent should NOT do
+
+### Example
+
+```markdown
+You are a friendly sales qualification agent for Acme Corp.
+
+## Objective
+Qualify leads by understanding their needs and budget, 
+then schedule a demo with a sales representative.
+
+## Guidelines
+- Be conversational and friendly
+- Ask about their current challenges
+- Understand their timeline and budget
+- If qualified, offer to schedule a demo
+
+## Constraints
+- Never discuss pricing directly
+- Don't make promises about features
+- Transfer to human if customer is upset
+```
+
+## Step 4: Input Params
+
+Click the **Input Params** icon (Document) to define variables passed to each call.
+
+Common parameters:
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `phone` | String | Customer's phone number |
+| `name` | String | Customer's name |
+| `email` | String | Customer's email |
+| `company` | String | Customer's company |
+| `lead_source` | String | Where the lead came from |
+
+These parameters are available in your system prompt and greetings using `{{param_name}}` syntax.
+
+## Step 5: Knowledge Base
+
+Click the **Knowledge Base** icon (Book Stack) to add reference documents.
+
+Upload documents the agent can reference during calls:
+- Product FAQs
+- Pricing information
+- Company policies
+- Common objections and responses
+
+<Note>
+  The agent searches the knowledge base contextually during conversations. It doesn't memorize everything - it retrieves relevant information when needed.
+</Note>
+
+## Step 6: Actions & Tools
+
+Click the **Actions & Tools** icon (Wrench) to configure integrations.
+
+Available actions:
+
+| Action | Description |
+|--------|-------------|
+| **Transfer Call** | Route to human agent |
+| **Send SMS** | Send text message to customer |
+| **Send Email** | Send email to customer |
+| **Calendar Booking** | Schedule appointments |
+| **CRM Update** | Update customer records |
+| **Custom Webhook** | Call any external API |
+
+## Step 7: Evaluations
+
+Click the **Evaluations** icon (Check Badge) to set up automated tests.
+
+Create test scenarios to validate your agent:
+
+```
+Scenario: Customer asks about pricing
+Expected: Agent should NOT discuss specific prices
+Expected: Agent should offer to connect with sales team
+```
+
+## Step 8: Output Settings
+
+Click the **Output Settings** icon (Inbox) to define data extraction.
+
+Specify what information the agent should capture:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `qualified` | Boolean | Is the lead qualified? |
+| `budget_range` | String | Estimated budget |
+| `timeline` | String | Purchase timeline |
+| `next_steps` | String | Agreed follow-up actions |
+| `pain_points` | Array | Customer's challenges |
+
+Extracted data is available in call summaries and can be sent to your CRM.
+
+## Publishing Your Agent
+
+When your configuration is complete:
+
+<Steps>
+  <Step title="Validate">
+    Click **Check** to validate your configuration. Fix any errors.
+  </Step>
+  <Step title="Test">
+    Use the Playground (right panel) to test conversations.
+  </Step>
+  <Step title="Make test calls">
+    Use "Init Call" from the agents list to make real phone calls.
+  </Step>
+  <Step title="Publish">
+    Click **Publish** to deploy your agent to production.
+  </Step>
+</Steps>
+
+<Warning>
+  Publishing creates a new version. The previous version remains available for rollback if needed.
+</Warning>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Manage Agents" icon="list" href="/agents/manage-agents">
+    Learn to view, edit, and organize your agents.
+  </Card>
+  <Card title="Phone Health" icon="heart-pulse" href="/agents/phone-health">
+    Monitor your phone numbers' health.
+  </Card>
+</CardGroup>

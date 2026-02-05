@@ -1,0 +1,181 @@
+---
+title: 'Segmentos'
+description: 'Crea y gestiona grupos de contactos para campañas dirigidas'
+icon: 'layer-group'
+---
+
+# Segmentos
+
+Los segmentos son grupos de contactos que puedes usar para campañas dirigidas. Organiza tus contactos por criterios como fuente de lead, geografía o tipo de cliente.
+
+## Acceder a Segmentos
+
+Navega a **CRM** → **Segments** para ver todos tus segmentos de contactos.
+
+## Vista General de Segmentos
+
+La página de segmentos muestra:
+
+| Columna | Descripción |
+|---------|-------------|
+| Name | Identificador del segmento |
+| Description | Descripción opcional |
+| Contacts | Número de contactos en el segmento |
+| Created | Cuándo fue creado el segmento |
+| Actions | Opciones de Ver, Editar, Eliminar |
+
+## Crear un Segmento
+
+<Steps>
+  <Step title="Haz Clic en Create Segment">
+    Haz clic en el botón **Create Segment** en la esquina superior derecha.
+  </Step>
+  <Step title="Ingresa Detalles">
+    - **Segment Name** - Requerido, identifica el segmento
+    - **Description** - Opcional, explica el propósito del segmento
+  </Step>
+  <Step title="Guardar">
+    Haz clic en **Create** para guardar tu segmento.
+  </Step>
+</Steps>
+
+<Tip>
+Crea segmentos antes de importar contactos, o los contactos se añadirán a un segmento auto-generado.
+</Tip>
+
+## Propiedades del Segmento
+
+| Propiedad | Descripción |
+|-----------|-------------|
+| Name | Identificador único del segmento |
+| Description | Explica qué contactos hay en este segmento |
+| Contact Count | Número de contactos (se actualiza automáticamente) |
+| Created Time | Cuándo fue creado el segmento |
+
+## Gestionar Segmentos
+
+### Ver Contactos
+
+1. Haz clic en **View** en cualquier fila de segmento
+2. Abre la vista detallada del segmento
+3. Ve todos los contactos dentro del segmento
+4. Busca y filtra contactos
+
+### Editar un Segmento
+
+1. Haz clic en el icono **Edit** (lápiz)
+2. Modifica nombre o descripción
+3. Haz clic en **Save Changes**
+
+<Info>
+Editar el nombre o descripción de un segmento no afecta a los contactos dentro de él.
+</Info>
+
+### Eliminar un Segmento
+
+1. Haz clic en el icono **Delete** (papelera)
+2. Confirma la eliminación
+3. Los contactos NO se eliminan, solo se quitan del segmento
+
+<Warning>
+La eliminación del segmento no se puede deshacer. Asegúrate de que ninguna campaña activa dependa de este segmento.
+</Warning>
+
+## Buscar Segmentos
+
+Usa la barra de búsqueda para encontrar segmentos:
+
+- Busca por nombre de segmento
+- Busca por descripción
+- Los resultados se filtran en tiempo real
+
+## Ordenar Segmentos
+
+Haz clic en los encabezados de columna para ordenar:
+
+| Columna | Opciones de Orden |
+|---------|-------------------|
+| Name | A-Z, Z-A |
+| Created | Más nuevos primero, Más antiguos primero |
+
+## Funcionalidades de Admin
+
+Para usuarios admin:
+
+### Filtro de Compañía
+
+1. Aparece un filtro de compañía en la parte superior
+2. Busca compañías
+3. Selecciona una compañía para ver sus segmentos
+4. "All Companies" muestra segmentos de todas
+
+### Acceso Entre Compañías
+
+Los admins pueden:
+- Ver segmentos de cualquier compañía
+- Crear segmentos para compañías específicas
+- Gestionar campañas entre cuentas
+
+## Usando Segmentos
+
+### En Campañas
+
+Los segmentos se usan para dirigir campañas:
+
+1. Crea una campaña
+2. Selecciona un segmento como audiencia objetivo
+3. Todos los contactos en ese segmento reciben llamadas
+
+### Tamaño de Segmento
+
+Para rendimiento óptimo de campañas:
+
+| Tamaño | Recomendación |
+|--------|---------------|
+| < 100 | Bueno para pruebas |
+| 100-1,000 | Tamaño estándar de campaña |
+| 1,000-10,000 | Campaña grande, monitorea de cerca |
+| > 10,000 | Divide en múltiples campañas |
+
+## Estrategias de Segmentación
+
+<CardGroup cols={2}>
+  <Card title="Por Fuente" icon="door-open">
+    Agrupa contactos por cómo fueron adquiridos (formulario web, importación, API).
+  </Card>
+  <Card title="Por Región" icon="map">
+    Organiza por geografía para campañas localizadas.
+  </Card>
+  <Card title="Por Estado" icon="circle-check">
+    Separa leads calificados de contactos fríos.
+  </Card>
+  <Card title="Por Fecha" icon="calendar">
+    Agrupa por fecha de importación para seguimientos basados en tiempo.
+  </Card>
+</CardGroup>
+
+## Mejores Prácticas
+
+1. **Nombres Descriptivos** - Usa nombres claros como "Registros Webinar Enero 2024"
+2. **Añade Descripciones** - Documenta criterios para referencia futura
+3. **Limpieza Regular** - Archiva o elimina segmentos antiguos
+4. **Monitoreo de Tamaño** - Mantén tamaños de segmento manejables para campañas
+
+## Integración con Importaciones
+
+Al importar contactos:
+
+1. Especifica un nombre de segmento durante la importación
+2. Todos los contactos se añaden a ese segmento
+3. O selecciona un segmento existente para añadir
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Importar Contactos" icon="file-import" href="/es/crm/import-contacts">
+    Añade contactos a tus segmentos.
+  </Card>
+  <Card title="Campañas" icon="bullhorn" href="/es/crm/campaigns">
+    Usa segmentos para lanzar campañas de llamadas dirigidas.
+  </Card>
+</CardGroup>

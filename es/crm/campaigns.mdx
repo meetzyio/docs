@@ -1,0 +1,213 @@
+---
+title: 'Campañas'
+description: 'Programa y gestiona campañas de llamadas masivas a segmentos de contactos'
+icon: 'bullhorn'
+---
+
+# Campañas
+
+Las campañas te permiten programar llamadas salientes masivas a segmentos de contactos. Tus agentes de IA llamarán automáticamente a cada contacto en el segmento según tu configuración.
+
+## ¿Qué es una Campaña?
+
+Una campaña conecta:
+
+| Componente | Descripción |
+|------------|-------------|
+| 🤖 Agente | El agente de IA que hará las llamadas |
+| 👥 Segmento | El grupo de contactos a llamar |
+| ⏰ Horario | Cuándo deben hacerse las llamadas |
+| ⚙️ Configuración | Límites de llamadas, reintentos y más |
+
+## Crear una Campaña
+
+<Steps>
+  <Step title="Selecciona Agente">
+    Elige qué agente de IA manejará las llamadas.
+  </Step>
+  <Step title="Elige Segmento">
+    Selecciona el segmento de contactos objetivo.
+  </Step>
+  <Step title="Configura Horario">
+    Establece cuándo deben hacerse las llamadas.
+  </Step>
+  <Step title="Establece Opciones">
+    Configura límites de llamadas y reglas de reintento.
+  </Step>
+  <Step title="Lanzar">
+    Inicia o programa la campaña.
+  </Step>
+</Steps>
+
+## Configuración de Campaña
+
+### Selección de Agente
+
+- Elige entre tus agentes activos
+- El agente debe tener un número de teléfono asignado
+- Se usa el saludo de outbound para estas llamadas
+
+### Selección de Segmento
+
+- Selecciona de los segmentos disponibles
+- Ve el conteo de contactos antes de lanzar
+- Los contactos sin número de teléfono se omiten
+
+### Opciones de Horario
+
+| Opción | Descripción |
+|--------|-------------|
+| Start Immediately | Comenzar a llamar de inmediato |
+| Schedule Start | Establecer fecha/hora de inicio específica |
+| Calling Hours | Limitar llamadas a horas específicas |
+| Time Zone | Definir qué zona horaria usar |
+
+<Tip>
+Establece horarios de llamada apropiados según las zonas horarias de tus contactos. Llamar durante horario laboral mejora las tasas de respuesta.
+</Tip>
+
+### Configuración de Llamadas
+
+| Configuración | Descripción |
+|---------------|-------------|
+| Calls per Hour | Máximo de llamadas por hora |
+| Max Attempts | Cuántas veces intentar cada contacto |
+| Retry Delay | Tiempo entre reintentos |
+| Concurrent Calls | Máximo de llamadas simultáneas |
+
+## Estado de la Campaña
+
+| Estado | Descripción |
+|--------|-------------|
+| 🟡 Draft | Campaña configurada pero no iniciada |
+| 🟢 Active | Campaña actualmente ejecutándose |
+| ⏸️ Paused | Campaña temporalmente detenida |
+| ✅ Completed | Todos los contactos han sido llamados |
+| 🔴 Cancelled | Campaña fue detenida |
+
+## Gestionar Campañas
+
+### Iniciar una Campaña
+
+1. Revisa todas las configuraciones
+2. Haz clic en **Launch Campaign**
+3. Confirma el inicio
+4. La campaña comienza a procesar contactos
+
+### Pausar una Campaña
+
+1. Haz clic en **Pause** en una campaña activa
+2. Las llamadas activas se completan, las nuevas se detienen
+3. Reanuda en cualquier momento con **Resume**
+
+### Cancelar una Campaña
+
+1. Haz clic en **Cancel** o **Stop**
+2. Confirma la cancelación
+3. La campaña no puede reiniciarse (crea una nueva)
+
+## Progreso de la Campaña
+
+Monitorea tu campaña en tiempo real:
+
+| Métrica | Descripción |
+|---------|-------------|
+| 📊 Total | Total de contactos en el segmento |
+| ✅ Completed | Contactos llamados exitosamente |
+| ⏳ Pending | Contactos esperando ser llamados |
+| ❌ Failed | Llamadas que no pudieron completarse |
+| 🔄 In Progress | Llamadas actualmente activas |
+
+## Resultados de Llamadas
+
+Para cada contacto, rastrea:
+
+| Resultado | Descripción |
+|-----------|-------------|
+| Answered | El contacto contestó, hubo conversación |
+| No Answer | Nadie contestó la llamada |
+| Busy | La línea estaba ocupada |
+| Voicemail | La llamada fue al buzón de voz |
+| Failed | Error técnico impidió la llamada |
+| Completed | Llamada finalizada con resultado |
+
+## Lógica de Reintentos
+
+### Reintentos Automáticos
+
+Cuando una llamada falla o no es contestada:
+
+1. Espera el delay de reintento configurado
+2. Intenta la llamada nuevamente
+3. Continúa hasta alcanzar el máximo de intentos
+4. Marca como fallido después de agotar todos los intentos
+
+### Configuración de Reintentos
+
+| Configuración | Recomendación |
+|---------------|---------------|
+| Max Attempts | 2-3 intentos |
+| Retry Delay | 30 minutos - 2 horas |
+| Hora del Día | Varía los horarios de reintento |
+
+## Análisis de Campañas
+
+Después de que una campaña se completa:
+
+| Métrica | Descripción |
+|---------|-------------|
+| Answer Rate | Porcentaje de llamadas contestadas |
+| Conversion Rate | Resultados exitosos / Total contestadas |
+| Average Duration | Duración promedio de llamada |
+| Best Times | Horas con mayores tasas de respuesta |
+
+## Mejores Prácticas
+
+<CardGroup cols={2}>
+  <Card title="Prueba Primero" icon="flask">
+    Ejecuta una pequeña campaña de prueba antes de lanzar a miles.
+  </Card>
+  <Card title="Respeta Horarios" icon="clock">
+    Solo llama durante horarios laborales apropiados.
+  </Card>
+  <Card title="Monitorea Progreso" icon="chart-line">
+    Revisa el progreso de la campaña regularmente para detectar problemas.
+  </Card>
+  <Card title="Segmenta Bien" icon="layer-group">
+    Segmentos más pequeños y dirigidos funcionan mejor.
+  </Card>
+</CardGroup>
+
+## Consideraciones de Cumplimiento
+
+<Warning>
+Asegúrate de que tus campañas cumplan con regulaciones locales (TCPA en US, GDPR en EU). Solo llama a contactos que han dado consentimiento.
+</Warning>
+
+### Lista de Verificación de Cumplimiento
+
+- ✅ Los contactos tienen consentimiento opt-in
+- ✅ Llamando durante horas permitidas
+- ✅ Proporcionando opción de opt-out
+- ✅ Honrando solicitudes de no-llamar
+- ✅ Manteniendo registros de consentimiento
+
+## Solución de Problemas
+
+| Problema | Solución |
+|----------|----------|
+| Baja tasa de respuesta | Ajusta horarios de llamada, verifica reputación del caller ID |
+| Alta tasa de fallos | Verifica números de teléfono, revisa phone health del agente |
+| Progreso lento | Aumenta llamadas concurrentes o llamadas por hora |
+| La campaña no inicia | Asegúrate de que el agente tenga número de teléfono activo |
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Segmentos" icon="layer-group" href="/es/crm/segments">
+    Crea segmentos dirigidos para tus campañas.
+  </Card>
+  <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
+    Monitorea la reputación de tus números de teléfono.
+  </Card>
+</CardGroup>

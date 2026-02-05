@@ -1,0 +1,267 @@
+---
+title: 'Historial de Versiones'
+description: 'Rastrea cambios, gestiona versiones y revierte configuraciones de tu agente'
+icon: 'clock-rotate-left'
+---
+
+## ¿Qué es el Historial de Versiones?
+
+El Historial de Versiones proporciona control de versiones estilo Git para las configuraciones de tu agente. Te permite rastrear cambios, revisar versiones anteriores, revertir a configuraciones previas y gestionar múltiples ramas de desarrollo.
+
+<Info>
+El Historial de Versiones asegura que nunca pierdas tu trabajo y siempre puedas volver a una configuración conocida y funcional.
+</Info>
+
+## Accediendo al Historial de Versiones
+
+El Historial de Versiones está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Cambios Git" o "Historial" para acceder.
+
+## Conceptos Clave
+
+### Versiones
+
+Cada configuración guardada es una versión. Las versiones están numeradas y con timestamp:
+
+| Propiedad | Descripción |
+|----------|-------------|
+| Número de Versión | Identificador auto-incremental (v1, v2, v3...) |
+| Timestamp | Cuándo se creó la versión |
+| Mensaje de Commit | Descripción de los cambios |
+| Autor | Quién hizo los cambios |
+
+### Ramas
+
+Trabaja en diferentes variaciones de tu agente simultáneamente:
+
+| Tipo de Rama | Descripción |
+|-------------|-------------|
+| Main | Rama principal de desarrollo |
+| Live | Versión de producción (lo que experimentan los clientes) |
+| Personalizada | Tus propias ramas de características o pruebas |
+
+### Versión Live
+
+La versión "Live" es lo que está desplegado en producción. Solo la versión Live se usa para llamadas reales de clientes.
+
+## Viendo Cambios
+
+### Cambios Pendientes
+
+Ve qué modificaciones no han sido confirmadas aún:
+
+<Steps>
+  <Step title="Abrir Pestaña de Cambios">
+    Haz clic en la pestaña "Cambios" en el Historial de Versiones.
+  </Step>
+  <Step title="Revisar Modificaciones">
+    Ve una lista de todos los cambios no guardados.
+  </Step>
+  <Step title="Confirmar o Descartar">
+    Elige guardar cambios o revertirlos.
+  </Step>
+</Steps>
+
+### Detalles del Cambio
+
+Cada cambio pendiente muestra:
+- Qué fue modificado (saludo, prompt, ajustes, etc.)
+- Valor anterior
+- Nuevo valor
+
+## Confirmando Cambios
+
+Guarda tus cambios como una nueva versión:
+
+<Steps>
+  <Step title="Revisar Cambios">
+    Asegúrate de que todas las modificaciones son intencionales.
+  </Step>
+  <Step title="Escribir Mensaje de Commit">
+    Describe qué cambiaste y por qué.
+  </Step>
+  <Step title="Confirmar">
+    Haz clic en "Confirmar" para guardar la nueva versión.
+  </Step>
+</Steps>
+
+### Mensajes de Commit Generados por IA
+
+Deja que la IA sugiera un mensaje de commit basado en tus cambios:
+
+1. Haz clic en el botón "✨ Generar"
+2. Revisa el mensaje sugerido
+3. Edita si es necesario
+4. Confirma
+
+<Tip>
+Buenos mensajes de commit hacen más fácil entender qué cambió al revisar el historial más tarde.
+</Tip>
+
+## Explorando el Historial
+
+Ve todas las versiones anteriores:
+
+<Steps>
+  <Step title="Abrir Pestaña de Historial">
+    Haz clic en la pestaña "Historial" en el Historial de Versiones.
+  </Step>
+  <Step title="Explorar Versiones">
+    Desplázate por la lista de todas las versiones.
+  </Step>
+  <Step title="Ver Detalles">
+    Haz clic en cualquier versión para ver sus detalles y cambios.
+  </Step>
+</Steps>
+
+### Información de Versión
+
+Cada entrada de versión muestra:
+
+| Campo | Descripción |
+|-------|-------------|
+| 🔢 Versión | Número de versión |
+| 📅 Fecha | Cuándo fue creada |
+| 💬 Mensaje | Mensaje de commit |
+| 🏷️ Etiquetas | Live, Latest, etc. |
+
+## Restaurando Versiones
+
+Vuelve a una configuración anterior:
+
+<Steps>
+  <Step title="Encontrar la Versión">
+    Explora el historial para encontrar la versión que quieres.
+  </Step>
+  <Step title="Hacer Clic en Restaurar">
+    Selecciona "Restaurar" en la versión deseada.
+  </Step>
+  <Step title="Confirmar">
+    Confirma que quieres restaurar esta versión.
+  </Step>
+  <Step title="Probar">
+    Prueba la configuración restaurada en el Playground.
+  </Step>
+</Steps>
+
+<Warning>
+Restaurar crea una nueva versión con la configuración antigua. Tus cambios actuales se preservarán como una versión en el historial.
+</Warning>
+
+## Gestionando Ramas
+
+### Creando una Rama
+
+<Steps>
+  <Step title="Abrir Pestaña de Ramas">
+    Haz clic en la pestaña "Ramas" en el Historial de Versiones.
+  </Step>
+  <Step title="Crear Nueva Rama">
+    Haz clic en "Nueva Rama" e ingresa un nombre.
+  </Step>
+  <Step title="Comenzar a Trabajar">
+    Cambia a la nueva rama y haz cambios.
+  </Step>
+</Steps>
+
+### Cambiando de Rama
+
+1. Abre la pestaña de Ramas
+2. Haz clic en la rama que quieres usar
+3. El editor carga la configuración de esa rama
+
+### Eliminando Ramas
+
+1. Abre la pestaña de Ramas
+2. Haz clic en el icono de eliminar en la rama
+3. Confirma eliminación
+
+<Warning>
+Las ramas eliminadas no pueden recuperarse. Asegúrate de haber fusionado o guardado cualquier cambio importante.
+</Warning>
+
+## Publicando a Live
+
+Despliega tus cambios a producción:
+
+<Steps>
+  <Step title="Asegurar que los Cambios están Confirmados">
+    Confirma cualquier cambio pendiente primero.
+  </Step>
+  <Step title="Probar en Playground">
+    Valida que tu configuración funciona correctamente.
+  </Step>
+  <Step title="Marcar como Live">
+    Haz clic en "Marcar como Live" o "Publicar" en la versión.
+  </Step>
+  <Step title="Confirmar">
+    Confirma que quieres desplegar a producción.
+  </Step>
+</Steps>
+
+<Info>
+Solo la versión Live maneja llamadas reales de clientes. Las versiones de desarrollo no afectan a producción.
+</Info>
+
+## Mejores Prácticas
+
+<AccordionGroup>
+  <Accordion title="Confirma Frecuentemente" icon="floppy-disk">
+    Guarda versiones frecuentemente para tener más puntos de restauración.
+  </Accordion>
+  <Accordion title="Escribe Buenos Mensajes" icon="message">
+    Mensajes de commit descriptivos hacen más fácil navegar el historial.
+  </Accordion>
+  <Accordion title="Usa Ramas para Experimentos" icon="code-branch">
+    Crea ramas al probar cambios mayores para evitar afectar tu configuración principal.
+  </Accordion>
+  <Accordion title="Prueba Antes de Publicar" icon="flask">
+    Siempre prueba en el Playground antes de marcar una versión como Live.
+  </Accordion>
+  <Accordion title="Revisa Antes de Revertir" icon="eye">
+    Verifica qué cambió entre versiones antes de restaurar una antigua.
+  </Accordion>
+</AccordionGroup>
+
+## Flujos de Trabajo Comunes
+
+### Arreglo Rápido
+
+1. Hacer cambio
+2. Probar en Playground
+3. Confirmar con mensaje
+4. Publicar a Live
+
+### Actualización Mayor
+
+1. Crear una nueva rama
+2. Hacer múltiples cambios
+3. Probar exhaustivamente
+4. Fusionar a main
+5. Publicar a Live
+
+### Rollback
+
+1. Identificar el problema
+2. Encontrar última versión funcional
+3. Restaurar esa versión
+4. Publicar a Live
+5. Debuggear la versión rota
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba versiones antes de publicar
+  </Card>
+  <Card
+    title="Configuración Básica"
+    icon="gear"
+    href="/es/advanced-editor/basic-settings"
+  >
+    Configura ajustes del agente
+  </Card>
+</CardGroup>

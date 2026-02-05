@@ -1,0 +1,198 @@
+---
+title: 'API Tokens'
+description: 'Generate and manage API tokens for programmatic access'
+icon: 'key'
+---
+
+# API Tokens
+
+API tokens allow you to authenticate with the Meetzy API for programmatic access to your account. Use tokens to integrate Meetzy with your systems, trigger calls, and retrieve data.
+
+## Accessing API Tokens
+
+Navigate to **Account** → **API Tokens** to view and manage your tokens.
+
+## Token Overview
+
+Your API tokens are listed with:
+
+| Field | Description |
+|-------|-------------|
+| Name | Token identifier |
+| Token | The secret key (partially hidden) |
+| Expires In | When the token will expire |
+
+## Security Guidelines
+
+<Warning>
+**Keep your API tokens secret!**
+
+- Never share tokens with others
+- Never expose tokens in client-side code
+- Never commit tokens to version control
+- Meetzy may automatically disable leaked tokens
+</Warning>
+
+## Using Your Token
+
+### Authentication Header
+
+Include your token in the `Authorization` header:
+
+```bash
+curl -X POST https://api.meetzy.io/call \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"phone": "+1234567890", "playbook_id": "..."}'
+```
+
+### In Code Examples
+
+<CodeGroup>
+```javascript Node.js
+const axios = require('axios');
+
+const response = await axios.post('https://api.meetzy.io/call', {
+  phone: '+1234567890',
+  playbook_id: 'your-playbook-id'
+}, {
+  headers: {
+    'Authorization': `Bearer ${process.env.MEETZY_API_TOKEN}`,
+    'Content-Type': 'application/json'
+  }
+});
+```
+
+```python Python
+import requests
+import os
+
+response = requests.post(
+    'https://api.meetzy.io/call',
+    json={
+        'phone': '+1234567890',
+        'playbook_id': 'your-playbook-id'
+    },
+    headers={
+        'Authorization': f'Bearer {os.environ["MEETZY_API_TOKEN"]}',
+        'Content-Type': 'application/json'
+    }
+)
+```
+</CodeGroup>
+
+## Copying Your Token
+
+1. Find the token in your list
+2. Click the **Copy** button next to the token
+3. Button changes to "Copied!" when successful
+4. Paste the token in your application
+
+<Info>
+Only the first 40 characters are displayed for security. The copy function copies the complete token.
+</Info>
+
+## Token Expiration
+
+Tokens have an expiration period shown in the "Expires In" column:
+
+| Status | Meaning |
+|--------|---------|
+| X days | Token expires in X days |
+| Expired | Token no longer works |
+| Never | Token doesn't expire (not recommended) |
+
+### Before Expiration
+
+1. Generate a new token
+2. Update your applications
+3. Old token continues working until expiration
+4. Test with new token before old one expires
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Environment Variables" icon="gear">
+    Store tokens in environment variables, never in code.
+  </Card>
+  <Card title="Rotate Regularly" icon="arrows-rotate">
+    Generate new tokens periodically for security.
+  </Card>
+  <Card title="Minimum Permissions" icon="shield-check">
+    Use tokens only where needed.
+  </Card>
+  <Card title="Monitor Usage" icon="eye">
+    Track API calls to detect unauthorized access.
+  </Card>
+</CardGroup>
+
+## Environment Variable Setup
+
+<CodeGroup>
+```bash Linux/Mac
+export MEETZY_API_TOKEN="your-token-here"
+```
+
+```powershell Windows
+$env:MEETZY_API_TOKEN="your-token-here"
+```
+
+```env .env file
+MEETZY_API_TOKEN=your-token-here
+```
+</CodeGroup>
+
+## Token Permissions
+
+API tokens have full access to your account, including:
+
+- ✅ Create and manage calls
+- ✅ Access call history and details
+- ✅ Manage agents (playbooks)
+- ✅ Access CRM data
+- ✅ View analytics
+
+<Note>
+Granular permission control is coming soon. Currently, all tokens have full account access.
+</Note>
+
+## Troubleshooting
+
+| Error | Solution |
+|-------|----------|
+| `401 Unauthorized` | Check token is correct and not expired |
+| `403 Forbidden` | Token may be disabled, contact support |
+| `Token not working` | Ensure no extra spaces when copying |
+| `Rate limited` | Too many requests, implement backoff |
+
+## If Your Token is Compromised
+
+1. **Immediately** go to API Tokens page
+2. Contact support to disable the token
+3. Generate a new token
+4. Update all applications
+5. Review recent API activity for suspicious calls
+
+## Creating New Tokens
+
+<Note>
+Token creation is currently managed by Meetzy support. Contact us to request additional tokens.
+</Note>
+
+Future self-service token creation will include:
+
+- Custom token names
+- Expiration settings
+- Permission scopes
+- Usage limits
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="API Reference" icon="book" href="/api-reference/introduction">
+    Learn about available API endpoints.
+  </Card>
+  <Card title="Create a Call" icon="phone" href="/api-reference/endpoint/create">
+    Make your first API call.
+  </Card>
+</CardGroup>

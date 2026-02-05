@@ -1,0 +1,264 @@
+---
+title: 'Copilot'
+description: 'AI-powered editor that automatically improves your agent system prompt'
+icon: 'robot'
+---
+
+## What is Copilot?
+
+Copilot is an AI-powered prompt editor integrated into the Advanced Editor. Instead of just giving you suggestions, **Copilot directly edits and improves your agent's system prompt** based on your instructions. It analyzes your current prompt, generates improvements, and applies the changes automatically.
+
+<Info>
+Copilot doesn't just suggest - it edits. Describe what you want to improve and watch as it modifies your system prompt in real-time.
+</Info>
+
+## Accessing Copilot
+
+Copilot is located in the right panel of the Advanced Editor. Click the "Copilot" tab to access it.
+
+## How It Works
+
+Copilot operates in three phases when you request a change:
+
+| Phase | What Happens |
+|-------|--------------|
+| 🔍 Analyzing | Copilot reads your current system prompt and understands the context |
+| ⚙️ Generating | It creates the improved version based on your request |
+| ✏️ Editing | Changes are applied directly to your system prompt |
+
+After completion, you'll see a summary of all changes made, which you can accept or reject.
+
+## Quick Actions
+
+Use pre-built actions for common improvements:
+
+<Steps>
+  <Step title="Analyze and Improve">
+    Click this to have Copilot review your entire prompt and suggest comprehensive improvements.
+    
+    Copilot will analyze structure, clarity, instructions, and effectiveness.
+  </Step>
+  <Step title="Refine Tone">
+    Makes your prompt more concise and professional.
+    
+    Removes redundancy and improves the conversational style.
+  </Step>
+</Steps>
+
+## Describing Changes
+
+In the input field, describe what you want to change. Be specific about your goals.
+
+### Effective Requests
+
+```
+Add instructions for handling pricing objections
+```
+
+```
+Make the greeting more friendly and casual
+```
+
+```
+Add a section about appointment confirmation procedures
+```
+
+```
+Improve how the agent handles "I need to think about it" responses
+```
+
+### What Copilot Edits
+
+Copilot can modify any part of your system prompt:
+
+| Element | Examples |
+|---------|----------|
+| Instructions | Add new behaviors, modify existing rules |
+| Tone | Adjust formality, friendliness, professionalism |
+| Structure | Reorganize sections, add headers |
+| Guardrails | Add safety limits, scope boundaries |
+| Scenarios | Add handling for specific situations |
+| Language | Improve clarity, remove ambiguity |
+
+## Using Call Context
+
+Reference specific calls to inform prompt improvements:
+
+### The @call Syntax
+
+Add context from real calls using `@call:CALL_ID`:
+
+```
+@call:abc123 The agent failed to handle the budget question. 
+Add instructions to better address pricing concerns.
+```
+
+<Tip>
+When you reference a call, Copilot loads the transcript and uses it to understand what went wrong and how to improve the prompt.
+</Tip>
+
+### Workflow with Call Context
+
+<Steps>
+  <Step title="Find a Problematic Call">
+    Identify a call where the agent didn't perform well.
+  </Step>
+  <Step title="Get the Call ID">
+    Copy the call ID from the Calls dashboard.
+  </Step>
+  <Step title="Reference and Request">
+    Use `@call:ID` and describe the improvement needed.
+  </Step>
+  <Step title="Review Changes">
+    Copilot edits the prompt based on the call context.
+  </Step>
+</Steps>
+
+### Example Requests with Context
+
+```
+@call:xyz789 The agent gave incorrect product information. 
+Add clearer instructions about when to check the knowledge base.
+```
+
+```
+@call:abc123 The customer got frustrated. 
+Improve the escalation handling section.
+```
+
+## Analyzing Tickets
+
+For bulk analysis, use the Tickets panel:
+
+<Steps>
+  <Step title="Open Tickets Panel">
+    Click the + button and select "Analyze tickets".
+  </Step>
+  <Step title="Select Tickets">
+    Choose multiple calls/tickets to analyze.
+  </Step>
+  <Step title="Run Analysis">
+    Copilot identifies patterns across selected tickets.
+  </Step>
+  <Step title="Apply Improvements">
+    Suggested prompt changes based on common issues.
+  </Step>
+</Steps>
+
+## Reviewing Changes
+
+After Copilot edits your prompt:
+
+### Change Summary
+
+You'll see a completion summary showing:
+- Title of the changes made
+- Duration of the operation
+- List of specific modifications
+
+### Accept or Reject
+
+Changes appear in the Monaco editor with highlighting:
+- **Accept**: Keep the changes in your prompt
+- **Reject**: Revert to the previous version
+
+<Warning>
+Always review changes before accepting. Test in the Playground to verify the improvements work as expected.
+</Warning>
+
+## Conversation History
+
+Continue refining with follow-up requests:
+
+```
+User: Add instructions for handling price objections
+
+Copilot: [Makes changes]
+
+User: Good, but make it less aggressive
+
+Copilot: [Refines the changes]
+
+User: Perfect, now add a fallback for if they still object
+
+Copilot: [Adds additional handling]
+```
+
+<Info>
+Start a new conversation using the menu option to reset context when switching to a different topic.
+</Info>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Be Specific About Changes" icon="bullseye">
+    Instead of "make it better", describe exactly what to improve:
+    
+    **Good:** "Add a section for handling refund requests with a 3-step process"
+    
+    **Vague:** "Improve customer service handling"
+  </Accordion>
+  <Accordion title="Use Real Call Context" icon="phone">
+    Reference actual failed calls when improving specific scenarios. This gives Copilot concrete examples of what went wrong.
+  </Accordion>
+  <Accordion title="Iterate in Small Steps" icon="stairs">
+    Make incremental changes rather than trying to fix everything at once. This makes it easier to identify what works.
+  </Accordion>
+  <Accordion title="Test After Each Change" icon="flask">
+    After accepting changes, test in the Playground before publishing to production.
+  </Accordion>
+  <Accordion title="Review Before Accepting" icon="eye">
+    Always read through the changes Copilot makes. The AI might interpret your request differently than intended.
+  </Accordion>
+</AccordionGroup>
+
+## Common Editing Tasks
+
+### Adding New Behaviors
+```
+Add instructions for the agent to always confirm 
+the customer's phone number before ending the call
+```
+
+### Improving Specific Scenarios
+```
+@call:abc123 Improve how the agent handles when 
+customers ask to speak with a manager
+```
+
+### Adjusting Communication Style
+```
+Make the entire prompt more conversational and less formal. 
+The agent should sound like a helpful friend, not a robot.
+```
+
+### Adding Guardrails
+```
+Add clear boundaries: the agent should never discuss 
+competitor products or make promises about delivery dates
+```
+
+### Restructuring
+```
+Reorganize the prompt into clear sections: 
+1) Identity, 2) Goals, 3) Guidelines, 4) Restrictions
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test your improved prompts
+  </Card>
+  <Card
+    title="Version History"
+    icon="clock-rotate-left"
+    href="/advanced-editor/version-history"
+  >
+    Track changes from Copilot edits
+  </Card>
+</CardGroup>

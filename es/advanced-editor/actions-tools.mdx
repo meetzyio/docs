@@ -1,0 +1,208 @@
+---
+title: 'Acciones y Herramientas'
+description: 'Configura integraciones, transferencias de llamada, webhooks y acciones automatizadas'
+icon: 'wrench'
+---
+
+## Resumen
+
+La sección de Acciones y Herramientas te permite configurar qué puede hacer tu agente durante y después de las llamadas. Esto incluye transferir llamadas, finalizar conversaciones, hacer peticiones API y configurar protocolos de seguimiento automatizado.
+
+## Transferencia de Llamadas
+
+Configura cómo tu agente maneja las transferencias de llamada a agentes humanos u otros departamentos.
+
+### Configuración de Transferencia
+
+| Ajuste | Descripción |
+|---------|-------------|
+| Número de Transferencia | Número de teléfono al que transferir llamadas |
+| Prompt de Transferencia | Instrucciones de cuándo transferir |
+| Transferencia Cálida | Informar al agente receptor antes de transferir |
+
+<Tip>
+Usa transferencias cálidas cuando el agente receptor necesita contexto sobre la conversación antes de tomar el control.
+</Tip>
+
+### Mejores Prácticas de Transferencia
+
+1. **Establece Disparadores Claros** - Define escenarios específicos que justifiquen una transferencia
+2. **Proporciona Contexto** - Configura qué información pasar al agente receptor
+3. **Ten Respaldos** - Configura números de respaldo si la línea principal está ocupada
+
+## Finalizar Llamada
+
+Configura cómo tu agente concluye las conversaciones.
+
+### Ajustes de Finalización
+
+| Opción | Descripción |
+|--------|-------------|
+| Prompt de Finalización | Condiciones que disparan el fin de llamada |
+| Mensaje de Despedida | Mensaje final antes de colgar |
+| Plantillas de Idioma | Mensajes preconfigurados en diferentes idiomas |
+
+### Plantillas de Idioma
+
+El sistema proporciona plantillas predefinidas para escenarios comunes en múltiples idiomas:
+
+<Tabs>
+  <Tab title="Español">
+    - Despedida profesional
+    - Despedida casual
+    - Mensaje de servicio completado
+  </Tab>
+  <Tab title="Inglés">
+    - Professional goodbye
+    - Casual farewell
+    - Service completion message
+  </Tab>
+  <Tab title="Francés">
+    - Au revoir professionnel
+    - Adieu décontracté
+    - Message de service terminé
+  </Tab>
+</Tabs>
+
+## Herramientas Webhook
+
+Crea integraciones personalizadas definiendo herramientas webhook que tu agente puede disparar durante las conversaciones.
+
+### Creando una Herramienta Webhook
+
+<Steps>
+  <Step title="Añadir Nueva Herramienta">
+    Haz clic en "Añadir Herramienta Webhook" para crear una nueva integración.
+  </Step>
+  <Step title="Configurar Info Básica">
+    Establece el nombre y descripción de la herramienta (esto ayuda a la IA a entender cuándo usarla).
+  </Step>
+  <Step title="Establecer Endpoint">
+    Ingresa la URL del webhook que recibirá la petición.
+  </Step>
+  <Step title="Elegir Método">
+    Selecciona método HTTP: GET, POST, PUT, o DELETE.
+  </Step>
+  <Step title="Definir Parámetros">
+    Añade parámetros de query o campos del body que el agente debe enviar.
+  </Step>
+</Steps>
+
+### Configuración del Webhook
+
+| Campo | Descripción |
+|-------|-------------|
+| Nombre | Identificador de la herramienta |
+| Descripción | Cuándo y por qué usar esta herramienta |
+| URL | Endpoint a llamar |
+| Método | Método HTTP (GET, POST, PUT, DELETE) |
+| Params Query | Parámetros de URL |
+| Params Body | Campos del cuerpo de la petición |
+
+### Tipos de Parámetros
+
+Cada parámetro puede configurarse con:
+
+| Propiedad | Descripción |
+|----------|-------------|
+| Nombre | Identificador del parámetro |
+| Tipo | string, number, boolean |
+| Descripción | Qué representa el parámetro |
+| Requerido | Si el agente debe proporcionarlo |
+
+### Ajustes Avanzados
+
+<AccordionGroup>
+  <Accordion title="Control de Interrupción" icon="pause">
+    Configura si el agente pausa mientras espera la respuesta del webhook.
+    
+    - **Esperar respuesta** - El agente pausa hasta que la API responde
+    - **Continuar hablando** - El agente continúa mientras se procesa la petición
+  </Accordion>
+  <Accordion title="Modo de Ejecución" icon="play">
+    Controla cuándo ejecuta el webhook:
+    
+    - **Inmediato** - Ejecutar tan pronto como se dispare
+    - **Diferido** - Encolar para ejecución después de la llamada
+  </Accordion>
+</AccordionGroup>
+
+### Ejemplo Webhook: Integración CRM
+
+```json
+{
+  "name": "crear_lead",
+  "description": "Crear un nuevo lead en el CRM cuando el cliente muestra interés",
+  "url": "https://api.tucrm.com/leads",
+  "method": "POST",
+  "body": {
+    "nombre": "Nombre completo del cliente",
+    "telefono": "Número de teléfono del cliente",
+    "interes": "En qué producto está interesado"
+  }
+}
+```
+
+## Protocolo de Rellamada
+
+Configura llamadas de seguimiento automáticas cuando no se cumplen ciertas condiciones.
+
+### Ajustes de Rellamada
+
+| Ajuste | Descripción |
+|---------|-------------|
+| Habilitar Rellamada | Activar/desactivar callbacks automáticos |
+| Máximo Intentos | Número máximo de llamadas de reintento |
+| Programación | Tiempo entre intentos de reintento |
+| Condiciones | Cuándo disparar una rellamada |
+
+<Warning>
+Usa protocolos de rellamada responsablemente. Demasiados callbacks pueden molestar a los clientes y pueden violar regulaciones.
+</Warning>
+
+### Opciones de Programación
+
+- 5 minutos
+- 15 minutos
+- 30 minutos
+- 1 hora
+- 2 horas
+- 4 horas
+- Siguiente día hábil
+
+## Próximamente
+
+Las siguientes integraciones están en desarrollo:
+
+| Característica | Descripción | Estado |
+|---------|-------------|--------|
+| 📧 Enviar Email | Enviar emails durante o después de llamadas | Próximamente |
+| 💬 Enviar SMS | Enviar mensajes de texto a clientes | Próximamente |
+| 📱 Enviar WhatsApp | Enviar mensajes de WhatsApp | Próximamente |
+
+## Mejores Prácticas
+
+1. **Descripciones Claras** - Escribe descripciones detalladas de herramientas para que la IA sepa exactamente cuándo usarlas
+2. **Maneja Errores** - Tu webhook debe devolver mensajes de error apropiados que el agente pueda transmitir
+3. **Prueba Exhaustivamente** - Usa el Playground para verificar que las integraciones webhook funcionan correctamente
+4. **Monitorea Uso** - Rastrea llamadas webhook para asegurar que se disparan como se espera
+5. **Asegura Endpoints** - Usa headers de autenticación para APIs sensibles
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Parámetros de Entrada"
+    icon="arrow-right-to-bracket"
+    href="/es/advanced-editor/input-params"
+  >
+    Configura variables dinámicas
+  </Card>
+  <Card
+    title="Configuración de Salida"
+    icon="arrow-right-from-bracket"
+    href="/es/advanced-editor/output-settings"
+  >
+    Define extracción de datos
+  </Card>
+</CardGroup>

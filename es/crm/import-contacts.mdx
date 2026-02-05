@@ -1,0 +1,228 @@
+---
+title: 'Importar Contactos'
+description: 'Importa contactos desde archivos Excel o Google Sheets'
+icon: 'file-import'
+---
+
+# Importar Contactos
+
+Meetzy te permite importar contactos de forma masiva desde archivos Excel (.xlsx, .xls, .xlsm) o directamente desde Google Sheets. Esto te permite poblar rápidamente tu base de datos de contactos para campañas.
+
+## Métodos de Importación
+
+| Método | Descripción | Requisitos |
+|--------|-------------|------------|
+| 📊 Excel | Sube archivos .xlsx, .xls o .xlsm | Archivo hasta 10MB |
+| 📗 Google Sheets | Conecta directamente a tus hojas de cálculo | Integración con cuenta Google |
+
+## Asistente de Importación
+
+El proceso de importación sigue tres pasos:
+
+<Steps>
+  <Step title="Subir / Seleccionar">
+    Elige tu archivo fuente u hoja de cálculo.
+  </Step>
+  <Step title="Configurar">
+    Mapea columnas y establece opciones de importación.
+  </Step>
+  <Step title="Importar">
+    Procesa contactos y visualiza resultados.
+  </Step>
+</Steps>
+
+## Importación desde Excel
+
+### Subiendo un Archivo
+
+1. Navega a **CRM** → **Import Contacts**
+2. Selecciona **Import from Excel**
+3. Arrastra y suelta tu archivo o haz clic para buscar
+4. Formatos soportados: `.xlsx`, `.xls`, `.xlsm`
+5. Tamaño máximo de archivo: 10MB
+
+<Tip>
+Arrastrar y soltar funciona directamente en la zona de carga. El borde se vuelve verde cuando se detecta un archivo válido.
+</Tip>
+
+### Validación del Archivo
+
+Una vez subido, el sistema analiza tu archivo:
+
+| Análisis | Descripción |
+|----------|-------------|
+| Total Rows | Número de filas de datos detectadas |
+| Valid Phones | Filas con números de teléfono válidos |
+| Duplicates | Números de teléfono duplicados encontrados |
+| No Phone | Filas sin número de teléfono |
+
+<Warning>
+Las filas sin número de teléfono serán omitidas durante la importación. Asegúrate de que tu columna de teléfono esté formateada correctamente.
+</Warning>
+
+## Importación desde Google Sheets
+
+### Conectando Google Sheets
+
+Si no está conectado:
+
+1. Haz clic en **Connect Google Sheets**
+2. Autoriza con tu cuenta de Google
+3. Otorga acceso a tus hojas de cálculo
+
+### Seleccionando una Hoja de Cálculo
+
+1. Navega por tus hojas disponibles
+2. Usa la barra de búsqueda para encontrar archivos específicos
+3. Haz clic en una hoja para seleccionarla
+4. El sistema valida la estructura de la hoja
+
+## Mapeo de Columnas
+
+### Campos Requeridos
+
+| Campo | Descripción | Requerido |
+|-------|-------------|-----------|
+| Phone | Número de teléfono del contacto | ✅ Sí |
+| Name | Nombre del contacto | No |
+| Email | Email del contacto | No |
+
+### Mapeando Columnas
+
+1. Para cada campo, selecciona la columna correspondiente de tu archivo
+2. La vista previa se actualiza en tiempo real
+3. Las columnas resaltadas indican campos mapeados
+
+### Campos Personalizados
+
+Añade columnas adicionales como campos personalizados:
+
+1. Ve las columnas disponibles sin mapear
+2. Haz clic en un nombre de columna para incluirlo
+3. Los campos personalizados se almacenan con el contacto
+4. Úsalos en prompts de agentes con parámetros de entrada
+
+<Info>
+Las columnas ya mapeadas a campos estándar (Phone, Name, Email) no pueden añadirse como campos personalizados.
+</Info>
+
+## Vista Previa de Datos
+
+Antes de importar, revisa tus datos:
+
+- Las primeras filas se muestran en una tabla de vista previa
+- Las columnas mapeadas están resaltadas en verde
+- Verifica que los datos se ven correctos antes de proceder
+
+## Selección de Hoja
+
+Si tu archivo contiene múltiples hojas:
+
+1. Aparece un dropdown para seleccionar la hoja
+2. Elige la hoja que contiene tus contactos
+3. El mapeo se actualiza según las columnas de la hoja seleccionada
+
+## Asignación a Segmento
+
+Todos los contactos importados se añaden automáticamente a un segmento:
+
+1. Ingresa un **Nombre de Segmento**
+2. Esto crea un nuevo segmento con tus importaciones
+3. Usa segmentos para campañas dirigidas
+
+<Tip>
+Usa nombres descriptivos como "Leads Febrero 2024" o "Prospectos Inmobiliarios" para fácil identificación.
+</Tip>
+
+## Funcionalidades de Admin
+
+Para usuarios admin:
+
+### Selección de Compañía
+
+1. Aparece un selector de compañía en la parte superior
+2. Busca una compañía por nombre
+3. Selecciona para importar contactos a esa compañía
+4. "My Account" importa a tu propia cuenta
+
+## Proceso de Importación
+
+Una vez la configuración está completa:
+
+1. Haz clic en **Start Import**
+2. Un círculo de progreso muestra el porcentaje completado
+3. Stats en vivo muestran:
+   - Nuevos contactos creados
+   - Contactos existentes actualizados
+   - Filas omitidas
+
+### Duración de la Importación
+
+El tiempo de procesamiento depende de:
+- Número de filas
+- Velocidad de red
+- Carga del servidor
+
+Importaciones grandes (10,000+ filas) pueden tardar varios minutos.
+
+## Reporte de Importación
+
+Después de completar, verás:
+
+| Métrica | Descripción |
+|---------|-------------|
+| ✅ Imported | Nuevos contactos creados |
+| 🔄 Updated | Contactos existentes actualizados |
+| ⏭️ Skipped | Filas no importadas |
+| 📊 In Segment | Total de contactos en el segmento |
+
+### Detalles de Errores
+
+Si ocurrieron errores:
+
+- Ve la tabla de errores
+- Cada fila muestra: Número de fila, Teléfono, Mensaje de error
+- Errores comunes: Formato de teléfono inválido, datos requeridos faltantes
+
+### Acciones Rápidas
+
+- **View Segment** - Ir al segmento creado
+- **Import More** - Iniciar una nueva importación
+- **View All Contacts** - Navegar tu CRM
+
+## Mejores Prácticas
+
+<CardGroup cols={2}>
+  <Card title="Limpia Datos Primero" icon="broom">
+    Elimina duplicados y formatea números de teléfono antes de importar.
+  </Card>
+  <Card title="Usa Encabezados" icon="heading">
+    Asegúrate de que la primera fila contenga encabezados de columna.
+  </Card>
+  <Card title="Formato de Teléfono" icon="phone">
+    Incluye códigos de país (ej. +1 para US, +34 para España).
+  </Card>
+  <Card title="Prueba Pequeño" icon="flask">
+    Prueba con un lote pequeño primero para verificar el mapeo.
+  </Card>
+</CardGroup>
+
+## Solución de Problemas
+
+| Problema | Solución |
+|----------|----------|
+| "No phone numbers found" | Verifica que la columna de teléfono esté seleccionada correctamente |
+| "Invalid phone format" | Añade códigos de país a los números |
+| "File too large" | Divide en múltiples archivos menores a 10MB |
+| "Google Sheets not connected" | Ve a Integraciones para reconectar |
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Gestionar Contactos" icon="address-book" href="/es/crm/manage-contacts">
+    Ve y edita tus contactos importados.
+  </Card>
+  <Card title="Segmentos" icon="layer-group" href="/es/crm/segments">
+    Organiza contactos en grupos dirigidos.
+  </Card>
+</CardGroup>

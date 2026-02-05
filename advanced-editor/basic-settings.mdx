@@ -1,0 +1,139 @@
+---
+title: 'Basic Settings'
+description: 'Configure agent name, language, voice, and AI model'
+icon: 'gear'
+---
+
+## Overview
+
+Basic Settings is the first section in the Advanced Editor where you configure the fundamental properties of your AI agent. These settings define how your agent sounds, which language it speaks, and which AI model powers its intelligence.
+
+## Configuration Options
+
+### Agent Name
+
+Give your agent a descriptive name that helps you identify it in your dashboard.
+
+<Tip>
+Use clear naming conventions like "Customer Support - English" or "Sales Outbound - Spanish" to easily manage multiple agents.
+</Tip>
+
+### Language
+
+Select the primary language your agent will speak and understand. The language setting affects:
+
+- Voice synthesis pronunciation
+- Speech recognition accuracy
+- Greeting templates availability
+
+**Supported Languages:**
+- 🇺🇸 English
+- 🇪🇸 Spanish
+- 🇫🇷 French
+- 🇩🇪 German
+- 🇮🇹 Italian
+- 🇵🇹 Portuguese
+- And more...
+
+### Voice Selection
+
+Choose the voice that represents your agent. You can:
+
+1. **Select from Voice Library** - Browse pre-configured voices
+2. **Preview voices** - Listen to samples before selecting
+3. **Use custom voices** - Select voices you've created in Voice Designer
+
+<Info>
+Voice characteristics like speed, naturalness, and consistency can be fine-tuned in the Voice Library before assigning to your agent.
+</Info>
+
+### AI Model (LLM)
+
+Select the Large Language Model that powers your agent's intelligence. Different models offer varying trade-offs between speed, cost, and capability.
+
+#### Available Models
+
+<Tabs>
+  <Tab title="Anthropic">
+    | Model | Best For |
+    |-------|----------|
+    | Claude Haiku 4.5 | Fast responses, cost-effective |
+  </Tab>
+  <Tab title="OpenAI">
+    | Model | Best For |
+    |-------|----------|
+    | GPT-4o | High intelligence, balanced speed |
+    | GPT-4.1 | Latest capabilities |
+    | GPT-4.1 Mini | Faster, cost-effective |
+    | GPT-4.1 Nano | Fastest OpenAI option |
+  </Tab>
+  <Tab title="Google">
+    | Model | Best For |
+    |-------|----------|
+    | Gemini 3 Flash Preview | Latest Google model |
+    | Gemini 2.5 Flash | High performance |
+    | Gemini 2.5 Flash Lite | Balanced option |
+    | Gemini 2.0 Flash | Fast responses |
+    | Gemini 2.0 Flash Lite | Cost-effective |
+    | Gemini 1.5 Pro | Complex reasoning |
+    | Gemini 1.5 Flash | Quick processing |
+  </Tab>
+</Tabs>
+
+#### Model Selection Guide
+
+<AccordionGroup>
+  <Accordion title="Prioritize Speed" icon="bolt">
+    Choose lightweight models like **GPT-4.1 Nano**, **Gemini 2.0 Flash Lite**, or **Claude Haiku 4.5** for faster response times.
+  </Accordion>
+  <Accordion title="Prioritize Intelligence" icon="brain">
+    For complex conversations requiring nuanced understanding, use **GPT-4.1**, **Gemini 1.5 Pro**, or **Gemini 2.5 Flash**.
+  </Accordion>
+  <Accordion title="Balance Cost & Quality" icon="scale-balanced">
+    Models like **GPT-4.1 Mini** and **Gemini 2.5 Flash Lite** offer a good balance between capability and cost.
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<Warning>
+Changing the AI model may affect your agent's behavior. Always test in the Playground after switching models.
+</Warning>
+
+1. **Test Multiple Models** - Different models may perform better for specific use cases
+2. **Consider Latency** - Faster models provide better user experience in phone calls
+3. **Monitor Costs** - More capable models typically cost more per call
+4. **Match Language** - Ensure voice and language settings are compatible
+
+## Voice Settings Parameters
+
+When you select a voice, these parameters can be adjusted:
+
+| Parameter | Range | Description |
+|-----------|-------|-------------|
+| Speed | 0.70x - 1.20x | Controls how fast the agent speaks |
+| Naturalness | 0.0 - 1.0 | Lower = more natural sounding |
+| Consistency | 0.0 - 1.0 | Higher values may cause artifacts |
+
+<Tip>
+Start with default values and adjust based on testing. A speed of 1.0x and naturalness of 0.3 works well for most use cases.
+</Tip>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Greetings"
+    icon="hand-wave"
+    href="/advanced-editor/greetings"
+  >
+    Set up welcome messages
+  </Card>
+  <Card
+    title="System Prompt"
+    icon="file-lines"
+    href="/getting-started/create-agent#system-prompt"
+  >
+    Define agent personality
+  </Card>
+</CardGroup>

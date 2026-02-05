@@ -1,0 +1,167 @@
+---
+title: 'Gestionar Agentes'
+description: 'Aprende a ver, editar, duplicar y gestionar tus agentes de voz en el dashboard de Meetzy'
+---
+
+## Vista General de Agentes
+
+La sección **Agents** muestra todos tus agentes de voz en un diseño de panel dividido:
+
+| Panel | Contenido |
+|-------|-----------|
+| **Panel Izquierdo** | Lista de agentes con búsqueda y filtros |
+| **Panel Derecho** | Detalles y acciones del agente seleccionado |
+
+## Buscar y Filtrar Agentes
+
+### Buscar por Nombre
+
+Usa el campo de búsqueda en la parte superior del panel izquierdo para filtrar agentes por nombre.
+
+### Filtrar por Compañía
+
+Si tienes acceso a múltiples compañías, filtra agentes por organización:
+
+1. Haz clic en el dropdown **"All companies"**
+2. Busca o selecciona la compañía deseada
+3. La lista muestra solo agentes de esa compañía
+
+<Tip>
+  Usa el botón **Clear Filters** para restablecer todos los filtros activos.
+</Tip>
+
+## Ver Detalles del Agente
+
+Haz clic en cualquier agente para ver sus detalles en el panel derecho:
+
+### Información Mostrada
+
+| Elemento | Descripción |
+|----------|-------------|
+| **Nombre del Agente** | El identificador que asignaste |
+| **ID del Agente** | Identificador único (clic para copiar) |
+| **Badges de Estado** | Training, Pause, Demo o versión activa |
+| **Badge Advanced** | Indica que el Editor Avanzado está habilitado |
+| **Phone Health** | Indicador de salud de números telefónicos |
+
+### Llamadas Recientes
+
+El panel muestra las últimas 200 llamadas con:
+
+| Columna | Descripción |
+|---------|-------------|
+| ID | Identificador de la llamada |
+| Fecha | Cuándo ocurrió la llamada |
+| Duración | Longitud de la llamada |
+| Estado | Completada, fallida, etc. |
+| Destino | Número llamado |
+
+<Note>
+  Haz clic en **View All** para abrir la página completa de llamadas con más opciones de filtrado.
+</Note>
+
+## Editar un Agente
+
+### Agentes con Editor Avanzado
+
+Si el agente tiene el badge **"advanced"**, haz clic en el botón **Advanced Editor** para abrirlo.
+
+Puedes modificar:
+- Configuración básica
+- Saludos
+- Prompt de sistema
+- Knowledge Base
+- Actions & Tools
+- Output settings
+
+### Agentes Estándar
+
+Para agentes sin el badge "advanced", las opciones de edición se limitan al panel de configuración básica.
+
+## Duplicar un Agente
+
+<Note>
+  La funcionalidad de clonar solo está disponible para usuarios administradores y agentes avanzados.
+</Note>
+
+Para duplicar un agente:
+
+1. Selecciona el agente en la lista
+2. Haz clic en el botón **Clone Agent**
+3. Se crea una copia con el nombre "[Nombre Original] (Copy)"
+4. Asigna un número de teléfono al nuevo agente
+
+Casos de uso para duplicar:
+- Crear variantes para A/B testing
+- Adaptar un agente existente para otro departamento
+- Mantener una versión de respaldo
+
+## Hacer Llamadas de Prueba
+
+Cada agente tiene un botón **Init Call** que revela opciones de prueba:
+
+### Llamada Entrante (Prueba)
+
+Se muestra el número de teléfono del agente:
+
+```
+Phone to test inbound call:
++34 612 345 678 [Copiar]
+```
+
+Para probar:
+1. Copia el número o haz clic para llamar
+2. Llama desde tu teléfono personal
+3. El agente responde según su configuración
+
+### Llamada Saliente (Prueba)
+
+Se muestra un formulario con los campos configurados:
+
+Para probar:
+1. Rellena los campos requeridos
+2. Selecciona voz (opcional)
+3. Haz clic en **Call Now**
+4. Recibirás la llamada en el número especificado
+
+<Warning>
+  Las llamadas de prueba consumen minutos de tu plan igual que las llamadas normales.
+</Warning>
+
+### Selector de Versión (Agentes Avanzados)
+
+Para agentes avanzados, puedes seleccionar qué versión probar:
+
+```
+Agent Version (optional):
+- Production version (default)
+- v.1 - Initial version (Production)
+- v.2 - Greeting improvements
+- v.3 - New conversation flow
+```
+
+## Agentes Demo
+
+Los agentes marcados como **Demo** aparecen en una sección colapsable separada:
+
+Los agentes demo son plantillas de ejemplo que puedes usar como referencia.
+
+## Acciones Rápidas
+
+| Acción | Cómo Hacerlo |
+|--------|--------------|
+| Copiar ID | Clic en el icono de copiar junto al ID |
+| Refrescar llamadas | Botón **Refresh** en el panel de llamadas |
+| Ver todas las llamadas | Botón **View All** para abrir página de llamadas |
+| Cerrar panel | Clic en X o selecciona otro agente |
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card title="Números de Teléfono" icon="phone" href="/es/agents/phone-numbers">
+    Aprende a asignar y gestionar números de teléfono.
+  </Card>
+  <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
+    Monitorea la salud de tus números telefónicos.
+  </Card>
+</CardGroup>

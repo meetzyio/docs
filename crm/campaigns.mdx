@@ -1,0 +1,213 @@
+---
+title: 'Campaigns'
+description: 'Schedule and manage mass calling campaigns to contact segments'
+icon: 'bullhorn'
+---
+
+# Campaigns
+
+Campaigns allow you to schedule mass outbound calls to segments of contacts. Your AI agents will automatically call each contact in the segment based on your configuration.
+
+## What is a Campaign?
+
+A campaign connects:
+
+| Component | Description |
+|-----------|-------------|
+| 🤖 Agent | The AI agent that will make the calls |
+| 👥 Segment | The group of contacts to call |
+| ⏰ Schedule | When calls should be made |
+| ⚙️ Settings | Call limits, retries, and more |
+
+## Creating a Campaign
+
+<Steps>
+  <Step title="Select Agent">
+    Choose which AI agent will handle the calls.
+  </Step>
+  <Step title="Choose Segment">
+    Select the contact segment to target.
+  </Step>
+  <Step title="Configure Schedule">
+    Set when calls should be made.
+  </Step>
+  <Step title="Set Options">
+    Configure call limits and retry rules.
+  </Step>
+  <Step title="Launch">
+    Start or schedule the campaign.
+  </Step>
+</Steps>
+
+## Campaign Settings
+
+### Agent Selection
+
+- Choose from your active agents
+- Agent must have an assigned phone number
+- Outbound greeting is used for these calls
+
+### Segment Selection
+
+- Select from available segments
+- View contact count before launching
+- Contacts without phone numbers are skipped
+
+### Schedule Options
+
+| Option | Description |
+|--------|-------------|
+| Start Immediately | Begin calling right away |
+| Schedule Start | Set a specific start date/time |
+| Calling Hours | Limit calls to specific hours |
+| Time Zone | Define which time zone to use |
+
+<Tip>
+Set appropriate calling hours based on your contacts' time zones. Calling during business hours improves answer rates.
+</Tip>
+
+### Call Settings
+
+| Setting | Description |
+|---------|-------------|
+| Calls per Hour | Maximum calls to make per hour |
+| Max Attempts | How many times to try each contact |
+| Retry Delay | Time between retry attempts |
+| Concurrent Calls | Maximum simultaneous calls |
+
+## Campaign Status
+
+| Status | Description |
+|--------|-------------|
+| 🟡 Draft | Campaign configured but not started |
+| 🟢 Active | Campaign is currently running |
+| ⏸️ Paused | Campaign temporarily stopped |
+| ✅ Completed | All contacts have been called |
+| 🔴 Cancelled | Campaign was stopped |
+
+## Managing Campaigns
+
+### Starting a Campaign
+
+1. Review all settings
+2. Click **Launch Campaign**
+3. Confirm the start
+4. Campaign begins processing contacts
+
+### Pausing a Campaign
+
+1. Click **Pause** on an active campaign
+2. Active calls complete, new calls stop
+3. Resume anytime with **Resume**
+
+### Cancelling a Campaign
+
+1. Click **Cancel** or **Stop**
+2. Confirm the cancellation
+3. Campaign cannot be restarted (create a new one)
+
+## Campaign Progress
+
+Monitor your campaign in real-time:
+
+| Metric | Description |
+|--------|-------------|
+| 📊 Total | Total contacts in segment |
+| ✅ Completed | Successfully called contacts |
+| ⏳ Pending | Contacts waiting to be called |
+| ❌ Failed | Calls that couldn't complete |
+| 🔄 In Progress | Currently active calls |
+
+## Call Results
+
+For each contact, track:
+
+| Result | Description |
+|--------|-------------|
+| Answered | Contact picked up, conversation occurred |
+| No Answer | No one answered the call |
+| Busy | Line was busy |
+| Voicemail | Call went to voicemail |
+| Failed | Technical error prevented the call |
+| Completed | Call finished with a result |
+
+## Retry Logic
+
+### Automatic Retries
+
+When a call fails or goes unanswered:
+
+1. Wait for the configured retry delay
+2. Attempt the call again
+3. Continue until max attempts reached
+4. Mark as failed after all attempts exhausted
+
+### Retry Settings
+
+| Setting | Recommendation |
+|---------|----------------|
+| Max Attempts | 2-3 attempts |
+| Retry Delay | 30 minutes - 2 hours |
+| Time of Day | Vary retry times |
+
+## Campaign Analytics
+
+After a campaign completes:
+
+| Metric | Description |
+|--------|-------------|
+| Answer Rate | Percentage of calls answered |
+| Conversion Rate | Successful outcomes / Total answered |
+| Average Duration | Mean call length |
+| Best Times | Hours with highest answer rates |
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Test First" icon="flask">
+    Run a small test campaign before launching to thousands.
+  </Card>
+  <Card title="Respect Hours" icon="clock">
+    Only call during appropriate business hours.
+  </Card>
+  <Card title="Monitor Progress" icon="chart-line">
+    Check campaign progress regularly for issues.
+  </Card>
+  <Card title="Segment Well" icon="layer-group">
+    Smaller, targeted segments perform better.
+  </Card>
+</CardGroup>
+
+## Compliance Considerations
+
+<Warning>
+Ensure your campaigns comply with local regulations (TCPA in US, GDPR in EU). Only call contacts who have consented to receive calls.
+</Warning>
+
+### Compliance Checklist
+
+- ✅ Contacts have opt-in consent
+- ✅ Calling during permitted hours
+- ✅ Providing opt-out option
+- ✅ Honoring do-not-call requests
+- ✅ Keeping consent records
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Low answer rate | Adjust calling hours, check caller ID reputation |
+| High failure rate | Verify phone numbers, check agent phone health |
+| Slow progress | Increase concurrent calls or calls per hour |
+| Campaign won't start | Ensure agent has active phone number |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Segments" icon="layer-group" href="/crm/segments">
+    Create targeted segments for your campaigns.
+  </Card>
+  <Card title="Phone Health" icon="heart-pulse" href="/agents/phone-health">
+    Monitor your phone number reputation.
+  </Card>
+</CardGroup>

@@ -1,0 +1,181 @@
+---
+title: 'Segments'
+description: 'Create and manage contact groups for targeted campaigns'
+icon: 'layer-group'
+---
+
+# Segments
+
+Segments are groups of contacts that you can use for targeted campaigns. Organize your contacts by criteria like lead source, geography, or customer type.
+
+## Accessing Segments
+
+Navigate to **CRM** → **Segments** to view all your contact segments.
+
+## Segments Overview
+
+The segments page displays:
+
+| Column | Description |
+|--------|-------------|
+| Name | Segment identifier |
+| Description | Optional description |
+| Contacts | Number of contacts in segment |
+| Created | When the segment was created |
+| Actions | View, Edit, Delete options |
+
+## Creating a Segment
+
+<Steps>
+  <Step title="Click Create Segment">
+    Click the **Create Segment** button in the top right.
+  </Step>
+  <Step title="Enter Details">
+    - **Segment Name** - Required, identifies the segment
+    - **Description** - Optional, explain the segment's purpose
+  </Step>
+  <Step title="Save">
+    Click **Create** to save your segment.
+  </Step>
+</Steps>
+
+<Tip>
+Create segments before importing contacts, or contacts will be added to an auto-generated segment.
+</Tip>
+
+## Segment Properties
+
+| Property | Description |
+|----------|-------------|
+| Name | Unique identifier for the segment |
+| Description | Explains what contacts are in this segment |
+| Contact Count | Number of contacts (updated automatically) |
+| Created Time | When the segment was first created |
+
+## Managing Segments
+
+### Viewing Contacts
+
+1. Click **View** on any segment row
+2. Opens the segment detail view
+3. See all contacts within the segment
+4. Search and filter contacts
+
+### Editing a Segment
+
+1. Click the **Edit** (pencil) icon
+2. Modify name or description
+3. Click **Save Changes**
+
+<Info>
+Editing a segment's name or description doesn't affect the contacts within it.
+</Info>
+
+### Deleting a Segment
+
+1. Click the **Delete** (trash) icon
+2. Confirm the deletion
+3. Contacts are NOT deleted, only removed from the segment
+
+<Warning>
+Segment deletion cannot be undone. Make sure no active campaigns depend on this segment.
+</Warning>
+
+## Searching Segments
+
+Use the search bar to find segments:
+
+- Search by segment name
+- Search by description
+- Results filter in real-time
+
+## Sorting Segments
+
+Click column headers to sort:
+
+| Column | Sort Options |
+|--------|--------------|
+| Name | A-Z, Z-A |
+| Created | Newest first, Oldest first |
+
+## Admin Features
+
+For admin users:
+
+### Company Filter
+
+1. A company filter appears at the top
+2. Search for companies
+3. Select a company to view their segments
+4. "All Companies" shows segments across all
+
+### Cross-Company Access
+
+Admins can:
+- View segments from any company
+- Create segments for specific companies
+- Manage campaigns across accounts
+
+## Using Segments
+
+### In Campaigns
+
+Segments are used to target campaigns:
+
+1. Create a campaign
+2. Select a segment as the target audience
+3. All contacts in that segment receive calls
+
+### Segment Size
+
+For optimal campaign performance:
+
+| Size | Recommendation |
+|------|----------------|
+| < 100 | Good for testing |
+| 100-1,000 | Standard campaign size |
+| 1,000-10,000 | Large campaign, monitor closely |
+| > 10,000 | Split into multiple campaigns |
+
+## Segment Strategies
+
+<CardGroup cols={2}>
+  <Card title="By Source" icon="door-open">
+    Group contacts by how they were acquired (web form, import, API).
+  </Card>
+  <Card title="By Region" icon="map">
+    Organize by geography for localized campaigns.
+  </Card>
+  <Card title="By Status" icon="circle-check">
+    Separate qualified leads from cold contacts.
+  </Card>
+  <Card title="By Date" icon="calendar">
+    Group by import date for time-based follow-ups.
+  </Card>
+</CardGroup>
+
+## Best Practices
+
+1. **Descriptive Names** - Use clear names like "January 2024 Webinar Signups"
+2. **Add Descriptions** - Document criteria for future reference
+3. **Regular Cleanup** - Archive or delete old segments
+4. **Size Monitoring** - Keep segment sizes manageable for campaigns
+
+## Integration with Imports
+
+When importing contacts:
+
+1. Specify a segment name during import
+2. All contacts are added to that segment
+3. Or select an existing segment to append to
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Import Contacts" icon="file-import" href="/crm/import-contacts">
+    Add contacts to your segments.
+  </Card>
+  <Card title="Campaigns" icon="bullhorn" href="/crm/campaigns">
+    Use segments to launch targeted call campaigns.
+  </Card>
+</CardGroup>

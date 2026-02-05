@@ -1,0 +1,215 @@
+---
+title: 'Saludos'
+description: 'Configura mensajes de bienvenida para llamadas entrantes y salientes'
+icon: 'hand-wave'
+---
+
+## ¿Qué son los Saludos?
+
+Los Saludos son los mensajes iniciales que tu agente dice cuando comienza una llamada. Se usan diferentes tipos de saludo dependiendo de si la llamada es entrante (cliente llamándote) o saliente (tu agente llamando al cliente).
+
+<Info>
+Un saludo bien elaborado establece el tono para toda la conversación y ayuda a establecer confianza con los llamantes.
+</Info>
+
+## Tipos de Saludos
+
+### Saludo Entrante
+
+Se usa cuando un cliente llama a tu número de teléfono. El agente debe:
+- Identificar la empresa
+- Dar la bienvenida al llamante
+- Ofrecer asistencia
+
+**Ejemplo:**
+```
+Hola, gracias por llamar a Acme Corp. Mi nombre es Sara, 
+¿en qué puedo ayudarle hoy?
+```
+
+### Saludo Saliente
+
+Se usa cuando tu agente inicia una llamada a un cliente. El agente debe:
+- Presentarse
+- Indicar el propósito de la llamada
+- Verificar que está hablando con la persona correcta
+
+**Ejemplo:**
+```
+Hola, ¿hablo con {{nombre_cliente}}? 
+Hola, soy Sara de Acme Corp. Le llamo sobre 
+su consulta reciente respecto a nuestros servicios.
+```
+
+## Configurando Saludos
+
+<Steps>
+  <Step title="Abrir Sección de Saludos">
+    Navega a la sección de Saludos en el panel izquierdo (icono 👋).
+  </Step>
+  <Step title="Ingresar Saludo Entrante">
+    Escribe tu mensaje de bienvenida para llamadas entrantes.
+  </Step>
+  <Step title="Ingresar Saludo Saliente">
+    Escribe tu introducción para llamadas salientes.
+  </Step>
+  <Step title="Guardar Cambios">
+    Haz clic en Guardar para aplicar tus saludos.
+  </Step>
+</Steps>
+
+## Usando Parámetros de Entrada
+
+Personaliza los saludos incluyendo parámetros de entrada:
+
+```
+Hola {{nombre_cliente}}, soy Sara de Acme Corp. 
+Le llamo sobre su pedido {{numero_pedido}} que está 
+programado para entrega el {{fecha_entrega}}.
+```
+
+<Tip>
+Los saludos personalizados mejoran significativamente el engagement del cliente y las tasas de éxito de las llamadas.
+</Tip>
+
+## Plantillas de Idioma
+
+El Editor Avanzado proporciona plantillas de saludo predefinidas para múltiples idiomas:
+
+### Idiomas Disponibles
+
+<Tabs>
+  <Tab title="Español">
+    **Entrante:**
+    - "Gracias por llamar a [Empresa]. ¿En qué puedo ayudarle?"
+    - "Hola, ha contactado con [Empresa]. ¿Cómo puedo asistirle?"
+    
+    **Saliente:**
+    - "Hola, ¿hablo con [Nombre]? Soy [Agente] de [Empresa]."
+    - "Hola [Nombre], le llamo de [Empresa] en relación a..."
+  </Tab>
+  <Tab title="Inglés">
+    **Entrante:**
+    - "Thank you for calling [Company]. How may I help you today?"
+    - "Hello, you've reached [Company]. How can I assist you?"
+    
+    **Saliente:**
+    - "Hello, may I speak with [Name]? This is [Agent] from [Company]."
+    - "Hi [Name], this is [Agent] calling from [Company] regarding..."
+  </Tab>
+  <Tab title="Francés">
+    **Entrante:**
+    - "Merci d'appeler [Entreprise]. Comment puis-je vous aider?"
+    - "Bonjour, vous avez joint [Entreprise]. Comment puis-je vous assister?"
+    
+    **Saliente:**
+    - "Bonjour, puis-je parler à [Nom]? Je suis [Agent] de [Entreprise]."
+    - "Bonjour [Nom], je vous appelle de [Entreprise] concernant..."
+  </Tab>
+</Tabs>
+
+### Usando Plantillas
+
+<Steps>
+  <Step title="Hacer Clic en Plantillas">
+    Haz clic en el botón "Plantillas" en la sección de Saludos.
+  </Step>
+  <Step title="Seleccionar Idioma">
+    Elige el idioma que coincide con la configuración de tu agente.
+  </Step>
+  <Step title="Seleccionar Plantilla">
+    Elige una plantilla para llamadas entrantes o salientes.
+  </Step>
+  <Step title="Personalizar">
+    Modifica la plantilla para que coincida con el estilo de tu empresa.
+  </Step>
+</Steps>
+
+## Consejos para Saludos
+
+<AccordionGroup>
+  <Accordion title="Mantén Brevedad" icon="hourglass-half">
+    Saludos largos pueden frustrar a los llamantes. Apunta a 2-3 frases máximo.
+  </Accordion>
+  <Accordion title="Sé Profesional" icon="user-tie">
+    Usa lenguaje profesional que coincida con la voz de tu marca.
+  </Accordion>
+  <Accordion title="Indica Tu Propósito" icon="bullseye">
+    Para llamadas salientes, explica rápidamente por qué estás llamando.
+  </Accordion>
+  <Accordion title="Verifica Identidad" icon="id-card">
+    Para llamadas salientes, confirma que estás hablando con la persona correcta.
+  </Accordion>
+  <Accordion title="Coincide el Idioma" icon="language">
+    Asegúrate de que tu saludo coincide con el idioma configurado en tu agente.
+  </Accordion>
+</AccordionGroup>
+
+## Mejores Prácticas
+
+### Lo que SÍ hacer
+
+- ✅ Identifica tu empresa inmediatamente
+- ✅ Mantén saludos concisos
+- ✅ Usa lenguaje natural y conversacional
+- ✅ Incluye personalización cuando sea posible
+- ✅ Coincide el tono con tu marca
+
+### Lo que NO hacer
+
+- ❌ Usar lenguaje demasiado formal o robótico
+- ❌ Hacer saludos demasiado largos
+- ❌ Incluir información innecesaria
+- ❌ Olvidar identificarte (saliente)
+- ❌ Saltar verificación (saliente)
+
+## Ejemplos de Saludos por Industria
+
+### Soporte al Cliente
+**Entrante:**
+```
+Gracias por llamar al Soporte de Acme. Mi nombre es Sara. 
+¿En qué puedo ayudarle hoy?
+```
+
+### Ventas
+**Saliente:**
+```
+Hola, ¿hablo con {{nombre_cliente}}? ¡Genial! Soy Sara 
+de Acme Corp. Le contacto porque recientemente mostró 
+interés en nuestros servicios. ¿Tiene un momento para hablar?
+```
+
+### Citas
+**Saliente:**
+```
+Hola {{nombre_cliente}}, soy Sara llamando de la 
+consulta del Dr. García. Le llamo para confirmar su 
+cita del {{fecha_cita}} a las {{hora_cita}}.
+```
+
+### Cobros
+**Saliente:**
+```
+Hola, ¿puedo hablar con {{nombre_cliente}}? Esta es 
+una llamada de cortesía de Acme Financiera respecto a su cuenta.
+```
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Prompt del Sistema"
+    icon="file-lines"
+    href="/es/getting-started/create-agent#prompt-del-sistema"
+  >
+    Define la personalidad del agente
+  </Card>
+  <Card
+    title="Evaluaciones"
+    icon="check-double"
+    href="/es/advanced-editor/evaluations"
+  >
+    Prueba efectividad de saludos
+  </Card>
+</CardGroup>

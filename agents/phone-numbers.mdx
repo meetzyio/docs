@@ -1,0 +1,185 @@
+---
+title: 'Configure Phone Numbers'
+description: 'Learn how to assign, manage, and swap phone numbers for your Meetzy agents'
+---
+
+## Phone Numbers in Meetzy
+
+Each Meetzy agent needs at least one phone number to:
+
+- **Receive inbound calls**
+- **Make outbound calls**
+- **Identify itself** (caller ID)
+
+<Note>
+  Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
+</Note>
+
+## Assign a Number When Creating an Agent
+
+When creating a new agent in the Advanced Editor:
+
+1. Go to the **Settings** section (Cog icon)
+2. Find the **Phone Number** field
+3. Select an available number from the dropdown
+
+### If No Numbers Are Available
+
+If the dropdown is empty, you'll see a message:
+
+```
+No available phone numbers for the selected account.
+All numbers are assigned or configured.
+```
+
+**Options:**
+- Release a number from another agent
+- Request new numbers via the "Request more numbers" link
+
+## View Assigned Numbers
+
+Once assigned, the number appears in read-only mode:
+
+```
+Phone Number: +1 555 123 4567 (Sales Team) 🔒
+Phone number assigned to this agent
+```
+
+<Warning>
+  The phone number cannot be changed directly once assigned. To change it, use the Swap function from Phone Health.
+</Warning>
+
+## Multiple Numbers per Agent
+
+An agent can have multiple assigned numbers. This is useful for:
+
+- **Volume distribution**: Reduce spam risk
+- **Regional segmentation**: Different numbers for different areas
+- **Redundancy**: Backup if a number has issues
+
+### How Multiple Numbers Are Used
+
+| Call Type | Behavior |
+|-----------|----------|
+| **Inbound** | Customer can call any of the numbers |
+| **Outbound** | System automatically selects the best available number |
+
+The number with the best **Phone Health** has priority for outbound calls.
+
+## Swap Numbers
+
+You can swap a problematic number for a new one from the Phone Health report:
+
+<Steps>
+  <Step title="Open Phone Health">
+    Click the health indicator on the agent.
+  </Step>
+  <Step title="Identify the number">
+    Find the number with Warning or Spam status.
+  </Step>
+  <Step title="Start Swap">
+    Click the **Swap** button next to the number.
+  </Step>
+  <Step title="Confirm">
+    The system shows the proposed new number. Confirm the swap.
+  </Step>
+</Steps>
+
+### What Happens During a Swap
+
+1. **Old number** is unlinked and marked as "RETURN"
+2. **New number** is assigned and immediately active
+
+## Disconnect a Number
+
+To remove a number without replacing it:
+
+1. Open the **Phone Health** report
+2. Click **Disconnect** next to the number
+3. Confirm the disconnection
+
+<Warning>
+  If you disconnect the agent's only number, it won't be able to make or receive calls until you assign another.
+</Warning>
+
+## Request New Numbers
+
+To request additional numbers:
+
+1. In the Advanced Editor, Settings section
+2. Click **"Request more numbers"**
+3. You'll be redirected to the request portal
+
+New numbers are typically available within 24-48 hours.
+
+## Supported Country Prefixes
+
+Meetzy supports phone numbers in multiple countries:
+
+| Country | Prefix | Availability |
+|---------|--------|--------------|
+| United States | +1 | Available |
+| Spain | +34 | Available |
+| Mexico | +52 | Available |
+| Argentina | +54 | Available |
+| Colombia | +57 | Available |
+| United Kingdom | +44 | Available |
+
+<Tip>
+  Use local numbers from your customers' country to increase answer rates. Customers are more likely to answer calls from local numbers.
+</Tip>
+
+## Best Practices
+
+### Number Rotation
+
+For high-volume campaigns:
+
+1. Assign multiple numbers to the agent
+2. The system rotates automatically
+3. Monitor Phone Health regularly
+4. Swap numbers before they reach "Spam" status
+
+### Number Identification
+
+Each number has a **Friendly Name** for identification:
+
+```
++1 555 123 4567 (Sales Team)
+       │              │
+       │              └── Friendly Name
+       └── Number
+```
+
+Use descriptive names like:
+- "Sales Team"
+- "Support Line"
+- "Campaign Q1"
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Can I use my own phone number?">
+    Currently, Meetzy only supports numbers provided through the platform. Number portability is under development.
+  </Accordion>
+  <Accordion title="What happens if I run out of numbers?">
+    Outbound calls will fail and inbound calls will go to an error mailbox. Request more numbers before this happens.
+  </Accordion>
+  <Accordion title="Are numbers exclusive or shared?">
+    Each number is exclusive to your account. It's not shared between different Meetzy customers.
+  </Accordion>
+  <Accordion title="Can I have numbers from different countries on one agent?">
+    Yes, you can assign numbers from multiple countries to the same agent.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Phone Health" icon="heart-pulse" href="/agents/phone-health">
+    Monitor the health and reputation of your numbers.
+  </Card>
+  <Card title="Make Test Calls" icon="phone-arrow-up-right" href="/agents/manage-agents#make-test-calls">
+    Learn to test your agent with real calls.
+  </Card>
+</CardGroup>

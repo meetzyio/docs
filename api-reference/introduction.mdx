@@ -1,28 +1,153 @@
 ---
 title: 'Introduction'
-description: 'Explore our API Reference to get the most out of Flark.'
+description: 'Explore our API Reference to integrate Meetzy with your systems.'
 ---
 
-<Note>
-  Rome wasn´t build in day. We will add more endpoints and information very soon
-</Note>
+## Welcome to the Meetzy API
 
-## How does Flark works?
+The Meetzy API allows you to programmatically trigger calls, retrieve call data, and integrate AI-powered voice agents with your existing systems.
 
-Flark.ai help your sales and marketing teams to create thousands of AI-Genareted Phone Calls trained with your playbooks .
+## Base URL
 
-The platform offers a unique blend of features including the capability to conduct sales in over 20 languages, making it possible to connect with a vast portion of the global market. Flark is not only capable of engaging in natural-sounding conversations but also of filtering leads based on their qualification status, facilitating an efficient lead management process. By integrating directly with businesses' existing CRM systems, Flark.ai ensures that all interactions are seamlessly recorded and actionable insights are generated, empowering businesses to refine their sales strategies and achieve scalable growth.
+All API requests are made to:
 
-## What do you need to get started?
+```
+https://api.meetzy.io
+```
 
-To get started with Flark.ai, you'll need the following:
+## Authentication
 
+All API requests require authentication using a Bearer token.
 
-1. Access to [Flark.ai](https://flark.ai): Sign up for early access or book a demo to understand how Flark.ai can be tailored to fit your business needs.
+### Getting Your API Token
 
-2. Sales Playbook: Prepare your sales playbook which Flark.ai's AI will use to train its AI sales representatives. This playbook should detail your sales process, key talking points, objection handling, and the qualification criteria for leads.
+1. Log in to your [Meetzy Dashboard](https://dashboard.meetzy.io)
+2. Navigate to **Account** → **API Tokens**
+3. Copy your API token
 
-3. Training Session: Schedule a session with Flark.ai’s experts to customize the AI training according to your sales playbook and company knowledge. This bespoke training ensures the AI sales reps can conduct humanlike phone calls effectively.
+### Using Your Token
 
-By preparing these items, you’ll be well-equipped to leverage Flark.ai’s AI-driven sales solution to enhance your sales process, reach more leads efficiently, and scale your operations effectively.
+Include the token in the `Authorization` header:
 
+```bash
+curl -X GET https://api.meetzy.io/calls \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+<Warning>
+Keep your API token secret. Never expose it in client-side code or public repositories.
+</Warning>
+
+## Request Format
+
+All requests should include the `Content-Type: application/json` header when sending data.
+
+```json
+{
+  "phone": "+1234567890",
+  "playbook_id": "pb_abc123",
+  "params": {
+    "customer_name": "John Doe"
+  }
+}
+```
+
+## Response Format
+
+All responses are returned in JSON format:
+
+```json
+{
+  "success": true,
+  "data": {
+    "call_id": "call_xyz789",
+    "status": "initiated"
+  }
+}
+```
+
+### Error Responses
+
+Errors include an error code and message:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "invalid_phone",
+    "message": "The provided phone number is invalid"
+  }
+}
+```
+
+## HTTP Status Codes
+
+| Code | Description |
+|------|-------------|
+| 200 | Success |
+| 201 | Created |
+| 400 | Bad Request - Invalid parameters |
+| 401 | Unauthorized - Invalid or missing token |
+| 403 | Forbidden - Insufficient permissions |
+| 404 | Not Found - Resource doesn't exist |
+| 429 | Too Many Requests - Rate limited |
+| 500 | Internal Server Error |
+
+## Rate Limiting
+
+API requests are rate limited to ensure fair usage:
+
+- **Standard**: 100 requests per minute
+- **Burst**: 10 requests per second
+
+When rate limited, you'll receive a `429` response with retry information.
+
+## SDKs and Libraries
+
+Official SDKs coming soon. In the meantime, use any HTTP client:
+
+<CodeGroup>
+```javascript Node.js (axios)
+const axios = require('axios');
+
+const client = axios.create({
+  baseURL: 'https://api.meetzy.io',
+  headers: {
+    'Authorization': `Bearer ${process.env.MEETZY_API_TOKEN}`,
+    'Content-Type': 'application/json'
+  }
+});
+```
+
+```python Python (requests)
+import requests
+
+headers = {
+    'Authorization': f'Bearer {API_TOKEN}',
+    'Content-Type': 'application/json'
+}
+
+response = requests.get(
+    'https://api.meetzy.io/calls',
+    headers=headers
+)
+```
+</CodeGroup>
+
+## Need Help?
+
+<CardGroup cols={2}>
+  <Card title="Create a Call" icon="phone" href="/api-reference/endpoint/create">
+    Learn how to initiate calls via API.
+  </Card>
+  <Card title="Get Call Details" icon="info-circle" href="/api-reference/endpoint/get">
+    Retrieve detailed call information.
+  </Card>
+  <Card title="List Calls" icon="list" href="/api-reference/endpoint/list">
+    Retrieve your call history.
+  </Card>
+  <Card title="Support" icon="life-ring" href="mailto:support@meetzy.io">
+    Contact our support team.
+  </Card>
+</CardGroup>

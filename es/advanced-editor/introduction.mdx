@@ -1,0 +1,139 @@
+---
+title: 'Introducción al Editor Avanzado'
+description: 'Aprende sobre el Editor Avanzado y cuándo usarlo para crear agentes de IA potentes'
+icon: 'wand-magic-sparkles'
+---
+
+## ¿Qué es el Editor Avanzado?
+
+El **Editor Avanzado** es la herramienta integral de configuración de agentes de Meetzy que te da control total sobre cada aspecto del comportamiento de tu agente de IA. Proporciona una interfaz de nivel profesional para crear, probar y desplegar agentes conversacionales de IA.
+
+<Info>
+El Editor Avanzado es la herramienta recomendada para crear agentes listos para producción con comportamientos personalizados, integraciones y lógica avanzada.
+</Info>
+
+## Cuándo Usar el Editor Avanzado
+
+| Escenario | Herramienta Recomendada |
+|----------|-----------------|
+| Crear un agente nuevo desde cero | ✅ Editor Avanzado |
+| Ajustar respuestas del agente | ✅ Editor Avanzado |
+| Añadir documentos a la base de conocimiento | ✅ Editor Avanzado |
+| Configurar integraciones webhook | ✅ Editor Avanzado |
+| Probar agente en tiempo real | ✅ Editor Avanzado |
+| Duplicación rápida de agente | Panel de Agentes |
+
+## Vista General de la Interfaz
+
+El Editor Avanzado está dividido en dos paneles principales:
+
+### Panel Izquierdo - Configuración
+
+El panel izquierdo contiene todas las secciones de configuración accesibles mediante una barra de iconos:
+
+| Icono | Sección | Descripción |
+|------|---------|-------------|
+| ⚙️ | Configuración Básica | Nombre, idioma, voz, modelo LLM |
+| 👋 | Saludos | Mensajes de bienvenida para llamadas entrantes/salientes |
+| 📄 | Prompt del Sistema | Personalidad e instrucciones del agente |
+| 📥 | Parámetros de Entrada | Variables dinámicas para llamadas personalizadas |
+| 📚 | Base de Conocimiento | Documentos, FAQs y materiales de referencia |
+| 🔧 | Acciones y Herramientas | Integraciones, transferencias, webhooks |
+| ✅ | Evaluaciones | Pruebas automáticas de calidad |
+| 📤 | Configuración de Salida | Extracción de datos y webhooks |
+
+### Panel Derecho - Pruebas y Herramientas
+
+| Pestaña | Propósito |
+|-----|---------|
+| 🎮 Playground | Prueba tu agente en tiempo real con texto o voz |
+| 🤖 Copilot | Asistente IA para ayudar a mejorar tus prompts |
+| 📜 Historial de Versiones | Rastrea cambios y revierte si es necesario |
+
+## Barra Superior
+
+La barra de herramientas proporciona acciones rápidas:
+
+| Acción | Descripción |
+|--------|-------------|
+| ← Volver | Regresar a la lista de agentes |
+| 🏷️ Versión | Indicador de versión actual |
+| ✓ Guardar | Guardar cambios actuales |
+| ⬇️ Exportar | Descargar configuración del agente |
+| 🚀 Publicar | Desplegar cambios a producción |
+
+## Mejores Prácticas de Flujo de Trabajo
+
+<Steps>
+  <Step title="Configurar Ajustes Básicos">
+    Comienza con nombre, idioma, selección de voz y elección del modelo LLM.
+  </Step>
+  <Step title="Configurar Saludos">
+    Define cómo tu agente se presenta para diferentes tipos de llamada.
+  </Step>
+  <Step title="Escribir Prompt del Sistema">
+    Describe el rol, personalidad y guías de conversación de tu agente.
+  </Step>
+  <Step title="Añadir Base de Conocimiento">
+    Sube documentos y FAQs que el agente puede consultar.
+  </Step>
+  <Step title="Configurar Acciones">
+    Configura transferencias de llamada, webhooks y otras integraciones.
+  </Step>
+  <Step title="Definir Salida">
+    Especifica qué datos extraer de cada llamada.
+  </Step>
+  <Step title="Probar en Playground">
+    Valida el comportamiento del agente antes de publicar.
+  </Step>
+  <Step title="Publicar">
+    Despliega tu agente a producción.
+  </Step>
+</Steps>
+
+## Conceptos Clave
+
+<AccordionGroup>
+  <Accordion title="Versiones y Ramas" icon="code-branch">
+    El Editor Avanzado soporta control de versiones estilo Git. Puedes crear ramas, rastrear cambios y revertir a versiones anteriores si es necesario.
+  </Accordion>
+  <Accordion title="Live vs Desarrollo" icon="rocket">
+    Puedes trabajar en cambios en modo desarrollo y solo enviarlos a producción (Live) cuando estés satisfecho con los resultados.
+  </Accordion>
+  <Accordion title="Pruebas en Tiempo Real" icon="play">
+    El Playground te permite probar tu agente instantáneamente sin hacer llamadas telefónicas reales, ahorrando tiempo y dinero.
+  </Accordion>
+</AccordionGroup>
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Configuración Básica"
+    icon="gear"
+    href="/es/advanced-editor/basic-settings"
+  >
+    Configura nombre, idioma, voz y modelo de IA
+  </Card>
+  <Card
+    title="Base de Conocimiento"
+    icon="book"
+    href="/es/advanced-editor/knowledge-base"
+  >
+    Añade documentos y FAQs para tu agente
+  </Card>
+  <Card
+    title="Acciones y Herramientas"
+    icon="wrench"
+    href="/es/advanced-editor/actions-tools"
+  >
+    Configura integraciones y webhooks
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba tu agente en tiempo real
+  </Card>
+</CardGroup>

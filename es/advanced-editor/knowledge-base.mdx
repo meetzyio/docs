@@ -1,0 +1,176 @@
+---
+title: 'Base de Conocimiento'
+description: 'Añade documentos, FAQs y materiales de referencia para tu agente'
+icon: 'book'
+---
+
+## ¿Qué es la Base de Conocimiento?
+
+La Base de Conocimiento es donde proporcionas a tu agente información que puede consultar durante las conversaciones. Esto incluye documentación de productos, FAQs, políticas de empresa, información de precios y cualquier otro contenido que tu agente necesite para responder preguntas de clientes con precisión.
+
+<Info>
+Una Base de Conocimiento bien poblada mejora significativamente la capacidad de tu agente para proporcionar respuestas precisas y útiles.
+</Info>
+
+## Añadiendo Documentos
+
+Puedes añadir conocimiento a tu agente de tres formas:
+
+### 1. Importación por URL
+
+Importa contenido directamente desde páginas web.
+
+<Steps>
+  <Step title="Haz clic en 'Añadir URL'">
+    Abre la sección de Base de Conocimiento y selecciona la opción URL.
+  </Step>
+  <Step title="Ingresa la URL">
+    Pega la URL completa de la página web que quieres importar.
+  </Step>
+  <Step title="Confirma Importación">
+    El sistema buscará y procesará el contenido automáticamente.
+  </Step>
+</Steps>
+
+**Mejor para:** Páginas de productos, artículos del centro de ayuda, sitios de documentación.
+
+### 2. Entrada de Texto
+
+Ingresa o pega contenido de texto manualmente.
+
+<Steps>
+  <Step title="Haz clic en 'Añadir Texto'">
+    Selecciona la opción de entrada de texto.
+  </Step>
+  <Step title="Ingresa Contenido">
+    Escribe o pega tu contenido en el área de texto.
+  </Step>
+  <Step title="Guardar">
+    El contenido es procesado y añadido a la base de conocimiento.
+  </Step>
+</Steps>
+
+**Mejor para:** FAQs personalizadas, guías internas, scripts.
+
+### 3. Subida de Archivos
+
+Sube documentos directamente.
+
+<Steps>
+  <Step title="Haz clic en 'Añadir Archivo'">
+    Selecciona la opción de subida de archivo.
+  </Step>
+  <Step title="Selecciona Archivo">
+    Elige un archivo de tu ordenador.
+  </Step>
+  <Step title="Subir">
+    El documento es procesado e indexado.
+  </Step>
+</Steps>
+
+**Formatos soportados:** PDF, TXT, DOC, DOCX, y más.
+
+## Modos de Uso
+
+Cada documento en tu Base de Conocimiento puede configurarse con un modo de uso:
+
+| Modo | Icono | Descripción |
+|------|------|-------------|
+| Búsqueda Automática | 🔍 | El agente busca en este documento solo cuando es relevante |
+| En Prompt | 📋 | El contenido siempre se incluye en el contexto del agente |
+
+### Cuándo Usar Cada Modo
+
+<AccordionGroup>
+  <Accordion title="Búsqueda Automática" icon="magnifying-glass">
+    Usa para documentos grandes o materiales de referencia. El agente solo recuperará porciones relevantes cuando sea necesario, manteniendo las respuestas eficientes.
+    
+    **Ejemplos:**
+    - Catálogos de productos
+    - Documentación completa
+    - FAQs extensas
+  </Accordion>
+  <Accordion title="En Prompt" icon="file-import">
+    Usa para información crítica que siempre debe estar disponible. Este contenido se incluye en cada conversación.
+    
+    **Ejemplos:**
+    - Nombre de empresa y detalles clave
+    - Niveles de precios
+    - Políticas principales
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+Usar "En Prompt" para documentos grandes puede aumentar costos y ralentizar respuestas. Úsalo solo para información esencial y concisa.
+</Warning>
+
+## Gestionando Documentos
+
+### Lista de Documentos
+
+Todos los documentos añadidos aparecen en una lista mostrando:
+
+| Columna | Descripción |
+|---------|-------------|
+| Nombre | Título del documento o URL |
+| Tipo | Icono de URL, Texto o Archivo |
+| Modo | Búsqueda Automática o En Prompt |
+| Acciones | Botones de Editar o Eliminar |
+
+### Editando Documentos
+
+1. Haz clic en el icono de editar (✏️) junto a cualquier documento
+2. Modifica el contenido o configuración
+3. Guarda cambios
+
+### Eliminando Documentos
+
+1. Haz clic en el icono de eliminar (🗑️) junto al documento
+2. Confirma eliminación
+
+<Warning>
+Los documentos eliminados no pueden recuperarse. Asegúrate de exportar contenido importante antes de eliminar.
+</Warning>
+
+## Mejores Prácticas
+
+<Tip>
+Mantén tu Base de Conocimiento organizada y actualizada para un rendimiento óptimo del agente.
+</Tip>
+
+1. **Mantén Contenido Actualizado** - Actualiza documentos regularmente para reflejar la información más reciente
+2. **Sé Específico** - Incluye frases exactas que los clientes podrían usar
+3. **Estructura Bien** - Usa encabezados claros y viñetas
+4. **Evita Duplicación** - No repitas la misma información en múltiples documentos
+5. **Prueba Exhaustivamente** - Verifica que el agente puede encontrar y usar la información correctamente
+
+## Ejemplo de Estructura de Base de Conocimiento
+
+```
+📚 Base de Conocimiento
+├── 📄 Resumen de Empresa (En Prompt)
+├── 📄 Catálogo de Productos (Búsqueda Automática)
+├── 🔗 URL de Página de Precios (Búsqueda Automática)
+├── 📄 FAQ - Preguntas Comunes (Búsqueda Automática)
+├── 📄 Política de Devoluciones (Búsqueda Automática)
+└── 📄 Información de Contacto (En Prompt)
+```
+
+## Siguientes Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Acciones y Herramientas"
+    icon="wrench"
+    href="/es/advanced-editor/actions-tools"
+  >
+    Configura integraciones y webhooks
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba tu agente con la base de conocimiento
+  </Card>
+</CardGroup>

@@ -1,0 +1,214 @@
+---
+title: 'Playground'
+description: 'Test your AI agent in real-time without making phone calls'
+icon: 'gamepad'
+---
+
+## What is the Playground?
+
+The Playground is a testing environment in the Advanced Editor where you can interact with your agent in real-time. It allows you to simulate conversations, test different scenarios, and validate your agent's behavior before deploying to production.
+
+<Info>
+Testing in the Playground saves time and money by catching issues before they affect real customer calls.
+</Info>
+
+## Accessing the Playground
+
+The Playground is located in the right panel of the Advanced Editor. Click the "Playground" tab to access it.
+
+## Call Types
+
+You can simulate two types of calls:
+
+| Type | Description | Use Case |
+|------|-------------|----------|
+| 📞 Inbound | Customer calling your agent | Test welcome flow, support scenarios |
+| 📤 Outbound | Agent calling a customer | Test introductions, sales scripts |
+
+<Tip>
+Switch between call types to test both greetings and ensure your agent handles each scenario correctly.
+</Tip>
+
+## Sending Messages
+
+### Text Input
+
+Type messages in the input field and press Enter or click Send. The agent will respond as it would in a real call.
+
+### Voice Input
+
+Click the microphone icon to speak your message. The agent will:
+1. Transcribe your speech
+2. Process the message
+3. Respond with synthesized voice
+
+<Info>
+Voice testing helps verify speech recognition accuracy and voice synthesis quality.
+</Info>
+
+## Conversation View
+
+The Playground displays messages chronologically:
+
+| Element | Description |
+|---------|-------------|
+| 👤 User Message | Your inputs (text or transcribed voice) |
+| 🤖 Agent Message | Agent responses |
+| 🔧 Tool Call | When agent triggers a webhook or action |
+| ✅ Tool Result | Response from webhook or action |
+
+### Audio Playback
+
+For each agent response, you can:
+- ▶️ Play the audio response
+- ⏸️ Pause playback
+- 🔁 Replay messages
+
+## Context Variables
+
+Test how your agent handles different input parameters:
+
+<Steps>
+  <Step title="Open Context Variables">
+    Click the "Context Variables" panel in the Playground.
+  </Step>
+  <Step title="Set Values">
+    Enter test values for each input parameter.
+  </Step>
+  <Step title="Start Conversation">
+    Begin testing with the configured context.
+  </Step>
+</Steps>
+
+### Example Context
+
+```json
+{
+  "customer_name": "John Smith",
+  "order_number": "ORD-12345",
+  "is_premium_customer": true,
+  "account_balance": 1250.50
+}
+```
+
+## Reliability Test
+
+Run multiple iterations of the same conversation to test consistency:
+
+<Steps>
+  <Step title="Configure Scenario">
+    Set up your test conversation and context variables.
+  </Step>
+  <Step title="Set Iterations">
+    Choose how many times to run the test (e.g., 10, 50, 100).
+  </Step>
+  <Step title="Run Test">
+    Click "Run Reliability Test" to start.
+  </Step>
+  <Step title="Review Results">
+    Analyze consistency across all iterations.
+  </Step>
+</Steps>
+
+<Info>
+Reliability tests help identify edge cases where the agent might behave inconsistently.
+</Info>
+
+## Testing Features
+
+### Test Tool Calls
+
+When your agent triggers a webhook:
+
+1. The tool call appears in the conversation
+2. You can see the parameters being sent
+3. The response (or mock response) is displayed
+
+### Test Evaluations
+
+After a conversation, you can run evaluations to verify they work correctly:
+
+1. End the conversation naturally
+2. Click "Run Evaluations"
+3. Review which evaluations pass or fail
+
+### Test Knowledge Base
+
+Verify your agent can find and use knowledge base content:
+
+1. Ask questions that require KB lookup
+2. Observe if the agent retrieves correct information
+3. Check if responses are accurate and relevant
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Test Edge Cases" icon="flask">
+    Try unusual inputs, interruptions, and unexpected responses to see how your agent handles them.
+  </Accordion>
+  <Accordion title="Vary Context" icon="shuffle">
+    Test with different input parameter combinations to ensure personalization works correctly.
+  </Accordion>
+  <Accordion title="Test Both Call Types" icon="phone">
+    Always test both inbound and outbound scenarios.
+  </Accordion>
+  <Accordion title="Check Tool Integrations" icon="plug">
+    Verify webhooks are called with correct parameters.
+  </Accordion>
+  <Accordion title="Run Reliability Tests" icon="rotate">
+    Periodically run multi-iteration tests to ensure consistency.
+  </Accordion>
+</AccordionGroup>
+
+## Common Testing Scenarios
+
+### Happy Path
+Test the ideal conversation flow where everything goes as expected.
+
+### Error Handling
+Test what happens when:
+- User provides invalid information
+- Webhooks fail
+- User doesn't respond
+
+### Objection Handling
+Test how the agent responds to:
+- "I'm not interested"
+- "Call me back later"
+- "I need to think about it"
+
+### Edge Cases
+Test unusual scenarios:
+- Very short responses
+- Long, rambling inputs
+- Off-topic questions
+- Multiple questions at once
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Agent not responding | Check if LLM model is configured correctly |
+| Wrong greeting | Verify call type (inbound/outbound) is set correctly |
+| Missing personalization | Ensure context variables are set |
+| Webhook not triggering | Check tool descriptions and conditions |
+| Slow responses | Try a faster LLM model |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Copilot"
+    icon="robot"
+    href="/advanced-editor/copilot"
+  >
+    Get AI help improving your prompts
+  </Card>
+  <Card
+    title="Version History"
+    icon="clock-rotate-left"
+    href="/advanced-editor/version-history"
+  >
+    Track and manage changes
+  </Card>
+</CardGroup>
