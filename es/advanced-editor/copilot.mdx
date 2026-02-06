@@ -16,6 +16,58 @@ Copilot no solo sugiere - edita. Describe lo que quieres mejorar y observa cómo
 
 Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Copilot" para acceder.
 
+## Pantalla de Bienvenida
+
+Cuando abres Copilot por primera vez, verás una pantalla de bienvenida con botones de acción rápida para tareas comunes:
+
+<Steps>
+  <Step title="Analizar y Mejorar">
+    Encuentra lagunas, añade claridad y mejora el flujo de tu prompt.
+    
+    **Acción**: Inicia un análisis completo del system prompt actual.
+  </Step>
+  <Step title="Refinar Tono">
+    Hace tu prompt más conciso, profesional y claro.
+    
+    **Acción**: Acorta, pule y perfecciona el estilo conversacional.
+  </Step>
+  <Step title="Añadir Campos de Salida">
+    Configura parámetros para capturar datos de las conversaciones.
+    
+    **Acción**: Añade campos como nombre, email, teléfono, nivel de interés.
+  </Step>
+  <Step title="Crear Evaluaciones">
+    Establece métricas para medir el rendimiento del agente.
+    
+    **Acción**: Crea criterios de evaluación de calidad conversacional y satisfacción del cliente.
+  </Step>
+</Steps>
+
+## Funcionalidad de Grabación de Voz
+
+Copilot incluye una funcionalidad de grabación de voz para solicitudes hands-free:
+
+### Cómo Usar la Grabación de Voz
+
+<Steps>
+  <Step title="Activar Grabación">
+    Haz clic en el botón del micrófono en el campo de entrada de Copilot.
+  </Step>
+  <Step title="Dar Permisos">
+    Permite el acceso al micrófono cuando el navegador lo solicite.
+  </Step>
+  <Step title="Hablar tu Solicitud">
+    Describe claramente qué cambios quieres hacer al prompt.
+  </Step>
+  <Step title="Finalizar Grabación">
+    Haz clic en "Parar" o espera a que termine automáticamente.
+  </Step>
+</Steps>
+
+<Info>
+La grabación de voz convierte automáticamente tu discurso a texto y lo procesa como cualquier otra solicitud de Copilot.
+</Info>
+
 ## Cómo Funciona
 
 Copilot opera en tres fases cuando solicitas un cambio:
@@ -28,89 +80,46 @@ Copilot opera en tres fases cuando solicitas un cambio:
 
 Después de completar, verás un resumen de todos los cambios realizados, que puedes aceptar o rechazar.
 
-## Acciones Rápidas
-
-Usa acciones predefinidas para mejoras comunes:
-
-<Steps>
-  <Step title="Analizar y Mejorar">
-    Haz clic para que Copilot revise todo tu prompt y sugiera mejoras integrales.
-    
-    Copilot analizará estructura, claridad, instrucciones y efectividad.
-  </Step>
-  <Step title="Refinar Tono">
-    Hace tu prompt más conciso y profesional.
-    
-    Elimina redundancias y mejora el estilo conversacional.
-  </Step>
-</Steps>
-
-## Describiendo Cambios
-
-En el campo de entrada, describe qué quieres cambiar. Sé específico sobre tus objetivos.
-
-### Solicitudes Efectivas
-
-```
-Añadir instrucciones para manejar objeciones de precio
-```
-
-```
-Hacer el saludo más amigable y casual
-```
-
-```
-Añadir una sección sobre procedimientos de confirmación de citas
-```
-
-```
-Mejorar cómo el agente maneja las respuestas "necesito pensarlo"
-```
-
-### Qué Puede Editar Copilot
-
-Copilot puede modificar cualquier parte de tu system prompt:
-
-| Elemento | Ejemplos |
-|---------|----------|
-| Instrucciones | Añadir nuevos comportamientos, modificar reglas existentes |
-| Tono | Ajustar formalidad, amabilidad, profesionalismo |
-| Estructura | Reorganizar secciones, añadir encabezados |
-| Límites | Añadir restricciones de seguridad, límites de alcance |
-| Escenarios | Añadir manejo para situaciones específicas |
-| Lenguaje | Mejorar claridad, eliminar ambigüedad |
-
 ## Usando Contexto de Llamadas
 
-Referencia llamadas específicas para informar mejoras del prompt:
+Una de las características más poderosas de Copilot es su capacidad para usar llamadas reales para mejorar tu prompt.
 
 ### La Sintaxis @call
 
-Añade contexto de llamadas reales usando `@call:ID_LLAMADA`:
+Referencia llamadas específicas usando `@call:ID_LLAMADA` para proporcionar contexto:
 
 ```
 @call:abc123 El agente falló al manejar la pregunta de presupuesto. 
 Añadir instrucciones para abordar mejor las preocupaciones de precio.
 ```
 
+### Indicadores de Contexto de Llamada
+
+Cuando usas la sintaxis `@call:ID`, Copilot:
+
+- **Carga automáticamente** la transcripción de la llamada
+- **Analiza el contexto** para entender qué salió mal
+- **Sugiere mejoras específicas** basadas en el problema identificado
+- **Muestra indicadores visuales** de que está usando contexto de llamada
+
 <Tip>
-Cuando referencias una llamada, Copilot carga la transcripción y la usa para entender qué salió mal y cómo mejorar el prompt.
+Los indicadores de contexto aparecen como badges violetas que muestran el ID de llamada referenciado, confirmando que Copilot está usando ese contexto específico.
 </Tip>
 
 ### Flujo de Trabajo con Contexto de Llamada
 
 <Steps>
-  <Step title="Encontrar una Llamada Problemática">
-    Identifica una llamada donde el agente no funcionó bien.
+  <Step title="Identificar Problema">
+    Encuentra una llamada donde el agente no funcionó correctamente.
   </Step>
-  <Step title="Obtener el ID de Llamada">
-    Copia el ID de llamada del panel de Llamadas.
+  <Step title="Obtener ID de Llamada">
+    Copia el ID de llamada del panel de Llamadas o del dashboard.
   </Step>
-  <Step title="Referenciar y Solicitar">
-    Usa `@call:ID` y describe la mejora necesaria.
+  <Step title="Referenciar en Copilot">
+    Usa `@call:ID_LLAMADA` seguido de tu descripción del problema.
   </Step>
-  <Step title="Revisar Cambios">
-    Copilot edita el prompt basándose en el contexto de la llamada.
+  <Step title="Revisar Sugerencias">
+    Copilot analiza la llamada y sugiere mejoras específicas al prompt.
   </Step>
 </Steps>
 
@@ -122,26 +131,92 @@ Añadir instrucciones más claras sobre cuándo consultar la base de conocimient
 ```
 
 ```
-@call:abc123 El cliente se frustró. 
-Mejorar la sección de manejo de escalaciones.
+@call:abc123 El cliente se frustró con las respuestas repetitivas. 
+Mejorar la sección de manejo de escalaciones y variación de respuestas.
 ```
+
+```
+@call:def456 El agente no capturó correctamente la información de contacto. 
+Añadir proceso de confirmación para datos del cliente.
+```
+
+## Sugerencias de Próximos Pasos
+
+Copilot proporciona sugerencias inteligentes para continuar mejorando tu agente:
+
+### Sugerencias Automáticas
+
+Después de cada cambio exitoso, Copilot puede sugerir:
+
+- **Pruebas relacionadas**: "¿Quieres crear tests para validar estos cambios?"
+- **Mejoras complementarias**: "Considera añadir manejo de objeciones similares"
+- **Optimizaciones**: "Podrías también mejorar la sección de despedida"
+
+### Sugerencias Basadas en Contexto
+
+Cuando usas referencias de llamadas, las sugerencias incluyen:
+
+- **Análisis de patrones**: "He notado 3 llamadas similares, ¿revisamos todas?"
+- **Mejoras preventivas**: "Para evitar este problema, sugiero añadir..."
+- **Tests proactivos**: "Creemos un test para este escenario específico"
+
+<Warning>
+Las sugerencias de próximos pasos aparecen como cards accionables debajo del resultado principal. Puedes hacer clic para implementar las sugerencias directamente.
+</Warning>
+
+## Describiendo Cambios
+
+En el campo de entrada, describe qué quieres cambiar. Sé específico sobre tus objetivos.
+
+### Solicitudes Efectivas
+
+```
+Añadir instrucciones para manejar objeciones de precio con un enfoque de 3 pasos
+```
+
+```
+Hacer el saludo más amigable y personalizado según la hora del día
+```
+
+```
+Añadir una sección sobre procedimientos de confirmación de citas con validación doble
+```
+
+```
+Mejorar cómo el agente maneja respuestas evasivas como "necesito pensarlo"
+```
+
+### Qué Puede Editar Copilot
+
+Copilot puede modificar cualquier parte de tu system prompt:
+
+| Elemento | Ejemplos |
+|---------|----------|
+| **Instrucciones** | Añadir nuevos comportamientos, modificar reglas existentes |
+| **Tono** | Ajustar formalidad, amabilidad, profesionalismo |
+| **Estructura** | Reorganizar secciones, añadir encabezados |
+| **Límites** | Añadir restricciones de seguridad, límites de alcance |
+| **Escenarios** | Añadir manejo para situaciones específicas |
+| **Lenguaje** | Mejorar claridad, eliminar ambigüedad |
+| **Parámetros** | Configurar campos de salida y entrada |
+| **Evaluaciones** | Crear métricas de rendimiento |
 
 ## Analizando Tickets
 
-Para análisis en lote, usa el panel de Tickets:
+Para análisis en lote de múltiples llamadas:
 
 <Steps>
   <Step title="Abrir Panel de Tickets">
     Haz clic en el botón + y selecciona "Analizar tickets".
   </Step>
   <Step title="Seleccionar Tickets">
-    Elige múltiples llamadas/tickets para analizar.
+    Elige múltiples llamadas/tickets para analizar en conjunto.
   </Step>
   <Step title="Ejecutar Análisis">
-    Copilot identifica patrones en los tickets seleccionados.
+    Copilot identifica patrones comunes en los tickets seleccionados.
   </Step>
   <Step title="Aplicar Mejoras">
-    Cambios sugeridos al prompt basados en problemas comunes.
+    Recibe cambios sugeridos basados en problemas recurrentes.
   </Step>
 </Steps>
 
@@ -151,16 +226,32 @@ Después de que Copilot edita tu prompt:
 
 ### Resumen de Cambios
 
-Verás un resumen de finalización mostrando:
-- Título de los cambios realizados
-- Duración de la operación
-- Lista de modificaciones específicas
+Verás un resumen de finalización que muestra:
 
-### Aceptar o Rechazar
+- **Título descriptivo** de los cambios realizados
+- **Duración de la operación** y fase completada
+- **Lista detallada** de modificaciones específicas
+- **Indicadores de contexto** si se usaron referencias de llamadas
 
-Los cambios aparecen en el editor Monaco con resaltado:
-- **Aceptar**: Mantener los cambios en tu prompt
-- **Rechazar**: Volver a la versión anterior
+### Opciones de Revisión
+
+<Tabs>
+  <Tab title="Aceptar Cambios">
+    - Los cambios se aplican al prompt
+    - Se actualiza el historial de versiones
+    - Aparecen sugerencias de próximos pasos
+  </Tab>
+  <Tab title="Rechazar Cambios">
+    - El prompt vuelve al estado anterior
+    - Los cambios se descartan completamente
+    - Puedes refinar tu solicitud y volver a intentar
+  </Tab>
+  <Tab title="Editar Manualmente">
+    - Los cambios aparecen resaltados en el editor
+    - Puedes modificar partes específicas
+    - Tienes control granular sobre cada cambio
+  </Tab>
+</Tabs>
 
 <Warning>
 Siempre revisa los cambios antes de aceptar. Prueba en el Playground para verificar que las mejoras funcionan como se espera.
@@ -168,81 +259,107 @@ Siempre revisa los cambios antes de aceptar. Prueba en el Playground para verifi
 
 ## Historial de Conversación
 
-Continúa refinando con solicitudes de seguimiento:
+Continúa refinando con solicitudes de seguimiento en la misma sesión:
 
 ```
 Usuario: Añadir instrucciones para manejar objeciones de precio
 
-Copilot: [Hace cambios]
+Copilot: [Hace cambios iniciales]
 
-Usuario: Bien, pero hazlo menos agresivo
+Usuario: Bien, pero hazlo menos agresivo y más consultivo
 
-Copilot: [Refina los cambios]
+Copilot: [Refina el enfoque]
 
 Usuario: Perfecto, ahora añade un respaldo si siguen objetando
 
-Copilot: [Añade manejo adicional]
+Copilot: [Añade manejo de escalación]
+
+Usuario: @call:xyz123 Úsalo como ejemplo para mejorar más
+
+Copilot: [Analiza la llamada y sugiere mejoras adicionales]
 ```
 
 <Info>
-Inicia una nueva conversación usando la opción del menú para resetear el contexto cuando cambies a un tema diferente.
+Usa la opción "Nueva conversación" del menú para resetear el contexto cuando cambies a un tema completamente diferente.
 </Info>
 
 ## Mejores Prácticas
 
 <AccordionGroup>
-  <Accordion title="Sé Específico Sobre los Cambios" icon="bullseye">
-    En lugar de "hazlo mejor", describe exactamente qué mejorar:
+  <Accordion title="Sé Específico en las Solicitudes" icon="bullseye">
+    **Bueno:** "Añadir una sección para manejar solicitudes de reembolso con un proceso de validación de 3 pasos que incluya confirmación de identidad"
     
-    **Bueno:** "Añadir una sección para manejar solicitudes de reembolso con un proceso de 3 pasos"
+    **Vago:** "Mejorar el servicio al cliente"
     
-    **Vago:** "Mejorar el manejo de servicio al cliente"
+    **Con contexto:** "@call:abc123 Mejorar el manejo de solicitudes de reembolso basándose en esta llamada fallida"
   </Accordion>
-  <Accordion title="Usa Contexto de Llamadas Reales" icon="phone">
-    Referencia llamadas fallidas reales al mejorar escenarios específicos. Esto da a Copilot ejemplos concretos de qué salió mal.
+  
+  <Accordion title="Utiliza Referencias de Llamadas" icon="phone">
+    - Siempre que sea posible, referencia llamadas reales con `@call:ID`
+    - Esto da a Copilot ejemplos concretos de qué mejorar
+    - Los cambios serán más precisos y efectivos
+    - Puedes referenciar múltiples llamadas: `@call:abc123 @call:xyz789`
   </Accordion>
-  <Accordion title="Itera en Pequeños Pasos" icon="stairs">
-    Haz cambios incrementales en lugar de intentar arreglar todo de una vez. Esto facilita identificar qué funciona.
+  
+  <Accordion title="Aprovecha la Grabación de Voz" icon="microphone">
+    - Usa la grabación de voz para solicitudes complejas
+    - Habla claramente y describe el contexto completo
+    - Perfecto para solicitudes mientras revisas llamadas
+    - Permite trabajo multitarea más eficiente
   </Accordion>
-  <Accordion title="Prueba Después de Cada Cambio" icon="flask">
-    Después de aceptar cambios, prueba en el Playground antes de publicar a producción.
+  
+  <Accordion title="Sigue las Sugerencias de Próximos Pasos" icon="arrow-right">
+    - Revisa las sugerencias automáticas después de cada cambio
+    - Implementa mejoras complementarias sugeridas
+    - Usa las sugerencias para crear tests proactivos
+    - Construye sobre mejoras anteriores de forma iterativa
   </Accordion>
-  <Accordion title="Revisa Antes de Aceptar" icon="eye">
-    Siempre lee los cambios que hace Copilot. La IA podría interpretar tu solicitud de manera diferente a lo previsto.
+  
+  <Accordion title="Itera en Pasos Pequeños" icon="stairs">
+    - Haz cambios incrementales en lugar de grandes modificaciones
+    - Prueba cada cambio en el Playground antes del siguiente
+    - Esto facilita identificar qué funciona y qué no
+    - Permite un refinamiento más preciso
+  </Accordion>
+  
+  <Accordion title="Combina Contexto con Instrucciones" icon="puzzle-piece">
+    - Usa referencias de llamadas junto con instrucciones específicas
+    - Ejemplo: `@call:123 El agente no confirmó la cita. Añadir proceso de doble confirmación con repetición de fecha y hora`
+    - Esto proporciona tanto el problema como la solución deseada
   </Accordion>
 </AccordionGroup>
 
 ## Tareas Comunes de Edición
 
 ### Añadiendo Nuevos Comportamientos
+
 ```
 Añadir instrucciones para que el agente siempre confirme 
-el número de teléfono del cliente antes de terminar la llamada
+el número de teléfono del cliente usando el formato 
+"Confirmo que su teléfono es [número], ¿es correcto?"
 ```
 
-### Mejorando Escenarios Específicos
+### Mejorando con Contexto de Llamadas
+
 ```
-@call:abc123 Mejorar cómo el agente maneja cuando 
-los clientes piden hablar con un gerente
+@call:abc123 @call:def456 Estas dos llamadas muestran problemas 
+similares con el manejo de gerentes. Mejorar el protocolo 
+de escalación con pasos claros y tiempos específicos.
 ```
 
-### Ajustando Estilo de Comunicación
-```
-Hacer todo el prompt más conversacional y menos formal. 
-El agente debe sonar como un amigo servicial, no un robot.
-```
+### Usando Grabación de Voz para Cambios Complejos
 
-### Añadiendo Límites
-```
-Añadir límites claros: el agente nunca debe discutir 
-productos de la competencia ni hacer promesas sobre fechas de entrega
-```
+1. **Haz clic en el micrófono**
+2. **Habla tu solicitud**: "Basándome en las últimas cinco llamadas que revisé, necesito que el agente sea más proactivo en hacer preguntas de seguimiento. Específicamente, después de cada respuesta del cliente, debería hacer una pregunta clarificadora para entender mejor sus necesidades antes de proceder con la siguiente etapa de la conversación."
+3. **Revisa y envía** el texto transcrito
 
-### Reestructurando
-```
-Reorganizar el prompt en secciones claras: 
-1) Identidad, 2) Objetivos, 3) Directrices, 4) Restricciones
-```
+### Implementando Sugerencias de Próximos Pasos
+
+Después de una mejora exitosa:
+
+1. **Revisa las sugerencias** que aparecen automáticamente
+2. **Haz clic en las sugerencias relevantes** para implementarlas
+3. **Combina sugerencias** con nuevas solicitudes: "Implementa la sugerencia anterior y también añade manejo para horarios fuera de oficina"
 
 ## Siguientes Pasos
 
@@ -252,13 +369,27 @@ Reorganizar el prompt en secciones claras:
     icon="gamepad"
     href="/es/advanced-editor/playground"
   >
-    Prueba tus prompts mejorados
+    Prueba tus prompts mejorados con conversaciones simuladas
+  </Card>
+  <Card
+    title="Tests"
+    icon="clipboard-check"
+    href="/es/advanced-editor/tests"
+  >
+    Crea tests automatizados para validar cambios
   </Card>
   <Card
     title="Historial de Versiones"
     icon="clock-rotate-left"
     href="/es/advanced-editor/version-history"
   >
-    Rastrea cambios de las ediciones de Copilot
+    Rastrea y revierte cambios de las ediciones de Copilot
+  </Card>
+  <Card
+    title="Panel de Llamadas"
+    icon="phone"
+    href="/es/calls"
+  >
+    Encuentra IDs de llamadas para usar como contexto
   </Card>
 </CardGroup>

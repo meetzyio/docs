@@ -14,7 +14,48 @@ Copilot doesn't just suggest - it edits. Describe what you want to improve and w
 
 ## Accessing Copilot
 
-Copilot is located in the right panel of the Advanced Editor. Click the "Copilot" tab to access it.
+Copilot is located in the right panel of the Advanced Editor. Click the "Copilot" tab or press **⌘J** to access it quickly.
+
+## Welcome Screen
+
+When you first open Copilot, you'll see a clean welcome interface with quick action buttons for common tasks:
+
+<Tabs>
+  <Tab title="Quick Actions">
+    <Steps>
+      <Step title="Analyze & Improve">
+        Click to have Copilot review your entire prompt and suggest comprehensive improvements.
+        
+        Analyzes structure, clarity, instructions, and effectiveness automatically.
+      </Step>
+      <Step title="Refine Tone">
+        Makes your prompt more concise and professional.
+        
+        Removes redundancy and improves conversational style.
+      </Step>
+      <Step title="Add Output Fields">
+        Automatically adds output parameters for lead qualification.
+        
+        Includes fields like name, email, phone, and interest level.
+      </Step>
+      <Step title="Create Evaluations">
+        Sets up performance measurements for your agent.
+        
+        Creates metrics for conversation quality, goal completion, and customer satisfaction.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Voice Input">
+    Use voice commands to interact with Copilot:
+    
+    - **Hold Microphone Button**: Press and hold the mic button in the input field
+    - **Double-Shift Shortcut**: Press Shift twice quickly to start voice recording
+    
+    <Warning>
+    Release the mic button or press Shift again to stop recording. Voice input is converted to text and processed like typed messages.
+    </Warning>
+  </Tab>
+</Tabs>
 
 ## How It Works
 
@@ -28,20 +69,70 @@ Copilot operates in three phases when you request a change:
 
 After completion, you'll see a summary of all changes made, which you can accept or reject.
 
-## Quick Actions
+## Voice Recording
 
-Use pre-built actions for common improvements:
+Copilot supports voice input for hands-free prompt editing:
+
+### Using Voice Commands
 
 <Steps>
-  <Step title="Analyze and Improve">
-    Click this to have Copilot review your entire prompt and suggest comprehensive improvements.
-    
-    Copilot will analyze structure, clarity, instructions, and effectiveness.
+  <Step title="Start Recording">
+    **Hold the microphone button** in the input field, or **double-press Shift** to begin voice recording.
   </Step>
-  <Step title="Refine Tone">
-    Makes your prompt more concise and professional.
-    
-    Removes redundancy and improves the conversational style.
+  <Step title="Speak Your Request">
+    Clearly describe what you want Copilot to improve or change in your prompt.
+  </Step>
+  <Step title="Stop Recording">
+    Release the mic button or press **Shift** again to end recording.
+  </Step>
+  <Step title="Review & Send">
+    The transcribed text appears in the input field. Review and send your request.
+  </Step>
+</Steps>
+
+### Voice Input Tips
+
+- Speak clearly and at a normal pace
+- Use natural language - describe changes as you would to a colleague
+- Voice input is transcribed to text before processing
+
+<Info>
+Voice recording works best in quiet environments. If transcription is unclear, you can edit the text before sending.
+</Info>
+
+## Call Context Integration
+
+Reference specific calls to inform prompt improvements using the **@call:ID** syntax:
+
+### Using Call References
+
+```
+@call:abc123 The agent failed to handle the budget question. 
+Add instructions to better address pricing concerns.
+```
+
+When you reference a call, Copilot loads the transcript and uses it to understand what went wrong and how to improve the prompt.
+
+### Call Context Indicators
+
+Call references appear with special indicators in the chat:
+
+- **@call:abc123** - Shows as a clickable reference with call metadata
+- Hover to see call details (duration, outcome, timestamp)
+- Click to open the full call transcript
+
+<Steps>
+  <Step title="Find a Problematic Call">
+    Identify a call where the agent didn't perform well in your Calls dashboard.
+  </Step>
+  <Step title="Copy the Call ID">
+    Use the call ID from the URL or copy from the call details.
+  </Step>
+  <Step title="Reference in Copilot">
+    Type `@call:CALL_ID` followed by your improvement request.
+  </Step>
+  <Step title="Review Context-Aware Changes">
+    Copilot edits the prompt based on the specific call context.
   </Step>
 </Steps>
 
@@ -64,7 +155,7 @@ Add a section about appointment confirmation procedures
 ```
 
 ```
-Improve how the agent handles "I need to think about it" responses
+@call:xyz789 Improve how the agent handles "I need to think about it" responses
 ```
 
 ### What Copilot Edits
@@ -79,52 +170,48 @@ Copilot can modify any part of your system prompt:
 | Guardrails | Add safety limits, scope boundaries |
 | Scenarios | Add handling for specific situations |
 | Language | Improve clarity, remove ambiguity |
+| Output Fields | Add data collection parameters |
+| Evaluations | Create performance measurement criteria |
 
-## Using Call Context
+## Next Step Suggestions
 
-Reference specific calls to inform prompt improvements:
+After Copilot completes a change, you'll see **suggested next steps** to further improve your agent:
 
-### The @call Syntax
+### Types of Suggestions
 
-Add context from real calls using `@call:CALL_ID`:
+<Tabs>
+  <Tab title="Related Improvements">
+    Based on the change you just made, Copilot suggests related enhancements:
+    
+    - If you added greeting instructions → suggests adding closing procedures
+    - If you improved objection handling → suggests adding follow-up strategies
+    - If you added output fields → suggests creating matching evaluations
+  </Tab>
+  <Tab title="Best Practice Recommendations">
+    Suggestions based on prompt optimization best practices:
+    
+    - Add missing guardrails
+    - Improve instruction clarity
+    - Optimize prompt structure
+    - Add edge case handling
+  </Tab>
+  <Tab title="Testing Reminders">
+    Prompts to test your changes:
+    
+    - "Test this in Playground"
+    - "Run regression tests"
+    - "Validate with a sample call"
+  </Tab>
+</Tabs>
 
-```
-@call:abc123 The agent failed to handle the budget question. 
-Add instructions to better address pricing concerns.
-```
+### Using Suggestions
 
-<Tip>
-When you reference a call, Copilot loads the transcript and uses it to understand what went wrong and how to improve the prompt.
-</Tip>
+Click any suggestion to automatically populate the input field with that request. You can:
 
-### Workflow with Call Context
-
-<Steps>
-  <Step title="Find a Problematic Call">
-    Identify a call where the agent didn't perform well.
-  </Step>
-  <Step title="Get the Call ID">
-    Copy the call ID from the Calls dashboard.
-  </Step>
-  <Step title="Reference and Request">
-    Use `@call:ID` and describe the improvement needed.
-  </Step>
-  <Step title="Review Changes">
-    Copilot edits the prompt based on the call context.
-  </Step>
-</Steps>
-
-### Example Requests with Context
-
-```
-@call:xyz789 The agent gave incorrect product information. 
-Add clearer instructions about when to check the knowledge base.
-```
-
-```
-@call:abc123 The customer got frustrated. 
-Improve the escalation handling section.
-```
+- Use suggestions as-is
+- Modify them before sending
+- Combine multiple suggestions
+- Dismiss suggestions you don't need
 
 ## Analyzing Tickets
 
@@ -155,6 +242,7 @@ You'll see a completion summary showing:
 - Title of the changes made
 - Duration of the operation
 - List of specific modifications
+- Suggested next steps
 
 ### Accept or Reject
 
@@ -188,6 +276,36 @@ Copilot: [Adds additional handling]
 Start a new conversation using the menu option to reset context when switching to a different topic.
 </Info>
 
+## Voice Input Best Practices
+
+### Recording Environment
+- Use a quiet space with minimal background noise
+- Position yourself close to your device's microphone
+- Speak at a normal, conversational pace
+
+### Effective Voice Commands
+```
+"Add greeting instructions for appointment scheduling calls"
+```
+
+```
+"Reference call A-B-C-1-2-3. The customer was confused about pricing. 
+Improve the pricing explanation section."
+```
+
+```
+"Make the entire prompt sound more friendly and conversational"
+```
+
+### Voice vs. Text Input
+
+| Use Voice When | Use Text When |
+|----------------|---------------|
+| Making quick improvements | Writing complex, technical instructions |
+| Referencing call transcripts | Adding specific code or formatting |
+| Describing tone changes | Making precise edits to existing content |
+| Brainstorming improvements | Including URLs or technical specifications |
+
 ## Best Practices
 
 <AccordionGroup>
@@ -200,6 +318,17 @@ Start a new conversation using the menu option to reset context when switching t
   </Accordion>
   <Accordion title="Use Real Call Context" icon="phone">
     Reference actual failed calls when improving specific scenarios. This gives Copilot concrete examples of what went wrong.
+    
+    Use `@call:ID` syntax to provide context from real conversations.
+  </Accordion>
+  <Accordion title="Leverage Voice Input" icon="microphone">
+    Use voice recording for natural, conversational requests. It's especially useful for:
+    - Describing tone changes
+    - Quick improvement requests
+    - Referencing call contexts while listening to recordings
+  </Accordion>
+  <Accordion title="Follow Next Step Suggestions" icon="arrow-right">
+    Pay attention to Copilot's suggested next steps. They're based on best practices and can help you build comprehensive prompts systematically.
   </Accordion>
   <Accordion title="Iterate in Small Steps" icon="stairs">
     Make incremental changes rather than trying to fix everything at once. This makes it easier to identify what works.
@@ -232,6 +361,18 @@ Make the entire prompt more conversational and less formal.
 The agent should sound like a helpful friend, not a robot.
 ```
 
+### Adding Output Parameters
+```
+Add output fields to capture: customer name, email, 
+phone number, preferred contact method, and interest level
+```
+
+### Creating Evaluations
+```
+Create evaluations to measure: conversation quality, 
+goal achievement, customer satisfaction, and proper procedure following
+```
+
 ### Adding Guardrails
 ```
 Add clear boundaries: the agent should never discuss 
@@ -243,6 +384,15 @@ competitor products or make promises about delivery dates
 Reorganize the prompt into clear sections: 
 1) Identity, 2) Goals, 3) Guidelines, 4) Restrictions
 ```
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| **⌘J** | Open/focus Copilot panel |
+| **Shift + Shift** | Start/stop voice recording |
+| **⌘Enter** | Send message to Copilot |
+| **Escape** | Close Copilot suggestions |
 
 ## Next Steps
 
