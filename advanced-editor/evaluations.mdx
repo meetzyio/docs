@@ -26,6 +26,90 @@ Each evaluation is a **yes/no question** that the AI analyzes based on the conve
 | Information Collected | Did the agent collect all required information? |
 | Objection Handled | Did the agent successfully address customer objections? |
 
+## AI Copilot Suggestions
+
+<Info>
+The AI Copilot can automatically suggest performance metrics and evaluation criteria based on your agent's purpose and conversation patterns.
+</Info>
+
+### Automatic Evaluation Recommendations
+
+The AI Copilot analyzes your agent configuration and suggests relevant evaluations:
+
+1. **Context-Aware Suggestions**: Based on your agent's role (sales, support, appointments)
+2. **Conversation Analysis**: Recommendations from analyzing test conversations
+3. **Industry Best Practices**: Standard metrics for your use case
+4. **Performance Optimization**: Evaluations that identify improvement opportunities
+
+### Using Copilot Suggestions
+
+<Steps>
+  <Step title="Open AI Copilot">
+    Click the sparkles icon in the right panel to access AI Copilot.
+  </Step>
+  <Step title="Request Evaluation Suggestions">
+    Type something like "Suggest evaluations for my agent" or use the quick actions.
+  </Step>
+  <Step title="Review Recommendations">
+    The Copilot will analyze your agent and suggest specific evaluation criteria.
+  </Step>
+  <Step title="Accept or Customize">
+    Accept suggestions directly or modify them to fit your specific needs.
+  </Step>
+</Steps>
+
+### Copilot Suggestion Types
+
+<Tabs>
+  <Tab title="Goal-Based">
+    Evaluations focused on primary objectives:
+    - "Did the agent achieve the call objective?"
+    - "Was the primary goal accomplished?"
+    - "Did the conversation meet success criteria?"
+  </Tab>
+  <Tab title="Quality Metrics">
+    Performance and professionalism evaluations:
+    - "Did the agent maintain professional tone?"
+    - "Was the customer treated courteously?"
+    - "Did the agent follow the conversation script?"
+  </Tab>
+  <Tab title="Compliance Checks">
+    Regulatory and policy adherence:
+    - "Were required disclosures provided?"
+    - "Did the agent follow compliance protocols?"
+    - "Was consent properly obtained?"
+  </Tab>
+  <Tab title="Data Collection">
+    Information gathering effectiveness:
+    - "Was all required information collected?"
+    - "Did the agent verify customer details?"
+    - "Were preferences and requirements captured?"
+  </Tab>
+</Tabs>
+
+### Applying Copilot Suggestions
+
+When the AI Copilot suggests evaluations, they appear in a purple suggestion banner:
+
+<Warning>
+Review Copilot suggestions carefully before accepting them. While AI recommendations are based on best practices, they should be customized for your specific use case.
+</Warning>
+
+<Steps>
+  <Step title="Review Suggestions">
+    Examine the suggested evaluation name and question for relevance.
+  </Step>
+  <Step title="Customize as Needed">
+    Modify the evaluation question to match your specific requirements.
+  </Step>
+  <Step title="Accept or Reject">
+    Use the "Accept All" button to add all suggestions, or reject to dismiss them.
+  </Step>
+  <Step title="Fine-tune">
+    Edit accepted evaluations in the main interface to perfect them.
+  </Step>
+</Steps>
+
 ## Creating Evaluations
 
 <Steps>
@@ -55,9 +139,9 @@ Each evaluation is a **yes/no question** that the AI analyzes based on the conve
 
 ## Writing Effective Questions
 
-<Tip>
+<Info>
 The clearer your question, the more accurate the evaluation results will be.
-</Tip>
+</Info>
 
 ### Good Questions
 
@@ -71,6 +155,15 @@ The clearer your question, the more accurate the evaluation results will be.
 - ❌ "Was the call good?" (too vague)
 - ❌ "How satisfied was the customer?" (not yes/no)
 - ❌ "Rate the agent's performance" (not answerable from transcript)
+
+### Copilot-Enhanced Question Writing
+
+The AI Copilot can help improve your evaluation questions:
+
+1. **Clarity Enhancement**: Makes vague questions more specific
+2. **Binary Conversion**: Converts complex questions into yes/no format
+3. **Context Addition**: Adds relevant context for better evaluation accuracy
+4. **Best Practice Alignment**: Ensures questions follow evaluation best practices
 
 ## Using Templates
 
@@ -148,23 +241,26 @@ Evaluation results are available in multiple places:
 
 ## Best Practices
 
-<AccordionGroup>
-  <Accordion title="Start Simple" icon="circle-1">
-    Begin with 3-5 core evaluations that measure your most important KPIs.
-  </Accordion>
-  <Accordion title="Be Specific" icon="bullseye">
-    The more specific your question, the more reliable the evaluation.
-  </Accordion>
-  <Accordion title="Avoid Overlap" icon="layer-group">
-    Don't create multiple evaluations that measure the same thing.
-  </Accordion>
-  <Accordion title="Review Regularly" icon="calendar-check">
-    Periodically review evaluation results to calibrate questions.
-  </Accordion>
-  <Accordion title="Use for Training" icon="graduation-cap">
-    Low-scoring evaluations highlight areas for agent improvement.
-  </Accordion>
-</AccordionGroup>
+### Start with Copilot Suggestions
+
+<Info>
+Begin by asking the AI Copilot to suggest evaluations. This provides a solid foundation based on your agent's configuration and industry best practices.
+</Info>
+
+### Evaluation Quality Guidelines
+
+1. **Be Specific**: The more specific your question, the more reliable the evaluation
+2. **Avoid Overlap**: Don't create multiple evaluations that measure the same thing
+3. **Start Simple**: Begin with 3-5 core evaluations that measure your most important KPIs
+4. **Review Regularly**: Periodically review evaluation results to calibrate questions
+5. **Use for Training**: Low-scoring evaluations highlight areas for agent improvement
+
+### Copilot Integration Tips
+
+- **Iterate with AI**: Use the Copilot to refine and improve existing evaluations
+- **Context Matters**: Provide context about your business when asking for suggestions
+- **Test Suggestions**: Use the Playground to validate Copilot-suggested evaluations
+- **Combine Sources**: Mix Copilot suggestions with templates and custom evaluations
 
 ## Common Evaluation Patterns
 
@@ -196,6 +292,13 @@ Question: Did the agent verify or collect the customer's email and phone number?
 
 <CardGroup cols={2}>
   <Card
+    title="AI Copilot"
+    icon="sparkles"
+    href="/advanced-editor/ai-copilot"
+  >
+    Get AI-powered evaluation suggestions
+  </Card>
+  <Card
     title="Playground"
     icon="gamepad"
     href="/advanced-editor/playground"
@@ -208,5 +311,12 @@ Question: Did the agent verify or collect the customer's email and phone number?
     href="/advanced-editor/output-settings"
   >
     Include evaluations in webhooks
+  </Card>
+  <Card
+    title="Analytics"
+    icon="chart-bar"
+    href="/analytics"
+  >
+    View evaluation results and trends
   </Card>
 </CardGroup>

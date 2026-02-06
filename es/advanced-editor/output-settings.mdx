@@ -16,7 +16,29 @@ Una configuración de salida bien definida convierte cada llamada en datos estru
 
 Los Parámetros de Salida son campos personalizados que tu agente extrae de la conversación.
 
-### Creando Parámetros de Salida
+### Configuración con el Copiloto de IA
+
+El Copiloto de IA puede sugerir automáticamente parámetros de salida basados en tu prompt del sistema:
+
+<Warning>
+Las sugerencias del Copiloto aparecen en un banner morado. Revisa cada sugerencia cuidadosamente antes de aceptarla.
+</Warning>
+
+#### Aceptar Sugerencias del Copiloto
+
+<Steps>
+  <Step title="Revisar Sugerencias">
+    Cuando el Copiloto analice tu prompt, verás un banner con parámetros sugeridos.
+  </Step>
+  <Step title="Evaluar Cada Parámetro">
+    Revisa el nombre, tipo y descripción de cada parámetro sugerido.
+  </Step>
+  <Step title="Aceptar o Rechazar">
+    Haz clic en "Aceptar Todas" para aplicar todas las sugerencias o "Rechazar" para descartarlas.
+  </Step>
+</Steps>
+
+### Creando Parámetros Manualmente
 
 <Steps>
   <Step title="Abrir Configuración de Salida">
@@ -100,9 +122,9 @@ Para usuarios avanzados, cambia al Modo Texto para editar parámetros como JSON:
 ]
 ```
 
-<Tip>
+<Info>
 El Modo Texto es útil al copiar configuraciones entre agentes o importar desde fuentes externas.
-</Tip>
+</Info>
 
 ## Enriquecimiento de Salida
 
@@ -120,9 +142,9 @@ Habilita campos predefinidos adicionales para incluir en tu salida:
 | 📊 Estado de Llamada | Estado final de la llamada |
 | ✅ Evaluaciones | Resultados de tests de evaluación |
 
-<Info>
+<Warning>
 Habilita solo los campos que necesites para mantener los payloads de webhook manejables.
-</Info>
+</Warning>
 
 ## Configuración de Webhook
 
@@ -183,8 +205,29 @@ Escribe descripciones claras para parámetros de salida. La IA usa estas descrip
 1. **Sé Específico** - "Rango de presupuesto del cliente" es mejor que "presupuesto"
 2. **Usa Tipos Apropiados** - Boolean para sí/no, number para cantidades
 3. **Mantén Relevancia** - Solo captura datos que realmente usarás
-4. **Prueba Extracción** - Usa el Playground para verificar extracción correcta
-5. **Asegura Webhooks** - Siempre usa autenticación para datos sensibles
+4. **Aprovecha el Copiloto** - Usa las sugerencias de IA como punto de partida
+5. **Prueba Extracción** - Usa el Playground para verificar extracción correcta
+6. **Asegura Webhooks** - Siempre usa autenticación para datos sensibles
+
+## Flujo de Trabajo con Copiloto
+
+<Steps>
+  <Step title="Escribir el Prompt">
+    Desarrolla tu prompt del sistema describiendo la conversación y objetivos.
+  </Step>
+  <Step title="Activar Análisis">
+    El Copiloto analiza automáticamente tu prompt y sugiere parámetros de salida relevantes.
+  </Step>
+  <Step title="Revisar Sugerencias">
+    Evalúa cada parámetro sugerido en el banner morado.
+  </Step>
+  <Step title="Aceptar o Personalizar">
+    Acepta las sugerencias útiles y personaliza según tus necesidades específicas.
+  </Step>
+  <Step title="Probar en Playground">
+    Valida que los parámetros extraigan correctamente los datos deseados.
+  </Step>
+</Steps>
 
 ## Patrones Comunes de Salida
 

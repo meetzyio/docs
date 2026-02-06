@@ -12,6 +12,29 @@ Las Evaluaciones son pruebas automatizadas que evalúan el rendimiento de tu age
 Las Evaluaciones proporcionan métricas cuantitativas para rastrear el rendimiento de tu agente a lo largo del tiempo.
 </Info>
 
+## Sugerencias del Copilot de IA
+
+El Copilot de IA puede sugerir evaluaciones relevantes basándose en el contexto de tu agente. Estas sugerencias aparecerán automáticamente cuando:
+
+- Añadas nueva funcionalidad a tu agente
+- Modifiques el prompt del sistema
+- Actualices las configuraciones de salida
+
+<Tabs>
+  <Tab title="Sugerencias Inteligentes">
+    El Copilot analiza tu configuración del agente y sugiere evaluaciones como:
+    - **Logro de objetivos** - ¿Se cumplió el objetivo principal?
+    - **Calidad de conversación** - ¿Se mantuvo un tono profesional?
+    - **Recopilación de datos** - ¿Se obtuvo la información requerida?
+  </Tab>
+  <Tab title="Aceptar Sugerencias">
+    Puedes aceptar sugerencias individualmente o todas a la vez:
+    1. Revisa las evaluaciones sugeridas
+    2. Modifica los nombres o preguntas si es necesario
+    3. Haz clic en "Aceptar Todo" para aplicar todas las sugerencias
+  </Tab>
+</Tabs>
+
 ## Cómo Funcionan las Evaluaciones
 
 Cada evaluación es una **pregunta de sí/no** que la IA analiza basándose en la transcripción de la conversación. Después de cada llamada, Meetzy ejecuta todas las evaluaciones configuradas y almacena los resultados.
@@ -55,9 +78,9 @@ Cada evaluación es una **pregunta de sí/no** que la IA analiza basándose en l
 
 ## Escribiendo Preguntas Efectivas
 
-<Tip>
+<Info>
 Cuanto más clara sea tu pregunta, más precisos serán los resultados de evaluación.
-</Tip>
+</Info>
 
 ### Buenas Preguntas
 
@@ -114,6 +137,29 @@ Meetzy proporciona plantillas de evaluación predefinidas para casos de uso comu
   </Step>
 </Steps>
 
+## Sugerencias Automáticas del Copilot
+
+El Copilot de IA monitiza continuamente tu agente y sugiere evaluaciones relevantes basándose en:
+
+### Análisis del Prompt del Sistema
+- Identifica objetivos clave mencionados en tu prompt
+- Sugiere evaluaciones para medir el cumplimiento de estos objetivos
+- Propone métricas de calidad conversacional
+
+### Configuración de Herramientas y Acciones
+- Evalúa las herramientas configuradas (transferencias, programación de citas, etc.)
+- Sugiere evaluaciones específicas para cada funcionalidad
+- Propone métricas de éxito para flujos de trabajo complejos
+
+### Parámetros de Entrada y Salida
+- Analiza qué datos recopila tu agente
+- Sugiere evaluaciones para validar la recopilación de información
+- Propone verificaciones de calidad de datos
+
+<Warning>
+Las sugerencias del Copilot son automáticas pero requieren tu revisión. Siempre revisa y personaliza las evaluaciones sugeridas antes de aceptarlas.
+</Warning>
+
 ## Gestionando Evaluaciones
 
 ### Editando Evaluaciones
@@ -148,23 +194,25 @@ Los resultados de evaluación están disponibles en múltiples lugares:
 
 ## Mejores Prácticas
 
-<AccordionGroup>
-  <Accordion title="Comienza Simple" icon="circle-1">
-    Empieza con 3-5 evaluaciones core que midan tus KPIs más importantes.
-  </Accordion>
-  <Accordion title="Sé Específico" icon="bullseye">
-    Cuanto más específica sea tu pregunta, más confiable será la evaluación.
-  </Accordion>
-  <Accordion title="Evita Solapamiento" icon="layer-group">
-    No crees múltiples evaluaciones que midan lo mismo.
-  </Accordion>
-  <Accordion title="Revisa Regularmente" icon="calendar-check">
-    Revisa periódicamente los resultados de evaluación para calibrar preguntas.
-  </Accordion>
-  <Accordion title="Usa para Entrenamiento" icon="graduation-cap">
-    Evaluaciones con puntuaciones bajas destacan áreas de mejora del agente.
-  </Accordion>
-</AccordionGroup>
+### Comienza Simple
+Empieza con 3-5 evaluaciones core que midan tus KPIs más importantes.
+
+### Sé Específico
+Cuanto más específica sea tu pregunta, más confiable será la evaluación.
+
+### Evita Solapamiento
+No crees múltiples evaluaciones que midan lo mismo.
+
+### Revisa Regularmente
+Revisa periódicamente los resultados de evaluación para calibrar preguntas.
+
+### Usa para Entrenamiento
+Evaluaciones con puntuaciones bajas destacan áreas de mejora del agente.
+
+### Aprovecha las Sugerencias del Copilot
+- Revisa regularmente las sugerencias automáticas
+- Personaliza las evaluaciones sugeridas para tu contexto específico
+- Usa las sugerencias como punto de partida para evaluaciones más complejas
 
 ## Patrones Comunes de Evaluación
 
@@ -191,6 +239,25 @@ Pregunta: ¿El agente mantuvo un tono profesional y cortés durante toda la llam
 Nombre: Info de Contacto Verificada
 Pregunta: ¿El agente verificó o recopiló el email y número de teléfono del cliente?
 ```
+
+## Integrando con el Copilot de IA
+
+El Copilot no solo sugiere evaluaciones, sino que también te ayuda a:
+
+### Optimizar Preguntas Existentes
+- Analiza la efectividad de tus evaluaciones actuales
+- Sugiere reformulaciones para mayor precisión
+- Identifica evaluaciones redundantes o conflictivas
+
+### Crear Evaluaciones Contextuales
+- Propone evaluaciones específicas para tu industria
+- Sugiere métricas basadas en mejores prácticas
+- Recomienda evaluaciones de cumplimiento regulatorio
+
+### Monitorear Rendimiento
+- Alerta sobre cambios en las tasas de éxito
+- Sugiere nuevas evaluaciones basadas en patrones de fallo
+- Recomienda ajustes basados en tendencias de datos
 
 ## Siguientes Pasos
 

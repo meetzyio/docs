@@ -69,6 +69,137 @@ Copilot operates in three phases when you request a change:
 
 After completion, you'll see a summary of all changes made, which you can accept or reject.
 
+## AI Suggestions for Input Parameters & Output Settings
+
+Copilot now provides intelligent suggestions for input parameters, output settings, and evaluations that appear directly in their respective configuration panels. These suggestions are contextual to your current agent setup and conversation needs.
+
+<Info>
+When Copilot generates suggestions for parameters or evaluations, they appear as pending changes in the relevant panels with purple highlighting and accept/reject buttons.
+</Info>
+
+### Input Parameter Suggestions
+
+When Copilot analyzes your agent, it can automatically suggest new input parameters based on:
+
+- **Agent Role**: Appointment schedulers need calendar preferences, sales agents need budget information
+- **Conversation Context**: Referenced calls that show missing information
+- **Industry Standards**: Common parameters for your agent's domain
+
+<Steps>
+  <Step title="Generate Parameter Suggestions">
+    Ask Copilot to "Add input parameters for appointment scheduling" or use a quick action button.
+  </Step>
+  <Step title="Review Pending Changes">
+    Navigate to the Input Parameters panel to see suggested parameters with purple highlighting.
+  </Step>
+  <Step title="Accept or Reject">
+    Each suggestion shows operation type (Add/Modify/Remove), parameter details, and accept/reject buttons.
+  </Step>
+  <Step title="Bulk Actions">
+    Use "Accept All" to apply all suggestions or reject individual ones selectively.
+  </Step>
+</Steps>
+
+### Output Settings Suggestions
+
+Copilot suggests output parameters to capture key conversation data:
+
+```
+@call:abc123 The agent collected the customer's name and interest level 
+but we're missing their preferred contact method. Add output fields to capture this.
+```
+
+Copilot will analyze the call context and suggest appropriate output parameters like:
+- Contact preferences (email, phone, text)
+- Lead qualification scores
+- Next step requirements
+- Custom fields based on conversation patterns
+
+### Evaluation Suggestions
+
+Performance measurements are automatically suggested based on your agent's goals:
+
+- **Conversation Quality**: Measures clarity, professionalism, and engagement
+- **Goal Achievement**: Tracks completion of primary objectives
+- **Customer Satisfaction**: Evaluates customer experience and satisfaction
+- **Process Adherence**: Ensures agent follows required procedures
+
+## Visual Indicators for Pending Changes
+
+### Purple Highlight System
+
+When Copilot generates suggestions for input parameters, output settings, or evaluations, you'll see distinctive visual indicators:
+
+<Tabs>
+  <Tab title="Pending Changes Banner">
+    **Purple-highlighted banners** appear at the top of relevant panels showing:
+    
+    - Copilot sparkle icon with "Copilot Suggestions" title
+    - Summary of pending changes (e.g., "3 new parameters, 1 evaluation")
+    - Accept All/Reject buttons for bulk actions
+  </Tab>
+  <Tab title="Individual Change Cards">
+    Each suggestion appears as a **change card** with:
+    
+    - **Operation badge**: Green "ADD", Yellow "MODIFY", or Red "REMOVE"
+    - **Parameter details**: Name, type, description, and requirements
+    - **Individual controls**: Accept/reject buttons for each suggestion
+  </Tab>
+  <Tab title="Panel Navigation">
+    **Visual cues** guide you to panels with pending changes:
+    
+    - Purple notification dots on panel tabs
+    - Automatic panel highlighting when changes are generated
+    - Smooth transitions between Copilot and configuration panels
+  </Tab>
+</Tabs>
+
+### Change Types and Colors
+
+| Change Type | Badge Color | Description |
+|-------------|-------------|-------------|
+| **Add** | 🟢 Green | New parameters, evaluations, or settings |
+| **Modify** | 🟡 Yellow | Changes to existing configurations |
+| **Remove** | 🔴 Red | Deletion of outdated or redundant items |
+
+## Accepting and Rejecting Suggestions
+
+### Individual Change Management
+
+<Steps>
+  <Step title="Review Each Suggestion">
+    Each change card shows the operation type, parameter details, and impact on your agent.
+  </Step>
+  <Step title="Accept Individual Changes">
+    Click the "Accept" button on specific suggestions you want to keep.
+  </Step>
+  <Step title="Reject Unwanted Changes">
+    Click "Reject" to dismiss suggestions that don't fit your needs.
+  </Step>
+  <Step title="See Live Updates">
+    Accepted changes immediately appear in your configuration, rejected ones are removed from pending.
+  </Step>
+</Steps>
+
+### Bulk Change Management
+
+Use the banner controls for efficient bulk operations:
+
+```
+Accept All - Apply all pending suggestions at once
+Reject All - Dismiss all pending suggestions
+```
+
+<Warning>
+Bulk actions cannot be undone. Review individual suggestions before using "Accept All" to ensure they align with your agent's requirements.
+</Warning>
+
+### Change Persistence
+
+- **Pending changes persist** across editor sessions until accepted or rejected
+- **Auto-save functionality** preserves your accept/reject decisions
+- **Version history** tracks all applied changes for rollback if needed
+
 ## Voice Recording
 
 Copilot supports voice input for hands-free prompt editing:
@@ -308,38 +439,40 @@ Improve the pricing explanation section."
 
 ## Best Practices
 
-<AccordionGroup>
-  <Accordion title="Be Specific About Changes" icon="bullseye">
+<Steps>
+  <Step title="Be Specific About Changes">
     Instead of "make it better", describe exactly what to improve:
     
     **Good:** "Add a section for handling refund requests with a 3-step process"
     
     **Vague:** "Improve customer service handling"
-  </Accordion>
-  <Accordion title="Use Real Call Context" icon="phone">
+  </Step>
+  <Step title="Use Real Call Context">
     Reference actual failed calls when improving specific scenarios. This gives Copilot concrete examples of what went wrong.
     
     Use `@call:ID` syntax to provide context from real conversations.
-  </Accordion>
-  <Accordion title="Leverage Voice Input" icon="microphone">
-    Use voice recording for natural, conversational requests. It's especially useful for:
-    - Describing tone changes
-    - Quick improvement requests
-    - Referencing call contexts while listening to recordings
-  </Accordion>
-  <Accordion title="Follow Next Step Suggestions" icon="arrow-right">
-    Pay attention to Copilot's suggested next steps. They're based on best practices and can help you build comprehensive prompts systematically.
-  </Accordion>
-  <Accordion title="Iterate in Small Steps" icon="stairs">
+  </Step>
+  <Step title="Review Parameter Suggestions">
+    Check the Input Parameters and Output Settings panels after requesting parameter changes.
+    
+    Purple highlights indicate pending suggestions that need your approval.
+  </Step>
+  <Step title="Accept Changes Strategically">
+    Don't blindly accept all suggestions. Review each parameter or evaluation to ensure it fits your specific use case.
+  </Step>
+  <Step title="Test Comprehensive Changes">
+    When accepting multiple parameter or evaluation suggestions, test in Playground to verify everything works together.
+  </Step>
+  <Step title="Use Voice for Natural Requests">
+    Voice input works especially well for describing parameter needs: "The agent needs to collect the customer's budget range and timeline preferences."
+  </Step>
+  <Step title="Follow Visual Cues">
+    Purple notification indicators guide you to panels with pending changes. Don't miss suggestions in other panels.
+  </Step>
+  <Step title="Iterate in Small Steps">
     Make incremental changes rather than trying to fix everything at once. This makes it easier to identify what works.
-  </Accordion>
-  <Accordion title="Test After Each Change" icon="flask">
-    After accepting changes, test in the Playground before publishing to production.
-  </Accordion>
-  <Accordion title="Review Before Accepting" icon="eye">
-    Always read through the changes Copilot makes. The AI might interpret your request differently than intended.
-  </Accordion>
-</AccordionGroup>
+  </Step>
+</Steps>
 
 ## Common Editing Tasks
 
@@ -361,13 +494,13 @@ Make the entire prompt more conversational and less formal.
 The agent should sound like a helpful friend, not a robot.
 ```
 
-### Adding Output Parameters
+### Adding Parameters and Output Fields
 ```
-Add output fields to capture: customer name, email, 
-phone number, preferred contact method, and interest level
+Add input parameters to capture customer preferences and 
+output fields to track lead qualification scores
 ```
 
-### Creating Evaluations
+### Creating Comprehensive Evaluations
 ```
 Create evaluations to measure: conversation quality, 
 goal achievement, customer satisfaction, and proper procedure following
@@ -379,10 +512,10 @@ Add clear boundaries: the agent should never discuss
 competitor products or make promises about delivery dates
 ```
 
-### Restructuring
+### Context-Based Parameter Updates
 ```
-Reorganize the prompt into clear sections: 
-1) Identity, 2) Goals, 3) Guidelines, 4) Restrictions
+@call:xyz789 The customer mentioned their budget but we didn't capture it. 
+Add input and output parameters for budget tracking.
 ```
 
 ## Keyboard Shortcuts
@@ -393,22 +526,39 @@ Reorganize the prompt into clear sections:
 | **Shift + Shift** | Start/stop voice recording |
 | **⌘Enter** | Send message to Copilot |
 | **Escape** | Close Copilot suggestions |
+| **⌘3** | Navigate to Input Parameters panel |
+| **⌘7** | Navigate to Output Settings panel |
+| **⌘6** | Navigate to Evaluations panel |
 
 ## Next Steps
 
 <CardGroup cols={2}>
+  <Card
+    title="Input Parameters"
+    icon="adjustments-horizontal"
+    href="/advanced-editor/panels/input-parameters"
+  >
+    Configure input parameters with AI suggestions
+  </Card>
+  <Card
+    title="Output Settings"
+    icon="arrow-up-tray"
+    href="/advanced-editor/panels/output-settings"
+  >
+    Set up output fields and webhooks
+  </Card>
+  <Card
+    title="Evaluations"
+    icon="chart-bar"
+    href="/advanced-editor/panels/evaluations"
+  >
+    Create performance measurements
+  </Card>
   <Card
     title="Playground"
     icon="gamepad"
     href="/advanced-editor/playground"
   >
     Test your improved prompts
-  </Card>
-  <Card
-    title="Version History"
-    icon="clock-rotate-left"
-    href="/advanced-editor/version-history"
-  >
-    Track changes from Copilot edits
   </Card>
 </CardGroup>

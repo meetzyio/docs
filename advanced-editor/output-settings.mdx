@@ -12,6 +12,37 @@ Output Settings define what information your agent should extract and capture fr
 Well-configured output settings turn every call into structured, actionable data.
 </Info>
 
+## AI Copilot Assistance
+
+The AI Copilot can automatically suggest relevant output parameters based on your agent's purpose and conversation goals. It analyzes your agent's system prompt and knowledge base to recommend optimal data extraction fields.
+
+### How AI Suggestions Work
+
+<Steps>
+  <Step title="Analyze Agent Context">
+    The AI examines your agent's role, system prompt, and knowledge base to understand its purpose.
+  </Step>
+  <Step title="Generate Suggestions">
+    Based on the analysis, it suggests relevant output parameters for your use case.
+  </Step>
+  <Step title="Review and Accept">
+    You can review, modify, or accept the suggested parameters with one click.
+  </Step>
+</Steps>
+
+<Tip>
+AI suggestions adapt to different agent types - sales agents get lead qualification fields, support agents get issue tracking fields, and scheduling agents get appointment-related outputs.
+</Tip>
+
+### Example AI Suggestions by Agent Type
+
+| Agent Type | Suggested Parameters | Description |
+|------------|---------------------|-------------|
+| **Sales Agent** | `lead_score`, `budget_range`, `decision_timeline` | Qualify leads and track sales progress |
+| **Support Agent** | `issue_type`, `resolution_status`, `satisfaction_score` | Track support tickets and outcomes |
+| **Booking Agent** | `appointment_date`, `service_type`, `confirmation_sent` | Manage appointment scheduling |
+| **Survey Agent** | `survey_responses`, `feedback_rating`, `follow_up_needed` | Collect structured feedback |
+
 ## Output Parameters
 
 Output Parameters are custom fields that your agent extracts from the conversation.
@@ -22,8 +53,11 @@ Output Parameters are custom fields that your agent extracts from the conversati
   <Step title="Open Output Settings">
     Navigate to the Output Settings section in the left panel.
   </Step>
-  <Step title="Add Parameter">
-    Click "Add Output Parameter" to create a new field.
+  <Step title="Use AI Suggestions">
+    Click the AI Copilot icon to get smart parameter suggestions based on your agent's purpose.
+  </Step>
+  <Step title="Add Parameter Manually">
+    Click "Add Output Parameter" to create a new field manually.
   </Step>
   <Step title="Configure Properties">
     Set name, type, and description for the parameter.
@@ -66,7 +100,7 @@ You can configure output parameters using two modes:
 
 <Steps>
   <Step title="Add Parameter">
-    Click the "+" button to add a new output field.
+    Click the "+" button to add a new output field or use AI suggestions.
   </Step>
   <Step title="Configure Details">
     Fill in name, type, and description in the form.
@@ -104,25 +138,47 @@ For advanced users, switch to Text Mode to edit parameters as JSON:
 Text Mode is useful when copying configurations between agents or importing from external sources.
 </Tip>
 
-## Output Enrichment
+## Output Enrichment with AI Suggestions
 
-Enable additional pre-defined fields to be included in your output:
+The AI Copilot can suggest relevant enrichment settings based on your agent's use case and the data you'll need for downstream processing.
 
-| Field | Description |
-|-------|-------------|
-| 📝 Transcription | Full conversation transcript |
-| 📋 Summary | AI-generated call summary |
-| ✅ Success Status | Whether call achieved its goal |
-| 🆔 Call ID | Unique call identifier |
-| 🤖 Agent ID | Playbook/agent identifier |
-| ⏱️ Duration | Call length in seconds |
-| 📅 Created | Call start timestamp |
-| 📊 Call Status | Final call status |
-| ✅ Evaluations | Results of evaluation tests |
+### Smart Enrichment Recommendations
 
 <Info>
-Enable only the fields you need to keep webhook payloads manageable.
+The AI analyzes your agent's purpose to recommend which enrichment fields to enable. For example, a quality assurance agent would benefit from transcriptions and evaluations, while a lead generation agent might focus on success status and output parameters.
 </Info>
+
+### Available Enrichment Fields
+
+| Field | Description | AI Suggests For |
+|-------|-------------|-----------------|
+| 📝 Transcription | Full conversation transcript | Quality assurance, compliance, training |
+| 📋 Summary | AI-generated call summary | Management reporting, CRM integration |
+| ✅ Success Status | Whether call achieved its goal | Performance tracking, optimization |
+| 🆔 Call ID | Unique call identifier | System integration, debugging |
+| 🤖 Agent ID | Playbook/agent identifier | Multi-agent tracking, analytics |
+| ⏱️ Duration | Call length in seconds | Performance metrics, billing |
+| 📅 Created | Call start timestamp | Scheduling analysis, reporting |
+| 📊 Call Status | Final call status | Operational monitoring |
+| ✅ Evaluations | Results of evaluation tests | Quality assurance, training |
+
+### Using AI Enrichment Suggestions
+
+<Steps>
+  <Step title="Access Copilot">
+    Open the AI Copilot panel while in Output Settings.
+  </Step>
+  <Step title="Get Recommendations">
+    The AI will suggest relevant enrichment fields based on your agent's configuration.
+  </Step>
+  <Step title="Apply Suggestions">
+    Review and apply the recommended enrichment settings with one click.
+  </Step>
+</Steps>
+
+<Warning>
+Enable only the fields you need to keep webhook payloads manageable and reduce processing overhead.
+</Warning>
 
 ## Webhook Configuration
 
@@ -177,47 +233,87 @@ Send call results to your external systems automatically.
 ## Best Practices
 
 <Warning>
-Write clear descriptions for output parameters. The AI uses these descriptions to understand what to extract.
+Write clear descriptions for output parameters. The AI uses these descriptions to understand what to extract. The clearer your descriptions, the more accurate the data extraction will be.
 </Warning>
 
-1. **Be Specific** - "Customer's budget range" is better than "budget"
-2. **Use Appropriate Types** - Boolean for yes/no, number for quantities
-3. **Keep It Relevant** - Only capture data you'll actually use
-4. **Test Extraction** - Use the Playground to verify correct extraction
-5. **Secure Webhooks** - Always use authentication for sensitive data
+1. **Leverage AI Suggestions** - Start with AI-generated parameters for your agent type
+2. **Be Specific** - "Customer's budget range" is better than "budget"
+3. **Use Appropriate Types** - Boolean for yes/no, number for quantities
+4. **Keep It Relevant** - Only capture data you'll actually use
+5. **Test Extraction** - Use the Playground to verify correct extraction
+6. **Secure Webhooks** - Always use authentication for sensitive data
+7. **Optimize Enrichment** - Enable only necessary enrichment fields
 
-## Common Output Patterns
+## Smart Output Patterns
 
-### Sales Calls
+### AI-Suggested Sales Call Parameters
 ```json
 {
-  "interested_product": "string",
+  "lead_qualification_score": "number",
+  "interested_product": "string", 
   "budget_range": "string",
   "decision_timeline": "string",
+  "pain_points": "string",
+  "next_steps": "string",
   "follow_up_needed": "boolean",
-  "lead_score": "number"
+  "competitor_mentioned": "string"
 }
 ```
 
-### Customer Support
+### AI-Suggested Customer Support Parameters
 ```json
 {
-  "issue_type": "string",
-  "resolution_status": "string",
-  "satisfaction_score": "number",
-  "escalation_needed": "boolean"
+  "issue_category": "string",
+  "issue_severity": "string",
+  "resolution_provided": "boolean",
+  "customer_satisfaction": "number",
+  "escalation_needed": "boolean",
+  "resolution_time": "number",
+  "follow_up_required": "boolean"
 }
 ```
 
-### Appointment Scheduling
+### AI-Suggested Appointment Booking Parameters
 ```json
 {
   "appointment_date": "string",
   "appointment_time": "string",
-  "service_requested": "string",
-  "confirmation_sent": "boolean"
+  "service_type": "string",
+  "customer_preferences": "string",
+  "confirmation_method": "string",
+  "reminder_sent": "boolean",
+  "special_requests": "string"
 }
 ```
+
+## Working with Copilot Suggestions
+
+### Reviewing Suggested Parameters
+
+When the AI Copilot suggests output parameters, you'll see:
+
+- **Parameter Name** - Suggested field name
+- **Data Type** - Recommended type (string, number, boolean)
+- **Description** - Clear explanation of what to extract
+- **Reasoning** - Why this parameter is relevant to your agent
+
+### Accepting or Modifying Suggestions
+
+<Tabs>
+  <Tab title="Accept All">
+    Click "Accept All" to add all suggested parameters at once.
+  </Tab>
+  <Tab title="Review Individual">
+    Review each suggestion and accept only the ones you need.
+  </Tab>
+  <Tab title="Modify Before Accept">
+    Edit the parameter details before accepting the suggestion.
+  </Tab>
+</Tabs>
+
+<Info>
+You can always modify AI-suggested parameters after accepting them. The suggestions are a starting point to accelerate your configuration.
+</Info>
 
 ## Next Steps
 

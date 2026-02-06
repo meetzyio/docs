@@ -12,6 +12,48 @@ Input Parameters are dynamic variables that allow you to personalize each call w
 Input Parameters are passed via API when initiating calls, making each conversation unique and personalized.
 </Info>
 
+## AI Copilot Suggestions
+
+The AI Copilot can automatically analyze your agent's purpose and suggest relevant input parameters to enhance your call personalization. These suggestions appear as purple banners throughout the Input Parameters interface.
+
+### How It Works
+
+When you're working on your agent configuration, the AI Copilot:
+- Analyzes your system prompt and agent purpose
+- Identifies opportunities for personalization
+- Suggests new parameters or modifications to existing ones
+- Provides intelligent recommendations for parameter types and descriptions
+
+### Suggestion Banners
+
+AI suggestions appear in purple banners at the top of the Input Parameters section. Each banner contains:
+
+- **Copilot icon** - Indicates this is an AI-generated suggestion
+- **Summary** - Brief description of what changes are suggested
+- **Parameter cards** - Detailed breakdown of each suggested parameter
+- **Accept/Reject buttons** - Quick actions to apply or dismiss suggestions
+
+### Managing Suggestions
+
+<Tabs>
+  <Tab title="Accept Suggestions">
+    Click **Accept All** to apply all suggested parameters to your agent configuration. This will:
+    - Add new suggested parameters
+    - Modify existing parameters if improvements are suggested
+    - Update parameter descriptions and types as recommended
+  </Tab>
+  <Tab title="Reject Suggestions">
+    Click **Reject** to dismiss the current suggestions. You can:
+    - Reject all suggestions at once
+    - Continue working on your current configuration
+    - Get new suggestions later as you modify your agent
+  </Tab>
+</Tabs>
+
+<Warning>
+Accepting suggestions will modify your current input parameters. Make sure to review the changes before publishing your agent.
+</Warning>
+
 ## Common Use Cases
 
 | Use Case | Example Parameters |
@@ -161,6 +203,7 @@ Use descriptive names and clear descriptions so the AI understands the context o
 3. **Set Default Values** - Prevent errors when parameters aren't provided
 4. **Validate Before Sending** - Ensure parameters have valid values
 5. **Document for Team** - Keep a reference of all parameters and their purposes
+6. **Review AI Suggestions** - Let the Copilot help identify missing personalization opportunities
 
 ## Common Parameter Patterns
 

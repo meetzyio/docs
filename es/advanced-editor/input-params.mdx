@@ -12,10 +12,38 @@ Los Parámetros de Entrada son variables dinámicas que te permiten personalizar
 Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada conversación única y personalizada.
 </Info>
 
+## Sugerencias del Copiloto de IA
+
+El Copiloto de IA puede analizar tu prompt del sistema y sugerir automáticamente parámetros de entrada relevantes para mejorar la personalización de tu agente.
+
+### Cómo Funciona
+
+Cuando escribes o modificas el prompt del sistema, el Copiloto de IA:
+
+1. **Analiza el Contexto** - Examina las tareas y responsabilidades descritas en el prompt
+2. **Identifica Variables** - Detecta información que podría variar entre llamadas
+3. **Sugiere Parámetros** - Propone parámetros con nombres, tipos y descripciones apropiadas
+
+### Banner de Sugerencias
+
+Cuando hay sugerencias pendientes, aparecerá un banner púrpura en la parte superior de la sección:
+
+<Info>
+**Copiloto Sugerencias** - Muestra el número de parámetros sugeridos con opciones para "Aceptar Todo" o "Rechazar"
+</Info>
+
+### Tipos de Sugerencias
+
+| Operación | Descripción | Ejemplo |
+|-----------|-------------|---------|
+| **Agregar** | Nuevos parámetros sugeridos | `nombre_cliente`, `numero_pedido` |
+| **Modificar** | Cambios a parámetros existentes | Cambiar tipo de `string` a `number` |
+| **Remover** | Parámetros que ya no son necesarios | Parámetros obsoletos o duplicados |
+
 ## Casos de Uso Comunes
 
 | Caso de Uso | Parámetros de Ejemplo |
-|----------|-------------------|
+|-------------|----------------------|
 | Identificación del Cliente | `nombre_cliente`, `id_cliente` |
 | Reserva de Citas | `fecha_cita`, `hora_cita`, `tipo_servicio` |
 | Estado de Pedido | `numero_pedido`, `estado_pedido`, `fecha_entrega` |
@@ -38,10 +66,26 @@ Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada 
   </Step>
 </Steps>
 
+### Usar Plantillas
+
+Las plantillas te ayudan a añadir rápidamente conjuntos comunes de parámetros:
+
+<Steps>
+  <Step title="Abrir Plantillas">
+    Haz clic en el botón "Plantillas" para ver las opciones disponibles.
+  </Step>
+  <Step title="Seleccionar Plantilla">
+    Elige una plantilla que se ajuste a tu caso de uso (ej., "Información del Cliente").
+  </Step>
+  <Step title="Aplicar Plantilla">
+    Los parámetros se añadirán automáticamente a tu configuración.
+  </Step>
+</Steps>
+
 ### Propiedades del Parámetro
 
 | Propiedad | Descripción | Requerido |
-|----------|-------------|----------|
+|-----------|-------------|-----------|
 | Nombre | Identificador de variable (ej., `nombre_cliente`) | Sí |
 | Tipo | Tipo de dato: string, number, boolean | Sí |
 | Descripción | Qué representa este parámetro | Sí |
@@ -49,8 +93,8 @@ Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada 
 
 ### Tipos de Datos
 
-<AccordionGroup>
-  <Accordion title="String" icon="font">
+<Tabs>
+  <Tab title="String">
     Valores de texto como nombres, direcciones o identificadores.
     
     ```json
@@ -59,8 +103,8 @@ Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada 
       "id_pedido": "PED-12345"
     }
     ```
-  </Accordion>
-  <Accordion title="Number" icon="hashtag">
+  </Tab>
+  <Tab title="Number">
     Valores numéricos como cantidades, importes o IDs.
     
     ```json
@@ -69,8 +113,8 @@ Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada 
       "cantidad_pedidos": 3
     }
     ```
-  </Accordion>
-  <Accordion title="Boolean" icon="toggle-on">
+  </Tab>
+  <Tab title="Boolean">
     Valores verdadero/falso para flags y condiciones.
     
     ```json
@@ -79,8 +123,8 @@ Los Parámetros de Entrada se pasan vía API al iniciar llamadas, haciendo cada 
       "tiene_pago_pendiente": false
     }
     ```
-  </Accordion>
-</AccordionGroup>
+  </Tab>
+</Tabs>
 
 ## Usando Parámetros en Prompts
 
@@ -152,23 +196,24 @@ Usa el Playground para probar cómo tu agente maneja diferentes valores de pará
 
 ## Mejores Prácticas
 
-<Tip>
+<Warning>
 Usa nombres descriptivos y descripciones claras para que la IA entienda el contexto de cada parámetro.
-</Tip>
+</Warning>
 
 1. **Usa Nombres Claros** - `nombre_cliente` es mejor que `nc`
 2. **Proporciona Descripciones** - Ayuda a la IA a entender el contexto
 3. **Establece Valores por Defecto** - Previene errores cuando no se proporcionan parámetros
 4. **Valida Antes de Enviar** - Asegura que los parámetros tienen valores válidos
 5. **Documenta para el Equipo** - Mantén una referencia de todos los parámetros y sus propósitos
+6. **Acepta Sugerencias del Copiloto** - Las sugerencias de IA pueden mejorar la personalización
 
-## Patrones Comunes de Parámetros
+## Plantillas de Parámetros Comunes
 
 ### Información del Cliente
 ```json
 {
   "nombre_cliente": "string",
-  "telefono_cliente": "string",
+  "telefono_cliente": "string", 
   "email_cliente": "string",
   "id_cliente": "string"
 }
@@ -194,21 +239,40 @@ Usa nombres descriptivos y descripciones claras para que la IA entienda el conte
 }
 ```
 
+### Datos de Cuenta
+```json
+{
+  "saldo_cuenta": "number",
+  "tipo_cuenta": "string",
+  "fecha_vencimiento": "string",
+  "es_cliente_premium": "boolean"
+}
+```
+
+## Flujo de Trabajo con IA Copiloto
+
+<Steps>
+  <Step title="Escribir Prompt del Sistema">
+    Comienza escribiendo o editando tu prompt del sistema en el editor principal.
+  </Step>
+  <Step title="Obtener Sugerencias">
+    El Copiloto analizará el prompt y sugerirá parámetros automáticamente.
+  </Step>
+  <Step title="Revisar Sugerencias">
+    Examina las sugerencias en el banner púrpura - verifica nombres, tipos y descripciones.
+  </Step>
+  <Step title="Aceptar o Rechazar">
+    Acepta las sugerencias útiles o recházalas si no son relevantes.
+  </Step>
+  <Step title="Ajustar si es Necesario">
+    Edita manualmente los parámetros después de aceptar las sugerencias.
+  </Step>
+</Steps>
+
 ## Siguientes Pasos
 
-<CardGroup cols={2}>
-  <Card
-    title="Configuración de Salida"
-    icon="arrow-right-from-bracket"
-    href="/es/advanced-editor/output-settings"
-  >
-    Configura extracción de datos
-  </Card>
-  <Card
-    title="Playground"
-    icon="gamepad"
-    href="/es/advanced-editor/playground"
-  >
-    Prueba con diferentes parámetros
-  </Card>
-</CardGroup>
+Después de configurar tus parámetros de entrada:
+
+- **Configura Parámetros de Salida** - Define qué información extraer de las conversaciones
+- **Prueba en el Playground** - Simula llamadas con diferentes valores de parámetros
+- **Configura Webhooks** - Recibe los datos extraídos en tu sistema
