@@ -1,267 +1,370 @@
 ---
 title: 'Version History'
-description: 'Track changes, manage versions, and rollback your agent configurations'
+description: 'Git-like version control for your agent configurations with visual timeline, production management, and collaborative editing'
 icon: 'clock-rotate-left'
 ---
 
 ## What is Version History?
 
-Version History provides Git-like version control for your agent configurations. It allows you to track changes, review previous versions, rollback to earlier configurations, and manage multiple development branches.
+Version History provides Git-like version control for your agent configurations with a professional interface similar to GitHub or GitLab. It allows you to track changes, review previous versions, rollback to earlier configurations, and manage production deployments with confidence.
 
 <Info>
-Version History ensures you never lose your work and can always revert to a known-good configuration.
+Every change is tracked automatically, ensuring you never lose your work and can always revert to any previous state of your agent configuration.
 </Info>
 
 ## Accessing Version History
 
-Version History is located in the right panel of the Advanced Editor. Click the "Git Changes" or "History" tab to access it.
+Version History is located in the right panel of the Advanced Editor. Click the **"Changes"** tab to access the Git-style interface.
 
-## Key Concepts
+## Visual Interface Components
 
-### Versions
+### Git Status Indicator
 
-Each saved configuration is a version. Versions are numbered and timestamped:
+The header displays your current Git status with visual indicators:
 
-| Property | Description |
-|----------|-------------|
-| Version Number | Auto-incrementing identifier (v1, v2, v3...) |
-| Timestamp | When the version was created |
-| Commit Message | Description of changes |
-| Author | Who made the changes |
+<Tabs>
+  <Tab title="Clean Status">
+    - **Green badge**: All changes are committed
+    - **Version tag**: Shows current version (e.g., v15)
+    - Clean working tree with no pending changes
+  </Tab>
+  <Tab title="Modified Status">
+    - **Yellow badge**: Shows number of uncommitted changes
+    - **Modified indicator**: Lists count of changed fields
+    - Pending changes ready for commit
+  </Tab>
+  <Tab title="Conflict Status">
+    - **Red badge**: Merge conflicts detected
+    - **Conflict count**: Number of conflicting fields
+    - Requires manual resolution
+  </Tab>
+</Tabs>
 
-### Branches
+### Version Control Toolbar
 
-Work on different variations of your agent simultaneously:
+Quick access buttons in the header:
 
-| Branch Type | Description |
-|-------------|-------------|
-| Main | Primary development branch |
-| Live | Production version (what customers experience) |
-| Custom | Your own feature or testing branches |
+| Button | Function | Keyboard Shortcut |
+|--------|----------|-------------------|
+| **Check** | Check for remote updates | `⌘U` |
+| **Pull** | Pull latest changes from remote | `⌘Shift+P` |
+| **Commit** | Save current changes | `⌘Enter` |
+| **Push** | Push to production | `⌘Shift+Enter` |
 
-### Live Version
+## Working with Changes
 
-The "Live" version is what's deployed to production. Only the Live version is used for actual customer calls.
+### Visual Changes View
 
-## Viewing Changes
-
-### Pending Changes
-
-See what modifications haven't been committed yet:
-
-<Steps>
-  <Step title="Open Changes Tab">
-    Click the "Changes" tab in Version History.
-  </Step>
-  <Step title="Review Modifications">
-    View a list of all unsaved changes.
-  </Step>
-  <Step title="Commit or Discard">
-    Choose to save changes or revert them.
-  </Step>
-</Steps>
-
-### Change Details
-
-Each pending change shows:
-- What was modified (greeting, prompt, settings, etc.)
-- Previous value
-- New value
-
-## Committing Changes
-
-Save your changes as a new version:
+The Changes tab shows a GitHub-style diff interface:
 
 <Steps>
   <Step title="Review Changes">
-    Ensure all modifications are intentional.
+    See all modified fields organized by section (Basic Settings, Prompt, Greetings, etc.)
   </Step>
-  <Step title="Write Commit Message">
-    Describe what you changed and why.
+  <Step title="Expand Details">
+    Click any change to see before/after comparison with syntax highlighting
   </Step>
-  <Step title="Commit">
-    Click "Commit" to save the new version.
+  <Step title="Select Changes">
+    Use checkboxes to stage specific changes for commit
   </Step>
-</Steps>
-
-### AI-Generated Commit Messages
-
-Let AI suggest a commit message based on your changes:
-
-1. Click the "✨ Generate" button
-2. Review the suggested message
-3. Edit if needed
-4. Commit
-
-<Tip>
-Good commit messages make it easier to understand what changed when reviewing history later.
-</Tip>
-
-## Browsing History
-
-View all previous versions:
-
-<Steps>
-  <Step title="Open History Tab">
-    Click the "History" tab in Version History.
-  </Step>
-  <Step title="Browse Versions">
-    Scroll through the list of all versions.
-  </Step>
-  <Step title="View Details">
-    Click any version to see its details and changes.
+  <Step title="Commit Selected">
+    Commit only the changes you want to include
   </Step>
 </Steps>
 
-### Version Information
+### Change Types and Colors
 
-Each version entry shows:
+<Tabs>
+  <Tab title="Added">
+    - **Green background**: New fields or content added
+    - **Plus icon**: Indicates addition
+    - Shows new value being set
+  </Tab>
+  <Tab title="Modified">
+    - **Yellow background**: Existing content changed
+    - **Edit icon**: Indicates modification  
+    - Shows both old and new values
+  </Tab>
+  <Tab title="Deleted">
+    - **Red background**: Content removed
+    - **Minus icon**: Indicates deletion
+    - Shows what was removed
+  </Tab>
+</Tabs>
 
-| Field | Description |
-|-------|-------------|
-| 🔢 Version | Version number |
-| 📅 Date | When it was created |
-| 💬 Message | Commit message |
-| 🏷️ Tags | Live, Latest, etc. |
+## Committing Changes
 
-## Restoring Versions
-
-Rollback to a previous configuration:
+### Smart Commit Dialog
 
 <Steps>
-  <Step title="Find the Version">
-    Browse history to find the version you want.
+  <Step title="Open Commit Dialog">
+    Click "Commit" button or press `⌘Enter`
   </Step>
-  <Step title="Click Restore">
-    Select "Restore" on the desired version.
+  <Step title="AI-Generated Message">
+    Click "✨ Generate" for AI-suggested commit message based on your changes
   </Step>
-  <Step title="Confirm">
-    Confirm you want to restore this version.
+  <Step title="Review and Edit">
+    Edit the message to be more descriptive if needed
   </Step>
-  <Step title="Test">
-    Test the restored configuration in Playground.
+  <Step title="Deploy Option">
+    Toggle "Deploy to Production" to push changes live immediately
+  </Step>
+  <Step title="Confirm Commit">
+    Click "Commit Changes" to save the new version
+  </Step>
+</Steps>
+
+<Tabs>
+  <Tab title="Commit Message Best Practices">
+    - Start with action verb (Add, Update, Fix, Remove)
+    - Be specific about what changed
+    - Mention impact on behavior if relevant
+    - Keep under 72 characters for clean display
+  </Tab>
+  <Tab title="Examples">
+    - "Add transfer capability to support agent"
+    - "Update greeting to be more conversational"
+    - "Fix webhook authentication configuration"
+    - "Remove deprecated email notification"
+  </Tab>
+</Tabs>
+
+## Version History Timeline
+
+### Professional History View
+
+The History tab shows a timeline similar to GitHub commits:
+
+<Steps>
+  <Step title="Browse Timeline">
+    Scroll through chronological list of all versions
+  </Step>
+  <Step title="Version Cards">
+    Each version shows commit message, timestamp, author, and production status
+  </Step>
+  <Step title="Quick Actions">
+    Use inline buttons for Restore, Mark as Production, or View Changes
+  </Step>
+  <Step title="Detailed View">
+    Click any version for expanded details and full change diff
+  </Step>
+</Steps>
+
+### Version Card Information
+
+Each version displays:
+
+| Element | Description |
+|---------|-------------|
+| **Version Number** | Sequential version (v1, v2, v3...) |
+| **Commit Message** | Description of changes made |
+| **Timestamp** | When the version was created |
+| **Author** | Who made the changes |
+| **Production Badge** | Green "LIVE" badge for deployed version |
+| **Change Summary** | Quick overview of modifications |
+
+## Production Management
+
+### Marking Versions as Production
+
+<Steps>
+  <Step title="Select Version">
+    Find the version you want to deploy in the History tab
+  </Step>
+  <Step title="Mark as Production">
+    Click "Mark as Production" on the version card
+  </Step>
+  <Step title="Deployment Confirmation">
+    Confirm you want to deploy this version to handle live customer calls
+  </Step>
+  <Step title="Live Status">
+    The version receives a green "LIVE" badge indicating it's in production
   </Step>
 </Steps>
 
 <Warning>
-Restoring creates a new version with the old configuration. Your current changes will be preserved as a version in history.
+Only the version marked as "Production" will handle actual customer calls. Development versions are for testing only.
 </Warning>
 
-## Managing Branches
+### Visual Production Indicators
 
-### Creating a Branch
+<Tabs>
+  <Tab title="Live Badge">
+    - **Green "LIVE" badge**: Currently deployed version
+    - **Crown icon**: Indicates production status
+    - **Bold highlighting**: Makes production version prominent
+  </Tab>
+  <Tab title="Status Colors">
+    - **Green border**: Production version
+    - **Blue border**: Latest development version
+    - **Gray border**: Historical versions
+  </Tab>
+</Tabs>
 
-<Steps>
-  <Step title="Open Branches Tab">
-    Click the "Branches" tab in Version History.
-  </Step>
-  <Step title="Create New Branch">
-    Click "New Branch" and enter a name.
-  </Step>
-  <Step title="Start Working">
-    Switch to the new branch and make changes.
-  </Step>
-</Steps>
+## Restoring Previous Versions
 
-### Switching Branches
-
-1. Open the Branches tab
-2. Click on the branch you want to use
-3. The editor loads that branch's configuration
-
-### Deleting Branches
-
-1. Open the Branches tab
-2. Click the delete icon on the branch
-3. Confirm deletion
-
-<Warning>
-Deleted branches cannot be recovered. Ensure you've merged or saved any important changes.
-</Warning>
-
-## Publishing to Live
-
-Deploy your changes to production:
+### Smart Restore Process
 
 <Steps>
-  <Step title="Ensure Changes are Committed">
-    Commit any pending changes first.
+  <Step title="Find Target Version">
+    Browse the History timeline to locate the desired version
   </Step>
-  <Step title="Test in Playground">
-    Validate your configuration works correctly.
+  <Step title="Preview Changes">
+    Click "View Changes" to see what will be restored
   </Step>
-  <Step title="Mark as Live">
-    Click "Mark as Live" or "Publish" on the version.
+  <Step title="Initiate Restore">
+    Click "Restore This Version" on the target version
   </Step>
-  <Step title="Confirm">
-    Confirm you want to deploy to production.
+  <Step title="Restore Confirmation">
+    Review the confirmation dialog showing what will change
+  </Step>
+  <Step title="Complete Restore">
+    Confirm to create a new version with the restored configuration
   </Step>
 </Steps>
 
 <Info>
-Only the Live version handles actual customer calls. Development versions don't affect production.
+Restoring creates a new version with the old configuration. Your current work is preserved in version history - nothing is permanently lost.
 </Info>
+
+## Advanced Features
+
+### Conflict Resolution
+
+When conflicts occur between local and remote changes:
+
+<Steps>
+  <Step title="Conflict Detection">
+    Red "Conflicts" badge appears in the status indicator
+  </Step>
+  <Step title="Review Conflicts">
+    Open Changes tab to see conflicting fields highlighted in red
+  </Step>
+  <Step title="Choose Resolution">
+    Select whether to keep local changes or accept remote changes for each conflict
+  </Step>
+  <Step title="Commit Resolution">
+    Once resolved, commit the merged changes
+  </Step>
+</Steps>
+
+### Collaborative Editing
+
+<Tabs>
+  <Tab title="Real-time Status">
+    - **User avatars**: See who else is editing
+    - **Lock indicators**: Know when someone else is making changes
+    - **Sync status**: Real-time collaboration state
+  </Tab>
+  <Tab title="Auto-sync">
+    - **Background sync**: Automatic check for remote updates
+    - **Conflict prevention**: Early detection of editing conflicts
+    - **Merge assistance**: Smart conflict resolution suggestions
+  </Tab>
+</Tabs>
 
 ## Best Practices
 
 <AccordionGroup>
-  <Accordion title="Commit Often" icon="floppy-disk">
-    Save versions frequently so you have more restore points.
+  <Accordion title="Commit Frequently" icon="floppy-disk">
+    Save versions regularly to create more granular restore points. Commit after each logical change rather than bundling many changes together.
   </Accordion>
-  <Accordion title="Write Good Messages" icon="message">
-    Descriptive commit messages make history easier to navigate.
+  <Accordion title="Use Descriptive Messages" icon="message">
+    Write clear commit messages that explain what changed and why. This makes the history timeline much easier to navigate later.
   </Accordion>
-  <Accordion title="Use Branches for Experiments" icon="code-branch">
-    Create branches when testing major changes to avoid affecting your main configuration.
+  <Accordion title="Test Before Production" icon="flask">
+    Always test changes in Playground before marking a version as Production. Use the development versions for experimentation.
   </Accordion>
-  <Accordion title="Test Before Publishing" icon="flask">
-    Always test in Playground before marking a version as Live.
+  <Accordion title="Review Changes Before Committing" icon="eye">
+    Use the visual diff to review exactly what's changing before committing. Expand change details to see the full context.
   </Accordion>
-  <Accordion title="Review Before Rollback" icon="eye">
-    Check what changed between versions before restoring an old one.
+  <Accordion title="Keep Production Stable" icon="shield-check">
+    Only deploy well-tested versions to production. Use the staging environment to validate changes thoroughly.
   </Accordion>
 </AccordionGroup>
 
+## Keyboard Shortcuts
+
+| Action | Windows/Linux | macOS |
+|--------|---------------|-------|
+| **Check for updates** | `Ctrl+U` | `⌘U` |
+| **Pull changes** | `Ctrl+Shift+P` | `⌘⇧P` |
+| **Commit changes** | `Ctrl+Enter` | `⌘Enter` |
+| **Push to production** | `Ctrl+Shift+Enter` | `⌘⇧Enter` |
+| **Open changes tab** | `Ctrl+G` | `⌘G` |
+| **Generate commit message** | `Ctrl+Shift+G` | `⌘⇧G` |
+
 ## Common Workflows
 
-### Quick Fix
+### Quick Fix Deployment
 
-1. Make change
-2. Test in Playground
-3. Commit with message
-4. Publish to Live
+<Steps>
+  <Step title="Make Change">
+    Update the necessary configuration in the editor
+  </Step>
+  <Step title="Test">
+    Verify the change works in Playground
+  </Step>
+  <Step title="Commit & Deploy">
+    Use "Deploy to Production" toggle when committing
+  </Step>
+  <Step title="Verify">
+    Confirm the change is live and working correctly
+  </Step>
+</Steps>
 
-### Major Update
+### Major Update Process
 
-1. Create a new branch
-2. Make multiple changes
-3. Test thoroughly
-4. Merge to main
-5. Publish to Live
+<Steps>
+  <Step title="Plan Changes">
+    Identify all changes needed for the update
+  </Step>
+  <Step title="Make Incremental Changes">
+    Implement changes in logical chunks, committing frequently
+  </Step>
+  <Step title="Comprehensive Testing">
+    Test all functionality thoroughly in development
+  </Step>
+  <Step title="Production Deployment">
+    Mark the final version as Production
+  </Step>
+  <Step title="Monitor">
+    Watch for issues after deployment
+  </Step>
+</Steps>
 
-### Rollback
+### Emergency Rollback
 
-1. Identify the issue
-2. Find last working version
-3. Restore that version
-4. Publish to Live
-5. Debug the broken version
+<Steps>
+  <Step title="Identify Issue">
+    Determine which version was last working correctly
+  </Step>
+  <Step title="Quick Restore">
+    Find the last good version in History and click "Restore"
+  </Step>
+  <Step title="Emergency Deploy">
+    Immediately mark the restored version as Production
+  </Step>
+  <Step title="Investigate">
+    Later, analyze what went wrong in the problematic version
+  </Step>
+</Steps>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
-    title="Playground"
-    icon="gamepad"
+    title="Playground Testing"
+    icon="play"
     href="/advanced-editor/playground"
   >
-    Test versions before publishing
+    Test your versions before deploying to production
   </Card>
   <Card
-    title="Basic Settings"
-    icon="gear"
-    href="/advanced-editor/basic-settings"
+    title="AI Copilot"
+    icon="sparkles"
+    href="/advanced-editor/copilot"
   >
-    Configure agent settings
+    Get AI assistance for commit messages and changes
   </Card>
 </CardGroup>
