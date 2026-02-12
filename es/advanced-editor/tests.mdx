@@ -1,0 +1,225 @@
+---
+title: 'Tests'
+description: 'Crea y ejecuta tests de regresión automatizados para asegurar la calidad de tu agente de IA'
+icon: 'clipboard-check'
+---
+
+## ¿Qué son los Tests?
+
+Los Tests son pruebas de regresión automatizadas que validan el comportamiento de tu agente. A diferencia de las **Evaluaciones** (que se ejecutan después de cada llamada real), los Tests se ejecutan bajo demanda en el Editor Avanzado para verificar que tu agente responde correctamente a escenarios específicos antes de desplegar cambios.
+
+<Info>
+Ejecuta tests después de modificar prompts, base de conocimiento o acciones para detectar regresiones antes de que afecten a clientes reales.
+</Info>
+
+## Accediendo a los Tests
+
+Los Tests están ubicados en el panel derecho del Editor Avanzado. Haz clic en la pestaña **Tests** (icono de portapapeles) para acceder.
+
+## Tests vs Evaluaciones
+
+| Característica | Tests | Evaluaciones |
+|---------|-------|-------------|
+| Cuándo se ejecutan | Bajo demanda en el editor | Después de cada llamada real |
+| Propósito | Validar escenarios específicos antes de desplegar | Medir calidad de llamadas en el tiempo |
+| Configuración | Flujo de conversación + criterios de éxito | Preguntas sí/no |
+| Resultado | Aprobado/fallo por test | Aprobado/fallo por evaluación por llamada |
+
+## Tipos de Tests
+
+### Tests de Escenario
+
+Un test de **Escenario** define un flujo de conversación fijo. Especificas los mensajes exactos (usuario y agente) y una condición de éxito. El sistema evalúa si la respuesta del agente cumple tus criterios.
+
+| Propiedad | Descripción | Ejemplo |
+|----------|-------------|---------|
+| Historial de chat | Mensajes alternados usuario/agente | Usuario: "Hola" → Agente: "Buenos días..." |
+| Condición de éxito | Lo que el agente debe lograr | "El agente responde de manera profesional y útil" |
+| Ejemplos de éxito | Respuestas de ejemplo que deben pasar | "Buenos días, ¿en qué puedo ayudarle?" |
+| Ejemplos de fallo | Respuestas de ejemplo que deben fallar | "No tengo idea" |
+
+### Tests de Simulación
+
+Un test de **Simulación** usa IA para simular un usuario. Defines una persona, objetivo y primer mensaje. El sistema ejecuta una conversación completa y evalúa el resultado.
+
+| Propiedad | Descripción | Ejemplo |
+|----------|-------------|---------|
+| Primer mensaje | Cómo empieza el usuario simulado | "Hola, buenos días" |
+| Persona | Perfil del usuario simulado | "Cliente interesado en información" |
+| Objetivo | Lo que quiere el usuario simulado | "Obtener información sobre el servicio" |
+
+## Crear un Test
+
+<Steps>
+  <Step title="Abrir Panel de Tests">
+    Haz clic en la pestaña Tests en el panel derecho.
+  </Step>
+  <Step title="Clic en Nuevo">
+    Haz clic en el botón "Nuevo" para iniciar el asistente de creación.
+  </Step>
+  <Step title="Paso 1 - Nombre y Tipo">
+    Introduce un nombre descriptivo y elige Escenario o Simulación.
+  </Step>
+  <Step title="Paso 2 - Conversación">
+    Para Escenario: Añade el flujo de conversación (mensajes usuario/agente). Para Simulación: Configura primer mensaje, persona y objetivo.
+  </Step>
+  <Step title="Paso 3 - Criterios">
+    Define la condición de éxito y añade ejemplos de éxito/fallo para guiar la evaluación.
+  </Step>
+  <Step title="Guardar">
+    El test se crea y aparece en la lista.
+  </Step>
+</Steps>
+
+## Variables de Contexto
+
+Los tests pueden usar **variables dinámicas** que reemplazan marcadores en los prompts del agente durante la ejecución. Casos de uso comunes:
+
+| Variable | Propósito | Ejemplo |
+|----------|---------|---------|
+| `fecha_y_hora_actual` | Fecha y hora actual en español | "Hoy es Miércoles 12 de Febrero de 2026 a las 14:30" |
+| Parámetros de entrada | Variables específicas del agente | Nombre del cliente, número de pedido, etc. |
+
+### Configurar Variables de Contexto
+
+1. Haz clic en el icono **Variables de contexto** (llaves de código) en el encabezado de Tests
+2. Introduce valores para cada variable
+3. Haz clic en el icono de actualizar junto a `fecha_y_hora_actual` para actualizar la hora actual
+4. Ejecuta tests - las variables se inyectan en el contexto del agente
+
+<Tip>
+Usa `fecha_y_hora_actual` cuando tu agente saluda con "Buenos días" o hace referencia a la fecha actual. Los tests usan los valores que configuras, no la hora en vivo.
+</Tip>
+
+## Ejecutar Tests
+
+### Ejecutar Todos los Tests
+
+Haz clic en **Ejecutar todo** para ejecutar cada test. Los resultados aparecen en la pestaña **Historial**.
+
+### Ejecutar Tests Seleccionados
+
+1. Selecciona tests con las casillas de verificación
+2. Haz clic en **Ejecutar todo** (ejecuta los seleccionados cuando hay alguno marcado) o en el botón de reproducción en las tarjetas individuales
+
+### Ejecutar un Solo Test
+
+Haz clic en el icono de reproducción (▶) en cualquier tarjeta de test para ejecutar solo ese test.
+
+## Pestaña Historial
+
+La pestaña **Historial** muestra ejecuciones anteriores:
+
+| Columna | Descripción |
+|--------|-------------|
+| Fecha | Cuándo se ejecutó |
+| Estado | Aprobados, fallos, o ejecutándose |
+| Acciones | Ver detalles, reintentar fallidos, reintentar todo |
+
+### Ver Detalles de una Ejecución
+
+1. Cambia a la pestaña Historial
+2. Haz clic en una ejecución para abrir el modal de detalles
+3. Consulta los resultados individuales con respuestas del agente y razones de evaluación
+4. Usa **Reintentar fallidos** para volver a ejecutar solo los tests fallidos
+5. Usa **Reintentar todo** para volver a ejecutar todo el lote
+
+## Simular Conversación
+
+La función **Simular** permite ejecutar una simulación única sin crear un test:
+
+1. Haz clic en el icono de burbuja de chat en el encabezado de Tests
+2. Configura primer mensaje, persona y objetivo
+3. Establece el límite de turnos (por defecto 10)
+4. Haz clic para iniciar - observa la conversación simulada en tiempo real
+
+<Info>
+Simular es útil para pruebas exploratorias rápidas. Usa tests de Escenario/Simulación cuando necesites validación automatizada y repetible.
+</Info>
+
+## Gestionar Tests
+
+### Editar un Test
+
+Haz clic en el menú (⋮) en una tarjeta de test → **Editar**. Modifica la conversación, criterios o ejemplos.
+
+### Clonar un Test
+
+Haz clic en el menú (⋮) → **Clonar** para crear una copia. Útil para crear variaciones (ej. diferente primer mensaje, mismos criterios).
+
+### Eliminar un Test
+
+Haz clic en el menú (⋮) → **Eliminar** y confirma.
+
+### Filtrar Tests
+
+Usa el desplegable de filtro para mostrar:
+- **Todos los tests** - Cada test
+- **Aprobados** - Solo tests que pasaron la última ejecución
+- **Fallidos** - Solo tests que fallaron la última ejecución
+
+## Resultados de Tests
+
+Cada tarjeta de test muestra su último resultado:
+
+| Icono | Estado | Significado |
+|------|--------|---------|
+| ✓ | Aprobado | La respuesta del agente cumplió los criterios de éxito |
+| ✗ | Fallido | La respuesta del agente no cumplió los criterios |
+| ⟳ | Ejecutando | El test se está ejecutando actualmente |
+| ○ | Pendiente | Aún no ejecutado |
+
+Haz clic en una tarjeta de test para ver detalles inline: respuesta del agente, razón de evaluación y conversación completa cuando esté disponible.
+
+## Mejores Prácticas
+
+<AccordionGroup>
+  <Accordion title="Prueba Rutas Críticas" icon="route">
+    Crea tests para tus flujos más importantes: saludos, caso de uso principal, objeciones y cumplimiento.
+  </Accordion>
+  <Accordion title="Usa Ejemplos de Éxito/Fallo" icon="scale">
+    Proporciona ejemplos claros para que el evaluador LLM entienda qué respuestas son "buenas" y "malas".
+  </Accordion>
+  <Accordion title="Configura Variables de Contexto" icon="variable">
+    Si tu agente usa {{fecha_y_hora_actual}} o parámetros de entrada, configúralos en el panel de contexto antes de ejecutar tests.
+  </Accordion>
+  <Accordion title="Ejecuta Antes de Publicar" icon="rocket">
+    Ejecuta tu suite de tests antes de publicar cambios para detectar regresiones temprano.
+  </Accordion>
+  <Accordion title="Combina con Copilot" icon="robot">
+    Después de que Copilot sugiera cambios, crea tests para validar esas mejoras.
+  </Accordion>
+</AccordionGroup>
+
+## Próximos Pasos
+
+<CardGroup cols={2}>
+  <Card
+    title="Evaluaciones"
+    icon="check-double"
+    href="/es/advanced-editor/evaluations"
+  >
+    Configura métricas de calidad post-llamada
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba tu agente de forma interactiva
+  </Card>
+  <Card
+    title="Copilot"
+    icon="robot"
+    href="/es/advanced-editor/copilot"
+  >
+    Obtén ayuda IA para mejorar tus prompts
+  </Card>
+  <Card
+    title="Parámetros de Entrada"
+    icon="sliders"
+    href="/es/advanced-editor/input-params"
+  >
+    Configura variables para tests y llamadas
+  </Card>
+</CardGroup>

@@ -1,0 +1,225 @@
+---
+title: 'Tests'
+description: 'Create and run automated regression tests to ensure your AI agent quality'
+icon: 'clipboard-check'
+---
+
+## What are Tests?
+
+Tests are automated regression tests that validate your agent's behavior. Unlike **Evaluations** (which run after every real call), Tests run on-demand in the Advanced Editor to verify your agent responds correctly to specific scenarios before you deploy changes.
+
+<Info>
+Run tests after modifying prompts, knowledge base, or actions to catch regressions before they affect real customers.
+</Info>
+
+## Accessing Tests
+
+Tests are located in the right panel of the Advanced Editor. Click the **Tests** tab (clipboard icon) to access them.
+
+## Tests vs Evaluations
+
+| Feature | Tests | Evaluations |
+|---------|-------|-------------|
+| When they run | On-demand in the editor | After every real call |
+| Purpose | Validate specific scenarios before deploy | Measure call quality over time |
+| Setup | Define conversation flow + success criteria | Define yes/no questions |
+| Output | Pass/fail per test | Pass/fail per evaluation per call |
+
+## Test Types
+
+### Scenario Tests
+
+A **Scenario** test defines a fixed conversation flow. You specify the exact messages (user and agent) and a success condition. The system evaluates whether the agent's response meets your criteria.
+
+| Property | Description | Example |
+|----------|-------------|---------|
+| Chat history | Alternating user/agent messages | User: "Hola" → Agent: "Buenos días..." |
+| Success condition | What the agent should achieve | "El agente responde de manera profesional y útil" |
+| Success examples | Sample responses that should pass | "Buenos días, ¿en qué puedo ayudarle?" |
+| Failure examples | Sample responses that should fail | "No tengo idea" |
+
+### Simulation Tests
+
+A **Simulation** test uses an AI to simulate a user. You define a persona, goal, and first message. The system runs a full conversation and evaluates the outcome.
+
+| Property | Description | Example |
+|----------|-------------|---------|
+| First message | How the simulated user starts | "Hola, buenos días" |
+| Persona | Simulated user's profile | "Cliente interesado en información" |
+| Goal | What the simulated user wants | "Obtener información sobre el servicio" |
+
+## Creating a Test
+
+<Steps>
+  <Step title="Open Tests Panel">
+    Click the Tests tab in the right panel.
+  </Step>
+  <Step title="Click New">
+    Click the "New" button to start the creation wizard.
+  </Step>
+  <Step title="Step 1 - Name & Type">
+    Enter a descriptive name and choose Scenario or Simulation.
+  </Step>
+  <Step title="Step 2 - Conversation">
+    For Scenario: Add the conversation flow (user/agent messages). For Simulation: Set first message, persona, and goal.
+  </Step>
+  <Step title="Step 3 - Criteria">
+    Define the success condition and add success/failure examples to guide the evaluation.
+  </Step>
+  <Step title="Save">
+    The test is created and appears in the list.
+  </Step>
+</Steps>
+
+## Context Variables
+
+Tests can use **dynamic variables** that replace placeholders in your agent's prompts during test execution. Common use cases:
+
+| Variable | Purpose | Example |
+|----------|---------|---------|
+| `fecha_y_hora_actual` | Current date/time in Spanish | "Hoy es Miércoles 12 de Febrero de 2026 a las 14:30" |
+| Input parameters | Agent-specific variables | Customer name, order number, etc. |
+
+### Setting Context Variables
+
+1. Click the **Context variables** icon (code brackets) in the Tests header
+2. Enter values for each variable
+3. Click the refresh icon next to `fecha_y_hora_actual` to update the current time
+4. Run tests - variables are injected into the agent's context
+
+<Tip>
+Use `fecha_y_hora_actual` when your agent greets with "Buenos días" or references the current date. Tests run with the values you set, not the live time.
+</Tip>
+
+## Running Tests
+
+### Run All Tests
+
+Click **Run All** to execute every test. Results appear in the **History** tab.
+
+### Run Selected Tests
+
+1. Select tests using the checkboxes
+2. Click **Run All** (runs selected when any are selected) or the play button on individual test cards
+
+### Run a Single Test
+
+Click the play icon (▶) on any test card to run just that test.
+
+## History Tab
+
+The **History** tab shows past test runs:
+
+| Column | Description |
+|--------|-------------|
+| Date | When the run was executed |
+| Status | Pass count, fail count, or running |
+| Actions | View details, retry failed, retry all |
+
+### Viewing Run Details
+
+1. Switch to the History tab
+2. Click a run to open the detail modal
+3. See individual test results with agent responses and evaluation reasons
+4. Use **Retry failed** to re-run only failed tests
+5. Use **Retry all** to re-run the entire batch
+
+## Simulate Conversation
+
+The **Simulate** feature lets you run a one-off simulation without creating a test:
+
+1. Click the chat bubble icon in the Tests header
+2. Configure first message, persona, and goal
+3. Set turn limit (default 10)
+4. Click to start - watch the simulated conversation unfold in real-time
+
+<Info>
+Simulate is useful for quick exploratory testing. Use Scenario/Simulation tests when you need repeatable, automated validation.
+</Info>
+
+## Managing Tests
+
+### Edit a Test
+
+Click the menu (⋮) on a test card → **Edit**. Modify the conversation, criteria, or examples.
+
+### Clone a Test
+
+Click the menu (⋮) → **Clone** to create a copy. Useful for creating variations (e.g., different first message, same criteria).
+
+### Delete a Test
+
+Click the menu (⋮) → **Delete** and confirm.
+
+### Filter Tests
+
+Use the filter dropdown to show:
+- **All Tests** - Every test
+- **Passing** - Only tests that passed last run
+- **Failing** - Only tests that failed last run
+
+## Test Results
+
+Each test card shows its last result:
+
+| Icon | Status | Meaning |
+|------|--------|---------|
+| ✓ | Pass | Agent response met success criteria |
+| ✗ | Fail | Agent response did not meet criteria |
+| ⟳ | Running | Test is currently executing |
+| ○ | Pending | Not run yet |
+
+Click a test card to see inline details: agent response, evaluation reason, and full conversation when available.
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Test Critical Paths" icon="route">
+    Create tests for your most important flows: greetings, main use case, objections, and compliance.
+  </Accordion>
+  <Accordion title="Use Success/Failure Examples" icon="scale">
+    Provide clear examples so the LLM evaluator understands what "good" and "bad" responses look like.
+  </Accordion>
+  <Accordion title="Set Context Variables" icon="variable">
+    If your agent uses {{fecha_y_hora_actual}} or input parameters, set them in the context panel before running tests.
+  </Accordion>
+  <Accordion title="Run Before Publish" icon="rocket">
+    Run your test suite before publishing changes to catch regressions early.
+  </Accordion>
+  <Accordion title="Combine with Copilot" icon="robot">
+    After Copilot suggests changes, create tests to validate those improvements.
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card
+    title="Evaluations"
+    icon="check-double"
+    href="/advanced-editor/evaluations"
+  >
+    Set up post-call quality metrics
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/advanced-editor/playground"
+  >
+    Test your agent interactively
+  </Card>
+  <Card
+    title="Copilot"
+    icon="robot"
+    href="/advanced-editor/copilot"
+  >
+    Get AI help improving your prompts
+  </Card>
+  <Card
+    title="Input Params"
+    icon="sliders"
+    href="/advanced-editor/input-params"
+  >
+    Configure variables for tests and calls
+  </Card>
+</CardGroup>

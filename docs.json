@@ -60,6 +60,7 @@
                   "advanced-editor/output-settings",
                   "advanced-editor/evaluations",
                   "advanced-editor/playground",
+                  "advanced-editor/tests",
                   "advanced-editor/copilot",
                   "advanced-editor/version-history"
                 ]
@@ -157,6 +158,7 @@
                   "es/advanced-editor/output-settings",
                   "es/advanced-editor/evaluations",
                   "es/advanced-editor/playground",
+                  "es/advanced-editor/tests",
                   "es/advanced-editor/copilot",
                   "es/advanced-editor/version-history"
                 ]
