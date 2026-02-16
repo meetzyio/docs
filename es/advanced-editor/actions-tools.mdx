@@ -1,194 +1,469 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura integraciones, transferencias de llamada, webhooks y acciones automatizadas'
+description: 'Configura transferencias, finalización de llamadas, webhooks y automatizaciones avanzadas'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas te permite configurar qué puede hacer tu agente durante y después de las llamadas. Esto incluye transferir llamadas, finalizar conversaciones, hacer peticiones API y configurar protocolos de seguimiento automatizado.
+La sección de Acciones y Herramientas te permite configurar qué puede hacer tu agente durante y después de las llamadas. Esto incluye transferir llamadas por teléfono o SIP, finalizar conversaciones automáticamente, crear webhooks personalizados y configurar protocolos de seguimiento automatizado.
+
+<Info>
+Esta sección incluye funcionalidades avanzadas que potencian significativamente las capacidades de tu agente conversacional.
+</Info>
 
 ## Transferencia de Llamadas
 
-Configura cómo tu agente maneja las transferencias de llamada a agentes humanos u otros departamentos.
+Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos.
 
-### Configuración de Transferencia
+### Tipos de Transferencia
 
-| Ajuste | Descripción |
-|---------|-------------|
-| Número de Transferencia | Número de teléfono al que transferir llamadas |
-| Prompt de Transferencia | Instrucciones de cuándo transferir |
-| Transferencia Cálida | Informar al agente receptor antes de transferir |
-
-<Tip>
-Usa transferencias cálidas cuando el agente receptor necesita contexto sobre la conversación antes de tomar el control.
-</Tip>
-
-### Mejores Prácticas de Transferencia
-
-1. **Establece Disparadores Claros** - Define escenarios específicos que justifiquen una transferencia
-2. **Proporciona Contexto** - Configura qué información pasar al agente receptor
-3. **Ten Respaldos** - Configura números de respaldo si la línea principal está ocupada
-
-## Finalizar Llamada
-
-Configura cómo tu agente concluye las conversaciones.
-
-### Ajustes de Finalización
-
-| Opción | Descripción |
-|--------|-------------|
-| Prompt de Finalización | Condiciones que disparan el fin de llamada |
-| Mensaje de Despedida | Mensaje final antes de colgar |
-| Plantillas de Idioma | Mensajes preconfigurados en diferentes idiomas |
-
-### Plantillas de Idioma
-
-El sistema proporciona plantillas predefinidas para escenarios comunes en múltiples idiomas:
+Meetzy soporta dos tipos principales de transferencia:
 
 <Tabs>
-  <Tab title="Español">
-    - Despedida profesional
-    - Despedida casual
-    - Mensaje de servicio completado
+  <Tab title="Número de Teléfono">
+    Transferir a números de teléfono tradicionales (móvil, fijo, internacional).
+    
+    **Formato**: `+1234567890`
+    
+    **Casos de uso**:
+    - Transferir a agentes de soporte
+    - Conectar con departamentos específicos
+    - Escalar a supervisores
   </Tab>
-  <Tab title="Inglés">
-    - Professional goodbye
-    - Casual farewell
-    - Service completion message
-  </Tab>
-  <Tab title="Francés">
-    - Au revoir professionnel
-    - Adieu décontracté
-    - Message de service terminé
+  <Tab title="SIP Trunk">
+    Transferir a través de protocolo SIP para sistemas telefónicos empresariales.
+    
+    **Formato**: `sip:extensión@gateway_ip:puerto`
+    
+    **Ejemplo**: `sip:100@78.136.102.246:5060`
+    
+    **Casos de uso**:
+    - Transferir a extensiones internas
+    - Conectar con sistemas PBX
+    - Integrar con infraestructura VoIP existente
   </Tab>
 </Tabs>
 
-## Herramientas Webhook
+### Configuración de Transferencia
 
-Crea integraciones personalizadas definiendo herramientas webhook que tu agente puede disparar durante las conversaciones.
+<Steps>
+  <Step title="Activar Transferencia">
+    Habilita la opción de transferencia de llamadas usando el toggle en la interfaz.
+  </Step>
+  <Step title="Seleccionar Tipo">
+    Elige entre "Número de Teléfono" o "SIP Trunk" según tu infraestructura.
+  </Step>
+  <Step title="Configurar Destino">
+    Introduce el número de teléfono o URI SIP de destino.
+  </Step>
+  <Step title="Definir Prompt">
+    Establece las condiciones que deben activar la transferencia.
+  </Step>
+</Steps>
+
+### Plantillas de Transferencia
+
+El sistema incluye plantillas predefinidas para diferentes idiomas:
+
+<Tabs>
+  <Tab title="Español">
+    ```text
+    Se usa para transferir la llamada con una persona en los casos que se indican:
+    
+    - El usuario rechaza directamente la propuesta o servicio
+    - El usuario solicita expresamente hablar con una persona humana
+    - El usuario muestra desconfianza hacia el asistente virtual
+    - Se necesita información específica no disponible en el sistema
+    - Se requiere autorización o gestión de datos personales sensibles
+    ```
+  </Tab>
+  <Tab title="Inglés">
+    ```text
+    Used to transfer the call to a person in the following cases:
+    
+    - The user directly rejects the proposal or service
+    - The user expressly requests to speak with a human person
+    - The user shows distrust towards the virtual assistant
+    - Specific information is needed that is not available in the system
+    - User requires authorization or management of sensitive personal data
+    ```
+  </Tab>
+  <Tab title="Francés">
+    ```text
+    Utilisé pour transférer l'appel à une personne dans les cas suivants:
+    
+    - L'utilisateur rejette directement la proposition ou le service
+    - L'utilisateur demande expressément à parler avec une personne humaine
+    - L'utilisateur montre de la méfiance envers l'assistant virtuel
+    - Des informations spécifiques sont nécessaires qui ne sont pas disponibles
+    - L'utilisateur nécessite une autorisation ou gestion de données sensibles
+    ```
+  </Tab>
+</Tabs>
+
+## Estrategia de Finalización de Llamada
+
+Configura cómo y cuándo tu agente debe finalizar automáticamente las conversaciones.
+
+### Detección de Contestador Automático
+
+Una funcionalidad clave es la detección automática de contestadores telefónicos:
+
+<Warning>
+La detección de contestadores automáticos es crucial para evitar conversaciones innecesarias y optimizar recursos.
+</Warning>
+
+#### Frases Detectadas Comunes
+
+El sistema reconoce estas frases típicas de contestadores:
+
+- "En este momento no podemos atenderle"
+- "Deje su mensaje después de la señal"
+- "El número al que llama..."
+- "Ha llamado al..."
+- "Este es el contestador de..."
+- "Gracias por llamar, en estos momentos..."
+- "Bienvenido al buzón de voz de..."
+
+### Otras Condiciones de Finalización
+
+Además de contestadores automáticos, el agente finalizará llamadas cuando:
+
+- El usuario se despida de forma clara
+- El agente complete su despedida
+- Se cumplan objetivos específicos de la conversación
+- Se agote el tiempo máximo configurado
+
+### Plantillas de Finalización por Idioma
+
+<Tabs>
+  <Tab title="Español">
+    Incluye detección específica de frases como:
+    - "Puedes dejar tu mensaje al oír la señal"
+    - "Lo sentimos, pero en estos momentos..."
+    - "Por favor, inténtelo de nuevo más tarde"
+  </Tab>
+  <Tab title="Inglés">
+    Detecta frases como:
+    - "Please leave your message after the tone"
+    - "We're sorry, but at this time..."
+    - "Please try again later"
+  </Tab>
+  <Tab title="Otros Idiomas">
+    Soporta detección en francés, alemán, italiano y portugués con patrones específicos para cada idioma.
+  </Tab>
+</Tabs>
+
+## Herramientas Webhook Personalizadas
+
+Crea integraciones personalizadas con sistemas externos mediante webhooks que tu agente puede activar durante las conversaciones.
 
 ### Creando una Herramienta Webhook
 
 <Steps>
   <Step title="Añadir Nueva Herramienta">
-    Haz clic en "Añadir Herramienta Webhook" para crear una nueva integración.
+    Haz clic en "Añadir Herramienta Webhook" para crear una nueva integración personalizada.
   </Step>
-  <Step title="Configurar Info Básica">
-    Establece el nombre y descripción de la herramienta (esto ayuda a la IA a entender cuándo usarla).
+  <Step title="Configurar Información Básica">
+    - **Nombre**: Identificador único de la herramienta
+    - **Descripción**: Explica cuándo y por qué la IA debe usar esta herramienta
   </Step>
   <Step title="Establecer Endpoint">
-    Ingresa la URL del webhook que recibirá la petición.
+    - **URL**: Endpoint que recibirá la petición HTTP
+    - **Método**: Selecciona GET, POST, PUT, PATCH o DELETE
   </Step>
-  <Step title="Elegir Método">
-    Selecciona método HTTP: GET, POST, PUT, o DELETE.
+  <Step title="Configurar Parámetros">
+    Define parámetros de query string y/o campos del cuerpo de la petición.
   </Step>
-  <Step title="Definir Parámetros">
-    Añade parámetros de query o campos del body que el agente debe enviar.
+  <Step title="Ajustar Configuración Avanzada">
+    Configura timeouts, interrupciones y modo de ejecución.
   </Step>
 </Steps>
 
-### Configuración del Webhook
-
-| Campo | Descripción |
-|-------|-------------|
-| Nombre | Identificador de la herramienta |
-| Descripción | Cuándo y por qué usar esta herramienta |
-| URL | Endpoint a llamar |
-| Método | Método HTTP (GET, POST, PUT, DELETE) |
-| Params Query | Parámetros de URL |
-| Params Body | Campos del cuerpo de la petición |
-
 ### Tipos de Parámetros
 
-Cada parámetro puede configurarse con:
+Cada parámetro webhook puede configurarse con:
 
-| Propiedad | Descripción |
-|----------|-------------|
-| Nombre | Identificador del parámetro |
-| Tipo | string, number, boolean |
-| Descripción | Qué representa el parámetro |
-| Requerido | Si el agente debe proporcionarlo |
+| Propiedad | Descripción | Opciones |
+|----------|-------------|----------|
+| Identificador | Nombre del parámetro | string único |
+| Tipo de Dato | Formato del valor | string, number, boolean, integer, array, object |
+| Requerido | Si es obligatorio | true/false |
+| Descripción | Contexto para la IA | texto descriptivo |
+| Tipo de Valor | Origen del dato | llm_prompt (IA genera), static (valor fijo) |
 
-### Ajustes Avanzados
+### Configuración Avanzada de Webhooks
 
-<AccordionGroup>
-  <Accordion title="Control de Interrupción" icon="pause">
-    Configura si el agente pausa mientras espera la respuesta del webhook.
-    
-    - **Esperar respuesta** - El agente pausa hasta que la API responde
-    - **Continuar hablando** - El agente continúa mientras se procesa la petición
-  </Accordion>
-  <Accordion title="Modo de Ejecución" icon="play">
-    Controla cuándo ejecuta el webhook:
-    
-    - **Inmediato** - Ejecutar tan pronto como se dispare
-    - **Diferido** - Encolar para ejecución después de la llamada
-  </Accordion>
-</AccordionGroup>
+#### Control de Interrupciones
 
-### Ejemplo Webhook: Integración CRM
+<Info>
+Controla si el agente puede ser interrumpido mientras espera la respuesta del webhook.
+</Info>
 
-```json
-{
-  "name": "crear_lead",
-  "description": "Crear un nuevo lead en el CRM cuando el cliente muestra interés",
-  "url": "https://api.tucrm.com/leads",
-  "method": "POST",
-  "body": {
-    "nombre": "Nombre completo del cliente",
-    "telefono": "Número de teléfono del cliente",
-    "interes": "En qué producto está interesado"
-  }
-}
-```
+- **Deshabilitar Interrupciones**: El agente no puede ser interrumpido durante la ejecución
+- **Permitir Interrupciones**: El usuario puede interrumpir mientras se procesa la petición
 
-## Protocolo de Rellamada
+#### Modo de Ejecución
 
-Configura llamadas de seguimiento automáticas cuando no se cumplen ciertas condiciones.
+| Modo | Descripción | Caso de Uso |
+|------|-------------|-------------|
+| **Inmediato** | Ejecuta durante la conversación | Consultas de datos, validaciones |
+| **Diferido** | Ejecuta después de la llamada | Logs, notificaciones, actualizaciones CRM |
 
-### Ajustes de Rellamada
+#### Configuración de Audio
 
-| Ajuste | Descripción |
-|---------|-------------|
-| Habilitar Rellamada | Activar/desactivar callbacks automáticos |
-| Máximo Intentos | Número máximo de llamadas de reintento |
-| Programación | Tiempo entre intentos de reintento |
-| Condiciones | Cuándo disparar una rellamada |
+- **Sonido de Herramienta**: Reproduce sonido de "tecleado" durante la ejecución
+- **Comportamiento**: Automático o manual
+- **Forzar Síntesis Previa**: Asegura que el agente termine de hablar antes de ejecutar
+
+### Ejemplos Prácticos de Webhooks
+
+<Tabs>
+  <Tab title="Integración CRM">
+    ```json
+    {
+      "name": "crear_lead_salesforce",
+      "description": "Crear lead en Salesforce cuando cliente muestra interés en producto",
+      "api_schema": {
+        "url": "https://api.salesforce.com/leads",
+        "method": "POST",
+        "request_body_schema": {
+          "type": "object",
+          "required": ["email", "company"],
+          "properties": {
+            "email": {
+              "type": "string",
+              "description": "Email del prospecto"
+            },
+            "company": {
+              "type": "string", 
+              "description": "Nombre de la empresa"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Teléfono de contacto"
+            },
+            "interest_level": {
+              "type": "string",
+              "enum": ["Alto", "Medio", "Bajo"]
+            }
+          }
+        }
+      },
+      "response_timeout_secs": 15,
+      "execution_mode": "immediate"
+    }
+    ```
+  </Tab>
+  <Tab title="Consulta de Inventario">
+    ```json
+    {
+      "name": "consultar_inventario",
+      "description": "Verificar disponibilidad de productos en tiempo real",
+      "api_schema": {
+        "url": "https://api.mitienda.com/inventory/check",
+        "method": "GET",
+        "query_params_schema": {
+          "properties": {
+            "product_id": {
+              "type": "string",
+              "description": "ID del producto a consultar"
+            },
+            "location": {
+              "type": "string", 
+              "description": "Código de sucursal"
+            }
+          },
+          "required": ["product_id"]
+        }
+      },
+      "disable_interruptions": true,
+      "execution_mode": "immediate"
+    }
+    ```
+  </Tab>
+  <Tab title="Programar Cita">
+    ```json
+    {
+      "name": "programar_cita_medica",
+      "description": "Programar cita médica con disponibilidad en tiempo real",
+      "api_schema": {
+        "url": "https://api.clinica.com/appointments",
+        "method": "POST",
+        "request_body_schema": {
+          "type": "object",
+          "required": ["patient_name", "preferred_date", "service_type"],
+          "properties": {
+            "patient_name": {
+              "type": "string",
+              "description": "Nombre completo del paciente"
+            },
+            "patient_phone": {
+              "type": "string",
+              "description": "Teléfono del paciente"
+            },
+            "preferred_date": {
+              "type": "string",
+              "description": "Fecha preferida formato YYYY-MM-DD"
+            },
+            "service_type": {
+              "type": "string",
+              "enum": ["Consulta General", "Especialidad", "Urgencia"]
+            }
+          }
+        }
+      },
+      "response_timeout_secs": 20,
+      "tool_call_sound": "typing"
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Protocolo de Rellamada (Recall)
+
+Configura llamadas de seguimiento automáticas cuando no se cumplen ciertas condiciones o objetivos de la conversación inicial.
+
+### Configuración de Recall
+
+<Steps>
+  <Step title="Habilitar Protocolo">
+    Activa el sistema de rellamadas automáticas desde la interfaz.
+  </Step>
+  <Step title="Definir Intentos Máximos">
+    Establece el número máximo de intentos de rellamada (recomendado: 2-3).
+  </Step>
+  <Step title="Configurar Intervalos">
+    Define los intervalos entre cada intento de rellamada.
+  </Step>
+  <Step title="Establecer Condiciones">
+    Especifica qué condiciones deben activar una rellamada.
+  </Step>
+</Steps>
+
+### Intervalos de Rellamada
+
+| Intervalo | Caso de Uso | Ejemplo |
+|-----------|-------------|---------|
+| **5-15 minutos** | Línea ocupada, respuesta inmediata necesaria | Emergencias, confirmaciones urgentes |
+| **30 minutos - 1 hora** | No contestó, seguimiento en mismo día | Citas médicas, servicios urgentes |
+| **2-4 horas** | Seguimiento comercial | Ventas, ofertas con tiempo limitado |
+| **Siguiente día hábil** | Seguimiento profesional | Propuestas comerciales, información general |
+
+### Condiciones de Recall
+
+Ejemplos de condiciones que pueden activar rellamadas:
+
+- No se obtuvo respuesta (contestador o sin respuesta)
+- Línea ocupada
+- No se completó el objetivo de la conversación
+- Cliente solicitó ser contactado más tarde
+- Información pendiente de confirmación
 
 <Warning>
-Usa protocolos de rellamada responsablemente. Demasiados callbacks pueden molestar a los clientes y pueden violar regulaciones.
+Usa protocolos de rellamada responsablemente. Demasiados callbacks pueden molestar a los clientes y violar regulaciones de telecomunicaciones. Siempre respeta las listas de "No Llamar" y las preferencias del cliente.
 </Warning>
 
-### Opciones de Programación
+### Mejores Prácticas para Recall
 
-- 5 minutos
-- 15 minutos
-- 30 minutos
-- 1 hora
-- 2 horas
-- 4 horas
-- Siguiente día hábil
+1. **Límite de Intentos**: No más de 3 intentos para evitar molestias
+2. **Intervalos Progresivos**: Aumenta el tiempo entre intentos
+3. **Horarios Apropiados**: Respeta horarios comerciales y zonas horarias
+4. **Condiciones Claras**: Define exactamente cuándo activar recalls
+5. **Registro de Intentos**: Mantén log de todos los intentos realizados
 
 ## Próximamente
 
-Las siguientes integraciones están en desarrollo:
+Nuevas integraciones y funcionalidades en desarrollo:
 
-| Característica | Descripción | Estado |
-|---------|-------------|--------|
-| 📧 Enviar Email | Enviar emails durante o después de llamadas | Próximamente |
-| 💬 Enviar SMS | Enviar mensajes de texto a clientes | Próximamente |
-| 📱 Enviar WhatsApp | Enviar mensajes de WhatsApp | Próximamente |
+<Tabs>
+  <Tab title="Comunicación">
+    | Característica | Descripción | Estado |
+    |---------|-------------|--------|
+    | 📧 **Envío de Email** | Enviar emails durante o después de llamadas | Próximamente |
+    | 💬 **SMS Automático** | Enviar mensajes de texto a clientes | Próximamente |
+    | 📱 **WhatsApp Business** | Integración con WhatsApp Business API | Próximamente |
+  </Tab>
+  <Tab title="Integraciones">
+    | Característica | Descripción | Estado |
+    |---------|-------------|--------|
+    | 🏢 **CRM Nativo** | Conectores directos para CRMs populares | Próximamente |
+    | 📊 **Analytics Avanzado** | Dashboards y métricas detalladas | Próximamente |
+    | 🔐 **SSO Enterprise** | Single Sign-On para empresas | Próximamente |
+  </Tab>
+  <Tab title="IA Avanzada">
+    | Característica | Descripción | Estado |
+    |---------|-------------|--------|
+    | 🧠 **Análisis de Sentimiento** | Detección automática de emociones | Próximamente |
+    | 🎯 **Personalización IA** | Adaptación automática por cliente | Próximamente |
+    | 📈 **Optimización Predictiva** | Mejoras automáticas de rendimiento | Próximamente |
+  </Tab>
+</Tabs>
 
-## Mejores Prácticas
+## Mejores Prácticas Generales
 
-1. **Descripciones Claras** - Escribe descripciones detalladas de herramientas para que la IA sepa exactamente cuándo usarlas
-2. **Maneja Errores** - Tu webhook debe devolver mensajes de error apropiados que el agente pueda transmitir
-3. **Prueba Exhaustivamente** - Usa el Playground para verificar que las integraciones webhook funcionan correctamente
-4. **Monitorea Uso** - Rastrea llamadas webhook para asegurar que se disparan como se espera
-5. **Asegura Endpoints** - Usa headers de autenticación para APIs sensibles
+### Para Webhooks
+
+1. **Descripciones Detalladas**: Escribe descripciones claras para que la IA sepa exactamente cuándo usar cada herramienta
+2. **Manejo de Errores**: Implementa respuestas de error apropiadas que el agente pueda comunicar al usuario
+3. **Timeouts Realistas**: Configura timeouts apropiados para tu infraestructura (15-30 segundos)
+4. **Seguridad**: Usa autenticación y headers seguros para APIs sensibles
+5. **Testing**: Prueba exhaustivamente cada webhook antes del despliegue
+
+### Para Transferencias
+
+1. **Números de Backup**: Configura números alternativos por si la línea principal está ocupada
+2. **Contexto Claro**: Asegúrate de que el agente receptor tenga toda la información necesaria
+3. **Horarios de Atención**: Considera los horarios de disponibilidad de agentes humanos
+4. **Escalación Gradual**: Define niveles de escalación (soporte → supervisor → gerente)
+
+### Para Recalls
+
+1. **Cumplimiento Legal**: Respeta todas las regulaciones locales de telecomunicaciones
+2. **Opt-out Fácil**: Permite que los usuarios se den de baja fácilmente
+3. **Segmentación**: Usa diferentes estrategias según el tipo de cliente o propósito
+4. **Monitoreo**: Rastrea tasas de éxito y ajusta estrategias según resultados
+
+## Solución de Problemas Comunes
+
+<Tabs>
+  <Tab title="Transferencias">
+    **Problema**: La transferencia no se ejecuta
+    
+    **Soluciones**:
+    - Verificar formato del número o URI SIP
+    - Confirmar que el destino está disponible
+    - Revisar permisos de transferencia
+    - Validar configuración del prompt de transferencia
+  </Tab>
+  <Tab title="Webhooks">
+    **Problema**: El webhook no responde
+    
+    **Soluciones**:
+    - Verificar conectividad del endpoint
+    - Revisar autenticación y headers
+    - Comprobar formato de parámetros
+    - Aumentar timeout si es necesario
+    - Validar certificados SSL
+  </Tab>
+  <Tab title="Recalls">
+    **Problema**: Las rellamadas no se ejecutan
+    
+    **Soluciones**:
+    - Verificar condiciones de activación
+    - Confirmar configuración de intervalos
+    - Revisar límites de intentos
+    - Validar números de teléfono
+    - Comprobar horarios permitidos
+  </Tab>
+</Tabs>
 
 ## Siguientes Pasos
+
+<Info>
+Una vez configuradas las acciones y herramientas, puedes personalizar aún más tu agente con parámetros dinámicos y configuración de salida avanzada.
+</Info>
 
 <CardGroup cols={2}>
   <Card
@@ -196,13 +471,13 @@ Las siguientes integraciones están en desarrollo:
     icon="arrow-right-to-bracket"
     href="/es/advanced-editor/input-params"
   >
-    Configura variables dinámicas
+    Configura variables dinámicas y personalización
   </Card>
   <Card
     title="Configuración de Salida"
     icon="arrow-right-from-bracket"
     href="/es/advanced-editor/output-settings"
   >
-    Define extracción de datos
+    Define extracción de datos y webhooks de salida
   </Card>
 </CardGroup>
