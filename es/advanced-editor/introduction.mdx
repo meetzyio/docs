@@ -49,7 +49,7 @@ El panel izquierdo contiene todas las secciones de configuración accesibles med
 | 🎮 Playground | Prueba tu agente en tiempo real con texto o voz |
 | 📋 Tests | Crea y ejecuta tests de regresión automatizados |
 | 🤖 Copilot | Asistente IA para ayudar a mejorar tus prompts |
-| 📜 Historial de Versiones | Rastrea cambios y revierte si es necesario |
+| 📜 Historial de Cambios | Rastrea cambios, versiones y colaboración en tiempo real |
 
 ## Barra Superior
 
@@ -58,10 +58,37 @@ La barra de herramientas proporciona acciones rápidas:
 | Acción | Descripción |
 |--------|-------------|
 | ← Volver | Regresar a la lista de agentes |
-| 🏷️ Versión | Indicador de versión actual |
+| 🏷️ Versión | Indicador de versión actual con estado de cambios |
 | ✓ Guardar | Guardar cambios actuales |
 | ⬇️ Exportar | Descargar configuración del agente |
 | 🚀 Publicar | Desplegar cambios a producción |
+
+## Sistema de Control de Versiones
+
+El Editor Avanzado incluye un sistema robusto de control de versiones similar a Git que permite:
+
+<Info>
+**Colaboración en Tiempo Real**: Múltiples usuarios pueden trabajar en el mismo agente simultáneamente con detección automática de conflictos.
+</Info>
+
+### Estados de Versión
+
+| Estado | Descripción | Indicador |
+|--------|-------------|----------|
+| **Clean** | Sin cambios pendientes | 🟢 Verde |
+| **Modified** | Cambios locales sin confirmar | 🟡 Amarillo |
+| **Conflict** | Conflictos con cambios remotos | 🔴 Rojo |
+| **Syncing** | Sincronizando con el servidor | 🔵 Azul |
+| **Locked** | Bloqueado por otro usuario | 🟠 Naranja |
+
+### Pestaña de Historial de Cambios
+
+La pestaña **Changes** en el panel derecho proporciona:
+
+- **Vista de Cambios**: Lista detallada de modificaciones por sección
+- **Historial de Versiones**: Timeline completo de commits y cambios
+- **Gestión de Ramas**: Creación y cambio entre diferentes versiones del agente
+- **Comparación Visual**: Diff view para revisar cambios antes de confirmar
 
 ## Mejores Prácticas de Flujo de Trabajo
 
@@ -87,6 +114,9 @@ La barra de herramientas proporciona acciones rápidas:
   <Step title="Probar en Playground">
     Valida el comportamiento del agente antes de publicar.
   </Step>
+  <Step title="Confirmar Cambios">
+    Usa el sistema de versiones para confirmar y documentar cambios.
+  </Step>
   <Step title="Publicar">
     Despliega tu agente a producción.
   </Step>
@@ -94,17 +124,24 @@ La barra de herramientas proporciona acciones rápidas:
 
 ## Conceptos Clave
 
-<AccordionGroup>
-  <Accordion title="Versiones y Ramas" icon="code-branch">
-    El Editor Avanzado soporta control de versiones estilo Git. Puedes crear ramas, rastrear cambios y revertir a versiones anteriores si es necesario.
-  </Accordion>
-  <Accordion title="Live vs Desarrollo" icon="rocket">
-    Puedes trabajar en cambios en modo desarrollo y solo enviarlos a producción (Live) cuando estés satisfecho con los resultados.
-  </Accordion>
-  <Accordion title="Pruebas en Tiempo Real" icon="play">
-    El Playground te permite probar tu agente instantáneamente sin hacer llamadas telefónicas reales, ahorrando tiempo y dinero.
-  </Accordion>
-</AccordionGroup>
+### Control de Versiones y Colaboración
+
+<Warning>
+**Gestión de Conflictos**: Cuando múltiples usuarios editan el mismo agente, el sistema detecta automáticamente conflictos y te guía a través del proceso de resolución.
+</Warning>
+
+### Ramas y Versiones
+
+El sistema de versiones permite:
+- **Desarrollo Paralelo**: Crear ramas para experimentar sin afectar la versión en producción
+- **Rollback Seguro**: Revertir a cualquier versión anterior si es necesario
+- **Historial Completo**: Rastrear quién cambió qué y cuándo
+
+### Sincronización Automática
+
+- **Auto-sync**: Los cambios se sincronizan automáticamente cada 30 segundos
+- **Detección de Conflictos**: El sistema notifica inmediatamente cuando hay conflictos
+- **Resolución Guiada**: Interfaz intuitiva para resolver conflictos paso a paso
 
 ## Siguientes Pasos
 
@@ -143,5 +180,12 @@ La barra de herramientas proporciona acciones rápidas:
     href="/es/advanced-editor/tests"
   >
     Crea tests de regresión automatizados
+  </Card>
+  <Card
+    title="Historial de Cambios"
+    icon="document-diff"
+    href="/es/advanced-editor/version-control"
+  >
+    Gestiona versiones y colaboración
   </Card>
 </CardGroup>

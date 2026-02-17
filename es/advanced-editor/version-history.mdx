@@ -9,58 +9,53 @@ icon: 'clock-rotate-left'
 El Historial de Versiones proporciona control de versiones estilo Git para las configuraciones de tu agente. Te permite rastrear cambios, revisar versiones anteriores, revertir a configuraciones previas y gestionar múltiples ramas de desarrollo.
 
 <Info>
-El Historial de Versiones asegura que nunca pierdas tu trabajo y siempre puedas volver a una configuración conocida y funcional.
+El Historial de Versiones asegura que nunca pierdas tu trabajo y siempas puedas volver a una configuración conocida y funcional.
 </Info>
 
 ## Accediendo al Historial de Versiones
 
 El Historial de Versiones está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Cambios" para acceder a las funciones de control de versiones.
 
-![Panel de Cambios](https://docs.meetzy.ai/images/git-changes-panel.png)
+## Sistema de Versiones Estilo Git
 
-## Nuevo Panel de Cambios
+El sistema renovado proporciona una experiencia de control de versiones similar a Git, con tres vistas principales:
 
-El panel de cambios renovado proporciona una experiencia de control de versiones similar a Git, con tres vistas principales:
+### Indicador de Estado Git
 
-### Vista de Cambios
-Muestra todas las modificaciones pendientes que aún no se han confirmado.
+El editor muestra el estado actual de tu configuración en la parte superior:
 
-![Vista de Cambios](https://docs.meetzy.ai/images/changes-view.png)
+| Estado | Indicador | Descripción |
+|--------|-----------|-------------|
+| Clean | 🟢 Verde | Sin cambios pendientes |
+| Modified | 🟡 Amarillo | Tiene cambios sin confirmar |
+| Conflict | 🔴 Rojo | Conflictos con cambios remotos |
+| Syncing | 🔵 Azul | Sincronizando con servidor |
+| Locked | 🟠 Naranja | Bloqueado por otro usuario |
 
-### Vista de Historial
-Presenta un registro cronológico de todas las versiones guardadas.
+### Panel de Cambios
 
-![Vista de Historial](https://docs.meetzy.ai/images/history-view.png)
+El panel de cambios renovado incluye tres pestañas:
 
-### Vista de Ramas
-Permite gestionar múltiples ramas de desarrollo (próximamente).
-
-## Conceptos Clave
-
-### Versiones
-
-Cada configuración guardada es una versión. Las versiones están numeradas y con timestamp:
-
-| Propiedad | Descripción |
-|----------|-------------|
-| Número de Versión | Identificador auto-incremental (v1, v2, v3...) |
-| Timestamp | Cuándo se creó la versión |
-| Mensaje de Commit | Descripción de los cambios |
-| Autor | Quién hizo los cambios |
-
-### Estado de Git
-
-El sistema indica el estado actual de tu configuración:
-
-| Estado | Descripción | Indicador |
-|--------|-------------|-----------|
-| Clean | Sin cambios pendientes | 🟢 Verde |
-| Modified | Tiene cambios sin confirmar | 🟡 Amarillo |
-| Syncing | Sincronizando con servidor | 🔵 Azul |
-
-### Versión de Producción
-
-La versión marcada como "Production" es lo que está desplegado y activo para llamadas reales de clientes.
+<Tabs>
+  <Tab title="Changes (Cambios)">
+    Muestra todas las modificaciones pendientes que aún no se han confirmado.
+    - Agrupa cambios por sección del agente
+    - Permite seleccionar cambios específicos para confirmar
+    - Muestra detalles de qué cambió exactamente
+  </Tab>
+  <Tab title="History (Historial)">
+    Presenta un registro cronológico de todas las versiones guardadas.
+    - Lista todas las versiones con timestamps
+    - Muestra mensajes de commit y autores
+    - Permite restaurar versiones anteriores
+  </Tab>
+  <Tab title="Branches (Ramas)">
+    Permite gestionar múltiples ramas de desarrollo.
+    - Visualiza todas las ramas disponibles
+    - Cambia entre ramas de desarrollo
+    - Crea nuevas ramas para experimentos
+  </Tab>
+</Tabs>
 
 ## Seguimiento de Cambios en Tiempo Real
 
@@ -78,51 +73,31 @@ El sistema rastrea automáticamente cualquier modificación que hagas:
   <Step title="Ver Detalles">
     Ve el panel de cambios para revisar qué se modificó exactamente.
   </Step>
+  <Step title="Seleccionar para Confirmar">
+    Marca los cambios específicos que quieres incluir en el commit.
+  </Step>
 </Steps>
 
 ### Tipos de Cambios
 
 El sistema categoriza los cambios por tipo:
 
-- **Agregado** - Contenido nuevo que no existía antes
-- **Modificado** - Contenido existente que fue editado
-- **Eliminado** - Contenido que fue removido
-
-## Viendo Cambios Detallados
-
-### Panel de Cambios Expandido
-
-Cada cambio muestra información detallada:
-
-![Detalles de Cambios](https://docs.meetzy.ai/images/change-details.png)
-
-<Steps>
-  <Step title="Navegar a Cambios">
-    Haz clic en la pestaña "Cambios" en el panel derecho.
-  </Step>
-  <Step title="Revisar Lista">
-    Ve todos los cambios organizados por sección.
-  </Step>
-  <Step title="Expandir Detalles">
-    Haz clic en cualquier cambio para ver los valores anterior y nuevo.
-  </Step>
-  <Step title="Seleccionar para Confirmar">
-    Marca los cambios que quieres incluir en el commit.
-  </Step>
-</Steps>
+- **🟢 Agregado** - Contenido nuevo que no existía antes
+- **🔵 Modificado** - Contenido existente que fue editado  
+- **🔴 Eliminado** - Contenido que fue removido
 
 ### Organización por Secciones
 
 Los cambios se agrupan automáticamente por sección:
 
-- **Configuraciones Básicas** - Nombre, idioma
-- **Prompt** - Prompt del sistema
+- **Configuraciones Básicas** - Nombre, idioma, configuración de voz
 - **Saludos** - Mensajes de entrada y salida
-- **Configuración de Voz** - ID de voz y ajustes
+- **Prompt del Sistema** - Instrucciones principales del agente
+- **Parámetros de Entrada** - Variables de entrada requeridas
+- **Base de Conocimiento** - Documentos y contexto
 - **Acciones y Herramientas** - Transferencias, llamadas finales
-- **Parámetros de Entrada** - Variables de entrada
+- **Evaluaciones** - Criterios de éxito y métricas
 - **Configuración de Salida** - Webhooks y parámetros de salida
-- **Evaluaciones** - Criterios de éxito
 
 ## Confirmando Cambios
 
@@ -130,20 +105,18 @@ Los cambios se agrupan automáticamente por sección:
 
 <Steps>
   <Step title="Revisar Cambios">
-    Verifica que todas las modificaciones son intencionales.
+    Verifica que todas las modificaciones son intencionales en la vista de Changes.
   </Step>
   <Step title="Seleccionar Cambios">
-    Marca los cambios específicos que quieres confirmar.
+    Marca los checkboxes de los cambios específicos que quieres confirmar.
   </Step>
   <Step title="Escribir Mensaje">
-    Proporciona un mensaje descriptivo del commit.
+    Haz clic en "Commit Selected" y proporciona un mensaje descriptivo.
   </Step>
   <Step title="Confirmar">
     Haz clic en "Commit Changes" para guardar la nueva versión.
   </Step>
 </Steps>
-
-![Diálogo de Commit](https://docs.meetzy.ai/images/commit-dialog.png)
 
 ### Mensajes de Commit Inteligentes
 
@@ -161,7 +134,7 @@ Los cambios se agrupan automáticamente por sección:
   <Tab title="Asistido por IA">
     Deja que la IA sugiera un mensaje basado en tus cambios:
     
-    1. Haz clic en el botón "✨ Generar"
+    1. Haz clic en el botón "✨ Generate with AI"
     2. Revisa el mensaje sugerido
     3. Edita si es necesario
     4. Confirma
@@ -172,13 +145,21 @@ Los cambios se agrupan automáticamente por sección:
 Los mensajes de commit generados por IA analizan tus cambios específicos para crear descripciones precisas y útiles.
 </Info>
 
+### Commit Selectivo
+
+Puedes elegir exactamente qué cambios incluir en cada commit:
+
+- **Select All** - Incluir todos los cambios pendientes
+- **Selección individual** - Marcar cambios específicos con checkboxes
+- **Por sección** - Seleccionar todas las modificaciones de una sección
+
 ## Explorando el Historial de Versiones
 
 ### Vista de Historial
 
 <Steps>
   <Step title="Abrir Historial">
-    Haz clic en la pestaña "Historia" dentro del panel de cambios.
+    Haz clic en la pestaña "History" dentro del panel de cambios.
   </Step>
   <Step title="Explorar Versiones">
     Desplázate por la lista cronológica de versiones.
@@ -186,29 +167,32 @@ Los mensajes de commit generados por IA analizan tus cambios específicos para c
   <Step title="Ver Detalles">
     Haz clic en cualquier versión para ver información detallada.
   </Step>
+  <Step title="Expandir Cambios">
+    Usa "Show changes" para ver qué se modificó en cada versión.
+  </Step>
 </Steps>
-
-![Historial de Versiones](https://docs.meetzy.ai/images/version-history.png)
 
 ### Información de Cada Versión
 
+Cada entrada del historial muestra:
+
 | Campo | Descripción |
 |-------|-------------|
-| 🔢 Versión | Número de versión (v1, v2, v3...) |
-| 📅 Fecha | Timestamp de creación |
-| 💬 Mensaje | Mensaje de commit |
-| 👤 Autor | Usuario que hizo los cambios |
-| 🏷️ Etiquetas | Production, Latest, etc. |
-| 📊 Resumen | Cantidad de cambios incluidos |
+| 🔢 Versión | Número de versión incremental (v1, v2, v3...) |
+| 📅 Timestamp | Fecha y hora exacta de creación |
+| 💬 Mensaje | Mensaje de commit descriptivo |
+| 👤 Autor | Usuario que realizó los cambios |
+| 🏷️ Etiquetas | Production, Latest, Development |
+| 📊 Resumen | Cantidad y tipo de cambios incluidos |
 
-### Filtros y Búsqueda
+### Etiquetas de Versión
 
-Encuentra versiones específicas rápidamente:
+Las versiones pueden tener etiquetas especiales:
 
-- **Filtro por autor** - Ver solo cambios de usuarios específicos
-- **Filtro por fecha** - Rangos de tiempo personalizados
-- **Búsqueda de texto** - Buscar en mensajes de commit
-- **Filtro por etiquetas** - Production, development, etc.
+- **🔴 Production** - Versión actualmente desplegada para llamadas reales
+- **📊 Latest** - Versión más reciente (puede diferir de production)
+- **🚧 Development** - Versiones de desarrollo y pruebas
+- **🏷️ Custom** - Etiquetas personalizadas definidas por el usuario
 
 ## Restaurando Versiones
 
@@ -223,7 +207,7 @@ Restaurar una versión creará una nueva versión con la configuración antigua.
     Navega por el historial para encontrar la versión deseada.
   </Step>
   <Step title="Revisar Cambios">
-    Verifica qué configuración tenía esa versión.
+    Haz clic en "Show changes" para ver qué configuración tenía esa versión.
   </Step>
   <Step title="Iniciar Restauración">
     Haz clic en "Restore Version" en la versión seleccionada.
@@ -240,42 +224,44 @@ Restaurar una versión creará una nueva versión con la configuración antigua.
 
 Cuando restauras una versión, puedes elegir:
 
-- **Restauración completa** - Revertir toda la configuración
-- **Restauración selectiva** - Solo ciertos campos o secciones
-- **Crear rama** - Restaurar en una nueva rama de desarrollo
+- **Restauración completa** - Revertir toda la configuración de la versión
+- **Crear nueva rama** - Restaurar en una nueva rama sin afectar main
+- **Mantener cambios locales** - Aplicar solo cambios específicos
 
 ## Gestión de Producción
 
-### Marcar Versión como Producción
+### Desplegar a Producción
 
 <Steps>
   <Step title="Seleccionar Versión">
     Elige la versión que quieres desplegar a producción.
   </Step>
   <Step title="Validar Configuración">
-    Asegúrate de que la configuración ha sido probada.
+    Asegúrate de que la configuración ha sido probada en el Playground.
   </Step>
-  <Step title="Marcar como Producción">
-    Haz clic en "Set as Production" en la versión.
+  <Step title="Deploy to Production">
+    Haz clic en "Deploy to Production" en la versión seleccionada.
   </Step>
   <Step title="Confirmar Despliegue">
     Confirma que quieres que esta versión maneje llamadas reales.
   </Step>
 </Steps>
 
-![Despliegue a Producción](https://docs.meetzy.ai/images/production-deployment.png)
-
 ### Indicadores de Estado de Producción
 
 El sistema muestra claramente qué versión está en producción:
 
-- **🔴 Production** - Versión actualmente desplegada
-- **📊 Latest** - Versión más reciente (puede diferir de production)
-- **🚧 Development** - Versiones de desarrollo y pruebas
-
 <Info>
 Solo la versión marcada como "Production" maneja llamadas reales de clientes. Todas las demás versiones están en modo de desarrollo.
 </Info>
+
+### Deploy Automático
+
+Puedes configurar el deploy automático durante el commit:
+
+- Marcar "Deploy to production after commit" en el modal de commit
+- La versión se desplegará automáticamente después de confirmar
+- Útil para hotfixes y actualizaciones críticas
 
 ## Colaboración y Sincronización
 
@@ -285,10 +271,19 @@ Cuando múltiples usuarios trabajan en el mismo agente:
 
 | Estado | Descripción | Acción Sugerida |
 |--------|-------------|----------------|
-| 🟢 Clean | Sin conflictos | Continuar trabajando |
-| 🟡 Modified | Cambios locales | Confirmar o sincronizar |
-| 🔴 Conflicts | Cambios conflictivos | Resolver conflictos |
-| 🔒 Locked | Usuario trabajando | Esperar o contactar usuario |
+| 🟢 Clean | Sin conflictos, todo sincronizado | Continuar trabajando |
+| 🟡 Modified | Cambios locales pendientes | Confirmar o sincronizar |
+| 🔴 Conflicts | Cambios conflictivos con remoto | Resolver conflictos |
+| 🔒 Locked | Otro usuario editando activamente | Esperar o contactar usuario |
+| 🔵 Syncing | Sincronización en progreso | Esperar finalización |
+
+### Botones de Sincronización
+
+En la barra superior del editor:
+
+- **Check** - Verificar actualizaciones remotas
+- **Pull** - Descargar cambios remotos  
+- **Sync** - Sincronizar cambios bidireccional
 
 ### Resolución de Conflictos
 
@@ -296,53 +291,63 @@ Cuando hay conflictos entre versiones:
 
 <Steps>
   <Step title="Detectar Conflictos">
-    El sistema te alerta sobre cambios conflictivos.
+    El sistema te alerta sobre cambios conflictivos con indicador rojo.
   </Step>
   <Step title="Revisar Diferencias">
-    Ve qué campos tienen conflictos específicos.
+    Ve qué campos tienen conflictos específicos en el panel de cambios.
   </Step>
   <Step title="Elegir Resolución">
-    Selecciona mantener tus cambios o aceptar los remotos.
+    Para cada conflicto, selecciona mantener tus cambios o aceptar los remotos.
   </Step>
   <Step title="Confirmar Resolución">
     Confirma los cambios resueltos como nueva versión.
   </Step>
 </Steps>
 
-## Flujos de Trabajo Recomendados
+## Gestión de Ramas
 
-<AccordionGroup>
-  <Accordion title="Desarrollo Iterativo" icon="arrows-pointing-out">
-    1. Hacer cambios pequeños e incrementales
-    2. Confirmar frecuentemente con mensajes claros
-    3. Probar cada versión en el Playground
-    4. Desplegar a producción solo después de validación
-  </Accordion>
-  
-  <Accordion title="Corrección Urgente" icon="exclamation-triangle">
-    1. Identificar el problema en producción
-    2. Hacer el cambio mínimo necesario
-    3. Probar rápidamente en Playground
-    4. Confirmar con mensaje descriptivo de hotfix
-    5. Desplegar inmediatamente a producción
-  </Accordion>
-  
-  <Accordion title="Actualización Mayor" icon="arrow-up">
-    1. Planificar cambios significativos
-    2. Hacer múltiples commits con cambios relacionados
-    3. Probar exhaustivamente cada componente
-    4. Validar la integración completa
-    5. Desplegar a producción en horario planificado
-  </Accordion>
-  
-  <Accordion title="Rollback de Emergencia" icon="arrow-path">
-    1. Detectar problema en producción
-    2. Localizar la última versión estable conocida
-    3. Restaurar inmediatamente esa versión
-    4. Marcar como producción
-    5. Investigar el problema en paralelo
-  </Accordion>
-</AccordionGroup>
+### Vista de Ramas
+
+La pestaña "Branches" permite:
+
+- **Ver todas las ramas** - Lista completa de ramas disponibles
+- **Cambiar de rama** - Switch entre diferentes líneas de desarrollo
+- **Crear nueva rama** - Iniciar desarrollo experimental
+- **Merge branches** - Fusionar cambios entre ramas
+
+### Tipos de Ramas
+
+- **main** - Rama principal con la configuración estable
+- **development** - Rama de desarrollo para nuevas características
+- **feature/*** - Ramas específicas para características individuales
+- **hotfix/*** - Ramas para correcciones urgentes
+
+### Flujo de Trabajo con Ramas
+
+<Steps>
+  <Step title="Crear Rama">
+    Crea una nueva rama para tu característica o experimento.
+  </Step>
+  <Step title="Desarrollar">
+    Haz cambios y commits en tu rama sin afectar main.
+  </Step>
+  <Step title="Probar">
+    Valida completamente tu desarrollo en el Playground.
+  </Step>
+  <Step title="Merge">
+    Fusiona los cambios de vuelta a main cuando estés listo.
+  </Step>
+</Steps>
+
+## Atajos de Teclado
+
+| Acción | Atajo | Descripción |
+|--------|-------|-------------|
+| Ver Cambios | `⌘G` | Abre el panel de cambios |
+| Commit Rápido | `⌘⇧G` | Abre modal de commit |
+| Seleccionar Todo | `⌘A` | Selecciona todos los cambios |
+| Generar Mensaje | `⌘⇧M` | Genera mensaje con IA |
+| Sincronizar | `⌘⇧S` | Sincroniza con remoto |
 
 ## Mejores Prácticas
 
@@ -351,13 +356,13 @@ Cuando hay conflictos entre versiones:
 <Tabs>
   <Tab title="✅ Buenos Ejemplos">
     ```
-    Actualizar estrategia de manejo de objeciones
+    feat: Add objection handling strategies
     
-    Mejorar respuesta a preocupaciones de precio con ejemplos específicos
+    fix: Correct input parameter validation bug
     
-    Corregir bug en validación de parámetros de entrada
+    improve: Optimize prompt for faster responses
     
-    Optimizar prompt para reducir latencia de respuesta
+    docs: Update knowledge base with new FAQ
     ```
   </Tab>
   <Tab title="❌ Ejemplos Pobres">
@@ -380,55 +385,107 @@ Siempre prueba las configuraciones en el Playground antes de desplegar a producc
 </Warning>
 
 - **Confirma frecuentemente** - Crea puntos de restauración regulares
-- **Usa mensajes descriptivos** - Facilita la navegación futura
-- **Valida antes de producción** - Evita problemas con clientes
+- **Usa mensajes descriptivos** - Facilita la navegación futura del historial
+- **Valida antes de producción** - Evita problemas con clientes reales
 - **Mantén historial limpio** - No confirmes cambios experimentales
+- **Usa ramas para experimentos** - Mantén main estable
 
-## Atajos de Teclado
+## Flujos de Trabajo Recomendados
 
-| Acción | Shortcut | Descripción |
-|--------|----------|-------------|
-| Ver Cambios | `⌘G` | Abre el panel de cambios |
-| Confirmar Rápido | `⌘⇧G` | Abre diálogo de commit |
-| Seleccionar Todo | `⌘A` | Selecciona todos los cambios |
-| Generar Mensaje | `⌘⇧M` | Genera mensaje con IA |
+<Tabs>
+  <Tab title="Desarrollo Iterativo">
+    1. Hacer cambios pequeños e incrementales
+    2. Confirmar frecuentemente con mensajes claros
+    3. Probar cada versión en el Playground
+    4. Desplegar a producción solo después de validación completa
+    5. Usar etiquetas para marcar hitos importantes
+  </Tab>
+  <Tab title="Corrección Urgente">
+    1. Identificar el problema en producción
+    2. Crear rama hotfix desde la versión actual de producción
+    3. Hacer el cambio mínimo necesario
+    4. Probar rápidamente en Playground
+    5. Confirmar con mensaje "hotfix:" descriptivo
+    6. Desplegar inmediatamente a producción
+    7. Merge de vuelta a main
+  </Tab>
+  <Tab title="Nueva Característica">
+    1. Crear rama feature/ para el desarrollo
+    2. Implementar cambios incrementalmente
+    3. Confirmar progreso regularmente
+    4. Probar exhaustivamente en rama feature
+    5. Code review si trabajas en equipo
+    6. Merge a main cuando esté lista
+    7. Deploy a producción en horario planificado
+  </Tab>
+  <Tab title="Rollback de Emergencia">
+    1. Detectar problema crítico en producción
+    2. Localizar la última versión estable conocida
+    3. Usar "Deploy to Production" en esa versión
+    4. Confirmar que el problema se resolvió
+    5. Investigar el problema en rama separada
+    6. Implementar fix definitivo cuando esté listo
+  </Tab>
+</Tabs>
 
 ## Solución de Problemas
 
 <AccordionGroup>
   <Accordion title="Cambios No Aparecen" icon="question-mark-circle">
     **Causas posibles:**
-    - Cambios muy pequeños no detectados
-    - Error de sincronización temporal
+    - Cambios muy pequeños no detectados automáticamente
+    - Error de sincronización temporal con el servidor
+    - Caché del navegador desactualizado
     
     **Solución:**
-    1. Refrescar la página
-    2. Hacer un cambio más significativo
-    3. Contactar soporte si persiste
+    1. Refrescar la página completamente
+    2. Hacer un cambio más significativo para forzar detección
+    3. Verificar conectividad a internet
+    4. Contactar soporte si el problema persiste
   </Accordion>
   
   <Accordion title="No Puedo Confirmar Cambios" icon="x-circle">
     **Causas posibles:**
-    - Sin permisos de edición
-    - Conflictos no resueltos
-    - Problema de conectividad
+    - Sin permisos de edición en el agente
+    - Conflictos no resueltos con cambios remotos
+    - Problema de conectividad de red
+    - Sesión de usuario expirada
     
     **Solución:**
-    1. Verificar permisos del agente
-    2. Resolver conflictos pendientes
-    3. Comprobar conexión a internet
+    1. Verificar permisos del agente en configuración
+    2. Resolver todos los conflictos pendientes
+    3. Comprobar conexión a internet estable
+    4. Relogin si la sesión expiró
+    5. Intentar nuevamente el commit
   </Accordion>
   
   <Accordion title="Versión No Se Despliega" icon="cloud-arrow-up">
     **Causas posibles:**
-    - Error en la configuración
-    - Falta validación requerida
-    - Problema temporal del servidor
+    - Error de validación en la configuración
+    - Campos obligatorios faltantes
+    - Problema temporal del servidor de deploy
+    - Conflictos con la versión actual de producción
     
     **Solución:**
-    1. Validar configuración en Playground
-    2. Revisar campos obligatorios
-    3. Intentar nuevamente en unos minutos
+    1. Validar configuración completamente en Playground
+    2. Revisar que todos los campos obligatorios estén completos
+    3. Verificar que no haya errores de sintaxis en prompts
+    4. Esperar unos minutos e intentar nuevamente
+    5. Contactar soporte si el problema persiste
+  </Accordion>
+  
+  <Accordion title="Conflictos de Merge" icon="exclamation-triangle">
+    **Causas posibles:**
+    - Múltiples usuarios editando simultáneamente
+    - Cambios concurrentes en los mismos campos
+    - Sincronización incompleta
+    
+    **Solución:**
+    1. Coordinar con otros usuarios del equipo
+    2. Usar la herramienta de resolución de conflictos
+    3. Decidir qué cambios mantener para cada campo
+    4. Confirmar la resolución como nueva versión
+    5. Comunicar resolución al equipo
   </Accordion>
 </AccordionGroup>
 
@@ -440,21 +497,21 @@ Siempre prueba las configuraciones en el Playground antes de desplegar a producc
     icon="play"
     href="/es/advanced-editor/playground"
   >
-    Prueba versiones antes de desplegar
+    Prueba y valida versiones antes de desplegar
   </Card>
   <Card
     title="Configuración Básica"
     icon="gear"
     href="/es/advanced-editor/basic-settings"
   >
-    Configura ajustes del agente
+    Configura ajustes fundamentales del agente
   </Card>
   <Card
     title="Pruebas Automatizadas"
     icon="clipboard-check"
     href="/es/advanced-editor/tests"
   >
-    Configura pruebas de regresión
+    Configura pruebas de regresión automáticas
   </Card>
   <Card
     title="Monitoreo"

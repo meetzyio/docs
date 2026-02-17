@@ -49,19 +49,48 @@ The left panel contains all configuration sections accessible via an icon bar:
 | 🎮 Playground | Test your agent in real-time with text or voice |
 | 📋 Tests | Create and run automated regression tests |
 | 🤖 Copilot | AI assistant to help improve your prompts |
-| 📜 Version History | Track changes and rollback if needed |
+| 🔄 Changes | Track changes with Git-like version control |
 
 ## Top Toolbar
 
-The toolbar provides quick actions:
+The toolbar provides quick actions and collaboration features:
 
 | Action | Description |
 |--------|-------------|
 | ← Back | Return to agents list |
-| 🏷️ Version | Current version indicator |
+| 🏷️ Version | Current version indicator with collaboration status |
 | ✓ Save | Save current changes |
 | ⬇️ Export | Download agent configuration |
 | 🚀 Publish | Deploy changes to production |
+
+<Info>
+The toolbar displays real-time collaboration status, showing when other team members are editing the same agent and highlighting any version conflicts.
+</Info>
+
+## Key Features
+
+### Version Control System
+
+The Advanced Editor includes a powerful version control system with:
+
+- **Branching**: Create separate branches for feature development
+- **Change tracking**: Monitor all modifications in real-time
+- **Collaboration**: See when teammates are editing and avoid conflicts
+- **Rollback**: Easily revert to previous versions if needed
+- **Merge capabilities**: Combine changes from different branches
+
+<Warning>
+When multiple users edit the same agent simultaneously, the system will alert you to potential conflicts and help resolve them before publishing.
+</Warning>
+
+### Real-time Collaboration
+
+Work together seamlessly with your team:
+
+- Live cursors show where teammates are editing
+- Automatic conflict detection and resolution
+- Branch-based workflow for parallel development
+- Comprehensive change history and audit trail
 
 ## Workflow Best Practices
 
@@ -87,8 +116,11 @@ The toolbar provides quick actions:
   <Step title="Test in Playground">
     Validate agent behavior before publishing.
   </Step>
+  <Step title="Review Changes">
+    Use the Changes panel to review all modifications before committing.
+  </Step>
   <Step title="Publish">
-    Deploy your agent to production.
+    Deploy your agent to production with confidence.
   </Step>
 </Steps>
 
@@ -96,13 +128,16 @@ The toolbar provides quick actions:
 
 <AccordionGroup>
   <Accordion title="Versions & Branches" icon="code-branch">
-    The Advanced Editor supports Git-like version control. You can create branches, track changes, and rollback to previous versions if needed.
+    The Advanced Editor supports Git-like version control with branches for parallel development, comprehensive change tracking, and easy rollback capabilities. Create feature branches to work on improvements without affecting the live agent.
   </Accordion>
   <Accordion title="Live vs Development" icon="rocket">
-    You can work on changes in development mode and only push them to production (Live) when you're satisfied with the results.
+    You can work on changes in development mode and only push them to production (Live) when you're satisfied with the results. The version control system ensures safe deployments.
   </Accordion>
   <Accordion title="Real-time Testing" icon="play">
     The Playground allows you to test your agent instantly without making actual phone calls, saving time and money.
+  </Accordion>
+  <Accordion title="Team Collaboration" icon="users">
+    Multiple team members can work on the same agent simultaneously with real-time conflict detection and collaborative editing features.
   </Accordion>
 </AccordionGroup>
 
@@ -136,6 +171,13 @@ The toolbar provides quick actions:
     href="/advanced-editor/playground"
   >
     Test your agent in real-time
+  </Card>
+  <Card
+    title="Version Control"
+    icon="code-branch"
+    href="/advanced-editor/version-control"
+  >
+    Learn about branching and collaboration
   </Card>
   <Card
     title="Tests"
