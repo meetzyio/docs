@@ -9,7 +9,7 @@ icon: 'robot'
 Copilot es un editor de prompts impulsado por IA integrado en el Editor Avanzado. En lugar de solo darte sugerencias, **Copilot edita y mejora directamente el system prompt de tu agente** basándose en tus instrucciones. Analiza tu prompt actual, genera mejoras y aplica los cambios automáticamente.
 
 <Info>
-Copilot no solo sugiere - edita. Describe lo que quieres mejorar y observa cómo modifica tu system prompt en tiempo real.
+Copilot no solo sugiere - edita. Describe lo que quieres mejorar y observa cómo modifica tu system prompt en tiempo real usando un sistema de eventos avanzado SSE (Server-Sent Events).
 </Info>
 
 ## Accediendo a Copilot
@@ -18,67 +18,251 @@ Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pe
 
 ## Pantalla de Bienvenida
 
-Cuando abres Copilot por primera vez, verás una pantalla de bienvenida con botones de acción rápida para tareas comunes:
+Cuando abres Copilot por primera vez, verás una pantalla de bienvenida con instrucciones claras sobre cómo usar la herramienta:
 
 <Steps>
-  <Step title="Analizar y Mejorar">
-    Encuentra lagunas, añade claridad y mejora el flujo de tu prompt.
+  <Step title="Describe tu Solicitud">
+    Escribe en lenguaje natural qué quieres mejorar en tu prompt.
     
-    **Acción**: Inicia un análisis completo del system prompt actual.
+    **Ejemplo**: "Añadir manejo de objeciones de precio"
   </Step>
-  <Step title="Refinar Tono">
-    Hace tu prompt más conciso, profesional y claro.
+  <Step title="Usa Referencias de Llamadas">
+    Incluye `@call:ID` para usar contexto específico de llamadas reales.
     
-    **Acción**: Acorta, pule y perfecciona el estilo conversacional.
+    **Ejemplo**: "@call:abc123 El agente no capturó bien el email"
   </Step>
-  <Step title="Añadir Campos de Salida">
-    Configura parámetros para capturar datos de las conversaciones.
+  <Step title="Observa la Edición en Tiempo Real">
+    Copilot edita directamente tu prompt y muestra cambios estructurados.
     
-    **Acción**: Añade campos como nombre, email, teléfono, nivel de interés.
+    **Flujo**: Analizando → Generando → Editando → Completado
   </Step>
-  <Step title="Crear Evaluaciones">
-    Establece métricas para medir el rendimiento del agente.
+  <Step title="Implementa Sugerencias Inteligentes">
+    Recibe sugerencias automáticas para mejoras complementarias.
     
-    **Acción**: Crea criterios de evaluación de calidad conversacional y satisfacción del cliente.
+    **Acción**: Usa los botones de implementación de un clic.
   </Step>
 </Steps>
 
+## Sistema de Eventos SSE Avanzado
+
+Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicación en tiempo real entre el frontend y el backend.
+
+### Tipos de Eventos SSE
+
+<Tabs>
+  <Tab title="Eventos de Procesamiento">
+    **Thinking**: Muestra el progreso de análisis
+    ```json
+    {
+      "type": "thinking",
+      "seconds": 3
+    }
+    ```
+    
+    **Text**: Transmite contenido de respuesta
+    ```json
+    {
+      "type": "text",
+      "content": "Analizando el system prompt actual..."
+    }
+    ```
+  </Tab>
+  <Tab title="Eventos de Edición">
+    **Edit**: Aplica cambios estructurados al prompt
+    ```json
+    {
+      "type": "edit",
+      "operation": "replace_section",
+      "targetSection": "Greeting Instructions",
+      "newContent": "Say hello warmly and...",
+      "summary": "Improved greeting warmth",
+      "linesAdded": 3
+    }
+    ```
+    
+    **Complete**: Finaliza la operación de edición
+    ```json
+    {
+      "type": "complete",
+      "duration": "2.3s",
+      "editsCount": 2
+    }
+    ```
+  </Tab>
+  <Tab title="Eventos de Configuración">
+    **Input_Change**: Modifica parámetros de entrada
+    ```json
+    {
+      "type": "input_change",
+      "name": "customer_type",
+      "fieldType": "string",
+      "description": "Type of customer (new, returning, vip)",
+      "required": false
+    }
+    ```
+    
+    **Output_Change**: Añade campos de salida
+    ```json
+    {
+      "type": "output_change",
+      "name": "interest_level",
+      "fieldType": "number",
+      "description": "Customer interest level (1-10)"
+    }
+    ```
+    
+    **Evaluation_Change**: Crea nuevas evaluaciones
+    ```json
+    {
+      "type": "evaluation_change",
+      "name": "objection_handling",
+      "prompt": "Rate how well the agent handles price objections"
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Flujo de Procesamiento SSE
+
+<Steps>
+  <Step title="Inicialización">
+    Copilot establece conexión SSE y prepara el contexto del prompt.
+  </Step>
+  <Step title="Análisis (Thinking)">
+    El sistema analiza el prompt actual y planifica las modificaciones necesarias.
+    - Eventos `thinking` muestran progreso en tiempo real
+    - Duración típica: 2-5 segundos
+  </Step>
+  <Step title="Generación (Text)">
+    Se genera el contenido mejorado basado en la solicitud.
+    - Eventos `text` transmiten el progreso de generación
+    - Incluye explicaciones de los cambios planificados
+  </Step>
+  <Step title="Edición Estructurada">
+    Los cambios se aplican usando operaciones estructuradas.
+    - Eventos `edit` modifican secciones específicas del prompt
+    - Cada operación incluye resumen y métricas
+  </Step>
+  <Step title="Finalización">
+    La operación se completa con resumen de cambios.
+    - Evento `complete` con duración y estadísticas
+    - Se generan sugerencias inteligentes automáticas
+  </Step>
+</Steps>
+
+## Operaciones de Edición Estructurada
+
+Copilot utiliza operaciones específicas para modificar el prompt de manera precisa y controlada.
+
+### Tipos de Operaciones
+
+| Operación | Descripción | Uso Típico |
+|-----------|-------------|------------|
+| `replace_section` | Reemplaza una sección completa | Mejorar instrucciones existentes |
+| `append_section` | Añade nueva sección al final | Agregar nuevas funcionalidades |
+| `insert_after` | Inserta contenido después de una sección | Añadir contexto específico |
+| `delete_section` | Elimina una sección existente | Limpiar contenido obsoleto |
+| `modify_inline` | Cambios menores dentro de una línea | Ajustes de tono o estilo |
+
+### Marcadores de Sección
+
+Copilot identifica secciones del prompt usando marcadores estructurados:
+
+```
+# === GREETING INSTRUCTIONS ===
+[Contenido de saludo]
+
+# === OBJECTION HANDLING ===
+[Manejo de objeciones]
+
+# === OUTPUT REQUIREMENTS ===
+[Campos de salida requeridos]
+```
+
+<Info>
+Los marcadores permiten que Copilot haga cambios precisos sin afectar otras partes del prompt.
+</Info>
+
 ## Funcionalidad de Grabación de Voz
 
-Copilot incluye una funcionalidad de grabación de voz para solicitudes hands-free:
+Copilot incluye una funcionalidad de grabación de voz avanzada para solicitudes hands-free:
+
+### Modos de Grabación
+
+<Tabs>
+  <Tab title="Grabación por Botón">
+    **Activación**: Haz clic en el botón del micrófono
+    - Grabación manual con control total
+    - Ideal para solicitudes largas y detalladas
+    - Permite pausar y reanudar
+    
+    **Permisos**: Requiere autorización del navegador para acceso al micrófono
+  </Tab>
+  <Tab title="Hold-to-Speak (Alt)">
+    **Activación**: Mantén presionada la tecla Alt
+    - Grabación rápida tipo "walkie-talkie"
+    - Ideal para correcciones rápidas
+    - Automática al soltar la tecla
+    
+    **Visual**: Indicador de grabación en tiempo real
+  </Tab>
+</Tabs>
 
 ### Cómo Usar la Grabación de Voz
 
 <Steps>
   <Step title="Activar Grabación">
-    Haz clic en el botón del micrófono en el campo de entrada de Copilot.
+    - **Botón**: Haz clic en el micrófono en el campo de entrada
+    - **Teclado**: Mantén presionada la tecla Alt
   </Step>
   <Step title="Dar Permisos">
-    Permite el acceso al micrófono cuando el navegador lo solicite.
+    Permite el acceso al micrófono cuando el navegador lo solicite (solo primera vez).
   </Step>
   <Step title="Hablar tu Solicitud">
     Describe claramente qué cambios quieres hacer al prompt.
+    - Usa referencias como "@call:abc123" verbalmente
+    - Sé específico sobre las mejoras deseadas
   </Step>
   <Step title="Finalizar Grabación">
-    Haz clic en "Parar" o espera a que termine automáticamente.
+    - **Botón**: Haz clic en "Parar" 
+    - **Teclado**: Suelta la tecla Alt
+    - **Auto**: Pausa automática tras silencio prolongado
   </Step>
 </Steps>
 
-<Info>
-La grabación de voz convierte automáticamente tu discurso a texto y lo procesa como cualquier otra solicitud de Copilot.
-</Info>
+<Warning>
+La grabación de voz convierte automáticamente tu discurso a texto usando la API Web Speech y lo procesa como cualquier otra solicitud de Copilot.
+</Warning>
 
-## Cómo Funciona
+## Cómo Funciona el Procesamiento
 
-Copilot opera en tres fases cuando solicitas un cambio:
+Copilot opera en múltiples fases cuando solicitas un cambio, mostradas con indicadores visuales en tiempo real:
 
-| Fase | Qué Sucede |
-|-------|--------------|
-| 🔍 Analizando | Copilot lee tu system prompt actual y entiende el contexto |
-| ⚙️ Generando | Crea la versión mejorada basada en tu solicitud |
-| ✏️ Editando | Los cambios se aplican directamente a tu system prompt |
+### Fases de Procesamiento
 
-Después de completar, verás un resumen de todos los cambios realizados, que puedes aceptar o rechazar.
+| Fase | Ícono | Qué Sucede | Duración Típica |
+|------|-------|------------|------------------|
+| 🔍 **Analizando** | `magnifying-glass` | Copilot lee tu system prompt actual y entiende el contexto | 2-3 segundos |
+| ⚙️ **Generando** | `cog-6-tooth` | Crea la versión mejorada basada en tu solicitud | 3-5 segundos |
+| ✏️ **Editando** | `pencil` | Los cambios se aplican directamente usando operaciones estructuradas | 1-2 segundos |
+| ✅ **Completado** | `check-circle` | Finalización con resumen y sugerencias inteligentes | Instantáneo |
+
+### Indicadores de Estado en Tiempo Real
+
+<Steps>
+  <Step title="Barra de Progreso">
+    Muestra el avance global de la operación con fases claramente identificadas.
+  </Step>
+  <Step title="Mensajes de Estado">
+    Descripciones textuales del proceso actual, como "Analizando estructura del prompt...".
+  </Step>
+  <Step title="Contador de Thinking">
+    Timer visual durante la fase de análisis que muestra los segundos transcurridos.
+  </Step>
+  <Step title="Resumen de Cambios">
+    Lista detallada de todas las modificaciones realizadas con métricas específicas.
+  </Step>
+</Steps>
 
 ## Usando Contexto de Llamadas
 
@@ -93,484 +277,710 @@ Referencia llamadas específicas usando `@call:ID_LLAMADA` para proporcionar con
 Añadir instrucciones para abordar mejor las preocupaciones de precio.
 ```
 
-### Indicadores de Contexto de Llamada
+### Carga Automática de Contexto
 
-Cuando usas la sintaxis `@call:ID`, Copilot:
+Cuando usas la sintaxis `@call:ID`, Copilot automáticamente:
 
-- **Carga automáticamente** la transcripción de la llamada
-- **Analiza el contexto** para entender qué salió mal
-- **Sugiere mejoras específicas** basadas en el problema identificado
-- **Muestra indicadores visuales** de que está usando contexto de llamada
+<Steps>
+  <Step title="Detecta Referencias">
+    El sistema identifica menciones de `@call:ID` en tu solicitud.
+  </Step>
+  <Step title="Carga Transcripciones">
+    Obtiene automáticamente la transcripción completa y metadatos de la llamada.
+  </Step>
+  <Step title="Analiza Contexto">
+    Entiende qué problemas específicos ocurrieron durante la conversación.
+  </Step>
+  <Step title="Genera Mejoras Específicas">
+    Crea mejoras dirigidas basadas en los problemas identificados en la llamada.
+  </Step>
+</Steps>
+
+### Indicadores Visuales de Contexto
+
+Cuando Copilot usa contexto de llamada, muestra:
+
+- **Badges violetas**: Confirman qué llamadas están siendo analizadas
+- **Estado de carga**: Indicadores de progreso para obtener transcripciones
+- **Resumen de contexto**: Extracto de los problemas identificados en la llamada
+- **Cambios relacionados**: Modificaciones específicas basadas en la llamada
 
 <Info>
-Los indicadores de contexto aparecen como badges violetas que muestran el ID de llamada referenciado, confirmando que Copilot está usando ese contexto específico.
+Los indicadores de contexto aparecen durante el procesamiento, mostrando exactamente qué llamadas se están usando para generar las mejoras.
 </Info>
 
 ### Flujo de Trabajo con Contexto de Llamada
 
 <Steps>
   <Step title="Identificar Problema">
-    Encuentra una llamada donde el agente no funcionó correctamente.
+    En el panel de Llamadas, encuentra una conversación donde el agente no funcionó correctamente.
   </Step>
   <Step title="Obtener ID de Llamada">
-    Copia el ID de llamada del panel de Llamadas o del dashboard.
+    Copia el ID de llamada (visible en la URL o panel de detalles de la llamada).
   </Step>
   <Step title="Referenciar en Copilot">
-    Usa `@call:ID_LLAMADA` seguido de tu descripción del problema.
+    En Copilot, usa `@call:ID_LLAMADA` seguido de tu descripción del problema:
+    ```
+    @call:xyz789 El agente interrumpió al cliente y fue demasiado agresivo
+    ```
   </Step>
-  <Step title="Revisar Sugerencias">
-    Copilot analiza la llamada y sugiere mejoras específicas al prompt.
+  <Step title="Observar Análisis">
+    Copilot cargará la transcripción y analizará el problema específico.
+  </Step>
+  <Step title="Revisar Mejoras">
+    Revisa las mejoras sugeridas que abordan directamente los problemas de esa llamada.
   </Step>
 </Steps>
 
-### Ejemplos de Solicitudes con Contexto
+### Múltiples Referencias de Llamadas
+
+Puedes referenciar múltiples llamadas en una sola solicitud:
 
 ```
-@call:xyz789 El agente dio información incorrecta del producto. 
-Añadir instrucciones más claras sobre cuándo consultar la base de conocimiento.
+@call:abc123 @call:xyz789 En ambas llamadas el agente no manejó bien 
+las objeciones de precio. Mejorar esta área con un enfoque más empático.
 ```
 
-```
-@call:abc123 El cliente se frustró con las respuestas repetitivas. 
-Mejorar la sección de manejo de escalaciones y variación de respuestas.
-```
-
-```
-@call:def456 El agente no capturó correctamente la información de contacto. 
-Añadir proceso de confirmación para datos del cliente.
-```
+Copilot analizará patrones comunes en todas las llamadas referenciadas.
 
 ## Sugerencias Inteligentes de IA
 
-Copilot ahora proporciona sugerencias inteligentes automáticas para mejorar continuamente tu agente basándose en el contexto de tu solicitud actual.
+Copilot proporciona sugerencias inteligentes automáticas basadas en el contexto y análisis continuo de tu agente.
 
-### Tipos de Sugerencias IA
-
-Después de cada cambio exitoso, Copilot puede sugerir automáticamente:
+### Tipos de Sugerencias Automáticas
 
 <Tabs>
   <Tab title="Sugerencias Relacionadas">
-    - **Mejoras complementarias**: "También podrías mejorar el manejo de objeciones similares"
-    - **Optimizaciones de contexto**: "Considera añadir validación para este tipo de entrada"
-    - **Refinamientos de tono**: "Para mayor consistencia, ajusta también la sección de despedida"
+    **Mejoras complementarias basadas en tu cambio actual**
+    - "También podrías mejorar el manejo de objeciones similares"
+    - "Para mayor consistencia, ajusta también la sección de despedida"
+    - "Considera añadir validación para este tipo de entrada"
+    
+    **Trigger**: Aparecen después de completar una edición exitosa
+    **Implementación**: Botón "Implementar" de un clic
+  </Tab>
+  <Tab title="Sugerencias de Configuración">
+    **Cambios en configuración avanzada sugeridos**
+    - "Añadir campo de salida para capturar esta información"
+    - "Crear parámetro de entrada para personalización"
+    - "Configurar evaluación para medir esta mejora"
+    
+    **Integración**: Se conectan directamente con la configuración avanzada
+    **Banners**: Aparecen en las pestañas relevantes (Input, Output, Evaluations)
   </Tab>
   <Tab title="Sugerencias Basadas en Llamadas">
-    - **Análisis de patrones**: "He identificado 3 llamadas con problemas similares"
-    - **Mejoras preventivas**: "Para evitar este escenario, sugiero añadir..."
-    - **Contexto automático**: "Esta llamada relacionada también podría beneficiarse de esta mejora"
+    **Análisis predictivo de problemas similares**
+    - "He identificado 3 llamadas con problemas similares"
+    - "Esta mejora podría prevenir errores en llamadas futuras"
+    - "Patrones encontrados en llamadas recientes sugieren..."
+    
+    **Contexto automático**: Incluye IDs de llamadas relacionadas
+    **Prevención**: Mejoras proactivas basadas en datos históricos
   </Tab>
   <Tab title="Sugerencias de Testing">
-    - **Tests proactivos**: "Creemos un test para validar estos cambios"
-    - **Escenarios de validación**: "Sugiero probar este escenario específico"
-    - **Casos edge**: "Considera estos casos límite para testing completo"
+    **Validación proactiva de cambios**
+    - "Crear test para validar estos cambios"
+    - "Sugerir escenarios de prueba específicos"
+    - "Validar casos edge para testing completo"
+    
+    **Integración**: Conexión directa con el panel de Tests
+    **Automatización**: Genera tests específicos para tus cambios
   </Tab>
 </Tabs>
 
-### Cómo Aparecen las Sugerencias
+### Apariencia de Sugerencias
 
-Las sugerencias inteligentes aparecen como **cards accionables** debajo del resultado principal:
+Las sugerencias inteligentes aparecen como **cards accionables** con:
 
-- **Badge de sugerencia**: Indica el tipo de mejora sugerida
-- **Título descriptivo**: Explica qué mejorará la sugerencia
-- **Acción directa**: Botón para implementar la sugerencia inmediatamente
-- **Contexto adicional**: Información sobre por qué se sugiere esta mejora
-
-<Warning>
-Las sugerencias aparecen automáticamente basándose en el análisis de tu solicitud actual y el historial de llamadas relacionadas. Puedes implementarlas con un solo clic.
-</Warning>
+- **Badge de tipo**: Indica la categoría de sugerencia (💡 Mejora, 🧪 Test, 📞 Llamada, ⚙️ Config)
+- **Título descriptivo**: Explica claramente qué mejorará la sugerencia
+- **Descripción contextual**: Detalles sobre por qué se sugiere esta mejora
+- **Botón de acción**: "Implementar", "Crear Test", "Analizar", etc.
+- **Contexto adicional**: Enlaces a llamadas relacionadas o configuraciones afectadas
 
 ### Implementando Sugerencias Inteligentes
 
 <Steps>
-  <Step title="Revisar Sugerencias">
-    Las sugerencias aparecen automáticamente después de completar una edición.
+  <Step title="Revisar Automáticamente">
+    Las sugerencias aparecen automáticamente después de completar una edición exitosa.
   </Step>
   <Step title="Evaluar Relevancia">
-    Lee la descripción y contexto de cada sugerencia propuesta.
+    Lee la descripción y contexto de cada sugerencia:
+    - **Relevancia**: ¿Es útil para tu caso de uso?
+    - **Prioridad**: ¿Es crítico o puede esperar?
+    - **Impacto**: ¿Mejorará significativamente el agente?
   </Step>
   <Step title="Implementar con Un Clic">
-    Haz clic en "Implementar" para aplicar la sugerencia directamente.
+    Haz clic en el botón de acción correspondiente:
+    - **"Implementar"**: Aplica la sugerencia inmediatamente
+    - **"Crear Test"**: Genera test automatizado
+    - **"Analizar"**: Examina llamadas relacionadas
   </Step>
   <Step title="Personalizar si Necesario">
-    Modifica la implementación usando el campo de entrada normal.
+    Después de implementar, puedes:
+    - Refinar usando el campo de entrada normal
+    - Hacer ajustes específicos manualmente
+    - Combinar con otras sugerencias
   </Step>
 </Steps>
 
-### Ejemplos de Sugerencias Inteligentes
+### Ejemplos de Sugerencias Contextuales
 
 **Después de mejorar manejo de precios:**
 ```
-💡 Sugerencia: Validación de presupuesto
-También añadir proceso de calificación de presupuesto 
-para identificar clientes serios vs curiosos.
-[Implementar] [Ignorar]
+💡 Sugerencia Relacionada: Validación de presupuesto
+"También considera añadir un proceso de calificación de presupuesto 
+para identificar clientes serios vs curiosos."
+
+⚙️ Configuración: Campo de salida "budget_range" 
+"Capturar el rango de presupuesto mencionado por el cliente"
+
+[Implementar] [Más tarde]
 ```
 
 **Después de añadir campos de salida:**
 ```
-🧪 Sugerencia: Test de captura
-Crear test automatizado para validar que todos 
-los campos se capturan correctamente.
-[Crear Test] [Más tarde]
+🧪 Sugerencia de Testing: Test de captura
+"Crear test automatizado para validar que todos los campos 
+se capturan correctamente en diferentes escenarios."
+
+📋 Test sugerido: "Email Validation Test"
+- Escenario: Cliente proporciona email
+- Validación: Campo "email" se completa correctamente
+
+[Crear Test] [Ver Detalles]
 ```
 
 **Después de usar contexto de llamada:**
 ```
-📞 Sugerencia: Llamadas relacionadas  
-Encontré 2 llamadas más con problemas similares.
-¿Quieres analizarlas para mejoras adicionales?
-[@call:xyz123, @call:def456] [Analizar] [Omitir]
+📞 Sugerencias de Llamadas Relacionadas
+"Encontré 2 llamadas adicionales con problemas similares:"
+
+@call:xyz123 - Problema de captura de email similar
+@call:def456 - Validación incorrecta de información
+
+"¿Quieres analizar estas llamadas para mejoras adicionales?"
+
+[Analizar Todas] [Ver Individual] [Omitir]
 ```
 
-## Sugerencias de Próximos Pasos
+## Modificaciones Automáticas de Configuración
 
-Además de las sugerencias inteligentes automáticas, Copilot proporciona recomendaciones contextuales para continuar mejorando:
-
-### Sugerencias Automáticas de Flujo
-
-Basándose en tus cambios recientes, Copilot sugiere pasos lógicos siguientes:
-
-- **Después de cambios al prompt**: "¿Quieres crear tests para validar estos cambios?"
-- **Después de añadir campos**: "Considera configurar validaciones para estos campos"
-- **Después de mejoras de tono**: "Podrías también actualizar los saludos para mantener consistencia"
-
-### Sugerencias Proactivas
-
-Cuando usas referencias de llamadas, las sugerencias incluyen:
-
-- **Prevención de problemas**: "Para evitar este tipo de error, también sugiero..."
-- **Mejoras holísticas**: "Este cambio afecta la sección X, ¿quieres revisar también?"
-- **Optimización de rendimiento**: "Basándome en patrones similares, considera..."
-
-### Flujo de Trabajo con Sugerencias
-
-<Steps>
-  <Step title="Completar Cambio Inicial">
-    Realiza tu edición principal usando Copilot.
-  </Step>
-  <Step title="Revisar Sugerencias Automáticas">
-    Aparecen sugerencias inteligentes basadas en tu cambio.
-  </Step>
-  <Step title="Seleccionar Sugerencias Relevantes">
-    Elige qué sugerencias implementar inmediatamente.
-  </Step>
-  <Step title="Iterar y Refinar">
-    Cada implementación puede generar nuevas sugerencias.
-  </Step>
-</Steps>
-
-## Describiendo Cambios
-
-En el campo de entrada, describe qué quieres cambiar. Sé específico sobre tus objetivos.
-
-### Solicitudes Efectivas
-
-```
-Añadir instrucciones para manejar objeciones de precio con un enfoque de 3 pasos
-```
-
-```
-Hacer el saludo más amigable y personalizado según la hora del día
-```
-
-```
-Añadir una sección sobre procedimientos de confirmación de citas con validación doble
-```
-
-```
-Mejorar cómo el agente maneja respuestas evasivas como "necesito pensarlo"
-```
-
-### Qué Puede Editar Copilot
-
-Copilot puede modificar cualquier parte de tu system prompt:
-
-| Elemento | Ejemplos |
-|---------|----------|
-| **Instrucciones** | Añadir nuevos comportamientos, modificar reglas existentes |
-| **Tono** | Ajustar formalidad, amabilidad, profesionalismo |
-| **Estructura** | Reorganizar secciones, añadir encabezados |
-| **Límites** | Añadir restricciones de seguridad, límites de alcance |
-| **Escenarios** | Añadir manejo para situaciones específicas |
-| **Lenguaje** | Mejorar claridad, eliminar ambigüedad |
-| **Parámetros** | Configurar campos de salida y entrada |
-| **Evaluaciones** | Crear métricas de rendimiento |
-
-## Analizando Tickets
-
-Para análisis en lote de múltiples llamadas:
-
-<Steps>
-  <Step title="Abrir Panel de Tickets">
-    Haz clic en el botón + y selecciona "Analizar tickets".
-  </Step>
-  <Step title="Seleccionar Tickets">
-    Elige múltiples llamadas/tickets para analizar en conjunto.
-  </Step>
-  <Step title="Ejecutar Análisis">
-    Copilot identifica patrones comunes en los tickets seleccionados.
-  </Step>
-  <Step title="Aplicar Mejoras">
-    Recibe cambios sugeridos basados en problemas recurrentes.
-  </Step>
-</Steps>
-
-## Integración con Configuración Avanzada
-
-Copilot ahora puede hacer cambios directamente en la configuración avanzada del agente, incluyendo parámetros de entrada, campos de salida y evaluaciones.
+Copilot puede hacer cambios directamente en la configuración avanzada del agente, incluyendo parámetros de entrada, campos de salida y evaluaciones.
 
 ### Cambios en Parámetros de Entrada
 
-Cuando solicitas mejoras que requieren nuevos parámetros de entrada:
+Cuando Copilot detecta que las mejoras requieren información adicional:
 
 ```
-Solicitud: "El agente debería personalizar el saludo basándose en el tipo de cliente"
+Usuario: "El agente debería personalizar el saludo según el tipo de cliente"
 
-Resultado: Copilot añade un parámetro "customer_type" y actualiza 
-el prompt para usar esta información en el saludo.
+Copilot SSE Events:
+1. input_change: añade parámetro "customer_type" 
+2. edit: actualiza prompt para usar {{customer_type}}
+3. complete: cambios aplicados exitosamente
+
+Resultado: 
+- Nuevo parámetro "customer_type" (string, opcional)
+- Prompt actualizado con lógica condicional de saludo
+- Banner de confirmación en pestaña "Input Parameters"
 ```
 
 ### Cambios en Campos de Salida
 
-Para capturar mejor información de las conversaciones:
+Para mejorar la captura de información de conversaciones:
 
 ```
-Solicitud: "Necesito capturar el nivel de interés del cliente en una escala de 1-10"
+Usuario: "Capturar el nivel de interés del cliente en una escala de 1-10"
 
-Resultado: Copilot añade un campo de salida "interest_level" con 
-validación numérica y actualiza las instrucciones del prompt.
+Copilot SSE Events:
+1. output_change: añade campo "interest_level"
+2. edit: actualiza instrucciones de evaluación en prompt  
+3. complete: configuración sincronizada
+
+Resultado:
+- Nuevo campo "interest_level" (number, 1-10 scale)
+- Instrucciones específicas para evaluar interés
+- Validación automática de rango numérico
 ```
 
 ### Cambios en Evaluaciones
 
-Para medir mejor el rendimiento del agente:
+Para crear métricas de rendimiento automáticas:
 
 ```
-Solicitud: "Crear una evaluación para medir qué tan bien maneja objeciones"
+Usuario: "Crear evaluación para medir manejo de objeciones"
 
-Resultado: Copilot crea una evaluación "objection_handling" con criterios 
-específicos y métricas de puntuación.
+Copilot SSE Events:
+1. evaluation_change: crea "objection_handling" 
+2. edit: añade sección de métricas al prompt
+3. complete: evaluación lista para uso
+
+Resultado:
+- Nueva evaluación "Objection Handling" 
+- Prompt con criterios específicos de evaluación
+- Escala de puntuación 1-5 con descriptores
 ```
 
 ### Banners de Cambios Pendientes
 
-Cuando Copilot sugiere cambios a la configuración avanzada, aparecen **banners informativos** en las secciones relevantes:
-
-- **Banner morado con ícono de Copilot**: Indica cambios sugeridos pendientes
-- **Resumen de cambios**: Lista qué se va a modificar/añadir
-- **Botones de acción**: Permite aceptar o rechazar los cambios
-- **Vista previa**: Muestra cómo se verán los cambios antes de aplicar
-
-<Info>
-Los banners aparecen en las pestañas de Parámetros de Entrada, Configuración de Salida y Evaluaciones cuando hay cambios pendientes de esas secciones.
-</Info>
-
-## Revisando Cambios
-
-Después de que Copilot edita tu prompt:
-
-### Resumen de Cambios
-
-Verás un resumen de finalización que muestra:
-
-- **Título descriptivo** de los cambios realizados
-- **Duración de la operación** y fase completada
-- **Lista detallada** de modificaciones específicas
-- **Indicadores de contexto** si se usaron referencias de llamadas
-- **Sugerencias inteligentes** para próximos pasos
-
-### Opciones de Revisión
+Cuando Copilot sugiere cambios a la configuración avanzada, aparecen **banners informativos** en las secciones relevantes del Editor Avanzado:
 
 <Tabs>
-  <Tab title="Aceptar Cambios">
-    - Los cambios se aplican al prompt y configuración
-    - Se actualiza el historial de versiones
-    - Aparecen sugerencias de próximos pasos
-    - Se sincronizan cambios en configuración avanzada
+  <Tab title="Banner de Input Parameters">
+    **Ubicación**: Pestaña "Input Parameters" del panel izquierdo
+    
+    **Contenido**:
+    - 🤖 Ícono de Copilot
+    - "Copilot sugiere añadir parámetro de entrada"
+    - Nombre y tipo del parámetro propuesto
+    - Descripción y configuración requerida/opcional
+    
+    **Acciones**: [Aceptar] [Rechazar] [Modificar]
   </Tab>
-  <Tab title="Rechazar Cambios">
-    - El prompt vuelve al estado anterior
-    - Los cambios de configuración se descartan
-    - Se eliminan banners de cambios pendientes
-    - Puedes refinar tu solicitud y volver a intentar
+  <Tab title="Banner de Output Settings">
+    **Ubicación**: Pestaña "Output Settings" del panel izquierdo
+    
+    **Contenido**:
+    - 🤖 Ícono de Copilot  
+    - "Copilot sugiere añadir campo de salida"
+    - Tipo de datos y validaciones propuestas
+    - Ejemplo de cómo se capturará la información
+    
+    **Acciones**: [Implementar] [Personalizar] [Cancelar]
   </Tab>
-  <Tab title="Editar Manualmente">
-    - Los cambios aparecen resaltados en el editor
-    - Los banners permanecen para revisión individual
-    - Tienes control granular sobre cada cambio
-    - Puedes aceptar algunos y rechazar otros
+  <Tab title="Banner de Evaluations">
+    **Ubicación**: Pestaña "Evaluations" del panel izquierdo
+    
+    **Contenido**:
+    - 🤖 Ícono de Copilot
+    - "Copilot sugiere crear nueva evaluación"  
+    - Criterios de evaluación propuestos
+    - Escala y métricas a medir
+    
+    **Acciones**: [Crear Evaluación] [Ver Detalles] [Omitir]
   </Tab>
 </Tabs>
 
+### Flujo de Aceptación de Cambios
+
+<Steps>
+  <Step title="Copilot Sugiere Cambios">
+    Durante el procesamiento SSE, se emiten eventos de cambio de configuración.
+  </Step>
+  <Step title="Banners Aparecen">
+    Los banners se muestran automáticamente en las pestañas relevantes con detalles específicos.
+  </Step>
+  <Step title="Revisión Individual">
+    Puedes revisar cada cambio por separado:
+    - **Input Parameters**: Ver tipo, descripción, requisitos
+    - **Output Settings**: Confirmar campos y validaciones  
+    - **Evaluations**: Revisar criterios y escalas
+  </Step>
+  <Step title="Aceptación Granular">
+    Decide sobre cada cambio individualmente:
+    - **Aceptar todo**: Implementa todos los cambios sugeridos
+    - **Aceptar selectivo**: Elige qué cambios aplicar
+    - **Personalizar**: Modifica antes de implementar
+    - **Rechazar**: Descarta cambios específicos
+  </Step>
+</Steps>
+
 <Warning>
-Siempre revisa los cambios antes de aceptar. Los cambios a la configuración avanzada se muestran en banners específicos en cada sección afectada.
+Los cambios en configuración avanzada son reversibles. Puedes deshacer cualquier modificación usando el historial de versiones del Editor Avanzado.
 </Warning>
 
-## Historial de Conversación
+## Revisando y Gestionando Cambios
 
-Continúa refinando con solicitudes de seguimiento en la misma sesión:
+Copilot proporciona un sistema completo de revisión para todos los cambios realizados.
+
+### Resumen de Finalización
+
+Después de que Copilot completa una edición, verás un **Completion Summary** detallado:
+
+<Tabs>
+  <Tab title="Resumen Principal">
+    **Información incluida**:
+    - ✅ Título descriptivo de los cambios realizados
+    - ⏱️ Duración total de la operación  
+    - 📊 Número de ediciones aplicadas
+    - 🔧 Herramientas utilizadas (structured_edit, web_search, etc.)
+    - 📝 Líneas de código añadidas/modificadas
+  </Tab>
+  <Tab title="Cambios Detallados">
+    **Lista de modificaciones específicas**:
+    - 🔄 **Replace**: Secciones reemplazadas completamente
+    - ➕ **Add**: Nuevas secciones añadidas
+    - 📝 **Modify**: Modificaciones menores inline
+    - 🗑️ **Remove**: Contenido eliminado
+    - 🎯 **Optimize**: Mejoras de claridad y estructura
+    
+    **Cada cambio incluye**:
+    - Ubicación exacta (líneas afectadas)
+    - Resumen de la modificación
+    - Razón del cambio
+  </Tab>
+  <Tab title="Indicadores de Contexto">
+    **Si se usaron referencias de llamadas**:
+    - 📞 Badges con IDs de llamadas analizadas
+    - 🔍 Problemas específicos identificados
+    - 💡 Mejoras implementadas basadas en contexto
+    - 📈 Patrones detectados en las llamadas
+  </Tab>
+</Tabs>
+
+### Opciones de Revisión y Acción
+
+Después de completar los cambios, tienes varias opciones:
+
+<Steps>
+  <Step title="Aceptar Cambios Completos">
+    **Acción**: Botón "Aceptar Cambios"
+    
+    **Resultado**:
+    - ✅ Cambios se aplican al prompt y configuración
+    - 📝 Se actualiza el historial de versiones
+    - 🔄 Aparecen sugerencias inteligentes de próximos pasos  
+    - ⚙️ Se sincronizan cambios en configuración avanzada
+    - 🎯 Se actualiza el estado "git" del editor
+  </Step>
+  <Step title="Rechazar Cambios">
+    **Acción**: Botón "Rechazar Cambios"
+    
+    **Resultado**:
+    - ❌ El prompt vuelve al estado anterior
+    - 🗑️ Los cambios de configuración se descartan
+    - 🚫 Se eliminan todos los banners de cambios pendientes
+    - 🔄 Puedes refinar tu solicitud y volver a intentar
+    - 📝 Se mantiene historial de intentos para contexto
+  </Step>
+  <Step title="Edición Manual Granular">
+    **Acción**: Revisar cambios individuales
+    
+    **Capacidades**:
+    - 📝 Los cambios aparecen resaltados en el editor Monaco
+    - 🏷️ Los banners permanecen para revisión individual
+    - ✂️ Control granular sobre cada modificación
+    - ⚖️ Aceptar algunos cambios y rechazar otros
+    - 🎨 Personalizar implementación antes de aplicar
+  </Step>
+</Steps>
+
+### Historial de Conversación y Contexto
+
+Copilot mantiene contexto conversacional para refinamiento iterativo:
 
 ```
-Usuario: Añadir instrucciones para manejar objeciones de precio
+Usuario: "Añadir instrucciones para manejar objeciones de precio"
 
-Copilot: [Hace cambios iniciales + sugiere campo de output para presupuesto]
+Copilot: [Implementa cambios + genera sugerencias inteligentes]
+💡 También considera añadir campo "budget_range" para captura
 
-Usuario: Bien, implementa la sugerencia del campo de presupuesto
+Usuario: "Implementa la sugerencia del campo de presupuesto"
 
-Copilot: [Añade campo de salida "budget_range" y actualiza prompt]
+Copilot: [Añade campo de salida + actualiza prompt]
+🧪 ¿Quieres crear un test para validar la captura de presupuesto?
 
-Usuario: Menos agresivo en el manejo de objeciones
+Usuario: "Sí, crea el test. Menos agresivo en el manejo de objeciones"
 
-Copilot: [Refina el enfoque + sugiere evaluación de satisfacción]
+Copilot: [Crea test + refina enfoque + nueva sugerencia]
+📞 Basándome en patrones, sugiero evaluar @call:similar_issues
 
-Usuario: @call:xyz123 Úsalo como ejemplo para mejorar más
+Usuario: "@call:xyz123 úsalo como ejemplo para mejorar más"
 
-Copilot: [Analiza la llamada y sugiere mejoras adicionales]
+Copilot: [Analiza llamada + mejoras específicas]
 ```
+
+### Estados Visuales de Mensajes
+
+Cada mensaje en el historial tiene estados visuales claros:
+
+| Estado | Indicador | Descripción |
+|--------|-----------|-------------|
+| **Procesando** | 🔄 Spinner + progreso | Operación en curso, mostrar fases |
+| **Éxito** | ✅ Check verde | Cambios aplicados exitosamente |
+| **Aplicando** | ⏳ Reloj amarillo | Usuario revisando cambios propuestos |
+| **Completado** | 🎯 Badge azul | Operación finalizada con sugerencias |
+| **Error** | ❌ X rojo | Fallo en procesamiento, opción de reintentar |
+| **Streaming** | 💬 Dots animados | Recibiendo contenido en tiempo real |
 
 <Info>
-Las sugerencias inteligentes se acumulan a lo largo de la conversación, creando un flujo de mejora continua basado en tu feedback.
+El sistema de estados permite seguir claramente el progreso de cada solicitud y entender qué acciones están disponibles en cada momento.
 </Info>
 
-## Mejores Prácticas
+## Análisis de Tickets en Lote
 
-### Aprovecha las Sugerencias Inteligentes
+Para análisis de múltiples llamadas problemáticas simultáneamente:
+
+### Accediendo al Panel de Tickets
 
 <Steps>
-  <Step title="No ignores las sugerencias automáticas">
-    Las sugerencias de IA están basadas en patrones de mejores prácticas y análisis contextual.
+  <Step title="Abrir Panel de Tickets">
+    - Haz clic en el botón "+" en la parte superior de Copilot
+    - Selecciona "Analizar tickets" del menú desplegable
+    - Se abre un panel lateral para selección de llamadas
   </Step>
-  <Step title="Implementa sugerencias relacionadas">
-    Cuando Copilot sugiere mejoras complementarias, considera implementarlas para mayor coherencia.
+  <Step title="Filtrar y Buscar Tickets">
+    **Filtros disponibles**:
+    - Por fecha: Últimos 7 días, 30 días, rango personalizado
+    - Por estado: Problemas reportados, evaluaciones bajas, escalaciones
+    - Por agente: Específicos del agente actual o todos
+    - Por tipo: Llamadas fallidas, interrupciones, problemas de captura
+    
+    **Búsqueda**: Buscar por contenido de transcripción o metadatos
   </Step>
-  <Step title="Usa sugerencias para descubrir casos edge">
-    Las sugerencias a menudo revelan escenarios que no habías considerado.
+  <Step title="Seleccionar Múltiples Tickets">
+    - ✅ Checkbox para cada llamada problemática
+    - 📊 Vista previa con resumen del problema
+    - 🏷️ Tags automáticos de categorización
+    - 📈 Métricas de impacto (duración, satisfacción, etc.)
   </Step>
-  <Step title="Combina sugerencias con contexto propio">
-    Personaliza las sugerencias con tu conocimiento específico del negocio.
+  <Step title="Ejecutar Análisis en Lote">
+    - Botón "Analizar Seleccionados" (mínimo 2, máximo 20 tickets)
+    - Copilot identifica patrones comunes automáticamente
+    - Procesamiento en paralelo para eficiencia
   </Step>
 </Steps>
 
-### Optimiza el Flujo de Trabajo con Configuración Avanzada
+### Resultado del Análisis en Lote
+
+Copilot proporciona análisis comprensivo de patrones:
+
+<Tabs>
+  <Tab title="Problemas Comunes">
+    **Identificación automática**:
+    - 🎯 "3 de 5 llamadas: fallo en captura de email"
+    - 🗣️ "Patrón: interrupción durante explicación de precio"  
+    - ⏰ "Problema recurrente: manejo de citas fuera de horario"
+    - 📞 "Escalación frecuente: objeciones no resueltas"
+  </Tab>
+  <Tab title="Mejoras Sugeridas">
+    **Cambios específicos basados en patrones**:
+    - ➕ Añadir sección: "Email Confirmation Protocol"
+    - 🔧 Mejorar: "Price Explanation Timing and Flow"  
+    - 📅 Crear: "Business Hours Validation Logic"
+    - 🎭 Refinar: "Empathetic Objection Handling Approach"
+  </Tab>
+  <Tab title="Priorización">
+    **Orden de implementación recomendado**:
+    1. **Alta prioridad**: Problemas que afectan >50% de llamadas
+    2. **Media prioridad**: Mejoras de calidad y satisfacción
+    3. **Baja prioridad**: Optimizaciones menores de flujo
+    
+    **Impacto estimado**: Reducción esperada de problemas similares
+  </Tab>
+</Tabs>
+
+### Implementación de Mejoras en Lote
 
 <Steps>
-  <Step title="Revisa banners de cambios pendientes">
-    Siempre verifica qué cambios se harán a parámetros, campos y evaluaciones.
+  <Step title="Revisar Análisis Completo">
+    Copilot presenta un informe detallado con:
+    - 📊 Estadísticas de problemas identificados
+    - 🎯 Cambios específicos recomendados  
+    - 📈 Impacto esperado de cada mejora
+    - ⚠️ Riesgos o consideraciones especiales
   </Step>
-  <Step title="Acepta cambios de configuración en lotes">
-    Es más eficiente aceptar todos los cambios relacionados de una vez.
+  <Step title="Implementación Selectiva">
+    **Opciones de implementación**:
+    - "Implementar Todo": Aplica todas las mejoras sugeridas
+    - "Implementar Prioridades": Solo cambios de alta prioridad
+    - "Selección Manual": Elegir mejoras específicas individualmente
   </Step>
-  <Step title="Prueba campos de salida nuevos">
-    Después de añadir campos, haz una prueba en el Playground para verificar captura.
-  </Step>
-  <Step title="Valida evaluaciones nuevas">
-    Asegúrate de que las evaluaciones creadas miden lo que realmente necesitas.
+  <Step title="Monitoreo de Resultados">
+    **Seguimiento automático**:
+    - 📈 Métricas de mejora en siguientes llamadas
+    - ⚡ Alertas si problemas persisten
+    - 🔄 Sugerencias de ajustes adicionales
   </Step>
 </Steps>
 
-### Aprovecha el Contexto de Llamadas con Sugerencias
+## Mejores Prácticas Avanzadas
+
+### Optimización del Flujo de Trabajo con SSE
 
 <Steps>
-  <Step title="Usa @call con solicitudes específicas">
-    Combina referencias de llamadas con instrucciones claras sobre qué mejorar.
+  <Step title="Monitorea Estados en Tiempo Real">
+    - Observa los indicadores de fase (Analizando → Generando → Editando)
+    - Usa el tiempo de "thinking" para preparar próximas solicitudes
+    - No interrumpas el proceso SSE para mejores resultados
   </Step>
-  <Step title="Sigue sugerencias de llamadas relacionadas">
-    Cuando Copilot encuentra patrones, analiza las llamadas adicionales sugeridas.
+  <Step title="Aprovecha la Edición Estructurada">
+    - Confía en las operaciones estructuradas para precisión
+    - Revisa los marcadores de sección añadidos automáticamente
+    - Utiliza la granularidad de cambios para control específico
   </Step>
-  <Step title="Implementa mejoras preventivas">
-    Las sugerencias basadas en llamadas a menudo previenen problemas futuros.
+  <Step title="Optimiza Conexiones de Red">
+    - Mantén conexión estable para SSE sin interrupciones  
+    - Si se pierde conexión, Copilot reintentará automáticamente
+    - Los cambios parciales se preservan para recuperación
   </Step>
 </Steps>
 
-### Maximiza la Eficiencia con Grabación de Voz
+### Maximización de Sugerencias Inteligentes
 
 <Steps>
-  <Step title="Usa voz para solicitudes complejas">
-    La grabación de voz es ideal para describir problemas multi-paso o contextuales.
+  <Step title="Implementa Sugerencias Complementarias">
+    - Las sugerencias relacionadas mejoran consistencia global
+    - Combina múltiples sugerencias para cambios holísticos
+    - Prioriza sugerencias basadas en datos de llamadas reales
   </Step>
-  <Step title="Combina voz con referencias de llamadas">
-    Mientras revisas llamadas, describe verbalmente los problemas que observas.
+  <Step title="Usa Configuración Avanzada Integrada">
+    - Acepta cambios en parámetros cuando son relevantes
+    - Aprovecha campos de salida automáticos para mejor captura
+    - Implementa evaluaciones sugeridas para medición continua
   </Step>
-  <Step title="Aprovecha para lluvia de ideas">
-    Usa grabación de voz para explorar múltiples mejoras posibles rápidamente.
+  <Step title="Sigue el Flujo de Mejora Continua">
+    - Implementa → Revisa sugerencias → Refina → Repite
+    - Usa métricas de las evaluaciones para validar mejoras
+    - Ajusta basándose en feedback de llamadas subsiguientes
   </Step>
 </Steps>
 
-## Tareas Comunes de Edición Avanzada
+### Optimización de Contexto de Llamadas
 
-### Mejorando con Sugerencias Automáticas
+<Steps>
+  <Step title="Selecciona Llamadas Representativas">
+    - Usa llamadas con problemas claros y específicos
+    - Combina múltiples ejemplos para patrones más robustos
+    - Incluye tanto éxitos como fallos para balance
+  </Step>
+  <Step title="Describe Problemas Específicamente">
+    ```
+    ❌ Malo: "@call:abc123 no funcionó bien"
+    ✅ Bueno: "@call:abc123 interrumpió al cliente 3 veces durante 
+         la explicación de servicios, causando frustración"
+    ```
+  </Step>
+  <Step title="Aprovecha Análisis Predictivo">
+    - Sigue sugerencias de llamadas relacionadas automáticamente
+    - Implementa mejoras preventivas basadas en patrones
+    - Monitorea impacto en llamadas futuras similares
+  </Step>
+</Steps>
+
+### Aprovechamiento de Grabación de Voz
+
+<Steps>
+  <Step title="Usa Voz para Contexto Complejo">
+    - Ideal para describir problemas multifacéticos observados en llamadas
+    - Explica matices de tono y estilo que son difíciles de escribir
+    - Combina grabación con referencias de llamadas para máximo contexto
+  </Step>
+  <Step title="Optimiza Calidad de Audio">
+    - Habla claramente y a ritmo moderado
+    - Minimiza ruido de fondo para mejor transcripción
+    - Usa terminología específica del dominio que Copilot reconoce
+  </Step>
+  <Step title="Combina Modalidades">
+    - Graba descripción general del problema
+    - Añade detalles específicos por texto si es necesario  
+    - Usa @call:ID verbalmente para cargar contexto automáticamente
+  </Step>
+</Steps>
+
+## Casos de Uso Comunes
+
+### Mejorando con Contexto de Llamadas Específicas
 
 ```
-Usuario: "Mejorar el manejo de objeciones de precio"
+Solicitud: "@call:abc123 El agente no manejó bien la objeción sobre 
+precio alto. Mejorar enfoque para ser más empático y ofrecer opciones."
 
-Copilot: [Implementa mejoras + genera sugerencias:]
-💡 También añadir campo de salida "price_objection_type"
-🧪 Crear test para validar manejo de objeciones
-📞 Analizar llamada similar @call:def789
+SSE Flow:
+1. thinking: Analizando llamada abc123...
+2. text: "Detecté que el agente fue demasiado directo..."
+3. edit: replace_section "Pricing Objections" 
+4. output_change: añadir campo "price_sensitivity"
+5. complete: Cambios aplicados (2.3s, 1 edición)
 
-Usuario: "Implementa la sugerencia del campo de salida"
-
-Copilot: [Añade campo + actualiza prompt + nuevas sugerencias]
+Sugerencias Automáticas:
+💡 Crear evaluación para medir manejo empático
+🧪 Test de escenarios de objeciones de precio
+📞 Analizar @call:def456 con problema similar
 ```
 
-### Usando Contexto con Configuración Avanzada
+### Implementación de Flujo Completo con Configuración
 
 ```
-@call:abc123 El agente no capturó correctamente el email. 
-Añadir validación de email y campo requerido para confirmación.
+Solicitud: "El agente debe capturar mejor información de contacto 
+y confirmar antes de finalizar."
+
+Resultado Integral:
+✅ Prompt: Añadida sección "Contact Information Protocol"
+⚙️ Output: Campos "email", "phone", "preferred_contact"
+📊 Evaluation: "Contact Capture Quality" (1-5 scale)  
+🧪 Test: "Contact Information Validation Test"
+
+Banners Generados:
+- Input Parameters: Parámetro "contact_preference" 
+- Output Settings: 3 nuevos campos con validación
+- Evaluations: Nueva métrica de calidad de captura
 ```
 
-**Resultado**: Copilot añade campo de salida "email" con validación, actualiza el prompt con instrucciones de confirmación, y sugiere test de validación.
+### Análisis de Patrones en Lote
 
-### Implementando Flujo Completo con Sugerencias
+```
+Tickets Seleccionados: 8 llamadas con problemas de escalación
 
-<Steps>
-  <Step title="Solicitud Inicial">
-    "El agente debe ser mejor preguntando por el presupuesto del cliente"
-  </Step>
-  <Step title="Implementación + Sugerencias">
-    Copilot mejora el prompt y sugiere: campo "budget_range", evaluación "budget_qualification"
-  </Step>
-  <Step title="Implementar Sugerencias">
-    "Implementa ambas sugerencias"
-  </Step>
-  <Step title="Nuevas Sugerencias">
-    Copilot sugiere: test de calificación, manejo de respuestas evasivas sobre presupuesto
-  </Step>
-  <Step title="Refinamiento Final">
-    "Usa la sugerencia de manejo de respuestas evasivas"
-  </Step>
-</Steps>
+Análisis Resultado:
+📊 Patrón Principal: 6/8 escalaciones por falta de autoridad percibida
+🎯 Mejora Clave: Añadir establecimiento de credibilidad en apertura
+📈 Impacto Esperado: -60% escalaciones por autoridad
+
+Implementación:
+1. Sección "Authority Establishment" añadida
+2. Campo output "escalation_reason" para tracking
+3. Evaluación "Authority Perception" creada
+4. Test "Credibility Scenarios" generado automáticamente
+```
 
 ## Siguientes Pasos
 
 <CardGroup cols={2}>
   <Card
     title="Playground"
-    icon="gamepad"
+    icon="gamepad-2"
     href="/es/advanced-editor/playground"
   >
-    Prueba tus prompts mejorados con conversaciones simuladas
+    Prueba tus prompts mejorados con conversaciones simuladas y escenarios específicos
   </Card>
   <Card
     title="Tests"
     icon="clipboard-check"
     href="/es/advanced-editor/tests"
   >
-    Crea tests automatizados para validar cambios sugeridos
+    Crea tests automatizados para validar cambios sugeridos y detectar regresiones
   </Card>
   <Card
     title="Configuración Avanzada"
     icon="cog-6-tooth"
     href="/es/advanced-editor/settings"
   >
-    Revisa parámetros, campos y evaluaciones añadidos por Copilot
+    Revisa parámetros, campos y evaluaciones añadidos automáticamente por Copilot
   </Card>
   <Card
     title="Panel de Llamadas"
     icon="phone"
     href="/es/calls"
   >
-    Encuentra IDs de llamadas para usar como contexto
+    Encuentra IDs de llamadas específicas para usar como contexto en mejoras dirigidas
+  </Card>
+</CardGroup>
+
+## Recursos de Desarrollo
+
+<CardGroup cols={2}>
+  <Card
+    title="API SSE Reference"
+    icon="code"
+  >
+    Documentación técnica del protocolo de eventos Server-Sent Events utilizado por Copilot
+  </Card>
+  <Card
+    title="Edit Operations Schema"
+    icon="wrench"
+  >
+    Especificación completa de operaciones de edición estructurada y marcadores de sección
   </Card>
 </CardGroup>

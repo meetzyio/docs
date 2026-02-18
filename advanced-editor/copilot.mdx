@@ -1,521 +1,571 @@
 ---
 title: 'Copilot'
-description: 'AI-powered editor that automatically improves your agent system prompt'
+description: 'AI-powered editor that automatically improves your agent system prompt with advanced editing capabilities'
 icon: 'robot'
 ---
 
 ## What is Copilot?
 
-Copilot is an AI-powered prompt editor integrated into the Advanced Editor. Instead of just giving you suggestions, **Copilot directly edits and improves your agent's system prompt** based on your instructions. It analyzes your current prompt, generates improvements, and applies the changes automatically.
+Copilot is an advanced AI-powered prompt editor integrated into the Advanced Editor. Instead of just giving you suggestions, **Copilot directly edits and improves your agent's system prompt** based on your instructions using a sophisticated structured editing system. It analyzes your current prompt, generates targeted improvements, and applies precise changes automatically through an advanced edit plan protocol.
 
 <Info>
-Copilot doesn't just suggest - it edits. Describe what you want to improve and watch as it modifies your system prompt in real-time.
+Copilot doesn't just suggest - it edits with precision. The new structured editing system uses targeted operations like section replacement, content insertion, and smart modifications to transform your system prompt while maintaining its structure and quality.
 </Info>
 
 ## Accessing Copilot
 
 Copilot is located in the right panel of the Advanced Editor. Click the "Copilot" tab or press **⌘J** to access it quickly.
 
-## Welcome Screen
+## Structured Editing System
 
-When you first open Copilot, you'll see a clean welcome interface with quick action buttons for common tasks:
+Copilot now operates through an advanced **EditPlan** system that provides precise, structured modifications to your agent's configuration:
 
 <Tabs>
-  <Tab title="Quick Actions">
+  <Tab title="Edit Operations">
     <Steps>
-      <Step title="Analyze & Improve">
-        Click to have Copilot review your entire prompt and suggest comprehensive improvements.
+      <Step title="Replace Section">
+        **replace_section**: Completely replaces a targeted section with improved content
         
-        Analyzes structure, clarity, instructions, and effectiveness automatically.
+        Uses intelligent boundary detection to preserve document structure while updating specific portions.
       </Step>
-      <Step title="Refine Tone">
-        Makes your prompt more concise and professional.
+      <Step title="Insert Content">
+        **insert_after**: Adds new content after specified sections or markers
         
-        Removes redundancy and improves conversational style.
+        Perfect for expanding instructions or adding new behavioral guidelines without disrupting existing content.
       </Step>
-      <Step title="Add Output Fields">
-        Automatically adds output parameters for lead qualification.
+      <Step title="Append Section">
+        **append_section**: Adds entirely new sections to the end of your prompt
         
-        Includes fields like name, email, phone, and interest level.
+        Ideal for introducing new capabilities, guardrails, or specialized instructions.
       </Step>
-      <Step title="Create Evaluations">
-        Sets up performance measurements for your agent.
+      <Step title="Delete Section">
+        **delete_section**: Removes outdated or redundant sections cleanly
         
-        Creates metrics for conversation quality, goal completion, and customer satisfaction.
+        Maintains document integrity while eliminating unnecessary content.
       </Step>
     </Steps>
   </Tab>
-  <Tab title="Voice Input">
-    Use voice commands to interact with Copilot:
+  <Tab title="Diff Integration">
+    **Built-in Diff Mode**: All changes are automatically displayed in diff view
     
-    - **Hold Microphone Button**: Press and hold the mic button in the input field
-    - **Double-Shift Shortcut**: Press Shift twice quickly to start voice recording
+    - **Green highlights**: New content being added
+    - **Red highlights**: Content being removed or replaced
+    - **Accept/Reject controls**: Review and approve changes before applying
+    - **Section-by-section review**: Focus on specific areas of modification
     
     <Warning>
-    Release the mic button or press Shift again to stop recording. Voice input is converted to text and processed like typed messages.
+    Changes are staged until you explicitly accept them. This prevents accidental modifications to your working prompt.
     </Warning>
   </Tab>
 </Tabs>
 
-## How It Works
+## Simplified SSE Protocol (5 Events)
 
-Copilot operates in three phases when you request a change:
+The new Copilot communication protocol uses a streamlined 5-event system for real-time feedback:
 
-| Phase | What Happens |
-|-------|--------------|
-| 🔍 Analyzing | Copilot reads your current system prompt and understands the context |
-| ⚙️ Generating | It creates the improved version based on your request |
-| ✏️ Editing | Changes are applied directly to your system prompt |
+| Event Type | Description | Visual Indicator |
+|------------|-------------|------------------|
+| **thinking** | AI is analyzing your request | ⏱️ Thinking timer with seconds counter |
+| **text** | Streaming explanation content | 📝 Real-time text appearing |
+| **edit** | Structured edit operation | ✏️ Diff preview with operation details |
+| **complete** | Operation finished successfully | ✅ Summary with metrics and next steps |
+| **error** | Something went wrong | ❌ Error message with suggested fixes |
 
-After completion, you'll see a summary of all changes made, which you can accept or reject.
+### Extended Event Types for Parameters
 
-## AI Suggestions for Input Parameters & Output Settings
+Additional events handle configuration changes:
 
-Copilot now provides intelligent suggestions for input parameters, output settings, and evaluations that appear directly in their respective configuration panels. These suggestions are contextual to your current agent setup and conversation needs.
+- **input_change**: Modifications to input parameters
+- **output_change**: Updates to output settings  
+- **enrichment_set**: Changes to output enrichment
+- **evaluation_change**: Evaluation criteria updates
 
-<Info>
-When Copilot generates suggestions for parameters or evaluations, they appear as pending changes in the relevant panels with purple highlighting and accept/reject buttons.
-</Info>
+## Welcome Screen
 
-### Input Parameter Suggestions
+When you first open Copilot, you'll see a clean welcome interface designed for quick access to powerful editing capabilities:
 
-When Copilot analyzes your agent, it can automatically suggest new input parameters based on:
+<Tabs>
+  <Tab title="Voice Input">
+    **Enhanced Voice Commands**: Use voice to naturally describe improvements
+    
+    <Steps>
+      <Step title="Start Recording">
+        **Hold Microphone Button**: Press and hold the mic button in the input field
+        
+        **Double-Shift Shortcut**: Press Shift twice quickly to start voice recording
+      </Step>
+      <Step title="Speak Naturally">
+        Describe changes in conversational language:
+        
+        *"Add greeting instructions for appointment scheduling calls"*
+        
+        *"The agent needs to better handle pricing objections based on call ABC-123"*
+      </Step>
+      <Step title="Review Transcription">
+        Voice input is converted to text - review and edit before sending
+      </Step>
+    </Steps>
+    
+    <Warning>
+    Release the mic button or press Shift again to stop recording. Voice works best in quiet environments with clear speech.
+    </Warning>
+  </Tab>
+  <Tab title="Call Context Analysis">
+    **Smart Call Integration**: Reference specific calls to inform improvements
+    
+    Use the **@call:ID** syntax to provide concrete examples:
+    
+    ```
+    @call:abc123 The customer was confused about pricing. 
+    Improve the pricing explanation section to be clearer.
+    ```
+    
+    Copilot automatically loads call transcripts and uses conversation context to make targeted improvements.
+  </Tab>
+</Tabs>
 
-- **Agent Role**: Appointment schedulers need calendar preferences, sales agents need budget information
-- **Conversation Context**: Referenced calls that show missing information
-- **Industry Standards**: Common parameters for your agent's domain
+## How Structured Editing Works
+
+The new Copilot operates through a sophisticated three-phase process with integrated diff management:
 
 <Steps>
-  <Step title="Generate Parameter Suggestions">
-    Ask Copilot to "Add input parameters for appointment scheduling" or use a quick action button.
+  <Step title="🔍 Analysis Phase">
+    **Deep Context Understanding**: Copilot analyzes your system prompt structure, identifies improvement opportunities, and loads any referenced call contexts.
+    
+    - Parses document structure and sections
+    - Loads @call:ID transcripts for context
+    - Identifies patterns and improvement areas
   </Step>
-  <Step title="Review Pending Changes">
-    Navigate to the Input Parameters panel to see suggested parameters with purple highlighting.
+  <Step title="⚙️ Edit Planning">
+    **Structured Operation Generation**: Creates a precise EditPlan with targeted operations instead of wholesale rewrites.
+    
+    - Generates specific edit operations (replace, insert, append, delete)
+    - Preserves document structure and formatting
+    - Plans minimal, focused changes
   </Step>
-  <Step title="Accept or Reject">
-    Each suggestion shows operation type (Add/Modify/Remove), parameter details, and accept/reject buttons.
-  </Step>
-  <Step title="Bulk Actions">
-    Use "Accept All" to apply all suggestions or reject individual ones selectively.
+  <Step title="✏️ Diff Review & Application">
+    **Staged Changes with Review**: All modifications appear in diff view for review before application.
+    
+    - Visual diff highlighting shows exactly what changes
+    - Accept/reject controls for each operation
+    - Maintains version history for rollbacks
   </Step>
 </Steps>
 
-### Output Settings Suggestions
+## Parameter & Configuration Changes
 
-Copilot suggests output parameters to capture key conversation data:
+Copilot now intelligently suggests changes to input parameters, output settings, and evaluations that appear directly in their respective configuration panels:
 
-```
-@call:abc123 The agent collected the customer's name and interest level 
-but we're missing their preferred contact method. Add output fields to capture this.
-```
+<Tabs>
+  <Tab title="Input Parameter Operations">
+    **Smart Parameter Suggestions** based on conversation analysis and agent needs:
+    
+    <Steps>
+      <Step title="Contextual Generation">
+        Copilot analyzes your agent's role and referenced calls to suggest relevant input parameters:
+        
+        - **Role-based**: Appointment schedulers get calendar preferences
+        - **Call-driven**: Missing information from transcripts becomes parameters
+        - **Industry-standard**: Common fields for your agent's domain
+      </Step>
+      <Step title="Change Operations">
+        Three types of parameter changes:
+        
+        - 🟢 **Add**: New parameters with proper validation
+        - 🟡 **Modify**: Updates to existing parameter configs
+        - 🔴 **Remove**: Clean up outdated or redundant parameters
+      </Step>
+      <Step title="Visual Review System">
+        **Purple highlighting** in Input Parameters panel shows pending changes:
+        
+        - Operation badges (Add/Modify/Remove)
+        - Parameter details and descriptions
+        - Individual accept/reject buttons
+        - Bulk action controls
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Output Configuration">
+    **Intelligent Output Field Suggestions** for comprehensive data capture:
+    
+    ```
+    @call:abc123 The agent collected the customer's name and interest level 
+    but we're missing their preferred contact method. Add output fields to capture this.
+    ```
+    
+    Copilot suggests contextually relevant output parameters:
+    - Contact preferences (email, phone, text)
+    - Lead qualification scores  
+    - Next step requirements
+    - Custom fields based on conversation patterns
+  </Step>
+  <Tab title="Evaluation Criteria">
+    **Performance Measurement Setup** based on agent goals:
+    
+    - **Conversation Quality**: Clarity, professionalism, engagement metrics
+    - **Goal Achievement**: Primary objective completion tracking
+    - **Customer Satisfaction**: Experience and satisfaction evaluation
+    - **Process Adherence**: Compliance with required procedures
+  </Tab>
+</Tabs>
 
-Copilot will analyze the call context and suggest appropriate output parameters like:
-- Contact preferences (email, phone, text)
-- Lead qualification scores
-- Next step requirements
-- Custom fields based on conversation patterns
+## Visual Change Management System
 
-### Evaluation Suggestions
+### Purple Highlight Protocol
 
-Performance measurements are automatically suggested based on your agent's goals:
-
-- **Conversation Quality**: Measures clarity, professionalism, and engagement
-- **Goal Achievement**: Tracks completion of primary objectives
-- **Customer Satisfaction**: Evaluates customer experience and satisfaction
-- **Process Adherence**: Ensures agent follows required procedures
-
-## Visual Indicators for Pending Changes
-
-### Purple Highlight System
-
-When Copilot generates suggestions for input parameters, output settings, or evaluations, you'll see distinctive visual indicators:
+When Copilot generates suggestions for configuration changes, distinctive visual indicators guide your review process:
 
 <Tabs>
   <Tab title="Pending Changes Banner">
-    **Purple-highlighted banners** appear at the top of relevant panels showing:
+    **Purple-highlighted banners** appear at the top of relevant panels:
     
-    - Copilot sparkle icon with "Copilot Suggestions" title
-    - Summary of pending changes (e.g., "3 new parameters, 1 evaluation")
-    - Accept All/Reject buttons for bulk actions
+    - **Copilot sparkle icon** with "Copilot Suggestions" title
+    - **Change summary**: "3 new parameters, 1 evaluation" 
+    - **Bulk controls**: Accept All/Reject All buttons
+    - **Panel navigation**: Direct links to affected configuration areas
   </Tab>
-  <Tab title="Individual Change Cards">
-    Each suggestion appears as a **change card** with:
+  <Tab title="Change Cards">
+    Each suggestion appears as a detailed **change card**:
     
-    - **Operation badge**: Green "ADD", Yellow "MODIFY", or Red "REMOVE"
+    - **Operation badge**: Color-coded Add/Modify/Remove indicators
     - **Parameter details**: Name, type, description, and requirements
-    - **Individual controls**: Accept/reject buttons for each suggestion
+    - **Impact preview**: Shows how the change affects your agent
+    - **Individual controls**: Accept/reject buttons for granular control
   </Tab>
-  <Tab title="Panel Navigation">
-    **Visual cues** guide you to panels with pending changes:
+  <Tab title="Cross-Panel Integration">
+    **Seamless navigation** between Copilot and configuration panels:
     
-    - Purple notification dots on panel tabs
-    - Automatic panel highlighting when changes are generated
-    - Smooth transitions between Copilot and configuration panels
+    - Purple notification dots on affected panel tabs
+    - Automatic panel highlighting when changes are generated  
+    - Smooth transitions preserve your editing context
+    - Real-time sync between panels
   </Tab>
 </Tabs>
 
-### Change Types and Colors
+### Change Type Indicators
 
-| Change Type | Badge Color | Description |
-|-------------|-------------|-------------|
-| **Add** | 🟢 Green | New parameters, evaluations, or settings |
-| **Modify** | 🟡 Yellow | Changes to existing configurations |
-| **Remove** | 🔴 Red | Deletion of outdated or redundant items |
+| Change Type | Badge Color | Operation | Description |
+|-------------|-------------|-----------|-------------|
+| **Add** | 🟢 Green | ADD | New parameters, evaluations, or settings |
+| **Modify** | 🟡 Yellow | MODIFY | Changes to existing configurations |
+| **Remove** | 🔴 Red | REMOVE | Deletion of outdated or redundant items |
 
 ## Accepting and Rejecting Suggestions
 
-### Individual Change Management
+### Granular Change Control
 
 <Steps>
-  <Step title="Review Each Suggestion">
-    Each change card shows the operation type, parameter details, and impact on your agent.
+  <Step title="Individual Review">
+    **Examine each suggestion carefully**:
+    
+    - Review operation type and parameter details
+    - Check impact on your agent's behavior  
+    - Verify alignment with your specific use case
   </Step>
-  <Step title="Accept Individual Changes">
-    Click the "Accept" button on specific suggestions you want to keep.
+  <Step title="Selective Application">
+    **Accept only relevant changes**:
+    
+    - Click "Accept" on specific suggestions you want to keep
+    - Click "Reject" to dismiss unsuitable suggestions
+    - Changes apply immediately to your configuration
   </Step>
-  <Step title="Reject Unwanted Changes">
-    Click "Reject" to dismiss suggestions that don't fit your needs.
-  </Step>
-  <Step title="See Live Updates">
-    Accepted changes immediately appear in your configuration, rejected ones are removed from pending.
+  <Step title="Live Configuration Updates">
+    **See results instantly**:
+    
+    - Accepted changes appear in your panels immediately
+    - Rejected changes are removed from pending list
+    - Configuration panels update in real-time
   </Step>
 </Steps>
 
-### Bulk Change Management
+### Bulk Operations
 
-Use the banner controls for efficient bulk operations:
+Efficient management of multiple changes:
 
 ```
-Accept All - Apply all pending suggestions at once
-Reject All - Dismiss all pending suggestions
+Accept All - Apply all pending suggestions simultaneously
+Reject All - Dismiss all pending suggestions at once
 ```
 
 <Warning>
-Bulk actions cannot be undone. Review individual suggestions before using "Accept All" to ensure they align with your agent's requirements.
+Bulk actions are permanent and cannot be undone. Review individual suggestions first to ensure they align with your agent's requirements before using "Accept All".
 </Warning>
 
-### Change Persistence
+### Change Persistence & History
 
-- **Pending changes persist** across editor sessions until accepted or rejected
-- **Auto-save functionality** preserves your accept/reject decisions
-- **Version history** tracks all applied changes for rollback if needed
+- **Session persistence**: Pending changes survive editor sessions until resolved
+- **Auto-save decisions**: Your accept/reject choices are automatically preserved  
+- **Version tracking**: All applied changes are logged for potential rollback
+- **Change history**: Full audit trail of Copilot modifications
 
-## Voice Recording
+## Voice Recording & Analysis
 
-Copilot supports voice input for hands-free prompt editing:
-
-### Using Voice Commands
-
-<Steps>
-  <Step title="Start Recording">
-    **Hold the microphone button** in the input field, or **double-press Shift** to begin voice recording.
-  </Step>
-  <Step title="Speak Your Request">
-    Clearly describe what you want Copilot to improve or change in your prompt.
-  </Step>
-  <Step title="Stop Recording">
-    Release the mic button or press **Shift** again to end recording.
-  </Step>
-  <Step title="Review & Send">
-    The transcribed text appears in the input field. Review and send your request.
-  </Step>
-</Steps>
-
-### Voice Input Tips
-
-- Speak clearly and at a normal pace
-- Use natural language - describe changes as you would to a colleague
-- Voice input is transcribed to text before processing
-
-<Info>
-Voice recording works best in quiet environments. If transcription is unclear, you can edit the text before sending.
-</Info>
-
-## Call Context Integration
-
-Reference specific calls to inform prompt improvements using the **@call:ID** syntax:
-
-### Using Call References
-
-```
-@call:abc123 The agent failed to handle the budget question. 
-Add instructions to better address pricing concerns.
-```
-
-When you reference a call, Copilot loads the transcript and uses it to understand what went wrong and how to improve the prompt.
-
-### Call Context Indicators
-
-Call references appear with special indicators in the chat:
-
-- **@call:abc123** - Shows as a clickable reference with call metadata
-- Hover to see call details (duration, outcome, timestamp)
-- Click to open the full call transcript
-
-<Steps>
-  <Step title="Find a Problematic Call">
-    Identify a call where the agent didn't perform well in your Calls dashboard.
-  </Step>
-  <Step title="Copy the Call ID">
-    Use the call ID from the URL or copy from the call details.
-  </Step>
-  <Step title="Reference in Copilot">
-    Type `@call:CALL_ID` followed by your improvement request.
-  </Step>
-  <Step title="Review Context-Aware Changes">
-    Copilot edits the prompt based on the specific call context.
-  </Step>
-</Steps>
-
-## Describing Changes
-
-In the input field, describe what you want to change. Be specific about your goals.
-
-### Effective Requests
-
-```
-Add instructions for handling pricing objections
-```
-
-```
-Make the greeting more friendly and casual
-```
-
-```
-Add a section about appointment confirmation procedures
-```
-
-```
-@call:xyz789 Improve how the agent handles "I need to think about it" responses
-```
-
-### What Copilot Edits
-
-Copilot can modify any part of your system prompt:
-
-| Element | Examples |
-|---------|----------|
-| Instructions | Add new behaviors, modify existing rules |
-| Tone | Adjust formality, friendliness, professionalism |
-| Structure | Reorganize sections, add headers |
-| Guardrails | Add safety limits, scope boundaries |
-| Scenarios | Add handling for specific situations |
-| Language | Improve clarity, remove ambiguity |
-| Output Fields | Add data collection parameters |
-| Evaluations | Create performance measurement criteria |
-
-## Next Step Suggestions
-
-After Copilot completes a change, you'll see **suggested next steps** to further improve your agent:
-
-### Types of Suggestions
+Enhanced voice input capabilities for natural prompt editing:
 
 <Tabs>
-  <Tab title="Related Improvements">
-    Based on the change you just made, Copilot suggests related enhancements:
-    
-    - If you added greeting instructions → suggests adding closing procedures
-    - If you improved objection handling → suggests adding follow-up strategies
-    - If you added output fields → suggests creating matching evaluations
+  <Tab title="Voice Command System">
+    <Steps>
+      <Step title="Activation Methods">
+        **Two ways to start voice recording**:
+        
+        - **Hold microphone button** in the input field
+        - **Double-press Shift** to begin hands-free recording
+      </Step>
+      <Step title="Natural Speech Processing">
+        **Speak conversationally**:
+        
+        - Describe changes as you would to a colleague
+        - Reference specific problems or improvements needed
+        - Use call references naturally: "In call A-B-C-1-2-3, the customer was confused..."
+      </Step>
+      <Step title="Transcription & Review">
+        **Quality control before processing**:
+        
+        - Voice converts to text automatically
+        - Review and edit transcription if needed
+        - Send refined request to Copilot
+      </Step>
+    </Steps>
   </Tab>
-  <Tab title="Best Practice Recommendations">
-    Suggestions based on prompt optimization best practices:
+  <Tab title="Call Context Integration">
+    **Powerful call reference system** for context-driven improvements:
     
-    - Add missing guardrails
-    - Improve instruction clarity
-    - Optimize prompt structure
-    - Add edge case handling
-  </Tab>
-  <Tab title="Testing Reminders">
-    Prompts to test your changes:
+    ### Using Call References
     
-    - "Test this in Playground"
-    - "Run regression tests"
-    - "Validate with a sample call"
+    ```
+    @call:abc123 The agent failed to handle the budget question. 
+    Add instructions to better address pricing concerns.
+    ```
+    
+    When you reference a call:
+    - Copilot automatically loads the full transcript
+    - Analyzes conversation flow and failure points
+    - Uses specific context to generate targeted improvements
+    
+    ### Call Context Indicators
+    
+    Referenced calls appear with rich metadata:
+    - **Clickable call references**: @call:abc123 format
+    - **Hover details**: Duration, outcome, timestamp
+    - **Transcript access**: Click to view full conversation
   </Tab>
 </Tabs>
 
-### Using Suggestions
+### Voice Input Best Practices
 
-Click any suggestion to automatically populate the input field with that request. You can:
+<Tabs>
+  <Tab title="Recording Environment">
+    **Optimize for quality transcription**:
+    
+    - Use quiet spaces with minimal background noise
+    - Position close to your device's microphone
+    - Speak at normal, conversational pace
+    - Enunciate clearly without over-articulating
+  </Tab>
+  <Tab title="Effective Voice Commands">
+    **Examples of natural voice instructions**:
+    
+    ```
+    "Add greeting instructions for appointment scheduling calls"
+    ```
+    
+    ```
+    "Reference call A-B-C-1-2-3. The customer was confused about pricing. 
+    Improve the pricing explanation section to be much clearer."
+    ```
+    
+    ```
+    "Make the entire prompt sound more friendly and conversational 
+    while keeping it professional"
+    ```
+  </Tab>
+  <Tab title="Voice vs Text Guidelines">
+    | Use Voice When | Use Text When |
+    |----------------|---------------|
+    | Making quick, natural improvements | Writing complex technical instructions |
+    | Referencing call transcripts | Including specific code or formatting |
+    | Describing tone or style changes | Making precise edits to existing content |
+    | Brainstorming improvements | Adding URLs or technical specifications |
+    | Explaining context from calls | Copying exact text or templates |
+  </Tab>
+</Tabs>
 
-- Use suggestions as-is
-- Modify them before sending
-- Combine multiple suggestions
-- Dismiss suggestions you don't need
+## Call Context Analysis
 
-## Analyzing Tickets
-
-For bulk analysis, use the Tickets panel:
+Reference specific calls to inform targeted prompt improvements:
 
 <Steps>
-  <Step title="Open Tickets Panel">
-    Click the + button and select "Analyze tickets".
+  <Step title="Identify Problem Calls">
+    **Find calls where the agent underperformed**:
+    
+    - Review call transcripts in your Calls dashboard
+    - Look for conversations with poor outcomes
+    - Note specific failure points or confusion
   </Step>
-  <Step title="Select Tickets">
-    Choose multiple calls/tickets to analyze.
+  <Step title="Reference in Copilot">
+    **Use @call:ID syntax to provide context**:
+    
+    ```
+    @call:xyz789 Improve how the agent handles "I need to think about it" responses
+    ```
+    
+    - Copy call ID from dashboard or URL
+    - Describe specific improvement needed
+    - Let Copilot analyze the full conversation context
   </Step>
-  <Step title="Run Analysis">
-    Copilot identifies patterns across selected tickets.
-  </Step>
-  <Step title="Apply Improvements">
-    Suggested prompt changes based on common issues.
+  <Step title="Context-Driven Improvements">
+    **Copilot uses call data to make targeted changes**:
+    
+    - Analyzes conversation flow and failure points
+    - Identifies missing instructions or unclear guidance
+    - Generates specific improvements based on actual problems
+    - Creates contextual parameter suggestions if data is missing
   </Step>
 </Steps>
 
-## Reviewing Changes
+### Call Context Features
 
-After Copilot edits your prompt:
+- **Automatic transcript loading**: Call content loads seamlessly
+- **Metadata integration**: Duration, outcome, participant info
+- **Pattern recognition**: Identifies common issues across referenced calls
+- **Smart parameter generation**: Suggests missing input/output fields based on call content
 
-### Change Summary
+## Advanced Editing Capabilities
 
-You'll see a completion summary showing:
-- Title of the changes made
-- Duration of the operation
-- List of specific modifications
-- Suggested next steps
+Copilot can modify any aspect of your agent configuration with surgical precision:
 
-### Accept or Reject
+<Tabs>
+  <Tab title="Prompt Structure">
+    **Document-level improvements**:
+    
+    | Element | Capabilities |
+    |---------|--------------|
+    | **Instructions** | Add new behaviors, modify existing rules |
+    | **Tone & Style** | Adjust formality, friendliness, professionalism |
+    | **Organization** | Reorganize sections, add headers, improve flow |
+    | **Guardrails** | Add safety limits, scope boundaries |
+    | **Scenarios** | Add handling for specific situations |
+    | **Language** | Improve clarity, remove ambiguity |
+  </Tab>
+  <Tab title="Configuration Changes">
+    **Parameter and setting modifications**:
+    
+    - **Input Parameters**: Add customer data collection fields
+    - **Output Settings**: Configure data extraction and webhooks  
+    - **Evaluations**: Create performance measurement criteria
+    - **Knowledge Base**: Suggest relevant documents to add
+    - **Actions & Tools**: Recommend transfer protocols and end-call strategies
+  </Tab>
+</Tabs>
 
-Changes appear in the Monaco editor with highlighting:
-- **Accept**: Keep the changes in your prompt
-- **Reject**: Revert to the previous version
+## Next Step Suggestions
 
-<Warning>
-Always review changes before accepting. Test in the Playground to verify the improvements work as expected.
-</Warning>
+After completing changes, Copilot provides **intelligent follow-up recommendations**:
 
-## Conversation History
+<Tabs>
+  <Tab title="Related Improvements">
+    **Contextually relevant next steps**:
+    
+    - Added greeting instructions → suggests closing procedures
+    - Improved objection handling → suggests follow-up strategies  
+    - Added output fields → suggests matching evaluations
+    - Enhanced guardrails → recommends related safety measures
+  </Tab>
+  <Tab title="Best Practice Recommendations">
+    **Optimization suggestions based on proven patterns**:
+    
+    - Add missing guardrails for edge cases
+    - Improve instruction clarity and specificity
+    - Optimize prompt structure and organization
+    - Add comprehensive error handling
+  </Tab>
+  <Tab title="Testing Reminders">
+    **Quality assurance prompts**:
+    
+    - "Test these changes in Playground"
+    - "Run regression tests to validate improvements"
+    - "Verify with a sample call simulation"
+    - "Create automated tests for new behaviors"
+  </Tab>
+</Tabs>
 
-Continue refining with follow-up requests:
+### Using Suggestions Effectively
+
+- **One-click application**: Click suggestions to auto-populate input field
+- **Customizable requests**: Modify suggestions before sending
+- **Combination strategies**: Merge multiple suggestions into comprehensive improvements
+- **Strategic dismissal**: Remove suggestions that don't fit your use case
+
+## Conversation History & Context
+
+Build sophisticated improvements through multi-turn conversations:
 
 ```
 User: Add instructions for handling price objections
 
-Copilot: [Makes changes]
+Copilot: [Makes targeted changes with diff preview]
 
-User: Good, but make it less aggressive
+User: Good, but make it less aggressive and more consultative
 
-Copilot: [Refines the changes]
+Copilot: [Refines the approach with updated diff]
 
-User: Perfect, now add a fallback for if they still object
+User: Perfect, now add a fallback for persistent objections
 
-Copilot: [Adds additional handling]
+Copilot: [Adds additional escalation handling]
 ```
 
 <Info>
-Start a new conversation using the menu option to reset context when switching to a different topic.
+Copilot maintains conversation context across multiple requests, allowing for iterative refinement. Start a new conversation (using the menu option) when switching to completely different topics.
 </Info>
-
-## Voice Input Best Practices
-
-### Recording Environment
-- Use a quiet space with minimal background noise
-- Position yourself close to your device's microphone
-- Speak at a normal, conversational pace
-
-### Effective Voice Commands
-```
-"Add greeting instructions for appointment scheduling calls"
-```
-
-```
-"Reference call A-B-C-1-2-3. The customer was confused about pricing. 
-Improve the pricing explanation section."
-```
-
-```
-"Make the entire prompt sound more friendly and conversational"
-```
-
-### Voice vs. Text Input
-
-| Use Voice When | Use Text When |
-|----------------|---------------|
-| Making quick improvements | Writing complex, technical instructions |
-| Referencing call transcripts | Adding specific code or formatting |
-| Describing tone changes | Making precise edits to existing content |
-| Brainstorming improvements | Including URLs or technical specifications |
-
-## Best Practices
-
-<Steps>
-  <Step title="Be Specific About Changes">
-    Instead of "make it better", describe exactly what to improve:
-    
-    **Good:** "Add a section for handling refund requests with a 3-step process"
-    
-    **Vague:** "Improve customer service handling"
-  </Step>
-  <Step title="Use Real Call Context">
-    Reference actual failed calls when improving specific scenarios. This gives Copilot concrete examples of what went wrong.
-    
-    Use `@call:ID` syntax to provide context from real conversations.
-  </Step>
-  <Step title="Review Parameter Suggestions">
-    Check the Input Parameters and Output Settings panels after requesting parameter changes.
-    
-    Purple highlights indicate pending suggestions that need your approval.
-  </Step>
-  <Step title="Accept Changes Strategically">
-    Don't blindly accept all suggestions. Review each parameter or evaluation to ensure it fits your specific use case.
-  </Step>
-  <Step title="Test Comprehensive Changes">
-    When accepting multiple parameter or evaluation suggestions, test in Playground to verify everything works together.
-  </Step>
-  <Step title="Use Voice for Natural Requests">
-    Voice input works especially well for describing parameter needs: "The agent needs to collect the customer's budget range and timeline preferences."
-  </Step>
-  <Step title="Follow Visual Cues">
-    Purple notification indicators guide you to panels with pending changes. Don't miss suggestions in other panels.
-  </Step>
-  <Step title="Iterate in Small Steps">
-    Make incremental changes rather than trying to fix everything at once. This makes it easier to identify what works.
-  </Step>
-</Steps>
 
 ## Common Editing Tasks
 
-### Adding New Behaviors
+### Enhanced Behavioral Instructions
 ```
 Add instructions for the agent to always confirm 
-the customer's phone number before ending the call
+the customer's phone number before ending the call, 
+and provide a backup email if the phone number is invalid
 ```
 
-### Improving Specific Scenarios
+### Context-Driven Scenario Improvements  
 ```
 @call:abc123 Improve how the agent handles when 
-customers ask to speak with a manager
+customers ask to speak with a manager - the current 
+approach seemed to frustrate the customer
 ```
 
-### Adjusting Communication Style
+### Comprehensive Style Adjustments
 ```
 Make the entire prompt more conversational and less formal. 
-The agent should sound like a helpful friend, not a robot.
+The agent should sound like a helpful friend, not a robot, 
+while maintaining professionalism for business contexts.
 ```
 
-### Adding Parameters and Output Fields
+### Integrated Parameter & Output Management
 ```
-Add input parameters to capture customer preferences and 
-output fields to track lead qualification scores
-```
-
-### Creating Comprehensive Evaluations
-```
-Create evaluations to measure: conversation quality, 
-goal achievement, customer satisfaction, and proper procedure following
+Add input parameters to capture customer budget range and timeline, 
+plus output fields to track lead qualification scores and next steps
 ```
 
-### Adding Guardrails
+### Performance-Driven Evaluations
 ```
-Add clear boundaries: the agent should never discuss 
-competitor products or make promises about delivery dates
+Create evaluations to measure: conversation quality (1-10 scale), 
+goal achievement (percentage), customer satisfaction (survey-based), 
+and proper procedure following (checklist compliance)
 ```
 
-### Context-Based Parameter Updates
+### Contextual Guardrail Development
 ```
-@call:xyz789 The customer mentioned their budget but we didn't capture it. 
-Add input and output parameters for budget tracking.
+@call:xyz789 The agent made promises about delivery dates. 
+Add clear boundaries: never discuss competitor products 
+or make specific delivery commitments without manager approval
+```
+
+### Call-Driven Parameter Updates
+```
+@call:def456 The customer mentioned their budget repeatedly 
+but we didn't capture it. Add input and output parameters 
+for budget tracking with proper validation rules.
 ```
 
 ## Keyboard Shortcuts
@@ -525,54 +575,111 @@ Add input and output parameters for budget tracking.
 | **⌘J** | Open/focus Copilot panel |
 | **Shift + Shift** | Start/stop voice recording |
 | **⌘Enter** | Send message to Copilot |
-| **Escape** | Close Copilot suggestions |
+| **Escape** | Close Copilot suggestions or cancel recording |
 | **⌘3** | Navigate to Input Parameters panel |
-| **⌘7** | Navigate to Output Settings panel |
 | **⌘6** | Navigate to Evaluations panel |
+| **⌘7** | Navigate to Output Settings panel |
+| **⌘G** | Navigate to Git Changes panel |
+
+## Best Practices
+
+<Steps>
+  <Step title="Be Specific About Changes">
+    **Use precise, actionable descriptions**:
+    
+    **Good:** "Add a 3-step refund request handling process with clear decision criteria"
+    
+    **Vague:** "Improve customer service handling"
+    
+    Specific requests generate more targeted and useful improvements.
+  </Step>
+  <Step title="Leverage Real Call Context">
+    **Reference actual problematic calls for concrete improvements**:
+    
+    - Use `@call:ID` syntax to provide specific failure examples
+    - Let Copilot analyze real conversation data
+    - Address actual problems rather than hypothetical scenarios
+  </Step>
+  <Step title="Review Parameter Suggestions Strategically">
+    **Don't automatically accept all configuration changes**:
+    
+    - Check Input Parameters and Output Settings panels for purple highlights
+    - Evaluate each suggestion against your specific use case
+    - Consider the impact on conversation flow and data collection
+  </Step>
+  <Step title="Use Voice for Natural Requests">
+    **Voice input excels for conversational improvement descriptions**:
+    
+    - "The agent needs to collect customer budget and timeline preferences"
+    - "Based on call ABC-123, improve how we handle pricing questions"
+    - Let natural speech guide more intuitive improvements
+  </Step>
+  <Step title="Follow Visual Notification Cues">
+    **Purple indicators guide you to pending changes**:
+    
+    - Check all panels with notification dots
+    - Don't miss suggestions in configuration areas
+    - Use cross-panel navigation to review comprehensively
+  </Step>
+  <Step title="Test Comprehensively After Major Changes">
+    **Validate improvements before deploying**:
+    
+    - Use Playground to test new behaviors
+    - Run regression tests to ensure quality maintenance
+    - Verify parameter changes work with real data
+  </Step>
+  <Step title="Iterate Incrementally">
+    **Make focused improvements rather than massive overhauls**:
+    
+    - Address one problem area at a time
+    - Test changes before adding more complexity
+    - Build understanding of what works through smaller steps
+  </Step>
+</Steps>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
     title="Input Parameters"
-    icon="adjustments-horizontal"
+    icon="adjustments-horizontal"  
     href="/advanced-editor/panels/input-parameters"
   >
-    Configure input parameters with AI suggestions
+    Configure input parameters with AI suggestions from Copilot
   </Card>
   <Card
     title="Output Settings"
     icon="arrow-up-tray"
-    href="/advanced-editor/panels/output-settings"
+    href="/advanced-editor/panels/output-settings"  
   >
-    Set up output fields and webhooks
+    Set up output fields and webhooks with intelligent suggestions
   </Card>
   <Card
     title="Evaluations"
     icon="chart-bar"
     href="/advanced-editor/panels/evaluations"
   >
-    Create performance measurements
+    Create performance measurements with Copilot recommendations
   </Card>
   <Card
     title="Playground"
     icon="gamepad"
     href="/advanced-editor/playground"
   >
-    Test your improved prompts
+    Test your improved prompts and parameter changes
   </Card>
   <Card
-    title="Tests"
+    title="Tests" 
     icon="clipboard-check"
     href="/advanced-editor/tests"
   >
-    Create automated tests to validate changes
+    Create automated tests to validate Copilot improvements
   </Card>
   <Card
     title="Version History"
     icon="clock-rotate-left"
     href="/advanced-editor/version-history"
   >
-    Track changes from Copilot edits
+    Track all changes from Copilot's structured editing system
   </Card>
 </CardGroup>

@@ -1,481 +1,573 @@
 ---
 title: 'Version History'
-description: 'Git-like version control for your agent configurations with visual timeline, production management, and collaborative editing'
+description: 'Git-like version control system for agent configurations with real-time collaboration, conflict resolution, and production deployment management'
 icon: 'clock-rotate-left'
 ---
 
 ## What is Version History?
 
-Version History provides Git-like version control for your agent configurations with a professional interface similar to GitHub or GitLab. Every change to your agent is automatically tracked, allowing you to review modifications, commit changes with descriptive messages, and manage production deployments with confidence.
+Version History provides Git-like version control for your agent configurations with a professional interface similar to GitHub or GitLab. Every change to your agent is automatically tracked, creating a complete timeline of modifications with detailed diffs, collaborative editing support, and safe production deployment workflows.
 
 <Info>
-Version History works like a professional development workflow - track changes, review diffs, commit updates, and deploy to production. Never lose your work with comprehensive version tracking.
+Version History works like a professional development environment - track changes in real-time, resolve conflicts collaboratively, commit updates with descriptive messages, and deploy to production with confidence. Never lose your work with comprehensive version tracking and conflict resolution.
 </Info>
 
 ## Accessing Version History
 
-Version History is integrated into the Advanced Editor's right panel. Click the **"Changes"** tab to access the Git-style version control interface with three main views:
+Version History is integrated into the Advanced Editor's right panel. Click the **"Changes"** tab to access the Git-style version control interface with comprehensive change management:
 
-- **Changes**: Review pending modifications before committing
-- **History**: Browse complete timeline of all versions
-- **Branches**: Manage parallel development branches
+- **Changes**: Review pending modifications with detailed diffs before committing
+- **History**: Browse complete timeline of all versions with deployment status
+- **Branches**: Manage parallel development branches for experimental features
 
 ## Git-Style Status System
 
-### Current Status Indicator
+### Real-Time Status Indicators
 
-The editor header displays your Git status with visual indicators:
+The editor header displays your current Git status with live collaboration indicators:
 
 <Tabs>
   <Tab title="Clean Working Tree">
-    - **Green badge**: "Clean" - No pending changes
-    - **Version display**: Current version (v15)
-    - Ready for new modifications
+    - **Green badge**: "Clean" - No pending changes, synchronized with remote
+    - **Version display**: Current version number (e.g., v15)
+    - **Collaboration indicator**: Shows active collaborators if any
+    - Ready for new modifications or deployment
   </Tab>
   <Tab title="Modified State">
-    - **Yellow badge**: "Modified (3)" - Number of changed fields
-    - **Change counter**: Shows exact count of pending changes
+    - **Yellow badge**: "Modified (3)" - Number of changed fields shown
+    - **Change counter**: Real-time count of pending modifications
+    - **Field tracking**: Granular tracking of specific changed sections
     - Ready to review and commit changes
   </Tab>
   <Tab title="Conflict Resolution">
     - **Red badge**: "Conflicts (2)" - Merge conflicts detected
-    - **Conflict fields**: Specific areas needing resolution
-    - Requires manual conflict resolution
+    - **Conflict fields**: Specific configuration areas needing resolution
+    - **Resolution workflow**: Guided process to resolve each conflict
+    - Requires manual conflict resolution before committing
+  </Tab>
+  <Tab title="Syncing State">
+    - **Blue badge**: "Syncing..." - Auto-sync in progress with remote
+    - **Progress indicator**: Shows background synchronization status
+    - **Queue status**: Pending remote changes being processed
+    - Automatic resolution of non-conflicting changes
+  </Tab>
+  <Tab title="Locked State">
+    - **Orange badge**: "Locked by X user(s)" - Collaborative editing lock
+    - **Collaborator list**: Shows who is currently making changes
+    - **Lock timeout**: Automatic release after period of inactivity
+    - Prevents conflicting simultaneous edits
   </Tab>
 </Tabs>
 
-### Version Control Toolbar
+### Integrated Version Control Toolbar
 
-Quick action buttons integrated into the header:
+Quick action buttons seamlessly integrated into the editor header:
 
-| Action | Button | Description | Shortcut |
-|--------|--------|-------------|----------|
-| **Check** | 🔍 | Check for remote updates | `⌘U` |
-| **Pull** | ⬇️ | Pull latest changes from remote | `⌘⇧P` |
-| **Commit** | ✓ | Save current changes with message | `⌘Enter` |
-| **Push** | ⬆️ | Deploy to production environment | `⌘⇧Enter` |
+| Action | Button | Description | Keyboard Shortcut |
+|--------|--------|-------------|-------------------|
+| **Check** | 🔍 | Check for remote updates and conflicts | `⌘U` |
+| **Pull** | ⬇️ | Pull and merge latest changes from remote | `⌘⇧P` |
+| **Commit** | ✓ | Save current changes with descriptive message | `⌘Enter` |
+| **Push** | ⬆️ | Deploy committed version to production | `⌘⇧Enter` |
 
-## Working with Pending Changes
+## Advanced Change Tracking
 
-### Visual Changes Review
+### Granular Change Detection
 
-The Changes view provides GitHub-style diff interface:
+The system tracks changes at multiple levels for comprehensive version control:
 
 <Steps>
-  <Step title="View All Changes">
-    See all modified fields organized by configuration section (Basic Settings, Prompt, Actions, etc.)
+  <Step title="Field-Level Tracking">
+    Individual configuration fields are monitored for any modifications, additions, or deletions
   </Step>
-  <Step title="Expand Change Details">
-    Click any change to see detailed before/after comparison with syntax highlighting
+  <Step title="Section-Based Organization">
+    Changes are automatically categorized by configuration sections (Basic Settings, Prompt, Actions, etc.)
   </Step>
-  <Step title="Stage Specific Changes">
-    Use checkboxes to select which changes to include in your commit
+  <Step title="Real-Time Diffing">
+    Live comparison between current state and last committed version with syntax highlighting
   </Step>
-  <Step title="Review Before Commit">
-    Verify your selections and use the commit dialog to save changes
+  <Step title="Intelligent Conflict Detection">
+    Automatic detection of conflicting changes from multiple collaborators
   </Step>
 </Steps>
 
-### Change Type Indicators
+### Enhanced Change Categories
 
 <Tabs>
-  <Tab title="Added Content">
-    - **Green background with + icon**: New fields or content added
-    - Shows the new value being set
-    - Indicates expansion of agent capabilities
+  <Tab title="Basic Settings Changes">
+    - **Agent name and description**: Identity modifications
+    - **Voice and model configuration**: Core behavior changes  
+    - **Language and accent settings**: Communication style updates
+    - **Response timing preferences**: Performance optimizations
   </Tab>
-  <Tab title="Modified Content">
-    - **Blue background with edit icon**: Existing content changed
-    - Shows both old and new values side-by-side
-    - Most common type of change during iterations
+  <Tab title="System Prompt Modifications">
+    - **Core instruction updates**: Primary behavior changes
+    - **Context additions**: New knowledge or capabilities
+    - **Constraint modifications**: Behavioral boundary adjustments
+    - **Personality refinements**: Tone and style improvements
   </Tab>
-  <Tab title="Deleted Content">
-    - **Red background with - icon**: Content removed
-    - Shows what was removed from configuration
-    - Indicates simplification or cleanup
+  <Tab title="Input/Output Parameter Changes">
+    - **New parameter definitions**: Expanding agent capabilities
+    - **Validation rule updates**: Data quality improvements
+    - **Type and format changes**: Schema modifications
+    - **Required field adjustments**: Workflow changes
+  </Tab>
+  <Tab title="Actions and Tools Updates">
+    - **Transfer capability changes**: Call routing modifications
+    - **End call strategy updates**: Conversation conclusion logic
+    - **Webhook configuration changes**: Integration updates
+    - **Tool addition or removal**: Capability expansions/reductions
   </Tab>
 </Tabs>
 
-### Change Sections
+## Professional Commit Workflow
 
-Changes are automatically categorized by configuration area:
-
-- **Basic Settings**: Name, voice, model configuration
-- **System Prompt**: Core instruction modifications
-- **Greetings**: Inbound and outbound message changes
-- **Input Parameters**: Parameter definitions and validation
-- **Actions & Tools**: Transfer capabilities and end call strategy
-- **Output Settings**: Webhook configurations and output parameters
-- **Evaluations**: Success criteria and scoring changes
-
-## Committing Changes
-
-### Smart Commit Workflow
+### Smart Commit Interface
 
 <Steps>
-  <Step title="Open Commit Dialog">
-    Click "Commit" button or use `⌘Enter` keyboard shortcut
+  <Step title="Review All Changes">
+    Comprehensive overview of all modifications with expandable diff views for detailed inspection
   </Step>
-  <Step title="AI-Generated Messages">
-    Click "✨ Generate" for intelligent commit message suggestions based on your specific changes
+  <Step title="Stage Selective Changes">
+    Choose specific changes to include in commit using checkboxes for granular control
   </Step>
-  <Step title="Customize Message">
-    Edit the generated message to add context or be more specific about the changes
+  <Step title="AI-Powered Commit Messages">
+    Click "✨ Generate" for intelligent commit message suggestions based on actual changes made
   </Step>
-  <Step title="Deploy Option">
-    Toggle "Deploy to Production" to immediately make changes live after committing
+  <Step title="Production Deploy Option">
+    Toggle "Deploy to Production" to automatically make changes live after successful commit
   </Step>
-  <Step title="Confirm Commit">
-    Click "Commit Changes" to create a new version in your timeline
+  <Step title="Commit Confirmation">
+    Final review and confirmation creates new version in timeline with full change documentation
   </Step>
 </Steps>
 
-### Commit Message Best Practices
+### Intelligent Commit Messages
+
+<Warning>
+Good commit messages are essential for team collaboration and debugging production issues. Take time to write clear, descriptive messages that explain both what changed and why.
+</Warning>
 
 <Tabs>
-  <Tab title="Structure Guidelines">
-    - **Start with action verb**: Add, Update, Fix, Remove, Improve
-    - **Be specific**: Mention what component was changed
-    - **Include impact**: Note behavioral changes if relevant
-    - **Keep concise**: Under 72 characters for clean timeline display
+  <Tab title="AI-Generated Suggestions">
+    - **Context-aware**: Based on actual fields and content changed
+    - **Action-oriented**: Uses clear verbs (Add, Update, Fix, Remove, Improve)
+    - **Specific details**: Mentions exact components modified
+    - **Impact description**: Notes behavioral changes when relevant
   </Tab>
-  <Tab title="Good Examples">
+  <Tab title="Best Practice Examples">
     ```
-    Add weather capability to support agent
-    Update greeting to be more conversational
-    Fix webhook timeout configuration
-    Remove deprecated email notification feature
-    Improve response time with optimized prompt
+    ✅ Add weather capability to customer support agent
+    ✅ Update greeting message to be more conversational
+    ✅ Fix webhook timeout configuration for order processing
+    ✅ Remove deprecated email notification feature
+    ✅ Improve response time with optimized system prompt
+    ✅ Add validation for required customer ID parameter
     ```
   </Tab>
   <Tab title="What to Avoid">
     ```
     ❌ Fixed stuff
     ❌ Updates
-    ❌ Changed things
-    ❌ WIP
+    ❌ Changed things around
+    ❌ WIP - work in progress
     ❌ Minor tweaks
+    ❌ Commit before deadline
     ```
   </Tab>
 </Tabs>
 
-## Version History Timeline
+## Comprehensive Version Timeline
 
 ### Professional History Interface
 
-The History view displays a chronological timeline similar to GitHub commits:
+The History view provides a complete chronological timeline of all agent versions:
 
 <Steps>
-  <Step title="Browse Timeline">
-    Scroll through complete chronological list of all agent versions
+  <Step title="Chronological Timeline">
+    Browse through complete version history with clear visual hierarchy and status indicators
   </Step>
-  <Step title="Version Information">
-    Each version shows commit message, timestamp, author, and production status
+  <Step title="Rich Version Information">
+    Each version displays commit message, timestamp, author, production status, and change summary
   </Step>
-  <Step title="Quick Actions">
-    Use inline buttons for Restore, Deploy to Production, or View Detailed Changes
+  <Step title="Instant Actions">
+    Quick access buttons for Restore, Deploy to Production, View Changes, and Create Branch
   </Step>
   <Step title="Detailed Inspection">
-    Click any version card for expanded view with complete change diff
+    Click any version for expanded view with complete diff and metadata
   </Step>
 </Steps>
 
-### Version Card Elements
+### Advanced Version Cards
 
-Each version in the timeline displays comprehensive information:
+Each version in the timeline provides comprehensive information for effective management:
 
-| Element | Description | Visual Indicator |
-|---------|-------------|------------------|
-| **Version Number** | Sequential version (v1, v2, v3...) | Bold version tag |
-| **Commit Message** | Developer-provided description | Primary text |
-| **Timestamp** | When the version was created | Relative time display |
-| **Author** | Who made the changes | User avatar/name |
-| **Production Status** | Whether version is live | Green "LIVE" badge |
-| **Change Summary** | Number and type of modifications | Change count badges |
+| Element | Description | Visual Features |
+|---------|-------------|-----------------|
+| **Version Number** | Sequential versioning (v1, v2, v3...) | Bold, prominent version tag |
+| **Commit Message** | Developer-provided description of changes | Primary display text with truncation |
+| **Timestamp** | Creation time with relative display | Human-readable relative time |
+| **Author Information** | User who made the changes | Avatar, name, and role indicator |
+| **Production Status** | Current deployment status | Prominent green "LIVE" badge for active |
+| **Change Summary** | Quantified modifications | Colored badges for adds/modifications/deletions |
+| **Branch Information** | Source branch for the changes | Branch name and merge indicators |
 
 ## Production Deployment Management
 
 ### Safe Production Workflow
 
 <Warning>
-Only the version marked as "Production" handles actual customer calls. All other versions are for development and testing purposes only.
+Only the version marked as "Production" handles actual customer calls. All other versions remain in development state. Exercise extreme caution when deploying to production, as changes immediately affect live customer interactions.
 </Warning>
 
 <Steps>
-  <Step title="Select Target Version">
-    Browse the History timeline to find the version you want to deploy
+  <Step title="Identify Target Version">
+    Navigate the History timeline to locate the specific version for production deployment
   </Step>
-  <Step title="Review Changes">
-    Click "View Changes" to see exactly what will be deployed to production
+  <Step title="Comprehensive Review">
+    Use "View Changes" to examine exactly what modifications will be deployed to live environment
   </Step>
-  <Step title="Deploy to Production">
-    Click "Mark as Production" to make this version handle live customer calls
+  <Step title="Pre-Deployment Validation">
+    Verify changes have been tested thoroughly using Playground and automated tests
   </Step>
-  <Step title="Confirmation">
-    Confirm deployment in the dialog that shows deployment impact
+  <Step title="Production Deployment">
+    Click "Mark as Production" to designate this version for handling live customer calls
   </Step>
-  <Step title="Live Monitoring">
-    The deployed version receives a prominent green "LIVE" badge
+  <Step title="Deployment Confirmation">
+    Review deployment impact dialog showing affected systems and confirm deployment
+  </Step>
+  <Step title="Post-Deployment Monitoring">
+    Monitor live call performance and be prepared for emergency rollback if issues arise
   </Step>
 </Steps>
 
-### Production Status Indicators
+### Production Status Visualization
 
 <Tabs>
-  <Tab title="Live Production Badge">
-    - **Green "LIVE" badge**: Currently deployed and handling customer calls
-    - **Crown icon**: Visual indicator of production status
+  <Tab title="Live Production Indicators">
+    - **Prominent green "LIVE" badge**: Clearly marks currently deployed version
+    - **Crown icon**: Visual hierarchy indicator for production status
     - **Bold highlighting**: Makes production version stand out in timeline
+    - **Performance metrics**: Real-time stats for production version
   </Tab>
-  <Tab title="Version Borders">
-    - **Green border**: Current production version
-    - **Blue border**: Latest development version
-    - **Gray border**: Historical development versions
+  <Tab title="Version State Colors">
+    - **Green border**: Current production version actively handling calls
+    - **Blue border**: Latest development version ready for testing
+    - **Purple border**: Feature branch versions for experimental work
+    - **Gray border**: Historical development versions archived
+  </Tab>
+  <Tab title="Deployment History">
+    - **Deployment timestamps**: When each version went to production
+    - **Duration tracking**: How long each version was live
+    - **Rollback indicators**: Versions that were emergency rolled back
+    - **Performance data**: Success metrics for each production deployment
   </Tab>
 </Tabs>
 
-## Version Restoration
+## Advanced Version Operations
 
-### Smart Restore Process
+### Smart Restoration Process
 
 <Info>
-Restoring a version creates a new version with the old configuration. Your current work is preserved in version history - nothing is permanently lost.
+Version restoration creates a new version with the selected configuration. Your current work is preserved in the version history - nothing is ever permanently lost. This ensures complete audit trails and recovery options.
 </Info>
 
 <Steps>
   <Step title="Locate Target Version">
-    Browse the History timeline to find the version you want to restore
+    Browse the History timeline or use search to find the specific version to restore
   </Step>
-  <Step title="Preview Restoration">
-    Click "View Changes" to see what will be restored and how it differs from current state
+  <Step title="Preview Restoration Impact">
+    Click "View Changes" to see detailed diff of what will be restored vs. current state
   </Step>
-  <Step title="Initiate Restore">
-    Click "Restore This Version" on the target version card
+  <Step title="Validate Restoration">
+    Review the complete impact including any dependent configurations that may be affected
   </Step>
-  <Step title="Review Impact">
-    Confirmation dialog shows exactly what will change in your current configuration
+  <Step title="Execute Restoration">
+    Click "Restore This Version" to initiate the restoration process
   </Step>
-  <Step title="Complete Restoration">
-    Confirm to create a new version with the restored configuration
+  <Step title="Confirm Changes">
+    Review restoration confirmation dialog showing exactly what will change
   </Step>
-</Steps>
-
-## Branch Management
-
-### Experimental Branches
-
-<Steps>
-  <Step title="Create Branch">
-    Use the Branches tab to create new experimental branches from any version
-  </Step>
-  <Step title="Switch Context">
-    Work on experimental features without affecting the main branch
-  </Step>
-  <Step title="Compare Changes">
-    View differences between branches before merging
-  </Step>
-  <Step title="Merge or Discard">
-    Either merge successful experiments or discard unsuccessful ones
+  <Step title="Complete Process">
+    Confirm to create new version with restored configuration and updated change log
   </Step>
 </Steps>
 
-### Branch Types
+## Real-Time Collaboration Features
 
-<Tabs>
-  <Tab title="Main Branch">
-    - **Default branch**: Primary development line
-    - **Production deployments**: Only main branch versions can go to production
-    - **Stable foundation**: Core development happens here
-  </Tab>
-  <Tab title="Feature Branches">
-    - **Experimental work**: Test new capabilities safely
-    - **Isolated changes**: Don't affect main branch until merged
-    - **Easy cleanup**: Discard failed experiments without impact
-  </Tab>
-</Tabs>
+### Advanced Collaboration System
 
-## Collaborative Features
-
-### Real-Time Collaboration
-
-<Tabs>
-  <Tab title="Live Status Indicators">
-    - **User avatars**: See who else is currently editing
-    - **Lock indicators**: Know when someone else is making changes
-    - **Sync status**: Real-time collaboration state in header
-  </Tab>
-  <Tab title="Conflict Resolution">
-    - **Automatic detection**: System identifies conflicting changes
-    - **Visual conflict markers**: Clear highlighting of problem areas
-    - **Resolution workflow**: Guided process to resolve conflicts
-  </Tab>
-</Tabs>
-
-### Auto-Sync System
+The version control system provides comprehensive collaboration features for teams:
 
 <Steps>
-  <Step title="Background Monitoring">
-    System automatically checks for remote updates every 30 seconds
+  <Step title="Live User Presence">
+    See real-time indicators of who else is currently editing the agent configuration
   </Step>
   <Step title="Conflict Prevention">
-    Early detection of potential editing conflicts before they become problems
+    Automatic locking system prevents simultaneous edits that would cause conflicts
   </Step>
-  <Step title="Smart Merging">
-    Automatic resolution of non-conflicting changes
+  <Step title="Auto-Sync Background Process">
+    Continuous synchronization checks for remote changes every 30 seconds
   </Step>
-  <Step title="Manual Resolution">
-    Guided workflow for resolving complex conflicts when they occur
+  <Step title="Intelligent Conflict Resolution">
+    Guided workflow for resolving conflicts when they occur with visual diff tools
   </Step>
 </Steps>
 
-## Advanced Workflows
+### Collaboration State Indicators
 
-### Quick Fix Deployment
+<Tabs>
+  <Tab title="Active Collaboration">
+    - **User avatars**: Live display of all currently active editors
+    - **Edit locks**: Visual indicators when someone else is making changes
+    - **Real-time sync status**: Header badge showing collaboration state
+    - **Change notifications**: Alerts when remote changes are detected
+  </Tab>
+  <Tab title="Conflict Resolution Interface">
+    - **Conflict highlighting**: Clear visual markers for conflicting fields
+    - **Resolution options**: Choose local changes, remote changes, or manual merge
+    - **Preview mode**: See results of conflict resolution before committing
+    - **Guided workflow**: Step-by-step conflict resolution process
+  </Tab>
+  <Tab title="Auto-Sync Intelligence">
+    - **Background monitoring**: Continuous checking for remote updates
+    - **Smart merging**: Automatic resolution of non-conflicting changes
+    - **Conflict detection**: Early warning system for potential edit conflicts
+    - **Manual resolution**: Clear workflow when automatic resolution isn't possible
+  </Tab>
+</Tabs>
+
+### Pull and Sync Operations
 
 <Steps>
-  <Step title="Make Critical Fix">
-    Update the necessary configuration to resolve immediate issue
+  <Step title="Automatic Sync Monitoring">
+    System continuously monitors for remote changes and updates status indicators
   </Step>
-  <Step title="Test in Playground">
-    Verify the fix works correctly using the Playground tab
+  <Step title="Manual Check Operation">
+    Use "Check" button or `⌘U` to manually verify remote change status
   </Step>
-  <Step title="Commit with Deploy">
-    Use "Deploy to Production" toggle when committing to go live immediately
+  <Step title="Pull Remote Changes">
+    Use "Pull" button or `⌘⇧P` to fetch and integrate remote changes
   </Step>
-  <Step title="Monitor Results">
-    Watch for successful resolution of the issue in live calls
+  <Step title="Conflict Resolution">
+    If conflicts detected, guided workflow helps resolve each conflict manually
+  </Step>
+  <Step title="Sync Completion">
+    Status updates to "Clean" when local and remote states are synchronized
   </Step>
 </Steps>
 
-### Major Feature Development
+## Advanced Workflow Patterns
+
+### Quick Production Hotfix
+
+<Steps>
+  <Step title="Identify Critical Issue">
+    Detect urgent production issue requiring immediate configuration change
+  </Step>
+  <Step title="Make Targeted Fix">
+    Update only the specific configuration elements needed to resolve the issue
+  </Step>
+  <Step title="Rapid Testing">
+    Use Playground to quickly verify the fix resolves the issue without side effects
+  </Step>
+  <Step title="Emergency Commit and Deploy">
+    Use "Deploy to Production" toggle when committing to go live immediately
+  </Step>
+  <Step title="Monitor Resolution">
+    Watch live call metrics to confirm successful resolution of the issue
+  </Step>
+  <Step title="Post-Fix Documentation">
+    Update commit message with details for future reference and team communication
+  </Step>
+</Steps>
+
+### Feature Development with Branching
 
 <Steps>
   <Step title="Create Feature Branch">
-    Start experimental branch for major new capabilities
+    Start new branch from stable main branch for major feature development
   </Step>
   <Step title="Iterative Development">
-    Make incremental changes, committing frequently with descriptive messages
+    Make incremental changes with frequent commits and descriptive messages
   </Step>
   <Step title="Comprehensive Testing">
-    Use Playground and test environments to validate all functionality
+    Use Playground, automated tests, and staging environments for validation
+  </Step>
+  <Step title="Code Review Process">
+    Team review of changes using diff views and comment system
   </Step>
   <Step title="Merge to Main">
-    Once stable, merge the feature branch back to main
+    Integrate completed and tested feature back to main development branch
   </Step>
   <Step title="Production Deployment">
-    Deploy the merged version to production with monitoring
+    Deploy merged version to production with full monitoring and rollback plan
   </Step>
 </Steps>
 
-### Emergency Rollback
+### Emergency Rollback Procedure
 
 <Steps>
-  <Step title="Identify Last Good Version">
-    Quickly locate the most recent working version in History timeline
+  <Step title="Issue Detection">
+    Identify production issue through monitoring, alerts, or customer reports
+  </Step>
+  <Step title="Impact Assessment">
+    Quickly evaluate severity and determine if rollback is necessary
+  </Step>
+  <Step title="Locate Last Good Version">
+    Use History timeline to identify most recent stable production version
   </Step>
   <Step title="Emergency Restore">
-    Use "Restore This Version" to immediately revert to stable state
+    Use "Restore This Version" to immediately revert to stable configuration
   </Step>
-  <Step title="Immediate Deploy">
-    Mark restored version as Production to stop customer impact
+  <Step title="Immediate Production Deploy">
+    Mark restored version as Production to stop customer impact immediately
   </Step>
-  <Step title="Post-Mortem Analysis">
-    Later, analyze the problematic version to understand what went wrong
+  <Step title="Post-Incident Analysis">
+    Analyze problematic version to understand root cause after stability restored
   </Step>
 </Steps>
 
-## Keyboard Shortcuts
+## Comprehensive Keyboard Shortcuts
 
-### Quick Actions
+### Version Control Actions
 
 | Action | Windows/Linux | macOS | Description |
-|--------|---------------|--------|-------------|
-| **Open Changes** | `Ctrl+G` | `⌘G` | Switch to Changes tab |
-| **Check Updates** | `Ctrl+U` | `⌘U` | Check for remote changes |
-| **Pull Changes** | `Ctrl+Shift+P` | `⌘⇧P` | Pull latest from remote |
-| **Commit Changes** | `Ctrl+Enter` | `⌘Enter` | Open commit dialog |
-| **Deploy to Production** | `Ctrl+Shift+Enter` | `⌘⇧Enter` | Push to production |
-| **Generate Commit Message** | `Ctrl+Shift+G` | `⌘⇧G` | AI-generate commit message |
+|--------|---------------|-------|-------------|
+| **Open Changes Tab** | `Ctrl+G` | `⌘G` | Switch to Changes view for pending modifications |
+| **Check for Updates** | `Ctrl+U` | `⌘U` | Check remote for new changes and conflicts |
+| **Pull Remote Changes** | `Ctrl+Shift+P` | `⌘⇧P` | Fetch and merge latest remote changes |
+| **Commit Changes** | `Ctrl+Enter` | `⌘Enter` | Open commit dialog for current changes |
+| **Deploy to Production** | `Ctrl+Shift+Enter` | `⌘⇧Enter` | Push committed version to production |
+| **Generate Commit Message** | `Ctrl+Shift+G` | `⌘⇧G` | AI-generate descriptive commit message |
+| **View History Timeline** | `Ctrl+H` | `⌘H` | Switch to History view for version timeline |
+| **Emergency Rollback** | `Ctrl+Shift+R` | `⌘⇧R` | Quick access to rollback last production version |
 
-## Best Practices
+### Navigation and Review
+
+| Action | Windows/Linux | macOS | Description |
+|--------|---------------|-------|-------------|
+| **Expand All Changes** | `Ctrl+Shift+E` | `⌘⇧E` | Expand all change sections for full review |
+| **Collapse All Changes** | `Ctrl+Shift+C` | `⌘⇧C` | Collapse all sections for overview |
+| **Next Change** | `Ctrl+↓` | `⌘↓` | Navigate to next changed section |
+| **Previous Change** | `Ctrl+↑` | `⌘↑` | Navigate to previous changed section |
+| **Toggle Diff Mode** | `Ctrl+D` | `⌘D` | Switch between inline and side-by-side diff views |
+
+## Production Best Practices
 
 <AccordionGroup>
-  <Accordion title="Commit Early and Often" icon="floppy-disk">
-    Create versions after each logical change rather than bundling many changes together. This creates more granular restore points and makes the timeline easier to navigate.
+  <Accordion title="Frequent Commits with Clear Messages" icon="floppy-disk">
+    Create version commits after each logical change rather than bundling multiple unrelated changes. Write descriptive commit messages that explain both what changed and why. This creates more granular restore points and makes the timeline easier to navigate for debugging and collaboration.
   </Accordion>
 
-  <Accordion title="Write Descriptive Commit Messages" icon="pencil">
-    Use the AI-generated suggestions as a starting point, then customize them to explain what changed and why. Future you will appreciate the context when browsing the timeline.
+  <Accordion title="Comprehensive Testing Before Deployment" icon="beaker">
+    Always test changes thoroughly using the Playground feature before deploying to production. Set up automated regression tests to catch issues early. Use staging environments that mirror production settings. Only deploy well-validated changes to minimize customer impact.
   </Accordion>
 
-  <Accordion title="Test Before Production Deploy" icon="beaker">
-    Always test changes thoroughly in Playground before deploying to production. Use development versions for experimentation and only deploy well-validated changes.
+  <Accordion title="Strategic Branching for Complex Features" icon="git-branch">
+    Create feature branches for major changes, experiments, or multiple-developer work. Keep the main branch stable and deploy-ready. Use branches to isolate risk and enable parallel development without conflicts.
   </Accordion>
 
-  <Accordion title="Use Branches for Experiments" icon="git-branch">
-    Create feature branches for major changes or experiments. This keeps the main branch stable while allowing safe experimentation.
+  <Accordion title="Proactive Production Monitoring" icon="eye">
+    Monitor call performance metrics immediately after production deployments. Set up alerts for key performance indicators. Be prepared with rollback plans for rapid response to issues. Document deployment procedures for team consistency.
   </Accordion>
 
-  <Accordion title="Monitor Production Deployments" icon="eye">
-    After deploying to production, monitor call performance to ensure changes are working as expected. Be ready to rollback if issues are detected.
+  <Accordion title="Collaborative Conflict Prevention" icon="users">
+    Communicate with team members about major changes before starting work. Use the lock system effectively to prevent conflicts. Resolve conflicts promptly when they occur. Maintain awareness of who else is working on the agent.
   </Accordion>
 
-  <Accordion title="Review Changes Before Committing" icon="magnifying-glass">
-    Use the visual diff to review exactly what's changing before committing. Expand change details to see the full context and catch potential issues.
+  <Accordion title="Comprehensive Change Documentation" icon="pencil">
+    Document not just what changed, but why changes were made. Include business context in commit messages. Reference tickets, issues, or requirements that drove changes. This helps with future maintenance and debugging.
   </Accordion>
 </AccordionGroup>
 
-## Troubleshooting
+## Troubleshooting and Recovery
 
-### Common Scenarios
+### Common Scenarios and Solutions
 
 <AccordionGroup>
-  <Accordion title="Merge Conflicts" icon="exclamation-triangle">
-    When conflicts appear, use the Changes tab to see conflicting fields highlighted in red. Choose whether to keep local changes or accept remote changes for each conflict, then commit the resolution.
+  <Accordion title="Resolving Merge Conflicts" icon="exclamation-triangle">
+    When conflicts appear, the Changes tab highlights conflicting fields in red. Use the conflict resolution interface to choose between local changes, remote changes, or create a custom merge. Each conflict must be resolved individually. After resolving all conflicts, commit the resolution to complete the merge process.
   </Accordion>
 
-  <Accordion title="Lost Changes" icon="question-mark-circle">
-    All changes are preserved in version history. If you can't find recent work, check the History timeline for your last commits. Use the search functionality to locate specific changes.
+  <Accordion title="Recovering Lost or Missing Changes" icon="question-mark-circle">
+    All changes are preserved in version history - nothing is permanently lost. Check the History timeline for your recent commits. Use the search functionality to locate specific changes by commit message or author. If changes seem missing, they may be in a different branch or uncommitted local changes.
   </Accordion>
 
-  <Accordion title="Production Issues" icon="warning">
-    If a production deployment causes problems, immediately use the emergency rollback process to restore the last known good version. Investigate the problematic version after stability is restored.
+  <Accordion title="Production Emergency Response" icon="warning">
+    For critical production issues, use the emergency rollback process to immediately restore the last known good version. This stops customer impact first, then investigate the problematic version after stability is restored. Document the incident and implement preventive measures.
   </Accordion>
 
-  <Accordion title="Sync Problems" icon="arrow-path">
-    If auto-sync shows persistent errors, try manually using the Check and Pull buttons. Contact support if sync issues continue after manual refresh attempts.
+  <Accordion title="Synchronization Problems" icon="arrow-path">
+    If auto-sync shows persistent errors, try manually using the Check and Pull buttons to force synchronization. Clear browser cache if sync issues persist. Check network connectivity and authentication status. Contact support if sync problems continue after manual refresh attempts.
+  </Accordion>
+
+  <Accordion title="Collaboration Lock Issues" icon="lock-closed">
+    If you're locked out due to another user's session, wait for the automatic timeout (typically 30 minutes) or contact the user directly. System administrators can manually release locks if necessary. Save your work locally to prevent loss during resolution.
+  </Accordion>
+
+  <Accordion title="Performance and Deployment Issues" icon="exclamation-circle">
+    If deployed changes cause performance problems, immediately check call analytics for impact assessment. Use A/B testing capabilities if available to limit exposure. Implement gradual rollout strategies for major changes. Document performance baselines before significant changes.
   </Accordion>
 </AccordionGroup>
+
+## Integration with Advanced Editor
+
+### Seamless Workflow Integration
+
+The Version History system is deeply integrated with all Advanced Editor features:
+
+- **Real-time change detection**: Every modification in Monaco Editor is tracked
+- **Copilot integration**: AI suggestions are automatically tracked as potential changes
+- **Playground testing**: Test results can trigger automatic commits with test data
+- **Automated testing**: Test failures can block production deployments
+
+### Cross-Feature Collaboration
+
+<Steps>
+  <Step title="Editor-to-Version Control">
+    Changes made in Monaco Editor automatically appear in the Changes tab with detailed diffs
+  </Step>
+  <Step title="Copilot-to-Commits">
+    AI suggestions from Copilot are tracked and can be committed as structured changes
+  </Step>
+  <Step title="Playground-to-Production">
+    Successful tests in Playground can be included in commit messages as validation evidence
+  </Step>
+  <Step title="Testing-to-Deployment">
+    Automated test results integrate with production deployment approval workflows
+  </Step>
+</Steps>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
-    title="Test in Playground"
+    title="Test Changes in Playground"
     icon="play"
     href="/advanced-editor/playground"
   >
-    Validate your changes before committing to ensure quality
+    Validate modifications before committing with comprehensive conversation testing
   </Card>
   <Card
     title="AI Copilot Assistant"
     icon="sparkles"
     href="/advanced-editor/copilot"
   >
-    Get AI help with commit messages and change suggestions
+    Get intelligent help with commit messages, change analysis, and optimization suggestions
   </Card>
   <Card
-    title="Automated Testing"
+    title="Automated Testing Suite"
     icon="clipboard-check"
     href="/advanced-editor/tests"
   >
-    Set up regression tests to catch issues before production
+    Set up comprehensive regression tests to prevent production issues
   </Card>
   <Card
-    title="Production Monitoring"
+    title="Production Call Monitoring"
     icon="chart-bar"
     href="/monitoring/call-analytics"
   >
-    Monitor call performance after deploying changes
+    Monitor real-time performance metrics after deploying configuration changes
   </Card>
 </CardGroup>
