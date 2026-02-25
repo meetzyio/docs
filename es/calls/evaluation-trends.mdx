@@ -1,0 +1,165 @@
+---
+title: Tendencias de Evaluaciones
+description: Rastrea y analiza la evolución de las evaluaciones de tus agentes de IA a lo largo del tiempo
+icon: chart-line
+---
+
+# Tendencias de Evaluaciones
+
+La página de tendencias de evaluaciones te permite analizar cómo evolucionan las evaluaciones de tus agentes de IA a lo largo del tiempo. Puedes identificar patrones, celebrar mejoras y detectar áreas que necesitan atención.
+
+<Info>
+Esta herramienta está disponible para todos los usuarios con acceso a las evaluaciones de agentes. Los datos se actualizan en tiempo real.
+</Info>
+
+## Acceso a las Tendencias
+
+### Desde el panel de agentes
+1. Ve a la página de **Agentes de IA**
+2. Busca tu agente en la lista
+3. Haz clic en el menú de acciones (⋯) del agente
+4. Selecciona **Ver tendencias de evaluaciones**
+
+### URL directa
+También puedes acceder directamente usando el ID del agente:
+```
+/evaluation-trends?agent=AGENT_ID
+```
+
+## Selección de Agente
+
+<Steps>
+<Step title="Buscar agente">
+Utiliza el campo de búsqueda para encontrar el agente que quieres analizar. La búsqueda filtra por nombre en tiempo real.
+</Step>
+
+<Step title="Seleccionar agente">
+Haz clic en el agente deseado de la lista desplegable. Verás el icono del agente y su nombre.
+</Step>
+
+<Step title="Ver evaluaciones">
+Presiona el botón **Ver evaluaciones** para cargar los datos de tendencias.
+</Step>
+</Steps>
+
+## Controles de Tiempo
+
+### Rangos predefinidos
+La interfaz ofrece varios rangos de tiempo predefinidos:
+
+- **Últimos 7 días** - Agrupado por día
+- **Últimos 14 días** - Agrupado por día  
+- **Últimos 30 días** - Agrupado por día
+- **Últimos 3 meses** - Agrupado por semana
+- **Últimos 6 meses** - Agrupado por mes
+- **Rango personalizado** - Define fechas específicas
+
+### Agrupación de datos
+Los datos se pueden agrupar de diferentes maneras:
+
+<Tabs>
+<Tab title="Diario">
+Muestra datos día por día. Ideal para análisis detallados de períodos cortos.
+</Tab>
+
+<Tab title="Semanal">
+Agrupa datos por semanas. Perfecto para identificar tendencias semanales.
+</Tab>
+
+<Tab title="Mensual">
+Consolida datos por meses. Útil para análisis de tendencias a largo plazo.
+</Tab>
+</Tabs>
+
+## Resumen de Métricas
+
+En la parte superior verás tres tarjetas con métricas clave:
+
+### Total de Evaluaciones
+Número total de evaluaciones realizadas en el período seleccionado.
+
+### Tasa de Éxito Global
+Porcentaje general de evaluaciones exitosas calculado como:
+```
+(Evaluaciones Exitosas / Total de Evaluaciones) × 100
+```
+
+### Llamadas Evaluadas
+Cantidad total de llamadas que fueron sometidas a evaluación.
+
+<Warning>
+Las métricas se calculan solo para el período y agente seleccionados. Cambiar estos parámetros actualizará automáticamente los números.
+</Warning>
+
+## Análisis de Tendencias
+
+### Gráficos por evaluación
+Cada tipo de evaluación se muestra en un gráfico separado que incluye:
+
+- **Línea de tendencia** - Muestra la evolución de la tasa de éxito
+- **Área de fondo** - Visualiza la densidad de datos
+- **Puntos de datos** - Cada punto representa un período específico
+
+### Códigos de colores
+Los gráficos utilizan colores para facilitar la interpretación:
+
+- **Verde** - Tasas de éxito altas (≥80%)
+- **Ámbar** - Tasas de éxito moderadas (60-79%)
+- **Rojo** - Tasas de éxito bajas (<60%)
+
+### Indicadores de tendencia
+Cada evaluación muestra indicadores visuales:
+
+- **↗️ Flecha hacia arriba** - Mejora respecto al período anterior
+- **↘️ Flecha hacia abajo** - Descenso respecto al período anterior  
+- **→ Línea horizontal** - Sin cambios significativos
+
+## Interactividad
+
+### Zoom y navegación
+Los gráficos son interactivos y permiten:
+- **Zoom** - Usa la rueda del ratón para acercarte
+- **Desplazamiento** - Arrastra para moverte por el gráfico
+- **Reset** - Doble clic para volver a la vista completa
+
+### Expansión de secciones
+Haz clic en el nombre del agente para expandir o contraer la vista de sus evaluaciones.
+
+## Interpretación de Datos
+
+### Patrones positivos
+Busca estos indicadores de mejora:
+- Tendencia ascendente sostenida
+- Reducción de la variabilidad
+- Tasas de éxito consistentemente altas
+
+### Señales de alerta
+Presta atención a:
+- Caídas bruscas en las tasas de éxito
+- Alta variabilidad entre períodos
+- Tendencias descendentes prolongadas
+
+<Info>
+Utiliza esta información para tomar decisiones informadas sobre el entrenamiento y optimización de tus agentes.
+</Info>
+
+## Mejores Prácticas
+
+### Monitoreo regular
+- Revisa las tendencias semanalmente
+- Establece alertas para caídas significativas
+- Documenta los cambios realizados y su impacto
+
+### Análisis comparativo
+- Compara diferentes períodos
+- Evalúa el impacto de actualizaciones del agente
+- Identifica patrones estacionales o cíclicos
+
+### Acción basada en datos
+- Investiga las causas de las tendencias negativas
+- Refuerza los aspectos que muestran mejora
+- Ajusta la configuración del agente según los insights
+
+---
+
+La herramienta de tendencias de evaluaciones es fundamental para el proceso de mejora continua de tus agentes de IA. Utilízala regularmente para mantener y mejorar la calidad de las interacciones automatizadas.
