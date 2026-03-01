@@ -1,324 +1,179 @@
 ---
-title: "Evaluation Trends Analytics"
-description: "Track and analyze your agents' evaluation performance over time with comprehensive metrics, interactive charts, and detailed insights"
-icon: "chart-line"
+title: Evaluation Trends
+description: Track and analyze your agents' evaluation performance over time to identify patterns and improvements
+icon: trending-up
 ---
 
-The Evaluation Trends feature provides comprehensive analytics on your agents' evaluation performance over time. This powerful tool helps you identify patterns, track improvements, and make data-driven decisions to optimize your agents' effectiveness through an intuitive dashboard with rich visualizations and detailed metrics.
+The Evaluation Trends feature provides powerful insights into how your agents' performance evolves over time. Monitor evaluation success rates, identify improvement patterns, and make data-driven decisions to optimize your conversational AI.
 
-## Accessing Evaluation Trends
+## Overview
 
-<Steps>
-  <Step title="Navigate to Agents">
-    Go to your agents list from the main navigation menu
-  </Step>
-  
-  <Step title="Select an Agent">
-    Use the agent selector to choose the agent you want to analyze:
-    - Click on the search field to browse available agents
-    - Type to search by agent name
-    - Select your desired agent from the dropdown
-  </Step>
-  
-  <Step title="View Evaluations">
-    Click the "View evaluations" button to access the comprehensive trends dashboard
-  </Step>
-</Steps>
+Access evaluation trends through the main navigation or by selecting an agent from your dashboard. This comprehensive analytics tool helps you:
 
-## Dashboard Overview
-
-The evaluation trends dashboard provides a complete view of your agent's performance through several key sections:
-
-### Summary Metrics Cards
-
-At the top of the dashboard, three key performance indicators provide instant insights:
-
-<Tabs>
-  <Tab title="Total Evaluations">
-    Shows the complete count of evaluations performed during the selected time period. This metric helps you understand the volume of assessment activity.
-  </Tab>
-  <Tab title="Global Success Rate">
-    Displays the overall success percentage across all evaluations, giving you a quick snapshot of overall performance quality.
-  </Tab>
-  <Tab title="Calls Evaluated">
-    Indicates the total number of individual calls that underwent evaluation, helping you track coverage and assessment scope.
-  </Tab>
-</Tabs>
+- Track evaluation performance across different time periods
+- Compare success rates between multiple evaluation criteria
+- Identify trends and patterns in agent behavior
+- Monitor improvements after training or configuration changes
 
 <Info>
-These summary cards automatically update based on your selected time range and provide real-time calculations from your filtered dataset.
+Evaluation trends are calculated based on your configured evaluation criteria and require completed calls with evaluation data to display meaningful insights.
 </Info>
 
-## Agent Search and Selection
-
-### Advanced Agent Finder
-
-The agent selection interface includes powerful search capabilities:
-
-- **Real-time search**: Type to instantly filter agents by name
-- **Visual agent cards**: Each agent displays with an avatar and clear identification
-- **Selection indicators**: Currently selected agents are highlighted with checkmarks
-- **Keyboard navigation**: Use arrow keys and enter to navigate the dropdown
-
-### Search Features
-
-- **Fuzzy matching**: Find agents even with partial or approximate name matches
-- **Clear functionality**: Easily reset your search with the clear button
-- **No results handling**: Clear messaging when search terms don't match any agents
-
-## Time Range and Grouping Controls
-
-### Quick Date Range Selection
-
-Choose from predefined time ranges optimized for different analysis needs:
-
-- **Last 7 days** - Perfect for daily performance tracking
-- **Last 14 days** - Ideal for bi-weekly pattern analysis  
-- **Last 30 days** - Great for monthly performance reviews
-- **Last 3 months** - Excellent for quarterly trend analysis
-- **Last 6 months** - Best for semi-annual strategic reviews
-- **Custom range** - Define your own specific date parameters
-
-### Data Grouping Options
-
-Control how your performance data is aggregated over time:
-
-<Tabs>
-  <Tab title="Day">
-    Provides granular, day-by-day analysis perfect for short-term performance tracking and identifying daily patterns or anomalies.
-  </Tab>
-  <Tab title="Week">
-    Groups data into weekly segments, ideal for identifying weekly patterns, planning cycles, and medium-term trend analysis.
-  </Tab>
-  <Tab title="Month">
-    Aggregates data monthly for long-term strategic analysis, seasonal pattern identification, and executive reporting.
-  </Tab>
-</Tabs>
-
-### Custom Date Selection
-
-When you select "Custom range":
+## Getting Started
 
 <Steps>
-  <Step title="Enable Custom Mode">
-    Click the "Custom range" button to reveal date input fields
-  </Step>
-  
-  <Step title="Set Start Date">
-    Use the "From" date picker to define your analysis start point
-  </Step>
-  
-  <Step title="Set End Date">
-    Use the "To" date picker to define your analysis end point
-  </Step>
-  
-  <Step title="Apply Changes">
-    The dashboard automatically updates when you change either date
-  </Step>
+<Step title="Select an Agent">
+Choose the agent whose evaluation trends you want to analyze using the search dropdown. You can search by agent name or browse through all available agents.
+</Step>
+
+<Step title="Configure Time Range">
+Select your desired time period using the pre-defined ranges (7 days, 30 days, 3 months) or choose a custom date range for specific analysis periods.
+</Step>
+
+<Step title="Choose Data Grouping">
+Set how you want to group your data - by day, week, or month - depending on your analysis needs and the time range selected.
+</Step>
+
+<Step title="View Trends">
+Click "View evaluations" to load the comprehensive trends dashboard with charts, metrics, and detailed breakdowns.
+</Step>
 </Steps>
+
+## Summary Metrics
+
+The dashboard displays three key performance indicators at the top:
+
+### Total Evaluations
+The complete number of evaluation instances run across all your criteria during the selected time period.
+
+### Overall Success Rate
+A weighted average of all successful evaluations compared to total evaluations, giving you a quick health check of your agent's performance.
+
+### Calls Evaluated
+The total number of individual calls that have been evaluated, helping you understand your evaluation coverage.
 
 <Warning>
-The system automatically suggests optimal grouping periods based on your selected date range. For example, ranges over 90 days will suggest weekly or monthly grouping for better visualization clarity.
+Success rates are calculated only from calls that have completed evaluations. Calls without evaluation data are not included in these metrics.
 </Warning>
 
-## Interactive Performance Charts
+## Time Range Controls
 
-### Chart Features and Capabilities
+### Pre-defined Ranges
+Choose from common analysis periods:
+- **Last 7 days**: Ideal for daily monitoring and recent changes
+- **Last 14 days**: Good for weekly pattern analysis
+- **Last 30 days**: Standard monthly performance review
+- **Last 3 months**: Quarterly trend analysis
+- **Last 6 months**: Long-term performance tracking
 
-Each evaluation criterion displays in its own interactive chart with advanced features:
+### Custom Date Range
+Select specific start and end dates for targeted analysis periods, such as:
+- Before and after training sessions
+- Specific campaign periods
+- Seasonal performance comparisons
 
-#### Visual Performance Indicators
+## Data Grouping Options
 
-Charts use color-coding to instantly communicate performance levels:
+### Daily Grouping
+Shows evaluation trends on a day-by-day basis. Best for:
+- Short-term analysis (up to 30 days)
+- Identifying daily patterns
+- Monitoring immediate impact of changes
 
-- 🟢 **Green (80%+)**: Excellent performance - consistently meeting or exceeding expectations
-- 🟡 **Amber (60-79%)**: Good performance with improvement opportunities
-- 🔴 **Red (<60%)**: Requires attention - performance below acceptable thresholds
+### Weekly Grouping
+Aggregates data by week to smooth out daily variations. Ideal for:
+- Medium-term trend analysis
+- Reducing noise in daily fluctuations
+- Monthly and quarterly reviews
 
-#### Interactive Navigation
+### Monthly Grouping
+Groups data by month for long-term trend analysis. Perfect for:
+- Quarterly and yearly reviews
+- Long-term performance tracking
+- Strategic planning and goal setting
 
-- **Mouse wheel zoom**: Scroll to zoom in and out on specific time periods
-- **Click and drag panning**: Move across different sections of your timeline
-- **Hover tooltips**: View exact values, dates, and additional context
-- **Double-click reset**: Instantly return to the full dataset view
-- **Responsive design**: Charts automatically adapt to your screen size and orientation
+## Interactive Charts
 
-#### Sparkline Integration
+### Chart Features
+Each evaluation criterion displays as a separate line on the interactive chart:
 
-Miniature trend indicators (sparklines) provide at-a-glance performance trajectories:
+- **Zoom and Pan**: Click and drag to zoom into specific time periods, use mouse wheel for quick zoom adjustments
+- **Hover Details**: Mouse over data points to see exact values, dates, and success percentages
+- **Legend Interaction**: Click legend items to show/hide specific evaluation criteria
+- **Reset View**: Double-click the chart to return to the full view
 
-- **Trending up** ⬆️: Performance is improving over time
-- **Trending down** ⬇️: Performance is declining and may need attention
-- **Stable** ➡️: Performance remains consistent across the time period
-
-### Chart Data Interpretation
-
-#### Understanding Gaps and Patterns
-
-- **Data gaps**: Empty spaces in charts indicate periods with no evaluations - this is normal behavior
-- **Trend lines**: Follow the general direction of performance over time
-- **Peak identification**: Spot periods of exceptional performance for replication
-- **Valley analysis**: Identify low-performance periods for investigation
-
-<Info>
-Charts automatically scale to show the full range of your data, but you can zoom in on specific periods for detailed analysis of shorter timeframes.
-</Info>
-
-## Detailed Evaluation Tables
-
-### Comprehensive Data Display
-
-Below the visual charts, detailed tables provide granular performance data:
-
-#### Key Metrics Columns
-
-Each evaluation displays comprehensive metrics:
-
-- **Evaluation Name**: Clear identification of each assessment criterion
-- **Total Evaluations**: Complete count of assessments performed
-- **Successful Evaluations**: Number of evaluations that met success criteria
-- **Success Rate**: Calculated percentage of successful vs. total evaluations
-- **Calls Evaluated**: Total number of individual calls assessed
-
-#### Performance Sparklines
-
-Integrated miniature charts show performance trends at a glance:
-
-- **Trend visualization**: Quick visual representation of performance direction
-- **Pattern recognition**: Spot cyclical or seasonal variations in performance
-- **Comparative analysis**: Compare trends across different evaluation criteria
-
-### Table Interaction Features
-
-#### Expandable Card System
-
-Tables feature collapsible sections for better organization:
-
-- **Expand/collapse functionality**: Hide or show detailed information as needed
-- **Responsive layout**: Tables adapt to different screen sizes automatically
-- **Sorting capabilities**: Organize data by different criteria for focused analysis
-
-#### Trend Indicators
-
-Visual trend arrows provide instant performance direction feedback:
-
-- ⬆️ **Upward trends**: Performance is improving over the selected period
-- ⬇️ **Downward trends**: Performance is declining and may require intervention
-- ➡️ **Stable trends**: Consistent performance with minimal variation
-
-## Advanced Analytics and Insights
-
-### Performance Pattern Recognition
-
-Use the comprehensive data to identify:
-
-1. **Cyclical patterns**: Regular performance variations tied to business cycles
-2. **Seasonal trends**: Performance changes related to time of year or external factors
-3. **Improvement trajectories**: Sustained performance gains following interventions
-4. **Decline indicators**: Early warning signs of performance degradation
-
-### Comparative Analysis Techniques
+### Color Coding
+Charts use distinct colors for each evaluation criterion, making it easy to:
+- Track individual metrics over time
+- Compare performance between different criteria
+- Identify correlations and patterns
 
 <Tabs>
-  <Tab title="Time-over-Time">
-    Compare performance across different time periods to identify trends, seasonal variations, and the impact of changes or improvements.
-  </Tab>
-  <Tab title="Criterion Analysis">
-    Analyze performance across different evaluation criteria to identify strengths and areas needing focused improvement efforts.
-  </Tab>
-  <Tab title="Volume vs. Quality">
-    Balance evaluation quantity (number of assessments) with quality (success rates) for optimal performance insights.
-  </Tab>
+<Tab title="Success Rate Colors">
+- **Green (80%+)**: Excellent performance
+- **Yellow (60-79%)**: Good performance with room for improvement  
+- **Red (Below 60%)**: Needs attention and optimization
+</Tab>
+
+<Tab title="Chart Interactions">
+- **Single Click**: Select data point for details
+- **Click + Drag**: Zoom into time range
+- **Double Click**: Reset to full view
+- **Scroll Wheel**: Quick zoom in/out
+</Tab>
 </Tabs>
 
-## Optimization Strategies
+## Detailed Data Tables
 
-### Data-Driven Improvement Planning
+### Expandable Sections
+Click on any agent name to expand detailed evaluation breakdowns:
 
-Use trends data to develop targeted improvement strategies:
+- **Evaluation Criteria**: Individual success rates for each configured evaluation
+- **Sparkline Charts**: Mini trend indicators showing recent performance direction
+- **Trend Indicators**: Visual arrows showing whether performance is improving, declining, or stable
 
-<Steps>
-  <Step title="Identify Focus Areas">
-    Use the dashboard to pinpoint evaluation criteria with declining trends or consistently low success rates
-  </Step>
-  
-  <Step title="Analyze Contributing Factors">
-    Examine time periods, volumes, and external factors that correlate with performance changes
-  </Step>
-  
-  <Step title="Develop Action Plans">
-    Create specific, measurable improvement plans based on identified patterns and opportunities
-  </Step>
-  
-  <Step title="Monitor Implementation">
-    Use the dashboard to track the effectiveness of implemented changes over time
-  </Step>
-</Steps>
-
-### Best Practices for Continuous Improvement
-
-#### Regular Monitoring Schedule
-
-- **Daily reviews**: Quick checks of recent performance for immediate issue identification
-- **Weekly analysis**: Comprehensive trend review for tactical adjustments
-- **Monthly deep dives**: Strategic analysis for long-term planning and goal setting
-- **Quarterly assessments**: Complete performance evaluation for strategic decision-making
-
-#### Goal Setting and Benchmarking
-
-- **Baseline establishment**: Use historical data to set realistic improvement targets
-- **Progressive goals**: Set incremental improvement targets rather than dramatic changes
-- **Comparative benchmarking**: Use top-performing periods as benchmarks for improvement
-- **Success celebration**: Acknowledge and analyze successful improvements for replication
-
-<Warning>
-Focus on sustained trends rather than isolated data points. Temporary performance dips are normal, but consistent patterns indicate areas requiring attention.
-</Warning>
-
-## Advanced Tips and Techniques
-
-### Effective Time Frame Selection
-
-Choose analysis periods based on your specific needs:
-
-- **Short-term (7-14 days)**: Immediate performance assessment and quick issue resolution
-- **Medium-term (1-3 months)**: Trend identification and tactical planning
-- **Long-term (6+ months)**: Strategic analysis and annual performance reviews
-
-### Reading Performance Signals
-
-#### Trend Interpretation
-
-- **Gradual improvements**: Sustainable, positive changes in performance over time
-- **Sudden spikes**: Investigate causes of dramatic improvements for replication
-- **Consistent declines**: Identify and address underlying causes promptly
-- **Volatility patterns**: High variation may indicate inconsistent processes or external factors
-
-#### External Factor Consideration
-
-When analyzing trends, consider:
-
-- **Training implementations**: Performance changes following training sessions
-- **System updates**: Impact of platform or process changes
-- **Business seasonality**: Regular patterns tied to business cycles
-- **Team changes**: Performance variations with staffing changes
+### Data Interpretation
+Each row in the expanded table shows:
+- **Evaluation Name**: The specific criterion being measured
+- **Latest Rate**: Most recent success rate percentage
+- **Trend Direction**: Up/down/flat arrow based on recent performance changes
+- **Mini Chart**: Sparkline showing the recent trend pattern
 
 <Info>
-The evaluation trends dashboard continuously updates with new data, ensuring you always have access to the most current performance insights for informed decision-making.
+Trend directions are calculated by comparing the most recent data point with the previous period. Changes of less than 2% are considered "flat" to account for normal variation.
 </Info>
 
-## Troubleshooting and Support
+## Best Practices
 
-### Common Display Issues
+### Regular Monitoring
+- Check trends weekly to catch issues early
+- Set up consistent review schedules
+- Compare periods before and after changes
 
-- **Missing data**: Ensure evaluations were performed during the selected time period
-- **Chart loading problems**: Refresh the page or try a different time range
-- **Search not working**: Clear the search field and try again with different terms
+### Data Analysis
+- Look for patterns across multiple evaluation criteria
+- Consider external factors that might affect performance
+- Use longer time ranges to identify genuine trends vs. random fluctuations
 
-### Data Accuracy
+### Performance Optimization
+- Identify consistently underperforming evaluations
+- Correlate trends with training or configuration changes
+- Use insights to guide agent improvement strategies
 
-The dashboard reflects evaluation data in real-time, but consider:
+## Troubleshooting
 
-- **Processing delays**: Recent evaluations may take a few minutes to appear
-- **Time zone considerations**: Data is displayed in your account's configured time zone
-- **Filter interactions**: Multiple filters may limit visible data
+### No Data Available
+If charts appear empty:
+- Ensure calls have been made during the selected time period
+- Verify evaluation criteria are properly configured
+- Check that evaluations have completed processing
+
+### Inconsistent Trends
+If data appears erratic:
+- Increase the time range for more stable trends
+- Switch to weekly or monthly grouping to smooth variations
+- Consider if external factors are affecting call patterns
+
+<Warning>
+Evaluation data is processed asynchronously. Recent calls may take a few minutes to appear in trends after completion.
+</Warning>

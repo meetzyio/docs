@@ -1,387 +1,207 @@
 ---
-title: Tendencias de Evaluaciones
-description: Rastrea y analiza la evolución de las evaluaciones de tus agentes de IA a lo largo del tiempo con métricas detalladas y análisis visual
-icon: chart-line
+title: "Tendencias de Evaluaciones"
+description: "Analiza la evolución temporal de las evaluaciones de tus agentes para identificar patrones de rendimiento y áreas de mejora"
+icon: "chart-line"
 ---
 
 # Tendencias de Evaluaciones
 
-La página de tendencias de evaluaciones te permite analizar cómo evolucionan las evaluaciones de tus agentes de IA a lo largo del tiempo. Esta herramienta avanzada incluye métricas de resumen, controles temporales granulares, gráficos interactivos y tablas de datos detalladas para un análisis exhaustivo del rendimiento.
+La funcionalidad de **Tendencias de Evaluaciones** te permite realizar un análisis temporal profundo del rendimiento de tus agentes conversacionales. Esta herramienta avanzada te ayuda a identificar patrones, celebrar mejoras y detectar áreas que requieren optimización.
 
 <Info>
-Esta herramienta está disponible para todos los usuarios con acceso a las evaluaciones de agentes. Los datos se actualizan en tiempo real y incluyen funcionalidades analíticas avanzadas.
+Las tendencias de evaluaciones proporcionan insights valiosos sobre la evolución del rendimiento de tus agentes a lo largo del tiempo, permitiendo una toma de decisiones basada en datos históricos.
 </Info>
 
-## Acceso a las Tendencias
+## ¿Qué son las Tendencias de Evaluaciones?
 
-### Desde el panel de agentes
+Las tendencias de evaluaciones son representaciones gráficas y estadísticas que muestran cómo evoluciona el rendimiento de tus agentes en diferentes períodos de tiempo. Estas tendencias incluyen:
+
+- **Tasas de éxito temporal**: Evolución de los porcentajes de éxito por período
+- **Volumen de evaluaciones**: Cantidad de evaluaciones realizadas en cada intervalo
+- **Patrones de mejora**: Identificación de tendencias ascendentes o descendentes
+- **Comparativas entre criterios**: Análisis de diferentes métricas de evaluación
+
+## Accediendo a las Tendencias
+
 <Steps>
-<Step title="Navegar a agentes">
-Ve a la página de **Agentes de IA** desde el menú principal
+<Step title="Navegar a Tendencias">
+Desde el panel principal, dirígete a la sección **Evaluations** y selecciona **Trends**.
 </Step>
 
-<Step title="Localizar agente">
-Busca tu agente en la lista utilizando los filtros disponibles
-</Step>
-
-<Step title="Acceder a tendencias">
-Haz clic en el menú de acciones (⋯) del agente y selecciona **Ver tendencias de evaluaciones**
+<Step title="Seleccionar Agente">
+Utiliza el selector de agente para elegir el agente conversacional que deseas analizar:
+- Usa la barra de búsqueda para filtrar por nombre
+- Selecciona el agente deseado de la lista
+- Haz clic en "View evaluations" para proceder
 </Step>
 </Steps>
 
-### URL directa
-También puedes acceder directamente usando el ID del agente:
-```
-/evaluation-trends?agent=AGENT_ID
-```
+## Configuración del Análisis
 
-## Selector de Agente Mejorado
+### Rango Temporal
 
-### Búsqueda inteligente
-El nuevo selector de agentes incluye:
+Puedes seleccionar diferentes rangos temporales predefinidos:
 
-- **Búsqueda en tiempo real**: Filtra agentes escribiendo en el campo de búsqueda
-- **Vista de tarjetas**: Cada agente se muestra con su icono y nombre completo
-- **Indicador visual**: Marca claramente el agente seleccionado
-- **Búsqueda sin resultados**: Mensaje claro cuando no hay coincidencias
+- **Últimos 7 días**: Para análisis de corto plazo
+- **Últimos 14 días**: Tendencias de dos semanas
+- **Últimos 30 días**: Análisis mensual (por defecto)
+- **Últimos 3 meses**: Tendencias trimestrales
+- **Últimos 6 meses**: Análisis semestral
+- **Rango personalizado**: Define fechas específicas
 
-<Steps>
-<Step title="Buscar agente">
-Utiliza el campo de búsqueda con icono de lupa para encontrar el agente deseado. La búsqueda filtra por nombre en tiempo real.
-</Step>
+<Warning>
+Los rangos temporales largos pueden requerir más tiempo de procesamiento. Para análisis detallados de períodos extensos, considera usar agrupaciones por semana o mes.
+</Warning>
 
-<Step title="Seleccionar agente">
-Haz clic en el agente deseado de la lista desplegable. Verás el icono del agente, su nombre y una marca de verificación si está seleccionado.
-</Step>
+### Agrupación de Datos
 
-<Step title="Ver evaluaciones">
-Presiona el botón **Ver evaluaciones** para cargar los datos de tendencias y métricas.
-</Step>
-</Steps>
-
-## Controles de Tiempo Avanzados
-
-### Rangos predefinidos
-La interfaz ofrece rangos de tiempo optimizados con agrupación automática:
-
-- **Últimos 7 días** - Agrupado por día
-- **Últimos 14 días** - Agrupado por día  
-- **Últimos 30 días** - Agrupado por día
-- **Últimos 3 meses** - Agrupado por semana
-- **Últimos 6 meses** - Agrupado por mes
-- **Rango personalizado** - Define fechas específicas con calendario
-
-### Selector de período
-Los datos se pueden agrupar dinámicamente:
+Configura cómo deseas agrupar los datos temporalmente:
 
 <Tabs>
-<Tab title="Diario">
-**Ideal para**: Análisis detallados de períodos cortos
-- Muestra datos día por día
+<Tab title="Por Día">
+- Ideal para análisis de corto plazo (7-30 días)
+- Proporciona la máxima granularidad
 - Perfecto para identificar patrones diarios
-- Útil para monitoreo en tiempo real
 </Tab>
 
-<Tab title="Semanal">
-**Ideal para**: Análisis de patrones semanales
-- Agrupa datos por semanas
-- Suaviza fluctuaciones diarias
-- Excelente para reportes gerenciales
+<Tab title="Por Semana">
+- Recomendado para períodos de 1-3 meses
+- Suaviza las fluctuaciones diarias
+- Muestra tendencias semanales claras
 </Tab>
 
-<Tab title="Mensual">
-**Ideal para**: Tendencias a largo plazo
-- Consolida datos por meses
-- Elimina variabilidad estacional
-- Perfecto para análisis estratégicos
+<Tab title="Por Mes">
+- Óptimo para análisis de 3-6 meses
+- Revela patrones estacionales
+- Ideal para reportes ejecutivos
 </Tab>
 </Tabs>
 
-### Rango personalizado
-El selector de fechas personalizado incluye:
-- **Calendarios interactivos** para fechas de inicio y fin
-- **Validación automática** de rangos válidos
-- **Actualización en tiempo real** de gráficos y métricas
+## Interpretación de Resultados
 
-<Warning>
-Los rangos personalizados deben tener al menos 24 horas de diferencia y no pueden exceder 2 años de datos históricos.
-</Warning>
+### Tarjetas de Resumen
 
-## Métricas de Resumen Expandidas
+En la parte superior encontrarás tres métricas clave:
 
-En la parte superior verás tres tarjetas con métricas clave actualizadas dinámicamente:
+1. **Total de Evaluaciones**: Número total de evaluaciones en el período
+2. **Evaluaciones Exitosas**: Cantidad de evaluaciones que cumplieron los criterios
+3. **Tasa de Éxito Promedio**: Porcentaje general de éxito en el período
 
-### Total de Evaluaciones
-- **Número absoluto**: Cantidad total de evaluaciones realizadas
-- **Animación de conteo**: Los números se animan al cambiar períodos
-- **Icono contextual**: Indicador visual con tema esmeralda
+### Gráficos de Tendencias
 
-### Tasa de Éxito Global
-- **Cálculo preciso**: `(Evaluaciones Exitosas / Total de Evaluaciones) × 100`
-- **Indicador de tendencia**: Muestra mejora o declive respecto al período anterior
-- **Colores dinámicos**: Verde para tasas altas, ámbar para moderadas, rojo para bajas
+Los gráficos interactivos muestran:
 
-### Llamadas Evaluadas
-- **Cobertura de evaluación**: Cantidad de llamadas únicas sometidas a evaluación
-- **Porcentaje de cobertura**: Relación entre llamadas evaluadas y llamadas totales
-- **Contexto temporal**: Datos específicos del período seleccionado
+- **Líneas de tendencia**: Cada criterio de evaluación tiene su propia línea coloreada
+- **Puntos de datos**: Valores específicos para cada período
+- **Áreas sombreadas**: Representan el volumen de datos subyacente
+- **Controles de zoom**: Permite hacer zoom en períodos específicos
 
 <Info>
-Las métricas se recalculan automáticamente al cambiar el agente, período o rango temporal. Los valores se animan suavemente para mejor experiencia visual.
+Los colores de las líneas se asignan automáticamente y se mantienen consistentes para cada criterio de evaluación a lo largo de toda la sesión.
 </Info>
 
-## Sistema de Gráficos Interactivos
+### Análisis de Patrones
 
-### Características de visualización
-Cada tipo de evaluación se presenta con gráficos avanzados que incluyen:
+#### Tendencias Ascendentes 📈
+- **Color verde**: Indica mejora en el rendimiento
+- **Interpretación**: El agente está aprendiendo y mejorando
+- **Acción recomendada**: Identificar qué cambios causaron la mejora
 
-- **Líneas de tendencia suavizadas**: Algoritmo de interpolación para mejor legibilidad
-- **Áreas de relleno**: Visualización de densidad de datos con gradientes
-- **Puntos de datos interactivos**: Hover para detalles específicos
-- **Ejes adaptativos**: Escalas que se ajustan automáticamente a los datos
+#### Tendencias Descendentes 📉
+- **Color rojo**: Señala una disminución en el rendimiento
+- **Interpretación**: Posible degradación o nuevos desafíos
+- **Acción recomendada**: Investigar causas y implementar correcciones
 
-### Sistema de colores mejorado
-Los gráficos utilizan una paleta profesional:
+#### Tendencias Estables ➡️
+- **Color gris**: Rendimiento consistente
+- **Interpretación**: Estabilidad en el desempeño
+- **Acción recomendada**: Considerar optimizaciones para mejorar
 
-- **Verde esmeralda** (#10B981) - Tasas de éxito excelentes (≥85%)
-- **Azul índigo** (#6366F1) - Tasas de éxito buenas (70-84%)
-- **Ámbar** (#F59E0B) - Tasas de éxito moderadas (55-69%)
-- **Rojo coral** (#EF4444) - Tasas de éxito bajas (<55%)
+## Casos de Uso Prácticos
 
-### Indicadores de tendencia avanzados
-Cada evaluación muestra múltiples indicadores:
+### Monitoreo de Mejoras Post-Entrenamiento
 
-- **↗️ Mejora significativa** - Incremento ≥10% respecto al período anterior
-- **↗ Mejora moderada** - Incremento 5-9%
-- **→ Estabilidad** - Variación <5%
-- **↘ Declive moderado** - Descenso 5-9%
-- **↘️ Declive significativo** - Descenso ≥10%
+Después de actualizar un agente o modificar sus prompts:
 
-## Funcionalidades Interactivas Avanzadas
+1. Establece un punto de referencia antes del cambio
+2. Configura un rango que incluya antes y después
+3. Observa si hay mejoras en las métricas clave
+4. Valida que los cambios tuvieron el efecto deseado
 
-### Navegación en gráficos
-Los gráficos ofrecen controles profesionales:
+### Detección de Degradación
 
-<Steps>
-<Step title="Zoom inteligente">
-- **Rueda del ratón**: Zoom in/out en el punto del cursor
-- **Pinch en móvil**: Gestos táctiles para dispositivos móviles
-- **Zoom a selección**: Arrastra para seleccionar área específica
-</Step>
+Para identificar cuándo un agente comienza a tener problemas:
 
-<Step title="Desplazamiento fluido">
-- **Arrastra para mover**: Pan horizontal y vertical
-- **Controles de navegación**: Botones de dirección
-- **Mini mapa**: Vista general para navegación rápida
-</Step>
+1. Configura alertas visuales para tendencias descendentes
+2. Analiza correlaciones con cambios en el sistema
+3. Investiga posibles causas externas
+4. Implementa medidas correctivas rápidamente
 
-<Step title="Reset y configuración">
-- **Doble clic**: Volver a vista completa
-- **Botón home**: Reset a configuración inicial
-- **Configuraciones**: Personalizar colores y escalas
-</Step>
-</Steps>
+### Análisis de Estacionalidad
 
-### Expansión dinámica de secciones
-- **Clic en nombres**: Expandir/contraer vista de evaluaciones específicas
-- **Vista compacta**: Mostrar solo métricas principales
-- **Vista detallada**: Incluir gráficos, tablas y análisis completo
+Para entender patrones relacionados con el tiempo:
 
-### Tooltips informativos
-Al hacer hover sobre elementos gráficos:
-- **Valores exactos** con precisión decimal
-- **Fechas específicas** del punto de datos
-- **Comparación porcentual** con período anterior
-- **Contexto adicional** sobre el tipo de evaluación
+1. Usa rangos de 3-6 meses con agrupación mensual
+2. Identifica patrones recurrentes
+3. Ajusta estrategias según la estacionalidad
+4. Planifica recursos en base a las tendencias
 
-## Tabla de Datos Detallada
+## Mejores Prácticas
 
-### Estructura de datos
-Cada período muestra información completa:
+### Frecuencia de Revisión
 
-| Campo | Descripción | Formato |
-|-------|-------------|---------|
-| **Fecha** | Período específico | DD/MM/YYYY o Semana/Mes |
-| **Evaluaciones Totales** | Cantidad total | Número entero |
-| **Evaluaciones Exitosas** | Cantidad exitosa | Número entero |
-| **Tasa de Éxito** | Porcentaje de éxito | XX.X% |
-| **Cambio** | Variación vs. anterior | ±XX.X% |
-| **Estado** | Indicador visual | Icono de tendencia |
+- **Diariamente**: Para agentes en desarrollo activo
+- **Semanalmente**: Para agentes en producción estable
+- **Mensualmente**: Para revisiones estratégicas
 
-### Funcionalidades de tabla
-- **Ordenamiento**: Clic en encabezados para ordenar
-- **Filtrado**: Buscar por fechas o rangos específicos
-- **Exportación**: Descargar datos en CSV/Excel
-- **Paginación**: Navegación por grandes conjuntos de datos
-
-## Análisis Predictivo y Patrones
-
-### Algoritmos de detección
-El sistema incluye análisis inteligente que identifica:
-
-### Patrones estacionales
-- **Variaciones semanales**: Lunes vs. viernes
-- **Tendencias mensuales**: Inicio vs. fin de mes
-- **Ciclos estacionales**: Patrones anuales recurrentes
-
-### Anomalías automáticas
-<Warning>
-El sistema detecta automáticamente:
-- **Caídas bruscas** superiores al 20%
-- **Picos inusuales** fuera de 2 desviaciones estándar
-- **Comportamientos atípicos** basados en histórico
-</Warning>
-
-### Predicciones de tendencia
-- **Regresión lineal**: Proyección de tendencias a 30 días
-- **Intervalos de confianza**: Rangos probable de variación
-- **Alertas proactivas**: Notificaciones de posibles problemas
-
-## Interpretación Avanzada de Datos
-
-### Métricas de calidad
-Además de tasas de éxito, el sistema calcula:
-
-#### Consistencia (Coeficiente de Variación)
-```
-CV = (Desviación Estándar / Media) × 100
-```
-- **CV < 15%**: Rendimiento muy consistente
-- **CV 15-25%**: Consistencia moderada  
-- **CV > 25%**: Alta variabilidad
-
-#### Tendencia estadística
-- **Correlación temporal**: Fuerza de la tendencia (-1 a +1)
-- **R-cuadrado**: Porcentaje de variación explicada
-- **Valor p**: Significancia estadística de la tendencia
-
-### Señales de alerta inteligentes
-El sistema genera alertas automáticas para:
-
-<Tabs>
-<Tab title="Críticas">
-- Caída ≥30% en tasa de éxito
-- Más de 3 períodos consecutivos en declive
-- Tasa de éxito <50% por más de 48 horas
-</Tab>
-
-<Tab title="Advertencias">
-- Caída 15-29% en tasa de éxito
-- Aumento significativo en variabilidad
-- Desviación de patrones históricos
-</Tab>
-
-<Tab title="Informativas">
-- Mejoras sostenidas ≥15%
-- Nuevos récords de rendimiento
-- Patrones estacionales identificados
-</Tab>
-</Tabs>
-
-## Acciones Recomendadas
-
-### Para patrones positivos
-Cuando observes mejoras sostenidas:
+### Configuración Óptima
 
 <Steps>
-<Step title="Documentar cambios">
-Registra qué modificaciones se realizaron que pudieron causar la mejora
+<Step title="Define Objetivos">
+Clarifica qué métricas son más importantes para tu caso de uso específico.
 </Step>
 
-<Step title="Replicar éxito">
-Aplica las mismas estrategias a otros agentes con rendimiento similar
+<Step title="Selecciona Períodos Apropiados">
+Usa rangos que proporcionen suficientes datos sin abrumar con detalles.
 </Step>
 
-<Step title="Monitorear estabilidad">
-Verifica que las mejoras se mantengan en el tiempo
-</Step>
-</Steps>
-
-### Para señales de alerta
-Ante tendencias negativas:
-
-<Steps>
-<Step title="Análisis de causa raíz">
-Investiga eventos, cambios o patrones que coincidan con el declive
+<Step title="Compara Consistentemente">
+Mantén configuraciones similares para comparaciones válidas entre períodos.
 </Step>
 
-<Step title="Revisión de configuración">
-Verifica configuraciones, prompts y parámetros del agente
-</Step>
-
-<Step title="Plan de acción">
-Implementa correcciones específicas basadas en los hallazgos
-</Step>
-
-<Step title="Monitoreo intensivo">
-Aumenta la frecuencia de revisión hasta confirmar la recuperación
+<Step title="Documenta Cambios">
+Registra cuándo realizas modificaciones al agente para correlacionar con las tendencias.
 </Step>
 </Steps>
 
 ## Exportación y Reportes
 
-### Formatos de exportación
-Los datos se pueden exportar en múltiples formatos:
+Los datos de tendencias pueden ser utilizados para:
 
-- **CSV**: Para análisis en hojas de cálculo
-- **Excel**: Con gráficos y formato preconfigurado
-- **PDF**: Reportes ejecutivos con visualizaciones
-- **JSON**: Para integración con sistemas externos
+- **Reportes ejecutivos**: Resúmenes de alto nivel del rendimiento
+- **Análisis técnicos**: Datos detallados para optimizaciones
+- **Documentación de mejoras**: Evidencia de progreso en el tiempo
+- **Planificación futura**: Base para proyecciones y objetivos
 
-### Reportes automatizados
-Configura reportes periódicos que incluyen:
-- **Resumen ejecutivo**: KPIs principales y tendencias
-- **Análisis detallado**: Gráficos, tablas y métricas completas
-- **Recomendaciones**: Sugerencias basadas en algoritmos de IA
-- **Comparativas**: Benchmarking con períodos anteriores
+<Warning>
+Recuerda que las tendencias muestran correlaciones, no necesariamente causalidad. Siempre valida los insights con análisis adicionales y pruebas controladas.
+</Warning>
 
-## Mejores Prácticas Avanzadas
+## Solución de Problemas Comunes
 
-### Estrategia de monitoreo
-Para maximizar el valor de la herramienta:
+### No se muestran datos
+- Verifica que el agente seleccionado tenga evaluaciones en el rango temporal
+- Confirma que las fechas de inicio y fin son correctas
+- Asegúrate de que el agente ha procesado llamadas en el período
 
-#### Frecuencia de revisión
-- **Diaria**: Agentes en producción crítica
-- **Semanal**: Agentes estables en operación
-- **Mensual**: Agentes en desarrollo o testing
+### Gráficos no se cargan
+- Actualiza la página e intenta nuevamente
+- Verifica tu conexión a internet
+- Contacta soporte si el problema persiste
 
-#### Configuración de alertas
-<Steps>
-<Step title="Establecer umbrales">
-Define límites específicos para tu contexto de negocio
-</Step>
+### Datos inconsistentes
+- Revisa la configuración de agrupación temporal
+- Confirma que no hay cambios en los criterios de evaluación
+- Valida que el rango temporal es el esperado
 
-<Step title="Configurar notificaciones">
-Activa alertas por email/SMS para eventos críticos
-</Step>
-
-<Step title="Crear dashboards">
-Configura vistas personalizadas para diferentes stakeholders
-</Step>
-</Steps>
-
-### Análisis comparativo avanzado
-Utiliza la herramienta para:
-
-#### Benchmarking temporal
-- Compara rendimiento trimestre vs. trimestre
-- Identifica mejores y peores períodos históricos
-- Analiza impacto de actualizaciones y cambios
-
-#### Análisis de cohortes
-- Agrupa agentes por características similares
-- Compara rendimiento entre diferentes tipos de evaluación
-- Identifica patrones por segmentos de usuarios
-
-### Optimización basada en datos
-<Info>
-La herramienta de tendencias es más efectiva cuando se combina con:
-- **Logs detallados** de conversaciones
-- **Feedback cualitativo** de usuarios
-- **Métricas de negocio** complementarias
-- **A/B testing** de configuraciones
-</Info>
-
----
-
-La herramienta de tendencias de evaluaciones representa el estado del arte en análisis de rendimiento de agentes conversacionales. Su combinación de visualizaciones intuitivas, métricas estadísticamente rigurosas y funcionalidades interactivas avanzadas la convierten en una herramienta indispensable para la mejora continua y la excelencia operacional de tus sistemas de IA.
+Las tendencias de evaluaciones son una herramienta poderosa para el monitoreo continuo y la mejora de tus agentes conversacionales. Úsalas regularmente para mantener un rendimiento óptimo y identificar oportunidades de optimización.
