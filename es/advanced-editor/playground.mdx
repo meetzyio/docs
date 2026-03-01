@@ -12,9 +12,48 @@ El Playground es un entorno de pruebas en el Editor Avanzado donde puedes intera
 Probar en el Playground ahorra tiempo y dinero al detectar problemas antes de que afecten a llamadas reales de clientes.
 </Info>
 
+## Nuevas Funcionalidades de Visualización
+
+### Vista Comparativa del Editor
+
+El Editor Avanzado ahora incluye opciones mejoradas de visualización para facilitar la edición y depuración:
+
+<Tabs>
+  <Tab title="Vista de Diferencias">
+    **Sistema de Diff Mejorado**
+    - Comparación visual lado a lado de cambios
+    - Resaltado de líneas modificadas, añadidas o eliminadas
+    - Navegación rápida entre diferencias
+    - Soporte para múltiples tipos de cambios simultáneos
+  </Tab>
+  <Tab title="Control de Versiones">
+    **Integración con Git**
+    - Indicadores de estado en tiempo real (clean, modified, conflict)
+    - Versioning automático con números de versión
+    - Colaboración en tiempo real con bloqueo de campos
+    - Sincronización automática de cambios remotos
+  </Tab>
+</Tabs>
+
+### Estados de Visualización
+
+El editor mantiene diferentes estados visuales para una mejor experiencia de usuario:
+
+| Estado | Descripción | Indicador Visual |
+|--------|-------------|------------------|
+| 🟢 Clean | Sin cambios locales | Badge verde "Clean" |
+| 🟡 Modified | Cambios locales pendientes | Badge amarillo "Modified (N)" |
+| 🔴 Conflict | Conflictos de versión | Badge rojo "Conflicts (N)" |
+| 🔵 Syncing | Sincronizando cambios | Badge azul "Syncing..." |
+| 🟠 Locked | Bloqueado por otros usuarios | Badge naranja "Locked by N user(s)" |
+
+<Warning>
+Los cambios realizados mientras el agente está en estado "Locked" pueden perderse si otro usuario publica primero.
+</Warning>
+
 ## Accediendo al Playground
 
-El Playground está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Playground" para acceder.
+El Playground está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Playground" para acceder, y observa el estado de sincronización en la barra superior para asegurar que estás probando la versión más reciente.
 
 ## Tipos de Llamada
 
@@ -46,9 +85,9 @@ Haz clic en el icono del micrófono para decir tu mensaje. El agente:
 Las pruebas de voz ayudan a verificar la precisión del reconocimiento de voz y la calidad de la síntesis de voz.
 </Info>
 
-## Vista de Conversación
+## Vista de Conversación Mejorada
 
-El Playground muestra mensajes cronológicamente:
+El Playground muestra mensajes cronológicamente con indicadores de estado de versión:
 
 | Elemento | Descripción |
 |---------|-------------|
@@ -56,6 +95,7 @@ El Playground muestra mensajes cronológicamente:
 | 🤖 Mensaje del Agente | Respuestas del agente |
 | 🔧 Llamada de Herramienta | Cuando el agente dispara un webhook o acción |
 | ✅ Resultado de Herramienta | Respuesta del webhook o acción |
+| 📝 Estado de Versión | Indicador del estado actual del agente |
 
 ### Reproducción de Audio
 
@@ -63,6 +103,20 @@ Para cada respuesta del agente, puedes:
 - ▶️ Reproducir la respuesta de audio
 - ⏸️ Pausar reproducción
 - 🔁 Repetir mensajes
+
+### Validación en Tiempo Real
+
+<Steps>
+  <Step title="Verificar Estado de Versión">
+    Antes de comenzar las pruebas, revisa el indicador de estado en la barra superior para asegurar consistencia.
+  </Step>
+  <Step title="Sincronizar Cambios">
+    Si hay cambios pendientes, usa los botones "Check" y "Pull" para obtener la última versión.
+  </Step>
+  <Step title="Resolver Conflictos">
+    Si aparecen conflictos, resuélvelos antes de continuar con las pruebas para evitar resultados inconsistentes.
+  </Step>
+</Steps>
 
 ## Variables de Contexto
 
@@ -74,6 +128,9 @@ Prueba cómo tu agente maneja diferentes parámetros de entrada:
   </Step>
   <Step title="Establecer Valores">
     Ingresa valores de prueba para cada parámetro de entrada.
+  </Step>
+  <Step title="Verificar Sincronización">
+    Asegúrate de que las variables están sincronizadas con la versión actual del agente.
   </Step>
   <Step title="Iniciar Conversación">
     Comienza a probar con el contexto configurado.
@@ -87,15 +144,19 @@ Prueba cómo tu agente maneja diferentes parámetros de entrada:
   "nombre_cliente": "Juan García",
   "numero_pedido": "PED-12345",
   "es_cliente_premium": true,
-  "saldo_cuenta": 1250.50
+  "saldo_cuenta": 1250.50,
+  "fecha_y_hora_actual": "2024-01-15 14:30:00"
 }
 ```
 
-## Test de Fiabilidad
+## Test de Fiabilidad con Control de Versiones
 
-Ejecuta múltiples iteraciones de la misma conversación para probar consistencia:
+Ejecuta múltiples iteraciones de la misma conversación para probar consistencia considerando el estado de versión:
 
 <Steps>
+  <Step title="Verificar Estabilidad">
+    Asegúrate de que el agente esté en estado "Clean" o "Synced" antes de comenzar.
+  </Step>
   <Step title="Configurar Escenario">
     Configura tu conversación de prueba y variables de contexto.
   </Step>
@@ -106,15 +167,15 @@ Ejecuta múltiples iteraciones de la misma conversación para probar consistenci
     Haz clic en "Ejecutar Test de Fiabilidad" para comenzar.
   </Step>
   <Step title="Revisar Resultados">
-    Analiza la consistencia en todas las iteraciones.
+    Analiza la consistencia en todas las iteraciones y compara con versiones anteriores.
   </Step>
 </Steps>
 
 <Info>
-Los tests de fiabilidad ayudan a identificar casos edge donde el agente podría comportarse inconsistentemente.
+Los tests de fiabilidad ayudan a identificar casos edge donde el agente podría comportarse inconsistentemente, especialmente después de cambios de versión.
 </Info>
 
-## Probando Características
+## Probando Características con Diferencias Visuales
 
 ### Probar Llamadas de Herramientas
 
@@ -123,14 +184,16 @@ Cuando tu agente dispara un webhook:
 1. La llamada de herramienta aparece en la conversación
 2. Puedes ver los parámetros que se envían
 3. La respuesta (o respuesta simulada) se muestra
+4. **Nuevo:** Indicadores visuales muestran si las herramientas han sido modificadas desde la última versión
 
 ### Probar Evaluaciones
 
-Después de una conversación, puedes ejecutar evaluaciones para verificar que funcionan correctamente:
+Después de una conversación, puedes ejecutar evaluaciones con comparación de versiones:
 
 1. Termina la conversación naturalmente
 2. Haz clic en "Ejecutar Evaluaciones"
 3. Revisa qué evaluaciones pasan o fallan
+4. **Nuevo:** Compara resultados con evaluaciones de versiones anteriores
 
 ### Probar Base de Conocimiento
 
@@ -139,60 +202,90 @@ Verifica que tu agente puede encontrar y usar contenido de la base de conocimien
 1. Haz preguntas que requieran búsqueda en KB
 2. Observa si el agente recupera información correcta
 3. Verifica si las respuestas son precisas y relevantes
+4. **Nuevo:** Revisa si hay cambios en la KB desde la última versión
 
-## Mejores Prácticas
+## Integración con Sistema de Control de Versiones
+
+### Flujo de Trabajo Recomendado
+
+<Steps>
+  <Step title="Verificar Estado Inicial">
+    Antes de hacer cambios, verifica que estás en la última versión usando el botón "Check".
+  </Step>
+  <Step title="Realizar Cambios">
+    Haz tus modificaciones al agente observando los indicadores de cambios en tiempo real.
+  </Step>
+  <Step title="Probar en Playground">
+    Usa el Playground para validar los cambios antes de publicar.
+  </Step>
+  <Step title="Revisar Diferencias">
+    Usa la vista de diferencias para revisar todos los cambios realizados.
+  </Step>
+  <Step title="Publicar Cambios">
+    Una vez validado, publica usando el botón "Publish" con un mensaje descriptivo.
+  </Step>
+</Steps>
+
+### Manejo de Conflictos de Versión
+
+Si aparecen conflictos durante las pruebas:
+
+<Warning>
+Los conflictos de versión pueden afectar los resultados de las pruebas. Resuélvelos antes de continuar.
+</Warning>
+
+1. **Identificar Conflictos:** Los campos en conflicto se marcan visualmente
+2. **Revisar Diferencias:** Usa la vista diff para entender los cambios
+3. **Resolver Manualmente:** Elige qué versión mantener para cada campo
+4. **Re-probar:** Ejecuta las pruebas nuevamente después de resolver
+
+## Mejores Prácticas Actualizadas
 
 <AccordionGroup>
-  <Accordion title="Prueba Casos Edge" icon="flask">
-    Prueba entradas inusuales, interrupciones y respuestas inesperadas para ver cómo las maneja tu agente.
+  <Accordion title="Prueba con Versiones Estables" icon="shield-check">
+    Siempre realiza pruebas importantes cuando el agente esté en estado "Clean" para evitar inconsistencias.
   </Accordion>
-  <Accordion title="Varía el Contexto" icon="shuffle">
-    Prueba con diferentes combinaciones de parámetros de entrada para asegurar que la personalización funciona correctamente.
+  <Accordion title="Monitorea Cambios Remotos" icon="sync">
+    Usa el botón "Check" regularmente para detectar cambios realizados por otros colaboradores.
   </Accordion>
-  <Accordion title="Prueba Ambos Tipos de Llamada" icon="phone">
-    Siempre prueba escenarios tanto entrantes como salientes.
+  <Accordion title="Documenta Cambios Importantes" icon="file-text">
+    Al publicar cambios que afectan el comportamiento del agente, incluye mensajes descriptivos de commit.
   </Accordion>
-  <Accordion title="Verifica Integraciones de Herramientas" icon="plug">
-    Verifica que los webhooks se llaman con los parámetros correctos.
+  <Accordion title="Prueba Casos Edge Post-Cambio" icon="flask">
+    Después de sincronizar cambios remotos, re-ejecuta casos edge para verificar que no se introdujeron regresiones.
   </Accordion>
-  <Accordion title="Ejecuta Tests de Fiabilidad" icon="rotate">
-    Ejecuta periódicamente tests de múltiples iteraciones para asegurar consistencia.
+  <Accordion title="Usa Vista Diff para Validación" icon="code-compare">
+    Antes de publicar, revisa la vista de diferencias para asegurar que todos los cambios son intencionales.
   </Accordion>
 </AccordionGroup>
 
 ## Escenarios Comunes de Prueba
 
-### Camino Feliz
-Prueba el flujo de conversación ideal donde todo va como se espera.
+### Camino Feliz con Control de Versiones
+Prueba el flujo de conversación ideal donde todo va como se espera, verificando que la versión actual produce los resultados esperados.
 
-### Manejo de Errores
+### Manejo de Errores Multi-Versión
 Prueba qué pasa cuando:
 - El usuario proporciona información inválida
 - Los webhooks fallan
 - El usuario no responde
+- **Nuevo:** Los cambios de versión afectan el manejo de errores
 
-### Manejo de Objeciones
-Prueba cómo responde el agente a:
-- "No estoy interesado"
-- "Llámame más tarde"
-- "Necesito pensarlo"
+### Validación de Regresiones
+**Nuevo escenario:** Después de actualizar a una nueva versión:
+- Prueba conversaciones que funcionaban en versiones anteriores
+- Verifica que las mejoras no rompieron funcionalidades existentes
+- Compara respuestas antes y después de los cambios
 
-### Casos Edge
-Prueba escenarios inusuales:
-- Respuestas muy cortas
-- Entradas largas y divagantes
-- Preguntas fuera de tema
-- Múltiples preguntas a la vez
-
-## Troubleshooting
+## Troubleshooting Actualizado
 
 | Problema | Solución |
 |-------|----------|
-| Agente no responde | Verifica que el modelo LLM está configurado correctamente |
-| Saludo incorrecto | Verifica que el tipo de llamada (entrante/saliente) está configurado correctamente |
-| Falta personalización | Asegura que las variables de contexto están configuradas |
-| Webhook no se dispara | Verifica descripciones y condiciones de herramientas |
-| Respuestas lentas | Prueba con un modelo LLM más rápido |
+| Agente no responde | Verifica que el modelo LLM está configurado correctamente y el estado de versión |
+| Comportamiento inconsistente | Revisa si hay conflictos de versión pendientes |
+| Cambios no se reflejan | Usa "Pull" para sincronizar la última versión |
+| Resultados inesperados después de cambios | Compara con versión anterior usando vista diff |
+| Error de concurrencia | Otro usuario modificó el agente; resuelve conflictos manualmente |
 
 ## Siguientes Pasos
 
@@ -202,13 +295,27 @@ Prueba escenarios inusuales:
     icon="robot"
     href="/es/advanced-editor/copilot"
   >
-    Obtén ayuda de IA para mejorar tus prompts
+    Obtén ayuda de IA para mejorar tus prompts con contexto de versiones
   </Card>
   <Card
     title="Historial de Versiones"
     icon="clock-rotate-left"
     href="/es/advanced-editor/version-history"
   >
-    Rastrea y gestiona cambios
+    Rastrea y gestiona cambios con el sistema integrado
+  </Card>
+  <Card
+    title="Pruebas Automatizadas"
+    icon="flask"
+    href="/es/advanced-editor/tests"
+  >
+    Configura pruebas que se ejecuten automáticamente con cada cambio de versión
+  </Card>
+  <Card
+    title="Colaboración en Equipo"
+    icon="users"
+    href="/es/advanced-editor/collaboration"
+  >
+    Aprende a trabajar en equipo con el sistema de control de versiones
   </Card>
 </CardGroup>

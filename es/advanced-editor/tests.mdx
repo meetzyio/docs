@@ -48,6 +48,157 @@ Un test de **Simulación** usa IA para simular un usuario. Defines una persona, 
 | Persona | Perfil del usuario simulado | "Cliente interesado en información" |
 | Objetivo | Lo que quiere el usuario simulado | "Obtener información sobre el servicio" |
 
+## Funcionalidades Avanzadas de Tests
+
+### Simulación de Conversaciones en Tiempo Real
+
+<Info>
+La función **Simular** permite ejecutar conversaciones dinámicas sin crear un test permanente.
+</Info>
+
+Para usar la simulación rápida:
+
+<Steps>
+  <Step title="Abrir Simulador">
+    Haz clic en el icono de burbuja de chat en el encabezado de Tests.
+  </Step>
+  <Step title="Configurar Parámetros">
+    - **Primer mensaje**: Cómo empieza el usuario simulado
+    - **Persona**: Perfil y características del usuario
+    - **Objetivo**: Meta que busca alcanzar el usuario
+    - **Límite de turnos**: Máximo de intercambios (por defecto 10)
+  </Step>
+  <Step title="Ejecutar Simulación">
+    Observa la conversación en tiempo real mientras el agente y usuario simulado interactúan.
+  </Step>
+</Steps>
+
+### Variables Dinámicas Avanzadas
+
+Los tests pueden usar variables de contexto que se reemplazan durante la ejecución:
+
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `fecha_y_hora_actual` | Fecha y hora en español | "Miércoles 12 de Febrero de 2026 a las 14:30" |
+| `cliente_nombre` | Nombre del cliente | "Juan Pérez" |
+| `numero_pedido` | Identificador de pedido | "ORD-12345" |
+| `producto_seleccionado` | Producto en contexto | "Seguro de vida premium" |
+
+<Warning>
+Las variables dinámicas se evalúan al momento de ejecutar el test, no al crearlo. Asegúrate de configurar los valores correctos antes de la ejecución.
+</Warning>
+
+### Testing por Lotes y Repeticiones
+
+El sistema permite ejecutar tests múltiples veces para detectar inconsistencias:
+
+- **Ejecución por lotes**: Ejecuta todos los tests seleccionados en una sola operación
+- **Repeticiones automáticas**: Configura hasta 10 repeticiones por test para validar consistencia
+- **Análisis estadístico**: Obtén métricas de éxito/fallo a través de múltiples ejecuciones
+
+<Tabs>
+  <Tab title="Ejecución Simple">
+    ```
+    1. Selecciona tests individuales
+    2. Haz clic en "Ejecutar"
+    3. Revisa resultados inmediatamente
+    ```
+  </Tab>
+  <Tab title="Ejecución por Lotes">
+    ```
+    1. Configura número de repeticiones (1-10)
+    2. Selecciona tests o "Ejecutar todo"
+    3. Monitorea progreso en tiempo real
+    4. Analiza estadísticas agregadas
+    ```
+  </Tab>
+</Tabs>
+
+### Historial de Ejecuciones Detallado
+
+La pestaña **Historial** proporciona análisis completos de ejecuciones anteriores:
+
+#### Información de Ejecución
+
+| Campo | Descripción |
+|-------|-------------|
+| **Timestamp** | Fecha y hora exacta de ejecución |
+| **Estado Global** | Resumen: Aprobados/Fallidos/Total |
+| **Duración** | Tiempo total de ejecución |
+| **Versión del Agente** | Versión específica probada |
+| **Variables Usadas** | Valores de contexto aplicados |
+
+#### Análisis Individual por Test
+
+Cada ejecución muestra:
+
+- **Respuesta completa del agente**
+- **Razón de evaluación detallada**
+- **Conversación completa** (para simulaciones)
+- **Tiempo de respuesta**
+- **Tokens utilizados**
+
+<Steps>
+  <Step title="Acceder al Historial">
+    Cambia a la pestaña "History" en el panel de Tests.
+  </Step>
+  <Step title="Seleccionar Ejecución">
+    Haz clic en cualquier ejecución para ver detalles completos.
+  </Step>
+  <Step title="Analizar Resultados">
+    Revisa respuestas individuales y identifica patrones de fallo.
+  </Step>
+  <Step title="Ejecutar Acciones">
+    - **Reintentar fallidos**: Re-ejecuta solo tests fallidos
+    - **Reintentar todo**: Re-ejecuta toda la suite
+    - **Exportar resultados**: Descarga reporte detallado
+  </Step>
+</Steps>
+
+### Integración con Copilot para Mejoras Automáticas
+
+<Info>
+Meetzy analiza automáticamente los resultados de tests fallidos y genera sugerencias de mejora específicas.
+</Info>
+
+#### Análisis Inteligente de Fallos
+
+Cuando tests fallan consistentemente, el sistema:
+
+1. **Analiza patrones de fallo** en múltiples ejecuciones
+2. **Identifica problemas comunes** en respuestas del agente
+3. **Genera prompts de mejora** específicos para Copilot
+4. **Sugiere modificaciones** a prompts, conocimientos o acciones
+
+#### Flujo de Mejora Automática
+
+<Steps>
+  <Step title="Ejecutar Suite de Tests">
+    Ejecuta tests después de cambios en el agente.
+  </Step>
+  <Step title="Detectar Fallos Consistentes">
+    El sistema identifica tests que fallan repetidamente.
+  </Step>
+  <Step title="Generar Análisis Automático">
+    Copilot analiza fallos y propone mejoras específicas.
+  </Step>
+  <Step title="Aplicar Sugerencias">
+    Implementa las mejoras recomendadas directamente desde Copilot.
+  </Step>
+  <Step title="Validar con Re-testing">
+    Ejecuta tests nuevamente para confirmar mejoras.
+  </Step>
+</Steps>
+
+#### Tipos de Sugerencias de Copilot
+
+| Tipo de Problema | Sugerencia de Copilot | Ejemplo |
+|------------------|----------------------|---------|
+| **Respuesta inconsistente** | Modificar prompt para mayor claridad | "Añadir ejemplo específico de respuesta profesional" |
+| **Información faltante** | Actualizar base de conocimiento | "Agregar FAQ sobre horarios de atención" |
+| **Tono inadecuado** | Ajustar instrucciones de personalidad | "Reforzar tono amigable pero profesional" |
+| **Acción incorrecta** | Revisar configuración de funciones | "Corregir parámetros de función de reserva" |
+
 ## Crear un Test
 
 <Steps>
@@ -58,138 +209,424 @@ Un test de **Simulación** usa IA para simular un usuario. Defines una persona, 
     Haz clic en el botón "Nuevo" para iniciar el asistente de creación.
   </Step>
   <Step title="Paso 1 - Nombre y Tipo">
-    Introduce un nombre descriptivo y elige Escenario o Simulación.
+    - Introduce un nombre descriptivo
+    - Elige **Escenario** (conversación fija) o **Simulación** (conversación dinámica)
   </Step>
-  <Step title="Paso 2 - Conversación">
-    Para Escenario: Añade el flujo de conversación (mensajes usuario/agente). Para Simulación: Configura primer mensaje, persona y objetivo.
+  <Step title="Paso 2 - Configurar Conversación">
+    **Para Escenario**: Añade el flujo de conversación (mensajes usuario/agente alternativos).
+    
+    **Para Simulación**: Configura:
+    - Primer mensaje del usuario simulado
+    - Persona y características del usuario
+    - Objetivo que busca alcanzar
   </Step>
-  <Step title="Paso 3 - Criterios">
-    Define la condición de éxito y añade ejemplos de éxito/fallo para guiar la evaluación.
+  <Step title="Paso 3 - Criterios de Éxito">
+    - Define la condición de éxito clara y específica
+    - Añade ejemplos de respuestas exitosas
+    - Incluye ejemplos de respuestas que deben fallar
   </Step>
-  <Step title="Guardar">
-    El test se crea y aparece en la lista.
+  <Step title="Configurar Variables (Opcional)">
+    Añade variables dinámicas que se necesiten durante la ejecución.
+  </Step>
+  <Step title="Guardar y Probar">
+    El test se crea y aparece en la lista. Ejecuta inmediatamente para validar.
   </Step>
 </Steps>
 
-## Variables de Contexto
+## Variables de Contexto Avanzadas
 
-Los tests pueden usar **variables dinámicas** que reemplazan marcadores en los prompts del agente durante la ejecución. Casos de uso comunes:
-
-| Variable | Propósito | Ejemplo |
-|----------|---------|---------|
-| `fecha_y_hora_actual` | Fecha y hora actual en español | "Hoy es Miércoles 12 de Febrero de 2026 a las 14:30" |
-| Parámetros de entrada | Variables específicas del agente | Nombre del cliente, número de pedido, etc. |
+<Tabs>
+  <Tab title="Variables del Sistema">
+    | Variable | Formato | Actualización |
+    |----------|---------|---------------|
+    | `fecha_y_hora_actual` | "Miércoles 12 de Febrero de 2026 a las 14:30" | Manual via botón refresh |
+    | `timestamp_unix` | 1709386200 | Automática |
+    | `dia_semana` | "Miércoles" | Automática |
+    | `hora_24h` | "14:30" | Automática |
+  </Tab>
+  <Tab title="Variables Personalizadas">
+    ```
+    cliente_nombre: "María González"
+    numero_contrato: "CTR-2024-001"
+    producto_interes: "Seguro de hogar"
+    presupuesto_max: "500€"
+    canal_contacto: "Teléfono"
+    ```
+  </Tab>
+  <Tab title="Variables de Entrada del Agente">
+    Las variables definidas en **Parámetros de Entrada** del agente se aplican automáticamente a todos los tests.
+  </Tab>
+</Tabs>
 
 ### Configurar Variables de Contexto
 
-1. Haz clic en el icono **Variables de contexto** (llaves de código) en el encabezado de Tests
-2. Introduce valores para cada variable
-3. Haz clic en el icono de actualizar junto a `fecha_y_hora_actual` para actualizar la hora actual
-4. Ejecuta tests - las variables se inyectan en el contexto del agente
+<Steps>
+  <Step title="Abrir Panel de Variables">
+    Haz clic en el icono **Variables de contexto** (llaves `{}`) en el encabezado de Tests.
+  </Step>
+  <Step title="Configurar Variables del Sistema">
+    Haz clic en el icono de actualizar junto a `fecha_y_hora_actual` para usar la hora actual.
+  </Step>
+  <Step title="Añadir Variables Personalizadas">
+    - Nombre: clave de la variable (ej. `cliente_nombre`)
+    - Valor: contenido que se inyectará (ej. "Juan Pérez")
+  </Step>
+  <Step title="Validar Inyección">
+    Las variables se reemplazan automáticamente en prompts del agente durante la ejecución.
+  </Step>
+</Steps>
 
-<Tip>
-Usa `fecha_y_hora_actual` cuando tu agente saluda con "Buenos días" o hace referencia a la fecha actual. Los tests usan los valores que configuras, no la hora en vivo.
-</Tip>
+## Ejecutar Tests Avanzado
 
-## Ejecutar Tests
+### Estrategias de Ejecución
 
-### Ejecutar Todos los Tests
+<Tabs>
+  <Tab title="Ejecución Selectiva">
+    - Marca casillas de tests específicos
+    - Útil para validar cambios puntuales
+    - Menor tiempo de ejecución
+  </Tab>
+  <Tab title="Ejecución Completa">
+    - Ejecuta toda la suite de tests
+    - Recomendado antes de publicar
+    - Validación integral del agente
+  </Tab>
+  <Tab title="Ejecución por Lotes">
+    - Configura repeticiones múltiples
+    - Detecta inconsistencias en respuestas
+    - Análisis estadístico de resultados
+  </Tab>
+</Tabs>
 
-Haz clic en **Ejecutar todo** para ejecutar cada test. Los resultados aparecen en la pestaña **Historial**.
+### Configuración de Lotes
 
-### Ejecutar Tests Seleccionados
+| Configuración | Propósito | Recomendación |
+|---------------|-----------|---------------|
+| **1 repetición** | Validación rápida | Tests exploratorios |
+| **3-5 repeticiones** | Detección de inconsistencias | Tests críticos |
+| **10 repeticiones** | Análisis estadístico completo | Validación pre-producción |
 
-1. Selecciona tests con las casillas de verificación
-2. Haz clic en **Ejecutar todo** (ejecuta los seleccionados cuando hay alguno marcado) o en el botón de reproducción en las tarjetas individuales
+### Monitoreo en Tiempo Real
 
-### Ejecutar un Solo Test
+Durante la ejecución observa:
+- **Progreso de cada test** con indicadores visuales
+- **Tiempo estimado** restante
+- **Fallos inmediatos** para detención rápida
+- **Uso de recursos** (tokens, tiempo de respuesta)
 
-Haz clic en el icono de reproducción (▶) en cualquier tarjeta de test para ejecutar solo ese test.
+## Pestaña Historial Avanzado
 
-## Pestaña Historial
+### Vista de Resumen
 
-La pestaña **Historial** muestra ejecuciones anteriores:
+La vista principal del historial muestra:
 
-| Columna | Descripción |
-|--------|-------------|
-| Fecha | Cuándo se ejecutó |
-| Estado | Aprobados, fallos, o ejecutándose |
-| Acciones | Ver detalles, reintentar fallidos, reintentar todo |
+| Columna | Información |
+|---------|------------|
+| **Fecha/Hora** | Timestamp completo de ejecución |
+| **Resultados** | Ratio visual de éxito/fallo |
+| **Duración** | Tiempo total de ejecución |
+| **Versión** | Versión del agente probada |
+| **Repeticiones** | Número de ejecuciones por test |
+| **Acciones** | Opciones de re-ejecución |
 
-### Ver Detalles de una Ejecución
+### Análisis Detallado de Ejecuciones
 
-1. Cambia a la pestaña Historial
-2. Haz clic en una ejecución para abrir el modal de detalles
-3. Consulta los resultados individuales con respuestas del agente y razones de evaluación
-4. Usa **Reintentar fallidos** para volver a ejecutar solo los tests fallidos
-5. Usa **Reintentar todo** para volver a ejecutar todo el lote
+<Steps>
+  <Step title="Seleccionar Ejecución">
+    Haz clic en cualquier fila del historial.
+  </Step>
+  <Step title="Revisar Métricas Globales">
+    - Tiempo promedio de respuesta
+    - Distribución de éxitos/fallos
+    - Tokens totales utilizados
+    - Variables de contexto aplicadas
+  </Step>
+  <Step title="Analizar Tests Individuales">
+    Para cada test revisa:
+    - Respuesta completa del agente
+    - Evaluación paso a paso
+    - Conversación completa (simulaciones)
+    - Comparación con ejecuciones anteriores
+  </Step>
+  <Step title="Identificar Patrones">
+    - Tests que fallan consistentemente
+    - Variaciones en respuestas
+    - Degradación de rendimiento
+    - Mejoras tras cambios
+  </Step>
+</Steps>
 
-## Simular Conversación
+### Acciones de Seguimiento
 
-La función **Simular** permite ejecutar una simulación única sin crear un test:
+| Acción | Cuándo Usar | Resultado |
+|--------|-------------|-----------|
+| **Reintentar fallidos** | Fallos esporádicos | Re-ejecuta solo tests fallidos |
+| **Reintentar todo** | Validación completa | Re-ejecuta suite completa |
+| **Exportar resultados** | Documentación | Reporte detallado en PDF/CSV |
+| **Comparar versiones** | Análisis de regresión | Comparación lado a lado |
 
-1. Haz clic en el icono de burbuja de chat en el encabezado de Tests
-2. Configura primer mensaje, persona y objetivo
-3. Establece el límite de turnos (por defecto 10)
-4. Haz clic para iniciar - observa la conversación simulada en tiempo real
+## Simular Conversación Avanzada
+
+La función **Simular** permite testing exploratorio sin crear tests permanentes:
+
+### Configuración de Simulación
+
+<Tabs>
+  <Tab title="Básica">
+    ```
+    Primer mensaje: "Hola, buenos días"
+    Persona: "Cliente interesado"  
+    Objetivo: "Obtener información"
+    Límite: 10 turnos
+    ```
+  </Tab>
+  <Tab title="Avanzada">
+    ```
+    Primer mensaje: "Tengo un problema con mi póliza"
+    Persona: "Cliente frustrado, prisa, conoce el producto"
+    Objetivo: "Resolver incidencia específica rápidamente"  
+    Límite: 15 turnos
+    Contexto: Variables de cliente real
+    ```
+  </Tab>
+</Tabs>
+
+### Monitoreo de Simulación
+
+Durante la simulación observa:
+- **Progreso de la conversación** en tiempo real
+- **Calidad de respuestas** del agente
+- **Cumplimiento del objetivo** del usuario simulado
+- **Naturalidad del diálogo** entre ambas partes
 
 <Info>
-Simular es útil para pruebas exploratorias rápidas. Usa tests de Escenario/Simulación cuando necesites validación automatizada y repetible.
+Las simulaciones son ideales para explorar edge cases y situaciones no contempladas en tests fijos.
 </Info>
 
 ## Gestionar Tests
 
-### Editar un Test
+### Operaciones Básicas
 
-Haz clic en el menú (⋮) en una tarjeta de test → **Editar**. Modifica la conversación, criterios o ejemplos.
+<Tabs>
+  <Tab title="Editar">
+    - Haz clic en el menú (⋮) → **Editar**
+    - Modifica conversación, criterios o ejemplos
+    - Los cambios se aplican inmediatamente
+  </Tab>
+  <Tab title="Clonar">
+    - Haz clic en el menú (⋮) → **Clonar**
+    - Útil para crear variaciones (ej. diferente primer mensaje)
+    - Mantiene criterios de éxito originales
+  </Tab>
+  <Tab title="Eliminar">
+    - Haz clic en el menú (⋮) → **Eliminar**
+    - Confirma la acción
+    - Elimina también historial asociado
+  </Tab>
+</Tabs>
 
-### Clonar un Test
+### Filtrado Avanzado
 
-Haz clic en el menú (⋮) → **Clonar** para crear una copia. Útil para crear variaciones (ej. diferente primer mensaje, mismos criterios).
+| Filtro | Muestra | Casos de Uso |
+|--------|---------|--------------|
+| **Todos** | Todos los tests | Vista completa de la suite |
+| **Aprobados** | Solo tests exitosos | Verificar tests que funcionan |
+| **Fallidos** | Solo tests fallidos | Enfocar en problemas |
+| **Sin ejecutar** | Tests pendientes | Identificar tests nuevos |
+| **Inconsistentes** | Tests con fallos esporádicos | Detectar problemas de estabilidad |
 
-### Eliminar un Test
+### Organización de Tests
 
-Haz clic en el menú (⋮) → **Eliminar** y confirma.
+<Steps>
+  <Step title="Usar Nombres Descriptivos">
+    - "Saludo inicial profesional"
+    - "Manejo de objeción precio alto"  
+    - "Transferencia a humano - caso complejo"
+  </Step>
+  <Step title="Agrupar por Funcionalidad">
+    - Tests de saludo y bienvenida
+    - Tests de manejo de objeciones
+    - Tests de finalización de conversación
+  </Step>
+  <Step title="Priorizar por Criticidad">
+    - Tests críticos: flujos principales
+    - Tests importantes: casos comunes
+    - Tests exploratorios: edge cases
+  </Step>
+</Tabs>
 
-### Filtrar Tests
+## Resultados y Análisis
 
-Usa el desplegable de filtro para mostrar:
-- **Todos los tests** - Cada test
-- **Aprobados** - Solo tests que pasaron la última ejecución
-- **Fallidos** - Solo tests que fallaron la última ejecución
+### Estados de Tests
 
-## Resultados de Tests
+| Icono | Estado | Significado | Acción Recomendada |
+|-------|--------|-------------|-------------------|
+| ✅ | **Aprobado** | Cumple criterios de éxito | Mantener, usar como referencia |
+| ❌ | **Fallido** | No cumple criterios | Investigar y corregir |
+| 🔄 | **Ejecutando** | En proceso | Esperar resultado |
+| ⚪ | **Pendiente** | Sin ejecutar | Ejecutar para validar |
+| ⚠️ | **Inconsistente** | Resultados variables | Revisar estabilidad |
 
-Cada tarjeta de test muestra su último resultado:
+### Análisis de Tendencias
 
-| Icono | Estado | Significado |
-|------|--------|---------|
-| ✓ | Aprobado | La respuesta del agente cumplió los criterios de éxito |
-| ✗ | Fallido | La respuesta del agente no cumplió los criterios |
-| ⟳ | Ejecutando | El test se está ejecutando actualmente |
-| ○ | Pendiente | Aún no ejecutado |
+El sistema rastrea métricas históricas para identificar:
 
-Haz clic en una tarjeta de test para ver detalles inline: respuesta del agente, razón de evaluación y conversación completa cuando esté disponible.
+- **Degradación de calidad** tras cambios
+- **Mejoras consistentes** en el tiempo  
+- **Tests inestables** que requieren revisión
+- **Patrones de fallo** recurrentes
 
-## Mejores Prácticas
+### Métricas de Rendimiento
 
-<AccordionGroup>
-  <Accordion title="Prueba Rutas Críticas" icon="route">
-    Crea tests para tus flujos más importantes: saludos, caso de uso principal, objeciones y cumplimiento.
-  </Accordion>
-  <Accordion title="Usa Ejemplos de Éxito/Fallo" icon="scale">
-    Proporciona ejemplos claros para que el evaluador LLM entienda qué respuestas son "buenas" y "malas".
-  </Accordion>
-  <Accordion title="Configura Variables de Contexto" icon="variable">
-    Si tu agente usa {{fecha_y_hora_actual}} o parámetros de entrada, configúralos en el panel de contexto antes de ejecutar tests.
-  </Accordion>
-  <Accordion title="Ejecuta Antes de Publicar" icon="rocket">
-    Ejecuta tu suite de tests antes de publicar cambios para detectar regresiones temprano.
-  </Accordion>
-  <Accordion title="Combina con Copilot" icon="robot">
-    Después de que Copilot sugiera cambios, crea tests para validar esas mejoras.
-  </Accordion>
-</AccordionGroup>
+<Tabs>
+  <Tab title="Tiempo de Respuesta">
+    - Promedio por test
+    - Variación entre ejecuciones
+    - Comparación con versiones anteriores
+  </Tab>
+  <Tab title="Uso de Tokens">
+    - Tokens por respuesta
+    - Eficiencia de prompt
+    - Costo estimado por test
+  </Tab>
+  <Tab title="Tasa de Éxito">
+    - Porcentaje global de aprobados
+    - Evolución temporal
+    - Comparación por tipo de test
+  </Tab>
+</Tabs>
+
+## Integración con Copilot
+
+### Análisis Automático de Fallos
+
+Cuando tests fallan repetidamente, Copilot:
+
+<Steps>
+  <Step title="Detecta Patrones">
+    Analiza respuestas fallidas para identificar problemas comunes.
+  </Step>
+  <Step title="Genera Diagnóstico">
+    Crea análisis detallado del problema y sus causas probables.
+  </Step>
+  <Step title="Propone Soluciones">
+    Sugiere cambios específicos en prompts, conocimientos o configuración.
+  </Step>
+  <Step title="Facilita Implementación">
+    Proporciona código/texto exacto para implementar mejoras.
+  </Step>
+</Steps>
+
+### Tipos de Mejoras Sugeridas
+
+<Tabs>
+  <Tab title="Prompts del Sistema">
+    ```
+    Problema: Respuestas muy técnicas
+    Sugerencia: "Añadir instrucción: 'Explica en términos simples'"
+    
+    Problema: Falta de empatía  
+    Sugerencia: "Incluir: 'Muestra comprensión por la situación'"
+    ```
+  </Tab>
+  <Tab title="Base de Conocimientos">
+    ```
+    Problema: Información desactualizada
+    Sugerencia: "Actualizar FAQ con nuevos horarios de atención"
+    
+    Problema: Respuesta genérica
+    Sugerencia: "Añadir casos específicos para situación X"
+    ```
+  </Tab>
+  <Tab title="Configuración de Acciones">
+    ```
+    Problema: Parámetros incorrectos
+    Sugerencia: "Corregir formato de fecha en función reservar_cita"
+    
+    Problema: Validación faltante
+    Sugerencia: "Añadir validación de email antes de enviar"
+    ```
+  </Tab>
+</Tabs>
+
+### Flujo de Mejora Continua
+
+<Info>
+Establece un ciclo de mejora continua usando tests y Copilot para optimizar constantemente tu agente.
+</Info>
+
+1. **Ejecutar tests** después de cada cambio
+2. **Identificar fallos** y patrones problemáticos  
+3. **Consultar Copilot** para sugerencias de mejora
+4. **Implementar cambios** recomendados
+5. **Validar mejoras** con re-testing
+6. **Documentar aprendizajes** para referencia futura
+
+## Mejores Prácticas Avanzadas
+
+<Accordion title="Estrategia de Testing Integral" icon="chess">
+**Cobertura Completa**
+- Tests de flujos principales (happy path)
+- Tests de manejo de errores y excepciones  
+- Tests de edge cases y situaciones inusuales
+- Tests de integración con acciones externas
+
+**Balancear Tipos de Test**
+- 70% tests de escenario (casos conocidos)
+- 30% tests de simulación (exploración)
+</Accordion>
+
+<Accordion title="Optimización de Variables" icon="sliders">
+**Variables Dinámicas Efectivas**
+- Usa `fecha_y_hora_actual` para contexto temporal
+- Incluye variables de cliente para personalización
+- Mantén valores realistas y representativos
+- Actualiza regularmente para mantener relevancia
+
+**Gestión de Contexto**
+- Configura variables antes de cada ejecución batch
+- Documenta el propósito de cada variable
+- Usa nombres descriptivos (ej. `cliente_telefono` vs `tel`)
+</Accordion>
+
+<Accordion title="Análisis de Resultados Avanzado" icon="chart-line">
+**Identificación de Patrones**
+- Agrupa fallos por tipo de problema
+- Rastrea métricas de rendimiento en el tiempo
+- Compara resultados entre versiones del agente
+- Identifica correlaciones entre cambios y resultados
+
+**Uso del Historial**
+- Revisa tendencias semanales/mensuales
+- Identifica tests que se vuelven obsoletos
+- Detecta degradación gradual de calidad
+</Accordion>
+
+<Accordion title="Integración con Desarrollo" icon="code-branch">
+**Testing Pre-Publicación**
+- Ejecuta suite completa antes de cada release
+- Valida cambios críticos con repeticiones múltiples
+- Mantén tests de regresión para funcionalidades clave
+- Documenta casos de test para conocimiento del equipo
+
+**Automatización de Calidad**
+- Establece umbrales mínimos de éxito (ej. 90%)
+- Configura alertas para fallos críticos
+- Integra feedback de Copilot en proceso de desarrollo
+</Accordion>
+
+<Accordion title="Mantenimiento de Tests" icon="wrench">
+**Evolución de la Suite**
+- Revisa y actualiza tests regularmente
+- Elimina tests redundantes o obsoletos
+- Añade tests para nuevas funcionalidades
+- Mantén ejemplos actualizados y relevantes
+
+**Colaboración en Equipo**
+- Documenta propósito y contexto de cada test
+- Comparte patrones de fallo y soluciones
+- Establece convenciones de naming y organización
+</Accordion>
 
 ## Próximos Pasos
 
@@ -199,27 +636,27 @@ Haz clic en una tarjeta de test para ver detalles inline: respuesta del agente, 
     icon="check-double"
     href="/es/advanced-editor/evaluations"
   >
-    Configura métricas de calidad post-llamada
-  </Card>
-  <Card
-    title="Playground"
-    icon="gamepad"
-    href="/es/advanced-editor/playground"
-  >
-    Prueba tu agente de forma interactiva
+    Configura métricas de calidad post-llamada para monitoreo continuo
   </Card>
   <Card
     title="Copilot"
     icon="robot"
     href="/es/advanced-editor/copilot"
   >
-    Obtén ayuda IA para mejorar tus prompts
+    Obtén ayuda IA para mejorar prompts basado en resultados de tests
+  </Card>
+  <Card
+    title="Playground"
+    icon="gamepad"
+    href="/es/advanced-editor/playground"
+  >
+    Prueba tu agente de forma interactiva antes de crear tests
   </Card>
   <Card
     title="Parámetros de Entrada"
     icon="sliders"
     href="/es/advanced-editor/input-params"
   >
-    Configura variables para tests y llamadas
+    Configura variables globales para tests y llamadas reales
   </Card>
 </CardGroup>

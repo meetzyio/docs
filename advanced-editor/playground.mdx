@@ -6,34 +6,80 @@ icon: 'gamepad'
 
 ## What is the Playground?
 
-The Playground is a testing environment in the Advanced Editor where you can interact with your agent in real-time. It allows you to simulate conversations, test different scenarios, and validate your agent's behavior before deploying to production.
+The Playground is an enhanced testing environment in the Advanced Editor where you can interact with your agent in real-time. It allows you to simulate conversations, test different scenarios, and validate your agent's behavior before deploying to production, all while leveraging the improved code editor features.
 
 <Info>
-Testing in the Playground saves time and money by catching issues before they affect real customer calls.
+Testing in the Playground saves time and money by catching issues before they affect real customer calls, with enhanced debugging capabilities through the improved editor interface.
 </Info>
+
+## Enhanced Editor Integration
+
+The Playground now benefits from the Advanced Editor's improved interface, including:
+
+- **View Controls**: Use outline, indented view, and minimap for better code navigation
+- **Diff Mode**: Compare changes with inline/split view options when working with versions
+- **Focus Mode**: Minimize distractions while testing
+- **Version Integration**: See how changes from different versions affect playground behavior
 
 ## Accessing the Playground
 
 The Playground is located in the right panel of the Advanced Editor. Click the "Playground" tab to access it.
 
+<Steps>
+  <Step title="Navigate to Advanced Editor">
+    Open your agent in the Advanced Editor.
+  </Step>
+  <Step title="Open Playground">
+    Click the "Playground" tab in the right panel.
+  </Step>
+  <Step title="Configure View">
+    Use the editor view controls (outline, minimap, focus mode) to optimize your workspace.
+  </Step>
+</Steps>
+
 ## Call Types
 
-You can simulate two types of calls:
+You can simulate two types of calls with enhanced testing capabilities:
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| 📞 Inbound | Customer calling your agent | Test welcome flow, support scenarios |
-| 📤 Outbound | Agent calling a customer | Test introductions, sales scripts |
+| Type | Description | Use Case | Editor Features |
+|------|-------------|----------|----------------|
+| 📞 Inbound | Customer calling your agent | Test welcome flow, support scenarios | Use diff mode to compare different greeting versions |
+| 📤 Outbound | Agent calling a customer | Test introductions, sales scripts | Focus mode helps concentrate on script testing |
 
 <Tip>
-Switch between call types to test both greetings and ensure your agent handles each scenario correctly.
+Switch between call types to test both greetings. Use the editor's version history to compare how different versions handle each scenario.
 </Tip>
+
+## Enhanced Testing Interface
+
+### Code Editor Improvements
+
+The Playground now features:
+
+<Tabs>
+  <Tab title="View Controls">
+    - **Outline View**: Navigate through your agent's structure quickly
+    - **Indented View**: Better visualization of nested logic
+    - **Minimap**: Overview of your entire agent configuration
+    - **Focus Mode**: Hide distractions during testing
+  </Tab>
+  <Tab title="Diff Mode">
+    - **Inline Diff**: See changes directly in context
+    - **Split View**: Side-by-side comparison of versions
+    - **Change Highlighting**: Visual indicators for modifications
+  </Tab>
+  <Tab title="Version Integration">
+    - **Real-time Sync**: Testing reflects current version state
+    - **Change Detection**: See how modifications affect behavior
+    - **Collaboration Support**: Multiple users can test simultaneously
+  </Tab>
+</Tabs>
 
 ## Sending Messages
 
 ### Text Input
 
-Type messages in the input field and press Enter or click Send. The agent will respond as it would in a real call.
+Type messages in the input field and press Enter or click Send. The agent will respond as it would in a real call, with enhanced debugging information available through the improved editor interface.
 
 ### Voice Input
 
@@ -43,172 +89,192 @@ Click the microphone icon to speak your message. The agent will:
 3. Respond with synthesized voice
 
 <Info>
-Voice testing helps verify speech recognition accuracy and voice synthesis quality.
+Voice testing now integrates with the version system - changes to voice settings are immediately reflected in testing.
 </Info>
 
-## Conversation View
+## Enhanced Conversation View
 
-The Playground displays messages chronologically:
+The Playground displays messages chronologically with improved visualization:
 
-| Element | Description |
-|---------|-------------|
-| 👤 User Message | Your inputs (text or transcribed voice) |
-| 🤖 Agent Message | Agent responses |
-| 🔧 Tool Call | When agent triggers a webhook or action |
-| ✅ Tool Result | Response from webhook or action |
+| Element | Description | Editor Enhancement |
+|---------|-------------|-------------------|
+| 👤 User Message | Your inputs (text or transcribed voice) | Syntax highlighting for better readability |
+| 🤖 Agent Message | Agent responses | Diff highlighting when comparing versions |
+| 🔧 Tool Call | When agent triggers a webhook or action | Collapsible view with detailed parameters |
+| ✅ Tool Result | Response from webhook or action | JSON formatting with syntax highlighting |
 
-### Audio Playback
+### Audio Playback with Version Tracking
 
 For each agent response, you can:
 - ▶️ Play the audio response
-- ⏸️ Pause playback
+- ⏸️ Pause playback  
 - 🔁 Replay messages
+- 📊 Compare audio quality across versions
 
-## Context Variables
+## Context Variables with Version Control
 
-Test how your agent handles different input parameters:
+Test how your agent handles different input parameters with enhanced management:
 
 <Steps>
   <Step title="Open Context Variables">
     Click the "Context Variables" panel in the Playground.
   </Step>
-  <Step title="Set Values">
-    Enter test values for each input parameter.
+  <Step title="Configure Variables">
+    Set test values with version-aware validation.
   </Step>
-  <Step title="Start Conversation">
+  <Step title="Version Comparison">
+    Use diff mode to see how variable handling changed between versions.
+  </Step>
+  <Step title="Start Testing">
     Begin testing with the configured context.
   </Step>
 </Steps>
 
-### Example Context
+### Enhanced Context Management
 
 ```json
 {
   "customer_name": "John Smith",
-  "order_number": "ORD-12345",
+  "order_number": "ORD-12345", 
   "is_premium_customer": true,
-  "account_balance": 1250.50
+  "account_balance": 1250.50,
+  "_version_context": {
+    "version": "v1.2.3",
+    "changes": ["Updated premium logic", "New balance validation"]
+  }
 }
 ```
 
-## Reliability Test
+## Reliability Test with Version Integration
 
-Run multiple iterations of the same conversation to test consistency:
+Run multiple iterations with enhanced tracking:
 
 <Steps>
   <Step title="Configure Scenario">
     Set up your test conversation and context variables.
   </Step>
+  <Step title="Select Version">
+    Choose which version to test or compare multiple versions.
+  </Step>
   <Step title="Set Iterations">
     Choose how many times to run the test (e.g., 10, 50, 100).
   </Step>
-  <Step title="Run Test">
-    Click "Run Reliability Test" to start.
+  <Step title="Run Enhanced Test">
+    Click "Run Reliability Test" with version tracking enabled.
   </Step>
-  <Step title="Review Results">
-    Analyze consistency across all iterations.
+  <Step title="Analyze Results">
+    Review consistency with version-specific insights.
   </Step>
 </Steps>
 
-<Info>
-Reliability tests help identify edge cases where the agent might behave inconsistently.
-</Info>
+<Warning>
+Reliability tests now track version-specific performance metrics. Results may vary between versions due to model or configuration changes.
+</Warning>
 
-## Testing Features
+## Enhanced Testing Features
 
-### Test Tool Calls
+### Advanced Tool Call Testing
 
 When your agent triggers a webhook:
 
-1. The tool call appears in the conversation
-2. You can see the parameters being sent
-3. The response (or mock response) is displayed
+1. **Enhanced Visualization**: Tool calls appear with syntax highlighting
+2. **Parameter Inspection**: Detailed parameter view with diff comparison
+3. **Response Analysis**: JSON formatting with collapsible sections
+4. **Version Comparison**: See how tool behavior changed between versions
 
-### Test Evaluations
+### Evaluation Testing with Diff Support
 
-After a conversation, you can run evaluations to verify they work correctly:
+After a conversation, run evaluations with enhanced analysis:
 
 1. End the conversation naturally
 2. Click "Run Evaluations"
-3. Review which evaluations pass or fail
+3. **New**: Compare evaluation results across versions
+4. Review which evaluations pass or fail with detailed diff highlighting
 
-### Test Knowledge Base
+### Knowledge Base Testing with Version Tracking
 
-Verify your agent can find and use knowledge base content:
+Verify your agent's knowledge retrieval with version awareness:
 
 1. Ask questions that require KB lookup
-2. Observe if the agent retrieves correct information
-3. Check if responses are accurate and relevant
+2. Observe retrieval with enhanced debugging information
+3. **New**: Compare knowledge retrieval across different versions
+4. Check response accuracy with diff highlighting
 
-## Best Practices
+## Enhanced Best Practices
 
 <AccordionGroup>
-  <Accordion title="Test Edge Cases" icon="flask">
-    Try unusual inputs, interruptions, and unexpected responses to see how your agent handles them.
+  <Accordion title="Version-Aware Testing" icon="code-branch">
+    Use the version system to test changes systematically. Compare behavior across versions using diff mode.
   </Accordion>
-  <Accordion title="Vary Context" icon="shuffle">
-    Test with different input parameter combinations to ensure personalization works correctly.
+  <Accordion title="Focus Mode Testing" icon="eye">
+    Enable focus mode when doing deep testing sessions to minimize distractions and concentrate on agent behavior.
   </Accordion>
-  <Accordion title="Test Both Call Types" icon="phone">
-    Always test both inbound and outbound scenarios.
+  <Accordion title="Collaborative Testing" icon="users">
+    Multiple team members can test simultaneously with real-time sync showing current version state.
   </Accordion>
-  <Accordion title="Check Tool Integrations" icon="plug">
-    Verify webhooks are called with correct parameters.
+  <Accordion title="Enhanced Edge Cases" icon="flask">
+    Use the improved editor interface to identify and test more complex edge cases with better visualization.
   </Accordion>
-  <Accordion title="Run Reliability Tests" icon="rotate">
-    Periodically run multi-iteration tests to ensure consistency.
+  <Accordion title="Diff-Driven Improvements" icon="arrows-left-right">
+    Use inline/split diff modes to understand exactly how changes affect agent behavior during testing.
   </Accordion>
 </AccordionGroup>
 
-## Common Testing Scenarios
+## Advanced Testing Scenarios
 
-### Happy Path
-Test the ideal conversation flow where everything goes as expected.
+### Version Regression Testing
+Test that new versions don't break existing functionality:
+- Load previous version in split diff view
+- Run same test scenarios
+- Compare responses side-by-side
 
-### Error Handling
-Test what happens when:
-- User provides invalid information
-- Webhooks fail
-- User doesn't respond
+### Collaborative Testing Sessions
+Multiple team members testing simultaneously:
+- Real-time version sync across all playground instances  
+- Shared context variables and test scenarios
+- Live collaboration indicators
 
-### Objection Handling
-Test how the agent responds to:
-- "I'm not interested"
-- "Call me back later"
-- "I need to think about it"
+### Performance Testing with Version Metrics
+Track performance changes across versions:
+- Response time comparisons
+- Memory usage tracking (in debug mode)
+- Token consumption analysis
 
-### Edge Cases
-Test unusual scenarios:
-- Very short responses
-- Long, rambling inputs
-- Off-topic questions
-- Multiple questions at once
+## Enhanced Troubleshooting
 
-## Troubleshooting
+| Issue | Enhanced Solution | Editor Features |
+|-------|------------------|-----------------|
+| Agent not responding | Check LLM config with syntax highlighting | Use outline view to navigate to model settings |
+| Wrong greeting | Verify call type with diff comparison | Compare greeting logic across versions |
+| Missing personalization | Context variables with version validation | Use diff mode to see variable handling changes |
+| Webhook issues | Enhanced tool debugging with JSON formatting | Collapsible parameter inspection |
+| Version conflicts | Merge conflict resolution in playground | Inline diff shows conflicting changes |
 
-| Issue | Solution |
-|-------|----------|
-| Agent not responding | Check if LLM model is configured correctly |
-| Wrong greeting | Verify call type (inbound/outbound) is set correctly |
-| Missing personalization | Ensure context variables are set |
-| Webhook not triggering | Check tool descriptions and conditions |
-| Slow responses | Try a faster LLM model |
+## Integration with Version System
+
+The Playground now integrates deeply with the version control system:
+
+<Info>
+- **Real-time Sync**: Testing always reflects the current version state
+- **Change Detection**: Visual indicators show when testing results might differ due to recent changes
+- **Conflict Resolution**: Test behavior during merge conflicts to ensure smooth transitions
+</Info>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
-    title="Copilot"
+    title="Copilot Integration"
     icon="robot"
     href="/advanced-editor/copilot"
   >
-    Get AI help improving your prompts
+    Get AI assistance with enhanced prompt analysis from playground results
   </Card>
   <Card
     title="Version History"
     icon="clock-rotate-left"
     href="/advanced-editor/version-history"
   >
-    Track and manage changes
+    Track how changes affect playground behavior over time
   </Card>
 </CardGroup>

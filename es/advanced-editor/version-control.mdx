@@ -1,0 +1,208 @@
+---
+title: "Control de Versiones"
+description: "Gestiona las versiones de tu agente con herramientas colaborativas avanzadas"
+icon: "git-branch"
+---
+
+El sistema de control de versiones de Meetzy te permite gestionar cambios, colaborar con tu equipo y mantener un historial completo de todas las modificaciones realizadas a tus agentes de IA.
+
+## Vista General del Sistema
+
+El control de versiones funciona de manera similar a Git, proporcionando:
+
+- **Seguimiento automático de cambios** en todas las configuraciones del agente
+- **Colaboración en tiempo real** con indicadores de estado
+- **Resolución de conflictos** cuando múltiples usuarios editan simultáneamente
+- **Historial completo** de versiones con mensajes descriptivos
+
+<Info>
+Cada cambio realizado en el editor avanzado se registra automáticamente, permitiendo revertir modificaciones o revisar el historial completo.
+</Info>
+
+## Estados de Versión
+
+### Indicadores de Estado
+
+El sistema muestra diferentes estados visuales en la barra superior:
+
+- **🟢 Clean**: No hay cambios pendientes
+- **🟡 Modified (n)**: Hay cambios locales sin sincronizar
+- **🔴 Conflicts (n)**: Existen conflictos que requieren resolución
+- **🔵 Syncing**: Sincronización en progreso
+- **🟠 Locked**: Otro usuario está editando
+
+### Información de Versión
+
+Junto al indicador de estado encontrarás:
+
+```
+v1.23
+```
+
+Este número representa la versión actual del agente que estás editando.
+
+## Gestión de Cambios
+
+### Verificar Actualizaciones
+
+<Steps>
+<Step title="Botón de Verificación">
+Utiliza el botón **Check** para buscar actualizaciones remotas sin aplicar cambios
+</Step>
+
+<Step title="Revisar Cambios">
+El sistema te informará si hay nuevas versiones disponibles
+</Step>
+
+<Step title="Decidir Acción">
+Puedes continuar editando o sincronizar con los cambios remotos
+</Step>
+</Steps>
+
+### Sincronizar Cambios
+
+El botón **Pull** te permite:
+
+- Obtener la versión más reciente del servidor
+- Combinar cambios realizados por otros usuarios
+- Resolver conflictos automáticamente cuando sea posible
+
+<Warning>
+Si tienes cambios locales, asegúrate de revisarlos antes de hacer pull para evitar pérdida de datos.
+</Warning>
+
+## Resolución de Conflictos
+
+### Cuando Ocurren Conflictos
+
+Los conflictos aparecen cuando:
+
+1. Tú y otro usuario modifican la misma sección simultáneamente
+2. Los cambios automáticos no pueden combinarse
+3. Existe una diferencia irreconciliable entre versiones
+
+### Resolver Conflictos
+
+<Steps>
+<Step title="Identificar Campos">
+El sistema resalta los campos en conflicto con indicadores visuales
+</Step>
+
+<Step title="Revisar Diferencias">
+Compara tu versión local con la versión remota
+</Step>
+
+<Step title="Seleccionar Versión">
+Elige mantener tu versión, la remota, o crear una combinación manual
+</Step>
+
+<Step title="Confirmar Resolución">
+Guarda los cambios una vez resueltos todos los conflictos
+</Step>
+</Steps>
+
+## Colaboración en Tiempo Real
+
+### Indicadores de Colaboración
+
+Cuando otros usuarios están editando el mismo agente:
+
+- **Estado Locked**: Muestra cuántos usuarios están activos
+- **Bloqueo de campos**: Previene edición simultánea de secciones específicas
+- **Sincronización automática**: Actualiza cambios en tiempo real
+
+### Mejores Prácticas
+
+<Tabs>
+<Tab title="Comunicación">
+- Coordínate con tu equipo antes de editar
+- Usa mensajes descriptivos en los commits
+- Revisa cambios antes de aplicarlos
+</Tab>
+
+<Tab title="Flujo de Trabajo">
+- Haz pull antes de comenzar a editar
+- Realiza cambios incrementales
+- Sincroniza frecuentemente durante sesiones largas
+</Tab>
+</Tabs>
+
+## Historial de Versiones
+
+### Acceder al Historial
+
+El historial completo de versiones incluye:
+
+- **Fecha y hora** de cada cambio
+- **Usuario** que realizó la modificación
+- **Mensaje descriptivo** del cambio
+- **Diferencias** específicas entre versiones
+
+### Revertir Cambios
+
+Para revertir a una versión anterior:
+
+<Steps>
+<Step title="Seleccionar Versión">
+Navega por el historial y selecciona la versión deseada
+</Step>
+
+<Step title="Revisar Diferencias">
+Compara la versión actual con la seleccionada
+</Step>
+
+<Step title="Confirmar Reversión">
+Aplica los cambios y proporciona un mensaje descriptivo
+</Step>
+</Steps>
+
+## Configuración Avanzada
+
+### Variables de Contexto
+
+Las variables definidas en tu agente se mantienen sincronizadas:
+
+- **Variables globales**: Compartidas entre todas las versiones
+- **Variables locales**: Específicas de cada versión
+- **Herencia**: Las nuevas versiones heredan variables de la anterior
+
+### Integración con Tests
+
+El control de versiones se integra con el sistema de pruebas:
+
+- Los tests se ejecutan contra versiones específicas
+- El historial de resultados se mantiene por versión
+- Puedes comparar rendimiento entre versiones
+
+<Info>
+Los tests automáticamente se ejecutan contra la versión más reciente para mantener la calidad del agente.
+</Info>
+
+## Solución de Problemas
+
+### Estados Bloqueados
+
+Si el agente permanece en estado "locked":
+
+1. Verifica si otros usuarios están editando activamente
+2. Espera unos minutos para que se libere automáticamente
+3. Contacta con el administrador si el problema persiste
+
+### Errores de Sincronización
+
+Para errores de sincronización:
+
+1. Verifica tu conexión a internet
+2. Recarga la página del editor
+3. Intenta hacer pull nuevamente
+4. Contacta con soporte técnico si el error persiste
+
+### Pérdida de Cambios
+
+Si pierdes cambios locales:
+
+1. Revisa el historial de versiones
+2. Busca versiones automáticas guardadas
+3. Recupera desde el último punto de sincronización conocido
+
+El sistema de control de versiones está diseñado para mantener la integridad de tu trabajo mientras facilita la colaboración efectiva con tu equipo.

@@ -1,0 +1,272 @@
+---
+title: "Version Control in Advanced Editor"
+description: "Master the integrated Git-based version control system for collaborative agent editing"
+icon: "git-branch"
+---
+
+The Advanced Editor features a powerful integrated version control system that enables teams to collaborate on AI agents safely and efficiently. The system tracks changes, manages conflicts, and ensures data integrity across multiple users.
+
+## Version Control Interface
+
+The version control interface is located in the top-right section of the Advanced Editor toolbar, displaying:
+
+<Steps>
+  <Step title="Git Status Indicator">
+    Shows the current repository state with color-coded badges:
+    - **Clean** (Green): No local changes, synchronized with remote
+    - **Modified** (Yellow): Local changes detected
+    - **Conflicts** (Red): Merge conflicts need resolution
+    - **Syncing** (Blue): Currently synchronizing with remote
+    - **Locked** (Orange): Another user is editing
+  </Step>
+
+  <Step title="Version Information">
+    Displays current local version number in monospace format (e.g., `v42`)
+  </Step>
+
+  <Step title="Control Buttons">
+    Three primary actions: **Check**, **Pull**, and **Commit**
+  </Step>
+</Steps>
+
+## Git Status States
+
+### Clean State
+```
+Status: Clean
+Version: v42
+```
+- No local modifications
+- Fully synchronized with remote repository
+- All actions available
+
+### Modified State
+```
+Status: Modified (3)
+Version: v42
+```
+- Local changes detected (number shows modified fields)
+- Can commit changes or pull updates
+- May result in conflicts if remote has newer changes
+
+<Warning>
+Modified state indicates unsaved local changes. Always commit or discard changes before switching contexts.
+</Warning>
+
+### Conflict State
+```
+Status: Conflicts (2)
+Version: v42
+```
+- Merge conflicts detected during pull operation
+- Must resolve conflicts manually before proceeding
+- Commit button disabled until conflicts resolved
+
+### Syncing State
+```
+Status: Syncing...
+Version: v42
+```
+- Currently communicating with remote repository
+- All version control actions temporarily disabled
+- Automatic timeout after 30 seconds for safety
+
+### Locked State
+```
+Status: Locked by 2 user(s)
+Version: v42
+```
+- Another collaborator is actively editing
+- Pull operations disabled to prevent conflicts
+- Check operations still available
+
+## Version Control Actions
+
+### Check for Updates
+The **Check** button queries the remote repository for newer versions without downloading them.
+
+```typescript
+// Triggered by Check button
+checkForUpdates(): void {
+  // Queries remote for version comparison
+  // Updates UI with available updates indicator
+  // Safe operation - no local changes
+}
+```
+
+<Info>
+Check operations are non-destructive and can be performed at any time, even during active editing sessions.
+</Info>
+
+### Pull Changes
+The **Pull** button downloads and merges remote changes with your local version.
+
+<Tabs>
+  <Tab title="Successful Pull">
+    ```
+    Before: v42 (Modified)
+    After:  v45 (Clean)
+    ```
+    - Remote changes merged successfully
+    - Local version updated to latest
+    - No conflicts detected
+  </Tab>
+
+  <Tab title="Conflicted Pull">
+    ```
+    Before: v42 (Modified)
+    After:  v45 (Conflicts - 2)
+    ```
+    - Conflicts detected during merge
+    - Manual resolution required
+    - Commit disabled until resolved
+  </Tab>
+</Tabs>
+
+**Pull Behavior:**
+- Disabled when status is `syncing` or `locked`
+- Automatically detects and flags conflicts
+- Preserves local changes when possible
+- Updates version number to remote version
+
+### Commit Changes
+The **Commit** button saves your local changes to the remote repository.
+
+```typescript
+// Example commit flow
+commitChanges(): void {
+  // 1. Validate all changes
+  // 2. Create commit with message
+  // 3. Push to remote repository
+  // 4. Update local version number
+}
+```
+
+**Commit Requirements:**
+- Must have local modifications (Modified state)
+- No unresolved conflicts
+- Not locked by other users
+- Valid agent configuration
+
+## Collaboration Workflow
+
+### Multi-User Scenarios
+
+<Steps>
+  <Step title="User A begins editing">
+    - Status changes to `Modified`
+    - Other users see `Locked` status
+    - Prevents simultaneous editing
+  </Step>
+
+  <Step title="User A commits changes">
+    - Changes pushed to remote
+    - Version number increments
+    - Lock released automatically
+  </Step>
+
+  <Step title="User B pulls updates">
+    - Receives User A's changes
+    - Local version synchronized
+    - Can begin editing safely
+  </Step>
+</Steps>
+
+### Conflict Resolution
+
+When conflicts occur during pull operations:
+
+1. **Identify Conflicted Fields**
+   - System highlights specific configuration sections
+   - Shows both local and remote versions
+   - Provides merge assistance tools
+
+2. **Manual Resolution Process**
+   ```
+   Local Version (Your Changes):
+   "system_prompt": "You are a helpful assistant with sales expertise."
+   
+   Remote Version (Teammate's Changes):
+   "system_prompt": "You are a friendly sales assistant specializing in technical products."
+   
+   Choose Resolution:
+   [ ] Keep Local  [ ] Keep Remote  [ ] Merge Both
+   ```
+
+3. **Validation and Commit**
+   - Resolved changes must pass validation
+   - System ensures configuration integrity
+   - Final commit includes both changesets
+
+<Warning>
+Always test your agent after resolving conflicts to ensure functionality remains intact.
+</Warning>
+
+## Best Practices
+
+### Before Starting Work
+- **Always check for updates** using the Check button
+- **Pull latest changes** before making modifications
+- **Verify clean state** before beginning edits
+
+### During Development
+- **Monitor status indicator** for collaboration conflicts
+- **Commit frequently** to minimize merge complexity
+- **Use descriptive commit messages** for team clarity
+
+### Handling Interruptions
+- **Check status** if interface becomes unresponsive
+- **Wait for syncing** operations to complete
+- **Refresh page** if status appears stuck
+
+### Team Coordination
+- **Communicate major changes** before committing
+- **Coordinate complex modifications** to avoid conflicts
+- **Test thoroughly** after merging teammate changes
+
+## Troubleshooting
+
+### Stuck in Syncing State
+If the system remains in "Syncing" status longer than expected:
+
+```typescript
+// Automatic safety timeout triggers after 30 seconds
+private runningTestsSafetyTimeout: any = null;
+```
+
+**Resolution:**
+1. Wait for automatic timeout
+2. Refresh the editor page
+3. Check network connectivity
+4. Contact support if issue persists
+
+### Version Number Misalignment
+When local and remote versions don't match:
+
+1. **Perform Check operation** to compare versions
+2. **Pull changes** to synchronize
+3. **Resolve any conflicts** that arise
+4. **Commit** to establish new baseline
+
+### Lost Changes During Pull
+If local changes disappear after pulling:
+
+1. **Check browser console** for error messages
+2. **Review commit history** for your changes
+3. **Use conflict resolution** to recover modifications
+4. **Contact support** with version numbers involved
+
+<Info>
+The system automatically backs up local changes during pull operations to prevent data loss.
+</Info>
+
+## Integration with Testing
+
+Version control integrates seamlessly with the testing system:
+
+- **Test results** are version-specific
+- **Regression testing** compares across versions  
+- **Performance metrics** track version-to-version improvements
+- **Rollback capabilities** allow reverting problematic changes
+
+This ensures that your AI agent development maintains both collaboration efficiency and quality assurance throughout the development lifecycle.

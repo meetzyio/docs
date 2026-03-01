@@ -6,10 +6,10 @@ icon: 'wand-magic-sparkles'
 
 ## ¿Qué es el Editor Avanzado?
 
-El **Editor Avanzado** es la herramienta integral de configuración de agentes de Meetzy que te da control total sobre cada aspecto del comportamiento de tu agente de IA. Proporciona una interfaz de nivel profesional para crear, probar y desplegar agentes conversacionales de IA.
+El **Editor Avanzado** es la herramienta integral de configuración de agentes de Meetzy que te da control total sobre cada aspecto del comportamiento de tu agente de IA. Proporciona una interfaz de nivel profesional para crear, probar y desplegar agentes conversacionales de IA con capacidades avanzadas de colaboración y testing.
 
 <Info>
-El Editor Avanzado es la herramienta recomendada para crear agentes listos para producción con comportamientos personalizados, integraciones y lógica avanzada.
+El Editor Avanzado incluye ahora un sistema completo de control de versiones Git y herramientas de testing mejoradas para garantizar la calidad de tus agentes en producción.
 </Info>
 
 ## Cuándo Usar el Editor Avanzado
@@ -21,11 +21,14 @@ El Editor Avanzado es la herramienta recomendada para crear agentes listos para 
 | Añadir documentos a la base de conocimiento | ✅ Editor Avanzado |
 | Configurar integraciones webhook | ✅ Editor Avanzado |
 | Probar agente en tiempo real | ✅ Editor Avanzado |
+| Testing automatizado y regresión | ✅ Editor Avanzado |
+| Colaboración en equipo | ✅ Editor Avanzado |
+| Control de versiones y rollback | ✅ Editor Avanzado |
 | Duplicación rápida de agente | Panel de Agentes |
 
 ## Vista General de la Interfaz
 
-El Editor Avanzado está dividido en dos paneles principales:
+El Editor Avanzado está dividido en dos paneles principales con controles de versión integrados:
 
 ### Panel Izquierdo - Configuración
 
@@ -47,101 +50,209 @@ El panel izquierdo contiene todas las secciones de configuración accesibles med
 | Pestaña | Propósito |
 |-----|---------|
 | 🎮 Playground | Prueba tu agente en tiempo real con texto o voz |
-| 📋 Tests | Crea y ejecuta tests de regresión automatizados |
+| 📋 Tests | Suite completa de testing automatizado con simulaciones |
 | 🤖 Copilot | Asistente IA para ayudar a mejorar tus prompts |
-| 📜 Historial de Cambios | Rastrea cambios, versiones y colaboración en tiempo real |
+| 📜 Historial de Cambios | Control de versiones Git con colaboración en tiempo real |
 
-## Barra Superior
+## Barra Superior con Control de Versiones
 
-La barra de herramientas proporciona acciones rápidas:
+La barra de herramientas ahora incluye indicadores de estado Git y colaboración:
 
-| Acción | Descripción |
-|--------|-------------|
+| Elemento | Descripción |
+|----------|-------------|
 | ← Volver | Regresar a la lista de agentes |
-| 🏷️ Versión | Indicador de versión actual con estado de cambios |
-| ✓ Guardar | Guardar cambios actuales |
+| 🏷️ Estado Git | Indicador visual del estado de versiones |
+| 📊 Versión | Número de versión actual (v1.2.3) |
+| 🔄 Acciones Git | Botones para Check, Pull, Commit, Push |
+| ✓ Guardar | Guardar cambios locales |
 | ⬇️ Exportar | Descargar configuración del agente |
 | 🚀 Publicar | Desplegar cambios a producción |
 
-## Sistema de Control de Versiones
+## Sistema de Control de Versiones Git
 
-El Editor Avanzado incluye un sistema robusto de control de versiones similar a Git que permite:
+El Editor Avanzado incluye un sistema robusto de control de versiones Git que permite colaboración profesional en tiempo real:
 
 <Info>
-**Colaboración en Tiempo Real**: Múltiples usuarios pueden trabajar en el mismo agente simultáneamente con detección automática de conflictos.
+**Colaboración en Tiempo Real**: Múltiples usuarios pueden trabajar en el mismo agente simultáneamente con detección automática de conflictos y sincronización cada 30 segundos.
 </Info>
 
 ### Estados de Versión
 
-| Estado | Descripción | Indicador |
-|--------|-------------|----------|
-| **Clean** | Sin cambios pendientes | 🟢 Verde |
-| **Modified** | Cambios locales sin confirmar | 🟡 Amarillo |
-| **Conflict** | Conflictos con cambios remotos | 🔴 Rojo |
-| **Syncing** | Sincronizando con el servidor | 🔵 Azul |
-| **Locked** | Bloqueado por otro usuario | 🟠 Naranja |
+El indicador de estado Git muestra el estado actual del agente con códigos de color intuitivos:
 
-### Pestaña de Historial de Cambios
+| Estado | Descripción | Indicador | Color |
+|--------|-------------|----------|--------|
+| **Clean** | Sin cambios pendientes | ✅ Clean | 🟢 Verde |
+| **Modified** | Cambios locales sin confirmar | ⚠️ Modified (3) | 🟡 Amarillo |
+| **Conflict** | Conflictos con cambios remotos | ❌ Conflicts (2) | 🔴 Rojo |
+| **Syncing** | Sincronizando con el servidor | 🔄 Syncing... | 🔵 Azul |
+| **Locked** | Bloqueado por otro usuario | 🔒 Locked by 2 user(s) | 🟠 Naranja |
 
-La pestaña **Changes** en el panel derecho proporciona:
+### Pestaña de Historial de Cambios Mejorada
 
-- **Vista de Cambios**: Lista detallada de modificaciones por sección
-- **Historial de Versiones**: Timeline completo de commits y cambios
-- **Gestión de Ramas**: Creación y cambio entre diferentes versiones del agente
-- **Comparación Visual**: Diff view para revisar cambios antes de confirmar
+La pestaña **Changes** en el panel derecho ahora proporciona funcionalidades avanzadas:
 
-## Mejores Prácticas de Flujo de Trabajo
+#### Vista de Cambios en Tiempo Real
+- **Lista detallada de modificaciones**: Por sección con diff visual
+- **Indicadores de conflicto**: Resaltado automático de campos en conflicto
+- **Preview de cambios**: Vista previa antes de confirmar
+
+#### Historial de Versiones Completo
+- **Timeline interactivo**: Historial completo de commits con timestamps
+- **Información de autoría**: Quién hizo cada cambio y cuándo
+- **Mensajes de commit**: Descripciones detalladas de cada versión
+- **Navegación por versiones**: Salto rápido entre versiones históricas
+
+#### Gestión de Ramas Profesional
+- **Creación de ramas**: Para desarrollo paralelo y experimentación
+- **Merge automático**: Integración inteligente de cambios
+- **Resolución de conflictos**: Interfaz visual para resolver conflictos paso a paso
+
+#### Colaboración Avanzada
+- **Indicadores de presencia**: Ver quién está editando cada sección
+- **Chat de equipo**: Comunicación contextual durante la edición
+- **Notificaciones**: Alertas en tiempo real de cambios de otros usuarios
+
+## Sistema de Testing Mejorado
+
+La nueva pestaña **Tests** incluye capacidades profesionales de testing:
+
+<Warning>
+**Tests de Regresión**: El sistema ejecuta automáticamente todos los tests cuando se realizan cambios críticos para prevenir regresiones en el comportamiento del agente.
+</Warning>
+
+### Tipos de Test Disponibles
+
+| Tipo | Descripción | Uso Recomendado |
+|------|-------------|-----------------|
+| **Scenario Tests** | Conversaciones predefinidas con criterios de éxito | Validar flujos específicos |
+| **Simulation Tests** | Simulaciones dinámicas con diferentes personas | Testing exploratorio |
+| **Regression Tests** | Tests automáticos ejecutados en cada deploy | Prevención de regresiones |
+| **Stress Tests** | Múltiples ejecuciones para validar consistencia | Validación de robustez |
+
+### Funcionalidades Avanzadas de Testing
+
+#### Ejecución en Lote
+- **Repeticiones múltiples**: Ejecutar el mismo test hasta 10 veces
+- **Análisis estadístico**: Métricas de éxito/fallo por lote
+- **Paralelización**: Ejecución simultánea para mayor velocidad
+
+#### Variables de Contexto
+- **Parámetros dinámicos**: Inyección de variables como fecha_y_hora_actual
+- **Personalización por test**: Variables específicas por escenario
+- **Gestión visual**: Panel dedicado para configurar variables
+
+#### Historial y Análisis
+- **Pestaña History**: Registro completo de ejecuciones pasadas
+- **Métricas de rendimiento**: Tendencias de éxito/fallo a lo largo del tiempo
+- **Comparación de versiones**: Impacto de cambios en el rendimiento de tests
+
+#### Integración con Copilot
+- **Mejoras automáticas**: Copilot sugiere mejoras basadas en tests fallidos
+- **Análisis de fallos**: Identificación automática de patrones de error
+- **Optimización de prompts**: Sugerencias específicas para mejorar el comportamiento
+
+## Flujo de Trabajo Colaborativo
 
 <Steps>
-  <Step title="Configurar Ajustes Básicos">
-    Comienza con nombre, idioma, selección de voz y elección del modelo LLM.
+  <Step title="Clonar o Crear Rama">
+    Crea una nueva rama para tus cambios o trabaja directamente en main.
   </Step>
-  <Step title="Configurar Saludos">
-    Define cómo tu agente se presenta para diferentes tipos de llamada.
+  <Step title="Configurar Agente">
+    Realiza cambios en configuración, prompts, y funcionalidades.
   </Step>
-  <Step title="Escribir Prompt del Sistema">
-    Describe el rol, personalidad y guías de conversación de tu agente.
+  <Step title="Crear Tests">
+    Define scenarios y simulaciones para validar el comportamiento.
   </Step>
-  <Step title="Añadir Base de Conocimiento">
-    Sube documentos y FAQs que el agente puede consultar.
+  <Step title="Ejecutar Tests Localmente">
+    Valida tus cambios antes de confirmar usando el Playground y Tests.
   </Step>
-  <Step title="Configurar Acciones">
-    Configura transferencias de llamada, webhooks y otras integraciones.
+  <Step title="Revisar Conflictos">
+    El sistema detecta automáticamente conflictos con cambios remotos.
   </Step>
-  <Step title="Definir Salida">
-    Especifica qué datos extraer de cada llamada.
+  <Step title="Resolver y Confirmar">
+    Resuelve conflictos y confirma cambios con mensaje descriptivo.
   </Step>
-  <Step title="Probar en Playground">
-    Valida el comportamiento del agente antes de publicar.
+  <Step title="Ejecutar Tests de Regresión">
+    El sistema ejecuta automáticamente todos los tests existentes.
   </Step>
-  <Step title="Confirmar Cambios">
-    Usa el sistema de versiones para confirmar y documentar cambios.
-  </Step>
-  <Step title="Publicar">
-    Despliega tu agente a producción.
+  <Step title="Publicar a Producción">
+    Deploy automático tras validación exitosa de todos los tests.
   </Step>
 </Steps>
 
-## Conceptos Clave
+## Conceptos Clave del Nuevo Sistema
 
-### Control de Versiones y Colaboración
+### Sincronización Automática y Colaboración
+
+<Info>
+**Auto-sync Inteligente**: Los cambios se sincronizan automáticamente cada 30 segundos, pero solo si no hay conflictos detectados. El sistema pausará la sincronización durante edición activa.
+</Info>
+
+#### Detección de Conflictos Avanzada
+- **Análisis a nivel de campo**: Detección granular de conflictos por sección
+- **Resolución guiada**: Interfaz paso a paso para resolver cada conflicto
+- **Previsualización de merge**: Vista previa del resultado antes de confirmar
+
+#### Indicadores de Presencia
+- **Cursores colaborativos**: Ver dónde están editando otros usuarios
+- **Bloqueos inteligentes**: Prevención automática de edición simultánea en el mismo campo
+- **Notificaciones contextuales**: Alertas de cambios relevantes a tu trabajo
+
+### Versionado Semántico
+
+El sistema utiliza versionado semántico automático:
+
+| Tipo de Cambio | Incremento | Ejemplo |
+|----------------|-----------|---------|
+| **Bug fixes menores** | Patch (v1.0.0 → v1.0.1) | Corrección de typos |
+| **Nuevas funcionalidades** | Minor (v1.0.1 → v1.1.0) | Nuevas acciones o prompts |
+| **Cambios incompatibles** | Major (v1.1.0 → v2.0.0) | Cambios en estructura de salida |
+
+### Testing Continuo e Integración
 
 <Warning>
-**Gestión de Conflictos**: Cuando múltiples usuarios editan el mismo agente, el sistema detecta automáticamente conflictos y te guía a través del proceso de resolución.
+**Quality Gates**: El sistema bloquea automáticamente el deploy a producción si algún test de regresión falla, garantizando la calidad del agente en todo momento.
 </Warning>
 
-### Ramas y Versiones
+#### Pipeline Automático
+1. **Pre-commit hooks**: Validación antes de confirmar cambios
+2. **Test execution**: Ejecución automática de suite completa
+3. **Quality checks**: Validación de métricas de performance
+4. **Deploy gates**: Deploy condicionado al éxito de todos los tests
 
-El sistema de versiones permite:
-- **Desarrollo Paralelo**: Crear ramas para experimentar sin afectar la versión en producción
-- **Rollback Seguro**: Revertir a cualquier versión anterior si es necesario
-- **Historial Completo**: Rastrear quién cambió qué y cuándo
+#### Métricas y Monitoreo
+- **Test coverage**: Porcentaje de funcionalidades cubiertas por tests
+- **Success rate**: Tasa de éxito histórica por test
+- **Performance metrics**: Tiempo de respuesta y latencia por test
+- **Trend analysis**: Análisis de tendencias de calidad a lo largo del tiempo
 
-### Sincronización Automática
+## Mejores Prácticas para el Nuevo Flujo
 
-- **Auto-sync**: Los cambios se sincronizan automáticamente cada 30 segundos
-- **Detección de Conflictos**: El sistema notifica inmediatamente cuando hay conflictos
-- **Resolución Guiada**: Interfaz intuitiva para resolver conflictos paso a paso
+### Para Equipos de Desarrollo
+
+<Tabs>
+  <Tab title="Desarrollo Individual">
+    - Crea ramas para experimentos importantes
+    - Ejecuta tests localmente antes de cada commit
+    - Usa mensajes de commit descriptivos
+    - Revisa el historial antes de hacer cambios grandes
+  </Tab>
+  
+  <Tab title="Colaboración en Equipo">
+    - Coordina cambios grandes mediante chat integrado
+    - Usa el sistema de bloqueos para evitar conflictos
+    - Realiza code reviews usando la comparación de versiones
+    - Mantén comunicación activa sobre cambios en progreso
+  </Tab>
+  
+  <Tab title="Testing y QA">
+    - Mantén suite de tests actualizada con nuevas funcionalidades
+    - Ejecuta tests de stress antes de releases importantes
+    - Usa variables de contexto para simular diferentes escenarios
+    - Monitorea métricas de calidad continuamente
+  </Tab>
+</Tabs>
 
 ## Siguientes Pasos
 
@@ -152,6 +263,20 @@ El sistema de versiones permite:
     href="/es/advanced-editor/basic-settings"
   >
     Configura nombre, idioma, voz y modelo de IA
+  </Card>
+  <Card
+    title="Control de Versiones"
+    icon="git-branch"
+    href="/es/advanced-editor/version-control"
+  >
+    Aprende a usar Git para colaborar en equipo
+  </Card>
+  <Card
+    title="Suite de Testing"
+    icon="clipboard-check"
+    href="/es/advanced-editor/tests"
+  >
+    Crea y gestiona tests automatizados
   </Card>
   <Card
     title="Base de Conocimiento"
@@ -168,24 +293,10 @@ El sistema de versiones permite:
     Configura integraciones y webhooks
   </Card>
   <Card
-    title="Playground"
+    title="Playground Avanzado"
     icon="gamepad"
     href="/es/advanced-editor/playground"
   >
-    Prueba tu agente en tiempo real
-  </Card>
-  <Card
-    title="Tests"
-    icon="clipboard-check"
-    href="/es/advanced-editor/tests"
-  >
-    Crea tests de regresión automatizados
-  </Card>
-  <Card
-    title="Historial de Cambios"
-    icon="document-diff"
-    href="/es/advanced-editor/version-control"
-  >
-    Gestiona versiones y colaboración
+    Prueba tu agente con herramientas profesionales
   </Card>
 </CardGroup>

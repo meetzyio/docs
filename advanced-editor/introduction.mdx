@@ -51,50 +51,159 @@ The left panel contains all configuration sections accessible via an icon bar:
 | 🤖 Copilot | AI assistant to help improve your prompts |
 | 🔄 Changes | Track changes with Git-like version control |
 
-## Top Toolbar
+## Top Toolbar & Version Control
 
-The toolbar provides quick actions and collaboration features:
+The toolbar provides quick actions, collaboration features, and version control information:
+
+### Version Control Indicators
+
+The Advanced Editor displays comprehensive Git status information in the header:
+
+| Status | Badge Color | Description |
+|--------|-------------|-------------|
+| Clean | 🟢 Green | No local changes, up to date |
+| Modified | 🟡 Yellow | Local changes not yet saved |
+| Conflicts | 🔴 Red | Merge conflicts need resolution |
+| Syncing | 🔵 Blue | Currently syncing with remote |
+| Locked | 🟠 Orange | Another user is actively editing |
+
+<Info>
+The version indicator shows your current local version (e.g., `v1.2.3`) and displays the number of modified fields when changes are pending.
+</Info>
+
+### Collaboration Features
+
+Real-time collaboration indicators help you work seamlessly with your team:
+
+- **Status badges** show when teammates are editing simultaneously
+- **Version numbers** track your current working version
+- **Conflict detection** alerts you to potential merge issues
+- **Lock indicators** show when files are being edited by others
+
+<Warning>
+When the status shows "Conflicts" or "Locked", resolve these issues before attempting to publish changes.
+</Warning>
+
+### Toolbar Actions
 
 | Action | Description |
 |--------|-------------|
 | ← Back | Return to agents list |
 | 🏷️ Version | Current version indicator with collaboration status |
-| ✓ Save | Save current changes |
+| Check | Check for remote updates from other team members |
+| Pull | Merge remote changes into your local version |
+| ✓ Save | Save current changes locally |
 | ⬇️ Export | Download agent configuration |
 | 🚀 Publish | Deploy changes to production |
 
-<Info>
-The toolbar displays real-time collaboration status, showing when other team members are editing the same agent and highlighting any version conflicts.
-</Info>
+## Enhanced Testing System
+
+### Improved Test Management
+
+The testing system has been significantly enhanced with new capabilities:
+
+- **Batch testing**: Run multiple test iterations with configurable repeat counts
+- **Test filtering**: Filter tests by status (All, Pass, Fail) with visual counters
+- **Test history**: View past test runs with detailed execution history
+- **Input parameters**: Configure dynamic variables for test scenarios
+- **Simulation mode**: Interactive conversation simulation for testing
+
+### Test Types and Features
+
+<Tabs>
+  <Tab title="Scenario Tests">
+    Test specific conversation scenarios with defined success criteria:
+    - Configure user personas and goals
+    - Set multiple success/failure examples
+    - Use dynamic variables for realistic scenarios
+    - Track test performance over time
+  </Tab>
+  <Tab title="Simulation Tests">
+    Interactive conversation simulation:
+    - Real-time conversation testing
+    - Configurable turn limits
+    - Live streaming of AI responses
+    - Context variable injection
+  </Tab>
+  <Tab title="Batch Testing">
+    Run tests multiple times for reliability:
+    - Configurable repeat counts (1-10x)
+    - Batch progress tracking
+    - Aggregate results analysis
+    - Statistical reliability testing
+  </Tab>
+</Tabs>
+
+### Test Status Indicators
+
+The testing interface provides clear visual indicators:
+
+- **Pass/Fail counters**: See test results at a glance
+- **Running indicators**: Animated status for active tests
+- **History tracking**: Access to previous test runs
+- **Input parameters**: Visual indicators for configured variables
 
 ## Key Features
 
-### Version Control System
+### Advanced Version Control System
 
-The Advanced Editor includes a powerful version control system with:
+The Advanced Editor includes a powerful Git-like version control system with:
 
-- **Branching**: Create separate branches for feature development
-- **Change tracking**: Monitor all modifications in real-time
-- **Collaboration**: See when teammates are editing and avoid conflicts
-- **Rollback**: Easily revert to previous versions if needed
-- **Merge capabilities**: Combine changes from different branches
+- **Real-time status tracking**: See exactly what's changed and when
+- **Branching capabilities**: Create separate branches for feature development
+- **Conflict resolution**: Automatic detection and guided resolution of conflicts
+- **Collaboration awareness**: Know when teammates are editing simultaneously
+- **Rollback functionality**: Easily revert to previous versions if needed
 
-<Warning>
-When multiple users edit the same agent simultaneously, the system will alert you to potential conflicts and help resolve them before publishing.
-</Warning>
+### Git Status Indicators
+
+<AccordionGroup>
+  <Accordion title="Clean Status" icon="check-circle">
+    <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded border border-green-200 dark:border-green-800">
+      **Clean** - Your agent is up to date with no pending changes. Safe to make new edits or switch branches.
+    </div>
+  </Accordion>
+  <Accordion title="Modified Status" icon="edit">
+    <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded border border-yellow-200 dark:border-yellow-800">
+      **Modified** - You have local changes that haven't been saved yet. The badge shows the number of modified fields.
+    </div>
+  </Accordion>
+  <Accordion title="Conflicts Status" icon="exclamation-triangle">
+    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border border-red-200 dark:border-red-800">
+      **Conflicts** - Changes from other team members conflict with your local changes. Resolve conflicts before publishing.
+    </div>
+  </Accordion>
+  <Accordion title="Syncing Status" icon="sync">
+    <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
+      **Syncing** - Currently synchronizing changes with the remote server. Wait for completion before making edits.
+    </div>
+  </Accordion>
+  <Accordion title="Locked Status" icon="lock">
+    <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border border-orange-200 dark:border-orange-800">
+      **Locked** - Another team member is actively editing this agent. Wait for them to finish or coordinate with your team.
+    </div>
+  </Accordion>
+</AccordionGroup>
 
 ### Real-time Collaboration
 
 Work together seamlessly with your team:
 
-- Live cursors show where teammates are editing
-- Automatic conflict detection and resolution
-- Branch-based workflow for parallel development
-- Comprehensive change history and audit trail
+- **Live status updates**: See teammate activity in real-time
+- **Automatic conflict detection** and resolution guidance
+- **Branch-based workflow** for parallel development
+- **Comprehensive change history** and audit trail
+- **Team coordination** features to prevent edit conflicts
 
 ## Workflow Best Practices
 
 <Steps>
+  <Step title="Check Current Status">
+    Always check the Git status indicator before starting work. Ensure you're working on a clean version.
+  </Step>
+  <Step title="Pull Latest Changes">
+    Use the "Check" and "Pull" buttons to get the latest changes from your team before making edits.
+  </Step>
   <Step title="Configure Basic Settings">
     Start with name, language, voice selection, and LLM model choice.
   </Step>
@@ -110,34 +219,34 @@ Work together seamlessly with your team:
   <Step title="Configure Actions">
     Set up call transfers, webhooks, and other integrations.
   </Step>
-  <Step title="Define Output">
+  <Step title="Define Output Settings">
     Specify what data to extract from each call.
   </Step>
-  <Step title="Test in Playground">
-    Validate agent behavior before publishing.
+  <Step title="Create and Run Tests">
+    Use the enhanced testing system to validate agent behavior with multiple scenarios.
   </Step>
-  <Step title="Review Changes">
-    Use the Changes panel to review all modifications before committing.
+  <Step title="Review Version Status">
+    Check the Git status and resolve any conflicts before publishing.
   </Step>
-  <Step title="Publish">
-    Deploy your agent to production with confidence.
+  <Step title="Publish Changes">
+    Deploy your agent to production once all tests pass and status is clean.
   </Step>
 </Steps>
 
 ## Key Concepts
 
 <AccordionGroup>
-  <Accordion title="Versions & Branches" icon="code-branch">
-    The Advanced Editor supports Git-like version control with branches for parallel development, comprehensive change tracking, and easy rollback capabilities. Create feature branches to work on improvements without affecting the live agent.
+  <Accordion title="Version Control & Git Status" icon="code-branch">
+    The Advanced Editor supports Git-like version control with real-time status indicators. The system shows Clean, Modified, Conflicts, Syncing, or Locked status to help you understand the current state and collaborate effectively with your team.
+  </Accordion>
+  <Accordion title="Enhanced Testing System" icon="beaker">
+    The improved testing system supports batch runs, input parameter configuration, test filtering, and comprehensive history tracking. Tests can be run multiple times for reliability and include simulation modes for interactive testing.
   </Accordion>
   <Accordion title="Live vs Development" icon="rocket">
-    You can work on changes in development mode and only push them to production (Live) when you're satisfied with the results. The version control system ensures safe deployments.
+    You can work on changes in development mode and only push them to production (Live) when you're satisfied with the results. The version control system ensures safe deployments with conflict detection.
   </Accordion>
-  <Accordion title="Real-time Testing" icon="play">
-    The Playground allows you to test your agent instantly without making actual phone calls, saving time and money.
-  </Accordion>
-  <Accordion title="Team Collaboration" icon="users">
-    Multiple team members can work on the same agent simultaneously with real-time conflict detection and collaborative editing features.
+  <Accordion title="Real-time Collaboration" icon="users">
+    Multiple team members can work on the same agent simultaneously with real-time conflict detection, status indicators, and collaborative editing features that prevent data loss.
   </Accordion>
 </AccordionGroup>
 
@@ -177,13 +286,13 @@ Work together seamlessly with your team:
     icon="code-branch"
     href="/advanced-editor/version-control"
   >
-    Learn about branching and collaboration
+    Learn about Git status indicators and collaboration
   </Card>
   <Card
-    title="Tests"
+    title="Enhanced Testing"
     icon="clipboard-check"
     href="/advanced-editor/tests"
   >
-    Create automated regression tests
+    Use the improved testing system with batch runs and history
   </Card>
 </CardGroup>
