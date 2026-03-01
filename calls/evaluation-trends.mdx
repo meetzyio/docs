@@ -1,179 +1,121 @@
 ---
-title: Evaluation Trends
-description: Track and analyze your agents' evaluation performance over time to identify patterns and improvements
-icon: trending-up
+title: "Evaluation Trends"
+description: "Track how your agents' evaluations evolve over time to discover patterns and identify areas for improvement"
+icon: "trending-up"
 ---
 
-The Evaluation Trends feature provides powerful insights into how your agents' performance evolves over time. Monitor evaluation success rates, identify improvement patterns, and make data-driven decisions to optimize your conversational AI.
-
-## Overview
-
-Access evaluation trends through the main navigation or by selecting an agent from your dashboard. This comprehensive analytics tool helps you:
-
-- Track evaluation performance across different time periods
-- Compare success rates between multiple evaluation criteria
-- Identify trends and patterns in agent behavior
-- Monitor improvements after training or configuration changes
-
-<Info>
-Evaluation trends are calculated based on your configured evaluation criteria and require completed calls with evaluation data to display meaningful insights.
-</Info>
+The **Evaluation Trends** page provides comprehensive insights into how your agents' performance evolves over time. Monitor evaluation patterns, celebrate improvements, and identify areas that need attention through interactive charts and detailed analytics.
 
 ## Getting Started
 
 <Steps>
 <Step title="Select an Agent">
-Choose the agent whose evaluation trends you want to analyze using the search dropdown. You can search by agent name or browse through all available agents.
+Use the agent search field to find and select the agent you want to analyze. The search supports partial name matching for easy navigation.
 </Step>
 
 <Step title="Configure Time Range">
-Select your desired time period using the pre-defined ranges (7 days, 30 days, 3 months) or choose a custom date range for specific analysis periods.
+Choose from predefined time ranges (7 days, 30 days, 90 days, 6 months, 1 year) or set a custom date range to focus on specific periods.
 </Step>
 
-<Step title="Choose Data Grouping">
-Set how you want to group your data - by day, week, or month - depending on your analysis needs and the time range selected.
+<Step title="Set Grouping Period">
+Select how to group your data - by day, week, or month - depending on your analysis needs and the selected time range.
 </Step>
 
-<Step title="View Trends">
-Click "View evaluations" to load the comprehensive trends dashboard with charts, metrics, and detailed breakdowns.
+<Step title="View Evaluations">
+Click "View evaluations" to load the trend analysis and detailed metrics for your selected agent.
 </Step>
 </Steps>
 
-## Summary Metrics
+## Key Metrics Overview
 
-The dashboard displays three key performance indicators at the top:
+Once you've selected an agent and loaded the evaluation data, you'll see three main summary cards:
 
 ### Total Evaluations
-The complete number of evaluation instances run across all your criteria during the selected time period.
+The total number of evaluations conducted for the selected agent within your chosen time range. This gives you a quick overview of evaluation activity volume.
 
 ### Overall Success Rate
-A weighted average of all successful evaluations compared to total evaluations, giving you a quick health check of your agent's performance.
+The average success rate across all evaluations, displayed as a percentage. This metric helps you understand the general performance level of your agent.
 
-### Calls Evaluated
-The total number of individual calls that have been evaluated, helping you understand your evaluation coverage.
+### Calls Evaluated  
+The number of individual calls that have been evaluated, providing context for the total evaluation count.
 
-<Warning>
-Success rates are calculated only from calls that have completed evaluations. Calls without evaluation data are not included in these metrics.
-</Warning>
+<Info>
+These summary metrics update automatically when you change your time range or grouping period, giving you real-time insights into different aspects of your agent's performance.
+</Info>
 
-## Time Range Controls
+## Interactive Trend Charts
 
-### Pre-defined Ranges
-Choose from common analysis periods:
-- **Last 7 days**: Ideal for daily monitoring and recent changes
-- **Last 14 days**: Good for weekly pattern analysis
-- **Last 30 days**: Standard monthly performance review
-- **Last 3 months**: Quarterly trend analysis
-- **Last 6 months**: Long-term performance tracking
+### Agent Performance Cards
+Each agent is displayed in an expandable card format that includes:
 
-### Custom Date Range
-Select specific start and end dates for targeted analysis periods, such as:
-- Before and after training sessions
-- Specific campaign periods
-- Seasonal performance comparisons
-
-## Data Grouping Options
-
-### Daily Grouping
-Shows evaluation trends on a day-by-day basis. Best for:
-- Short-term analysis (up to 30 days)
-- Identifying daily patterns
-- Monitoring immediate impact of changes
-
-### Weekly Grouping
-Aggregates data by week to smooth out daily variations. Ideal for:
-- Medium-term trend analysis
-- Reducing noise in daily fluctuations
-- Monthly and quarterly reviews
-
-### Monthly Grouping
-Groups data by month for long-term trend analysis. Perfect for:
-- Quarterly and yearly reviews
-- Long-term performance tracking
-- Strategic planning and goal setting
-
-## Interactive Charts
+- **Agent avatar** with the first letter of the agent's name
+- **Summary metrics** for quick reference
+- **Expandable detailed view** with interactive charts
 
 ### Chart Features
-Each evaluation criterion displays as a separate line on the interactive chart:
 
-- **Zoom and Pan**: Click and drag to zoom into specific time periods, use mouse wheel for quick zoom adjustments
-- **Hover Details**: Mouse over data points to see exact values, dates, and success percentages
-- **Legend Interaction**: Click legend items to show/hide specific evaluation criteria
-- **Reset View**: Double-click the chart to return to the full view
-
-### Color Coding
-Charts use distinct colors for each evaluation criterion, making it easy to:
-- Track individual metrics over time
-- Compare performance between different criteria
-- Identify correlations and patterns
+The trend charts provide several interactive capabilities:
 
 <Tabs>
-<Tab title="Success Rate Colors">
-- **Green (80%+)**: Excellent performance
-- **Yellow (60-79%)**: Good performance with room for improvement  
-- **Red (Below 60%)**: Needs attention and optimization
+<Tab title="Zoom & Pan">
+- **Zoom in/out** using mouse wheel or trackpad gestures
+- **Pan horizontally** by clicking and dragging across the chart
+- **Reset view** using the reset button in the chart toolbar
 </Tab>
 
-<Tab title="Chart Interactions">
-- **Single Click**: Select data point for details
-- **Click + Drag**: Zoom into time range
-- **Double Click**: Reset to full view
-- **Scroll Wheel**: Quick zoom in/out
+<Tab title="Data Points">
+- **Hover tooltips** show exact values and dates
+- **Trend indicators** display whether metrics are improving or declining
+- **Data granularity** adjusts based on your selected grouping period
+</Tab>
+
+<Tab title="Visual Elements">
+- **Gradient fills** under trend lines for better visual impact
+- **Grid lines** for easier value reading
+- **Responsive design** that adapts to different screen sizes
 </Tab>
 </Tabs>
 
-## Detailed Data Tables
+## Trend Indicators
 
-### Expandable Sections
-Click on any agent name to expand detailed evaluation breakdowns:
+Look for visual trend indicators throughout the interface:
 
-- **Evaluation Criteria**: Individual success rates for each configured evaluation
-- **Sparkline Charts**: Mini trend indicators showing recent performance direction
-- **Trend Indicators**: Visual arrows showing whether performance is improving, declining, or stable
+- **Green upward arrows** (📈) indicate improving performance
+- **Red downward arrows** (📉) indicate declining performance  
+- **Neutral indicators** show stable performance
 
-### Data Interpretation
-Each row in the expanded table shows:
-- **Evaluation Name**: The specific criterion being measured
-- **Latest Rate**: Most recent success rate percentage
-- **Trend Direction**: Up/down/flat arrow based on recent performance changes
-- **Mini Chart**: Sparkline showing the recent trend pattern
+These indicators help you quickly identify which aspects of your agent's performance are trending in the right direction.
 
-<Info>
-Trend directions are calculated by comparing the most recent data point with the previous period. Changes of less than 2% are considered "flat" to account for normal variation.
-</Info>
+## Detailed Evaluation Tables
+
+Below the trend charts, you'll find comprehensive tables that include:
+
+- **Individual evaluation records** with timestamps
+- **Success/failure status** for each evaluation
+- **Mini sparkline charts** showing recent performance trends
+- **Sortable columns** for custom data organization
+
+<Warning>
+The evaluation trends are calculated based on available data within your selected time range. Ensure you have sufficient evaluation history for meaningful trend analysis.
+</Warning>
 
 ## Best Practices
 
-### Regular Monitoring
-- Check trends weekly to catch issues early
-- Set up consistent review schedules
-- Compare periods before and after changes
+### Analyzing Trends
+- **Compare different time periods** to understand seasonal patterns
+- **Look for correlation** between evaluation frequency and success rates
+- **Monitor trends after making agent improvements** to measure impact
 
-### Data Analysis
-- Look for patterns across multiple evaluation criteria
-- Consider external factors that might affect performance
-- Use longer time ranges to identify genuine trends vs. random fluctuations
+### Optimal Time Ranges
+- Use **shorter periods (7-30 days)** for recent performance monitoring
+- Use **longer periods (3-12 months)** for strategic planning and pattern recognition
+- **Custom ranges** work well for analyzing specific campaigns or time periods
 
-### Performance Optimization
-- Identify consistently underperforming evaluations
-- Correlate trends with training or configuration changes
-- Use insights to guide agent improvement strategies
+### Grouping Recommendations
+- **Daily grouping** for detailed short-term analysis
+- **Weekly grouping** for medium-term trend identification  
+- **Monthly grouping** for long-term strategic insights
 
-## Troubleshooting
-
-### No Data Available
-If charts appear empty:
-- Ensure calls have been made during the selected time period
-- Verify evaluation criteria are properly configured
-- Check that evaluations have completed processing
-
-### Inconsistent Trends
-If data appears erratic:
-- Increase the time range for more stable trends
-- Switch to weekly or monthly grouping to smooth variations
-- Consider if external factors are affecting call patterns
-
-<Warning>
-Evaluation data is processed asynchronously. Recent calls may take a few minutes to appear in trends after completion.
-</Warning>
+<Info>
+Trend data updates in real-time as new evaluations are completed, so you can monitor improvements immediately after implementing changes to your agents.
+</Info>

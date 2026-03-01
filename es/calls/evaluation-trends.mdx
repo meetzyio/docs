@@ -1,207 +1,133 @@
 ---
 title: "Tendencias de Evaluaciones"
-description: "Analiza la evolución temporal de las evaluaciones de tus agentes para identificar patrones de rendimiento y áreas de mejora"
+description: "Rastrea cómo evolucionan las evaluaciones de tus agentes a lo largo del tiempo"
 icon: "chart-line"
 ---
 
-# Tendencias de Evaluaciones
-
-La funcionalidad de **Tendencias de Evaluaciones** te permite realizar un análisis temporal profundo del rendimiento de tus agentes conversacionales. Esta herramienta avanzada te ayuda a identificar patrones, celebrar mejoras y detectar áreas que requieren optimización.
-
-<Info>
-Las tendencias de evaluaciones proporcionan insights valiosos sobre la evolución del rendimiento de tus agentes a lo largo del tiempo, permitiendo una toma de decisiones basada en datos históricos.
-</Info>
-
-## ¿Qué son las Tendencias de Evaluaciones?
-
-Las tendencias de evaluaciones son representaciones gráficas y estadísticas que muestran cómo evoluciona el rendimiento de tus agentes en diferentes períodos de tiempo. Estas tendencias incluyen:
-
-- **Tasas de éxito temporal**: Evolución de los porcentajes de éxito por período
-- **Volumen de evaluaciones**: Cantidad de evaluaciones realizadas en cada intervalo
-- **Patrones de mejora**: Identificación de tendencias ascendentes o descendentes
-- **Comparativas entre criterios**: Análisis de diferentes métricas de evaluación
+Las Tendencias de Evaluaciones te permiten monitorear el desempeño de tus agentes conversacionales a través del tiempo, identificando patrones de mejora y áreas que requieren atención.
 
 ## Accediendo a las Tendencias
 
-<Steps>
-<Step title="Navegar a Tendencias">
-Desde el panel principal, dirígete a la sección **Evaluations** y selecciona **Trends**.
-</Step>
+Para visualizar las tendencias de evaluaciones:
 
-<Step title="Seleccionar Agente">
-Utiliza el selector de agente para elegir el agente conversacional que deseas analizar:
-- Usa la barra de búsqueda para filtrar por nombre
-- Selecciona el agente deseado de la lista
-- Haz clic en "View evaluations" para proceder
-</Step>
+<Steps>
+  <Step title="Navega a Tendencias">
+    Ve a la sección de **Tendencias de Evaluaciones** desde el menú principal
+  </Step>
+  <Step title="Selecciona un Agente">
+    Utiliza la barra de búsqueda para encontrar y seleccionar el agente que deseas analizar
+  </Step>
+  <Step title="Visualiza los Datos">
+    Haz clic en "Ver evaluaciones" para generar los gráficos de tendencias
+  </Step>
 </Steps>
 
-## Configuración del Análisis
+## Selector de Agentes
 
-### Rango Temporal
+### Búsqueda y Selección
 
-Puedes seleccionar diferentes rangos temporales predefinidos:
+La interfaz incluye un sistema de búsqueda inteligente que te permite:
 
-- **Últimos 7 días**: Para análisis de corto plazo
-- **Últimos 14 días**: Tendencias de dos semanas
-- **Últimos 30 días**: Análisis mensual (por defecto)
-- **Últimos 3 meses**: Tendencias trimestrales
-- **Últimos 6 meses**: Análisis semestral
+- **Buscar por nombre**: Escribe para filtrar agentes en tiempo real
+- **Selección visual**: Cada agente muestra su inicial en un avatar colorido
+- **Confirmación**: Los agentes seleccionados se marcan con un ícono de verificación
+
+<Info>
+  Puedes buscar agentes escribiendo cualquier parte de su nombre. El sistema filtrará automáticamente los resultados.
+</Info>
+
+## Controles de Análisis
+
+### Rangos de Tiempo Predefinidos
+
+Selecciona entre varios períodos de análisis:
+
+- **Última semana**: Análisis de los últimos 7 días
+- **Último mes**: Tendencias del mes anterior
+- **Últimos 3 meses**: Vista trimestral
+- **Último año**: Análisis anual completo
 - **Rango personalizado**: Define fechas específicas
-
-<Warning>
-Los rangos temporales largos pueden requerir más tiempo de procesamiento. Para análisis detallados de períodos extensos, considera usar agrupaciones por semana o mes.
-</Warning>
 
 ### Agrupación de Datos
 
-Configura cómo deseas agrupar los datos temporalmente:
+Configura cómo se agrupan los datos en el tiempo:
 
 <Tabs>
-<Tab title="Por Día">
-- Ideal para análisis de corto plazo (7-30 días)
-- Proporciona la máxima granularidad
-- Perfecto para identificar patrones diarios
-</Tab>
-
-<Tab title="Por Semana">
-- Recomendado para períodos de 1-3 meses
-- Suaviza las fluctuaciones diarias
-- Muestra tendencias semanales claras
-</Tab>
-
-<Tab title="Por Mes">
-- Óptimo para análisis de 3-6 meses
-- Revela patrones estacionales
-- Ideal para reportes ejecutivos
-</Tab>
+  <Tab title="Diario">
+    Visualiza tendencias día por día para análisis detallado
+  </Tab>
+  <Tab title="Semanal">
+    Agrupa datos por semana para identificar patrones semanales
+  </Tab>
+  <Tab title="Mensual">
+    Vista mensual ideal para análisis de tendencias a largo plazo
+  </Tab>
 </Tabs>
 
-## Interpretación de Resultados
+## Interpretación de Gráficos
 
-### Tarjetas de Resumen
+### Elementos Visuales
 
-En la parte superior encontrarás tres métricas clave:
+Los gráficos de tendencias incluyen:
 
-1. **Total de Evaluaciones**: Número total de evaluaciones en el período
-2. **Evaluaciones Exitosas**: Cantidad de evaluaciones que cumplieron los criterios
-3. **Tasa de Éxito Promedio**: Porcentaje general de éxito en el período
-
-### Gráficos de Tendencias
-
-Los gráficos interactivos muestran:
-
-- **Líneas de tendencia**: Cada criterio de evaluación tiene su propia línea coloreada
-- **Puntos de datos**: Valores específicos para cada período
-- **Áreas sombreadas**: Representan el volumen de datos subyacente
-- **Controles de zoom**: Permite hacer zoom en períodos específicos
-
-<Info>
-Los colores de las líneas se asignan automáticamente y se mantienen consistentes para cada criterio de evaluación a lo largo de toda la sesión.
-</Info>
+- **Línea de tendencia**: Muestra la evolución temporal del puntaje
+- **Puntos de datos**: Cada evaluación individual
+- **Área sombreada**: Indica la confianza de la tendencia
+- **Escala temporal**: Eje X configurable según el período seleccionado
 
 ### Análisis de Patrones
 
-#### Tendencias Ascendentes 📈
-- **Color verde**: Indica mejora en el rendimiento
-- **Interpretación**: El agente está aprendiendo y mejorando
-- **Acción recomendada**: Identificar qué cambios causaron la mejora
+<Warning>
+  Las tendencias requieren al menos 3 puntos de datos para generar visualizaciones significativas.
+</Warning>
 
-#### Tendencias Descendentes 📉
-- **Color rojo**: Señala una disminución en el rendimiento
-- **Interpretación**: Posible degradación o nuevos desafíos
-- **Acción recomendada**: Investigar causas y implementar correcciones
+Busca estos patrones importantes:
 
-#### Tendencias Estables ➡️
-- **Color gris**: Rendimiento consistente
-- **Interpretación**: Estabilidad en el desempeño
-- **Acción recomendada**: Considerar optimizaciones para mejorar
+- **Tendencias ascendentes**: Mejora constante en el desempeño
+- **Plateaus**: Períodos de estabilidad que pueden indicar optimización
+- **Caídas súbitas**: Posibles problemas que requieren investigación
+- **Variabilidad alta**: Inconsistencia que puede necesitar atención
 
-## Casos de Uso Prácticos
+## Estados de la Interfaz
 
-### Monitoreo de Mejoras Post-Entrenamiento
+### Carga de Datos
 
-Después de actualizar un agente o modificar sus prompts:
+Durante la carga inicial:
+- Los selectores muestran efectos de shimmer
+- Los controles se deshabilitan temporalmente
+- Un indicador visual confirma el progreso
 
-1. Establece un punto de referencia antes del cambio
-2. Configura un rango que incluya antes y después
-3. Observa si hay mejoras en las métricas clave
-4. Valida que los cambios tuvieron el efecto deseado
+### Sin Datos Disponibles
 
-### Detección de Degradación
+Cuando no hay agentes o evaluaciones:
+- Se muestra un mensaje informativo claro
+- Se proporcionan sugerencias para comenzar
+- Los controles se mantienen accesibles para futuras consultas
 
-Para identificar cuándo un agente comienza a tener problemas:
-
-1. Configura alertas visuales para tendencias descendentes
-2. Analiza correlaciones con cambios en el sistema
-3. Investiga posibles causas externas
-4. Implementa medidas correctivas rápidamente
-
-### Análisis de Estacionalidad
-
-Para entender patrones relacionados con el tiempo:
-
-1. Usa rangos de 3-6 meses con agrupación mensual
-2. Identifica patrones recurrentes
-3. Ajusta estrategias según la estacionalidad
-4. Planifica recursos en base a las tendencias
+<Info>
+  Si no ves agentes disponibles, verifica que tengas los permisos necesarios y que existan agentes configurados en tu organización.
+</Info>
 
 ## Mejores Prácticas
 
-### Frecuencia de Revisión
+### Análisis Efectivo
 
-- **Diariamente**: Para agentes en desarrollo activo
-- **Semanalmente**: Para agentes en producción estable
-- **Mensualmente**: Para revisiones estratégicas
+Para obtener insights valiosos:
 
-### Configuración Óptima
+1. **Combina períodos**: Usa vistas semanales para detalles y mensuales para tendencias
+2. **Compara agentes**: Analiza múltiples agentes para identificar mejores prácticas
+3. **Documenta cambios**: Relaciona mejoras con actualizaciones específicas del agente
+4. **Monitoreo regular**: Establece revisiones periódicas de tendencias
 
-<Steps>
-<Step title="Define Objetivos">
-Clarifica qué métricas son más importantes para tu caso de uso específico.
-</Step>
-
-<Step title="Selecciona Períodos Apropiados">
-Usa rangos que proporcionen suficientes datos sin abrumar con detalles.
-</Step>
-
-<Step title="Compara Consistentemente">
-Mantén configuraciones similares para comparaciones válidas entre períodos.
-</Step>
-
-<Step title="Documenta Cambios">
-Registra cuándo realizas modificaciones al agente para correlacionar con las tendencias.
-</Step>
-</Steps>
-
-## Exportación y Reportes
-
-Los datos de tendencias pueden ser utilizados para:
-
-- **Reportes ejecutivos**: Resúmenes de alto nivel del rendimiento
-- **Análisis técnicos**: Datos detallados para optimizaciones
-- **Documentación de mejoras**: Evidencia de progreso en el tiempo
-- **Planificación futura**: Base para proyecciones y objetivos
+### Interpretación de Resultados
 
 <Warning>
-Recuerda que las tendencias muestran correlaciones, no necesariamente causalidad. Siempre valida los insights con análisis adicionales y pruebas controladas.
+  Las tendencias deben interpretarse en contexto. Considera factores externos como cambios en el tráfico, actualizaciones del agente, o modificaciones en los criterios de evaluación.
 </Warning>
 
-## Solución de Problemas Comunes
+Factores a considerar:
 
-### No se muestran datos
-- Verifica que el agente seleccionado tenga evaluaciones en el rango temporal
-- Confirma que las fechas de inicio y fin son correctas
-- Asegúrate de que el agente ha procesado llamadas en el período
-
-### Gráficos no se cargan
-- Actualiza la página e intenta nuevamente
-- Verifica tu conexión a internet
-- Contacta soporte si el problema persiste
-
-### Datos inconsistentes
-- Revisa la configuración de agrupación temporal
-- Confirma que no hay cambios en los criterios de evaluación
-- Valida que el rango temporal es el esperado
-
-Las tendencias de evaluaciones son una herramienta poderosa para el monitoreo continuo y la mejora de tus agentes conversacionales. Úsalas regularmente para mantener un rendimiento óptimo y identificar oportunidades de optimización.
+- **Volumen de llamadas**: Más datos proporcionan tendencias más confiables
+- **Estacionalidad**: Algunos patrones pueden ser cíclicos
+- **Cambios del sistema**: Actualizaciones pueden afectar las métricas temporalmente
+- **Contexto del negocio**: Relaciona tendencias con eventos empresariales relevantes
