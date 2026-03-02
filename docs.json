@@ -112,7 +112,8 @@
                 "pages": [
                   "api-reference/endpoint/create",
                   "api-reference/endpoint/get",
-                  "api-reference/endpoint/list"
+                  "api-reference/endpoint/list",
+                  "api-reference/endpoint/whatsapp-outbound"
                 ]
               },
               {
@@ -210,7 +211,8 @@
                 "pages": [
                   "es/api-reference/endpoint/create",
                   "es/api-reference/endpoint/get",
-                  "es/api-reference/endpoint/list"
+                  "es/api-reference/endpoint/list",
+                  "es/api-reference/endpoint/whatsapp-outbound"
                 ]
               },
               {

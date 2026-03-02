@@ -1,0 +1,223 @@
+---
+title: 'Enviar Campana WhatsApp Outbound'
+api: 'POST /whatsapp/outbound'
+description: 'Enviar mensajes de WhatsApp outbound a una lista de destinatarios usando plantillas pre-aprobadas'
+---
+
+## Descripcion General
+
+Este endpoint inicia una campana de WhatsApp outbound usando una plantilla de WhatsApp Business pre-aprobada. Los mensajes se envian a traves de la plataforma ElevenLabs Conversational AI, y cada destinatario recibe un mensaje de plantilla que puede iniciar una conversacion con tu agente de IA.
+
+La campana se procesa de forma asincrona. El endpoint responde inmediatamente con un `campaign_id` que puedes usar para seguir el progreso.
+
+## Autenticacion
+
+Este endpoint requiere autenticacion Firebase usando un Bearer token. El usuario autenticado debe tener el permiso **Can Send WhatsApp Campaigns** activado.
+
+```bash
+Authorization: Bearer TU_TOKEN_FIREBASE
+```
+
+## Cuerpo de la Peticion
+
+<ParamField body="assistant_id" type="string" required>
+  El UUID del asistente (playbook) a usar para la campana. El asistente debe tener `conversation_agent_id` y `whatsapp_phone_number_id` configurados.
+</ParamField>
+
+<ParamField body="template_name" type="string" required>
+  El nombre de la plantilla de WhatsApp Business pre-aprobada a usar.
+</ParamField>
+
+<ParamField body="template_language_code" type="string" default="es">
+  El codigo de idioma para la plantilla. Por defecto: `es`.
+</ParamField>
+
+<ParamField body="campaign_name" type="string">
+  Nombre opcional para la campana. Si no se proporciona, se genera un nombre con la fecha actual.
+</ParamField>
+
+<ParamField body="recipients" type="array" required>
+  Array de objetos de destinatarios. Maximo 1000 destinatarios por campana.
+
+  <Expandable title="Objeto Destinatario">
+    <ParamField body="phone" type="string" required>
+      El numero de telefono del destinatario en formato internacional (ej: `34612345678`).
+    </ParamField>
+
+    <ParamField body="template_params" type="array">
+      Array de valores de parametros para la plantilla de WhatsApp. El orden debe coincidir con las definiciones de parametros de la plantilla.
+    </ParamField>
+
+    <ParamField body="dynamic_variables" type="object">
+      Pares clave-valor de variables dinamicas para pasar al agente de IA para esta conversacion especifica.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Respuesta
+
+<ResponseField name="success" type="boolean">
+  Si la campana se creo correctamente.
+</ResponseField>
+
+<ResponseField name="campaign_id" type="string">
+  Identificador unico para la campana. Usalo para seguir el progreso via `GET /whatsapp/campaigns/:id`.
+</ResponseField>
+
+<ResponseField name="total_messages" type="number">
+  Numero total de mensajes a enviar.
+</ResponseField>
+
+## Ejemplos de Peticiones
+
+### cURL
+
+```bash
+curl -X POST https://api.meetzy.io/whatsapp/outbound \
+  -H "Authorization: Bearer TU_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "assistant_id": "550e8400-e29b-41d4-a716-446655440000",
+    "template_name": "mensaje_bienvenida",
+    "template_language_code": "es",
+    "campaign_name": "Campana Febrero",
+    "recipients": [
+      {
+        "phone": "34612345678",
+        "template_params": ["Juan", "Plan Premium"],
+        "dynamic_variables": {
+          "nombre_cliente": "Juan",
+          "plan": "Premium"
+        }
+      },
+      {
+        "phone": "34698765432",
+        "template_params": ["Maria", "Plan Basico"]
+      }
+    ]
+  }'
+```
+
+### Node.js
+
+```javascript
+const response = await fetch('https://api.meetzy.io/whatsapp/outbound', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    assistant_id: '550e8400-e29b-41d4-a716-446655440000',
+    template_name: 'mensaje_bienvenida',
+    template_language_code: 'es',
+    campaign_name: 'Campana Febrero',
+    recipients: [
+      {
+        phone: '34612345678',
+        template_params: ['Juan', 'Plan Premium'],
+      },
+    ],
+  }),
+});
+
+const data = await response.json();
+console.log(data.campaign_id);
+```
+
+### Python
+
+```python
+import requests
+
+response = requests.post(
+    'https://api.meetzy.io/whatsapp/outbound',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json',
+    },
+    json={
+        'assistant_id': '550e8400-e29b-41d4-a716-446655440000',
+        'template_name': 'mensaje_bienvenida',
+        'template_language_code': 'es',
+        'campaign_name': 'Campana Febrero',
+        'recipients': [
+            {
+                'phone': '34612345678',
+                'template_params': ['Juan', 'Plan Premium'],
+            },
+        ],
+    }
+)
+
+data = response.json()
+print(data['campaign_id'])
+```
+
+## Ejemplo de Respuesta
+
+```json
+{
+  "success": true,
+  "campaign_id": "123e4567-e89b-12d3-a456-426614174000",
+  "total_messages": 2
+}
+```
+
+## Seguimiento del Progreso de la Campana
+
+Despues de crear una campana, usa estos endpoints para seguir su estado:
+
+- **Listar campanas**: `GET /whatsapp/campaigns?page=1&limit=20`
+- **Detalle de campana**: `GET /whatsapp/campaigns/:campaign_id`
+- **Cancelar campana**: `PUT /whatsapp/campaigns/:campaign_id/cancel`
+
+## Parametros de Plantilla
+
+Los parametros de plantilla (`template_params`) reemplazan los marcadores `{{1}}`, `{{2}}`, etc. en tu plantilla aprobada de WhatsApp. Se pasan como un array ordenado.
+
+Por ejemplo, si tu plantilla es:
+
+> Hola {{1}}, tu cita para {{2}} esta confirmada.
+
+Pasarias:
+
+```json
+{
+  "template_params": ["Juan", "15 de febrero a las 10:00"]
+}
+```
+
+## Respuestas de Error
+
+<ResponseField name="400 Bad Request" type="object">
+  Cuerpo de peticion invalido o campos requeridos faltantes.
+
+  ```json
+  { "error": "Missing required fields: assistant_id, template_name, recipients" }
+  ```
+</ResponseField>
+
+<ResponseField name="403 Forbidden" type="object">
+  El usuario no tiene el permiso requerido.
+
+  ```json
+  { "error": "You do not have permission to send WhatsApp campaigns" }
+  ```
+</ResponseField>
+
+<ResponseField name="404 Not Found" type="object">
+  Asistente no encontrado o no pertenece al usuario autenticado.
+
+  ```json
+  { "error": "Assistant not found or does not belong to your account" }
+  ```
+</ResponseField>
+
+## Notas
+
+- Los mensajes se envian con un retraso de 1.5 segundos entre cada uno para cumplir con los limites de Meta.
+- La campana se procesa de forma asincrona despues de la respuesta inicial.
+- Las conversaciones iniciadas por el mensaje de plantilla son gestionadas por el agente de IA configurado en el asistente.
+- El progreso de la campana se puede monitorear en tiempo real via `GET /whatsapp/campaigns/:id`.
+- Solo las campanas en estado `processing` o `pending` pueden ser canceladas.

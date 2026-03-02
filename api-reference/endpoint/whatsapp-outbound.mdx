@@ -1,0 +1,223 @@
+---
+title: 'Send WhatsApp Outbound Campaign'
+api: 'POST /whatsapp/outbound'
+description: 'Send outbound WhatsApp messages to a list of recipients using pre-approved templates'
+---
+
+## Overview
+
+This endpoint initiates an outbound WhatsApp campaign using a pre-approved WhatsApp Business template. Messages are sent via the ElevenLabs Conversational AI platform, and each recipient receives a template message that can start a conversation with your AI agent.
+
+The campaign is processed asynchronously. The endpoint returns immediately with a `campaign_id` that you can use to track progress.
+
+## Authentication
+
+This endpoint requires Firebase authentication using a Bearer token. The authenticated user must have the **Can Send WhatsApp Campaigns** permission enabled.
+
+```bash
+Authorization: Bearer YOUR_FIREBASE_TOKEN
+```
+
+## Request Body
+
+<ParamField body="assistant_id" type="string" required>
+  The UUID of the assistant (playbook) to use for the campaign. The assistant must have a `conversation_agent_id` and `whatsapp_phone_number_id` configured.
+</ParamField>
+
+<ParamField body="template_name" type="string" required>
+  The name of the pre-approved WhatsApp Business template to use.
+</ParamField>
+
+<ParamField body="template_language_code" type="string" default="es">
+  The language code for the template. Default: `es`.
+</ParamField>
+
+<ParamField body="campaign_name" type="string">
+  Optional name for the campaign. If not provided, a name with the current date will be generated.
+</ParamField>
+
+<ParamField body="recipients" type="array" required>
+  Array of recipient objects. Maximum 1000 recipients per campaign.
+
+  <Expandable title="Recipient Object">
+    <ParamField body="phone" type="string" required>
+      The recipient's phone number in international format (e.g., `34612345678`).
+    </ParamField>
+
+    <ParamField body="template_params" type="array">
+      Array of parameter values for the WhatsApp template. The order must match the template's parameter definitions.
+    </ParamField>
+
+    <ParamField body="dynamic_variables" type="object">
+      Key-value pairs of dynamic variables to pass to the AI agent for this specific conversation.
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Whether the campaign was created successfully.
+</ResponseField>
+
+<ResponseField name="campaign_id" type="string">
+  Unique identifier for the campaign. Use this to track progress via `GET /whatsapp/campaigns/:id`.
+</ResponseField>
+
+<ResponseField name="total_messages" type="number">
+  Total number of messages to be sent.
+</ResponseField>
+
+## Example Requests
+
+### cURL
+
+```bash
+curl -X POST https://api.meetzy.io/whatsapp/outbound \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "assistant_id": "550e8400-e29b-41d4-a716-446655440000",
+    "template_name": "welcome_message",
+    "template_language_code": "es",
+    "campaign_name": "February Campaign",
+    "recipients": [
+      {
+        "phone": "34612345678",
+        "template_params": ["John", "Premium Plan"],
+        "dynamic_variables": {
+          "client_name": "John",
+          "plan": "Premium"
+        }
+      },
+      {
+        "phone": "34698765432",
+        "template_params": ["Maria", "Basic Plan"]
+      }
+    ]
+  }'
+```
+
+### Node.js
+
+```javascript
+const response = await fetch('https://api.meetzy.io/whatsapp/outbound', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    assistant_id: '550e8400-e29b-41d4-a716-446655440000',
+    template_name: 'welcome_message',
+    template_language_code: 'es',
+    campaign_name: 'February Campaign',
+    recipients: [
+      {
+        phone: '34612345678',
+        template_params: ['John', 'Premium Plan'],
+      },
+    ],
+  }),
+});
+
+const data = await response.json();
+console.log(data.campaign_id);
+```
+
+### Python
+
+```python
+import requests
+
+response = requests.post(
+    'https://api.meetzy.io/whatsapp/outbound',
+    headers={
+        'Authorization': f'Bearer {token}',
+        'Content-Type': 'application/json',
+    },
+    json={
+        'assistant_id': '550e8400-e29b-41d4-a716-446655440000',
+        'template_name': 'welcome_message',
+        'template_language_code': 'es',
+        'campaign_name': 'February Campaign',
+        'recipients': [
+            {
+                'phone': '34612345678',
+                'template_params': ['John', 'Premium Plan'],
+            },
+        ],
+    }
+)
+
+data = response.json()
+print(data['campaign_id'])
+```
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "campaign_id": "123e4567-e89b-12d3-a456-426614174000",
+  "total_messages": 2
+}
+```
+
+## Tracking Campaign Progress
+
+After creating a campaign, use these endpoints to track its status:
+
+- **List campaigns**: `GET /whatsapp/campaigns?page=1&limit=20`
+- **Campaign detail**: `GET /whatsapp/campaigns/:campaign_id`
+- **Cancel campaign**: `PUT /whatsapp/campaigns/:campaign_id/cancel`
+
+## Template Parameters
+
+Template parameters (`template_params`) replace the `{{1}}`, `{{2}}`, etc. placeholders in your WhatsApp-approved template. They are passed as an ordered array.
+
+For example, if your template is:
+
+> Hello {{1}}, your appointment for {{2}} is confirmed.
+
+You would pass:
+
+```json
+{
+  "template_params": ["John", "February 15th at 10:00 AM"]
+}
+```
+
+## Error Responses
+
+<ResponseField name="400 Bad Request" type="object">
+  Invalid request body or missing required fields.
+
+  ```json
+  { "error": "Missing required fields: assistant_id, template_name, recipients" }
+  ```
+</ResponseField>
+
+<ResponseField name="403 Forbidden" type="object">
+  User does not have the required permission.
+
+  ```json
+  { "error": "You do not have permission to send WhatsApp campaigns" }
+  ```
+</ResponseField>
+
+<ResponseField name="404 Not Found" type="object">
+  Assistant not found or does not belong to the authenticated user.
+
+  ```json
+  { "error": "Assistant not found or does not belong to your account" }
+  ```
+</ResponseField>
+
+## Notes
+
+- Messages are sent with a 1.5-second delay between each to comply with Meta's rate limits.
+- The campaign processes asynchronously after the initial response.
+- Conversations started by the template message are handled by the AI agent configured on the assistant.
+- Campaign progress can be monitored in real-time via `GET /whatsapp/campaigns/:id`.
+- Only campaigns in `processing` or `pending` status can be cancelled.
