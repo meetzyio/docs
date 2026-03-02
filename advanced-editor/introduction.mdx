@@ -51,6 +51,39 @@ The left panel contains all configuration sections accessible via an icon bar:
 | 🤖 Copilot | AI assistant to help improve your prompts |
 | 🔄 Changes | Track changes with Git-like version control |
 
+## Advanced Version Control System
+
+The Advanced Editor includes a powerful **Git-like version control system** that revolutionizes how teams collaborate on AI agent development. This system provides enterprise-grade version management with real-time collaboration features.
+
+<Info>
+The new version control system enables seamless team collaboration with automatic conflict detection, branching capabilities, and comprehensive change tracking.
+</Info>
+
+### Core Version Control Features
+
+- **Real-time collaboration awareness**: See when teammates are editing simultaneously
+- **Automatic conflict detection** and guided resolution
+- **Branch-based workflows** for parallel development
+- **Comprehensive audit trails** with detailed change history
+- **Rollback capabilities** to safely revert changes
+- **Team coordination tools** to prevent edit conflicts
+
+### Git Status Indicators
+
+The Advanced Editor displays comprehensive version control status in the top toolbar:
+
+| Status | Badge Color | Description |
+|--------|-------------|-------------|
+| Clean | 🟢 Green | No local changes, up to date with remote |
+| Modified | 🟡 Yellow | Local changes pending save (shows count) |
+| Conflicts | 🔴 Red | Merge conflicts require resolution |
+| Syncing | 🔵 Blue | Currently synchronizing with remote repository |
+| Locked | 🟠 Orange | Another team member is actively editing |
+
+<Warning>
+When status shows "Conflicts" or "Locked", resolve these issues before attempting to publish changes to avoid data loss.
+</Warning>
+
 ## Top Toolbar & Version Control
 
 The toolbar provides quick actions, collaboration features, and version control information:
@@ -83,6 +116,31 @@ Real-time collaboration indicators help you work seamlessly with your team:
 <Warning>
 When the status shows "Conflicts" or "Locked", resolve these issues before attempting to publish changes.
 </Warning>
+
+### Collaborative Development Workflow
+
+The Git-like system supports sophisticated team workflows:
+
+<Steps>
+  <Step title="Check Status">
+    Always verify the Git status before starting work to understand the current state
+  </Step>
+  <Step title="Pull Latest Changes">
+    Use "Check" and "Pull" to synchronize with your team's latest changes
+  </Step>
+  <Step title="Make Changes">
+    Edit your agent configuration with real-time collaboration awareness
+  </Step>
+  <Step title="Resolve Conflicts">
+    Handle any merge conflicts that arise during collaborative editing
+  </Step>
+  <Step title="Commit Changes">
+    Save your changes with descriptive commit messages
+  </Step>
+  <Step title="Deploy to Production">
+    Safely publish your finalized agent to production
+  </Step>
+</Steps>
 
 ### Toolbar Actions
 
@@ -145,15 +203,24 @@ The testing interface provides clear visual indicators:
 
 ## Key Features
 
-### Advanced Version Control System
+### Git-Like Version Control Benefits
 
-The Advanced Editor includes a powerful Git-like version control system with:
+The Advanced Editor's version control system brings several key advantages to agent development:
 
-- **Real-time status tracking**: See exactly what's changed and when
-- **Branching capabilities**: Create separate branches for feature development
-- **Conflict resolution**: Automatic detection and guided resolution of conflicts
-- **Collaboration awareness**: Know when teammates are editing simultaneously
-- **Rollback functionality**: Easily revert to previous versions if needed
+**Team Collaboration**
+- Multiple developers can work on the same agent simultaneously
+- Real-time awareness of teammate activities prevents conflicts
+- Automatic merge conflict detection and resolution guidance
+
+**Change Management**
+- Comprehensive audit trails for all modifications
+- Ability to revert to previous versions if issues arise  
+- Branching support for feature development and testing
+
+**Production Safety**
+- Staged deployment process prevents accidental production changes
+- Version validation before publishing to ensure quality
+- Rollback capabilities for quick issue resolution
 
 ### Git Status Indicators
 

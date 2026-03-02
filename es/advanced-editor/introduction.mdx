@@ -1,6 +1,6 @@
 ---
 title: 'Introducción al Editor Avanzado'
-description: 'Aprende sobre el Editor Avanzado y cuándo usarlo para crear agentes de IA potentes'
+description: 'Aprende sobre el Editor Avanzado y cuándo usarlo para crear agentes de IA potentes con colaboración Git y testing profesional'
 icon: 'wand-magic-sparkles'
 ---
 
@@ -9,7 +9,7 @@ icon: 'wand-magic-sparkles'
 El **Editor Avanzado** es la herramienta integral de configuración de agentes de Meetzy que te da control total sobre cada aspecto del comportamiento de tu agente de IA. Proporciona una interfaz de nivel profesional para crear, probar y desplegar agentes conversacionales de IA con capacidades avanzadas de colaboración y testing.
 
 <Info>
-El Editor Avanzado incluye ahora un sistema completo de control de versiones Git y herramientas de testing mejoradas para garantizar la calidad de tus agentes en producción.
+El Editor Avanzado incluye ahora un sistema completo de control de versiones Git y herramientas de testing mejoradas para garantizar la calidad de tus agentes en producción con colaboración en tiempo real.
 </Info>
 
 ## Cuándo Usar el Editor Avanzado
@@ -52,207 +52,272 @@ El panel izquierdo contiene todas las secciones de configuración accesibles med
 | 🎮 Playground | Prueba tu agente en tiempo real con texto o voz |
 | 📋 Tests | Suite completa de testing automatizado con simulaciones |
 | 🤖 Copilot | Asistente IA para ayudar a mejorar tus prompts |
-| 📜 Historial de Cambios | Control de versiones Git con colaboración en tiempo real |
+| 📜 Changes | Control de versiones Git con colaboración en tiempo real |
 
-## Barra Superior con Control de Versiones
+## Barra Superior con Control de Versiones Git
 
-La barra de herramientas ahora incluye indicadores de estado Git y colaboración:
+La barra de herramientas incluye indicadores avanzados de estado Git y colaboración:
 
 | Elemento | Descripción |
 |----------|-------------|
 | ← Volver | Regresar a la lista de agentes |
-| 🏷️ Estado Git | Indicador visual del estado de versiones |
-| 📊 Versión | Número de versión actual (v1.2.3) |
-| 🔄 Acciones Git | Botones para Check, Pull, Commit, Push |
-| ✓ Guardar | Guardar cambios locales |
+| 🏷️ Estado Git | Indicador visual del estado de versiones con códigos de color |
+| 📊 Versión | Número de versión actual con versionado semántico (v1.2.3) |
+| 🔄 Acciones Git | Botones para Check, Pull, Commit, Push con estados inteligentes |
+| ✓ Guardar | Guardar cambios locales con detección automática |
 | ⬇️ Exportar | Descargar configuración del agente |
-| 🚀 Publicar | Desplegar cambios a producción |
+| 🚀 Publicar | Desplegar cambios a producción con validación automática |
 
-## Sistema de Control de Versiones Git
+## Sistema de Control de Versiones Git Integrado
 
-El Editor Avanzado incluye un sistema robusto de control de versiones Git que permite colaboración profesional en tiempo real:
+El Editor Avanzado incluye un sistema robusto de control de versiones Git que permite colaboración profesional en tiempo real entre equipos:
 
 <Info>
-**Colaboración en Tiempo Real**: Múltiples usuarios pueden trabajar en el mismo agente simultáneamente con detección automática de conflictos y sincronización cada 30 segundos.
+**Colaboración en Tiempo Real**: Múltiples usuarios pueden trabajar en el mismo agente simultáneamente con detección automática de conflictos, sincronización cada 30 segundos, e indicadores de presencia visual.
 </Info>
 
-### Estados de Versión
+### Estados de Versión en Tiempo Real
 
-El indicador de estado Git muestra el estado actual del agente con códigos de color intuitivos:
+El indicador de estado Git muestra el estado actual del agente con códigos de color intuitivos y información detallada:
 
-| Estado | Descripción | Indicador | Color |
-|--------|-------------|----------|--------|
-| **Clean** | Sin cambios pendientes | ✅ Clean | 🟢 Verde |
+| Estado | Descripción | Indicador Visual | Color |
+|--------|-------------|-----------------|--------|
+| **Clean** | Sin cambios pendientes, sincronizado con remoto | ✅ Clean | 🟢 Verde |
 | **Modified** | Cambios locales sin confirmar | ⚠️ Modified (3) | 🟡 Amarillo |
-| **Conflict** | Conflictos con cambios remotos | ❌ Conflicts (2) | 🔴 Rojo |
-| **Syncing** | Sincronizando con el servidor | 🔄 Syncing... | 🔵 Azul |
-| **Locked** | Bloqueado por otro usuario | 🔒 Locked by 2 user(s) | 🟠 Naranja |
+| **Conflict** | Conflictos con cambios remotos detectados | ❌ Conflicts (2) | 🔴 Rojo |
+| **Syncing** | Sincronizando con el servidor Git | 🔄 Syncing... | 🔵 Azul |
+| **Locked** | Bloqueado por otros usuarios activos | 🔒 Locked by 2 user(s) | 🟠 Naranja |
 
-### Pestaña de Historial de Cambios Mejorada
+### Flujo de Trabajo Git Profesional
 
-La pestaña **Changes** en el panel derecho ahora proporciona funcionalidades avanzadas:
+El sistema implementa un flujo de trabajo Git completo:
 
-#### Vista de Cambios en Tiempo Real
-- **Lista detallada de modificaciones**: Por sección con diff visual
-- **Indicadores de conflicto**: Resaltado automático de campos en conflicto
-- **Preview de cambios**: Vista previa antes de confirmar
+#### Operaciones Git Básicas
+- **Check**: Verificar actualizaciones remotas sin aplicar cambios
+- **Pull**: Sincronizar con cambios remotos y resolver conflictos automáticamente
+- **Commit**: Confirmar cambios locales con mensajes descriptivos obligatorios
+- **Push**: Desplegar a producción tras validación automática de tests
 
-#### Historial de Versiones Completo
-- **Timeline interactivo**: Historial completo de commits con timestamps
-- **Información de autoría**: Quién hizo cada cambio y cuándo
-- **Mensajes de commit**: Descripciones detalladas de cada versión
-- **Navegación por versiones**: Salto rápido entre versiones históricas
+#### Gestión Inteligente de Conflictos
+- **Detección automática**: Identificación de conflictos a nivel de campo
+- **Resolución visual**: Interfaz paso a paso para resolver cada conflicto
+- **Preview de merge**: Vista previa del resultado antes de confirmar
+- **Rollback seguro**: Capacidad de deshacer cambios problemáticos
 
-#### Gestión de Ramas Profesional
-- **Creación de ramas**: Para desarrollo paralelo y experimentación
-- **Merge automático**: Integración inteligente de cambios
-- **Resolución de conflictos**: Interfaz visual para resolver conflictos paso a paso
+## Pestaña Changes: Control de Versiones Avanzado
 
-#### Colaboración Avanzada
-- **Indicadores de presencia**: Ver quién está editando cada sección
-- **Chat de equipo**: Comunicación contextual durante la edición
-- **Notificaciones**: Alertas en tiempo real de cambios de otros usuarios
-
-## Sistema de Testing Mejorado
-
-La nueva pestaña **Tests** incluye capacidades profesionales de testing:
+La pestaña **Changes** en el panel derecho proporciona funcionalidades profesionales de gestión de versiones:
 
 <Warning>
-**Tests de Regresión**: El sistema ejecuta automáticamente todos los tests cuando se realizan cambios críticos para prevenir regresiones en el comportamiento del agente.
+**Prevención de Conflictos**: El sistema bloquea automáticamente campos que están siendo editados por otros usuarios para prevenir conflictos, mostrando indicadores de presencia en tiempo real.
 </Warning>
 
-### Tipos de Test Disponibles
+### Vista de Cambios en Tiempo Real
+- **Lista detallada de modificaciones**: Cambios por sección con diff visual coloreado
+- **Indicadores de conflicto**: Resaltado automático de campos en conflicto con otros usuarios
+- **Preview de cambios**: Vista previa completa antes de confirmar con comparación lado a lado
+- **Validación automática**: Verificación de sintaxis y coherencia antes del commit
 
-| Tipo | Descripción | Uso Recomendado |
-|------|-------------|-----------------|
-| **Scenario Tests** | Conversaciones predefinidas con criterios de éxito | Validar flujos específicos |
-| **Simulation Tests** | Simulaciones dinámicas con diferentes personas | Testing exploratorio |
-| **Regression Tests** | Tests automáticos ejecutados en cada deploy | Prevención de regresiones |
-| **Stress Tests** | Múltiples ejecuciones para validar consistencia | Validación de robustez |
+### Historial de Versiones Completo
+- **Timeline interactivo**: Historial completo de commits con timestamps precisos y metadata
+- **Información de autoría**: Quién hizo cada cambio, cuándo, y desde qué dispositivo
+- **Mensajes de commit**: Descripciones detalladas y categorizadas de cada versión
+- **Navegación temporal**: Salto rápido entre versiones con comparación visual
+- **Análisis de impacto**: Identificación automática del alcance de cada cambio
+
+### Gestión de Ramas Profesional
+- **Creación de ramas**: Para desarrollo paralelo y experimentación segura
+- **Estrategias de merge**: Integración inteligente con fast-forward y merge commits
+- **Resolución de conflictos**: Interfaz visual para resolver conflictos paso a paso
+- **Protección de producción**: Validación automática antes de merge a main
+
+### Colaboración Avanzada en Tiempo Real
+- **Indicadores de presencia**: Ver quién está editando cada sección específica
+- **Chat de equipo contextual**: Comunicación integrada durante la edición
+- **Notificaciones inteligentes**: Alertas relevantes de cambios de otros usuarios
+- **Bloqueos cooperativos**: Prevención automática de edición simultánea conflictiva
+
+## Sistema de Testing Profesional Mejorado
+
+La nueva pestaña **Tests** incluye capacidades profesionales de testing y quality assurance:
+
+<Warning>
+**Tests de Regresión Automáticos**: El sistema ejecuta automáticamente todos los tests cuando se realizan cambios críticos y bloquea el deploy si algún test falla, garantizando la calidad en producción.
+</Warning>
+
+### Tipos de Test Avanzados
+
+| Tipo de Test | Descripción | Uso Recomendado | Capacidades |
+|-------------|-------------|-----------------|-------------|
+| **Scenario Tests** | Conversaciones predefinidas con criterios específicos | Validar flujos críticos de negocio | Variables dinámicas, multi-turn |
+| **Simulation Tests** | Simulaciones dinámicas con diferentes personas | Testing exploratorio y edge cases | Generación automática de casos |
+| **Regression Tests** | Tests automáticos en cada deploy | Prevención de regresiones | Ejecución paralela, CI/CD |
+| **Stress Tests** | Múltiples ejecuciones para validar consistencia | Validación de robustez y performance | Análisis estadístico, métricas |
 
 ### Funcionalidades Avanzadas de Testing
 
-#### Ejecución en Lote
-- **Repeticiones múltiples**: Ejecutar el mismo test hasta 10 veces
-- **Análisis estadístico**: Métricas de éxito/fallo por lote
-- **Paralelización**: Ejecución simultánea para mayor velocidad
+#### Ejecución en Lote Inteligente
+- **Repeticiones múltiples**: Ejecutar el mismo test hasta 10 veces para validar consistencia
+- **Análisis estadístico**: Métricas detalladas de éxito/fallo por lote con tendencias
+- **Paralelización**: Ejecución simultánea para reducir tiempo de testing
+- **Distribución de carga**: Balanceamiento automático de recursos de testing
 
-#### Variables de Contexto
-- **Parámetros dinámicos**: Inyección de variables como fecha_y_hora_actual
-- **Personalización por test**: Variables específicas por escenario
-- **Gestión visual**: Panel dedicado para configurar variables
+#### Variables de Contexto Dinámicas
+- **Parámetros dinámicos**: Inyección automática de variables como fecha_y_hora_actual
+- **Personalización por test**: Variables específicas por escenario de testing
+- **Gestión visual**: Panel dedicado para configurar y validar variables
+- **Templating avanzado**: Sistema de plantillas para reutilización de configuraciones
 
-#### Historial y Análisis
-- **Pestaña History**: Registro completo de ejecuciones pasadas
+#### Historial y Análisis de Performance
+- **Pestaña History**: Registro completo de ejecuciones con métricas detalladas
 - **Métricas de rendimiento**: Tendencias de éxito/fallo a lo largo del tiempo
-- **Comparación de versiones**: Impacto de cambios en el rendimiento de tests
+- **Comparación de versiones**: Análisis del impacto de cambios en performance
+- **Alertas automáticas**: Notificaciones de degradación de calidad
 
-#### Integración con Copilot
-- **Mejoras automáticas**: Copilot sugiere mejoras basadas en tests fallidos
-- **Análisis de fallos**: Identificación automática de patrones de error
-- **Optimización de prompts**: Sugerencias específicas para mejorar el comportamiento
+#### Integración con AI Copilot
+- **Mejoras automáticas**: Copilot sugiere optimizaciones basadas en tests fallidos
+- **Análisis de fallos**: Identificación automática de patrones de error y causas raíz
+- **Optimización de prompts**: Sugerencias específicas para mejorar comportamiento
+- **Generación de tests**: Creación automática de casos de test adicionales
 
-## Flujo de Trabajo Colaborativo
+## Flujo de Trabajo Colaborativo Paso a Paso
 
 <Steps>
-  <Step title="Clonar o Crear Rama">
-    Crea una nueva rama para tus cambios o trabaja directamente en main.
+  <Step title="Inicialización del Proyecto">
+    Clona el agente o crea una nueva rama para tus cambios. El sistema configura automáticamente el entorno colaborativo.
   </Step>
-  <Step title="Configurar Agente">
-    Realiza cambios en configuración, prompts, y funcionalidades.
+  <Step title="Desarrollo Colaborativo">
+    Realiza cambios en configuración, prompts y funcionalidades. Los indicadores de presencia muestran dónde trabajan otros miembros del equipo.
   </Step>
-  <Step title="Crear Tests">
-    Define scenarios y simulaciones para validar el comportamiento.
+  <Step title="Testing Continuo">
+    Crea y ejecuta tests localmente. Define scenarios y simulaciones para validar el comportamiento esperado.
   </Step>
-  <Step title="Ejecutar Tests Localmente">
-    Valida tus cambios antes de confirmar usando el Playground y Tests.
+  <Step title="Validación Local">
+    Usa el Playground y la suite de Tests para validar cambios antes de confirmar. El Copilot sugiere mejoras automáticamente.
   </Step>
-  <Step title="Revisar Conflictos">
-    El sistema detecta automáticamente conflictos con cambios remotos.
+  <Step title="Resolución de Conflictos">
+    El sistema detecta y resalta conflictos automáticamente. Usa la interfaz visual para resolverlos paso a paso.
   </Step>
-  <Step title="Resolver y Confirmar">
-    Resuelve conflictos y confirma cambios con mensaje descriptivo.
+  <Step title="Commit con Validación">
+    Confirma cambios con mensajes descriptivos. El sistema ejecuta validaciones automáticas y sugiere categorías.
   </Step>
-  <Step title="Ejecutar Tests de Regresión">
-    El sistema ejecuta automáticamente todos los tests existentes.
+  <Step title="Tests de Regresión Automáticos">
+    Ejecución automática de toda la suite de tests. El sistema genera reportes detallados de cobertura y performance.
   </Step>
-  <Step title="Publicar a Producción">
-    Deploy automático tras validación exitosa de todos los tests.
+  <Step title="Deploy a Producción">
+    Deploy automático tras validación exitosa. El sistema mantiene rollback automático en caso de problemas post-deploy.
   </Step>
 </Steps>
 
-## Conceptos Clave del Nuevo Sistema
+## Conceptos Clave del Sistema Avanzado
 
-### Sincronización Automática y Colaboración
+### Sincronización Inteligente y Colaboración
 
 <Info>
-**Auto-sync Inteligente**: Los cambios se sincronizan automáticamente cada 30 segundos, pero solo si no hay conflictos detectados. El sistema pausará la sincronización durante edición activa.
+**Auto-sync con IA**: Los cambios se sincronizan automáticamente cada 30 segundos usando algoritmos inteligentes que pausan durante edición activa y resuelven conflictos menores automáticamente.
 </Info>
 
-#### Detección de Conflictos Avanzada
-- **Análisis a nivel de campo**: Detección granular de conflictos por sección
-- **Resolución guiada**: Interfaz paso a paso para resolver cada conflicto
-- **Previsualización de merge**: Vista previa del resultado antes de confirmar
+#### Detección de Conflictos con Machine Learning
+- **Análisis semántico**: Detección de conflictos a nivel de significado, no solo sintaxis
+- **Resolución predictiva**: Sugerencias automáticas de resolución basadas en contexto
+- **Impacto de cambios**: Análisis automático del impacto de cada modificación
+- **Previsualización inteligente**: Vista previa del resultado con validación semántica
 
-#### Indicadores de Presencia
-- **Cursores colaborativos**: Ver dónde están editando otros usuarios
-- **Bloqueos inteligentes**: Prevención automática de edición simultánea en el mismo campo
-- **Notificaciones contextuales**: Alertas de cambios relevantes a tu trabajo
+#### Indicadores de Presencia Avanzados
+- **Cursores colaborativos**: Posición exacta de otros usuarios con nombres e identificadores únicos
+- **Bloqueos inteligentes**: Prevención automática de edición simultánea con negociación de turnos
+- **Notificaciones contextuales**: Alertas relevantes basadas en el área de trabajo actual
+- **Estado de actividad**: Indicadores de quien está activo, escribiendo, o en pausa
 
-### Versionado Semántico
+### Versionado Semántico Automático
 
-El sistema utiliza versionado semántico automático:
+El sistema utiliza versionado semántico con detección automática de tipo de cambio:
 
-| Tipo de Cambio | Incremento | Ejemplo |
-|----------------|-----------|---------|
-| **Bug fixes menores** | Patch (v1.0.0 → v1.0.1) | Corrección de typos |
-| **Nuevas funcionalidades** | Minor (v1.0.1 → v1.1.0) | Nuevas acciones o prompts |
-| **Cambios incompatibles** | Major (v1.1.0 → v2.0.0) | Cambios en estructura de salida |
+| Tipo de Cambio | Incremento | Ejemplo | Detección Automática |
+|----------------|-----------|---------|----------------------|
+| **Patches** | v1.0.0 → v1.0.1 | Corrección de typos, ajustes menores | Cambios en strings sin impacto funcional |
+| **Minor** | v1.0.1 → v1.1.0 | Nuevas funcionalidades compatibles | Nuevas acciones, herramientas, o configuraciones |
+| **Major** | v1.1.0 → v2.0.0 | Cambios incompatibles | Modificaciones en estructura de salida o API |
 
-### Testing Continuo e Integración
+### Quality Gates y Testing Continuo
 
 <Warning>
-**Quality Gates**: El sistema bloquea automáticamente el deploy a producción si algún test de regresión falla, garantizando la calidad del agente en todo momento.
+**Pipeline de Calidad**: El sistema implementa quality gates automáticos que bloquean el deploy a producción si cualquier test de regresión falla, manteniendo la integridad del agente en todo momento.
 </Warning>
 
-#### Pipeline Automático
-1. **Pre-commit hooks**: Validación antes de confirmar cambios
-2. **Test execution**: Ejecución automática de suite completa
-3. **Quality checks**: Validación de métricas de performance
-4. **Deploy gates**: Deploy condicionado al éxito de todos los tests
+#### Pipeline Automático CI/CD
+1. **Pre-commit validation**: Validación sintáctica y semántica antes de confirmar
+2. **Automated test execution**: Ejecución completa de la suite de tests en paralelo
+3. **Quality metrics validation**: Verificación de métricas de performance y cobertura
+4. **Production deployment gates**: Deploy condicionado al éxito de todas las validaciones
+5. **Post-deploy monitoring**: Monitoreo automático de métricas en producción
 
-#### Métricas y Monitoreo
-- **Test coverage**: Porcentaje de funcionalidades cubiertas por tests
-- **Success rate**: Tasa de éxito histórica por test
-- **Performance metrics**: Tiempo de respuesta y latencia por test
-- **Trend analysis**: Análisis de tendencias de calidad a lo largo del tiempo
+#### Métricas y Monitoreo Avanzado
+- **Test coverage analytics**: Análisis de cobertura por funcionalidad y flujo
+- **Success rate trends**: Análisis de tendencias históricas con predicciones
+- **Performance benchmarking**: Comparación automática con versiones anteriores
+- **Quality score**: Puntuación compuesta de calidad del agente basada en múltiples métricas
 
-## Mejores Prácticas para el Nuevo Flujo
+## Mejores Prácticas para Equipos Profesionales
 
-### Para Equipos de Desarrollo
+### Estrategias de Desarrollo Colaborativo
 
 <Tabs>
   <Tab title="Desarrollo Individual">
-    - Crea ramas para experimentos importantes
-    - Ejecuta tests localmente antes de cada commit
-    - Usa mensajes de commit descriptivos
-    - Revisa el historial antes de hacer cambios grandes
+    **Flujo de trabajo personal optimizado:**
+    - Crea ramas para experimentos y desarrollos importantes
+    - Ejecuta tests localmente antes de cada commit significativo
+    - Usa mensajes de commit descriptivos siguiendo convenciones del equipo
+    - Revisa el historial de cambios antes de modificaciones grandes
+    - Aprovecha las sugerencias del Copilot para optimización continua
   </Tab>
   
   <Tab title="Colaboración en Equipo">
-    - Coordina cambios grandes mediante chat integrado
-    - Usa el sistema de bloqueos para evitar conflictos
-    - Realiza code reviews usando la comparación de versiones
-    - Mantén comunicación activa sobre cambios en progreso
+    **Coordinación efectiva del equipo:**
+    - Coordina cambios importantes mediante el chat integrado contextual
+    - Utiliza el sistema de bloqueos inteligentes para evitar conflictos
+    - Realiza code reviews usando la funcionalidad de comparación de versiones
+    - Mantiene comunicación proactiva sobre cambios en progreso
+    - Establece convenciones de naming y mensajes de commit del equipo
   </Tab>
   
   <Tab title="Testing y QA">
-    - Mantén suite de tests actualizada con nuevas funcionalidades
+    **Aseguramiento de calidad continuo:**
+    - Mantén la suite de tests actualizada con cada nueva funcionalidad
     - Ejecuta tests de stress antes de releases importantes
-    - Usa variables de contexto para simular diferentes escenarios
-    - Monitorea métricas de calidad continuamente
+    - Usa variables de contexto para simular diferentes escenarios de uso
+    - Monitorea métricas de calidad continuamente con alertas automáticas
+    - Implementa tests de regresión para funcionalidades críticas
+  </Tab>
+  
+  <Tab title="DevOps y Producción">
+    **Gestión de producción profesional:**
+    - Configura pipelines de CI/CD con quality gates apropiados
+    - Implementa estrategias de rollback automático para deploy seguro
+    - Establece métricas de SLA para agentes en producción
+    - Usa feature flags para despliegues graduales de nuevas funcionalidades
+    - Mantén documentación técnica actualizada automáticamente
   </Tab>
 </Tabs>
+
+## Arquitectura del Sistema Git
+
+### Modelo de Branching Profesional
+
+El Editor Avanzado soporta flujos de trabajo Git profesionales:
+
+| Estrategia | Descripción | Uso Recomendado |
+|------------|-------------|-----------------|
+| **Git Flow** | Ramas feature/develop/main con releases | Equipos grandes con releases programados |
+| **GitHub Flow** | Feature branches directos a main | Equipos ágiles con deploy continuo |
+| **GitLab Flow** | Environment branches con promoción | Equipos con múltiples entornos |
+
+### Integración con Sistemas Externos
+
+- **Webhooks de versionado**: Notificaciones automáticas a sistemas externos
+- **API de integración**: Endpoints para sistemas de CI/CD externos
+- **Exportación de métricas**: Datos de calidad para dashboards empresariales
+- **Sincronización bidireccional**: Importación de cambios desde repositorios Git externos
 
 ## Siguientes Pasos
 
@@ -262,41 +327,41 @@ El sistema utiliza versionado semántico automático:
     icon="gear"
     href="/es/advanced-editor/basic-settings"
   >
-    Configura nombre, idioma, voz y modelo de IA
+    Configura nombre, idioma, voz y modelo de IA con mejores prácticas
   </Card>
   <Card
-    title="Control de Versiones"
+    title="Control de Versiones Git"
     icon="git-branch"
     href="/es/advanced-editor/version-control"
   >
-    Aprende a usar Git para colaborar en equipo
+    Domina el sistema Git para colaboración profesional en equipo
   </Card>
   <Card
-    title="Suite de Testing"
+    title="Suite de Testing Avanzado"
     icon="clipboard-check"
     href="/es/advanced-editor/tests"
   >
-    Crea y gestiona tests automatizados
+    Crea y gestiona tests automatizados con CI/CD integrado
   </Card>
   <Card
     title="Base de Conocimiento"
     icon="book"
     href="/es/advanced-editor/knowledge-base"
   >
-    Añade documentos y FAQs para tu agente
+    Añade documentos y FAQs con versionado automático
   </Card>
   <Card
     title="Acciones y Herramientas"
     icon="wrench"
     href="/es/advanced-editor/actions-tools"
   >
-    Configura integraciones y webhooks
+    Configura integraciones avanzadas y webhooks con testing
   </Card>
   <Card
-    title="Playground Avanzado"
+    title="Playground Profesional"
     icon="gamepad"
     href="/es/advanced-editor/playground"
   >
-    Prueba tu agente con herramientas profesionales
+    Prueba tu agente con herramientas de debugging avanzadas
   </Card>
 </CardGroup>

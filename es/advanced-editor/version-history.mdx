@@ -9,1093 +9,1289 @@ icon: 'clock-rotate-left'
 El Historial de Versiones de Meetzy proporciona un sistema de control de versiones completo estilo Git para las configuraciones de tu agente conversacional. Te permite rastrear cambios en tiempo real, gestionar múltiples versiones, colaborar con tu equipo y revertir a configuraciones anteriores de forma segura.
 
 <Info>
-El sistema de versionado asegura que nunca pierdas tu trabajo y siempre puedas volver a una configuración conocida y funcional, incluso cuando múltiples personas editan simultáneamente.
+El sistema de versionado asegura que nunca pierdas tu trabajo y siempas puedas volver a una configuración conocida y funcional, incluso cuando múltiples personas editan simultáneamente.
 </Info>
 
 ## Accediendo al Historial de Versiones
 
 El Historial de Versiones está integrado directamente en el Editor Avanzado:
 
-1. **Indicador de Estado**: En la barra superior del editor, observa el indicador de estado Git que muestra el estado actual
-2. **Panel de Cambios**: Haz clic en la pestaña "Changes" en el panel derecho para acceder a todas las funciones de control de versiones
-3. **Atajos de Teclado**: Usa `⌘G` para abrir rápidamente el panel de cambios
+<Steps>
+  <Step title="Acceso desde Editor">
+    En la barra superior del editor, observa el indicador de estado Git que muestra el estado actual de tu configuración
+  </Step>
+  <Step title="Panel de Cambios">
+    Haz clic en la pestaña "Changes" en el panel derecho para acceder a todas las funciones de control de versiones
+  </Step>
+  <Step title="Atajos Rápidos">
+    Usa `⌘G` para abrir rápidamente el panel de cambios o `⌘H` para ir directo al historial
+  </Step>
+</Steps>
 
-## Sistema de Control de Versiones Estilo Git
+## Sistema de Control de Versiones Git Avanzado
 
-### Indicador de Estado Git
+### Indicador de Estado Git en Tiempo Real
 
-El editor muestra el estado actual de tu configuración en tiempo real:
+El editor muestra el estado actual de tu configuración en tiempo real con indicadores visuales claros:
 
-| Estado | Indicador | Descripción |
-|--------|-----------|-------------|
-| 🟢 Clean | Verde | Sin cambios pendientes, todo sincronizado |
-| 🟡 Modified | Amarillo | Cambios locales sin confirmar (muestra cantidad) |
-| 🔴 Conflicts | Rojo | Conflictos con cambios remotos que requieren resolución |
-| 🔵 Syncing | Azul | Sincronizando cambios con el servidor |
-| 🟠 Locked | Naranja | Otro usuario editando activamente |
+| Estado | Indicador | Descripción | Acciones Disponibles |
+|--------|-----------|-------------|---------------------|
+| 🟢 **Clean** | Verde con "v{número}" | Sin cambios pendientes, todo sincronizado | Pull, Create Branch |
+| 🟡 **Modified** | Amarillo con contador | Cambios locales sin confirmar | Commit, Sync, Diff |
+| 🔴 **Conflicts** | Rojo con contador | Conflictos con cambios remotos | Resolve Conflicts |
+| 🔵 **Syncing** | Azul animado | Sincronizando cambios con servidor | Esperar |
+| 🟠 **Locked** | Naranja | Otro usuario editando activamente | Coordinate, Wait |
 
-### Panel de Control de Versiones
+### Controles Git Integrados en la Barra Superior
 
-El panel renovado incluye tres pestañas principales:
+El editor incluye controles Git profesionales directamente en la interfaz:
+
+<Tabs>
+  <Tab title="Controles Básicos">
+    **Check** - Verificar actualizaciones remotas disponibles
+    - Comprueba si otros usuarios han hecho cambios
+    - No descarga cambios automáticamente
+    - Actualiza el indicador de estado
+    
+    **Pull** - Descargar y aplicar cambios remotos
+    - Integra cambios remotos en tu configuración local
+    - Detecta automáticamente conflictos potenciales
+    - Preserva tus cambios locales no confirmados
+    
+    **Sync** - Sincronización bidireccional completa
+    - Pull de cambios remotos + Push de cambios locales
+    - Resolución inteligente de conflictos menores
+    - Actualización completa del estado colaborativo
+  </Tab>
+  <Tab title="Controles Avanzados">
+    **Push** - Subir cambios confirmados al servidor
+    - Envía commits locales al repositorio remoto
+    - Valida integridad antes de la subida
+    - Notifica a colaboradores automáticamente
+    
+    **Stash** - Guardar temporalmente cambios no confirmados
+    - Permite cambiar de rama sin perder trabajo
+    - Útil para hotfixes urgentes
+    - Recuperación posterior garantizada
+    
+    **Reset** - Descartar cambios locales no confirmados
+    - Vuelve al estado del último commit
+    - Útil para experimentos fallidos
+    - Preserva historial de commits existente
+  </Tab>
+</Tabs>
+
+### Panel de Control de Versiones Renovado
+
+El panel renovado incluye tres pestañas principales con funcionalidad completa:
 
 <Tabs>
   <Tab title="Changes (Cambios)">
-    **Vista de cambios pendientes**
+    **Vista de cambios pendientes con control granular**
     - Lista todos los cambios que aún no se han confirmado
-    - Agrupa modificaciones por sección del agente
+    - Agrupa modificaciones por sección del agente (Settings, Greetings, etc.)
     - Permite selección granular para commits parciales
-    - Muestra diff detallado de cada cambio
+    - Muestra diff detallado con código colorizado
+    - Controles para Stage/Unstage cambios individuales
     - Botones para confirmar cambios seleccionados
+    - Generación de mensajes de commit con IA
   </Tab>
   <Tab title="History (Historial)">
-    **Registro cronológico completo**
-    - Timeline de todas las versiones guardadas
+    **Registro cronológico completo de todas las versiones**
+    - Timeline visual de todas las versiones guardadas
     - Información detallada: timestamp, autor, mensaje, etiquetas
     - Opciones para restaurar, comparar y desplegar versiones
     - Visualización de cambios incluidos en cada versión
-    - Gestión de etiquetas de producción
+    - Gestión de etiquetas de producción y desarrollo
+    - Búsqueda y filtrado por autor, fecha, o contenido
+    - Export/Import de versiones específicas
   </Tab>
   <Tab title="Branches (Ramas)">
-    **Gestión de ramas de desarrollo**
-    - Vista de todas las ramas disponibles
-    - Cambio rápido entre ramas
+    **Gestión completa de ramas de desarrollo**
+    - Vista de todas las ramas disponibles con estado
+    - Cambio rápido entre ramas diferentes
     - Creación de nuevas ramas experimentales
     - Merge y gestión de flujos de trabajo
-    - Comparación entre ramas
+    - Comparación detallada entre ramas
+    - Eliminación segura de ramas obsoletas
+    - Protección de ramas principales (main, production)
   </Tab>
 </Tabs>
 
 ## Seguimiento de Cambios en Tiempo Real
 
-### Detección Automática de Cambios
+### Detección Automática Inteligente
 
-El sistema rastrea automáticamente cualquier modificación:
+El sistema rastrea automáticamente cualquier modificación con precisión granular:
 
 <Steps>
-  <Step title="Edición Detectada">
-    Cualquier cambio en la configuración se detecta instantáneamente y se refleja en el indicador de estado.
+  <Step title="Detección Instantánea">
+    Cualquier cambio en la configuración se detecta inmediatamente y se refleja en el indicador de estado
   </Step>
-  <Step title="Categorización Automática">
-    Los cambios se clasifican por tipo (agregado, modificado, eliminado) y se agrupan por sección.
+  <Step title="Categorización Inteligente">
+    Los cambios se clasifican automáticamente por tipo y se agrupan por sección funcional
   </Step>
-  <Step title="Vista de Detalles">
-    Revisa exactamente qué cambió en el panel de cambios con diff colorizado.
+  <Step title="Análisis de Impacto">
+    El sistema evalúa el impacto potencial de cada cambio en el comportamiento del agente
   </Step>
-  <Step title="Selección para Commit">
-    Marca los cambios específicos que quieres incluir en la próxima versión.
+  <Step title="Vista Detallada">
+    Revisa exactamente qué cambió con diff colorizado y explicaciones contextuales
+  </Step>
+  <Step title="Selección Granular">
+    Marca los cambios específicos que quieres incluir en la próxima versión
   </Step>
 </Steps>
 
-### Tipos de Cambios Rastreados
+### Tipos de Cambios Rastreados con Contexto
 
-El sistema categoriza automáticamente los cambios:
+El sistema categoriza automáticamente los cambios con indicadores visuales:
 
 - **🟢 Agregado** - Contenido nuevo que no existía anteriormente
-- **🔵 Modificado** - Contenido existente que fue editado o actualizado
+- **🔵 Modificado** - Contenido existente que fue editado o actualizado  
 - **🔴 Eliminado** - Contenido que fue removido de la configuración
 - **🟡 Movido** - Contenido reubicado dentro de la configuración
+- **🟣 Renombrado** - Elementos renombrados manteniendo funcionalidad
+- **⚠️ Crítico** - Cambios que afectan comportamiento fundamental
 
-### Organización por Secciones
+### Organización por Secciones Funcionales
 
-Los cambios se agrupan inteligentemente por área funcional:
+Los cambios se agrupan inteligentemente por área funcional con contadores:
 
 <Warning>
-Cada sección mantiene su propio historial de cambios, permitiendo commits granulares por área de funcionalidad.
+Cada sección mantiene su propio historial de cambios, permitiendo commits granulares por área de funcionalidad específica.
 </Warning>
 
-- **⚙️ Configuraciones Básicas** - Nombre, idioma, configuración de voz, parámetros generales
-- **👋 Saludos y Despedidas** - Mensajes de entrada, salida y transición
-- **🧠 Prompt del Sistema** - Instrucciones principales y comportamiento del agente
-- **📥 Parámetros de Entrada** - Variables de entrada, validaciones y configuraciones
-- **📚 Base de Conocimiento** - Documentos, contexto y información de referencia
-- **🔧 Acciones y Herramientas** - Transferencias, llamadas finales, integraciones externas
-- **📊 Evaluaciones** - Criterios de éxito, métricas y validaciones
-- **📤 Configuración de Salida** - Webhooks, parámetros de salida y notificaciones
+- **⚙️ Configuraciones Básicas ({{ basicSettingsChanges }})** - Nombre, idioma, configuración de voz, parámetros generales
+- **👋 Saludos y Despedidas ({{ greetingsChanges }})** - Mensajes de entrada, salida y transición
+- **🧠 Prompt del Sistema ({{ systemPromptChanges }})** - Instrucciones principales y comportamiento del agente
+- **📥 Parámetros de Entrada ({{ inputParamsChanges }})** - Variables de entrada, validaciones y configuraciones
+- **📚 Base de Conocimiento ({{ knowledgeBaseChanges }})** - Documentos, contexto y información de referencia
+- **🔧 Acciones y Herramientas ({{ actionsToolsChanges }})** - Transferencias, llamadas finales, integraciones externas
+- **📊 Evaluaciones ({{ evaluationsChanges }})** - Criterios de éxito, métricas y validaciones
+- **📤 Configuración de Salida ({{ outputSettingsChanges }})** - Webhooks, parámetros de salida y notificaciones
 
-## Confirmando Cambios (Commits)
+## Confirmando Cambios (Commits) Avanzado
 
-### Proceso de Commit Detallado
+### Proceso de Commit Profesional con IA
 
 <Steps>
   <Step title="Revisar Cambios Pendientes">
-    Abre la pestaña "Changes" y revisa todos los cambios listados. Usa el diff colorizado para verificar que todas las modificaciones son intencionales.
+    Abre la pestaña "Changes" y revisa todos los cambios listados. Usa el diff colorizado para verificar que todas las modificaciones son intencionales y correctas.
   </Step>
   <Step title="Seleccionar Cambios Específicos">
-    Utiliza los checkboxes para seleccionar exactamente qué cambios incluir. Puedes hacer commits parciales para mantener un historial organizado.
+    Utiliza los checkboxes para seleccionar exactamente qué cambios incluir. Puedes hacer commits parciales para mantener un historial limpio y organizado.
   </Step>
-  <Step title="Escribir Mensaje Descriptivo">
-    Haz clic en "Commit Selected" y proporciona un mensaje claro que describa los cambios realizados.
+  <Step title="Generar Mensaje con IA">
+    Haz clic en "✨ Generate with AI" para que la IA analice tus cambios y sugiera un mensaje descriptivo profesional.
   </Step>
-  <Step title="Configurar Deploy (Opcional)">
-    Marca "Deploy to production after commit" si quieres que esta versión se despliegue automáticamente.
+  <Step title="Configurar Deploy Automático">
+    Marca "Deploy to production after commit" si quieres que esta versión se despliegue automáticamente tras la confirmación.
   </Step>
-  <Step title="Confirmar y Publicar">
-    Haz clic en "Commit Changes" para crear la nueva versión y publicar los cambios.
+  <Step title="Validar y Confirmar">
+    Revisa el resumen final y haz clic en "Commit Changes" para crear la nueva versión y publicar los cambios.
   </Step>
 </Steps>
 
-### Mensajes de Commit Inteligentes
+### Mensajes de Commit Inteligentes con IA
 
 <Tabs>
-  <Tab title="Escritura Manual">
-    Escribe mensajes descriptivos siguiendo buenas prácticas:
+  <Tab title="Generación Automática con IA">
+    **La IA analiza tus cambios y genera mensajes profesionales**
+    
+    <Steps>
+      <Step title="Análisis Contextual">
+        La IA examina todos los cambios seleccionados, el contexto de la configuración, y el historial previo
+      </Step>
+      <Step title="Generación Inteligente">
+        Crea un mensaje siguiendo mejores prácticas con prefijo adecuado, descripción clara y detalles técnicos
+      </Step>
+      <Step title="Personalización">
+        Permite editar el mensaje generado para añadir contexto específico o ajustar el tono
+      </Step>
+    </Steps>
+    
+    **Ejemplo de mensaje generado por IA:**
+    ```
+    feat(greetings): Mejorar personalización por horario y contexto
+    
+    - Implementar saludo diferenciado para mañana/tarde/noche
+    - Añadir detección automática de zona horaria del cliente
+    - Integrar contexto cultural para diferentes regiones
+    - Optimizar para llamadas de seguimiento vs nuevos clientes
+    - Incluir fallback para horarios indeterminados
+    
+    Impact: +15% engagement rate en pruebas A/B
+    Testing: Validado con 50 escenarios en playground
+    ```
+  </Tab>
+  <Tab title="Escritura Manual Profesional">
+    **Estructura recomendada para mensajes manuales**
     
     ```
-    feat: Mejorar manejo de objeciones de precio
+    <tipo>(<ámbito>): <descripción breve>
     
-    - Agregar 5 nuevas estrategias de respuesta
-    - Incluir ejemplos específicos para objeciones comunes
-    - Optimizar tono para ser más empático y consultivo
-    - Integrar seguimiento automático para casos rechazados
+    <descripción detallada>
+    
+    - Cambio específico 1
+    - Cambio específico 2
+    - Cambio específico 3
+    
+    <metadatos adicionales>
     ```
     
     **Prefijos recomendados:**
-    - `feat:` - Nueva funcionalidad
-    - `fix:` - Corrección de errores
+    - `feat:` - Nueva funcionalidad o característica
+    - `fix:` - Corrección de errores o problemas
     - `improve:` - Mejora de funcionalidad existente
     - `refactor:` - Reestructuración sin cambios funcionales
     - `docs:` - Actualizaciones de documentación
-  </Tab>
-  <Tab title="Generación con IA">
-    Deja que la IA analice tus cambios y sugiera mensajes precisos:
+    - `test:` - Añadir o actualizar tests
+    - `style:` - Cambios de formato o estilo
+    - `perf:` - Mejoras de rendimiento
     
-    <Steps>
-      <Step title="Activar IA">
-        Haz clic en el botón "✨ Generate with AI" en el modal de commit.
-      </Step>
-      <Step title="Análisis Automático">
-        La IA analiza todos los cambios seleccionados y su contexto.
-      </Step>
-      <Step title="Revisión">
-        Revisa el mensaje sugerido y edita si es necesario.
-      </Step>
-      <Step title="Aplicar">
-        Usa el mensaje generado o como base para tu propio mensaje.
-      </Step>
-    </Steps>
+    **Ámbitos comunes:**
+    - `greeting` - Saludos y despedidas
+    - `prompt` - Prompt principal del sistema
+    - `knowledge` - Base de conocimiento
+    - `actions` - Acciones y herramientas
+    - `eval` - Evaluaciones y métricas
+    - `config` - Configuraciones básicas
   </Tab>
 </Tabs>
 
-<Info>
-Los mensajes generados por IA analizan el contenido específico de tus cambios, el contexto de la configuración y las mejores prácticas para crear descripciones precisas y útiles.
-</Info>
+### Commit Selectivo con Staging
 
-### Commit Selectivo Avanzado
+Controla exactamente qué cambios incluir en cada versión con herramientas profesionales:
 
-Controla exactamente qué cambios incluir en cada versión:
-
-- **Selección Total** - `Select All` incluye todos los cambios pendientes
-- **Por Sección** - Selecciona todas las modificaciones de una sección específica
-- **Granular** - Marca cambios individuales con checkboxes
-- **Por Tipo** - Filtra y selecciona solo ciertos tipos de cambios
+- **Select All** - Incluye todos los cambios pendientes de todas las secciones
+- **Select by Section** - Selecciona automáticamente todas las modificaciones de una sección específica  
+- **Granular Selection** - Marca cambios individuales línea por línea con checkboxes
+- **Select by Type** - Filtra y selecciona solo ciertos tipos de cambios (Added, Modified, Deleted)
+- **Smart Selection** - La IA recomienda qué cambios agrupar lógicamente
+- **Stage/Unstage** - Sistema profesional de staging como Git tradicional
 
 ## Explorando el Historial Completo
 
-### Navegación en el Historial
+### Navegación Avanzada en el Historial
 
 <Steps>
   <Step title="Abrir Vista de Historial">
-    Haz clic en la pestaña "History" en el panel de cambios para ver el timeline completo.
+    Haz clic en la pestaña "History" en el panel de cambios para ver el timeline completo con visualización mejorada
+  </Step>
+  <Step title="Filtrar y Buscar">
+    Utiliza los filtros avanzados por autor, fecha, tipo de cambio, o busca por contenido específico en mensajes
   </Step>
   <Step title="Explorar Cronológicamente">
-    Desplázate por la lista ordenada cronológicamente, desde la versión más reciente hasta las más antiguas.
+    Navega por la lista ordenada con scroll infinito, desde la versión más reciente hasta las más antiguas
   </Step>
   <Step title="Expandir Detalles">
-    Haz clic en cualquier versión para ver información completa y cambios incluidos.
+    Haz clic en cualquier versión para ver información completa, diff detallado y cambios incluidos
   </Step>
   <Step title="Comparar Versiones">
-    Utiliza "Compare" para ver diferencias entre versiones específicas.
+    Selecciona múltiples versiones y utiliza "Compare" para ver diferencias detalladas lado a lado
   </Step>
 </Steps>
 
-### Información Detallada de Versiones
+### Información Detallada de Versiones Mejorada
 
-Cada entrada del historial proporciona información completa:
+Cada entrada del historial proporciona información completa y contextual:
 
-| Campo | Descripción | Utilidad |
-|-------|-------------|----------|
-| 🔢 **Versión** | Número incremental (v1, v2, v3...) | Identificación única |
-| 📅 **Timestamp** | Fecha y hora exacta de creación | Seguimiento temporal |
-| 💬 **Mensaje** | Descripción de cambios del commit | Contexto de modificaciones |
-| 👤 **Autor** | Usuario que realizó los cambios | Trazabilidad de responsabilidad |
-| 🏷️ **Etiquetas** | Estado y clasificación de la versión | Gestión de lifecycle |
-| 📊 **Resumen** | Estadísticas de cambios incluidos | Vista rápida del alcance |
-| 🔍 **Diff** | Detalles específicos de modificaciones | Análisis técnico detallado |
+| Campo | Descripción | Utilidad Extendida |
+|-------|-------------|-------------------|
+| 🔢 **Versión** | Número incremental + hash único | Identificación única con trazabilidad completa |
+| 📅 **Timestamp** | Fecha/hora con zona horaria | Seguimiento temporal preciso, útil para auditorías |
+| 💬 **Mensaje** | Descripción generada por IA o manual | Contexto completo de modificaciones con análisis de impacto |
+| 👤 **Autor** | Usuario con avatar y información | Trazabilidad de responsabilidad con contacto directo |
+| 🏷️ **Etiquetas** | Estado, clasificación y metadatos | Gestión completa de lifecycle con workflows automáticos |
+| 📊 **Resumen** | Estadísticas detalladas de cambios | Vista rápida del alcance con métricas de impacto |
+| 🔍 **Diff** | Comparación detallada línea por línea | Análisis técnico completo con highlighting inteligente |
+| ⚡ **Performance** | Métricas de impacto en rendimiento | Datos de A/B testing y mejoras medibles |
+| 🔗 **Referencias** | Links a tickets, PRs, documentación | Trazabilidad completa con sistemas externos |
 
-### Sistema de Etiquetas Avanzado
+### Sistema de Etiquetas y Clasificación Automática
 
-Las versiones pueden tener múltiples etiquetas para organización:
+Las versiones pueden tener múltiples etiquetas para organización y workflows automáticos:
 
-- **🔴 Production** - Versión actualmente desplegada para llamadas en vivo
-- **⭐ Latest** - Versión más reciente (puede diferir de production)
-- **🚧 Development** - Versiones en desarrollo y pruebas internas
-- **🧪 Experimental** - Pruebas de concepto y características beta
-- **🔥 Hotfix** - Correcciones urgentes aplicadas en producción
-- **📋 Milestone** - Hitos importantes del desarrollo
-- **🏷️ Custom** - Etiquetas personalizadas definidas por el equipo
+<Tabs>
+  <Tab title="Etiquetas del Sistema">
+    **Gestionadas automáticamente por el sistema**
+    
+    - **🔴 Production** - Versión actualmente desplegada para llamadas en vivo
+    - **⭐ Latest** - Versión más reciente (puede diferir de production)
+    - **🚧 Staging** - En ambiente de pruebas pre-producción
+    - **🧪 Development** - Versiones en desarrollo activo
+    - **🔥 Hotfix** - Correcciones urgentes aplicadas en producción
+    - **📋 Release** - Versiones preparadas para release
+    - **⚠️ Deprecated** - Versiones obsoletas no recomendadas
+  </Tab>
+  <Tab title="Etiquetas Personalizadas">
+    **Definidas por el equipo según workflows**
+    
+    - **🏷️ Feature-{name}** - Características específicas en desarrollo
+    - **🔬 Experiment-{id}** - Pruebas A/B y experimentos
+    - **🎯 Milestone-{version}** - Hitos importantes del roadmap
+    - **👥 Review-Required** - Requiere aprobación antes de merge
+    - **✅ Approved** - Aprobado para producción
+    - **📈 Performance-Test** - Optimizaciones de rendimiento
+    - **🔒 Security-Update** - Actualizaciones de seguridad
+    - **🌍 Localization-{lang}** - Cambios de localización
+  </Tab>
+  <Tab title="Etiquetas Inteligentes">
+    **Generadas automáticamente por IA**
+    
+    - **🎯 High-Impact** - Cambios significativos en comportamiento
+    - **🔧 Configuration** - Ajustes menores de configuración
+    - **📝 Content-Update** - Cambios principalmente de contenido
+    - **🚀 Performance** - Mejoras medibles de rendimiento
+    - **🐛 Bug-Fix** - Correcciones de errores identificados
+    - **🎨 UI-Enhancement** - Mejoras de experiencia de usuario
+    - **🔐 Security** - Cambios relacionados con seguridad
+    - **🌟 Innovation** - Características completamente nuevas
+  </Tab>
+</Tabs>
 
-## Restauración y Rollback
+## Restauración y Rollback Avanzado
 
-### Proceso de Restauración Segura
+### Proceso de Restauración Inteligente y Segura
 
 <Warning>
-La restauración de versiones crea una nueva versión con la configuración anterior, preservando todo el historial existente. No se elimina información.
+La restauración de versiones utiliza un sistema inteligente que preserva todo el historial existente y valida compatibilidad automáticamente.
 </Warning>
 
 <Steps>
-  <Step title="Localizar la Versión Objetivo">
-    Navega por el historial para encontrar la versión específica que quieres restaurar.
+  <Step title="Selección Inteligente de Versión">
+    Localiza la versión objetivo usando filtros avanzados, búsqueda por contenido, o recomendaciones de IA basadas en estabilidad
   </Step>
-  <Step title="Revisar Configuración">
-    Haz clic en "Show changes" para ver exactamente qué configuración tenía esa versión.
+  <Step title="Análisis de Compatibilidad">
+    El sistema analiza automáticamente compatibilidad con integraciones actuales, dependencias, y configuraciones externas
   </Step>
-  <Step title="Validar Compatibilidad">
-    Verifica que la configuración anterior sea compatible con las integraciones actuales.
+  <Step title="Vista Previa de Cambios">
+    Revisa un diff detallado mostrando exactamente qué se modificará al restaurar esa versión específica
   </Step>
-  <Step title="Iniciar Restauración">
-    Haz clic en "Restore Version" en la versión seleccionada.
+  <Step title="Validación de Impacto">
+    La IA evalúa el impacto potencial en llamadas activas, métricas de rendimiento, y funcionalidades críticas
   </Step>
-  <Step title="Elegir Estrategia">
-    Selecciona si restaurar completamente o crear una nueva rama para la restauración.
+  <Step title="Estrategia de Restauración">
+    Elige entre restauración completa, parcial, o en nueva rama según tu caso de uso específico
   </Step>
-  <Step title="Confirmar y Probar">
-    Confirma la restauración y prueba la configuración en el Playground antes del deploy.
+  <Step title="Ejecución y Monitoreo">
+    Ejecuta la restauración con monitoreo en tiempo real y posibilidad de abortar si se detectan problemas
   </Step>
 </Steps>
 
-### Opciones de Restauración Flexibles
+### Opciones de Restauración Flexibles y Potentes
 
 <Tabs>
   <Tab title="Restauración Completa">
     **Revierte toda la configuración a la versión seleccionada**
-    - Reemplaza completamente la configuración actual
-    - Mantiene el historial completo
-    - Crea nueva versión con mensaje automático
+    
+    ✅ **Ventajas:**
+    - Restauración completa a estado conocido y estable
+    - Proceso rápido y directo
     - Ideal para rollbacks de emergencia
+    - Mantiene historial completo intacto
+    
+    ⚠️ **Consideraciones:**
+    - Se pierden todas las mejoras posteriores
+    - Requiere re-aplicar cambios valiosos después
+    - Puede afectar integraciones configuradas posteriormente
+    
+    **Proceso:**
+    1. Selecciona versión objetivo desde historial
+    2. Revisa cambios que se aplicarán
+    3. Confirma restauración completa
+    4. Nueva versión se crea automáticamente
+    5. Deploy opcional inmediato a producción
+  </Tab>
+  <Tab title="Restauración Selectiva">
+    **Restaura solo secciones específicas de la configuración**
+    
+    ✅ **Ventajas:**
+    - Combina lo mejor de diferentes versiones
+    - Preserva mejoras recientes no relacionadas
+    - Control granular sobre qué restaurar
+    - Minimiza riesgo de pérdida de trabajo
+    
+    **Secciones Seleccionables:**
+    - ⚙️ Configuraciones básicas
+    - 👋 Saludos y mensajes
+    - 🧠 Prompt principal
+    - 📚 Base de conocimiento  
+    - 🔧 Acciones y herramientas
+    - 📊 Evaluaciones
+    - 📤 Configuración de salida
+    
+    **Proceso Guiado:**
+    1. Selecciona versión con configuración deseada
+    2. Marca secciones específicas a restaurar
+    3. Vista previa de cambios selectivos
+    4. Validación de compatibilidad entre secciones
+    5. Aplicación de cambios con nueva versión
   </Tab>
   <Tab title="Restauración en Nueva Rama">
     **Crea una rama separada con la configuración anterior**
-    - No afecta la rama principal (main)
-    - Permite comparación y merge controlado
+    
+    ✅ **Ventajas:**
+    - No afecta la rama principal (main) 
+    - Permite comparación detallada y merge controlado
     - Útil para recuperar configuraciones específicas
-    - Mantiene desarrollo actual intacto
-  </Tab>
-  <Tab title="Restauración Parcial">
-    **Restaura solo secciones específicas**
-    - Selecciona qué partes de la configuración restaurar
-    - Combina lo mejor de diferentes versiones
-    - Evita perder mejoras recientes no relacionadas
-    - Proceso guiado paso a paso
+    - Desarrollo paralelo sin interrupciones
+    
+    **Casos de Uso:**
+    - Recuperar características eliminadas accidentalmente
+    - Experimentar con configuraciones anteriores
+    - Crear ramas de hotfix desde versiones estables
+    - Comparar rendimiento entre versiones
+    
+    **Workflow:**
+    1. Selecciona versión origen para nueva rama
+    2. Define nombre descriptivo para la rama
+    3. Configuración se copia a nueva rama
+    4. Desarrollo independiente en rama separada
+    5. Merge selectivo cuando esté listo
   </Tab>
 </Tabs>
 
-### Rollback de Emergencia
+### Rollback de Emergencia Automático
 
-Para situaciones críticas en producción:
+Para situaciones críticas en producción que requieren acción inmediata:
 
 <Steps>
-  <Step title="Identificar Problema">
-    Detecta el problema en la versión de producción actual.
+  <Step title="Detección Automática">
+    El sistema monitorea métricas clave y detecta automáticamente degradación de rendimiento o errores críticos
   </Step>
-  <Step title="Localizar Última Versión Estable">
-    Encuentra la última versión que funcionaba correctamente.
+  <Step title="Alerta Inmediata">
+    Notificaciones instantáneas al equipo con detalles del problema y opciones de acción rápida
   </Step>
-  <Step title="Deploy Inmediato">
-    Usa "Deploy to Production" para cambiar inmediatamente la versión en vivo.
+  <Step title="Rollback con Un Clic">
+    Botón de emergencia "Emergency Rollback" para volver inmediatamente a la última versión estable conocida
   </Step>
-  <Step title="Verificar Funcionamiento">
-    Confirma que el problema se resolvió en producción.
+  <Step title="Validación Rápida">
+    Verificación automática que el rollback resolvió el problema en producción
   </Step>
-  <Step title="Investigar Root Cause">
-    Analiza qué causó el problema en una rama separada.
+  <Step title="Post-mortem Automático">
+    Generación automática de reporte con cronología, causa raíz identificada, y pasos de remediación
   </Step>
 </Steps>
 
-## Gestión de Producción
+## Gestión de Producción Profesional
 
-### Despliegue a Producción
+### Pipeline de Despliegue Controlado
 
 <Steps>
-  <Step title="Validación Previa">
-    Asegúrate de que la versión ha sido completamente probada en el Playground y cumple todos los criterios de calidad.
+  <Step title="Validación Pre-Deploy">
+    Sistema automático de validación que verifica sintaxis, compatibilidad, tests automáticos, y benchmarks de rendimiento
   </Step>
-  <Step title="Verificar Estado">
-    Confirma que no hay conflictos ni cambios pendientes que puedan afectar el despliegue.
+  <Step title="Staging Environment">
+    Deploy automático a ambiente de staging para pruebas finales con datos reales pero tráfico controlado
   </Step>
-  <Step title="Seleccionar Versión">
-    En el historial, localiza la versión específica que quieres desplegar a producción.
+  <Step title="Approval Workflow">
+    Sistema de aprobaciones configurables que requiere sign-off de usuarios específicos según criticidad del cambio
   </Step>
-  <Step title="Iniciar Deploy">
-    Haz clic en "Deploy to Production" en la versión seleccionada.
+  <Step title="Production Deploy">
+    Deploy controlado con monitoreo intensivo, gradual rollout, y rollback automático ante problemas
   </Step>
-  <Step title="Confirmar Despliegue">
-    Revisa el resumen de cambios y confirma que esta versión maneje llamadas reales.
-  </Step>
-  <Step title="Monitorear Resultado">
-    Supervisa las primeras llamadas para asegurar funcionamiento correcto.
+  <Step title="Post-Deploy Monitoring">
+    Supervisión automática de métricas clave con alertas inteligentes y reportes de salud del deployment
   </Step>
 </Steps>
 
-### Indicadores de Estado de Producción
+### Indicadores Avanzados de Estado de Producción
 
 <Info>
-Solo la versión marcada con la etiqueta "Production" maneja llamadas reales de clientes. Todas las demás versiones permanecen en modo de desarrollo y testing.
+El sistema mantiene múltiples ambientes simultáneos con promoción controlada entre ellos y visibilidad completa del estado.
 </Info>
 
-El sistema proporciona indicadores visuales claros:
+**Estados de Versión por Ambiente:**
 
-- **🔴 En Producción** - La versión que actualmente recibe llamadas reales
-- **📊 Última Versión** - La versión más reciente (puede no estar en producción)
-- **🚧 En Desarrollo** - Versiones que están siendo desarrolladas o probadas
-- **⏳ Deploy Pendiente** - Versiones preparadas para despliegue automático
+- **🔴 En Producción** - Versión que maneja llamadas reales de clientes actualmente
+- **🟡 En Staging** - Versión en ambiente de pruebas pre-producción
+- **🟢 En Development** - Versión en desarrollo activo con último código
+- **🔵 En Review** - Versión esperando aprobación para siguiente etapa
+- **⚪ Archived** - Versiones históricas archivadas pero disponibles
+- **🟣 Experimental** - Ramas de experimentos y A/B testing
+- **🟠 Deprecated** - Versiones obsoletas marcadas para eliminación
 
-### Deploy Automático y Programado
+### Deploy Automático y Programado con Inteligencia
 
-Configura despliegues automatizados:
+Configura despliegues automatizados con múltiples estrategias:
 
 <Tabs>
-  <Tab title="Deploy Inmediato">
-    **Al confirmar cambios (commit)**
-    - Marca "Deploy to production after commit"
-    - La versión se despliega automáticamente después de confirmar
-    - Útil para hotfixes y actualizaciones críticas
-    - Incluye validación automática previa al deploy
+  <Tab title="Deploy Inmediato Inteligente">
+    **Deploy automático con validación continua**
+    
+    - Activación: Marcar "Deploy to production after commit"
+    - Validación automática pre-deploy completa
+    - Deploy inmediato tras commit exitoso
+    - Monitoreo intensivo post-deploy
+    - Rollback automático si métricas caen
+    - Notificaciones en tiempo real al equipo
+    
+    **Ideal para:**
+    - Hotfixes críticos que requieren acción inmediata
+    - Cambios menores validados exhaustivamente
+    - Equipos con alta confianza en proceso de testing
+    - Ambientes con monitoreo robusto automático
   </Tab>
-  <Tab title="Deploy Programado">
-    **En horarios específicos**
-    - Configura ventanas de despliegue automático
-    - Ideal para actualizaciones planificadas
-    - Notificaciones automáticas al equipo
-    - Rollback automático si se detectan problemas
+  <Tab title="Deploy Programado con Ventanas">
+    **Despliegues en horarios seguros predefinidos**
+    
+    ```yaml
+    schedule:
+      windows:
+        - day: "sunday"
+          time: "02:00"
+          timezone: "UTC"
+        - day: "wednesday" 
+          time: "14:00"
+          timezone: "PST"
+      auto_rollback:
+        enabled: true
+        thresholds:
+          error_rate: "> 5%"
+          response_time: "> 2s"
+          success_rate: "< 95%"
+      notifications:
+        channels: ["slack", "email", "sms"]
+        recipients: ["team-lead", "on-call"]
+    ```
+    
+    **Características:**
+    - Ventanas de deploy configurables por equipo
+    - Análisis automático de horarios de bajo tráfico
+    - Pre-deploy warming y health checks
+    - Rollback automático basado en thresholds
+    - Documentación automática de deployments
   </Tab>
-  <Tab title="Deploy Condicional">
-    **Basado en criterios específicos**
-    - Solo si pasan todas las pruebas automatizadas
-    - Aprobación requerida de ciertos usuarios
-    - Validación de métricas de rendimiento
-    - Integración con sistemas de CI/CD
+  <Tab title="Deploy Condicional Inteligente">
+    **Deploy basado en criterios múltiples y IA**
+    
+    **Criterios de Deploy:**
+    - ✅ Todos los tests automáticos pasan exitosamente
+    - ✅ Aprobación requerida de usuarios específicos
+    - ✅ Métricas de rendimiento dentro de rangos aceptables
+    - ✅ Validación de compatibilidad con integraciones
+    - ✅ Análisis de IA sobre riesgo del cambio
+    - ✅ Ventana de deploy permitida por políticas
+    
+    **IA Decision Engine:**
+    - Análisis de riesgo basado en historial de cambios
+    - Predicción de impacto usando machine learning
+    - Recomendaciones de timing óptimo
+    - Detección de patrones de éxito/fallo históricos
   </Tab>
 </Tabs>
 
-## Colaboración y Trabajo en Equipo
+## Colaboración y Trabajo en Equipo Avanzado
 
-### Estados de Colaboración en Tiempo Real
+### Estados de Colaboración en Tiempo Real Detallados
 
-Cuando múltiples usuarios trabajan simultáneamente:
+Cuando múltiples usuarios trabajan simultáneamente, el sistema proporciona visibilidad completa:
 
-| Estado | Descripción | Acción Recomendada |
-|--------|-------------|-------------------|
-| 🟢 **Sincronizado** | Sin conflictos, todos los cambios alineados | Continuar trabajando normalmente |
-| 🟡 **Cambios Locales** | Tienes modificaciones pendientes | Confirmar cambios o sincronizar |
-| 🔴 **Conflictos** | Cambios incompatibles entre usuarios | Resolver conflictos manualmente |
-| 🔒 **Bloqueado** | Otro usuario editando activamente | Esperar o coordinar con el equipo |
-| 🔵 **Sincronizando** | Intercambio de cambios en progreso | Esperar finalización automática |
-| ⚠️ **Desactualizado** | Tu versión está desactualizada | Actualizar antes de continuar |
+| Estado | Indicador Visual | Descripción Detallada | Acciones Recomendadas |
+|--------|------------------|----------------------|----------------------|
+| 🟢 **Sincronizado** | Badge verde "Clean" | Sin conflictos, todos los cambios alineados perfectamente | Continuar desarrollo normal |
+| 🟡 **Cambios Locales** | Badge amarillo con contador | Tienes modificaciones que otros usuarios no ven aún | Commit pronto para compartir |
+| 🔴 **Conflictos** | Badge rojo parpadeante | Cambios incompatibles que requieren resolución manual | Resolver inmediatamente |
+| 🔒 **Bloqueado** | Badge naranja con usuarios | Sección específica siendo editada por otro usuario | Coordinar o trabajar en otra sección |
+| 🔵 **Sincronizando** | Badge azul animado | Intercambio de cambios en progreso con servidor | Esperar finalización automática |
+| ⚠️ **Desactualizado** | Badge amarillo con flecha | Tu versión local está desactualizada vs servidor | Pull cambios antes de continuar |
+| 🚨 **Error Crítico** | Badge rojo con exclamación | Error de sincronización que requiere intervención | Contactar soporte técnico |
 
-### Herramientas de Sincronización
+### Herramientas de Sincronización Profesionales
 
-En la barra superior del editor encontrarás:
+**Panel de Control de Colaboración:**
+- **🔍 Status Check** - Verificación completa del estado de sincronización
+- **⬇️ Smart Pull** - Descarga inteligente que preserva tu trabajo local
+- **🔄 Bidirectional Sync** - Sincronización completa bidireccional con resolución automática
+- **⬆️ Force Push** - Subida forzada (usar con precaución en equipos)
+- **🔀 Merge Request** - Sistema de pull requests para cambios mayores
+- **📋 Collaboration Log** - Historial detallado de actividad colaborativa
 
-- **🔍 Check** - Verificar si hay actualizaciones remotas disponibles
-- **⬇️ Pull** - Descargar y aplicar cambios remotos más recientes
-- **🔄 Sync** - Sincronización bidireccional completa de cambios
-- **⬆️ Push** - Subir tus cambios locales al servidor
-
-### Resolución de Conflictos Inteligente
+### Resolución de Conflictos con IA Avanzada
 
 <Steps>
-  <Step title="Detección de Conflictos">
-    El sistema te alerta inmediatamente sobre cambios conflictivos con el indicador rojo y notificaciones.
+  <Step title="Detección Inteligente">
+    El sistema detecta conflictos potenciales antes de que ocurran usando análisis predictivo de patrones de edición
   </Step>
-  <Step title="Análisis de Diferencias">
-    Ve qué campos específicos tienen conflictos en el panel de cambios, con comparación lado a lado.
+  <Step title="Análisis Contextual">
+    IA analiza el contexto semántico de los cambios conflictivos para sugerir resoluciones inteligentes
   </Step>
-  <Step title="Resolución Interactiva">
-    Para cada conflicto, selecciona mantener tus cambios, aceptar los remotos, o crear una combinación manual.
+  <Step title="Herramientas de Resolución">
+    Interface visual avanzada con diff de 3 vías: tu versión, su versión, y base común con sugerencias de IA
   </Step>
-  <Step title="Validación de Resolución">
-    El sistema verifica que la resolución sea válida y no introduzca nuevos problemas.
+  <Step title="Validación Automática">
+    Después de resolver, el sistema valida que la resolución mantiene la integridad de la configuración
   </Step>
-  <Step title="Commit de Resolución">
-    Confirma todos los conflictos resueltos como una nueva versión con mensaje automático de merge.
+  <Step title="Learning Continuo">
+    El sistema aprende de resoluciones exitosas para mejorar sugerencias futuras automáticamente
   </Step>
 </Steps>
 
-### Notificaciones de Colaboración
+**Estrategias de Resolución Disponibles:**
+- **Accept Mine** - Mantener tus cambios, descartar remotos
+- **Accept Theirs** - Aceptar cambios remotos, descartar tuyos  
+- **Smart Merge** - Combinar automáticamente usando IA
+- **Manual Resolution** - Editar manualmente con asistencia visual
+- **Take Best of Both** - IA sugiere combinación óptima
+- **Context-Aware Merge** - Resolución basada en contexto semántico
 
-El sistema mantiene informado a todo el equipo:
+### Sistema de Notificaciones Colaborativas
 
-- **🔔 Cambios Remotos** - Notificación cuando otros usuarios hacen cambios
-- **⚡ Conflictos Detectados** - Alertas inmediatas sobre conflictos potenciales
-- **✅ Deploy Completado** - Confirmación cuando se despliega una nueva versión
-- **👥 Usuario Conectado** - Indicación de quién más está editando
-- **🚀 Versión Publicada** - Notificación de nuevas versiones disponibles
+**Notificaciones en Tiempo Real:**
+- **🔔 Cambios Remotos** - Alerta inmediata cuando otros usuarios hacen commits
+- **⚡ Conflictos Detectados** - Notificación prioritaria sobre conflictos potenciales
+- **✅ Deploy Completado** - Confirmación de deployments exitosos con detalles
+- **👥 Usuario Conectado** - Indicación visual de quién más está editando activamente
+- **🚀 Nueva Versión** - Notificación de versiones disponibles para pull
+- **🔒 Sección Bloqueada** - Aviso cuando intentas editar sección en uso
+- **📝 Comentarios de Review** - Sistema de comentarios en línea para feedback
 
-## Gestión Avanzada de Ramas
-
-### Vista Integral de Ramas
-
-La pestaña "Branches" proporciona control completo:
-
-- **📋 Lista Completa** - Todas las ramas disponibles con estado actual
-- **🔄 Cambio Rápido** - Switch instantáneo entre ramas diferentes
-- **➕ Creación de Ramas** - Nuevas líneas de desarrollo con un clic
-- **🔀 Merge Management** - Fusión controlada entre ramas
-- **📊 Comparación** - Vista diff entre ramas diferentes
-- **🗑️ Limpieza** - Eliminación segura de ramas obsoletas
-
-### Tipos de Ramas por Convención
-
-<Tabs>
-  <Tab title="Ramas Principales">
-    **main** - Rama principal estable
-    - Contiene la configuración base aprobada
-    - Todas las versiones de producción vienen de aquí
-    - Protegida contra cambios directos
-    - Requiere pull requests para modificaciones
-    
-    **development** - Rama de desarrollo activo
-    - Integración continua de nuevas características
-    - Testing interno antes de merge a main
-    - Ambiente para validación de equipo
-  </Tab>
-  <Tab title="Ramas de Características">
-    **feature/nombre-caracteristica** - Desarrollo específico
-    - Una rama por característica o mejora
-    - Aislamiento completo del desarrollo principal
-    - Merge a development cuando está completa
-    - Nomenclatura descriptiva del feature
-    
-    **experiment/nombre-experimento** - Pruebas de concepto
-    - Para probar ideas sin compromiso
-    - Pueden desecharse si no funcionan
-    - Útiles para A/B testing de prompts
-  </Tab>
-  <Tab title="Ramas de Mantenimiento">
-    **hotfix/descripcion-problema** - Correcciones urgentes
-    - Para arreglar problemas críticos en producción
-    - Merge directo a main y deploy inmediato
-    - También se propagan a development
-    
-    **release/version-number** - Preparación de releases
-    - Estabilización antes de producción
-    - Testing final y documentación
-    - Base para el deploy a producción
-  </Tab>
-</Tabs>
-
-### Flujos de Trabajo Colaborativos
-
-<Steps>
-  <Step title="Planificación">
-    El equipo define qué características desarrollar y asigna ramas específicas para cada una.
-  </Step>
-  <Step title="Desarrollo Paralelo">
-    Cada desarrollador trabaja en su rama sin afectar el trabajo de otros.
-  </Step>
-  <Step title="Validación Individual">
-    Cada característica se prueba completamente en su rama usando el Playground.
-  </Step>
-  <Step title="Integración Controlada">
-    Las características completadas se mergean a development para testing conjunto.
-  </Step>
-  <Step title="Release Preparation">
-    Cuando development está estable, se crea una rama release para preparar producción.
-  </Step>
-  <Step title="Deploy Coordinado">
-    El release se mergea a main y se despliega a producción en horario acordado.
-  </Step>
-</Steps>
-
-## Atajos de Teclado Avanzados
-
-### Navegación Rápida
-
-| Acción | Atajo | Contexto | Descripción |
-|--------|-------|----------|-------------|
-| **Abrir Cambios** | `⌘G` | Global | Abre panel de cambios/historial |
-| **Commit Rápido** | `⌘⇧G` | Editor | Modal de commit directo |
-| **Seleccionar Todo** | `⌘A` | Panel Cambios | Selecciona todos los cambios |
-| **Sincronizar** | `⌘⇧S` | Global | Sincronización completa |
-| **Ver Historial** | `⌘H` | Panel Cambios | Cambia a vista de historial |
-| **Nueva Rama** | `⌘⇧B` | Global | Crear nueva rama |
-
-### Commit y Deploy
-
-| Acción | Atajo | Contexto | Descripción |
-|--------|-------|----------|-------------|
-| **Generar Mensaje IA** | `⌘⇧M` | Modal Commit | IA sugiere mensaje |
-| **Deploy Producción** | `⌘⇧P` | Historial | Deploy versión seleccionada |
-| **Restaurar Versión** | `⌘R` | Historial | Restaurar versión seleccionada |
-| **Comparar Versiones** | `⌘D` | Historial | Diff entre versiones |
-
-### Colaboración
-
-| Acción | Atajo | Contexto | Descripción |
-|--------|-------|----------|-------------|
-| **Resolver Conflictos** | `⌘⇧R` | Conflictos | Herramienta de resolución |
-| **Aceptar Remotos** | `⌘⇧A` | Conflictos | Acepta cambios remotos |
-| **Mantener Locales** | `⌘⇧L` | Conflictos | Mantiene cambios locales |
-
-## Mejores Prácticas para Equipos
-
-### Estrategia de Mensajes de Commit
-
-<Tabs>
-  <Tab title="✅ Ejemplos Excelentes">
-    ```
-    feat(greeting): Agregar personalización por horario
-    
-    - Implementar saludo diferenciado para mañana/tarde/noche
-    - Incluir validación de zona horaria del cliente
-    - Optimizar para diferentes culturas y regiones
-    - Añadir fallback para horarios indeterminados
-    
-    Affects: greeting_inbound, greeting_outbound
-    Testing: Validado en playground con 15 escenarios
-    ```
-    
-    ```
-    fix(transfer): Corregir transferencia múltiple
-    
-    - Resolver bug que permitía transferencias simultáneas
-    - Implementar mutex para prevenir condiciones de carrera
-    - Agregar logs detallados para debugging
-    - Mejorar manejo de errores en transferencias fallidas
-    
-    Severity: High - afectaba 12% de llamadas
-    Rollback: Disponible en versión v23.4.1
-    ```
-  </Tab>
-  <Tab title="❌ Ejemplos Pobres">
-    ```
-    cambios varios
-    actualización
-    fix stuff
-    wip
-    test
-    .
-    actualizaciones pendientes
-    modificaciones del viernes
-    ```
-    
-    **Por qué evitar estos mensajes:**
-    - No describen qué cambió específicamente
-    - No ayudan a entender el contexto
-    - Dificultan debugging futuro
-    - No permiten rollbacks selectivos
-    - Complican la colaboración en equipo
-  </Tab>
-</Tabs>
-
-### Organización de Ramas por Equipo
-
-<Warning>
-Establece convenciones de nomenclatura claras para evitar conflictos y facilitar la colaboración entre miembros del equipo.
-</Warning>
-
-**Nomenclatura Recomendada:**
-
-- `main` - Rama principal estable
-- `dev` - Integración de desarrollo
-- `feature/TICKET-123-nombre-descriptivo` - Nueva funcionalidad
-- `hotfix/ISSUE-456-descripcion-problema` - Corrección urgente
-- `experiment/ai-prompt-optimization` - Pruebas de concepto
-- `release/v2.1.0` - Preparación de versión
-- `user/juan-perez/testing-voices` - Trabajo individual temporal
-
-**Flujo de Aprobación:**
-
-1. Desarrollo en rama feature individual
-2. Pull request con review obligatorio
-3. Testing automatizado en rama dev
-4. Aprobación de líder técnico
-5. Merge a main y tag de versión
-6. Deploy automático a producción
-
-### Gestión de Versiones por Tipo
-
-<Tabs>
-  <Tab title="Desarrollo Iterativo">
-    **Para mejoras incrementales y nuevas características**
-    
-    <Steps>
-      <Step title="Planificación">
-        - Crear rama feature específica
-        - Definir criterios de aceptación claros
-        - Asignar responsable y revisor
-      </Step>
-      <Step title="Desarrollo">
-        - Commits pequeños y frecuentes
-        - Mensajes descriptivos con contexto
-        - Testing continuo en Playground
-      </Step>
-      <Step title="Integración">
-        - Pull request con descripción detallada
-        - Review de código y configuración
-        - Testing en ambiente de integración
-      </Step>
-      <Step title="Deploy">
-        - Merge a main con squash de commits
-        - Tag de versión semántica
-        - Deploy programado en horario bajo
-        - Monitoreo post-deploy
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Corrección de Emergencia">
-    **Para problemas críticos en producción**
-    
-    <Steps>
-      <Step title="Identificación">
-        - Detectar problema específico en producción
-        - Documentar impact y severidad
-        - Crear rama hotfix desde main
-      </Step>
-      <Step title="Corrección Rápida">
-        - Implementar fix mínimo necesario
-        - Testing rápido pero exhaustivo
-        - Commit con mensaje detallado de emergencia
-      </Step>
-      <Step title="Deploy Inmediato">
-        - Review acelerado por dos personas
-        - Deploy directo a producción
-        - Monitoring intensivo post-deploy
-      </Step>
-      <Step title="Propagación">
-        - Merge del hotfix a development
-        - Actualización de documentación
-        - Post-mortem si corresponde
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Experimentación">
-    **Para pruebas de concepto y A/B testing**
-    
-    <Steps>
-      <Step title="Preparación">
-        - Crear rama experiment con naming claro
-        - Definir hipótesis y métricas de éxito
-        - Configurar tracking de resultados
-      </Step>
-      <Step title="Implementación">
-        - Desarrollar variaciones de configuración
-        - Commits documentando cada variante
-        - Testing exhaustivo de cada versión
-      </Step>
-      <Step title="Validación">
-        - Deploy a ambiente de testing
-        - Recolección de métricas durante período definido
-        - Análisis de resultados vs hipótesis
-      </Step>
-      <Step title="Decisión">
-        - Si exitoso: merge a development
-        - Si fallido: documentar learnings y archivar
-        - Si inconcluso: extender período de prueba
-      </Step>
-    </Steps>
-  </Tab>
-</Tabs>
-
-## Solución de Problemas Avanzada
-
-<AccordionGroup>
-  <Accordion title="Sincronización Fallida" icon="exclamation-triangle">
-    **Síntomas:**
-    - Indicador "syncing" permanece activo
-    - Cambios no se reflejan entre usuarios
-    - Errores de timeout en operaciones
-
-    **Diagnóstico:**
-    1. Verificar conectividad de red estable
-    2. Comprobar que el navegador no esté bloqueando WebSockets
-    3. Revisar si hay firewalls corporativos interfiriendo
-    4. Validar que la sesión de usuario no haya expirado
-
-    **Solución:**
-    ```bash
-    # Pasos de recuperación
-    1. Hacer backup local de cambios pendientes
-    2. Refrescar página completamente (Cmd+Shift+R)
-    3. Re-autenticar si es necesario
-    4. Verificar sincronización con Check/Pull
-    5. Re-aplicar cambios desde backup si es necesario
-    ```
-
-    **Prevención:**
-    - Commits frecuentes para minimizar pérdida
-    - Coordinación de equipo en ediciones concurrentes
-    - Network stability checks antes de sesiones largas
-  </Accordion>
-  
-  <Accordion title="Conflictos Complejos de Merge" icon="code-merge">
-    **Escenarios Complejos:**
-    - Múltiples usuarios editando simultaneamente
-    - Cambios estructurales incompatibles
-    - Modificaciones en secciones interdependientes
-
-    **Estrategia de Resolución:**
-    
-    <Steps>
-      <Step title="Análisis de Contexto">
-        - Revisar historial de cambios conflictivos
-        - Entender la intención de cada modificación
-        - Identificar dependencias entre cambios
-      </Step>
-      <Step title="Comunicación de Equipo">
-        - Contactar autores de cambios conflictivos
-        - Acordar estrategia de resolución
-        - Definir responsable de merge final
-      </Step>
-      <Step title="Resolución Incremental">
-        - Resolver conflictos uno por uno
-        - Testing después de cada resolución
-        - Validación con autores originales
-      </Step>
-      <Step title="Validación Final">
-        - Testing exhaustivo de configuración final
-        - Review de todo el equipo involucrado
-        - Deploy controlado con rollback preparado
-      </Step>
-    </Steps>
-
-    **Herramientas de Apoyo:**
-    - Diff visual lado a lado
-    - Historia de cambios por autor
-    - Playground para testing de resoluciones
-    - Chat interno para coordinación
-  </Accordion>
-  
-  <Accordion title="Pérdida de Cambios Locales" icon="document-minus">
-    **Situaciones de Riesgo:**
-    - Cierre accidental del navegador
-    - Crash de sistema durante edición
-    - Timeout de sesión con cambios no guardados
-    - Error durante commit process
-
-    **Recuperación de Datos:**
-    
-    ```javascript
-    // El editor mantiene backups automáticos en localStorage
-    // Revisar disponibilidad de recovery data:
-    
-    1. Abrir Developer Tools (F12)
-    2. Application → Local Storage → meetzy.com
-    3. Buscar claves: 
-       - "advanced-editor-backup-{assistantId}"
-       - "pending-changes-{timestamp}"
-       - "auto-save-{sessionId}"
-    ```
-
-    **Proceso de Restauración:**
-    1. Identificar backup más reciente en localStorage
-    2. Copiar contenido a editor de texto externo
-    3. Refrescar página y cargar configuración base
-    4. Re-aplicar cambios manualmente desde backup
-    5. Validar integridad en Playground
-    6. Commit inmediato para prevenir nueva pérdida
-
-    **Prevención Mejorada:**
-    - Auto-save cada 30 segundos (configurable)
-    - Commits frecuentes durante sesiones largas
-    - Backup manual antes de operaciones riesgosas
-    - Uso de ramas temporales para experimentos
-  </Accordion>
-  
-  <Accordion title="Deploy Fallido en Producción" icon="cloud-arrow-up">
-    **Tipos de Fallas de Deploy:**
-    - Validación de configuración fallida
-    - Timeout en servicios de backend
-    - Incompatibilidad con versión anterior
-    - Error en pipeline de CI/CD
-
-    **Protocolo de Emergencia:**
-    
-    <Steps>
-      <Step title="Rollback Inmediato">
-        - Identificar última versión estable conocida
-        - Deploy inmediato de versión anterior
-        - Verificar restauración de servicio
-        - Notificar a equipo y stakeholders
-      </Step>
-      <Step title="Análisis de Causa">
-        - Revisar logs de deploy fallido
-        - Identificar punto específico de falla
-        - Documentar contexto y condiciones
-        - Crear ticket de investigación
-      </Step>
-      <Step title="Corrección y Re-deploy">
-        - Implementar fix en rama separada
-        - Testing exhaustivo de corrección
-        - Deploy controlado con monitoring intensivo
-        - Validación de funcionamiento completo
-      </Step>
-    </Steps>
-
-    **Monitoreo Post-Deploy:**
-    - Métricas de llamadas en tiempo real
-    - Error rates y success rates
-    - Performance y latencia
-    - Feedback de usuarios/clientes
-    - Alertas automáticas por umbrales
-  </Accordion>
-  
-  <Accordion title="Historiales Inconsistentes" icon="clock">
-    **Síntomas de Inconsistencia:**
-    - Versiones faltantes en historial
-    - Timestamps incorrectos
-    - Mensajes de commit duplicados
-    - Referencias rotas entre versiones
-
-    **Diagnóstico Sistemático:**
-    
-    ```bash
-    # Verificación de integridad del historial
-    1. Exportar historial completo desde configuración
-    2. Validar secuencia de versiones (v1, v2, v3...)
-    3. Comprobar timestamps cronológicos
-    4. Verificar autoría y mensajes coherentes
-    5. Testear disponibilidad de cada versión
-    ```
-
-    **Reparación de Inconsistencias:**
-    1. **Backup de Seguridad**: Exportar configuración actual
-    2. **Reconstrucción**: Re-generar historial desde backups
-    3. **Validación**: Verificar integridad de cada entrada
-    4. **Re-import**: Cargar historial corregido
-    5. **Testing**: Validar funcionalidad completa
-
-    **Medidas Preventivas:**
-    - Validación automática de integridad
-    - Backups incrementales diarios
-    - Checksums para verificar consistencia
-    - Monitoring de operaciones del historial
-  </Accordion>
-</AccordionGroup>
-
-## Flujos de Trabajo Especializados
-
-<Tabs>
-  <Tab title="Desarrollo Ágil por Sprints">
-    **Organización por Sprints de 2 semanas**
-    
-    <Steps>
-      <Step title="Sprint Planning">
-        - Crear rama `sprint/YYYY-MM-DD-sprint-N`
-        - Definir features a desarrollar en el sprint
-        - Asignar ramas feature individuales
-        - Establecer criterios de done
-      </Step>
-      <Step title="Desarrollo Sprint">
-        - Work on individual feature branches
-        - Daily standup con review de commits
-        - Merge continuo a rama sprint
-        - Testing integrado en sprint branch
-      </Step>
-      <Step title="Sprint Review">
-        - Demo de features completadas
-        - Validation con stakeholders
-        - Merge de sprint branch a main
-        - Tag de release candidate
-      </Step>
-      <Step title="Sprint Retrospective">
-        - Análisis de proceso de desarrollo
-        - Mejoras para siguiente sprint
-        - Documentación de lessons learned
-        - Planning del próximo sprint
-      </Step>
-    </Steps>
-
-    **Métricas de Sprint:**
-    - Velocity: commits/features por sprint
-    - Quality: bugs encontrados vs resueltos
-    - Collaboration: merge conflicts por sprint
-    - Deployment: success rate de releases
-  </Tab>
-  <Tab title="Mantenimiento de Múltiples Ambientes">
-    **Gestión de Development → Staging → Production**
-    
-    ```
-    main (production) ← release/v1.2.0 ← development ← feature/new-capability
-                    ↘                 ↗               ↗
-                     hotfix/urgent-fix               experimental/ai-test
-    ```
-    
-    **Flujo de Promoción:**
-    1. **Development**: Integración continua de features
-    2. **Staging**: Testing de integración y UAT
-    3. **Release**: Preparación final para producción
-    4. **Production**: Deploy controlado con monitoreo
-    5. **Hotfix**: Correcciones directas cuando necesario
-
-    **Validaciones por Ambiente:**
-    - **Development**: Unit tests, playground testing
-    - **Staging**: Integration tests, performance testing
-    - **Production**: Smoke tests, gradual rollout
-    - **Monitoring**: Real-time metrics, error tracking
-  </Tab>
-  <Tab title="A/B Testing de Configuraciones">
-    **Testing científico de mejoras al agente**
-    
-    <Steps>
-      <Step title="Diseño del Experimento">
-        - Hipótesis clara sobre la mejora
-        - Métricas de éxito definidas
-        - Población de prueba determinada
-        - Duración del experimento establecida
-      </Step>
-      <Step title="Implementación de Variantes">
-        - Rama `experiment/ab-test-YYYYMMDD-feature-name`
-        - Configuración A (control) y B (variant)
-        - Deploy paralelo con traffic splitting
-        - Tracking de métricas diferenciadas
-      </Step>
-      <Step title="Monitoreo del Experimento">
-        - Recolección de datos en tiempo real
-        - Statistical significance testing
-        - Performance monitoring de ambas variantes
-        - User feedback collection
-      </Step>
-      <Step title="Análisis y Decisión">
-        - Análisis estadístico de resultados
-        - Comparación contra hipótesis original
-        - Decisión data-driven sobre implementar cambio
-        - Documentación de learnings para futuros tests
-      </Step>
-    </Steps>
-  </Tab>
-</Tabs>
-
-## Integraciones y Automatización
-
-### Integración con Sistemas Externos
-
-<Info>
-El sistema de versionado puede integrarse con herramientas externas de desarrollo y monitoreo para workflows más sofisticados.
-</Info>
-
-**APIs Disponibles:**
-- **Webhook de Commits**: Notifica sistemas externos sobre nuevas versiones
-- **Deploy Triggers**: Automatiza deployments desde sistemas de CI/CD
-- **Metrics Export**: Exporta métricas de versioning para análisis
-- **Backup Integration**: Sincroniza con sistemas de backup corporativos
-
-**Configuración de Webhooks:**
+**Configuración de Notificaciones:**
 ```json
 {
-  "webhook_url": "https://your-system.com/meetzy-webhook",
-  "events": ["commit", "deploy", "rollback", "conflict"],
-  "authentication": {
-    "type": "bearer_token",
-    "token": "your_secure_token"
+  "channels": {
+    "in_app": true,
+    "email": true, 
+    "slack": true,
+    "webhook": "https://your-system.com/notifications"
   },
-  "retry_policy": {
-    "max_attempts": 3,
-    "backoff": "exponential"
+  "preferences": {
+    "immediate": ["conflicts", "blocks", "critical_errors"],
+    "batched": ["commits", "reviews", "general_updates"],
+    "quiet_hours": {
+      "start": "22:00",
+      "end": "08:00",
+      "timezone": "user_timezone"
+    }
   }
 }
 ```
 
-### Automatización de Workflows
+## Gestión Avanzada de Ramas y Workflows
+
+### Vista Integral de Ramas con Inteligencia
+
+La pestaña "Branches" proporciona control profesional completo:
+
+- **📋 Lista Inteligente** - Todas las ramas con estado, actividad reciente, y métricas de salud
+- **🔄 Switch Instantáneo** - Cambio de rama en menos de 1 segundo con preservación de trabajo local
+- **➕ Creación Asistida** - Templates para diferentes tipos de ramas con configuración automática
+- **🔀 Merge Intelligence** - IA sugiere estrategias de merge óptimas basadas en contenido
+- **📊 Comparación Avanzada** - Diff visual con análisis de impacto y métricas de cambio
+- **🗑️ Limpieza Automática** - Eliminación inteligente de ramas obsoletas con políticas configurables
+- **🔐 Branch Protection** - Reglas de protección configurables para ramas críticas
+
+### Tipos de Ramas por Convención GitFlow
 
 <Tabs>
-  <Tab title="Auto-Deploy por Horarios">
-    **Deployments programados automáticos**
+  <Tab title="Ramas Principales Protegidas">
+    **main** - Rama principal de producción
+    - ✅ Contiene únicamente configuraciones aprobadas y estables
+    - ✅ Todas las versiones de producción se originan aquí
+    - ✅ Protegida contra commits directos (require PR)
+    - ✅ Deploy automático a producción tras merge
+    - ✅ Requiere al menos 2 approvals para cambios
+    - ✅ Tests automáticos obligatorios antes de merge
     
-    - Configurar ventanas de deployment (ej: domingos 2AM)
-    - Auto-merge de development a main en horarios seguros
-    - Rollback automático si métricas caen bajo umbrales
-    - Notificaciones automáticas a equipo de on-call
-    
-    ```yaml
-    schedule:
-      deploy_window: "sunday_2am_utc"
-      auto_rollback_threshold: "error_rate > 5%"
-      notification_channels: ["slack", "email"]
-    ```
+    **develop** - Integración de desarrollo
+    - 🔄 Punto de integración para todas las features
+    - 🔄 Testing continuo y validación automática  
+    - 🔄 Deploy automático a staging environment
+    - 🔄 Base para crear ramas de features
+    - 🔄 Merge automático a main cuando estable
+    - 🔄 Rollback automático si tests fallan
   </Tab>
-  <Tab title="Quality Gates Automáticos">
-    **Validación automática antes de deploy**
+  <Tab title="Ramas de Desarrollo">
+    **feature/TICKET-123-descripcion-clara** - Nueva funcionalidad
+    - 🚀 Una rama por característica específica aislada
+    - 🚀 Nomenclatura que incluye ticket/issue ID
+    - 🚀 Base: develop branch para máxima compatibilidad
+    - 🚀 Merge: Develop tras completar y testing
+    - 🚀 Cleanup: Auto-delete tras merge exitoso
+    - 🚀 Testing: Validación automática en cada push
     
-    - Testing automático en Playground antes de merge
-    - Validation de configuración syntax
-    - Performance benchmarks automáticos
-    - Security scanning de configuraciones
-    
-    **Pipeline de Validación:**
-    1. Syntax validation ✓
-    2. Playground smoke tests ✓
-    3. Performance regression tests ✓
-    4. Security compliance check ✓
-    5. Stakeholder approval (si requerido) ✓
-    6. Auto-deploy a producción ✓
+    **experiment/ai-prompt-optimization-v2** - Pruebas de concepto
+    - 🧪 Para probar ideas innovadoras sin compromiso
+    - 🧪 Pueden desecharse completamente si no funcionan
+    - 🧪 Útiles para A/B testing de configuraciones
+    - 🧪 Base: develop o main según necesidad
+    - 🧪 Duración: Limitada con auto-cleanup programado
+    - 🧪 Documentación: Auto-documenta resultados
   </Tab>
-  <Tab title="Monitoring e Alertas">
-    **Seguimiento automático post-deploy**
+  <Tab title="Ramas de Mantenimiento">
+    **hotfix/URGENT-456-descripcion-problema** - Correcciones críticas
+    - 🔥 Para problemas críticos en producción
+    - 🔥 Base: main branch (producción actual)
+    - 🔥 Merge: Directo a main + propagación a develop
+    - 🔥 Deploy: Automático e inmediato tras validación
+    - 🔥 Prioridad: Máxima con alertas al equipo
+    - 🔥 Testing: Validación acelerada pero exhaustiva
     
-    - Monitoring de métricas clave post-deploy
-    - Alertas automáticas por degradación de performance
-    - Auto-rollback basado en thresholds
-    - Reporting automático de deployment health
-    
-    **Métricas Monitoreadas:**
-    - Call success rate
-    - Average call duration  
-    - Error rate por tipo
-    - Customer satisfaction scores
-    - Agent response accuracy
+    **release/v2.1.0-candidate** - Preparación de releases
+    - 📦 Estabilización final antes de producción
+    - 📦 Feature freeze - solo bug fixes permitidos
+    - 📦 Testing: Completo con load testing
+    - 📦 Documentation: Actualización automática
+    - 📦 Approval: Requerida de stakeholders clave
+    - 📦 Rollback: Plan detallado pre-configurado
   </Tab>
 </Tabs>
 
-## Siguientes Pasos y Recursos
+### Flujos de Trabajo Colaborativos Automatizados
 
-<CardGroup cols={2}>
-  <Card
-    title="Playground Testing"
-    icon="play"
-    href="/es/advanced-editor/playground"
-  >
-    Aprende a probar y validar versiones antes de desplegar usando el Playground integrado
-  </Card>
-  <Card
-    title="Configuración Básica"
-    icon="gear"
-    href="/es/advanced-editor/basic-settings"
-  >
-    Domina la configuración fundamental del agente para optimizar el versionado
-  </Card>
-  <Card
-    title="Pruebas Automatizadas"
-    icon="clipboard-check"
-    href="/es/advanced-editor/tests"
-  >
-    Implementa pruebas de regresión automáticas para validar cada versión
-  </Card>
-  <Card
-    title="Monitoreo en Producción"
-    icon="chart-line"
-    href="/es/monitoring/overview"
-  >
-    Supervisa el rendimiento de versiones desplegadas y optimiza basado en métricas reales
-  </Card>
-  <Card
-    title="Colaboración de Equipo"
-    icon="users"
-    href="/es/collaboration/team-management"
-  >
-    Organiza permisos y workflows para colaboración efectiva en equipos
-  </Card>
-  <Card
-    title="Integraciones API"
-    icon="code"
-    href="/es/api/versioning"
-  >
-    Integra el sistema de versionado con tus herramientas de desarrollo existentes
-  </Card>
-</CardGroup>
+<Steps>
+  <Step title="Planificación Inteligente">
+    Sistema de planning poker integrado donde el equipo define características, asigna ramas específicas, y establece criterios de done automáticos
+  </Step>
+  <Step title="Desarrollo Paralelo Coordinado">
+    Cada desarrollador trabaja en ramas aisladas con merge automático a develop, detección de conflictos predictiva, y notifications de progress
+  </Step>
+  <Step title="Validación Automática Continua">
+    Testing automático en cada commit, validación cruzada entre features, benchmarking de rendimiento, y quality gates automáticos
+  </Step>
+  <Step title="Integración Inteligente">
+    Features completas se mergean automáticamente a develop con conflict resolution asistida, regression testing, y rollback automático
+  </Step>
+  <Step title="Release Preparation Automatizada">
+    Cuando develop está estable, release branch se crea automáticamente con testing completo, documentación, y stakeholder notifications
+  </Step>
+  <Step title="Deploy Coordinado con Monitoreo">
+    Release se mergea a main con deploy automático, monitoring intensivo, gradual rollout, y success metrics tracking
+  </Step>
+</Steps>
 
----
+## Atajos de Teclado Avanzados y Productividad
 
-**¿Necesitas ayuda adicional?**
+### Navegación y Control Git
 
-Si encuentras problemas específicos con el sistema de versionado o necesitas configuración avanzada para tu caso de uso, nuestro equipo de soporte técnico está disponible para asistirte con implementaciones personalizadas y resolución de problemas complejos.
+| Acción | Atajo | Contexto | Descripción Extendida |
+|--------|-------|----------|----------------------|
+| **Abrir Panel Cambios** | `⌘G` | Global | Abre panel de changes con focus automático |
+| **Historial de Versiones** | `⌘H` | Global | Salta directo a pestaña de historial |
+| **Quick Commit** | `⌘⇧G` | Editor | Modal de commit con IA pre-activada |
+| **Seleccionar Todo** | `⌘A` | Panel Cambios | Selecciona todos los cambios para staging |
+| **Deseleccionar Todo** | `⌘⇧A` | Panel Cambios | Deselecciona todos los cambios |
+| **Sync Bidireccional** | `⌘⇧S` | Global | Pull + Push completo con resolución automática |
+| **Force Refresh** | `⌘⇧R` | Global | Fuerza sincronización completa desde servidor |
+
+### Operaciones de Commit y Deploy
+
+| Acción | Atajo | Contexto | Descripción Extendida |
+|--------|-------|----------|----------------------|
+| **Generar Mensaje IA** | `⌘⇧M` | Modal Commit | IA analiza cambios y genera mensaje profesional |
+| **Deploy a Producción** | `⌘⇧P` | Historial | Deploy inmediato de versión seleccionada |
+| **Emergency Rollback** | `⌘⇧E` | Global | Rollback de emergencia a última versión estable |
+| **Restaurar Versión** | `⌘R` | Historial | Restaura versión seleccionada con opciones |
+| **Comparar Versiones** | `⌘D` | Historial | Diff detallado entre versiones seleccionadas |
+| **Export Version** | `⌘⇧X` | Historial | Exporta versión como backup JSON |
+
+### Gestión de Ramas y Colaboración
+
+| Acción | Atajo | Contexto | Descripción Extendida |
+|--------|-------|----------|----------------------|
+| **Nueva Rama Feature** | `⌘⇧B` | Global | Crea feature branch con template automático |
+| **Switch Rama** | `⌘B` | Global | Quick switcher de ramas con búsqueda |
+| **Merge Current** | `⌘M` | Panel Branches | Merge rama actual a develop/main |
+| **Resolver Conflictos** | `⌘⇧C` | Conflictos | Herramienta de resolución con IA |
+| **Aceptar Remotos** | `⌘⇧A` | Conflictos | Acepta cambios remotos en conflictos |
+| **Mantener Locales** | `⌘⇧L` | Conflictos | Mantiene cambios locales en conflictos |
+| **Smart Merge AI** | `⌘⇧I` | Conflictos | IA sugiere resolución óptima |
+
+### Productividad y Navegación Avanzada
+
+| Acción | Atajo | Contexto | Descripción Extendida |
+|--------|-------|----------|----------------------|
+| **Command Palette** | `⌘K` | Global | Paleta de comandos con búsqueda fuzzy |
+| **Quick Search** | `⌘⇧F` | Global | Búsqueda global en historial y código |
+| **Focus Mode** | `⌘⇧\` | Editor | Oculta paneles para concentración máxima |
+| **Split Diff View** | `⌘\` | Changes/History | Vista dividida para comparaciones |
+| **Toggle Dark Mode** | `⌘⇧T` | Global | Alterna tema oscuro/claro |
+| **Zen Writing** | `⌘⇧Z` | Editor | Modo escritura sin distracciones |
+
+## Mejores Prácticas para Equipos Profesionales
+
+### Estrategia de Mensajes de Commit Profesional
+
+<Tabs>
+  <Tab title="✅ Ejemplos Profesionales Excelentes">
+    ```
+    feat(greeting): Implementar personalización inteligente por contexto temporal
+    
+    - Añadir detección automática de zona horaria del cliente usando IP geolocation
+    - Implementar saludos diferenciados para mañana (5AM-12PM), tarde (12PM-6PM), noche (6PM-5AM)
+    - Integrar contexto cultural específico para 15 regiones geográficas principales
+    - Optimizar para llamadas de seguimiento vs nuevos clientes con historial
+    - Incluir fallback robusto para casos de zona horaria indeterminada
+    - Añadir A/B testing framework para validar efectividad
+    
+    Breaking Changes: Formato de greeting_config modificado
+    Impact: +23% engagement rate en pruebas piloto (n=1,247 calls)
+    Testing: Validado con 87 escenarios en playground automático
+    Performance: -15ms latencia promedio vs versión anterior
+    
+    Co-authored-by: Maria Rodriguez <maria@company.com>
+    Reviewed-by: Technical Lead <lead@company.com>
+    Ticket: AGENT-1547
+    ```
+    
+    ```
+    fix(transfer): Resolver condición de carrera en transferencias simultáneas
+    
+    - Implementar sistema de locks distribuidos usando Redis para prevent racing
+    - Añadir queue de transferencias para manejar múltiples requests concurrentes  
+    - Mejorar logging detallado con correlation IDs para debugging completo
+    - Implementar retry logic exponencial con jitter para casos de fallos temporales
+    - Añadir circuit breaker para proteger contra cascading failures
+    - Incluir métrica nueva: transfer_success_rate por agente y período
+    
+    Root Cause: Mutex local no funcionaba en deployment distribuido
+    Severity: P1 - Afectaba 18% de transferencias en horarios pico
+    Rollback Plan: Hotfix disponible en v47.3.2 como fallback
+    Monitoring: Alertas configuradas para transfer_failure_rate > 2%
+    Testing: Load tested con 500 transferencias concurrentes
+    
+    Fixes: #INCIDENT-2847
+    ```
+  </Tab>
+  <Tab title="❌ Ejemplos Pobres a Evitar">
+    ```
+    cambios varios en greeting
+    actualización
+    fix stuff that was broken
+    wip - no funciona aún
+    test commit please ignore
+    .
+    actualizaciones del sprint
+    modificaciones pendientes viernes
+    revert de revert de revert
+    funciona en mi máquina 🤷‍♂️
+    ```
+    
+    **Problemas con estos mensajes:**
+    - ❌ No describen qué cambió específicamente
+    - ❌ No explican por qué se hizo el cambio
+    - ❌ No ayudan en debugging futuro
+    - ❌ No permiten rollbacks selectivos inteligentes
+    - ❌ Complican severely la colaboración en equipo
+    - ❌ No proporcionan contexto para code reviews
+    - ❌ Dificultan generación de release notes automáticas
+    - ❌ No incluyen información de testing o validación
+  </Tab>
+</Tabs>
+
+### Organización de Ramas por Equipo con Governance
+
+<Warning>
+Establece convenciones de nomenclatura claras y governance policies para evitar conflictos y facilitar la colaboración escalable entre múltiples miembros del equipo.
+</Warning>
+
+**Nomenclatura Estándar Empresarial:**
+
+```
+Patrón: <tipo>/<ticket-id>-<descripción-corta>-<autor>
+
+Ejemplos:
+main                                    # Rama principal protegida
+develop                                # Integración continua  
+feature/AGENT-1547-smart-greetings-maria      # Nueva funcionalidad
+hotfix/PROD-2847-transfer-fix-urgent-carlos   # Corrección crítica
+experiment/ab-test-prompt-v3-research-team    # Prueba de concepto
+release/v2.1.0-candidate-stable               # Preparación release
+bugfix/AGENT-1632-voice-lag-optimization-pedro # Corrección menor
+refactor/code-cleanup-system-prompt-team      # Reestructuración
+docs/update-api-documentation-technical       # Actualización docs
+```
+
+**Políticas de Branch Protection:**
+
+```yaml
+branch_protection:
+  main:
+    require_pull_request: true
+    required_reviewers: 2
+    dismiss_stale_reviews: true
+    require_up_to_date: true
+    required_checks: ["tests", "security", "performance"]
+    enforce_admins: true
+    
+  develop:
+    require_pull_request: true
+    required_reviewers: 1
+    required_checks: ["tests", "lint"]
+    auto_merge_enabled: true
+    
+  "feature/*":
+    require_pull_request: false
+    auto_delete: true
+    max_lifetime_days: 30
+    
+  "hotfix/*":
+    require_pull_request: true
+    required_reviewers: 1
+    priority_merge: true
+    auto_deploy_on_merge: true
+```
+
+### Flujos de Trabajo por Tipo de Equipo
+
+<Tabs>
+  <Tab title="Equipo Pequeño (2-5 personas)">
+    **Flujo simplificado pero robusto**
+    
+    <Steps>
+      <Step title="Branch Strategy Ligera">
+        - `main` para producción estable
+        - `develop` para integración diaria  
+        - Feature branches de corta duración (1-3 días)
+        - Hotfix directo a main con merge automático a develop
+      </Step>
+      <Step title="Review Process">
+        - 1 reviewer obligatorio para main
+        - Self-merge permitido en develop
+        - Pair programming recomendado para features complejas
+        - Daily standups con review de cambios
+      </Step>
+      <Step title="Deployment Strategy">
+        - Deploy automático a staging desde develop
+        - Deploy manual a producción desde main
+        - Rollback de 1-click disponible 24/7
+        - Monitoring básico con alertas críticas
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Equipo Mediano (6-15 personas)">
+    **Flujo estructurado con automation**
+    
+    <Steps>
+      <Step title="GitFlow Completo">
+        - `main` para producción con protection rules
+        - `develop` para integración con CI/CD completo
+        - Feature branches con naming conventions
+        - Release branches para stabilización
+        - Hotfix con proceso de emergencia definido
+      </Step>
+      <Step title="Quality Assurance">
+        - 2+ reviewers para cambios críticos
+        - Automated testing en todos los commits
+        - Code quality gates con métricas
+        - Security scanning automático
+        - Performance regression testing
+      </Step>
+      <Step title="Release Management">
+        - Sprint planning integrado con branch planning
+        - Release notes automáticas desde commits
+        - Staged rollout con canary deployments
+        - Post-deployment monitoring con SLA tracking
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Equipo Grande (16+ personas)">
+    **Flujo enterprise con governance completa**
+    
+    <Steps>
+      <Step title="Advanced Branch Strategy">
+        - Multiple long-running branches por team/product
+        - Component-based development con microservices
+        - Cross-team dependency management
+        - Release trains con coordinated deployments
+      </Step>
+      <Step title="Governance y Compliance">
+        - RBAC (Role-Based Access Control) granular
+        - Audit trails completos para compliance
+        - Change approval boards para releases
+        - Risk assessment automático por cambio
+        - Documentation compliance automático
+      </Step>
+      <Step title="Enterprise Operations">
+        - Multi-environment promotion pipelines
+        - Blue-green deployments con zero downtime
+        - Disaster recovery y business continuity
+        - Cross-region replication y consistency
+        - Enterprise monitoring y observability
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Solución de Problemas Avanzada y Diagnóstico
+
+<AccordionGroup>
+  <Accordion title="Sincronización Fallida y Recovery" icon="exclamation-triangle">
+    **Síntomas Detallados:**
+    - Indicador "syncing" permanece activo por más de 30 segundos
+    - Cambios no se reflejan entre usuarios después de refresh
+    - Errores de timeout en operaciones de pull/push
+    - Status inconsistente entre diferentes tabs/browsers
+    - WebSocket connection drops frecuentes
+
+    **Diagnóstico Sistemático:**
+    
+    <Steps>
+      <Step title="Network Connectivity">
+        - Verificar estabilidad de conexión de red
+        - Comprobar latencia con `ping meetzy.com`
+        - Verificar que puertos WebSocket no estén bloqueados
+        - Testear desde diferentes networks/devices
+      </Step>
+      <Step title="Browser Environment">
+        - Verificar que JavaScript esté habilitado
+        - Comprobar extensions que bloqueen WebSockets
+        - Revisar límites de localStorage/sessionStorage
+        - Testear en modo incógnito para descartar cache
+      </Step>
+      <Step title="Authentication Status">
+        - Validar que la sesión de usuario no haya expirado
+        - Comprobar permisos de escritura en el agente
+        - Verificar que no hay límites de rate limiting
+        - Re-autenticar si es necesario
+      </Step>
+    </Steps>
+
+    **Procedimiento de Recovery Completo:**
+    
+    ```bash
+    # Pasos de recuperación detallados
+    1. Backup Inmediato de Trabajo Local:
+       - Copiar todo el contenido del editor a archivo local
+       - Screenshot del estado actual de cambios
+       - Exportar configuración completa si es posible
+       
+    2. Reset de Sesión Completo:
+       - Cerrar todas las tabs de Meetzy
+       - Limpiar cookies y localStorage del dominio
+       - Refrescar DNS cache: ipconfig /flushdns
+       - Restart browser completamente
+       
+    3. Re-conexión y Validación:
+       - Login nuevamente con credentials
+       - Navegar al agente específico
+       - Verificar sincronización con "Check" button
+       - Comparar estado actual vs backup local
+       
+    4. Re-aplicación de Cambios:
+       - Si hay discrepancias, aplicar cambios desde backup
+       - Hacer commit inmediato de diferencias críticas
+       - Validar sincronización con otro team member
+    ```
+
+    **Prevención de Problemas Futuros:**
+    - Commits más frecuentes (cada 15-20 minutos de trabajo)
+    - Uso de "Check" button regularmente durante sesiones largas
+    - Coordinación explícita con equipo para ediciones concurrentes
+    - Configurar alertas de desconexión en browser
+    - Network stability monitoring antes de sesiones críticas
+  </Accordion>
+  
+  <Accordion title="Conflictos Complejos de Merge Multi-User" icon="code-merge">
+    **Escenarios Complejos Identificados:**
+    - 3+ usuarios editando secciones interdependientes simultáneamente
+    - Cambios estructurales incompatibles (schema modifications)
+    - Modificaciones simultáneas en configuraciones que se referencian mutuamente
+    - Refactoring mayor durante feature development activo
+    - Rollbacks que afectan trabajo en progreso de otros usuarios
+
+    **Estrategia de Resolución Avanzada:**
+    
+    <Steps>
+      <Step title="Análisis de Contexto Detallado">
+        - Identificar todos los usuarios y cambios involucrados
+        - Mapear dependencias entre secciones modificadas
+        - Evaluar criticidad y urgencia de cada cambio
+        - Determinar orden óptimo de resolución
+        - Documentar decisiones para transparency
+      </Step>
+      <Step title="Comunicación de Equipo Estructurada">
+        - Crear war room virtual (Slack channel, etc)
+        - Contactar a todos los autores de cambios conflictivos
+        - Acordar estrategia y responsabilidades específicas
+        - Definir timeline para resolución
+        - Establecer single point of contact para decisions
+      </Step>
+      <Step title="Resolución Incremental Coordinada">
+        - Resolver conflictos uno por uno en orden de prioridad
+        - Testing inmediato después de cada resolución
+        - Validation con autores originales antes de proceder
+        - Documentar cada decisión de merge para future reference
+        - Commit intermedio para preservar progress
+      </Step>
+      <Step title="Validación Final Exhaustiva">
+        - Testing completo de configuración integrada final
+        - Review obligatorio de todo el equipo involucrado
+        - Load testing si los cambios afectan performance
+        - Deploy controlado a staging con rollback preparado
+        - Sign-off formal antes de merge a main
+      </Step>
+    </Steps>
+
+    **Herramientas de Apoyo Avanzadas:**
+    
+    ```json
+    {
+      "conflict_resolution_tools": {
+        "visual_diff": {
+          "three_way_merge": true,
+          "syntax_highlighting": true,
+          "semantic_analysis": true
+        },
+        "collaboration": {
+          "real_time_comments": true,
+          "decision_tracking": true,
+          "approval_workflow": true
+        },
+        "validation": {
+          "automated_testing": true,
+          "configuration_lint": true,
+          "dependency_check": true
+        }
+      }
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Pérdida de Datos y Recovery Avanzado" icon="document-minus">
+    **Situaciones de Riesgo Identificadas:**
+    - Browser crash durante commit process crítico
+    - Network interruption durante large file sync
+    - Concurrent editing con resolution fallida
+    - Server-side data corruption durante backup
+    - Accidental force-reset con cambios significativos uncommitted
+    - Storage quota exceeded causing write failures
+
+    **Sistema de Recovery Multi-Layer:**
+    
+    **Layer 1: Browser-Level Recovery**
+    ```javascript
+    // Auto-recovery desde localStorage y sessionStorage
+    1. Abrir Developer Tools (F12 en Chrome/Firefox)
+    2. Navegar a Application → Storage → Local Storage
+    3. Buscar claves específicas:
+       - "advanced-editor-backup-{agentId}-{timestamp}"
+       - "pending-changes-{sessionId}-{version}"
+       - "auto-save-{userId}-{agentId}-latest"
+       - "draft-commits-{branchName}-{date}"
+    4. Extraer y validar JSON data integrity
+    5. Reconstruir estado desde múltiples backups si necesario
+    ```
+    
+    **Layer 2: Server-Side Recovery**
+    ```bash
+    # Recovery desde server-side snapshots automáticos
+    1. Identificar timestamp del último estado válido conocido
+    2. Acceder a snapshots automáticos cada 5 minutos
+    3. Localizar snapshot más cercano a pérdida de datos
+    4. Restaurar configuración desde snapshot específico
+    5. Merge manual de cambios desde local backup
+    ```
+    
+    **Layer 3: Team-Assisted Recovery**
+    ```yaml
+    team_recovery:
+      steps:
+        1. Notificar equipo inmediatamente sobre data loss
+        2. Solicitar export de configuraciones actuales
+        3. Comparar múltiples versiones de team members
+        4. Reconstruir estado usando consensus de team
+        5. Validar reconstruction con historical commits
+    ```
+
+    **Recovery Process Completo:**
+    
+    <Steps>
+      <Step title="Immediate Assessment">
+        - Determinar scope exacto de pérdida de datos
+        - Identificar último estado conocido válido
+        - Evaluar criticidad y urgencia de recovery
+        - Notificar stakeholders relevantes immediately
+      </Step>
+      <Step title="Multi-Source Data Gathering">
+        - Extract data desde browser localStorage/sessionStorage
+        - Retrieve server-side automatic snapshots
+        - Collect team member configurations for comparison
+        - Access audit logs para reconstruct timeline
+      </Step>
+      <Step title="Data Reconstruction">
+        - Merge data desde múltiples sources inteligentemente
+        - Resolve inconsistencies usando business logic
+        - Validate reconstructed data completeness
+        - Create recovery commit con detailed explanation
+      </Step>
+      <Step title="Prevention Implementation">
+        - Aumentar frecuencia de auto-backup (10s → 5s)
+        - Implement redundant storage mechanisms
+        - Configurar monitoring para early detection
+        - Document incident y update recovery procedures
+      </Step>
+    </Steps>
+  </Accordion>
+  
+  <Accordion title="Deploy Fallido y Rollback de Emergencia" icon="cloud-arrow-up">
+    **Tipos de Fallas de Deploy Catalogadas:**
+    - **Validation Failure**: Configuración no pasa automated checks
+    - **Dependency Conflict**: Incompatibilidad con sistemas externos  
+    - **Performance Regression**: Degradación significativa de latency/throughput
+    - **Integration Failure**: APIs externas no responden correctamente
+    - **Resource Exhaustion**: Límites de CPU/memoria excedidos
+    - **Security Violation**: Nuevas vulnerabilidades detectadas
+    - **User Experience Degradation**: Métricas de satisfacción caen
+
+    **Protocolo de Emergencia Automatizado:**
+    
+    <Steps>
+      <Step title="Detection y Assessment (0-30 segundos)">
+        - Monitoring automático detecta anomalías en métricas clave
+        - Sistema evalúa severity basado en predefined thresholds
+        - Alertas automáticas a on-call engineers y stakeholders
+        - Health check dashboard actualizado con status crítico
+      </Step>
+      <Step title="Automated Rollback Decision (30-60 segundos)">
+        - AI evaluates rollback necessity basado en impact metrics
+        - Si automated rollback está configurado, se ejecuta inmediatamente
+        - Manual approval requerido solo para casos edge complex
+        - Rollback initiation logged con detailed reasoning
+      </Step>
+      <Step title="Rollback Execution (1-3 minutos)">
+        - Blue-green deployment switch a version anterior
+        - DNS updates para redirect traffic a stable version
+        - Cache invalidation automática para prevent stale data
+        - Database migrations rollback si aplicable
+        - Verification automática que rollback fue exitoso
+      </Step>
+      <Step title="Post-Incident Response (3+ minutos)">
+        - Incident report automático generado con timeline
+        - Stakeholder notifications con impact assessment
+        - Root cause analysis iniciado automáticamente
+        - Temporary monitoring intensificado para stability assurance
+      </Step>
+    </Steps>
+
+    **Advanced Rollback Strategies:**
+    
+    ```yaml
+    rollback_strategies:
+      immediate:
+        trigger: "error_rate > 10% for 30 seconds"
+        action: "instant_blue_green_switch"
+        validation: "health_check_all_endpoints"
+        
+      gradual:
+        trigger: "response_time > 2x baseline for 2 minutes"  
+        action: "canary_rollback_10_percent_per_minute"
+        validation: "progressive_traffic_monitoring"
+        
+      feature_flag:
+        trigger: "user_satisfaction < 4.0 stars"
+        action: "disable_new_features_only"
+        validation: "feature_specific_metrics"
+    ```
+
+    **Monitoring Post-Rollback:**
+    
+    - **Immediate (0-15 mins)**: Error rates, response times, throughput
+    - **Short-term (15-60 mins)**: User satisfaction, completion rates
+    - **Medium-term (1-24 hours)**: Business metrics, conversion rates
+    - **Long-term (24+ hours)**: Customer feedback, retention metrics
+  </Accordion>
+  
+  <Accordion title="Historiales Corruptos y Data Integrity" icon="clock">
+    **Síntomas de Corrupción de Datos
