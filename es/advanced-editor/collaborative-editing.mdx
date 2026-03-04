@@ -1,0 +1,322 @@
+---
+title: "Edición Colaborativa"
+description: "Trabaja en equipo en tiempo real con control de versiones similar a Git"
+icon: "users"
+---
+
+La edición colaborativa de Meetzy permite que múltiples miembros del equipo trabajen simultáneamente en el mismo agente, con un sistema de control de versiones robusto que previene conflictos y mantiene un historial completo de cambios.
+
+## Cómo Funciona
+
+<Info>
+El sistema de colaboración utiliza conceptos similares a Git para manejar cambios locales, remotos y resolver conflictos automáticamente.
+</Info>
+
+### Estados de Colaboración
+
+El editor muestra diferentes estados que indican el estado actual de colaboración:
+
+- **Clean**: No hay cambios locales ni remotos pendientes
+- **Modified**: Tienes cambios locales sin publicar
+- **Conflict**: Hay conflictos que requieren resolución manual
+- **Syncing**: Sincronizando cambios con el servidor
+- **Locked**: Otro usuario está editando activamente
+
+### Indicadores Visuales
+
+El header del editor muestra información de estado en tiempo real:
+
+```tsx
+// Estado actual mostrado en la interfaz
+<div class="git-status-indicator">
+  <div class="status-badge">
+    Modified (3) // Número de campos modificados
+  </div>
+  <span class="version-info">v12</span> // Versión local
+</div>
+```
+
+## Flujo de Trabajo Colaborativo
+
+<Steps>
+<Step title="Realizar Cambios Localmente">
+Edita cualquier campo del agente. Los cambios se rastrean automáticamente y se marcan como "modificados".
+
+```tsx
+// Cambios rastreados automáticamente
+private trackChange(field: string, value: any): void {
+  this.localChanges.set(field, value);
+  this.updateGitStatus();
+}
+```
+</Step>
+
+<Step title="Verificar Actualizaciones Remotas">
+Usa el botón "Check" para verificar si otros usuarios han realizado cambios.
+
+```tsx
+async checkForUpdates(): Promise<void> {
+  this.gitStatus = 'syncing';
+  const remoteVersion = await this.fetchRemoteVersion();
+  
+  if (remoteVersion > this.localVersion) {
+    this.hasRemoteChanges = true;
+    this.showConflictResolution();
+  }
+}
+```
+</Step>
+
+<Step title="Sincronizar Cambios">
+Utiliza "Pull" para obtener cambios remotos o "Commit" para publicar tus cambios locales.
+</Step>
+
+<Step title="Resolver Conflictos">
+Si hay conflictos, el sistema te guiará a través del proceso de resolución.
+</Step>
+</Steps>
+
+## Gestión de Conflictos
+
+### Tipos de Conflictos
+
+<Tabs>
+<Tab title="Conflictos de Campo">
+Cuando dos usuarios modifican el mismo campo simultáneamente:
+
+```typescript
+interface ConflictResolution {
+  field: string;
+  localValue: any;
+  remoteValue: any;
+  resolution: 'local' | 'remote' | 'merge';
+}
+```
+
+**Resolución:**
+- Mantener tu versión (Local)
+- Usar la versión remota (Remote) 
+- Fusionar manualmente ambas versiones
+</Tab>
+
+<Tab title="Conflictos de Versión">
+Cuando la versión remota ha avanzado desde tu última sincronización:
+
+```typescript
+// Verificación de versión antes del commit
+if (this.remoteVersion > this.localVersion) {
+  this.requiresPullFirst = true;
+  this.showPullRequiredDialog();
+}
+```
+</Tab>
+
+<Tab title="Conflictos de Bloqueo">
+Cuando otro usuario tiene un bloqueo activo en el mismo agente:
+
+```typescript
+interface CollaboratorLock {
+  userId: string;
+  userName: string;
+  lockedAt: Date;
+  lockedFields: string[];
+}
+```
+</Tab>
+</Tabs>
+
+## Comandos de Colaboración
+
+### Verificar Cambios Remotos
+
+```typescript
+// Comprobar si hay actualizaciones
+async checkForUpdates(): Promise<void> {
+  try {
+    this.gitStatus = 'syncing';
+    
+    const response = await this.api.get(`/assistants/${this.assistantId}/status`);
+    this.remoteVersion = response.version;
+    
+    if (response.version > this.localVersion) {
+      this.hasRemoteChanges = true;
+      this.gitStatus = 'conflict';
+    } else {
+      this.gitStatus = this.hasUnsavedChanges ? 'modified' : 'clean';
+    }
+  } catch (error) {
+    console.error('Error checking for updates:', error);
+    this.gitStatus = 'clean';
+  }
+}
+```
+
+### Obtener Cambios Remotos
+
+```typescript
+// Sincronizar con cambios remotos
+async pullChanges(): Promise<void> {
+  if (this.hasUnsavedChanges) {
+    this.showStashChangesDialog();
+    return;
+  }
+  
+  try {
+    this.gitStatus = 'syncing';
+    
+    const updatedAssistant = await this.api.get(`/assistants/${this.assistantId}`);
+    this.loadAssistantData(updatedAssistant);
+    
+    this.localVersion = updatedAssistant.version;
+    this.gitStatus = 'clean';
+    this.hasRemoteChanges = false;
+    
+    this.showNotification('success', 'Changes pulled successfully');
+  } catch (error) {
+    this.showNotification('error', 'Failed to pull changes');
+    this.gitStatus = 'clean';
+  }
+}
+```
+
+### Publicar Cambios Locales
+
+```typescript
+// Confirmar y publicar cambios
+async commitChanges(): Promise<void> {
+  if (this.commitInProgress) return;
+  
+  try {
+    this.commitInProgress = true;
+    this.gitStatus = 'syncing';
+    
+    // Preparar datos para el commit
+    const commitData = {
+      message: this.commitMessage,
+      changes: Object.fromEntries(this.localChanges),
+      version: this.localVersion
+    };
+    
+    const response = await this.api.put(
+      `/assistants/${this.assistantId}/commit`, 
+      commitData
+    );
+    
+    // Actualizar estado local
+    this.localVersion = response.version;
+    this.localChanges.clear();
+    this.hasUnsavedChanges = false;
+    this.gitStatus = 'clean';
+    
+    this.showNotification('success', 'Changes committed successfully');
+  } catch (error) {
+    this.handleCommitError(error);
+  } finally {
+    this.commitInProgress = false;
+    this.isCommitModalVisible = false;
+  }
+}
+```
+
+## Sincronización Automática
+
+<Warning>
+La sincronización automática se ejecuta cada 30 segundos para detectar cambios remotos, pero no publicará automáticamente tus cambios locales.
+</Warning>
+
+### Configuración de Auto-Sync
+
+```typescript
+// Inicializar sincronización automática
+private setupAutoSync(): void {
+  if (this.autoSyncInterval) {
+    clearInterval(this.autoSyncInterval);
+  }
+  
+  this.autoSyncInterval = setInterval(() => {
+    if (this.gitStatus !== 'syncing' && this.isEditMode) {
+      this.checkForUpdates();
+    }
+  }, 30000); // 30 segundos
+}
+```
+
+### Detección de Cambios
+
+```typescript
+// Rastrear cambios automáticamente
+private trackFieldChange(field: string, value: any, originalValue: any): void {
+  if (this.isInitializing) return; // No rastrear durante la carga inicial
+  
+  if (JSON.stringify(value) !== JSON.stringify(originalValue)) {
+    this.localChanges.set(field, value);
+    this.hasUnsavedChanges = true;
+  } else {
+    this.localChanges.delete(field);
+    this.hasUnsavedChanges = this.localChanges.size > 0;
+  }
+  
+  this.updateGitStatus();
+}
+```
+
+## Mejores Prácticas
+
+### Antes de Comenzar a Editar
+
+<Steps>
+<Step title="Verificar Estado">
+Siempre verifica el estado actual antes de realizar cambios importantes
+</Step>
+
+<Step title="Obtener Última Versión">
+Ejecuta "Pull" para asegurarte de tener la versión más reciente
+</Step>
+
+<Step title="Comunicación en Equipo">
+Coordina con tu equipo cuando trabajes en las mismas secciones críticas
+</Step>
+</Steps>
+
+### Durante la Edición
+
+- **Commits Frecuentes**: Publica cambios pequeños y frecuentes en lugar de cambios masivos
+- **Mensajes Descriptivos**: Usa mensajes de commit claros que describan qué cambios realizaste
+- **Verificación Regular**: Verifica actualizaciones remotas cada 10-15 minutos en sesiones largas
+
+### Resolución de Conflictos
+
+<Info>
+Cuando enfrentes conflictos, toma tiempo para entender ambas versiones antes de decidir cómo resolverlos.
+</Info>
+
+```typescript
+// Ejemplo de resolución de conflictos
+interface ConflictField {
+  field: string;
+  localValue: any;
+  remoteValue: any;
+  baseValue?: any; // Valor original si está disponible
+}
+
+async resolveConflict(field: string, resolution: 'local' | 'remote' | 'custom', customValue?: any): Promise<void> {
+  switch (resolution) {
+    case 'local':
+      // Mantener valor local
+      break;
+    case 'remote':
+      // Usar valor remoto
+      this.localChanges.delete(field);
+      break;
+    case 'custom':
+      // Usar valor personalizado fusionado
+      this.localChanges.set(field, customValue);
+      break;
+  }
+  
+  this.conflictFields = this.conflictFields.filter(f => f !== field);
+  this.updateConflictStatus();
+}
+```
+
+La edición colaborativa de Meetzy asegura que tu equipo pueda trabajar eficientemente sin pisarse los cambios, manteniendo la integridad y trazabilidad de todas las modificaciones realizadas en tus agentes.

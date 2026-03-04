@@ -1,0 +1,384 @@
+---
+title: "Collaborative Editing"
+description: "Work with your team on AI agents using real-time collaboration features, version control, and conflict resolution."
+icon: "users"
+---
+
+## Overview
+
+Meetzy's collaborative editing system enables multiple team members to work on the same AI agent simultaneously without conflicts. Built with a Git-inspired workflow, it provides real-time synchronization, change tracking, and intelligent conflict resolution.
+
+<Info>
+Collaborative editing works like a "particle accelerator for teamwork" - multiple users can contribute to an agent's development while maintaining version integrity and preventing overwrites.
+</Info>
+
+## Collaboration Features
+
+### Real-Time Collaboration Status
+
+The editor displays live collaboration information in the header:
+
+<Steps>
+<Step title="Status Indicators">
+Monitor collaboration state through visual indicators:
+
+- **Clean**: No local or remote changes
+- **Modified**: You have unsaved local changes  
+- **Conflicts**: Remote changes conflict with your edits
+- **Syncing**: Changes are being synchronized
+- **Locked**: Other users are actively editing
+</Step>
+
+<Step title="Collaborator Presence">
+See who else is working on the agent:
+
+```javascript
+// Active collaborators shown in status
+collaborators: [
+  { id: "user_123", name: "Sarah Chen", section: "system-prompt" },
+  { id: "user_456", name: "Mike Johnson", section: "input-params" }
+]
+```
+</Step>
+
+<Step title="Version Information">
+Track versions with semantic numbering:
+- **Local Version**: Your current working version
+- **Remote Version**: Latest committed version
+- **Version Diff**: Changes between versions
+</Step>
+</Steps>
+
+### Change Tracking System
+
+Every modification is tracked to prevent conflicts:
+
+<Tabs>
+<Tab title="Local Changes">
+Changes you make are tracked in real-time:
+
+```typescript
+// Tracked change types
+localChanges = new Map<string, any>([
+  ['system_prompt', { type: 'modified', value: '...' }],
+  ['input_parameters', { type: 'added', value: {...} }],
+  ['voice_settings', { type: 'modified', value: {...} }]
+]);
+```
+</Tab>
+
+<Tab title="Remote Changes">
+Changes from other users are detected automatically:
+
+```typescript
+// Remote change detection
+hasRemoteChanges = true;
+remoteChanges = {
+  author: "Sarah Chen",
+  timestamp: "2024-01-15T10:30:00Z",
+  fields: ['greeting_prompt', 'phone_settings']
+};
+```
+</Tab>
+
+<Tab title="Conflict Resolution">
+When conflicts occur, the system provides resolution options:
+
+```typescript
+// Conflict state
+conflictFields = ['system_prompt', 'voice_settings'];
+gitStatus = 'conflict';
+
+// Resolution options
+- Keep your changes
+- Accept remote changes  
+- Merge both versions
+- Edit manually
+```
+</Tab>
+</Tabs>
+
+## Working with Changes
+
+### Pulling Remote Updates
+
+Check for and pull changes from other collaborators:
+
+<Steps>
+<Step title="Check for Updates">
+Click the **Check** button to scan for remote changes:
+
+```typescript
+checkForUpdates() {
+  this.gitStatus = 'syncing';
+  // Fetch latest version from server
+  // Compare with local state
+  // Update indicators
+}
+```
+</Step>
+
+<Step title="Pull Changes">
+Use the **Pull** button to merge remote changes:
+
+```typescript
+pullChanges() {
+  if (this.hasConflicts()) {
+    this.showConflictResolution();
+  } else {
+    this.mergeRemoteChanges();
+  }
+}
+```
+</Step>
+</Steps>
+
+### Committing Your Changes
+
+Share your changes with the team through commits:
+
+<Steps>
+<Step title="Review Changes">
+The Git Changes panel shows all your modifications:
+- Modified fields highlighted
+- Change summaries
+- Diff previews
+</Step>
+
+<Step title="Commit with Message">
+Provide descriptive commit messages:
+
+```typescript
+commitChanges(message: string, deployToProduction: boolean) {
+  this.commitInProgress = true;
+  
+  const commit = {
+    message: message,
+    changes: Array.from(this.localChanges.entries()),
+    timestamp: new Date().toISOString(),
+    deploy: deployToProduction
+  };
+  
+  this.syncChanges(commit);
+}
+```
+</Step>
+
+<Step title="Deployment Options">
+Choose whether to deploy to production immediately:
+- **Commit Only**: Save changes for review
+- **Commit & Deploy**: Push changes live instantly
+</Step>
+</Steps>
+
+### Conflict Resolution
+
+When multiple users edit the same fields, conflicts must be resolved:
+
+<Warning>
+Conflicts occur when two users modify the same part of an agent simultaneously. The system locks editing until conflicts are resolved.
+</Warning>
+
+<Steps>
+<Step title="Conflict Detection">
+The system automatically detects conflicts:
+
+```typescript
+// Conflict indicators
+gitStatus = 'conflict';
+conflictFields = ['system_prompt', 'input_parameters'];
+```
+</Step>
+
+<Step title="Resolution Interface">
+Choose how to resolve each conflict:
+- **Accept Yours**: Keep your local changes
+- **Accept Theirs**: Use the remote changes
+- **Merge**: Combine both versions intelligently
+- **Manual Edit**: Create a custom resolution
+</Step>
+
+<Step title="Complete Resolution">
+Once all conflicts are resolved, commit the merged changes:
+
+```typescript
+resolveConflicts(resolutions: ConflictResolution[]) {
+  resolutions.forEach(resolution => {
+    this.applyResolution(resolution);
+  });
+  
+  this.gitStatus = 'modified';
+  this.conflictFields = [];
+}
+```
+</Step>
+</Steps>
+
+## Auto-Sync Features
+
+### Background Synchronization
+
+The editor automatically syncs changes in the background:
+
+<Info>
+Auto-sync runs every 30 seconds to check for remote updates and push local changes.
+</Info>
+
+```typescript
+// Auto-sync configuration
+private setupAutoSync() {
+  this.autoSyncInterval = setInterval(() => {
+    if (this.gitStatus !== 'syncing' && this.gitStatus !== 'locked') {
+      this.checkForUpdates();
+    }
+  }, 30000); // Every 30 seconds
+}
+```
+
+### Intelligent Merging
+
+The system intelligently merges non-conflicting changes:
+
+<Tabs>
+<Tab title="Safe Merges">
+Changes to different fields merge automatically:
+
+```typescript
+// Safe merge example
+localChanges = { system_prompt: 'updated prompt' };
+remoteChanges = { voice_settings: { speed: 1.2 } };
+
+// Result: Both changes preserved
+mergedState = {
+  system_prompt: 'updated prompt',
+  voice_settings: { speed: 1.2 }
+};
+```
+</Tab>
+
+<Tab title="Field-Level Conflicts">
+Conflicts only occur for the same field:
+
+```typescript
+// Conflict scenario
+localChanges = { system_prompt: 'version A' };
+remoteChanges = { system_prompt: 'version B' };
+
+// Requires manual resolution
+conflictFields = ['system_prompt'];
+```
+</Tab>
+</Tabs>
+
+## Collaboration Best Practices
+
+### Team Workflow
+
+<Steps>
+<Step title="Start with Latest">
+Always pull the latest changes before starting work:
+1. Open the agent editor
+2. Click "Check" for updates
+3. Pull any remote changes
+4. Begin your edits
+</Step>
+
+<Step title="Communicate Changes">
+Use descriptive commit messages:
+- ✅ "Updated greeting to be more conversational"
+- ✅ "Added input parameter for customer ID"
+- ❌ "misc changes"
+- ❌ "update"
+</Step>
+
+<Step title="Frequent Commits">
+Commit changes regularly to avoid conflicts:
+- Commit logical units of work
+- Don't wait until everything is "perfect"
+- Small, frequent commits are easier to merge
+</Step>
+</Steps>
+
+### Avoiding Conflicts
+
+<Tips>
+- **Work on different sections** when possible
+- **Communicate with teammates** about what you're editing
+- **Pull changes frequently** to stay up-to-date
+- **Commit small changes often** rather than large batches
+</Tips>
+
+### Emergency Procedures
+
+If you encounter issues:
+
+<Warning>
+If the system becomes unresponsive during collaboration:
+1. Refresh the page to reset state
+2. Pull latest changes to sync
+3. Contact support if conflicts persist
+</Warning>
+
+## Collaboration Indicators
+
+### Visual Feedback
+
+The interface provides clear collaboration feedback:
+
+| Status | Color | Meaning |
+|--------|--------|---------|
+| 🟢 Clean | Green | No changes, in sync |
+| 🟡 Modified | Yellow | You have local changes |
+| 🔴 Conflict | Red | Conflicts need resolution |
+| 🔵 Syncing | Blue | Changes being synchronized |
+| 🟠 Locked | Orange | Other users actively editing |
+
+### Real-Time Updates
+
+Live indicators show collaboration activity:
+
+```typescript
+// Live collaboration status
+{
+  status: 'locked',
+  collaborators: [
+    { name: 'Sarah Chen', section: 'system-prompt', lastSeen: '2s ago' },
+    { name: 'Mike Johnson', section: 'voice-settings', lastSeen: '5s ago' }
+  ],
+  localChanges: 3,
+  remoteVersion: 47,
+  localVersion: 46
+}
+```
+
+## Advanced Features
+
+### Branch-Like Workflow
+
+While not true branches, the system supports workflow patterns:
+
+<Steps>
+<Step title="Experimental Changes">
+Make experimental changes without affecting others:
+1. Work on your changes locally
+2. Test thoroughly before committing
+3. Commit only when satisfied
+</Step>
+
+<Step title="Rollback Capability">
+Revert problematic changes:
+1. View change history
+2. Identify problematic commit
+3. Revert to previous working state
+</Step>
+</Steps>
+
+### Integration with Testing
+
+Collaborative editing integrates with the testing system:
+
+- **Test before commit**: Run tests on your changes
+- **Shared test results**: See test outcomes from all collaborators
+- **Prevent broken deploys**: Tests must pass before production deployment
+
+The collaborative editing system ensures your team can work together efficiently while maintaining the quality and consistency of your AI agents.

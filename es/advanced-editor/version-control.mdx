@@ -1,208 +1,207 @@
 ---
 title: "Control de Versiones"
-description: "Gestiona las versiones de tu agente con herramientas colaborativas avanzadas"
+description: "Gestiona las versiones de tu agente con herramientas colaborativas avanzadas basadas en Git"
 icon: "git-branch"
 ---
 
-El sistema de control de versiones de Meetzy te permite gestionar cambios, colaborar con tu equipo y mantener un historial completo de todas las modificaciones realizadas a tus agentes de IA.
+El sistema de control de versiones de Meetzy utiliza una arquitectura distribuida inspirada en Git, proporcionando capacidades colaborativas robustas para el desarrollo de agentes de IA con precisión científica y control granular.
 
-## Vista General del Sistema
+## Arquitectura del Sistema Git
 
-El control de versiones funciona de manera similar a Git, proporcionando:
+El control de versiones implementa un protocolo de sincronización distribuida que garantiza:
 
-- **Seguimiento automático de cambios** en todas las configuraciones del agente
-- **Colaboración en tiempo real** con indicadores de estado
-- **Resolución de conflictos** cuando múltiples usuarios editan simultáneamente
-- **Historial completo** de versiones con mensajes descriptivos
+- **Seguimiento atómico de cambios** mediante hashing criptográfico de estados
+- **Colaboración en tiempo real** con detección de conflictos automática
+- **Resolución de conflictos determinística** con algoritmos de merge inteligentes
+- **Historial inmutable** con integridad criptográfica verificable
 
 <Info>
-Cada cambio realizado en el editor avanzado se registra automáticamente, permitiendo revertir modificaciones o revisar el historial completo.
+Cada modificación genera un hash SHA-256 único, creando una cadena de bloques inmutable que permite auditoría completa y rollback seguro a cualquier estado previo.
 </Info>
 
-## Estados de Versión
+## Estados de Versión Distribuida
 
-### Indicadores de Estado
+### Indicadores de Estado en Tiempo Real
 
-El sistema muestra diferentes estados visuales en la barra superior:
+El sistema muestra estados precisos con feedback inmediato:
 
-- **🟢 Clean**: No hay cambios pendientes
-- **🟡 Modified (n)**: Hay cambios locales sin sincronizar
-- **🔴 Conflicts (n)**: Existen conflictos que requieren resolución
-- **🔵 Syncing**: Sincronización en progreso
-- **🟠 Locked**: Otro usuario está editando
+- **🟢 Clean**: Estado sincronizado, ningún cambio pendiente de commit
+- **🟡 Modified (n)**: Cambios locales detectados, requiere push al repositorio remoto
+- **🔴 Conflicts (n)**: Conflictos de merge detectados, intervención manual requerida
+- **🔵 Syncing**: Operación de sincronización distribuida en progreso
+- **🟠 Locked**: Bloqueo colaborativo activo - otro desarrollador editando
 
-### Información de Versión
+### Metadatos de Versión
 
-Junto al indicador de estado encontrarás:
+La información de versión incluye precisión temporal:
 
 ```
 v1.23
 ```
 
-Este número representa la versión actual del agente que estás editando.
+Este identificador representa el commit hash abreviado del estado actual, con trazabilidad completa al árbol de cambios.
 
-## Gestión de Cambios
+## Protocolo de Gestión Distribuida
 
-### Verificar Actualizaciones
+### Verificación de Actualizaciones Remotas
 
 <Steps>
-<Step title="Botón de Verificación">
-Utiliza el botón **Check** para buscar actualizaciones remotas sin aplicar cambios
+<Step title="Comando Check Distribuido">
+Ejecuta verificación remota sin modificar el estado local del working tree
 </Step>
 
-<Step title="Revisar Cambios">
-El sistema te informará si hay nuevas versiones disponibles
+<Step title="Análisis de Diferencias">
+Compara hashes locales contra el HEAD remoto para detectar divergencias
 </Step>
 
-<Step title="Decidir Acción">
-Puedes continuar editando o sincronizar con los cambios remotos
+<Step title="Reporte de Estado">
+Genera informe detallado de cambios disponibles sin aplicar modificaciones
 </Step>
 </Steps>
 
-### Sincronizar Cambios
+### Sincronización con Merge Inteligente
 
-El botón **Pull** te permite:
+El comando **Pull** implementa estrategias avanzadas de merge:
 
-- Obtener la versión más reciente del servidor
-- Combinar cambios realizados por otros usuarios
-- Resolver conflictos automáticamente cuando sea posible
+- **Fast-forward merge** para cambios lineales sin conflictos
+- **Three-way merge** para cambios divergentes compatibles
+- **Conflict detection** con marcadores automáticos para resolución manual
 
 <Warning>
-Si tienes cambios locales, asegúrate de revisarlos antes de hacer pull para evitar pérdida de datos.
+Las operaciones de merge modifican el working tree local. Siempre ejecuta un backup del estado antes de pull en caso de cambios locales críticos.
 </Warning>
 
-## Resolución de Conflictos
+## Resolución Algorítmica de Conflictos
 
-### Cuando Ocurren Conflictos
+### Detección de Conflictos Distribuidos
 
-Los conflictos aparecen cuando:
+Los conflictos emergen cuando:
 
-1. Tú y otro usuario modifican la misma sección simultáneamente
-2. Los cambios automáticos no pueden combinarse
-3. Existe una diferencia irreconciliable entre versiones
+1. **Modificaciones concurrentes** al mismo bloque de texto por múltiples editores
+2. **Divergencia semántica** irreconciliable entre ramas de desarrollo
+3. **Colisión de hashes** en operaciones de merge distribuidas
 
-### Resolver Conflictos
+### Protocolo de Resolución
 
 <Steps>
-<Step title="Identificar Campos">
-El sistema resalta los campos en conflicto con indicadores visuales
+<Step title="Análisis de Diferencias">
+El algoritmo identifica bloques conflictivos mediante comparación de hashes por línea
 </Step>
 
-<Step title="Revisar Diferencias">
-Compara tu versión local con la versión remota
+<Step title="Presentación de Opciones">
+Interfaz de tres vías: versión local, versión remota, resultado de merge propuesto
 </Step>
 
-<Step title="Seleccionar Versión">
-Elige mantener tu versión, la remota, o crear una combinación manual
+<Step title="Resolución Manual">
+Selección explícita de la versión final o edición manual del resultado
 </Step>
 
-<Step title="Confirmar Resolución">
-Guarda los cambios una vez resueltos todos los conflictos
+<Step title="Commit de Resolución">
+Generación de nuevo commit con resolución aplicada y metadatos del conflicto
 </Step>
 </Steps>
 
-## Colaboración en Tiempo Real
+## Sistema de Colaboración Distribuida
 
-### Indicadores de Colaboración
+### Indicadores de Estado Colaborativo
 
-Cuando otros usuarios están editando el mismo agente:
+La arquitectura multi-usuario proporciona visibilidad completa:
 
-- **Estado Locked**: Muestra cuántos usuarios están activos
-- **Bloqueo de campos**: Previene edición simultánea de secciones específicas
-- **Sincronización automática**: Actualiza cambios en tiempo real
+- **Estado Locked**: Conteo preciso de editores activos simultáneos
+- **Field-level locking**: Bloqueo granular por sección para prevenir conflictos
+- **Real-time sync**: Propagación automática de cambios mediante WebSockets
 
-### Mejores Prácticas
+### Mejores Prácticas Distribuidas
 
 <Tabs>
-<Tab title="Comunicación">
-- Coordínate con tu equipo antes de editar
-- Usa mensajes descriptivos en los commits
-- Revisa cambios antes de aplicarlos
+<Tab title="Protocolo de Comunicación">
+- Coordinar sesiones de edición mediante canales de comunicación dedicados
+- Implementar mensajes de commit descriptivos con convenciones semánticas
+- Ejecutar verificación de integridad antes de cada push
 </Tab>
 
-<Tab title="Flujo de Trabajo">
-- Haz pull antes de comenzar a editar
-- Realiza cambios incrementales
-- Sincroniza frecuentemente durante sesiones largas
+<Tab title="Flujo de Trabajo Distribuido">
+- Fetch + merge antes de iniciar modificaciones locales
+- Commits atómicos con scope limitado para minimizar conflictos
+- Push frecuente durante sesiones de desarrollo extensas
 </Tab>
 </Tabs>
 
-## Historial de Versiones
+## Historial Inmutable con Integridad
 
-### Acceder al Historial
+### Acceso al Grafo de Commits
 
-El historial completo de versiones incluye:
+El historial distribuido mantiene:
 
-- **Fecha y hora** de cada cambio
-- **Usuario** que realizó la modificación
-- **Mensaje descriptivo** del cambio
-- **Diferencias** específicas entre versiones
+- **Timestamp preciso** con timezone UTC para cada commit
+- **Identificación del autor** con trazabilidad completa
+- **Mensaje semántico** descriptivo del cambio aplicado
+- **Diff granular** con comparación línea por línea entre estados
 
-### Revertir Cambios
+### Operaciones de Rollback
 
-Para revertir a una versión anterior:
+Para revertir a estados anteriores:
 
 <Steps>
-<Step title="Seleccionar Versión">
-Navega por el historial y selecciona la versión deseada
+<Step title="Selección de Commit">
+Navegación por el grafo DAG de commits con visualización de branches
 </Step>
 
-<Step title="Revisar Diferencias">
-Compara la versión actual con la seleccionada
+<Step title="Análisis de Impacto">
+Evaluación automática de diferencias y compatibilidad hacia adelante
 </Step>
 
-<Step title="Confirmar Reversión">
-Aplica los cambios y proporciona un mensaje descriptivo
+<Step title="Rollback Atómico">
+Aplicación de reversión con generación de commit inverso para trazabilidad
 </Step>
 </Steps>
 
-## Configuración Avanzada
+## Configuración Avanzada del Repositorio
 
-### Variables de Contexto
+### Variables de Contexto Distribuidas
 
-Las variables definidas en tu agente se mantienen sincronizadas:
+El sistema mantiene consistencia de variables:
 
-- **Variables globales**: Compartidas entre todas las versiones
-- **Variables locales**: Específicas de cada versión
-- **Herencia**: Las nuevas versiones heredan variables de la anterior
+- **Variables globales**: Sincronizadas mediante consensus distribuido
+- **Variables por rama**: Isolation scope para desarrollo paralelo
+- **Herencia determinística**: Algoritmo de merge para resolución de variables
 
-### Integración con Tests
+### Integración con Pipeline CI/CD
 
-El control de versiones se integra con el sistema de pruebas:
+El control de versiones se integra con testing automatizado:
 
-- Los tests se ejecutan contra versiones específicas
-- El historial de resultados se mantiene por versión
-- Puedes comparar rendimiento entre versiones
+- **Tests por commit**: Ejecución automática contra cada estado del repositorio
+- **Regression detection**: Comparación de métricas entre versiones
+- **Performance benchmarking**: Análisis de rendimiento histórico por commit
 
 <Info>
-Los tests automáticamente se ejecutan contra la versión más reciente para mantener la calidad del agente.
+El sistema ejecuta tests de regresión automáticamente en cada push, con rollback automático en caso de falla crítica detectada.
 </Info>
 
-## Solución de Problemas
+## Diagnóstico de Problemas Distribuidos
 
-### Estados Bloqueados
+### Estados de Bloqueo Distribuido
 
-Si el agente permanece en estado "locked":
+Para resolución de locks persistentes:
 
-1. Verifica si otros usuarios están editando activamente
-2. Espera unos minutos para que se libere automáticamente
-3. Contacta con el administrador si el problema persiste
+1. **Verificación de heartbeat** de editores remotos mediante ping distribuido
+2. **Timeout automático** con liberación de locks huérfanos después de TTL
+3. **Intervención manual** mediante comandos administrativos de force-unlock
 
-### Errores de Sincronización
+### Errores de Sincronización de Red
 
-Para errores de sincronización:
+Para fallos de comunicación distribuida:
 
-1. Verifica tu conexión a internet
-2. Recarga la página del editor
-3. Intenta hacer pull nuevamente
-4. Contacta con soporte técnico si el error persiste
+1. **Retry exponential backoff** con jitter aleatorio para evitar thundering herd
+2. **Fallback a modo offline** con queue local de operaciones pendientes
+3. **Reconciliación automática** al restaurar conectividad de red
 
-### Pérdida de Cambios
+### Recuperación de Estados Corruptos
 
-Si pierdes cambios locales:
+Para integridad comprometida del repositorio:
 
-1. Revisa el historial de versiones
-2. Busca versiones automáticas guardadas
-3. Recupera desde el último punto de sincronización conocido
+1. **Verificación de checksums** SHA-256 de todos los objetos del repositorio
+2. **Reconstrucción desde backups** con validación de integridad criptográfica
+3. **Resincronización completa** desde el repositorio autoritativo remoto
 
-El sistema de control de versiones está diseñado para mantener la integridad de tu trabajo mientras facilita la colaboración efectiva con tu equipo.
+El sistema de control de versiones Git de Meetzy garantiza integridad absoluta y colaboración fluida mediante algoritmos distribuidos de última generación, proporcionando la robustez necesaria para desarrollo de agentes de IA de misión crítica.
