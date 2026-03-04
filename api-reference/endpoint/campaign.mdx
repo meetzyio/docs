@@ -1,0 +1,237 @@
+---
+title: 'Create a campaign'
+api: 'POST /campaign'
+description: 'Create outbound call campaigns from a contact list (immediate or scheduled)'
+---
+
+## Overview
+
+This endpoint creates outbound call campaigns using a playbook (assistant) and a list of contacts. Campaigns can run **immediately** or be **scheduled** for a specific date and time. Contacts are created or updated in the system and calls are launched according to the campaign configuration.
+
+---
+
+## 1. Summary
+
+- **Endpoint:** `POST /campaign`
+- **Authentication:** Bearer token (same as for the rest of the API).
+- **Usage:** Send a playbook ID, a list of contacts (with at least `phone`), and optionally a launch date and recall policy. The system creates or updates contacts and launches the calls.
+
+---
+
+## 2. Authentication
+
+Include your token in the request headers:
+
+```http
+Authorization: Bearer YOUR_API_TOKEN
+Content-Type: application/json
+```
+
+The same token is used for **POST /call** and **GET /call/:id**.
+
+---
+
+## 3. Request body
+
+### 3.1 Required fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `playbook_id` | string | UUID of the playbook (assistant) used for the calls. Must belong to your account. |
+| `contacts` | array | List of contacts to call. Each item must have at least the `phone` field. |
+
+### 3.2 Optional fields (campaign level)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `launch_at` | string | Launch date/time in ISO format (e.g. `"2025-03-01T10:00:00"`). If provided, the campaign is scheduled for that time; otherwise it runs immediately. |
+| `recall` | string or array | Retry policy in minutes. See section 4. |
+
+### 3.3 Optional fields per contact
+
+Each item in `contacts` may include, in addition to `phone`, any of these fields (for call personalization or CRM):
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `first_name` | string | First name |
+| `last_name` | string | Last name |
+| `email` | string | Email |
+| `company` | string | Company |
+| `job_title` | string | Job title |
+| `address` | string | Address |
+| `city` | string | City |
+| `state` | string | State / province |
+| `country` | string | Country |
+| `postal_code` | string | Postal code |
+| `timezone` | string | Timezone (e.g. `Europe/Madrid`) |
+| `utm_source` | string | UTM source |
+| `utm_medium` | string | UTM medium |
+| `utm_campaign` | string | UTM campaign |
+| `utm_term` | string | UTM term |
+| `utm_content` | string | UTM content |
+| `custom_fields` | object | Custom key-value fields |
+
+---
+
+## 4. Using the `recall` field
+
+The `recall` field defines **retry delays in minutes** from the time of the call (or from launch time for scheduled campaigns). It is stored per call and used to automatically reschedule calls (e.g. if the contact does not answer).
+
+**String with array of minutes:**
+
+`"recall": "[30,120]"` — retry at 30 and 120 minutes.
+
+Example in the body:
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [ { "phone": "+34600123456", "first_name": "Juan" } ],
+  "recall": "[30,120]"
+}
+```
+
+---
+
+## 5. Request examples
+
+### 5.1 Immediate campaign (minimal)
+
+Only playbook and list of phones:
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    { "phone": "+34600123456" },
+    { "phone": "+34600987654" }
+  ]
+}
+```
+
+### 5.2 Immediate campaign with contact data and recall
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    {
+      "phone": "+34600123456",
+      "first_name": "Juan",
+      "last_name": "García",
+      "email": "juan@example.com",
+      "company": "Acme SL"
+    },
+    {
+      "phone": "+34600987654",
+      "first_name": "María",
+      "email": "maria@example.com"
+    }
+  ],
+  "recall": "[30,120]"
+}
+```
+
+### 5.3 Immediate campaign with custom fields
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    {
+      "phone": "+34600123456",
+      "first_name": "Juan",
+      "last_name": "García",
+      "custom_fields": {
+        "lead_id": "ext-12345",
+        "producto_interes": "Premium",
+        "origen": "web"
+      }
+    }
+  ],
+  "recall": [30, 60, 120]
+}
+```
+
+### 5.4 Scheduled campaign
+
+Use `launch_at` to schedule the launch:
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    { "phone": "+34600123456", "first_name": "Juan" },
+    { "phone": "+34600987654", "first_name": "María" }
+  ],
+  "launch_at": "2025-03-01T10:00:00",
+  "recall": "[30,120]"
+}
+```
+
+Calls are created at the given date/time (with a small stagger between contacts). `recall` works the same as for immediate campaigns.
+
+---
+
+## 6. Server responses
+
+### 6.1 Campaign accepted (immediate)
+
+- **Status:** `202 Accepted`
+- **Example body:**
+
+```json
+{
+  "success": true,
+  "message": "Campaign started successfully",
+  "campaign_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "scheduled": false,
+  "total_contacts": 2
+}
+```
+
+### 6.2 Scheduled campaign accepted
+
+- **Status:** `202 Accepted`
+- **Example body:**
+
+```json
+{
+  "success": true,
+  "message": "Scheduled 2 calls for 01/03/2025 10:00",
+  "campaign_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "scheduled": true,
+  "launch_at": "2025-03-01T10:00:00.000Z",
+  "total_contacts": 2,
+  "scheduled_calls": 2,
+  "error_calls": 0
+}
+```
+
+---
+
+## 7. Error codes
+
+| Code | Meaning |
+|------|---------|
+| **400** | Invalid data: missing `playbook_id`, empty `contacts`, or a contact without a valid `phone`. |
+| **401** | Not authenticated: missing or invalid token. |
+| **403** | Playbook not found or not owned by your account. |
+| **500** | Internal server error. |
+
+Example 400 response:
+
+```json
+{
+  "error": "Each contact must have a non-empty phone field"
+}
+```
+
+---
+
+## 8. Quick reference
+
+1. **Authentication:** `Authorization: Bearer YOUR_TOKEN` header.
+2. **Required:** `playbook_id` (UUID) and `contacts` (array of objects with at least `phone`).
+3. **Optional:** `launch_at` to schedule; `recall` (e.g. `"[30,120]"`) for retries in minutes.
+4. **Response:** `202` with `campaign_id`.

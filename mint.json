@@ -1,10 +1,3 @@
----
-title: "mint.json"
-description: "Configuration file for Meetzy documentation navigation structure"
-icon: "gear"
----
-
-```json
 {
   "name": "Meetzy Docs",
   "logo": {
@@ -130,8 +123,3 @@ icon: "gear"
     "linkedin": "https://www.linkedin.com/company/meetzy"
   }
 }
-```
-
-<Info>
-The navigation structure has been updated to include the new Evaluation Trends page in the Calls section for both English and Spanish. The page is logically placed alongside other call-related functionality, making it easy for users to discover this valuable analysis tool where they would expect to find it.
-</Info>

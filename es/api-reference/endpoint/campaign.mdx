@@ -1,0 +1,237 @@
+---
+title: 'Crear una campaña'
+api: 'POST /campaign'
+description: 'Crear campañas de llamadas salientes desde una lista de contactos (inmediatas o programadas)'
+---
+
+## Resumen
+
+Este endpoint crea campañas de llamadas salientes usando un playbook (asistente) y una lista de contactos. Las campañas pueden ejecutarse de forma **inmediata** o **programada**. Los contactos se crean o actualizan en el sistema y las llamadas se lanzan según la configuración de la campaña.
+
+---
+
+## 1. Resumen del endpoint
+
+- **Endpoint:** `POST /campaign`
+- **Autenticación:** Bearer token (mismo que para el resto de la API).
+- **Uso:** Envías un playbook (asistente), una lista de contactos (con al menos `phone`) y opcionalmente una fecha de lanzamiento y recall. Nosotros creamos o actualizamos los contactos en nuestro sistema y lanzamos las llamadas.
+
+---
+
+## 2. Autenticación
+
+Incluye tu token en la cabecera:
+
+```http
+Authorization: Bearer TU_TOKEN_API
+Content-Type: application/json
+```
+
+El token es el mismo que utilizas para **POST /call** y **GET /call/:id**.
+
+---
+
+## 3. Cuerpo de la petición (body)
+
+### 3.1 Campos obligatorios
+
+| Campo           | Tipo   | Descripción |
+|----------------|--------|-------------|
+| `playbook_id`  | string | UUID del playbook (asistente) con el que se harán las llamadas. Debe pertenecer a tu cuenta. |
+| `contacts`     | array  | Lista de contactos a llamar. Cada elemento debe tener al menos el campo `phone`. |
+
+### 3.2 Campos opcionales (nivel campaña)
+
+| Campo       | Tipo   | Descripción |
+|------------|--------|-------------|
+| `launch_at`| string | Fecha/hora de lanzamiento en formato ISO (ej. `"2025-03-01T10:00:00"`). Si se envía, la campaña se programa para esa hora; si no, se ejecuta de inmediato. |
+| `recall`   | string o array | Protocolo de reintentos en minutos. Ver sección 4. |
+
+### 3.3 Campos opcionales por contacto
+
+Cada elemento de `contacts` puede incluir, además de `phone`, cualquiera de estos campos (útiles para personalizar la llamada o el CRM):
+
+| Campo          | Tipo   | Descripción |
+|----------------|--------|-------------|
+| `first_name`   | string | Nombre |
+| `last_name`    | string | Apellidos |
+| `email`        | string | Email |
+| `company`      | string | Empresa |
+| `job_title`    | string | Cargo |
+| `address`      | string | Dirección |
+| `city`         | string | Ciudad |
+| `state`        | string | Provincia/estado |
+| `country`      | string | País |
+| `postal_code`  | string | Código postal |
+| `timezone`     | string | Zona horaria (ej. `Europe/Madrid`) |
+| `utm_source`   | string | Origen UTM |
+| `utm_medium`   | string | Medio UTM |
+| `utm_campaign` | string | Campaña UTM |
+| `utm_term`     | string | Término UTM |
+| `utm_content`  | string | Contenido UTM |
+| `custom_fields`| object | Campos personalizados (objeto clave-valor) |
+
+---
+
+## 4. Uso del campo `recall`
+
+El campo `recall` define **reintentos en minutos** desde el momento de la llamada (o desde el lanzamiento si la campaña es programada). Se guarda en cada llamada y se usa para reprogramar llamadas automáticamente (por ejemplo, si no contestan).
+
+ **Cadena con array de minutos:**  
+   `"recall": "[30,120]"`  
+   Significa: reintentar a los 30 y 120 minutos.
+
+Ejemplo en el body:
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [ { "phone": "+34600123456", "first_name": "Juan" } ],
+  "recall": "[30,120]"
+}
+```
+
+---
+
+## 5. Ejemplos de peticiones
+
+### 5.1 Campaña inmediata (mínima)
+
+Solo playbook y lista de teléfonos:
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    { "phone": "+34600123456" },
+    { "phone": "+34600987654" }
+  ]
+}
+```
+
+### 5.2 Campaña inmediata con datos de contacto y recall
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    {
+      "phone": "+34600123456",
+      "first_name": "Juan",
+      "last_name": "García",
+      "email": "juan@ejemplo.com",
+      "company": "Acme SL"
+    },
+    {
+      "phone": "+34600987654",
+      "first_name": "María",
+      "email": "maria@ejemplo.com"
+    }
+  ],
+  "recall": "[30,120]"
+}
+```
+
+### 5.3 Campaña inmediata con campos personalizados
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    {
+      "phone": "+34600123456",
+      "first_name": "Juan",
+      "last_name": "García",
+      "custom_fields": {
+        "lead_id": "ext-12345",
+        "producto_interes": "Premium",
+        "origen": "web"
+      }
+    }
+  ],
+  "recall": [30, 60, 120]
+}
+```
+
+### 5.4 Campaña programada
+
+Se programa el lanzamiento con `launch_at`:
+
+```json
+{
+  "playbook_id": "550e8400-e29b-41d4-a716-446655440000",
+  "contacts": [
+    { "phone": "+34600123456", "first_name": "Juan" },
+    { "phone": "+34600987654", "first_name": "María" }
+  ],
+  "launch_at": "2025-03-01T10:00:00",
+  "recall": "[30,120]"
+}
+```
+
+Las llamadas se crearán en la fecha/hora indicada (con un pequeño desfase entre contactos). El `recall` se aplica igual que en campañas inmediatas.
+
+---
+
+## 6. Respuestas del servidor
+
+### 6.1 Campaña aceptada (immediata)
+
+- **Código:** `202 Accepted`
+- **Cuerpo de ejemplo:**
+
+```json
+{
+  "success": true,
+  "message": "Campaign started successfully",
+  "campaign_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "scheduled": false,
+  "total_contacts": 2
+}
+```
+
+### 6.2 Campaña programada aceptada
+
+- **Código:** `202 Accepted`
+- **Cuerpo de ejemplo:**
+
+```json
+{
+  "success": true,
+  "message": "Scheduled 2 calls for 01/03/2025 10:00",
+  "campaign_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "scheduled": true,
+  "launch_at": "2025-03-01T10:00:00.000Z",
+  "total_contacts": 2,
+  "scheduled_calls": 2,
+  "error_calls": 0
+}
+```
+
+---
+
+## 7. Códigos de error
+
+| Código | Significado |
+|--------|-------------|
+| **400** | Datos incorrectos: falta `playbook_id`, `contacts` vacío o algún contacto sin `phone` válido. |
+| **401** | No autenticado: token ausente o inválido. |
+| **403** | Playbook no encontrado o no pertenece a tu cuenta. |
+| **500** | Error interno del servidor. |
+
+Ejemplo de error 400:
+
+```json
+{
+  "error": "Each contact must have a non-empty phone field"
+}
+```
+
+---
+
+## 8. Resumen rápido
+
+1. **Autenticación:** cabecera `Authorization: Bearer TU_TOKEN`.
+2. **Obligatorios:** `playbook_id` (UUID) y `contacts` (array de objetos con al menos `phone`).
+3. **Opcional:** `launch_at` para programar; `recall` (ej. `"[30,120]"`) para reintentos en minutos.
+4. **Respuesta:** `202` con `campaign_id`.

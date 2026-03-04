@@ -111,9 +111,9 @@
                 "group": "Endpoints",
                 "pages": [
                   "api-reference/endpoint/create",
+                  "api-reference/endpoint/campaign",
                   "api-reference/endpoint/get",
-                  "api-reference/endpoint/list",
-                  "api-reference/endpoint/whatsapp-outbound"
+                  "api-reference/endpoint/list"
                 ]
               },
               {
@@ -210,9 +210,9 @@
                 "group": "Endpoints",
                 "pages": [
                   "es/api-reference/endpoint/create",
+                  "es/api-reference/endpoint/campaign",
                   "es/api-reference/endpoint/get",
-                  "es/api-reference/endpoint/list",
-                  "es/api-reference/endpoint/whatsapp-outbound"
+                  "es/api-reference/endpoint/list"
                 ]
               },
               {
