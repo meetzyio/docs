@@ -1,6 +1,7 @@
 ---
 title: 'Configure Phone Numbers'
 description: 'Learn how to assign, manage, and swap phone numbers for your Meetzy agents'
+icon: 'phone'
 ---
 
 ## Phone Numbers in Meetzy
@@ -11,9 +12,87 @@ Each Meetzy agent needs at least one phone number to:
 - **Make outbound calls**
 - **Identify itself** (caller ID)
 
-<Note>
+<Info>
   Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
-</Note>
+</Info>
+
+## Twilio Subaccount Navigation
+
+The phone numbers interface includes a tabbed navigation system to manage numbers across different Twilio subaccounts:
+
+### Subaccount Tabs
+
+<Tabs>
+  <Tab title="Main Account">
+    The primary Twilio account where most numbers are typically managed.
+  </Tab>
+  <Tab title="Subaccounts">
+    Additional Twilio subaccounts that may contain specialized phone numbers.
+  </Tab>
+</Tabs>
+
+### How to Navigate Between Subaccounts
+
+<Steps>
+  <Step title="View Available Subaccounts">
+    Look for the tab interface at the top of the phone numbers page.
+  </Step>
+  <Step title="Select Subaccount">
+    Click on any tab to switch to that subaccount's phone numbers.
+  </Step>
+  <Step title="Wait for Loading">
+    The system will load numbers for the selected subaccount automatically.
+  </Step>
+</Steps>
+
+<Info>
+  Phone numbers are cached per subaccount to improve performance when switching between tabs.
+</Info>
+
+## Advanced Phone Number Filtering
+
+The interface provides several filtering options to help you manage large numbers of phone numbers:
+
+### Filter Options
+
+| Filter | Description | Use Case |
+|--------|-------------|----------|
+| **Todos** | Shows all phone numbers regardless of status | Complete overview |
+| **Asignados** | Shows only numbers assigned to agents | Review active assignments |
+| **No asignados** | Shows only unassigned numbers | Find available numbers |
+| **Descartados** | Shows numbers marked as discarded/returned | Cleanup and management |
+
+### Visual Status Indicators
+
+Each phone number displays color-coded status indicators:
+
+- 🟢 **Green**: Fully assigned and active
+- 🟡 **Yellow**: Partially assigned or pending
+- ⚪ **White/Gray**: Unassigned and available
+- 🔴 **Red**: Discarded or returned
+
+## Direct Agent Assignment
+
+You can directly assign phone numbers to agents from the phone numbers interface:
+
+<Steps>
+  <Step title="Locate Number">
+    Find an unassigned number in the list.
+  </Step>
+  <Step title="Click Assign">
+    Click the "Assign" button next to the phone number.
+  </Step>
+  <Step title="Select Agent">
+    Choose an agent from the dropdown list.
+  </Step>
+  <Step title="Confirm Assignment">
+    Click confirm to complete the assignment.
+  </Step>
+</Steps>
+
+<Warning>
+  Once assigned directly, the number will become unavailable for other agents until reassigned or disconnected.
+</Warning>
 
 ## Assign a Number When Creating an Agent
 
@@ -125,9 +204,9 @@ Meetzy supports phone numbers in multiple countries:
 | Colombia | +57 | Available |
 | United Kingdom | +44 | Available |
 
-<Tip>
+<Info>
   Use local numbers from your customers' country to increase answer rates. Customers are more likely to answer calls from local numbers.
-</Tip>
+</Info>
 
 ## Best Practices
 
@@ -156,6 +235,13 @@ Use descriptive names like:
 - "Support Line"
 - "Campaign Q1"
 
+### Subaccount Organization
+
+- Use the main account for primary business numbers
+- Organize specialized campaigns in separate subaccounts
+- Apply consistent naming conventions across subaccounts
+- Regularly review and clean up unused numbers
+
 ## FAQ
 
 <AccordionGroup>
@@ -170,6 +256,12 @@ Use descriptive names like:
   </Accordion>
   <Accordion title="Can I have numbers from different countries on one agent?">
     Yes, you can assign numbers from multiple countries to the same agent.
+  </Accordion>
+  <Accordion title="Do subaccounts share phone numbers?">
+    No, each subaccount maintains its own pool of phone numbers that cannot be shared with other subaccounts.
+  </Accordion>
+  <Accordion title="How do I move a number between subaccounts?">
+    Numbers cannot be moved between subaccounts. You would need to release the number and request a new one in the target subaccount.
   </Accordion>
 </AccordionGroup>
 

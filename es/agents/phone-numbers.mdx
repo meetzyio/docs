@@ -1,6 +1,7 @@
 ---
 title: 'Configurar Números de Teléfono'
 description: 'Aprende a asignar, gestionar e intercambiar números de teléfono en tus agentes de Meetzy'
+icon: 'phone'
 ---
 
 ## Números de Teléfono en Meetzy
@@ -11,17 +12,51 @@ Cada agente de Meetzy necesita al menos un número de teléfono para:
 - **Realizar llamadas salientes**
 - **Identificarse** (caller ID)
 
-<Note>
+<Info>
   Los números de teléfono son recursos exclusivos. Cada número solo puede estar asignado a un agente a la vez.
-</Note>
+</Info>
+
+## Gestión de Subcuentas de Twilio
+
+Meetzy soporta el uso de **subcuentas de Twilio** para organizar mejor tus números y facturación. Esto te permite:
+
+- **Segregar números** por proyectos, equipos o campañas
+- **Separar facturación** entre diferentes líneas de negocio
+- **Aislar configuraciones** para mayor control y seguridad
+
+<Steps>
+  <Step title="Visualizar Subcuentas">
+    En la sección de Phone Numbers, verás pestañas para cada subcuenta disponible:
+    - **Cuenta Principal (Meetzy)**: Tu cuenta principal
+    - **Subcuentas**: Organizadas por nombre de empresa
+  </Step>
+  <Step title="Cambiar entre Subcuentas">
+    Haz clic en cualquier pestaña para ver los números de esa subcuenta específica.
+  </Step>
+  <Step title="Gestionar por Subcuenta">
+    Cada subcuenta mantiene su propia lista de números, configuraciones y asignaciones.
+  </Step>
+</Steps>
+
+<Warning>
+  Los números de diferentes subcuentas no pueden mezclarse en un mismo agente. Cada agente debe usar números exclusivamente de una subcuenta.
+</Warning>
 
 ## Asignar un Número al Crear un Agente
 
 Al crear un nuevo agente en el Editor Avanzado:
 
-1. Ve a la sección **Settings** (icono de Engranaje)
-2. Encuentra el campo **Phone Number**
-3. Selecciona un número disponible del dropdown
+<Steps>
+  <Step title="Acceder a Settings">
+    Ve a la sección **Settings** (icono de Engranaje) en el editor.
+  </Step>
+  <Step title="Seleccionar Número">
+    En el campo **Phone Number**, selecciona un número disponible del dropdown.
+  </Step>
+  <Step title="Confirmar Asignación">
+    El número quedará asignado exclusivamente a este agente.
+  </Step>
+</Steps>
 
 ### Si No Hay Números Disponibles
 
@@ -32,9 +67,10 @@ No available phone numbers for the selected account.
 All numbers are assigned or configured.
 ```
 
-**Opciones:**
-- Libera un número de otro agente
-- Solicita nuevos números mediante el enlace "Request more numbers"
+**Opciones disponibles:**
+- **Liberar un número** de otro agente
+- **Solicitar nuevos números** mediante el enlace "Request more numbers"
+- **Cambiar de subcuenta** si tienes acceso a otras con números disponibles
 
 ## Ver Números Asignados
 
@@ -49,6 +85,28 @@ Phone number assigned to this agent
   El número de teléfono no puede cambiarse directamente una vez asignado. Para cambiarlo, usa la función de Swap desde Phone Health.
 </Warning>
 
+## Estados de Asignación
+
+Los números pueden tener diferentes estados de asignación:
+
+<Tabs>
+  <Tab title="Assigned">
+    **Completamente asignado** a un agente específico.
+    - ✅ Disponible para llamadas entrantes y salientes
+    - ✅ Identificación clara del agente propietario
+  </Tab>
+  <Tab title="Partial">
+    **Parcialmente configurado** - tiene webhook pero sin agente específico.
+    - ⚠️ Funcional pero requiere atención
+    - 🔧 Puede necesitar asignación completa
+  </Tab>
+  <Tab title="Unassigned">
+    **Sin asignar** - disponible para uso.
+    - 💡 Listo para ser asignado a cualquier agente
+    - 📞 No recibe ni realiza llamadas hasta ser asignado
+  </Tab>
+</Tabs>
+
 ## Múltiples Números por Agente
 
 Un agente puede tener varios números asignados. Esto es útil para:
@@ -56,6 +114,7 @@ Un agente puede tener varios números asignados. Esto es útil para:
 - **Distribución de volumen**: Reducir riesgo de spam
 - **Segmentación regional**: Diferentes números para diferentes áreas
 - **Redundancia**: Respaldo si un número tiene problemas
+- **Campañas específicas**: Números dedicados por campaña
 
 ### Cómo se Usan Múltiples Números
 
@@ -71,16 +130,16 @@ El número con mejor **Phone Health** tiene prioridad para llamadas salientes.
 Puedes intercambiar un número problemático por uno nuevo desde el reporte de Phone Health:
 
 <Steps>
-  <Step title="Abre Phone Health">
+  <Step title="Abrir Phone Health">
     Haz clic en el indicador de salud del agente.
   </Step>
-  <Step title="Identifica el número">
+  <Step title="Identificar el número">
     Busca el número con estado Warning o Spam.
   </Step>
-  <Step title="Inicia el Swap">
-    Haz clic en el botón **Swap** junto al número.
+  <Step title="Iniciar el Swap">
+    Haz clic en el botón **Swap** junto al número problemático.
   </Step>
-  <Step title="Confirma">
+  <Step title="Confirmar intercambio">
     El sistema muestra el nuevo número propuesto. Confirma el intercambio.
   </Step>
 </Steps>
@@ -89,45 +148,149 @@ Puedes intercambiar un número problemático por uno nuevo desde el reporte de P
 
 1. **Número antiguo** se desvincula y marca como "DEVOLVER"
 2. **Número nuevo** se asigna y está activo inmediatamente
+3. **Configuraciones** se transfieren al nuevo número
+4. **Historial** se mantiene asociado al agente
 
-## Desconectar un Número
+## Gestión Avanzada de Números
+
+### Asignar Números Manualmente
+
+Desde la vista de Phone Numbers puedes:
+
+<Steps>
+  <Step title="Seleccionar número no asignado">
+    Identifica números con estado "Unassigned".
+  </Step>
+  <Step title="Hacer clic en Assign">
+    Usa el botón de asignación junto al número.
+  </Step>
+  <Step title="Seleccionar agente">
+    Elige el agente de destino del dropdown.
+  </Step>
+  <Step title="Confirmar asignación">
+    El número queda inmediatamente disponible para el agente.
+  </Step>
+</Steps>
+
+### Desconectar un Número
 
 Para eliminar un número sin reemplazarlo:
 
-1. Abre el reporte de **Phone Health**
-2. Haz clic en **Disconnect** junto al número
-3. Confirma la desconexión
+<Steps>
+  <Step title="Abrir Phone Health">
+    Ve al reporte de Phone Health del agente.
+  </Step>
+  <Step title="Localizar número">
+    Encuentra el número que deseas desconectar.
+  </Step>
+  <Step title="Hacer clic en Disconnect">
+    Usa el botón **Disconnect** junto al número.
+  </Step>
+  <Step title="Confirmar desconexión">
+    Confirma la acción en el modal que aparece.
+  </Step>
+</Steps>
 
 <Warning>
   Si desconectas el único número del agente, este no podrá hacer ni recibir llamadas hasta que asignes otro.
 </Warning>
 
+### Devolver Números al Pool
+
+Los números marcados como "discarded" o problemáticos pueden devolverse:
+
+1. En la vista de Phone Numbers, filtra por números descartados
+2. Selecciona **Return to Pool** para números específicos
+3. El número queda disponible para reasignación
+
+## Filtrado y Búsqueda
+
+La interfaz de Phone Numbers incluye herramientas avanzadas:
+
+### Filtros por Estado
+- **All**: Todos los números
+- **Assigned**: Solo números asignados
+- **Unassigned**: Solo números disponibles
+- **Discarded**: Números marcados para devolución
+
+### Búsqueda Inteligente
+Busca por:
+- **Número de teléfono**: Parcial o completo
+- **Nombre amigable**: Descripción del número
+- **Agente asignado**: Nombre del agente
+
+### Ordenamiento
+Ordena la lista por:
+- Número de teléfono
+- Nombre amigable
+- Estado de asignación
+- Agente asignado
+
 ## Solicitar Nuevos Números
 
 Para solicitar números adicionales:
 
-1. En el Editor Avanzado, sección Settings
-2. Haz clic en **"Request more numbers"**
-3. Serás redirigido al portal de solicitud
+<Steps>
+  <Step title="Acceder al formulario">
+    En el Editor Avanzado, sección Settings, haz clic en **"Request more numbers"**.
+  </Step>
+  <Step title="Especificar requisitos">
+    Indica cuántos números necesitas y para qué subcuenta.
+  </Step>
+  <Step title="Enviar solicitud">
+    Serás redirigido al portal de solicitud para completar el proceso.
+  </Step>
+  <Step title="Esperar aprovisionamiento">
+    Los números nuevos suelen estar disponibles en 24-48 horas.
+  </Step>
+</Steps>
 
-Los números nuevos suelen estar disponibles en 24-48 horas.
+## Webhooks y Configuración Técnica
+
+Cada número puede tener configuración avanzada:
+
+### Webhooks
+- **URL del webhook**: Endpoint para recibir eventos de llamada
+- **Método**: GET o POST (recomendado POST)
+- **Status Callback**: URL para recibir actualizaciones de estado
+
+### Configuración desde Phone Numbers
+
+<Steps>
+  <Step title="Encontrar el número">
+    En la lista de Phone Numbers, localiza el número a configurar.
+  </Step>
+  <Step title="Abrir configuración">
+    Haz clic en el icono de configuración (engranaje) junto al número.
+  </Step>
+  <Step title="Editar webhook">
+    Modifica la URL del webhook, método y callbacks según necesites.
+  </Step>
+  <Step title="Guardar cambios">
+    Confirma la configuración. Los cambios son inmediatos.
+  </Step>
+</Steps>
+
+<Info>
+  Los webhooks se configuran automáticamente cuando asignas un número a un agente. La configuración manual es solo para casos avanzados.
+</Info>
 
 ## Prefijos de País Soportados
 
 Meetzy soporta números de teléfono en múltiples países:
 
-| País | Prefijo | Disponibilidad |
-|------|---------|----------------|
-| Estados Unidos | +1 | Disponible |
-| España | +34 | Disponible |
-| México | +52 | Disponible |
-| Argentina | +54 | Disponible |
-| Colombia | +57 | Disponible |
-| Reino Unido | +44 | Disponible |
+| País | Prefijo | Disponibilidad | Notas |
+|------|---------|----------------|-------|
+| Estados Unidos | +1 | ✅ Disponible | Mayor disponibilidad |
+| España | +34 | ✅ Disponible | Números locales y móviles |
+| México | +52 | ✅ Disponible | Cobertura nacional |
+| Argentina | +54 | ✅ Disponible | Buenos Aires y principales ciudades |
+| Colombia | +57 | ✅ Disponible | Bogotá y otras ciudades |
+| Reino Unido | +44 | ✅ Disponible | Londres y números nacionales |
 
-<Tip>
+<Info>
   Usa números locales del país de tus clientes para aumentar la tasa de respuesta. Los clientes son más propensos a contestar llamadas de números locales.
-</Tip>
+</Info>
 
 ## Mejores Prácticas
 
@@ -135,41 +298,100 @@ Meetzy soporta números de teléfono en múltiples países:
 
 Para campañas de alto volumen:
 
-1. Asigna múltiples números al agente
-2. El sistema rota automáticamente
-3. Monitorea Phone Health regularmente
-4. Intercambia números antes de que lleguen a "Spam"
+<Steps>
+  <Step title="Asignar múltiples números">
+    Asigna varios números al mismo agente para distribuir el volumen.
+  </Step>
+  <Step title="Monitorear salud">
+    Revisa Phone Health regularmente para detectar problemas temprano.
+  </Step>
+  <Step title="Rotar proactivamente">
+    Intercambia números antes de que lleguen a estado "Spam".
+  </Step>
+  <Step title="Mantener reserva">
+    Ten números adicionales disponibles para intercambios rápidos.
+  </Step>
+</Steps>
+
+### Organización por Subcuentas
+
+Organiza tus números eficientemente:
+
+- **Por proyecto**: Una subcuenta por proyecto o campaña
+- **Por equipo**: Separa ventas, soporte, marketing
+- **Por región**: Subcuentas por país o región geográfica
+- **Por cliente**: Si manejas números para múltiples clientes
 
 ### Identificación del Número
 
 Cada número tiene un **Friendly Name** para identificarlo:
 
 ```
-+34 612 345 678 (Equipo de Ventas)
-       │              │
-       │              └── Friendly Name
-       └── Número
++34 612 345 678 (Equipo de Ventas España)
+       │                    │
+       │                    └── Friendly Name descriptivo
+       └── Número de teléfono
 ```
 
-Usa nombres descriptivos como:
-- "Equipo de Ventas"
-- "Línea de Soporte"
-- "Campaña Q1"
+**Usa nombres descriptivos como:**
+- "Equipo de Ventas España"
+- "Soporte Técnico 24/7"
+- "Campaña Black Friday 2024"
+- "Región Norte - México"
+
+## Troubleshooting
+
+### Números No Aparecen
+
+Si no ves números esperados:
+
+1. **Verifica la subcuenta** - Asegúrate de estar en la pestaña correcta
+2. **Actualiza la vista** - Recarga la página o cambia de pestaña
+3. **Revisa permisos** - Confirma acceso a la subcuenta específica
+4. **Contacta soporte** si el problema persiste
+
+### Errores de Asignación
+
+Si falla la asignación:
+
+- **Número ya asignado**: Otro agente puede estar usando el número
+- **Subcuenta incorrecta**: Verifica que el agente y número estén en la misma subcuenta
+- **Permisos insuficientes**: Confirma permisos de administración
+
+### Problemas de Webhook
+
+Para problemas de configuración:
+
+1. **Verifica la URL**: Debe ser accesible públicamente
+2. **Confirma el método**: POST es recomendado
+3. **Revisa los logs**: Busca errores en los callbacks
+4. **Prueba la conectividad**: Usa herramientas como curl o Postman
 
 ## Preguntas Frecuentes
 
 <AccordionGroup>
   <Accordion title="¿Puedo usar mi propio número de teléfono?">
-    Actualmente, Meetzy solo soporta números proporcionados a través de la plataforma. La portabilidad de números está en desarrollo.
+    Actualmente, Meetzy solo soporta números proporcionados a través de la plataforma. La portabilidad de números está en desarrollo para futuras versiones.
   </Accordion>
+  
   <Accordion title="¿Qué pasa si se agotan mis números?">
-    Las llamadas salientes fallarán y las entrantes irán a un buzón de error. Solicita más números antes de que esto ocurra.
+    Las llamadas salientes fallarán y las entrantes irán a un buzón de error. Solicita más números antes de que esto ocurra o usa la función de intercambio para redistribuir números existentes.
   </Accordion>
+  
   <Accordion title="¿Los números son exclusivos o compartidos?">
-    Cada número es exclusivo para tu cuenta. No se comparte entre diferentes clientes de Meetzy.
+    Cada número es exclusivo para tu cuenta y subcuenta específica. No se comparte entre diferentes clientes de Meetzy ni entre subcuentas.
   </Accordion>
+  
   <Accordion title="¿Puedo tener números de diferentes países en un agente?">
-    Sí, puedes asignar números de múltiples países al mismo agente.
+    Sí, puedes asignar números de múltiples países al mismo agente, siempre que estén en la misma subcuenta.
+  </Accordion>
+  
+  <Accordion title="¿Cómo funcionan las subcuentas con la facturación?">
+    Cada subcuenta de Twilio factura por separado. Esto te permite segregar costos por proyecto, departamento o cliente.
+  </Accordion>
+  
+  <Accordion title="¿Puedo mover números entre subcuentas?">
+    Los números están vinculados a subcuentas específicas de Twilio y no pueden moverse directamente. Contacta soporte para casos especiales.
   </Accordion>
 </AccordionGroup>
 
@@ -177,9 +399,15 @@ Usa nombres descriptivos como:
 
 <CardGroup cols={2}>
   <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
-    Monitorea la salud y reputación de tus números.
+    Monitorea la salud y reputación de tus números de teléfono.
   </Card>
   <Card title="Hacer Llamadas de Prueba" icon="phone-arrow-up-right" href="/es/agents/manage-agents#hacer-llamadas-de-prueba">
     Aprende a probar tu agente con llamadas reales.
+  </Card>
+  <Card title="Configuración Avanzada" icon="gear" href="/es/agents/advanced-settings">
+    Explora opciones avanzadas de configuración para agentes.
+  </Card>
+  <Card title="Gestión de Subcuentas" icon="building" href="/es/dashboard/subaccounts">
+    Administra y organiza tus subcuentas de Twilio.
   </Card>
 </CardGroup>
