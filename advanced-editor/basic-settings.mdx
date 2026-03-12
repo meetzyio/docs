@@ -1,57 +1,123 @@
 ---
 title: 'Basic Settings'
-description: 'Configure agent name, language, voice, and AI model'
+description: 'Configure agent name, language, voice, AI model, and foundational components'
 icon: 'gear'
 ---
 
 ## Overview
 
-Basic Settings is the first section in the Advanced Editor where you configure the fundamental properties of your AI agent. These settings define how your agent sounds, which language it speaks, and which AI model powers its intelligence.
+Basic Settings is the first section in the Advanced Editor where you configure the fundamental properties of your AI agent. These settings define how your agent sounds, which language it speaks, which AI model powers its intelligence, and the foundational components that shape its behavior.
 
-## Configuration Options
+## Agent Identification
 
 ### Agent Name
 
 Give your agent a descriptive name that helps you identify it in your dashboard.
 
-<Tip>
+<Info>
 Use clear naming conventions like "Customer Support - English" or "Sales Outbound - Spanish" to easily manage multiple agents.
-</Tip>
+</Info>
 
-### Language
+### Company Selection (Admin Only)
 
-Select the primary language your agent will speak and understand. The language setting affects:
+Administrators can assign agents to specific companies in the system.
 
-- Voice synthesis pronunciation
-- Speech recognition accuracy
-- Greeting templates availability
+<Warning>
+Company assignment affects which resources and phone numbers are available to the agent.
+</Warning>
+
+## Phone Configuration
+
+### Phone Numbers
+
+<Tabs>
+  <Tab title="New Agents">
+    When creating a new agent, select from available phone numbers in your Twilio account:
+
+    <Steps>
+      <Step title="Select Twilio Account">
+        Administrators can choose which Twilio account to use for the agent
+      </Step>
+      <Step title="Choose Phone Number">
+        Pick an available phone number from the dropdown
+      </Step>
+      <Step title="Request More Numbers">
+        Use the "Request more numbers" link if you need additional phone numbers
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Existing Agents">
+    Phone numbers for existing agents are read-only and cannot be changed after creation.
+  </Tab>
+</Tabs>
+
+### Caller IDs (Client Numbers)
+
+Configure client phone numbers for outbound calls:
+
+<Steps>
+  <Step title="Add Caller ID">
+    Add client phone numbers that the agent can use when making outbound calls
+  </Step>
+  <Step title="Verification">
+    Twilio will send a verification code to validate the phone number
+  </Step>
+  <Step title="Status Management">
+    Monitor verification status and manage caller ID entries
+  </Step>
+</Steps>
+
+<Info>
+Caller IDs must be verified with Twilio before they can be used for outbound calls.
+</Info>
+
+## Language and Voice Configuration
+
+### Language Selection
+
+Choose the primary language your agent will speak and understand:
 
 **Supported Languages:**
 - 🇺🇸 English
-- 🇪🇸 Spanish
+- 🇪🇸 Spanish  
 - 🇫🇷 French
 - 🇩🇪 German
 - 🇮🇹 Italian
 - 🇵🇹 Portuguese
-- And more...
+- 🇨🇳 Chinese
+- 🇮🇳 Hindi
+- And 20+ more languages
+
+The language setting affects:
+- Voice synthesis pronunciation
+- Speech recognition accuracy
+- Greeting templates availability
 
 ### Voice Selection
 
-Choose the voice that represents your agent. You can:
+Configure your agent's voice characteristics:
 
-1. **Select from Voice Library** - Browse pre-configured voices
-2. **Preview voices** - Listen to samples before selecting
-3. **Use custom voices** - Select voices you've created in Voice Designer
+<Tabs>
+  <Tab title="Voice Library">
+    Browse and select from pre-configured voices in the library
+  </Tab>
+  <Tab title="Voice Agents">
+    Choose from specialized voice agents with unique personalities and speaking styles
+  </Tab>
+  <Tab title="Voice Tuning">
+    Fine-tune voice parameters:
+    
+    | Parameter | Range | Description |
+    |-----------|-------|-------------|
+    | Speed | 0.70x - 1.20x | Controls speaking pace |
+    | Stability | 0.0 - 1.0 | Voice consistency |
+    | Similarity Boost | 0.0 - 1.0 | Voice naturalness |
+  </Tab>
+</Tabs>
 
-<Info>
-Voice characteristics like speed, naturalness, and consistency can be fine-tuned in the Voice Library before assigning to your agent.
-</Info>
+## AI Model Selection
 
-### AI Model (LLM)
-
-Select the Large Language Model that powers your agent's intelligence. Different models offer varying trade-offs between speed, cost, and capability.
-
-#### Available Models
+Select the Large Language Model that powers your agent's intelligence:
 
 <Tabs>
   <Tab title="Anthropic">
@@ -70,70 +136,186 @@ Select the Large Language Model that powers your agent's intelligence. Different
   <Tab title="Google">
     | Model | Best For |
     |-------|----------|
-    | Gemini 3 Flash Preview | Latest Google model |
+    | Gemini 3 Flash Preview | Latest Google model (Default) |
     | Gemini 2.5 Flash | High performance |
     | Gemini 2.5 Flash Lite | Balanced option |
     | Gemini 2.0 Flash | Fast responses |
-    | Gemini 2.0 Flash Lite | Cost-effective |
     | Gemini 1.5 Pro | Complex reasoning |
-    | Gemini 1.5 Flash | Quick processing |
   </Tab>
 </Tabs>
 
-#### Model Selection Guide
+### Model Selection Guide
 
-<AccordionGroup>
-  <Accordion title="Prioritize Speed" icon="bolt">
-    Choose lightweight models like **GPT-4.1 Nano**, **Gemini 2.0 Flash Lite**, or **Claude Haiku 4.5** for faster response times.
-  </Accordion>
-  <Accordion title="Prioritize Intelligence" icon="brain">
-    For complex conversations requiring nuanced understanding, use **GPT-4.1**, **Gemini 1.5 Pro**, or **Gemini 2.5 Flash**.
-  </Accordion>
-  <Accordion title="Balance Cost & Quality" icon="scale-balanced">
-    Models like **GPT-4.1 Mini** and **Gemini 2.5 Flash Lite** offer a good balance between capability and cost.
-  </Accordion>
-</AccordionGroup>
+<Info>
+**Speed Priority**: Choose lightweight models like GPT-4.1 Nano or Gemini 2.0 Flash Lite for faster response times.
+</Info>
+
+<Info>
+**Intelligence Priority**: For complex conversations, use GPT-4.1, Gemini 1.5 Pro, or Gemini 2.5 Flash.
+</Info>
+
+<Info>
+**Cost Balance**: Models like GPT-4.1 Mini and Gemini 2.5 Flash Lite offer good capability-to-cost ratio.
+</Info>
+
+## Meetzy's Foundational Components
+
+Meetzy provides built-in foundational components that enhance your agent's capabilities with pre-tested, optimized prompts and behaviors.
+
+### Safety Guardrails
+
+<Tabs>
+  <Tab title="What They Do">
+    **Foundational Safety Guardrails** ensure your agent maintains appropriate boundaries and professional behavior:
+    
+    - Prevents inappropriate content generation
+    - Maintains professional conversation tone
+    - Handles edge cases and unexpected inputs gracefully
+    - Protects against prompt injection attacks
+    - Ensures compliance with conversational best practices
+  </Tab>
+  <Tab title="Configuration">
+    **Use Foundational Guardrails**: Enabled by default
+    
+    <Steps>
+      <Step title="Enable Protection">
+        Toggle on to activate Meetzy's pre-built safety measures
+      </Step>
+      <Step title="Automatic Integration">
+        Guardrails are seamlessly integrated into your agent's behavior
+      </Step>
+      <Step title="No Additional Setup">
+        Works immediately without requiring custom prompt engineering
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+### Conversational Aspects
+
+<Tabs>
+  <Tab title="What They Include">
+    **Foundational Conversational Aspects** provide your agent with proven conversational patterns:
+    
+    - Natural conversation flow and pacing
+    - Active listening techniques
+    - Appropriate response timing
+    - Empathetic communication styles
+    - Professional phone call etiquette
+    - Smooth conversation transitions
+  </Tab>
+  <Tab title="Benefits">
+    <Info>
+    **Improved User Experience**: Agents sound more natural and professional from day one.
+    </Info>
+    
+    <Info>
+    **Reduced Training Time**: Skip months of conversation optimization with battle-tested patterns.
+    </Info>
+    
+    <Info>
+    **Consistent Quality**: Every agent benefits from Meetzy's conversational expertise.
+    </Info>
+  </Tab>
+</Tabs>
+
+### Agent Work Experience
+
+<Tabs>
+  <Tab title="Professional Background">
+    **Foundational Agent Work Experience** gives your agent a realistic professional background:
+    
+    - Industry-appropriate work history
+    - Professional communication skills
+    - Understanding of business contexts
+    - Experience with customer interactions
+    - Knowledge of professional protocols
+  </Tab>
+  <Tab title="Use Cases">
+    Perfect for agents that need to sound experienced and credible:
+    
+    - Sales representatives
+    - Customer service agents
+    - Appointment schedulers
+    - Lead qualification specialists
+    - Client relationship managers
+  </Tab>
+</Tabs>
+
+### Configuration Options
+
+<Warning>
+**Recommendation**: Keep all foundational components enabled unless you have specific custom requirements that conflict with them.
+</Warning>
+
+Each foundational component can be toggled independently:
+
+| Component | Default | Purpose |
+|-----------|---------|---------|
+| Safety Guardrails | ✅ Enabled | Ensures safe, appropriate responses |
+| Conversational Aspects | ✅ Enabled | Provides natural conversation flow |
+| Agent Work Experience | ✅ Enabled | Gives professional background context |
+
+## Additional Settings
+
+### Call Recording
+
+**Recording**: Enabled by default to capture calls for quality assurance and training purposes.
+
+### Agent Description
+
+Add an optional description to help identify the agent's purpose and use case (max 1000 characters).
 
 ## Best Practices
 
-<Warning>
-Changing the AI model may affect your agent's behavior. Always test in the Playground after switching models.
-</Warning>
-
-1. **Test Multiple Models** - Different models may perform better for specific use cases
-2. **Consider Latency** - Faster models provide better user experience in phone calls
-3. **Monitor Costs** - More capable models typically cost more per call
-4. **Match Language** - Ensure voice and language settings are compatible
+<Steps>
+  <Step title="Test Multiple Models">
+    Different AI models may perform better for specific use cases - test in the Playground
+  </Step>
+  <Step title="Consider Latency">
+    Faster models provide better user experience in phone calls
+  </Step>
+  <Step title="Monitor Costs">
+    More capable models typically cost more per call
+  </Step>
+  <Step title="Use Foundational Components">
+    Keep Meetzy's foundational components enabled for better performance
+  </Step>
+  <Step title="Optimize Voice Settings">
+    Fine-tune speed, stability, and similarity based on your use case
+  </Step>
+</Steps>
 
 ## Voice Settings Parameters
 
-When you select a voice, these parameters can be adjusted:
+When fine-tuning your agent's voice, consider these parameter effects:
 
-| Parameter | Range | Description |
-|-----------|-------|-------------|
-| Speed | 0.70x - 1.20x | Controls how fast the agent speaks |
-| Naturalness | 0.0 - 1.0 | Lower = more natural sounding |
-| Consistency | 0.0 - 1.0 | Higher values may cause artifacts |
+| Parameter | Recommended Range | Impact |
+|-----------|------------------|---------|
+| Speed | 1.0x - 1.1x | Natural speaking pace for phone calls |
+| Stability | 0.1 - 0.3 | Higher stability for consistent voice |
+| Similarity Boost | 0.6 - 0.8 | Balances naturalness and clarity |
 
-<Tip>
-Start with default values and adjust based on testing. A speed of 1.0x and naturalness of 0.3 works well for most use cases.
-</Tip>
+<Info>
+**Default Recommendation**: Speed: 1.06x, Stability: 0.15, Similarity Boost: 0.65
+</Info>
+
+## Troubleshooting
+
+<Warning>
+**Model Changes**: Changing the AI model may affect your agent's behavior. Always test in the Playground after switching models.
+</Warning>
+
+<Warning>
+**Phone Number Assignment**: Phone numbers cannot be changed after agent creation. Plan your phone number allocation carefully.
+</Warning>
+
+<Warning>
+**Voice Compatibility**: Ensure selected voice supports your chosen language for optimal performance.
+</Warning>
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card
-    title="Greetings"
-    icon="hand-wave"
-    href="/advanced-editor/greetings"
-  >
-    Set up welcome messages
-  </Card>
-  <Card
-    title="System Prompt"
-    icon="file-lines"
-    href="/getting-started/create-agent#system-prompt"
-  >
-    Define agent personality
-  </Card>
-</CardGroup>
+<Info>
+After configuring basic settings, proceed to set up your agent's greetings and system prompt to define its personality and behavior.
+</Info>

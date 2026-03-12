@@ -1,123 +1,200 @@
 ---
 title: 'Configuración Básica'
-description: 'Configura nombre del agente, idioma, voz y modelo de IA'
+description: 'Configura componentes fundamentales como voz, agente especializado y modelo de IA'
 icon: 'gear'
 ---
 
 ## Resumen
 
-Configuración Básica es la primera sección en el Editor Avanzado donde configuras las propiedades fundamentales de tu agente de IA. Estos ajustes definen cómo suena tu agente, qué idioma habla y qué modelo de IA impulsa su inteligencia.
+La Configuración Básica establece los **Componentes Fundacionales** de tu agente conversacional de IA. Estos elementos trabajan en conjunto para crear una experiencia de llamada coherente y efectiva, definiendo no solo cómo suena tu agente, sino también su especialización y capacidades conversacionales.
+
+## Componentes Fundacionales
+
+Los Componentes Fundacionales de Meetzy proporcionan la base para agentes conversacionales profesionales y consistentes:
+
+<Info>
+Los Componentes Fundacionales están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento.
+</Info>
+
+### 🛡️ Guardrails Fundacionales
+Proporcionan límites de comportamiento esenciales que mantienen las conversaciones profesionales y enfocadas.
+
+### 🎭 Aspectos Conversacionales
+Definen habilidades conversacionales core como manejo de interrupciones, gestión de silencios y transiciones naturales.
+
+### 💼 Background Laboral de Agentes
+Otorga a tu agente conocimiento profesional sobre el rol de agente telefónico, mejorando la naturalidad de las conversaciones.
+
+<Warning>
+Deshabilitar los Componentes Fundacionales puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado.
+</Warning>
 
 ## Opciones de Configuración
 
-### Nombre del Agente
+### Nombre Interno del Agente
 
-Dale a tu agente un nombre descriptivo que te ayude a identificarlo en tu panel.
+Dale a tu agente un nombre descriptivo que te ayude a identificarlo en tu panel administrativo.
 
 <Tip>
-Usa convenciones de nombres claras como "Soporte Cliente - Español" o "Ventas Outbound - Inglés" para gestionar fácilmente múltiples agentes.
+Usa convenciones de nombres claras como "Soporte Cliente - Español" o "Ventas Outbound - Inmobiliaria" para gestionar fácilmente múltiples agentes.
 </Tip>
 
-### Idioma
+### Número de Teléfono
 
-Selecciona el idioma principal que tu agente hablará y entenderá. El ajuste de idioma afecta:
+<Tabs>
+  <Tab title="Agentes Nuevos">
+    Selecciona un número disponible del menú desplegable. Solo se muestran números no asignados.
+    
+    <Steps>
+      <Step title="Seleccionar número">
+        Elige de la lista de números disponibles
+      </Step>
+      <Step title="Verificar disponibilidad">
+        Los números en uso no aparecerán en la lista
+      </Step>
+      <Step title="Solicitar más números">
+        Usa el enlace "Request more numbers" si necesitas números adicionales
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Agentes Existentes">
+    El número asignado se muestra como solo lectura y no puede cambiarse después de la creación.
+  </Tab>
+</Tabs>
 
-- Pronunciación de síntesis de voz
-- Precisión del reconocimiento de voz
-- Disponibilidad de plantillas de saludo
+### Agente de Voz
 
-**Idiomas Soportados:**
-- 🇺🇸 Inglés
-- 🇪🇸 Español
-- 🇫🇷 Francés
-- 🇩🇪 Alemán
-- 🇮🇹 Italiano
-- 🇵🇹 Portugués
-- Y más...
+En lugar de configurar voces individuales, selecciona un **Agente de Voz** especializado que combina voz, personalidad y experiencia profesional específica.
 
-### Selección de Voz
+<Steps>
+  <Step title="Abrir selector">
+    Haz clic en "Seleccionar Agente de Voz"
+  </Step>
+  <Step title="Filtrar por especialidad">
+    Usa los filtros para encontrar agentes especializados en tu industria
+  </Step>
+  <Step title="Previsualizar voz">
+    Escucha muestras de audio antes de seleccionar
+  </Step>
+  <Step title="Confirmar selección">
+    El agente seleccionado aplicará automáticamente su configuración de voz
+  </Step>
+</Steps>
 
-Elige la voz que representa a tu agente. Puedes:
+#### Especialidades Disponibles
 
-1. **Seleccionar de la Biblioteca de Voces** - Explorar voces preconfiguradas
-2. **Previsualizar voces** - Escuchar muestras antes de seleccionar
-3. **Usar voces personalizadas** - Seleccionar voces creadas en Voice Designer
+- **Ventas**: Agentes optimizados para procesos de venta y prospección
+- **Soporte**: Especialistas en atención al cliente y resolución de problemas
+- **Inmobiliaria**: Expertos en transacciones y consultas inmobiliarias
+- **Salud**: Agentes capacitados para interacciones del sector salud
+- **Educación**: Especialistas en consultas educativas y académicas
+- **General**: Agentes versátiles para múltiples propósitos
 
 <Info>
-Características de voz como velocidad, naturalidad y consistencia pueden ajustarse en la Biblioteca de Voces antes de asignarlas a tu agente.
+Los Agentes de Voz incluyen no solo configuración de voz optimizada, sino también conocimiento específico del sector que mejora significativamente la calidad de las conversaciones.
 </Info>
 
 ### Modelo de IA (LLM)
 
-Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia de tu agente. Diferentes modelos ofrecen diferentes equilibrios entre velocidad, costo y capacidad.
-
-#### Modelos Disponibles
+Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacional de tu agente.
 
 <Tabs>
-  <Tab title="Anthropic">
-    | Modelo | Mejor Para |
-    |-------|----------|
-    | Claude Haiku 4.5 | Respuestas rápidas, rentable |
+  <Tab title="Google Gemini">
+    | Modelo | Mejor Para | Velocidad |
+    |--------|------------|-----------|
+    | **Gemini 3 Flash Preview** ⭐ | Último modelo, máximo rendimiento | Rápida |
+    | Gemini 2.5 Flash | Alto rendimiento, balance calidad-velocidad | Rápida |
+    | Gemini 2.5 Flash Lite | Opción equilibrada y económica | Muy rápida |
+    | Gemini 2.0 Flash | Respuestas rápidas, menor costo | Muy rápida |
+    | Gemini 1.5 Pro | Razonamiento complejo, máxima capacidad | Moderada |
+    | Gemini 1.5 Flash | Procesamiento rápido, confiable | Rápida |
   </Tab>
   <Tab title="OpenAI">
-    | Modelo | Mejor Para |
-    |-------|----------|
-    | GPT-4o | Alta inteligencia, velocidad equilibrada |
-    | GPT-4.1 | Últimas capacidades |
-    | GPT-4.1 Mini | Más rápido, rentable |
-    | GPT-4.1 Nano | Opción más rápida de OpenAI |
+    | Modelo | Mejor Para | Velocidad |
+    |--------|------------|-----------|
+    | GPT-4o | Balance entre inteligencia y velocidad | Rápida |
+    | GPT-4.1 | Últimas capacidades de OpenAI | Moderada |
+    | GPT-4.1 Mini | Más rápido y económico | Muy rápida |
+    | GPT-4.1 Nano | Opción más rápida disponible | Ultra rápida |
   </Tab>
-  <Tab title="Google">
-    | Modelo | Mejor Para |
-    |-------|----------|
-    | Gemini 3 Flash Preview | Último modelo de Google |
-    | Gemini 2.5 Flash | Alto rendimiento |
-    | Gemini 2.5 Flash Lite | Opción equilibrada |
-    | Gemini 2.0 Flash | Respuestas rápidas |
-    | Gemini 2.0 Flash Lite | Rentable |
-    | Gemini 1.5 Pro | Razonamiento complejo |
-    | Gemini 1.5 Flash | Procesamiento rápido |
+  <Tab title="Anthropic">
+    | Modelo | Mejor Para | Velocidad |
+    |--------|------------|-----------|
+    | Claude Haiku 4.5 | Respuestas rápidas, muy económico | Ultra rápida |
   </Tab>
 </Tabs>
 
-#### Guía de Selección de Modelo
+<Info>
+**Gemini 3 Flash Preview** es el modelo recomendado por defecto, ofreciendo el mejor balance entre capacidades avanzadas, velocidad de respuesta y costo-efectividad.
+</Info>
+
+## Guía de Selección
 
 <AccordionGroup>
-  <Accordion title="Priorizar Velocidad" icon="bolt">
-    Elige modelos ligeros como **GPT-4.1 Nano**, **Gemini 2.0 Flash Lite**, o **Claude Haiku 4.5** para tiempos de respuesta más rápidos.
+  <Accordion title="Maximizar Velocidad de Respuesta" icon="bolt">
+    - **GPT-4.1 Nano** (ultra rápido)
+    - **Claude Haiku 4.5** (muy económico y rápido)
+    - **Gemini 2.0 Flash Lite** (equilibrado y rápido)
+    
+    Ideal para conversaciones que requieren respuestas inmediatas.
   </Accordion>
-  <Accordion title="Priorizar Inteligencia" icon="brain">
-    Para conversaciones complejas que requieren comprensión matizada, usa **GPT-4.1**, **Gemini 1.5 Pro**, o **Gemini 2.5 Flash**.
+  
+  <Accordion title="Balance Inteligencia-Velocidad" icon="balance-scale">
+    - **Gemini 3 Flash Preview** ⭐ (recomendado)
+    - **GPT-4o** (confiable y versátil)
+    - **Gemini 2.5 Flash** (alto rendimiento)
+    
+    Mejor opción para la mayoría de casos de uso.
   </Accordion>
-  <Accordion title="Equilibrar Costo y Calidad" icon="scale-balanced">
-    Modelos como **GPT-4.1 Mini** y **Gemini 2.5 Flash Lite** ofrecen un buen equilibrio entre capacidad y costo.
+  
+  <Accordion title="Máxima Capacidad Intelectual" icon="brain">
+    - **Gemini 1.5 Pro** (razonamiento complejo)
+    - **GPT-4.1** (últimas capacidades)
+    
+    Para conversaciones que requieren análisis profundo y razonamiento avanzado.
+  </Accordion>
+  
+  <Accordion title="Optimizar Costos" icon="dollar-sign">
+    - **Claude Haiku 4.5** (más económico)
+    - **Gemini 2.0 Flash Lite** (balance costo-calidad)
+    - **GPT-4.1 Mini** (económico de OpenAI)
+    
+    Mantén la calidad mientras reduces costos operativos.
   </Accordion>
 </AccordionGroup>
 
+## Configuración de Grabación
+
+<Info>
+La grabación de llamadas está habilitada por defecto para cumplir con mejores prácticas de calidad y auditoría.
+</Info>
+
+Las grabaciones te permiten:
+- Monitorear calidad de conversaciones
+- Analizar el rendimiento del agente
+- Cumplir con requisitos regulatorios
+- Mejorar continuamente tu agente
+
 ## Mejores Prácticas
 
+<Steps>
+  <Step title="Comenzar con configuración recomendada">
+    Usa **Gemini 3 Flash Preview** y mantén los Componentes Fundacionales activados
+  </Step>
+  <Step title="Seleccionar agente de voz especializado">
+    Elige un Agente de Voz que coincida con tu industria o caso de uso
+  </Step>
+  <Step title="Probar en el Playground">
+    Siempre valida la configuración antes de usar en producción
+  </Step>
+  <Step title="Monitorear rendimiento">
+    Revisa métricas de velocidad de respuesta y calidad conversacional
+  </Step>
+</Steps>
+
 <Warning>
-Cambiar el modelo de IA puede afectar el comportamiento de tu agente. Siempre prueba en el Playground después de cambiar modelos.
+Cambiar el modelo de IA después de crear el agente puede afectar el comportamiento conversacional. Siempre realiza pruebas completas después de cualquier cambio.
 </Warning>
-
-1. **Prueba Múltiples Modelos** - Diferentes modelos pueden funcionar mejor para casos de uso específicos
-2. **Considera la Latencia** - Modelos más rápidos proporcionan mejor experiencia de usuario en llamadas telefónicas
-3. **Monitorea Costos** - Modelos más capaces típicamente cuestan más por llamada
-4. **Coincide Idioma** - Asegúrate de que los ajustes de voz e idioma sean compatibles
-
-## Parámetros de Configuración de Voz
-
-Cuando seleccionas una voz, estos parámetros pueden ajustarse:
-
-| Parámetro | Rango | Descripción |
-|-----------|-------|-------------|
-| Velocidad | 0.70x - 1.20x | Controla qué tan rápido habla el agente |
-| Naturalidad | 0.0 - 1.0 | Menor = sonido más natural |
-| Consistencia | 0.0 - 1.0 | Valores altos pueden causar artefactos |
-
-<Tip>
-Comienza con valores por defecto y ajusta basándote en pruebas. Una velocidad de 1.0x y naturalidad de 0.3 funciona bien para la mayoría de casos.
-</Tip>
 
 ## Siguientes Pasos
 
@@ -127,13 +204,27 @@ Comienza con valores por defecto y ajusta basándote en pruebas. Una velocidad d
     icon="hand-wave"
     href="/es/advanced-editor/greetings"
   >
-    Configura mensajes de bienvenida
+    Configura mensajes de bienvenida personalizados
   </Card>
   <Card
     title="Prompt del Sistema"
     icon="file-lines"
     href="/es/getting-started/create-agent#prompt-del-sistema"
   >
-    Define personalidad del agente
+    Define la personalidad y comportamiento del agente
+  </Card>
+  <Card
+    title="Acciones del Agente"
+    icon="tools"
+    href="/es/advanced-editor/agent-actions"
+  >
+    Configura transferencias, emails y SMS
+  </Card>
+  <Card
+    title="Playground"
+    icon="play"
+    href="/es/getting-started/test-agent"
+  >
+    Prueba tu agente configurado
   </Card>
 </CardGroup>
