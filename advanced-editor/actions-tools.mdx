@@ -211,27 +211,23 @@ Each webhook parameter supports:
 
 ### Advanced Webhook Settings
 
-<AccordionGroup>
-  <Accordion title="Response Timeout" icon="clock">
-    Configure how long to wait for the API response (default: 20 seconds).
-  </Accordion>
-  <Accordion title="Interruption Control" icon="pause">
-    - **Enabled**: Agent pauses while waiting for webhook response
-    - **Disabled**: Agent continues speaking while request processes
-  </Accordion>
-  <Accordion title="Pre-tool Speech" icon="volume-high">
-    Force the agent to speak before executing the webhook tool.
-  </Accordion>
-  <Accordion title="Tool Call Sound" icon="bell">
-    Choose sound effect during webhook execution:
-    - **Typing**: Typing sound effect
-    - **None**: No sound effect
-  </Accordion>
-  <Accordion title="Execution Mode" icon="play">
-    - **Immediate**: Execute during the call
-    - **Deferred**: Execute after the call ends
-  </Accordion>
-</AccordionGroup>
+Configure webhook behavior and execution:
+
+<Info>
+**Response Timeout**: Configure how long to wait for the API response (default: 20 seconds).
+
+**Interruption Control**: 
+- **Enabled**: Agent pauses while waiting for webhook response
+- **Disabled**: Agent continues speaking while request processes
+
+**Pre-tool Speech**: Force the agent to speak before executing the webhook tool.
+
+**Tool Call Sound**: Choose sound effect during webhook execution (typing sound or none).
+
+**Execution Mode**: 
+- **Immediate**: Execute during the call
+- **Deferred**: Execute after the call ends
+</Info>
 
 ### Example: CRM Integration
 
