@@ -1,12 +1,108 @@
 ---
 title: 'Configuración Básica'
-description: 'Configura componentes fundamentales como voz, agente especializado y modelo de IA'
+description: 'Gestiona cuentas Twilio, números de teléfono, caller IDs y configura componentes fundamentales como voz, agente especializado y modelo de IA'
 icon: 'gear'
 ---
 
 ## Resumen
 
-La Configuración Básica establece los **Componentes Fundacionales** de tu agente conversacional de IA. Estos elementos trabajan en conjunto para crear una experiencia de llamada coherente y efectiva, definiendo no solo cómo suena tu agente, sino también su especialización y capacidades conversacionales.
+La Configuración Básica establece los **Componentes Fundacionales** de tu agente conversacional de IA, incluyendo la configuración de infraestructura telefónica con cuentas Twilio, gestión de números de teléfono y caller IDs, así como la personalización de voz, especialización y capacidades conversacionales.
+
+## Gestión de Infraestructura Telefónica
+
+### Cuentas Twilio
+
+<Info>
+**Solo usuarios administradores**: La selección de cuentas Twilio está disponible únicamente para usuarios con permisos administrativos.
+</Info>
+
+Los administradores pueden seleccionar diferentes cuentas Twilio para organizar y distribuir recursos telefónicos:
+
+<Steps>
+  <Step title="Seleccionar cuenta Twilio">
+    Elige la cuenta Twilio que proporcionará los recursos para este agente
+  </Step>
+  <Step title="Cargar números disponibles">
+    Los números de teléfono se actualizarán automáticamente según la cuenta seleccionada
+  </Step>
+  <Step title="Verificar compatibilidad">
+    Asegúrate de que la cuenta tenga números disponibles para asignación
+  </Step>
+</Steps>
+
+### Gestión de Números de Teléfono
+
+<Tabs>
+  <Tab title="Agentes Nuevos">
+    <Steps>
+      <Step title="Seleccionar número disponible">
+        Elige de la lista de números no asignados del menú desplegable
+      </Step>
+      <Step title="Verificar disponibilidad">
+        Solo se muestran números que no están en uso por otros agentes
+      </Step>
+      <Step title="Solicitar números adicionales">
+        Usa "Request more numbers" si necesitas más opciones disponibles
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Agentes Existentes">
+    El número asignado se muestra como solo lectura y no puede modificarse después de la creación del agente.
+    
+    <Warning>
+    Cambiar números en agentes existentes requiere crear un nuevo agente o contactar soporte técnico.
+    </Warning>
+  </Tab>
+</Tabs>
+
+### Gestión de Caller IDs (Números de Salida)
+
+Los Caller IDs permiten configurar números específicos para llamadas salientes, mejorando la confianza del destinatario:
+
+#### Añadir Nuevo Caller ID
+
+<Steps>
+  <Step title="Abrir modal de adición">
+    Haz clic en "Add Caller ID" para iniciar el proceso
+  </Step>
+  <Step title="Introducir información">
+    - **Nombre**: Identificación descriptiva del número
+    - **Teléfono**: Número en formato E.164 (+1234567890)
+  </Step>
+  <Step title="Iniciar validación">
+    Twilio enviará una llamada automática con código de verificación
+  </Step>
+  <Step title="Introducir código">
+    Responde la llamada e introduce el código de 6 dígitos recibido
+  </Step>
+  <Step title="Completar verificación">
+    El número queda disponible para llamadas salientes una vez verificado
+  </Step>
+</Steps>
+
+#### Estados de Caller ID
+
+<Tabs>
+  <Tab title="Verificado">
+    - **Estado**: ✅ Verified
+    - **Disponibilidad**: Listo para usar en llamadas salientes
+    - **Acciones**: Eliminar (con confirmación)
+  </Tab>
+  <Tab title="Pendiente">
+    - **Estado**: ⏳ Pending
+    - **Disponibilidad**: En proceso de verificación
+    - **Acciones**: Reenviar código, Eliminar
+  </Tab>
+  <Tab title="Fallido">
+    - **Estado**: ❌ Failed
+    - **Disponibilidad**: Requiere nueva verificación
+    - **Acciones**: Reintentar verificación, Eliminar
+  </Tab>
+</Tabs>
+
+<Warning>
+Los Caller IDs no verificados no pueden utilizarse para llamadas salientes. Completa siempre el proceso de verificación.
+</Warning>
 
 ## Componentes Fundacionales
 
@@ -29,7 +125,7 @@ Otorga a tu agente conocimiento profesional sobre el rol de agente telefónico, 
 Deshabilitar los Componentes Fundacionales puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado.
 </Warning>
 
-## Opciones de Configuración
+## Opciones de Configuración de Agente
 
 ### Nombre Interno del Agente
 
@@ -39,161 +135,297 @@ Dale a tu agente un nombre descriptivo que te ayude a identificarlo en tu panel 
 Usa convenciones de nombres claras como "Soporte Cliente - Español" o "Ventas Outbound - Inmobiliaria" para gestionar fácilmente múltiples agentes.
 </Tip>
 
-### Número de Teléfono
-
-<Tabs>
-  <Tab title="Agentes Nuevos">
-    Selecciona un número disponible del menú desplegable. Solo se muestran números no asignados.
-    
-    <Steps>
-      <Step title="Seleccionar número">
-        Elige de la lista de números disponibles
-      </Step>
-      <Step title="Verificar disponibilidad">
-        Los números en uso no aparecerán en la lista
-      </Step>
-      <Step title="Solicitar más números">
-        Usa el enlace "Request more numbers" si necesitas números adicionales
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Agentes Existentes">
-    El número asignado se muestra como solo lectura y no puede cambiarse después de la creación.
-  </Tab>
-</Tabs>
-
-### Agente de Voz
+### Agente de Voz Especializado
 
 En lugar de configurar voces individuales, selecciona un **Agente de Voz** especializado que combina voz, personalidad y experiencia profesional específica.
 
 <Steps>
-  <Step title="Abrir selector">
+  <Step title="Abrir selector modal">
     Haz clic en "Seleccionar Agente de Voz"
   </Step>
   <Step title="Filtrar por especialidad">
     Usa los filtros para encontrar agentes especializados en tu industria
   </Step>
+  <Step title="Buscar por características">
+    Utiliza la barra de búsqueda para encontrar voces específicas
+  </Step>
   <Step title="Previsualizar voz">
     Escucha muestras de audio antes de seleccionar
   </Step>
   <Step title="Confirmar selección">
-    El agente seleccionado aplicará automáticamente su configuración de voz
+    El agente seleccionado aplicará automáticamente su configuración optimizada
   </Step>
 </Steps>
 
 #### Especialidades Disponibles
 
-- **Ventas**: Agentes optimizados para procesos de venta y prospección
-- **Soporte**: Especialistas en atención al cliente y resolución de problemas
-- **Inmobiliaria**: Expertos en transacciones y consultas inmobiliarias
-- **Salud**: Agentes capacitados para interacciones del sector salud
-- **Educación**: Especialistas en consultas educativas y académicas
-- **General**: Agentes versátiles para múltiples propósitos
+<AccordionGroup>
+  <Accordion title="Ventas" icon="chart-line">
+    Agentes optimizados para procesos de venta, prospección y seguimiento comercial.
+    - Técnicas de persuasión
+    - Manejo de objeciones
+    - Cierre de ventas
+  </Accordion>
+  
+  <Accordion title="Soporte al Cliente" icon="headset">
+    Especialistas en atención al cliente y resolución de problemas.
+    - Resolución de incidencias
+    - Soporte técnico
+    - Atención post-venta
+  </Accordion>
+  
+  <Accordion title="Inmobiliaria" icon="building">
+    Expertos en transacciones y consultas inmobiliarias.
+    - Valoraciones de propiedades
+    - Procesos de compra-venta
+    - Asesoramiento hipotecario
+  </Accordion>
+  
+  <Accordion title="Salud" icon="heart">
+    Agentes capacitados para interacciones del sector salud.
+    - Programación de citas
+    - Información médica básica
+    - Seguimiento de pacientes
+  </Accordion>
+  
+  <Accordion title="Educación" icon="graduation-cap">
+    Especialistas en consultas educativas y académicas.
+    - Información de cursos
+    - Procesos de admisión
+    - Soporte académico
+  </Accordion>
+  
+  <Accordion title="General" icon="star">
+    Agentes versátiles para múltiples propósitos y casos de uso diversos.
+  </Accordion>
+</AccordionGroup>
 
 <Info>
 Los Agentes de Voz incluyen no solo configuración de voz optimizada, sino también conocimiento específico del sector que mejora significativamente la calidad de las conversaciones.
 </Info>
 
-### Modelo de IA (LLM)
+## Configuración de Modelo de IA (LLM)
 
 Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacional de tu agente.
 
+### Modelos Disponibles
+
 <Tabs>
   <Tab title="Google Gemini">
-    | Modelo | Mejor Para | Velocidad |
-    |--------|------------|-----------|
-    | **Gemini 3 Flash Preview** ⭐ | Último modelo, máximo rendimiento | Rápida |
-    | Gemini 2.5 Flash | Alto rendimiento, balance calidad-velocidad | Rápida |
-    | Gemini 2.5 Flash Lite | Opción equilibrada y económica | Muy rápida |
-    | Gemini 2.0 Flash | Respuestas rápidas, menor costo | Muy rápida |
-    | Gemini 1.5 Pro | Razonamiento complejo, máxima capacidad | Moderada |
-    | Gemini 1.5 Flash | Procesamiento rápido, confiable | Rápida |
+    | Modelo | Mejor Para | Velocidad | Descripción |
+    |--------|------------|-----------|-------------|
+    | **Gemini 3.1 Flash Lite Preview** ⭐ | Máximo rendimiento optimizado | Muy rápida | Modelo recomendado por defecto |
+    | Gemini 2.5 Flash | Alto rendimiento equilibrado | Rápida | Balance calidad-velocidad |
+    | Gemini 2.0 Flash | Respuestas rápidas económicas | Muy rápida | Menor costo operativo |
+    | Gemini 1.5 Pro | Razonamiento complejo | Moderada | Máxima capacidad analítica |
+    | Gemini 1.5 Flash | Procesamiento confiable | Rápida | Estabilidad probada |
   </Tab>
+  
   <Tab title="OpenAI">
-    | Modelo | Mejor Para | Velocidad |
-    |--------|------------|-----------|
-    | GPT-4o | Balance entre inteligencia y velocidad | Rápida |
-    | GPT-4.1 | Últimas capacidades de OpenAI | Moderada |
-    | GPT-4.1 Mini | Más rápido y económico | Muy rápida |
-    | GPT-4.1 Nano | Opción más rápida disponible | Ultra rápida |
+    | Modelo | Mejor Para | Velocidad | Descripción |
+    |--------|------------|-----------|-------------|
+    | GPT-4o | Balance inteligencia-velocidad | Rápida | Versátil y confiable |
+    | GPT-4.1 | Últimas capacidades | Moderada | Tecnología más avanzada |
+    | GPT-4.1 Mini | Económico y rápido | Muy rápida | Costo optimizado |
+    | GPT-4.1 Nano | Ultra velocidad | Ultra rápida | Respuestas instantáneas |
   </Tab>
+  
   <Tab title="Anthropic">
-    | Modelo | Mejor Para | Velocidad |
-    |--------|------------|-----------|
-    | Claude Haiku 4.5 | Respuestas rápidas, muy económico | Ultra rápida |
+    | Modelo | Mejor Para | Velocidad | Descripción |
+    |--------|------------|-----------|-------------|
+    | Claude Haiku 4.5 | Máxima economía | Ultra rápida | Más económico disponible |
   </Tab>
 </Tabs>
 
-<Info>
-**Gemini 3 Flash Preview** es el modelo recomendado por defecto, ofreciendo el mejor balance entre capacidades avanzadas, velocidad de respuesta y costo-efectividad.
-</Info>
-
-## Guía de Selección
+### Guía de Selección por Caso de Uso
 
 <AccordionGroup>
   <Accordion title="Maximizar Velocidad de Respuesta" icon="bolt">
-    - **GPT-4.1 Nano** (ultra rápido)
-    - **Claude Haiku 4.5** (muy económico y rápido)
-    - **Gemini 2.0 Flash Lite** (equilibrado y rápido)
+    **Modelos Recomendados:**
+    - **GPT-4.1 Nano** (respuestas ultra rápidas)
+    - **Claude Haiku 4.5** (económico y muy rápido)
+    - **Gemini 2.0 Flash** (equilibrado y rápido)
     
-    Ideal para conversaciones que requieren respuestas inmediatas.
+    **Ideal para:**
+    - Consultas simples y directas
+    - Alta frecuencia de llamadas
+    - Respuestas inmediatas requeridas
   </Accordion>
   
   <Accordion title="Balance Inteligencia-Velocidad" icon="balance-scale">
-    - **Gemini 3 Flash Preview** ⭐ (recomendado)
+    **Modelos Recomendados:**
+    - **Gemini 3.1 Flash Lite Preview** ⭐ (recomendado por defecto)
     - **GPT-4o** (confiable y versátil)
     - **Gemini 2.5 Flash** (alto rendimiento)
     
-    Mejor opción para la mayoría de casos de uso.
+    **Ideal para:**
+    - Mayoría de casos de uso empresariales
+    - Conversaciones complejas pero fluidas
+    - Balance costo-beneficio óptimo
   </Accordion>
   
   <Accordion title="Máxima Capacidad Intelectual" icon="brain">
-    - **Gemini 1.5 Pro** (razonamiento complejo)
-    - **GPT-4.1** (últimas capacidades)
+    **Modelos Recomendados:**
+    - **Gemini 1.5 Pro** (razonamiento profundo)
+    - **GPT-4.1** (capacidades más avanzadas)
     
-    Para conversaciones que requieren análisis profundo y razonamiento avanzado.
+    **Ideal para:**
+    - Análisis complejo de información
+    - Resolución de problemas sofisticados
+    - Toma de decisiones avanzadas
   </Accordion>
   
-  <Accordion title="Optimizar Costos" icon="dollar-sign">
+  <Accordion title="Optimizar Costos Operativos" icon="dollar-sign">
+    **Modelos Recomendados:**
     - **Claude Haiku 4.5** (más económico)
     - **Gemini 2.0 Flash Lite** (balance costo-calidad)
     - **GPT-4.1 Mini** (económico de OpenAI)
     
-    Mantén la calidad mientras reduces costos operativos.
+    **Ideal para:**
+    - Volumen alto de llamadas
+    - Presupuestos ajustados
+    - Operaciones de alto volumen
   </Accordion>
 </AccordionGroup>
+
+<Info>
+**Gemini 3.1 Flash Lite Preview** es el modelo recomendado por defecto, ofreciendo el mejor balance entre capacidades avanzadas, velocidad de respuesta y costo-efectividad para la mayoría de casos empresariales.
+</Info>
+
+## Configuración de Prompts Fundacionales
+
+Los prompts fundacionales proporcionan la base comportamental y conversacional de tu agente:
+
+### Opciones Disponibles
+
+<Tabs>
+  <Tab title="Guardrails Fundacionales">
+    **Función**: Establecen límites de comportamiento profesional
+    
+    **Incluye:**
+    - Mantenimiento de conversaciones profesionales
+    - Prevención de temas inapropiados
+    - Enfoque en objetivos de negocio
+    - Comportamiento ético y responsable
+    
+    **Recomendación**: ✅ Mantener activado
+  </Tab>
+  
+  <Tab title="Aspectos Conversacionales">
+    **Función**: Habilidades conversacionales naturales
+    
+    **Incluye:**
+    - Manejo de interrupciones
+    - Gestión de silencios
+    - Transiciones fluidas entre temas
+    - Técnicas de escucha activa
+    
+    **Recomendación**: ✅ Mantener activado
+  </Tab>
+  
+  <Tab title="Background Laboral">
+    **Función**: Conocimiento profesional de agente telefónico
+    
+    **Incluye:**
+    - Experiencia en atención telefónica
+    - Protocolo de comunicación empresarial
+    - Manejo de situaciones complejas
+    - Conocimiento de mejores prácticas
+    
+    **Recomendación**: ✅ Mantener activado
+  </Tab>
+</Tabs>
+
+<Warning>
+Deshabilitar estos componentes solo es recomendable si tienes un sistema de prompts personalizado completamente desarrollado y probado. La desactivación puede resultar en comportamientos impredecibles.
+</Warning>
 
 ## Configuración de Grabación
 
 <Info>
-La grabación de llamadas está habilitada por defecto para cumplir con mejores prácticas de calidad y auditoría.
+La grabación de llamadas está habilitada por defecto para cumplir con mejores prácticas de calidad, auditoría y cumplimiento legal.
 </Info>
 
-Las grabaciones te permiten:
-- Monitorear calidad de conversaciones
-- Analizar el rendimiento del agente
-- Cumplir con requisitos regulatorios
-- Mejorar continuamente tu agente
-
-## Mejores Prácticas
+### Beneficios de la Grabación
 
 <Steps>
-  <Step title="Comenzar con configuración recomendada">
-    Usa **Gemini 3 Flash Preview** y mantén los Componentes Fundacionales activados
+  <Step title="Control de Calidad">
+    Monitorea la calidad de conversaciones y detecta áreas de mejora
   </Step>
-  <Step title="Seleccionar agente de voz especializado">
-    Elige un Agente de Voz que coincida con tu industria o caso de uso
+  <Step title="Análisis de Rendimiento">
+    Analiza métricas de éxito y comportamiento del agente
   </Step>
-  <Step title="Probar en el Playground">
-    Siempre valida la configuración antes de usar en producción
+  <Step title="Cumplimiento Regulatorio">
+    Cumple con requisitos legales y normativos de tu industria
   </Step>
-  <Step title="Monitorear rendimiento">
-    Revisa métricas de velocidad de respuesta y calidad conversacional
+  <Step title="Mejora Continua">
+    Utiliza insights para optimizar configuraciones y prompts
   </Step>
 </Steps>
 
+## Mejores Prácticas de Configuración
+
+<Steps>
+  <Step title="Comenzar con configuración recomendada">
+    Usa **Gemini 3.1 Flash Lite Preview** y mantén todos los Componentes Fundacionales activados
+  </Step>
+  <Step title="Configurar infraestructura telefónica">
+    - Selecciona cuenta Twilio apropiada (admin)
+    - Asigna número de teléfono específico
+    - Verifica Caller IDs necesarios
+  </Step>
+  <Step title="Seleccionar agente de voz especializado">
+    Elige un Agente de Voz que coincida específicamente con tu industria o caso de uso
+  </Step>
+  <Step title="Validar en Playground">
+    Siempre prueba completamente la configuración antes de usar en producción
+  </Step>
+  <Step title="Monitorear métricas">
+    Revisa regularmente velocidad de respuesta y calidad conversacional
+  </Step>
+</Steps>
+
+## Troubleshooting Común
+
+<AccordionGroup>
+  <Accordion title="Problemas con Caller IDs" icon="exclamation-triangle">
+    **Síntomas:**
+    - Verificación fallida
+    - Número no recibe código
+    
+    **Soluciones:**
+    - Verificar formato E.164 (+país + número)
+    - Asegurar que el número puede recibir llamadas
+    - Reintentar verificación desde panel
+    - Contactar soporte si persiste
+  </Accordion>
+  
+  <Accordion title="Números de teléfono no disponibles" icon="phone">
+    **Síntomas:**
+    - Lista de números vacía
+    - Números deseados no aparecen
+    
+    **Soluciones:**
+    - Verificar selección de cuenta Twilio correcta
+    - Solicitar más números usando "Request more numbers"
+    - Contactar administrador para liberación de números
+  </Accordion>
+  
+  <Accordion title="Rendimiento de modelo LLM" icon="robot">
+    **Síntomas:**
+    - Respuestas lentas
+    - Calidad conversacional baja
+    
+    **Soluciones:**
+    - Cambiar a modelo más rápido para velocidad
+    - Cambiar a modelo más potente para calidad
+    - Ajustar prompts de sistema
+    - Revisar configuración de voz
+  </Accordion>
+</AccordionGroup>
+
 <Warning>
-Cambiar el modelo de IA después de crear el agente puede afectar el comportamiento conversacional. Siempre realiza pruebas completas después de cualquier cambio.
+Cambios en configuraciones fundamentales (modelo de IA, número de teléfono, agente de voz) pueden afectar significativamente el comportamiento del agente. Siempre realiza pruebas exhaustivas después de cualquier modificación importante.
 </Warning>
 
 ## Siguientes Pasos
@@ -204,27 +436,27 @@ Cambiar el modelo de IA después de crear el agente puede afectar el comportamie
     icon="hand-wave"
     href="/es/advanced-editor/greetings"
   >
-    Configura mensajes de bienvenida personalizados
+    Configura mensajes de bienvenida personalizados para llamadas entrantes y salientes
   </Card>
   <Card
     title="Prompt del Sistema"
     icon="file-lines"
     href="/es/getting-started/create-agent#prompt-del-sistema"
   >
-    Define la personalidad y comportamiento del agente
+    Define la personalidad, comportamiento y objetivos específicos del agente
   </Card>
   <Card
     title="Acciones del Agente"
     icon="tools"
     href="/es/advanced-editor/agent-actions"
   >
-    Configura transferencias, emails y SMS
+    Configura transferencias de llamadas, envío de emails y SMS automatizados
   </Card>
   <Card
     title="Playground"
     icon="play"
     href="/es/getting-started/test-agent"
   >
-    Prueba tu agente configurado
+    Prueba y valida tu agente configurado antes del despliegue
   </Card>
 </CardGroup>
