@@ -18,28 +18,28 @@ Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pe
 
 ## Pantalla de Bienvenida
 
-Cuando abres Copilot por primera vez, verás una pantalla de bienvenida con instrucciones claras sobre cómo usar la herramienta:
+Cuando abres Copilot por primera vez, verás una pantalla de bienvenida con acciones predefinidas para casos de uso comunes:
 
 <Steps>
-  <Step title="Describe tu Solicitud">
-    Escribe en lenguaje natural qué quieres mejorar en tu prompt.
+  <Step title="Analizar y Mejorar">
+    Un clic para encontrar gaps, añadir claridad y mejorar el flujo conversacional.
     
-    **Ejemplo**: "Añadir manejo de objeciones de precio"
+    **Ejemplo**: "Analyze the prompt and suggest improvements"
   </Step>
-  <Step title="Usa Referencias de Llamadas">
-    Incluye `@call:ID` para usar contexto específico de llamadas reales.
+  <Step title="Refinar el Tono">
+    Optimizar el prompt para que sea más conciso y profesional.
     
-    **Ejemplo**: "@call:abc123 El agente no capturó bien el email"
+    **Ejemplo**: "Make it more concise and professional"
   </Step>
-  <Step title="Observa la Edición en Tiempo Real">
-    Copilot edita directamente tu prompt y muestra cambios estructurados.
+  <Step title="Añadir Campos de Output">
+    Crear parámetros estructurados para capturar información de las conversaciones.
     
-    **Flujo**: Analizando → Generando → Editando → Completado
+    **Ejemplo**: "Add output parameters for lead qualification: name, email, phone, interest level"
   </Step>
-  <Step title="Implementa Sugerencias Inteligentes">
-    Recibe sugerencias automáticas para mejoras complementarias.
+  <Step title="Crear Evaluaciones">
+    Implementar métricas para puntuar y evaluar el rendimiento del agente.
     
-    **Acción**: Usa los botones de implementación de un clic.
+    **Ejemplo**: "Create evaluations to measure: conversation quality, goal completion, customer satisfaction"
   </Step>
 </Steps>
 
@@ -1517,18 +1517,3 @@ Los eventos SSE requieren conexión estable y configuración correcta del servid
     Encuentra IDs de llamadas específicas para usar como contexto en mejoras dirigidas
   </Card>
 </CardGroup>
-
-## Recursos Adicionales
-
-<CardGroup cols={2}>
-  <Card
-    title="SSE Protocol Deep Dive"
-    icon="code"
-  >
-    Documentación técnica completa del protocolo de eventos Server-Sent Events
-  </Card>
-  <Card
-    title="Voice API Reference"
-    icon="microphone"
-  >
-    Especificación detallada de la API de grabación
