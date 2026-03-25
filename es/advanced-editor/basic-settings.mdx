@@ -104,25 +104,25 @@ Los Caller IDs permiten configurar números específicos para llamadas salientes
 Los Caller IDs no verificados no pueden utilizarse para llamadas salientes. Completa siempre el proceso de verificación.
 </Warning>
 
-## Componentes Fundacionales
-
-Los Componentes Fundacionales de Meetzy proporcionan la base para agentes conversacionales profesionales y consistentes:
+## Componentes Fundamentales de Meetzy
 
 <Info>
-Los Componentes Fundacionales están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento.
+Los Componentes Fundamentales están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento.
 </Info>
 
+Los Componentes Fundamentales de Meetzy proporcionan la base para agentes conversacionales profesionales y consistentes. Esta funcionalidad permite un control granular sobre qué elementos base del sistema Meetzy se incluyen en el prompt del asistente.
+
 ### 🛡️ Guardrails Fundacionales
-Proporcionan límites de comportamiento esenciales que mantienen las conversaciones profesionales y enfocadas.
+Proporcionan límites de comportamiento esenciales que mantienen las conversaciones profesionales y enfocadas. Incluyen restricciones éticas, mantenimiento del contexto profesional y prevención de temas inapropiados.
 
 ### 🎭 Aspectos Conversacionales
-Definen habilidades conversacionales core como manejo de interrupciones, gestión de silencios y transiciones naturales.
+Definen habilidades conversacionales core como manejo de interrupciones, gestión de silencios y transiciones naturales. Aseguran que el agente mantenga un flujo conversacional fluido y natural durante toda la interacción.
 
 ### 💼 Background Laboral de Agentes
-Otorga a tu agente conocimiento profesional sobre el rol de agente telefónico, mejorando la naturalidad de las conversaciones.
+Otorga a tu agente conocimiento profesional sobre el rol de agente telefónico, mejorando la naturalidad de las conversaciones. Incluye experiencia en protocolos de comunicación empresarial y mejores prácticas del sector.
 
 <Warning>
-Deshabilitar los Componentes Fundacionales puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado.
+Deshabilitar los Componentes Fundamentales puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado.
 </Warning>
 
 ## Opciones de Configuración de Agente
@@ -131,9 +131,9 @@ Deshabilitar los Componentes Fundacionales puede resultar en conversaciones meno
 
 Dale a tu agente un nombre descriptivo que te ayude a identificarlo en tu panel administrativo.
 
-<Tip>
+<Info>
 Usa convenciones de nombres claras como "Soporte Cliente - Español" o "Ventas Outbound - Inmobiliaria" para gestionar fácilmente múltiples agentes.
-</Tip>
+</Info>
 
 ### Agente de Voz Especializado
 
@@ -159,46 +159,41 @@ En lugar de configurar voces individuales, selecciona un **Agente de Voz** espec
 
 #### Especialidades Disponibles
 
-<AccordionGroup>
-  <Accordion title="Ventas" icon="chart-line">
+<Tabs>
+  <Tab title="Ventas">
     Agentes optimizados para procesos de venta, prospección y seguimiento comercial.
     - Técnicas de persuasión
-    - Manejo de objeciones
+    - Manejo de objeciones  
     - Cierre de ventas
-  </Accordion>
-  
-  <Accordion title="Soporte al Cliente" icon="headset">
+  </Tab>
+  <Tab title="Soporte al Cliente">
     Especialistas en atención al cliente y resolución de problemas.
     - Resolución de incidencias
     - Soporte técnico
     - Atención post-venta
-  </Accordion>
-  
-  <Accordion title="Inmobiliaria" icon="building">
+  </Tab>
+  <Tab title="Inmobiliaria">
     Expertos en transacciones y consultas inmobiliarias.
     - Valoraciones de propiedades
     - Procesos de compra-venta
     - Asesoramiento hipotecario
-  </Accordion>
-  
-  <Accordion title="Salud" icon="heart">
+  </Tab>
+  <Tab title="Salud">
     Agentes capacitados para interacciones del sector salud.
     - Programación de citas
     - Información médica básica
     - Seguimiento de pacientes
-  </Accordion>
-  
-  <Accordion title="Educación" icon="graduation-cap">
+  </Tab>
+  <Tab title="Educación">
     Especialistas en consultas educativas y académicas.
     - Información de cursos
     - Procesos de admisión
     - Soporte académico
-  </Accordion>
-  
-  <Accordion title="General" icon="star">
+  </Tab>
+  <Tab title="General">
     Agentes versátiles para múltiples propósitos y casos de uso diversos.
-  </Accordion>
-</AccordionGroup>
+  </Tab>
+</Tabs>
 
 <Info>
 Los Agentes de Voz incluyen no solo configuración de voz optimizada, sino también conocimiento específico del sector que mejora significativamente la calidad de las conversaciones.
@@ -239,8 +234,8 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
 
 ### Guía de Selección por Caso de Uso
 
-<AccordionGroup>
-  <Accordion title="Maximizar Velocidad de Respuesta" icon="bolt">
+<Tabs>
+  <Tab title="Maximizar Velocidad">
     **Modelos Recomendados:**
     - **GPT-4.1 Nano** (respuestas ultra rápidas)
     - **Claude Haiku 4.5** (económico y muy rápido)
@@ -250,9 +245,9 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
     - Consultas simples y directas
     - Alta frecuencia de llamadas
     - Respuestas inmediatas requeridas
-  </Accordion>
+  </Tab>
   
-  <Accordion title="Balance Inteligencia-Velocidad" icon="balance-scale">
+  <Tab title="Balance Inteligencia-Velocidad">
     **Modelos Recomendados:**
     - **Gemini 3.1 Flash Lite Preview** ⭐ (recomendado por defecto)
     - **GPT-4o** (confiable y versátil)
@@ -262,9 +257,9 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
     - Mayoría de casos de uso empresariales
     - Conversaciones complejas pero fluidas
     - Balance costo-beneficio óptimo
-  </Accordion>
+  </Tab>
   
-  <Accordion title="Máxima Capacidad Intelectual" icon="brain">
+  <Tab title="Máxima Capacidad Intelectual">
     **Modelos Recomendados:**
     - **Gemini 1.5 Pro** (razonamiento profundo)
     - **GPT-4.1** (capacidades más avanzadas)
@@ -273,9 +268,9 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
     - Análisis complejo de información
     - Resolución de problemas sofisticados
     - Toma de decisiones avanzadas
-  </Accordion>
+  </Tab>
   
-  <Accordion title="Optimizar Costos Operativos" icon="dollar-sign">
+  <Tab title="Optimizar Costos">
     **Modelos Recomendados:**
     - **Claude Haiku 4.5** (más económico)
     - **Gemini 2.0 Flash Lite** (balance costo-calidad)
@@ -285,60 +280,12 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
     - Volumen alto de llamadas
     - Presupuestos ajustados
     - Operaciones de alto volumen
-  </Accordion>
-</AccordionGroup>
+  </Tab>
+</Tabs>
 
 <Info>
 **Gemini 3.1 Flash Lite Preview** es el modelo recomendado por defecto, ofreciendo el mejor balance entre capacidades avanzadas, velocidad de respuesta y costo-efectividad para la mayoría de casos empresariales.
 </Info>
-
-## Configuración de Prompts Fundacionales
-
-Los prompts fundacionales proporcionan la base comportamental y conversacional de tu agente:
-
-### Opciones Disponibles
-
-<Tabs>
-  <Tab title="Guardrails Fundacionales">
-    **Función**: Establecen límites de comportamiento profesional
-    
-    **Incluye:**
-    - Mantenimiento de conversaciones profesionales
-    - Prevención de temas inapropiados
-    - Enfoque en objetivos de negocio
-    - Comportamiento ético y responsable
-    
-    **Recomendación**: ✅ Mantener activado
-  </Tab>
-  
-  <Tab title="Aspectos Conversacionales">
-    **Función**: Habilidades conversacionales naturales
-    
-    **Incluye:**
-    - Manejo de interrupciones
-    - Gestión de silencios
-    - Transiciones fluidas entre temas
-    - Técnicas de escucha activa
-    
-    **Recomendación**: ✅ Mantener activado
-  </Tab>
-  
-  <Tab title="Background Laboral">
-    **Función**: Conocimiento profesional de agente telefónico
-    
-    **Incluye:**
-    - Experiencia en atención telefónica
-    - Protocolo de comunicación empresarial
-    - Manejo de situaciones complejas
-    - Conocimiento de mejores prácticas
-    
-    **Recomendación**: ✅ Mantener activado
-  </Tab>
-</Tabs>
-
-<Warning>
-Deshabilitar estos componentes solo es recomendable si tienes un sistema de prompts personalizado completamente desarrollado y probado. La desactivación puede resultar en comportamientos impredecibles.
-</Warning>
 
 ## Configuración de Grabación
 
@@ -367,7 +314,7 @@ La grabación de llamadas está habilitada por defecto para cumplir con mejores 
 
 <Steps>
   <Step title="Comenzar con configuración recomendada">
-    Usa **Gemini 3.1 Flash Lite Preview** y mantén todos los Componentes Fundacionales activados
+    Usa **Gemini 3.1 Flash Lite Preview** y mantén todos los Componentes Fundamentales activados
   </Step>
   <Step title="Configurar infraestructura telefónica">
     - Selecciona cuenta Twilio apropiada (admin)
@@ -387,8 +334,8 @@ La grabación de llamadas está habilitada por defecto para cumplir con mejores 
 
 ## Troubleshooting Común
 
-<AccordionGroup>
-  <Accordion title="Problemas con Caller IDs" icon="exclamation-triangle">
+<Tabs>
+  <Tab title="Problemas con Caller IDs">
     **Síntomas:**
     - Verificación fallida
     - Número no recibe código
@@ -398,9 +345,9 @@ La grabación de llamadas está habilitada por defecto para cumplir con mejores 
     - Asegurar que el número puede recibir llamadas
     - Reintentar verificación desde panel
     - Contactar soporte si persiste
-  </Accordion>
+  </Tab>
   
-  <Accordion title="Números de teléfono no disponibles" icon="phone">
+  <Tab title="Números de teléfono no disponibles">
     **Síntomas:**
     - Lista de números vacía
     - Números deseados no aparecen
@@ -409,9 +356,9 @@ La grabación de llamadas está habilitada por defecto para cumplir con mejores 
     - Verificar selección de cuenta Twilio correcta
     - Solicitar más números usando "Request more numbers"
     - Contactar administrador para liberación de números
-  </Accordion>
+  </Tab>
   
-  <Accordion title="Rendimiento de modelo LLM" icon="robot">
+  <Tab title="Rendimiento de modelo LLM">
     **Síntomas:**
     - Respuestas lentas
     - Calidad conversacional baja
@@ -421,8 +368,8 @@ La grabación de llamadas está habilitada por defecto para cumplir con mejores 
     - Cambiar a modelo más potente para calidad
     - Ajustar prompts de sistema
     - Revisar configuración de voz
-  </Accordion>
-</AccordionGroup>
+  </Tab>
+</Tabs>
 
 <Warning>
 Cambios en configuraciones fundamentales (modelo de IA, número de teléfono, agente de voz) pueden afectar significativamente el comportamiento del agente. Siempre realiza pruebas exhaustivas después de cualquier modificación importante.
