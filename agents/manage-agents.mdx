@@ -1,167 +1,321 @@
 ---
 title: 'Manage Agents'
 description: 'Learn how to view, edit, duplicate, and manage your voice agents in the Meetzy dashboard'
+icon: 'robot'
 ---
 
-## Agents Overview
+## Overview
 
-The **Agents** section displays all your voice agents in a split-panel layout:
+The **Agents** section provides comprehensive management tools for your voice agents with an enhanced split-panel interface:
 
-| Panel | Content |
-|-------|---------|
-| **Left Panel** | Agent list with search and filters |
-| **Right Panel** | Details and actions for selected agent |
+<Tabs>
+  <Tab title="Agents Panel">
+    **Left Panel**: Agent list with advanced search, filters, and bulk actions
+  </Tab>
+  <Tab title="Details Panel">
+    **Right Panel**: Detailed agent information, calls history, and quick actions
+  </Tab>
+</Tabs>
 
-## Search and Filter Agents
+## Enhanced Search and Filtering
 
-### Search by Name
+### Global Agent Search
 
-Use the search field at the top of the left panel to filter agents by name.
+Use the powerful search field to find agents across all your organizations:
+- Search by agent name, ID, or phone number
+- Real-time search results with highlighting
+- Search history and suggestions
 
-### Filter by Company
+### Advanced Filter System
 
-If you have access to multiple companies, filter agents by organization:
+<Steps>
+  <Step title="Filter by Company">
+    Click **"All companies"** dropdown to filter by organization:
+    - Search companies by name
+    - Select single or multiple companies
+    - See agent count per company
+  </Step>
+  
+  <Step title="Filter by Status">
+    Use status filters to find specific agent types:
+    - **Active**: Currently operational agents
+    - **Training**: Agents being configured
+    - **Paused**: Temporarily disabled agents
+    - **Demo**: Template agents
+  </Step>
+  
+  <Step title="Filter by Features">
+    Filter agents by capabilities:
+    - **Advanced Editor**: Agents with advanced configuration
+    - **Phone Health**: Agents with verified phone numbers
+    - **CRM Integration**: Agents with CRM connections
+  </Step>
+</Steps>
 
-1. Click the **"All companies"** dropdown
-2. Search or select the desired company
-3. The list shows only agents from that company
+<Info>
+  Use **Clear Filters** to reset all active filters and view all agents.
+</Info>
 
-<Tip>
-  Use the **Clear Filters** button to reset all active filters.
-</Tip>
+## View Modes
 
-## View Agent Details
+### Cards View (Default)
+- Visual cards with agent thumbnails and key metrics
+- Status indicators and health badges
+- Quick action buttons for each agent
 
-Click any agent to view its details in the right panel:
+### Compact Table View
+- Condensed table format for viewing many agents
+- Sortable columns (name, company, status, last call)
+- Bulk selection and actions
+
+### Toggle View Modes
+Use **Cmd/Ctrl + Shift + E** or the view toggle button to switch between modes.
+
+## Agent Details Panel
+
+Select any agent to view comprehensive details:
 
 ### Information Displayed
 
 | Element | Description |
 |---------|-------------|
-| **Agent Name** | The identifier you assigned |
+| **Agent Name** | Display name with edit capability |
 | **Agent ID** | Unique identifier (click to copy) |
-| **Status Badges** | Training, Pause, Demo, or active version |
-| **Advanced Badge** | Indicates Advanced Editor is enabled |
-| **Phone Health** | Phone number health indicator |
+| **Status Badges** | Real-time status indicators |
+| **Advanced Badge** | Advanced Editor capability indicator |
+| **Phone Health** | Number health and spam score |
+| **Performance Metrics** | Call success rate, average duration |
 
-### Recent Calls
+### Recent Calls Analytics
 
-The panel shows the last 200 calls with:
+Enhanced calls section with:
 
-| Column | Description |
-|--------|-------------|
-| ID | Call identifier |
-| Date | When the call occurred |
-| Duration | Call length |
-| Status | Completed, failed, etc. |
-| Destination | Called number |
+<Tabs>
+  <Tab title="Call List">
+    - Last 200 calls with detailed information
+    - Status, duration, destination, and timestamp
+    - Expandable call details with transcripts
+  </Tab>
+  
+  <Tab title="Analytics">
+    - Call success rates and trends
+    - Average call duration metrics
+    - Peak usage times and patterns
+  </Tab>
+</Tabs>
 
 <Note>
-  Click **View All** to open the full calls page with more filtering options.
+  Click **View All** to open the full calls analytics dashboard with advanced filtering and export options.
 </Note>
 
-## Edit an Agent
+## Advanced Agent Cloning
+
+<Warning>
+  Advanced cloning is available for admin users and agents with Advanced Editor enabled.
+</Warning>
+
+### Clone Agent with Enhanced Options
+
+<Steps>
+  <Step title="Select Agent">
+    Choose the agent you want to clone from the agent list
+  </Step>
+  
+  <Step title="Configure Clone">
+    In the clone modal, specify:
+    - **New agent name**
+    - **Target company** (if you have access to multiple)
+    - **Phone number assignment**
+    - **Configuration mode**:
+      - **Exact Copy**: Duplicate all settings
+      - **Template Mode**: Copy structure, clear data
+      - **Cross-Company**: Adapt for different organization
+  </Step>
+  
+  <Step title="Advanced Settings">
+    Choose what to clone:
+    - ✅ Basic configuration and greetings
+    - ✅ System prompts and instructions  
+    - ✅ Knowledge Base documents
+    - ✅ Actions & Tools configuration
+    - ✅ Output parameters and formatting
+    - ⚠️ Call history (optional)
+    - ⚠️ Performance metrics (optional)
+  </Step>
+</Steps>
+
+### Clone Use Cases
+
+| Scenario | Benefits |
+|----------|----------|
+| **A/B Testing** | Create variants with different prompts |
+| **Department Adaptation** | Modify existing agent for new team |
+| **Backup Creation** | Maintain working versions during updates |
+| **Template Distribution** | Share proven configurations across companies |
+
+## Edit Agents
 
 ### Advanced Editor Agents
 
-If the agent has the **"advanced"** badge, click the **Advanced Editor** button to open it.
+Agents with the **"Advanced"** badge support full configuration editing:
 
-You can modify:
-- Basic settings
-- Greetings
-- System prompt
-- Knowledge Base
-- Actions & Tools
-- Output settings
+<Tabs>
+  <Tab title="Configuration">
+    - Basic settings and metadata
+    - Voice selection and speech parameters
+    - Language and localization settings
+  </Tab>
+  
+  <Tab title="Conversation">
+    - System prompts and instructions
+    - Greeting messages and variations
+    - Conversation flow and branching logic
+  </Tab>
+  
+  <Tab title="Knowledge">
+    - Knowledge Base document management
+    - Context and retrieval settings
+    - Information sources and priorities
+  </Tab>
+  
+  <Tab title="Tools">
+    - Actions and API integrations
+    - Function calls and webhooks
+    - Output formatting and validation
+  </Tab>
+</Tabs>
 
 ### Standard Agents
 
-For agents without the "advanced" badge, editing options are limited to the basic configuration panel.
+Non-advanced agents support basic configuration updates through the simplified editor interface.
 
-## Duplicate an Agent
+## Testing and Quality Assurance
 
-<Note>
-  Clone functionality is only available for admin users and advanced agents.
-</Note>
+### Enhanced Test Calling
 
-To duplicate an agent:
+<Steps>
+  <Step title="Access Test Options">
+    Click **Init Call** on any agent to reveal testing interface
+  </Step>
+  
+  <Step title="Inbound Testing">
+    Test how your agent handles incoming calls:
+    ```
+    Phone to test inbound call:
+    +1 555 123 4567 [Copy] [Call Now]
+    ```
+    - Direct dial testing
+    - One-click calling from dashboard
+    - Automatic call logging
+  </Step>
+  
+  <Step title="Outbound Testing">
+    Configure and initiate outbound test calls:
+    - Fill required form fields
+    - Select voice and language options
+    - Choose test phone number
+    - Monitor call progress in real-time
+  </Step>
+</Steps>
 
-1. Select the agent in the list
-2. Click the **Clone Agent** button
-3. A copy is created with the name "[Original Name] (Copy)"
-4. Assign a phone number to the new agent
+### Version Testing (Advanced Agents)
 
-Use cases for duplicating:
-- Create variants for A/B testing
-- Adapt an existing agent for another department
-- Maintain a backup version
-
-## Make Test Calls
-
-Each agent has an **Init Call** button that reveals testing options:
-
-### Inbound Call (Testing)
-
-The agent's phone number is displayed:
+Advanced agents support testing specific versions:
 
 ```
-Phone to test inbound call:
-+1 555 123 4567 [Copy]
+Agent Version Selection:
+• Production version (default)
+• v.1 - Initial configuration
+• v.2 - Greeting improvements  
+• v.3 - Enhanced conversation flow
+• v.4 - Latest updates (draft)
 ```
-
-To test:
-1. Copy the number or click to call
-2. Call from your personal phone
-3. The agent responds according to its configuration
-
-### Outbound Call (Testing)
-
-A form displays with configured fields:
-
-To test:
-1. Fill in required fields
-2. Select voice (optional)
-3. Click **Call Now**
-4. You'll receive the call at the specified number
 
 <Warning>
-  Test calls consume minutes from your plan just like regular calls.
+  Test calls consume billable minutes from your plan. Monitor usage in the billing dashboard.
 </Warning>
 
-### Version Selector (Advanced Agents)
+## Bulk Operations and Management
 
-For advanced agents, you can select which version to test:
+### Bulk Selection
 
-```
-Agent Version (optional):
-- Production version (default)
-- v.1 - Initial version (Production)
-- v.2 - Greeting improvements
-- v.3 - New conversation flow
-```
+- **Select Multiple**: Use checkboxes to select agents
+- **Select All**: Choose all visible agents
+- **Select by Filter**: Bulk select based on current filters
 
-## Demo Agents
+### Bulk Actions
 
-Agents marked as **Demo** appear in a separate collapsible section:
+| Action | Description |
+|--------|-------------|
+| **Enable/Disable** | Batch status changes |
+| **Company Transfer** | Move agents between companies |
+| **Backup Creation** | Create bulk backups |
+| **Performance Export** | Export metrics for selected agents |
 
-Demo agents are example templates you can use as reference.
+### Global Member Search
 
-## Quick Actions
+Search across all agents and team members:
+- **Cmd/Ctrl + K**: Open command palette
+- Search agents, members, and companies
+- Quick navigation and actions
 
-| Action | How to Do It |
-|--------|--------------|
-| Copy ID | Click the copy icon next to the ID |
-| Refresh calls | **Refresh** button in calls panel |
-| View all calls | **View All** button to open calls page |
-| Close panel | Click X or select another agent |
+## Permissions and Access Control
+
+### User Roles and Capabilities
+
+<Tabs>
+  <Tab title="Admin Users">
+    - Full agent management access
+    - Advanced cloning and bulk operations
+    - Cross-company agent management
+    - System configuration access
+  </Tab>
+  
+  <Tab title="Advanced Editor Users">
+    - Create and edit advanced agents
+    - Access to Knowledge Base and Tools
+    - Version management and testing
+    - Performance analytics
+  </Tab>
+  
+  <Tab title="Standard Users">
+    - View assigned agents
+    - Basic testing capabilities
+    - Call history access
+    - Limited configuration changes
+  </Tab>
+</Tabs>
+
+### Company Access Management
+
+Control agent visibility and access across organizations:
+- **Multi-company Users**: Filter and manage agents across companies
+- **Single Company Users**: Restricted to assigned organization
+- **Guest Access**: View-only permissions with limited functionality
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| **Cmd/Ctrl + K** | Open command palette |
+| **Cmd/Ctrl + Shift + E** | Toggle view mode |
+| **Cmd/Ctrl + F** | Focus search field |
+| **Cmd/Ctrl + Z** | Undo last action |
+| **Escape** | Close active modal |
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card title="Phone Numbers" icon="phone" href="/agents/phone-numbers">
-    Learn to assign and manage phone numbers.
+    Assign and manage phone numbers for your agents.
   </Card>
-  <Card title="Phone Health" icon="heart-pulse" href="/agents/phone-health">
-    Monitor your phone numbers' health.
+  <Card title="Advanced Editor" icon="code" href="/agents/advanced-editor">
+    Learn to use the Advanced Editor for complex configurations.
+  </Card>
+  <Card title="Knowledge Base" icon="book-open" href="/agents/knowledge-base">
+    Manage agent knowledge and information sources.
+  </Card>
+  <Card title="Analytics" icon="chart-line" href="/agents/analytics">
+    Monitor agent performance and call metrics.
   </Card>
 </CardGroup>

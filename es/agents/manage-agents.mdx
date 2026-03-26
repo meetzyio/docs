@@ -1,167 +1,363 @@
 ---
 title: 'Gestionar Agentes'
 description: 'Aprende a ver, editar, duplicar y gestionar tus agentes de voz en el dashboard de Meetzy'
+icon: 'list'
 ---
 
 ## Vista General de Agentes
 
-La sección **Agents** muestra todos tus agentes de voz en un diseño de panel dividido:
+La sección **Agents** presenta una interfaz moderna de panel dividido que te permite gestionar eficientemente todos tus agentes de voz:
 
-| Panel | Contenido |
-|-------|-----------|
-| **Panel Izquierdo** | Lista de agentes con búsqueda y filtros |
-| **Panel Derecho** | Detalles y acciones del agente seleccionado |
+<CardGroup cols={2}>
+  <Card title="Panel Izquierdo" icon="list">
+    Lista completa de agentes con búsqueda avanzada, filtros por compañía y herramientas de organización
+  </Card>
+  <Card title="Panel Derecho" icon="eye">
+    Vista detallada del agente seleccionado con métricas, historial de llamadas y acciones rápidas
+  </Card>
+</CardGroup>
 
 ## Buscar y Filtrar Agentes
 
-### Buscar por Nombre
+### Búsqueda Inteligente
 
-Usa el campo de búsqueda en la parte superior del panel izquierdo para filtrar agentes por nombre.
+El campo de búsqueda en la parte superior del panel izquierdo soporta múltiples criterios:
 
-### Filtrar por Compañía
-
-Si tienes acceso a múltiples compañías, filtra agentes por organización:
-
-1. Haz clic en el dropdown **"All companies"**
-2. Busca o selecciona la compañía deseada
-3. La lista muestra solo agentes de esa compañía
+- **Por nombre**: Escribe el nombre del agente
+- **Por ID**: Busca usando el identificador único
+- **Por función**: Encuentra agentes por su propósito (ventas, soporte, etc.)
 
 <Tip>
-  Usa el botón **Clear Filters** para restablecer todos los filtros activos.
+  La búsqueda es en tiempo real y no distingue entre mayúsculas y minúsculas.
 </Tip>
 
-## Ver Detalles del Agente
+### Filtros Avanzados
 
-Haz clic en cualquier agente para ver sus detalles en el panel derecho:
+#### Filtrar por Compañía
+Si tienes acceso a múltiples organizaciones:
 
-### Información Mostrada
+<Steps>
+  <Step title="Acceder al filtro">
+    Haz clic en el dropdown **"All companies"**
+  </Step>
+  <Step title="Seleccionar organización">
+    Busca o selecciona la compañía deseada de la lista
+  </Step>
+  <Step title="Ver resultados">
+    La lista se actualiza mostrando solo agentes de esa compañía
+  </Step>
+</Steps>
 
-| Elemento | Descripción |
-|----------|-------------|
-| **Nombre del Agente** | El identificador que asignaste |
-| **ID del Agente** | Identificador único (clic para copiar) |
-| **Badges de Estado** | Training, Pause, Demo o versión activa |
-| **Badge Advanced** | Indica que el Editor Avanzado está habilitado |
-| **Phone Health** | Indicador de salud de números telefónicos |
+#### Filtrar por Estado
 
-### Llamadas Recientes
+Los agentes se pueden filtrar por su estado actual:
+- **Activos**: Agentes en producción
+- **En entrenamiento**: Agentes siendo configurados
+- **Pausados**: Agentes temporalmente desactivados
+- **Demo**: Agentes de ejemplo y plantillas
 
-El panel muestra las últimas 200 llamadas con:
+<Info>
+  Usa el botón **Clear Filters** para restablecer todos los filtros y ver la lista completa.
+</Info>
 
-| Columna | Descripción |
-|---------|-------------|
-| ID | Identificador de la llamada |
-| Fecha | Cuándo ocurrió la llamada |
-| Duración | Longitud de la llamada |
-| Estado | Completada, fallida, etc. |
-| Destino | Número llamado |
+## Vista Detallada del Agente
+
+Al seleccionar cualquier agente, el panel derecho muestra información completa y actualizada:
+
+### Información Principal
+
+| Elemento | Descripción | Funcionalidad |
+|----------|-------------|---------------|
+| **Nombre del Agente** | Identificador personalizado | Editable desde configuración |
+| **ID del Agente** | Identificador único del sistema | Clic para copiar al portapapeles |
+| **Badges de Estado** | Indicadores visuales del estado | Training, Pause, Demo o producción |
+| **Badge Advanced** | Editor avanzado habilitado | Acceso a funciones profesionales |
+| **Phone Health** | Salud de números telefónicos | Indicador de rendimiento en tiempo real |
+
+### Métricas de Rendimiento
+
+El panel superior muestra estadísticas clave:
+
+- **Llamadas totales**: Número acumulado de interacciones
+- **Duración promedio**: Tiempo medio de conversación
+- **Tasa de éxito**: Porcentaje de llamadas completadas exitosamente
+- **Última actividad**: Timestamp de la llamada más reciente
+
+### Historial de Llamadas Recientes
+
+La tabla muestra las últimas 200 llamadas con información detallada:
+
+| Columna | Información | Acciones |
+|---------|-------------|----------|
+| **ID** | Identificador único de la llamada | Clic para ver detalles |
+| **Fecha y Hora** | Timestamp completo de la llamada | Ordenable por fecha |
+| **Duración** | Tiempo total de conversación | Formato mm:ss |
+| **Estado** | Resultado final (completada, fallida, etc.) | Badge con código de colores |
+| **Destino** | Número telefónico contactado | Formato internacional |
+| **Evaluación** | Puntuación automática (si disponible) | Escala de calidad |
 
 <Note>
-  Haz clic en **View All** para abrir la página completa de llamadas con más opciones de filtrado.
+  Haz clic en **View All** para acceder a la página completa de llamadas con filtros avanzados, exportación de datos y análisis detallado.
 </Note>
 
-## Editar un Agente
+## Editar Configuración del Agente
 
 ### Agentes con Editor Avanzado
 
-Si el agente tiene el badge **"advanced"**, haz clic en el botón **Advanced Editor** para abrirlo.
+Para agentes que muestran el badge **"Advanced"**:
 
-Puedes modificar:
-- Configuración básica
-- Saludos
-- Prompt de sistema
-- Knowledge Base
-- Actions & Tools
-- Output settings
+<Steps>
+  <Step title="Acceder al editor">
+    Haz clic en el botón **Advanced Editor**
+  </Step>
+  <Step title="Configurar secciones">
+    Modifica cualquiera de estas áreas:
+    - **Configuración básica**: Nombre, descripción, idioma
+    - **Saludos**: Mensajes de bienvenida personalizados
+    - **Prompt del sistema**: Instrucciones de comportamiento del AI
+    - **Base de conocimiento**: Documentos y fuentes de información
+    - **Acciones y herramientas**: Integraciones y funcionalidades
+    - **Configuración de salida**: Parámetros de respuesta
+  </Step>
+  <Step title="Guardar cambios">
+    Los cambios se aplican inmediatamente en producción
+  </Step>
+</Steps>
 
 ### Agentes Estándar
 
-Para agentes sin el badge "advanced", las opciones de edición se limitan al panel de configuración básica.
-
-## Duplicar un Agente
-
-<Note>
-  La funcionalidad de clonar solo está disponible para usuarios administradores y agentes avanzados.
-</Note>
-
-Para duplicar un agente:
-
-1. Selecciona el agente en la lista
-2. Haz clic en el botón **Clone Agent**
-3. Se crea una copia con el nombre "[Nombre Original] (Copy)"
-4. Asigna un número de teléfono al nuevo agente
-
-Casos de uso para duplicar:
-- Crear variantes para A/B testing
-- Adaptar un agente existente para otro departamento
-- Mantener una versión de respaldo
-
-## Hacer Llamadas de Prueba
-
-Cada agente tiene un botón **Init Call** que revela opciones de prueba:
-
-### Llamada Entrante (Prueba)
-
-Se muestra el número de teléfono del agente:
-
-```
-Phone to test inbound call:
-+34 612 345 678 [Copiar]
-```
-
-Para probar:
-1. Copia el número o haz clic para llamar
-2. Llama desde tu teléfono personal
-3. El agente responde según su configuración
-
-### Llamada Saliente (Prueba)
-
-Se muestra un formulario con los campos configurados:
-
-Para probar:
-1. Rellena los campos requeridos
-2. Selecciona voz (opcional)
-3. Haz clic en **Call Now**
-4. Recibirás la llamada en el número especificado
+Para agentes sin el badge "Advanced", las opciones se limitan al panel de configuración básica con funcionalidades esenciales.
 
 <Warning>
-  Las llamadas de prueba consumen minutos de tu plan igual que las llamadas normales.
+  Los cambios en agentes en producción afectan inmediatamente a las llamadas entrantes. Considera probar en un ambiente de desarrollo primero.
 </Warning>
 
-### Selector de Versión (Agentes Avanzados)
+## Duplicar y Clonar Agentes
 
-Para agentes avanzados, puedes seleccionar qué versión probar:
+### Requisitos de Permisos
+
+<Info>
+  La funcionalidad de clonado está disponible solo para usuarios administradores y agentes con Editor Avanzado habilitado.
+</Info>
+
+### Proceso de Clonación
+
+<Steps>
+  <Step title="Seleccionar agente">
+    Escoge el agente que deseas duplicar de la lista
+  </Step>
+  <Step title="Iniciar clonación">
+    Haz clic en el botón **Clone Agent**
+  </Step>
+  <Step title="Configurar duplicado">
+    - Se crea automáticamente con el nombre "[Nombre Original] (Copy)"
+    - Hereda toda la configuración del agente original
+    - Requiere asignación de nuevo número telefónico
+  </Step>
+  <Step title="Personalizar">
+    Edita el nuevo agente según tus necesidades específicas
+  </Step>
+</Steps>
+
+### Casos de Uso para Duplicación
+
+| Escenario | Descripción | Beneficio |
+|-----------|-------------|-----------|
+| **A/B Testing** | Crear variantes para probar diferentes enfoques | Optimización basada en datos |
+| **Departamentos** | Adaptar un agente exitoso para otra área | Escalabilidad organizacional |
+| **Respaldos** | Mantener versiones de seguridad | Recuperación ante fallos |
+| **Idiomas** | Versiones multiidioma del mismo agente | Expansión internacional |
+
+## Sistema de Llamadas de Prueba
+
+Cada agente incluye herramientas integradas para realizar pruebas exhaustivas:
+
+### Llamadas Entrantes de Prueba
+
+<Tabs>
+  <Tab title="Configuración">
+    El sistema proporciona un número telefónico dedicado:
+    ```
+    Phone to test inbound call:
+    +34 612 345 678 [📋 Copiar]
+    ```
+  </Tab>
+  <Tab title="Proceso de prueba">
+    <Steps>
+      <Step title="Obtener número">
+        Copia el número o usa click-to-call
+      </Step>
+      <Step title="Realizar llamada">
+        Llama desde tu teléfono personal
+      </Step>
+      <Step title="Interactuar">
+        El agente responde según su configuración actual
+      </Step>
+      <Step title="Evaluar">
+        Analiza la conversación y el comportamiento
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+### Llamadas Salientes de Prueba
+
+El formulario de llamadas salientes se genera dinámicamente basado en los campos configurados del agente:
+
+#### Campos Comunes
+- **Número de destino**: Teléfono que recibirá la llamada
+- **Campos personalizados**: Según la configuración del agente (nombre, empresa, propósito, etc.)
+- **Selector de voz**: Opcional, para probar diferentes voces
+- **Versión del agente**: Solo para agentes avanzados
+
+#### Funcionalidades Avanzadas
+- **Validación en tiempo real**: Los campos se validan antes del envío
+- **Formato internacional**: Soporte automático para códigos de país
+- **Historial de pruebas**: Se registran todas las llamadas de test
+
+<Warning>
+  Las llamadas de prueba consumen minutos de tu plan igual que las llamadas normales. Usa esta función con moderación durante el desarrollo.
+</Warning>
+
+### Selector de Versión para Agentes Avanzados
+
+Los agentes con Editor Avanzado pueden probar diferentes versiones:
 
 ```
 Agent Version (optional):
-- Production version (default)
-- v.1 - Initial version (Production)
-- v.2 - Greeting improvements
-- v.3 - New conversation flow
+├─ Production version (default) ← Versión en vivo
+├─ v.1 - Initial version (Production)
+├─ v.2 - Greeting improvements  
+└─ v.3 - New conversation flow
 ```
 
-## Agentes Demo
+Esto permite:
+- **Comparar versiones**: Evalúa mejoras antes de publicar
+- **Rollback seguro**: Regresa a versiones anteriores si hay problemas
+- **Testing progresivo**: Prueba cambios incrementales
 
-Los agentes marcados como **Demo** aparecen en una sección colapsable separada:
+## Gestión de Agentes Demo
 
-Los agentes demo son plantillas de ejemplo que puedes usar como referencia.
+### Organización de Demos
 
-## Acciones Rápidas
+Los agentes marcados como **Demo** aparecen en una sección colapsible separada para mantener la organización:
 
-| Acción | Cómo Hacerlo |
-|--------|--------------|
-| Copiar ID | Clic en el icono de copiar junto al ID |
-| Refrescar llamadas | Botón **Refresh** en el panel de llamadas |
-| Ver todas las llamadas | Botón **View All** para abrir página de llamadas |
-| Cerrar panel | Clic en X o selecciona otro agente |
+- **Templates profesionales**: Casos de uso comunes preconfigurados
+- **Ejemplos por industria**: Agentes especializados por sector
+- **Casos de referencia**: Implementaciones exitosas anonimizadas
+
+### Uso de Agentes Demo
+
+<Steps>
+  <Step title="Explorar templates">
+    Navega por la sección de demos para encontrar casos similares al tuyo
+  </Step>
+  <Step title="Analizar configuración">
+    Revisa la configuración, prompts y flujos de conversación
+  </Step>
+  <Step title="Clonar y personalizar">
+    Duplica el agente demo y adáptalo a tus necesidades específicas
+  </Step>
+</Steps>
+
+<Tip>
+  Los agentes demo se actualizan regularmente con las mejores prácticas y nuevas funcionalidades.
+</Tip>
+
+## Acciones Rápidas y Atajos
+
+### Acciones del Panel de Agente
+
+| Acción | Método | Descripción |
+|--------|---------|-------------|
+| **Copiar ID** | Clic en icono 📋 | Copia el identificador único al portapapeles |
+| **Refrescar llamadas** | Botón "Refresh" | Actualiza el historial de llamadas recientes |
+| **Ver todas las llamadas** | Botón "View All" | Abre la vista completa con filtros avanzados |
+| **Cerrar panel** | Clic en ✕ o seleccionar otro agente | Cierra la vista detallada |
+
+### Atajos de Teclado
+
+| Combinación | Función |
+|-------------|---------|
+| **Cmd/Ctrl + K** | Búsqueda rápida de agentes |
+| **Cmd/Ctrl + F** | Buscar en panel actual |
+| **Escape** | Cerrar modales abiertos |
+| **Tab** | Navegar entre elementos |
+
+### Acciones en Lote
+
+Para usuarios administradores, está disponible la gestión masiva:
+- **Pausar múltiples agentes**: Para mantenimiento programado
+- **Cambiar compañía**: Transferir agentes entre organizaciones
+- **Exportar configuración**: Backup de configuraciones múltiples
+
+## Monitoreo y Alertas
+
+### Indicadores de Salud
+
+El sistema monitorea continuamente la salud de tus agentes:
+
+- **Phone Health**: Estado de números telefónicos asignados
+- **Response Time**: Tiempo de respuesta del agente
+- **Error Rate**: Tasa de fallos en llamadas
+- **Availability**: Disponibilidad del servicio
+
+### Notificaciones Automáticas
+
+Recibe alertas sobre:
+- **Números marcados como spam**: Notificación inmediata
+- **Fallos recurrentes**: Patrones de error detectados
+- **Límites de uso**: Advertencias sobre consumo de minutos
+- **Actualizaciones del sistema**: Nuevas funcionalidades disponibles
 
 ## Siguientes Pasos
 
 <CardGroup cols={2}>
   <Card title="Números de Teléfono" icon="phone" href="/es/agents/phone-numbers">
-    Aprende a asignar y gestionar números de teléfono.
+    Aprende a asignar, gestionar y optimizar números telefónicos para tus agentes.
   </Card>
   <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
-    Monitorea la salud de tus números telefónicos.
+    Monitorea la salud y rendimiento de tus números telefónicos.
+  </Card>
+  <Card title="Editor Avanzado" icon="code" href="/es/agents/advanced-editor">
+    Domina las funcionalidades avanzadas de configuración de agentes.
+  </Card>
+  <Card title="Base de Conocimiento" icon="book-open" href="/es/agents/knowledge-base">
+    Configura y gestiona las fuentes de información de tus agentes.
   </Card>
 </CardGroup>
+
+## Resolución de Problemas
+
+### Problemas Comunes
+
+<Tabs>
+  <Tab title="Agente no responde">
+    **Posibles causas:**
+    - Número telefónico pausado o desactivado
+    - Configuración incorrecta del prompt
+    - Problemas de conectividad del proveedor
+    
+    **Soluciones:**
+    1. Verificar estado del número en Phone Health
+    2. Probar con llamada de prueba
+    3. Revisar logs de error en historial de llamadas
+  </Tab>
+  <Tab title="Calidad de conversación baja">
+    **Mejoras recomendadas:**
+    - Optimizar el prompt del sistema (< 25,000 caracteres)
+    - Actualizar la base de conocimiento
+    - Configurar respuestas más específicas
+    - Revisar configuración de voz y velocidad
+  </Tab>
+  <Tab title="Error en clonación">
+    **Verificar permisos:**
+    - Usuario administrador o Editor Avanzado
+    - Números telefónicos disponibles
+    - Límites de plan no excedidos
+  </Tab>
+</Tabs>
+
+<Warning>
+  Si persisten los problemas, contacta al soporte técnico con el ID del agente afectado para un diagnóstico detallado.
+</Warning>

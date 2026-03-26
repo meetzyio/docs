@@ -1,0 +1,377 @@
+---
+title: Company Management
+description: Comprehensive guide to managing companies, users, and permissions in Meetzy's admin interface
+icon: building-office
+---
+
+# Company Management
+
+The Companies section in Meetzy provides comprehensive tools for administrators to manage organizations, users, permissions, and access controls across the platform.
+
+<Info>
+Company management features are available to admin users and those with appropriate permissions. Features may vary based on your access level.
+</Info>
+
+## Overview
+
+The company management interface offers two distinct view modes and advanced functionality for efficient administration:
+
+- **Card View**: Visual cards displaying company information with quick actions
+- **Compact View**: Dense table format for managing large numbers of companies
+- **Advanced Search**: Global search across all companies and members
+- **Bulk Operations**: Select and manage multiple entities simultaneously
+- **Command Palette**: Quick access to actions via keyboard shortcuts
+
+## View Modes
+
+### Card View
+
+The default card view presents companies as individual cards with key information and quick actions:
+
+```typescript
+// Toggle to card view
+viewMode = 'cards';
+```
+
+**Features:**
+- Company name and member count
+- Status indicators (active/disabled)
+- Quick action buttons
+- Visual status badges
+- Expandable member lists
+
+### Compact View
+
+Switch to compact view for dense information display:
+
+```typescript
+// Toggle to compact view  
+viewMode = 'compact';
+```
+
+**Features:**
+- Tabular layout with sortable columns
+- More companies visible per screen
+- Bulk selection checkboxes
+- Efficient for large datasets
+
+<Tabs>
+<Tab title="Keyboard Shortcut">
+Press `Cmd/Ctrl + Shift + E` to quickly toggle between view modes
+</Tab>
+<Tab title="Persistence">
+Your view mode preference is automatically saved and restored
+</Tab>
+</Tabs>
+
+## Global Member Search
+
+Search across all companies and members simultaneously:
+
+<Steps>
+<Step title="Access Global Search">
+Use the global member search box in the header or press `Cmd/Ctrl + K` to open the command palette
+</Step>
+<Step title="Enter Search Query">
+Type member name, email, or company name to search across all entities
+</Step>
+<Step title="View Results">
+Results show matched members with their company context and quick actions
+</Step>
+</Steps>
+
+**Search Capabilities:**
+- Real-time search across all loaded data
+- Matches member names, emails, and job titles
+- Company name matching
+- Instant results with highlighting
+
+## Command Palette
+
+Access powerful actions quickly with the command palette:
+
+<Warning>
+The command palette is activated with `Cmd + K` (Mac) or `Ctrl + K` (Windows/Linux)
+</Warning>
+
+### Available Commands
+
+| Command | Description | Shortcut |
+|---------|-------------|----------|
+| Export to CSV | Export company data | - |
+| Refresh data | Reload all company information | - |
+| Toggle view mode | Switch between cards/compact | `Cmd/Ctrl + Shift + E` |
+| Search all members | Focus global member search | - |
+| Bulk operations | Access bulk action menu | - |
+
+## Bulk Operations
+
+Select multiple companies or members for batch operations:
+
+<Steps>
+<Step title="Enable Selection Mode">
+Click the checkbox column header or use `Cmd/Ctrl + A` to select all visible items
+</Step>
+<Step title="Select Items">
+Check individual items or use Shift+Click for range selection
+</Step>
+<Step title="Choose Action">
+Access the bulk actions menu that appears when items are selected
+</Step>
+<Step title="Execute">
+Confirm the action in the modal dialog
+</Step>
+</Steps>
+
+### Bulk Actions Available
+
+- **Enable/Disable Users**: Batch status changes
+- **Update Permissions**: Apply permission changes to multiple members
+- **Export Selected**: Export only selected companies/members
+- **Delete Multiple**: Remove multiple entities (with confirmation)
+
+## Company Management
+
+### Adding Companies
+
+<Steps>
+<Step title="Access Creation">
+Click the "Add Company" button in the header
+</Step>
+<Step title="Fill Details">
+Enter company name, domain, and initial user information
+</Step>
+<Step title="Set Permissions">
+Configure default permissions for the company owner
+</Step>
+<Step title="Create">
+Submit the form to create the company and initial user
+</Step>
+</Steps>
+
+### Company Settings
+
+Each company has configurable settings:
+
+**Basic Information:**
+- Company name and domain
+- Billing cycle configuration
+- Partner status
+
+**Default Permissions:**
+- Advanced Editor access
+- CRM access
+- Recording viewing rights
+- Billable minutes visibility
+
+### Member Management
+
+#### Adding Members
+
+<Steps>
+<Step title="Expand Company">
+Click on a company card or row to expand member list
+</Step>
+<Step title="Add Member">
+Click "Add Member" button
+</Step>
+<Step title="Configure User">
+Fill in member details and permissions:
+- Name and email
+- Job title
+- Permission levels
+- Assistant access
+</Step>
+<Step title="Save">
+Submit to create the new member
+</Step>
+</Steps>
+
+#### Permission Types
+
+| Permission | Description |
+|------------|-------------|
+| **Can Edit** | Create and modify assistants |
+| **Can View Recordings** | Access call recordings |
+| **Advanced Editor** | Use advanced prompt editor |
+| **CRM Access** | Access customer relationship features |
+| **View Billable Minutes** | See usage and billing information |
+
+#### Assistant Access Control
+
+Control which assistants members can access:
+
+```typescript
+newMember = {
+  // ... other fields
+  assistants: ['assistant_id_1', 'assistant_id_2']
+};
+```
+
+**Features:**
+- Granular assistant-level permissions
+- Bulk assistant assignment
+- Inheritance from company defaults
+
+## Advanced Features
+
+### User Impersonation
+
+<Warning>
+Impersonation is only available to super administrators and should be used carefully for support purposes.
+</Warning>
+
+Impersonate users for support and troubleshooting:
+
+<Steps>
+<Step title="Locate User">
+Find the user in the company member list
+</Step>
+<Step title="Start Impersonation">
+Click the impersonation icon next to the user
+</Step>
+<Step title="Confirm">
+Confirm the impersonation in the dialog
+</Step>
+<Step title="Support Session">
+You'll be logged in as the user with their exact permissions and view
+</Step>
+<Step title="End Session">
+Use the impersonation banner to end the session and return to admin view
+</Step>
+</Steps>
+
+### Duplicate Detection
+
+The system automatically detects potential duplicate companies:
+
+**Detection Criteria:**
+- Similar company names
+- Matching domain patterns
+- Email domain similarities
+
+**Management Options:**
+- Merge duplicate companies
+- Mark as intentional duplicates
+- Dismiss false positives
+
+### Statistics Dashboard
+
+View comprehensive statistics:
+
+```typescript
+stats = {
+  totalCompanies: 150,
+  activeCompanies: 142,
+  disabledCompanies: 8,
+  totalMembers: 1250,
+  activeMembers: 1180,
+  disabledMembers: 70
+};
+```
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + K` | Open command palette |
+| `Cmd/Ctrl + Shift + E` | Toggle view mode |
+| `Cmd/Ctrl + Z` | Undo last action |
+| `Escape` | Close modals/panels |
+| `Cmd/Ctrl + A` | Select all visible items |
+| `Shift + Click` | Range selection |
+
+## Data Export
+
+Export company and member data:
+
+<Tabs>
+<Tab title="Full Export">
+Export all companies and members with complete details including permissions and settings
+</Tab>
+<Tab title="Filtered Export">
+Export based on current filters and search criteria
+</Tab>
+<Tab title="Selected Export">
+Export only selected companies/members from bulk selection
+</Tab>
+</Tabs>
+
+**Export Formats:**
+- CSV for spreadsheet applications
+- Includes all visible columns
+- Respects current sorting and filtering
+
+## Notifications & History
+
+### Notification Center
+
+Track all administrative actions:
+
+- User additions and modifications
+- Permission changes
+- Company status updates
+- Bulk operation results
+- Error notifications
+
+### Undo System
+
+Most actions support undo functionality:
+
+<Info>
+Use `Cmd/Ctrl + Z` or the undo toast that appears after actions to reverse recent changes.
+</Info>
+
+**Supported Actions:**
+- Member status changes
+- Permission modifications
+- Company disabling/enabling
+- Bulk operations
+
+## Best Practices
+
+<Steps>
+<Step title="Regular Audits">
+Periodically review company permissions and member access
+</Step>
+<Step title="Bulk Operations">
+Use bulk operations for efficiency when managing multiple entities
+</Step>
+<Step title="Search First">
+Use global search to quickly locate specific companies or members
+</Step>
+<Step title="Keyboard Shortcuts">
+Learn keyboard shortcuts for faster navigation and actions
+</Step>
+<Step title="View Mode Selection">
+Choose the appropriate view mode for your current task
+</Step>
+</Steps>
+
+## Troubleshooting
+
+### Common Issues
+
+**Slow Loading:**
+- Use compact view for better performance with large datasets
+- Enable pagination if available
+- Clear browser cache
+
+**Permission Issues:**
+- Verify your admin status
+- Check if impersonation is active
+- Confirm API access rights
+
+**Search Not Working:**
+- Ensure all data is loaded
+- Check for network connectivity
+- Try refreshing the page
+
+### Getting Help
+
+For additional support with company management:
+
+1. Check the notification center for error details
+2. Use the global search to verify data integrity
+3. Contact support with specific error messages
+4. Review audit logs for recent changes

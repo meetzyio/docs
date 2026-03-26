@@ -9,152 +9,236 @@ icon: 'book'
 The Knowledge Base is where you provide your agent with information it can reference during conversations. This includes product documentation, FAQs, company policies, pricing information, and any other content your agent needs to answer customer questions accurately.
 
 <Info>
-A well-populated Knowledge Base significantly improves your agent's ability to provide accurate, helpful responses.
+A well-populated Knowledge Base significantly improves your agent's ability to provide accurate, helpful responses by giving it access to your specific business information.
 </Info>
 
 ## Adding Documents
 
 You can add knowledge to your agent in three ways:
 
-### 1. URL Import
+<Tabs>
+  <Tab title="URL Import">
+    Import content directly from web pages.
 
-Import content directly from web pages.
+    <Steps>
+      <Step title="Click 'Add URL'">
+        Open the Knowledge Base section and select the URL option.
+      </Step>
+      <Step title="Enter the URL">
+        Paste the full URL of the webpage you want to import.
+      </Step>
+      <Step title="Configure Settings">
+        Set the document name and choose the usage mode.
+      </Step>
+      <Step title="Confirm Import">
+        The system will fetch and process the content automatically.
+      </Step>
+    </Steps>
 
-<Steps>
-  <Step title="Click 'Add URL'">
-    Open the Knowledge Base section and select the URL option.
-  </Step>
-  <Step title="Enter the URL">
-    Paste the full URL of the webpage you want to import.
-  </Step>
-  <Step title="Confirm Import">
-    The system will fetch and process the content automatically.
-  </Step>
-</Steps>
+    **Best for:** Product pages, help center articles, documentation sites, pricing pages.
+  </Tab>
 
-**Best for:** Product pages, help center articles, documentation sites.
+  <Tab title="Text Entry">
+    Manually enter or paste text content.
 
-### 2. Text Entry
+    <Steps>
+      <Step title="Click 'Add Text'">
+        Select the text entry option.
+      </Step>
+      <Step title="Enter Content">
+        Type or paste your content in the text area.
+      </Step>
+      <Step title="Configure Settings">
+        Set the document name and choose the usage mode.
+      </Step>
+      <Step title="Save">
+        The content is processed and added to the knowledge base.
+      </Step>
+    </Steps>
 
-Manually enter or paste text content.
+    **Best for:** Custom FAQs, internal guidelines, scripts, policies.
+  </Tab>
 
-<Steps>
-  <Step title="Click 'Add Text'">
-    Select the text entry option.
-  </Step>
-  <Step title="Enter Content">
-    Type or paste your content in the text area.
-  </Step>
-  <Step title="Save">
-    The content is processed and added to the knowledge base.
-  </Step>
-</Steps>
+  <Tab title="File Upload">
+    Upload documents directly from your computer.
 
-**Best for:** Custom FAQs, internal guidelines, scripts.
+    <Steps>
+      <Step title="Click 'Add File'">
+        Select the file upload option.
+      </Step>
+      <Step title="Select File">
+        Choose a file from your computer (PDF, TXT, DOC, DOCX).
+      </Step>
+      <Step title="Configure Settings">
+        Set the document name and choose the usage mode.
+      </Step>
+      <Step title="Upload">
+        The document is processed and indexed automatically.
+      </Step>
+    </Steps>
 
-### 3. File Upload
-
-Upload documents directly.
-
-<Steps>
-  <Step title="Click 'Add File'">
-    Select the file upload option.
-  </Step>
-  <Step title="Select File">
-    Choose a file from your computer.
-  </Step>
-  <Step title="Upload">
-    The document is processed and indexed.
-  </Step>
-</Steps>
-
-**Supported formats:** PDF, TXT, DOC, DOCX, and more.
+    **Supported formats:** PDF, TXT, DOC, DOCX, and more.
+  </Tab>
+</Tabs>
 
 ## Usage Modes
 
-Each document in your Knowledge Base can be configured with a usage mode:
+Each document in your Knowledge Base can be configured with one of two usage modes:
 
-| Mode | Icon | Description |
-|------|------|-------------|
-| Auto Search | 🔍 | Agent searches this document only when relevant |
-| In Prompt | 📋 | Content is always included in the agent's context |
+| Mode | Icon | Description | When to Use |
+|------|------|-------------|-------------|
+| **Auto Search** | 🔍 | Agent searches this document only when relevant to the conversation | Large documents, extensive catalogs, reference materials |
+| **In Prompt** | 📋 | Content is always included in the agent's context for every conversation | Critical info, company details, core policies |
 
-### When to Use Each Mode
+### Understanding Usage Modes
 
-<AccordionGroup>
-  <Accordion title="Auto Search" icon="magnifying-glass">
-    Use for large documents or reference materials. The agent will only retrieve relevant portions when needed, keeping responses efficient.
-    
-    **Examples:**
-    - Product catalogs
-    - Full documentation
-    - Extensive FAQs
-  </Accordion>
-  <Accordion title="In Prompt" icon="file-import">
-    Use for critical information that should always be available. This content is included in every conversation.
-    
-    **Examples:**
-    - Company name and key details
-    - Pricing tiers
-    - Core policies
-  </Accordion>
-</AccordionGroup>
+<Info>
+**Auto Search** uses semantic search to find relevant portions of documents when needed, making conversations more efficient and cost-effective.
+</Info>
 
 <Warning>
-Using "In Prompt" for large documents can increase costs and slow down responses. Use it only for essential, concise information.
+**In Prompt** mode includes the entire document content in every conversation, which can increase costs and slow responses for large documents. Use only for essential, concise information.
 </Warning>
+
+#### Auto Search Mode
+- **How it works:** The agent automatically searches through the document when it detects the conversation topic is relevant
+- **Performance:** Efficient for large documents - only retrieves relevant sections
+- **Cost:** Lower cost as only relevant portions are processed
+- **Best practices:** Use for comprehensive guides, product catalogs, detailed FAQs
+
+#### In Prompt Mode  
+- **How it works:** The document content is included in the agent's context for every single conversation
+- **Performance:** Immediate access to information but can slow down responses
+- **Cost:** Higher cost as content is processed in every conversation
+- **Best practices:** Use only for critical information under 1000 characters
 
 ## Managing Documents
 
-### Document List
+### Document List View
 
-All added documents appear in a list showing:
+The Knowledge Base displays all your documents in a organized list showing:
 
 | Column | Description |
 |--------|-------------|
-| Name | Document title or URL |
-| Type | URL, Text, or File icon |
-| Mode | Auto Search or In Prompt |
-| Actions | Edit or Delete buttons |
+| **Name** | Document title (editable) |
+| **Type** | Visual indicator: 🔗 URL, 📄 Text, 📁 File |
+| **Mode** | Usage mode: 🔍 Auto Search or 📋 In Prompt |
+| **Preview** | First few lines of content |
+| **Actions** | Edit (✏️) and Delete (🗑️) buttons |
 
-### Editing Documents
+### Real-Time Editing
 
-1. Click the edit icon (✏️) next to any document
-2. Modify the content or settings
-3. Save changes
+<Steps>
+  <Step title="Click Edit Icon">
+    Click the edit icon (✏️) next to any document to modify it.
+  </Step>
+  <Step title="Make Changes">
+    Update content, name, or usage mode as needed.
+  </Step>
+  <Step title="Save Changes">
+    Changes are processed immediately and integrated into your agent's knowledge.
+  </Step>
+</Steps>
 
-### Deleting Documents
+<Info>
+Document changes take effect immediately - your agent will have access to updated information in new conversations right away.
+</Info>
 
-1. Click the delete icon (🗑️) next to the document
-2. Confirm deletion
+### Dynamic Content Loading
+
+For text and URL documents, the system provides:
+- **Preview** in the main list for quick reference
+- **Full content loading** when editing for complete document access
+- **Real-time content updates** that sync with your agent's knowledge
+
+### Document Deletion
+
+<Steps>
+  <Step title="Click Delete Icon">
+    Click the delete icon (🗑️) next to the document.
+  </Step>
+  <Step title="Confirm Deletion">
+    Confirm the action in the popup dialog.
+  </Step>
+  <Step title="Immediate Removal">
+    The document is immediately removed from your agent's knowledge base.
+  </Step>
+</Steps>
 
 <Warning>
-Deleted documents cannot be recovered. Make sure to export important content before deleting.
+Deleted documents cannot be recovered. Make sure to export or backup important content before deleting.
 </Warning>
 
 ## Best Practices
 
+### Content Organization
+- **Keep Current:** Regularly update documents to reflect latest information
+- **Be Specific:** Include exact phrases and terms customers might use  
+- **Structure Well:** Use clear headings, bullet points, and organized sections
+- **Avoid Duplication:** Don't repeat the same information across multiple documents
+
+### Usage Mode Strategy
+- **Auto Search for:** Large documents, comprehensive guides, detailed product info
+- **In Prompt for:** Company name, key contact info, essential policies (keep under 1000 chars)
+
+### Performance Optimization
+- **Test Regularly:** Verify the agent can find and use information correctly
+- **Monitor Conversations:** Review how the agent uses knowledge base content
+- **Optimize Content:** Remove outdated or redundant information
+
 <Tip>
-Keep your Knowledge Base organized and up-to-date for optimal agent performance.
+Start with Auto Search mode for most documents. Only switch to In Prompt mode for absolutely critical information that must always be available.
 </Tip>
 
-1. **Keep Content Current** - Regularly update documents to reflect latest information
-2. **Be Specific** - Include exact phrases customers might use
-3. **Structure Well** - Use clear headings and bullet points
-4. **Avoid Duplication** - Don't repeat the same information in multiple documents
-5. **Test Thoroughly** - Verify the agent can find and use the information correctly
-
 ## Example Knowledge Base Structure
+
+Here's a recommended structure for organizing your knowledge base:
 
 ```
 📚 Knowledge Base
 ├── 📄 Company Overview (In Prompt)
-├── 📄 Product Catalog (Auto Search)
-├── 🔗 Pricing Page URL (Auto Search)
-├── 📄 FAQ - Common Questions (Auto Search)
+│   └── Essential company info, mission, key contacts
+├── 🔗 Product Catalog URL (Auto Search)  
+│   └── Complete product listings and specifications
+├── 📄 Pricing Information (Auto Search)
+│   └── Current pricing tiers and packages
+├── 📁 FAQ Document (Auto Search)
+│   └── Common customer questions and answers
 ├── 📄 Refund Policy (Auto Search)
+│   └── Terms and conditions for returns
+├── 🔗 Support Articles URL (Auto Search)
+│   └── Help center and troubleshooting guides
 └── 📄 Contact Information (In Prompt)
+    └── Phone numbers, hours, emergency contacts
 ```
+
+## Integration with Agent Context
+
+Your Knowledge Base documents are dynamically integrated into your agent's conversational context:
+
+- **Semantic Search:** Auto Search documents are searched based on conversation relevance
+- **Context Injection:** In Prompt documents are always available in the agent's working memory
+- **Real-Time Updates:** Changes to documents are immediately available to the agent
+- **Intelligent Retrieval:** The system automatically selects the most relevant information
+
+## Troubleshooting
+
+### Common Issues
+
+**Agent can't find information:**
+- Verify the document is saved and shows in the Knowledge Base list
+- Try using Auto Search mode for better semantic matching
+- Include variations of keywords customers might use
+
+**Slow agent responses:**
+- Check if you have too many In Prompt documents
+- Consider moving large documents to Auto Search mode
+- Review total character count of In Prompt content
+
+**Outdated information:**
+- Update documents directly in the Knowledge Base
+- Changes take effect immediately in new conversations
+- Consider setting up regular review schedules
 
 ## Next Steps
 
@@ -164,11 +248,11 @@ Keep your Knowledge Base organized and up-to-date for optimal agent performance.
     icon="wrench"
     href="/advanced-editor/actions-tools"
   >
-    Configure integrations and webhooks
+    Configure integrations and external tools
   </Card>
   <Card
     title="Playground"
-    icon="gamepad"
+    icon="gamepad"  
     href="/advanced-editor/playground"
   >
     Test your agent with the knowledge base

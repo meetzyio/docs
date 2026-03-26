@@ -1,0 +1,314 @@
+---
+title: "Gestión Empresarial"
+description: "Herramientas completas para la gestión de empresas y usuarios en Meetzy"
+icon: "building-office"
+---
+
+# Gestión Empresarial
+
+La plataforma de Meetzy incluye un conjunto completo de herramientas para administradores que permite gestionar empresas, usuarios y permisos de manera eficiente y escalable.
+
+<Info>
+Esta funcionalidad está disponible únicamente para administradores de sistema y usuarios con permisos especiales.
+</Info>
+
+## Vista General del Sistema
+
+### Estadísticas en Tiempo Real
+
+El panel de control proporciona métricas clave sobre el ecosistema de tu plataforma:
+
+- **Empresas totales**: Número total de organizaciones registradas
+- **Empresas activas**: Organizaciones con usuarios activos
+- **Miembros totales**: Usuarios registrados en todas las empresas
+- **Miembros activos**: Usuarios que han accedido recientemente
+
+### Modos de Visualización
+
+<Tabs>
+  <Tab title="Vista de Tarjetas">
+    Presentación visual con información destacada de cada empresa:
+    - Logo y nombre de la empresa
+    - Número de miembros
+    - Estado de actividad
+    - Acciones rápidas
+  </Tab>
+  <Tab title="Vista Compacta">
+    Tabla detallada para análisis en profundidad:
+    - Datos completos en formato tabular
+    - Ordenación por múltiples campos
+    - Filtros avanzados
+    - Exportación masiva
+  </Tab>
+</Tabs>
+
+## Gestión de Empresas
+
+### Información de Empresas
+
+Cada empresa incluye los siguientes datos principales:
+
+```typescript
+interface Company {
+  id: string;
+  name: string;
+  domain: string;
+  email: string;
+  created_time: string;
+  disabled: boolean;
+  is_partner: boolean;
+  billing_cycle_type: 'natural_month' | 'custom';
+  billing_cycle_day: number;
+  can_use_advanced_editor: boolean;
+  can_access_crm: boolean;
+}
+```
+
+### Edición de Empresas
+
+<Steps>
+  <Step title="Seleccionar Empresa">
+    Haz clic en el icono de edición junto al nombre de la empresa
+  </Step>
+  <Step title="Modificar Información">
+    Actualiza los campos necesarios:
+    - Nombre completo de la empresa
+    - Dominio corporativo
+    - Email de contacto
+    - Configuración de facturación
+  </Step>
+  <Step title="Configurar Permisos">
+    Define los accesos a nivel empresa:
+    - Editor avanzado
+    - Acceso CRM
+    - Estado de partner
+  </Step>
+  <Step title="Guardar Cambios">
+    Confirma las modificaciones para aplicar los cambios
+  </Step>
+</Steps>
+
+## Gestión de Miembros
+
+### Estructura de Permisos
+
+Los miembros de cada empresa pueden tener los siguientes permisos:
+
+<Warning>
+Los permisos se aplican de forma jerárquica. Un usuario con permisos de edición puede realizar todas las acciones de niveles inferiores.
+</Warning>
+
+#### Permisos Básicos
+- **Visualización**: Acceso de solo lectura a asistentes
+- **Grabaciones**: Acceso a recordings de llamadas
+- **Minutos facturables**: Visualización de consumo
+
+#### Permisos Avanzados
+- **Edición**: Crear y modificar asistentes
+- **Editor avanzado**: Acceso a herramientas de desarrollo
+- **CRM**: Integración con sistemas CRM
+
+### Añadir Nuevos Miembros
+
+<Steps>
+  <Step title="Expandir Empresa">
+    Haz clic en el nombre de la empresa para ver sus miembros
+  </Step>
+  <Step title="Botón Añadir Miembro">
+    Selecciona "Añadir miembro" en el panel expandido
+  </Step>
+  <Step title="Información del Usuario">
+    Completa los datos del nuevo miembro:
+    ```typescript
+    {
+      name: string;           // Nombre completo
+      email: string;          // Email corporativo
+      job_title: string;      // Cargo en la empresa
+      can_edit: boolean;      // Permisos de edición
+      can_view_recordings: boolean;
+      can_use_advanced_editor: boolean;
+      can_access_crm: boolean;
+      can_view_billable_minutes: boolean;
+      assistants: string[];   // IDs de asistentes asignados
+    }
+    ```
+  </Step>
+  <Step title="Asignar Asistentes">
+    Selecciona qué asistentes específicos puede gestionar el usuario
+  </Step>
+</Steps>
+
+### Edición de Miembros Existentes
+
+Los administradores pueden modificar cualquier aspecto de los usuarios:
+
+1. **Información personal**: Nombre, email, cargo
+2. **Permisos de acceso**: Granularidad por funcionalidad
+3. **Asistentes asignados**: Control específico por IA
+
+## Herramientas de Administración
+
+### Búsqueda Global
+
+El sistema incluye múltiples opciones de búsqueda:
+
+- **Búsqueda por empresa**: Filtro por nombre o dominio
+- **Búsqueda global de miembros**: Localización transversal
+- **Paleta de comandos**: Acceso rápido con `Cmd+K`
+
+### Filtros y Ordenación
+
+<Info>
+Las preferencias de filtro se guardan automáticamente para cada sesión.
+</Info>
+
+#### Filtros Disponibles
+- **Estado**: Activos, deshabilitados, todos
+- **Tipo**: Empresas regulares, partners
+- **Permisos**: Por tipo de acceso específico
+
+#### Opciones de Ordenación
+- **Fecha de creación**: Más recientes primero
+- **Nombre**: Orden alfabético
+- **Actividad**: Por último acceso
+- **Miembros**: Por número de usuarios
+
+### Acciones Masivas
+
+Para operaciones en múltiples elementos simultáneamente:
+
+```typescript
+// Selección múltiple
+selectedCompanies: Set<string>;
+selectedMembers: Set<string>;
+
+// Acciones disponibles
+- Habilitar/deshabilitar empresas
+- Exportar datos seleccionados
+- Modificar permisos en lote
+- Enviar comunicaciones masivas
+```
+
+## Características Avanzadas
+
+### Sistema de Auditoría
+
+<Warning>
+Todas las acciones administrativas quedan registradas para auditoría y compliance.
+</Warning>
+
+El sistema mantiene un historial completo de:
+- Cambios en información de empresas
+- Modificaciones de permisos de usuarios
+- Creación y eliminación de cuentas
+- Accesos administrativos
+
+### Impersonación de Usuarios
+
+Los administradores pueden acceder como cualquier usuario para:
+- Resolver incidencias técnicas
+- Validar configuraciones
+- Proporcionar soporte directo
+
+<Steps>
+  <Step title="Seleccionar Usuario">
+    En la lista de miembros, haz clic en "Impersonar usuario"
+  </Step>
+  <Step title="Confirmar Acción">
+    El sistema solicitará confirmación de la impersonación
+  </Step>
+  <Step title="Sesión Impersonada">
+    Accederás con los permisos exactos del usuario seleccionado
+  </Step>
+  <Step title="Finalizar Sesión">
+    Usa el banner superior para volver a tu cuenta administrativa
+  </Step>
+</Steps>
+
+### Gestión de Duplicados
+
+El sistema detecta automáticamente empresas potencialmente duplicadas basándose en:
+- Dominios similares
+- Nombres de empresa coincidentes
+- Emails corporativos relacionados
+
+### Centro de Notificaciones
+
+Panel centralizado para gestionar:
+- Notificaciones del sistema
+- Alertas de seguridad
+- Confirmaciones de acciones
+- Historial de actividades
+
+## Atajos de Teclado
+
+Para mayor eficiencia en la gestión:
+
+| Atajo | Acción |
+|-------|--------|
+| `Cmd+K` | Abrir paleta de comandos |
+| `Cmd+Shift+E` | Alternar modo de vista |
+| `Cmd+Z` | Deshacer última acción |
+| `Escape` | Cerrar modales activos |
+
+<Info>
+Los atajos están optimizados para macOS (`Cmd`) y Windows/Linux (`Ctrl`).
+</Info>
+
+## Exportación de Datos
+
+### Formatos Disponibles
+
+- **CSV**: Para análisis en hojas de cálculo
+- **JSON**: Para integraciones técnicas
+- **PDF**: Para reportes ejecutivos
+
+### Datos Exportables
+
+```typescript
+// Información de empresas
+{
+  company_name: string;
+  domain: string;
+  email: string;
+  created_date: string;
+  status: 'active' | 'disabled';
+  member_count: number;
+  last_activity: string;
+}
+
+// Información de miembros
+{
+  member_name: string;
+  company: string;
+  email: string;
+  role: string;
+  permissions: string[];
+  last_login: string;
+  assistants_assigned: number;
+}
+```
+
+## Mejores Prácticas
+
+### Gestión de Permisos
+
+1. **Principio de menor privilegio**: Asigna únicamente los permisos necesarios
+2. **Revisión periódica**: Audita permisos trimestralmente
+3. **Segregación de funciones**: Separa roles administrativos de operativos
+
+### Organización de Empresas
+
+1. **Nomenclatura consistente**: Mantén estándares de nombres
+2. **Agrupación lógica**: Organiza por sector o tamaño
+3. **Documentación**: Mantén notas sobre configuraciones especiales
+
+### Monitorización
+
+1. **Métricas de uso**: Revisa regularmente las estadísticas
+2. **Patrones de acceso**: Identifica comportamientos anómalos
+3. **Rendimiento**: Monitoriza tiempos de respuesta del sistema
+
+<Warning>
+Recuerda que las acciones administrativas tienen impacto directo en la experiencia de los usuarios finales. Siempre valida los cambios en entornos de prueba cuando sea posible.
+</Warning>

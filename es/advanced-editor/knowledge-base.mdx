@@ -14,7 +14,7 @@ Una Base de Conocimiento bien poblada mejora significativamente la capacidad de 
 
 ## Añadiendo Documentos
 
-Puedes añadir conocimiento a tu agente de tres formas:
+Puedes añadir conocimiento a tu agente de cuatro formas diferentes:
 
 ### 1. Importación por URL
 
@@ -27,12 +27,20 @@ Importa contenido directamente desde páginas web.
   <Step title="Ingresa la URL">
     Pega la URL completa de la página web que quieres importar.
   </Step>
+  <Step title="Configura nombre y modo">
+    Opcionalmente añade un nombre personalizado y selecciona el modo de uso.
+  </Step>
   <Step title="Confirma Importación">
     El sistema buscará y procesará el contenido automáticamente.
   </Step>
 </Steps>
 
 **Mejor para:** Páginas de productos, artículos del centro de ayuda, sitios de documentación.
+
+**Ejemplos:**
+- `https://miempresa.com/productos/plan-premium`
+- `https://soporte.miempresa.com/politicas-devolucion`
+- `https://docs.miempresa.com/api/authentication`
 
 ### 2. Entrada de Texto
 
@@ -45,116 +53,443 @@ Ingresa o pega contenido de texto manualmente.
   <Step title="Ingresa Contenido">
     Escribe o pega tu contenido en el área de texto.
   </Step>
+  <Step title="Configura nombre y modo">
+    Añade un nombre descriptivo y selecciona el modo de uso.
+  </Step>
   <Step title="Guardar">
     El contenido es procesado y añadido a la base de conocimiento.
   </Step>
 </Steps>
 
-**Mejor para:** FAQs personalizadas, guías internas, scripts.
+**Mejor para:** FAQs personalizadas, guías internas, scripts específicos.
+
+**Ejemplo de contenido de texto:**
+```
+PRECIOS DE SERVICIOS 2024
+
+Consulta Básica: €50
+- Duración: 30 minutos
+- Incluye: Evaluación inicial
+- Disponible: Lunes a Viernes
+
+Consulta Premium: €120
+- Duración: 60 minutos
+- Incluye: Evaluación + Plan personalizado
+- Disponible: 7 días a la semana
+```
 
 ### 3. Subida de Archivos
 
-Sube documentos directamente.
+Sube documentos directamente desde tu computadora.
 
 <Steps>
   <Step title="Haz clic en 'Añadir Archivo'">
     Selecciona la opción de subida de archivo.
   </Step>
   <Step title="Selecciona Archivo">
-    Elige un archivo de tu ordenador.
+    Elige un archivo de tu ordenador compatible.
+  </Step>
+  <Step title="Configura nombre y modo">
+    Opcionalmente modifica el nombre y selecciona el modo de uso.
   </Step>
   <Step title="Subir">
-    El documento es procesado e indexado.
+    El documento es procesado, extraído e indexado automáticamente.
   </Step>
 </Steps>
 
-**Formatos soportados:** PDF, TXT, DOC, DOCX, y más.
+**Formatos soportados:**
+- **Documentos:** PDF, DOC, DOCX, TXT, RTF
+- **Hojas de cálculo:** XLS, XLSX, CSV
+- **Presentaciones:** PPT, PPTX
+- **Otros:** ODT, ODS, ODP
+
+### 4. Importación Múltiple por URLs
+
+<Info>
+Esta funcionalidad permite importar múltiples páginas de un sitio web de forma masiva, ideal para documentación extensa.
+</Info>
+
+Importa múltiples páginas web relacionadas en una sola operación.
+
+<Steps>
+  <Step title="Haz clic en 'Importación Múltiple'">
+    Selecciona la opción de importación masiva.
+  </Step>
+  <Step title="Configura la importación">
+    - Ingresa la URL base del sitio
+    - Define patrones de URL a incluir/excluir
+    - Establece límites de profundidad
+  </Step>
+  <Step title="Previsualiza las URLs">
+    Revisa la lista de páginas que se importarán.
+  </Step>
+  <Step title="Ejecuta la importación">
+    El sistema procesará todas las páginas automáticamente.
+  </Step>
+</Steps>
+
+**Casos de uso:**
+- Documentación técnica completa
+- Catálogos de productos extensos
+- Bases de conocimiento corporativas
+- Sitios web de soporte al cliente
 
 ## Modos de Uso
 
-Cada documento en tu Base de Conocimiento puede configurarse con un modo de uso:
+Cada documento en tu Base de Conocimiento puede configurarse con uno de estos modos:
 
-| Modo | Icono | Descripción |
-|------|------|-------------|
-| Búsqueda Automática | 🔍 | El agente busca en este documento solo cuando es relevante |
-| En Prompt | 📋 | El contenido siempre se incluye en el contexto del agente |
-
-### Cuándo Usar Cada Modo
-
-<AccordionGroup>
-  <Accordion title="Búsqueda Automática" icon="magnifying-glass">
-    Usa para documentos grandes o materiales de referencia. El agente solo recuperará porciones relevantes cuando sea necesario, manteniendo las respuestas eficientes.
+<Tabs>
+  <Tab title="Búsqueda Automática">
+    **🔍 Búsqueda Automática (Recomendado)**
     
-    **Ejemplos:**
-    - Catálogos de productos
-    - Documentación completa
-    - FAQs extensas
-  </Accordion>
-  <Accordion title="En Prompt" icon="file-import">
-    Usa para información crítica que siempre debe estar disponible. Este contenido se incluye en cada conversación.
+    El agente busca en este documento solo cuando es relevante para la consulta del usuario. Utiliza búsqueda semántica inteligente para recuperar información contextualmente apropiada.
     
-    **Ejemplos:**
-    - Nombre de empresa y detalles clave
-    - Niveles de precios
-    - Políticas principales
-  </Accordion>
-</AccordionGroup>
+    **Ventajas:**
+    - Respuestas más eficientes y focalizadas
+    - Menor costo operativo
+    - Mejor rendimiento para documentos grandes
+    - Información recuperada solo cuando es necesaria
+    
+    **Ideal para:**
+    - Catálogos de productos extensos
+    - Documentación técnica completa
+    - FAQs amplias (>50 preguntas)
+    - Manuales de usuario
+    - Bases de datos de conocimiento
+    
+    **Ejemplo:** Un catálogo con 200 productos donde el agente solo recupera información del "Plan Premium" cuando el usuario pregunta específicamente sobre ese plan.
+  </Tab>
+  
+  <Tab title="En Prompt">
+    **📋 En Prompt (Información Crítica)**
+    
+    El contenido siempre se incluye en el contexto del agente para cada conversación. Esta información estará inmediatamente disponible sin necesidad de búsqueda.
+    
+    **Ventajas:**
+    - Acceso instantáneo a información crítica
+    - Respuestas más consistentes
+    - Ideal para datos que el agente debe conocer siempre
+    
+    **Limitaciones:**
+    - Aumenta el costo por conversación
+    - Puede ralentizar las respuestas si se abusa
+    - Límite recomendado: máximo 3,000 caracteres
+    
+    **Ideal para:**
+    - Información corporativa esencial (nombre, misión)
+    - Horarios de atención
+    - Datos de contacto principales
+    - Políticas críticas que siempre deben mencionarse
+    - Precios principales o ofertas actuales
+    
+    **Ejemplo:** 
+    ```
+    INFORMACIÓN ESENCIAL DE LA EMPRESA
+    
+    Nombre: TechSolutions España
+    Horario: Lunes a Viernes 9:00-18:00
+    Teléfono: 91 234 5678
+    Email: contacto@techsolutions.es
+    
+    PROMOCIÓN ACTUAL: 20% descuento en todos 
+    los planes hasta el 31 de diciembre.
+    ```
+  </Tab>
+</Tabs>
 
 <Warning>
-Usar "En Prompt" para documentos grandes puede aumentar costos y ralentizar respuestas. Úsalo solo para información esencial y concisa.
+**Importante:** Usar "En Prompt" para documentos grandes (>3,000 caracteres) puede aumentar significativamente los costos y ralentizar las respuestas. Úsalo solo para información esencial que el agente debe conocer en cada conversación.
 </Warning>
 
 ## Gestionando Documentos
 
-### Lista de Documentos
+### Vista de Lista de Documentos
 
-Todos los documentos añadidos aparecen en una lista mostrando:
+Todos los documentos añadidos aparecen en una lista organizada que muestra:
 
-| Columna | Descripción |
-|---------|-------------|
-| Nombre | Título del documento o URL |
-| Tipo | Icono de URL, Texto o Archivo |
-| Modo | Búsqueda Automática o En Prompt |
-| Acciones | Botones de Editar o Eliminar |
+| Elemento | Descripción | Información Mostrada |
+|----------|-------------|---------------------|
+| **Icono de Tipo** | Identifica el origen del documento | 🔗 URL, 📄 Texto, 📎 Archivo |
+| **Nombre** | Título del documento o URL | Nombre personalizado o generado automáticamente |
+| **Modo de Uso** | Cómo utiliza el agente esta información | 🔍 Búsqueda Automática / 📋 En Prompt |
+| **Vista Previa** | Primeras líneas del contenido | Texto truncado para identificación rápida |
+| **Estado** | Información de procesamiento | ✅ Procesado / ⚠️ Procesando / ❌ Error |
+| **Acciones** | Botones de gestión | Editar (✏️), Eliminar (🗑️), Recargar (🔄) |
 
 ### Editando Documentos
 
-1. Haz clic en el icono de editar (✏️) junto a cualquier documento
-2. Modifica el contenido o configuración
-3. Guarda cambios
+<Steps>
+  <Step title="Accede al modo edición">
+    Haz clic en el icono de editar (✏️) junto a cualquier documento.
+  </Step>
+  <Step title="Modifica el contenido">
+    - **Documentos de texto:** Edita directamente el contenido
+    - **URLs:** Cambia la dirección web o recargar contenido
+    - **Archivos:** Solo puedes cambiar nombre y modo (sube nuevo archivo para cambiar contenido)
+  </Step>
+  <Step title="Actualiza configuración">
+    Cambia el nombre personalizado o modo de uso según necesites.
+  </Step>
+  <Step title="Guarda cambios">
+    Los cambios se procesan y actualizan automáticamente.
+  </Step>
+</Steps>
 
-### Eliminando Documentos
+### Funciones Avanzadas de Gestión
+
+#### Recargar Contenido de URL
+Para URLs, puedes recargar el contenido para obtener la versión más actualizada:
+- Haz clic en el icono de recarga (🔄)
+- El sistema volverá a descargar y procesar la página
+- Útil para contenido que cambia frecuentemente
+
+#### Búsqueda y Filtrado
+- **Búsqueda por nombre:** Encuentra documentos rápidamente
+- **Filtro por tipo:** Muestra solo URLs, archivos o texto
+- **Filtro por modo:** Separa documentos en prompt vs búsqueda automática
+
+#### Eliminación Segura
+<Warning>
+Los documentos eliminados no pueden recuperarse. El sistema te pedirá confirmación antes de eliminar cualquier documento.
+</Warning>
 
 1. Haz clic en el icono de eliminar (🗑️) junto al documento
-2. Confirma eliminación
-
-<Warning>
-Los documentos eliminados no pueden recuperarse. Asegúrate de exportar contenido importante antes de eliminar.
-</Warning>
+2. Confirma la eliminación en el diálogo de confirmación
+3. El documento se elimina permanentemente de la base de conocimiento
 
 ## Mejores Prácticas
 
+### Estructuración de Contenido
+
 <Tip>
-Mantén tu Base de Conocimiento organizada y actualizada para un rendimiento óptimo del agente.
+Organiza tu información usando encabezados claros, listas y formato estructurado para que el agente pueda extraer datos más eficientemente.
 </Tip>
 
-1. **Mantén Contenido Actualizado** - Actualiza documentos regularmente para reflejar la información más reciente
-2. **Sé Específico** - Incluye frases exactas que los clientes podrían usar
-3. **Estructura Bien** - Usa encabezados claros y viñetas
-4. **Evita Duplicación** - No repitas la misma información en múltiples documentos
-5. **Prueba Exhaustivamente** - Verifica que el agente puede encontrar y usar la información correctamente
+#### Para Documentos de Texto
+```markdown
+# PREGUNTAS FRECUENTES - PLANES DE SERVICIO
 
-## Ejemplo de Estructura de Base de Conocimiento
+## Plan Básico
+**Precio:** €29/mes
+**Características:**
+- 5 proyectos incluidos
+- Soporte por email
+- 10GB de almacenamiento
 
+## Plan Professional  
+**Precio:** €79/mes
+**Características:**
+- Proyectos ilimitados
+- Soporte prioritario 24/7
+- 100GB de almacenamiento
+- Acceso API completo
+
+## Políticas de Cancelación
+- Cancelación gratuita en cualquier momento
+- Reembolso prorrateado en primeros 30 días
+- Los datos se conservan 90 días tras cancelación
 ```
-📚 Base de Conocimiento
-├── 📄 Resumen de Empresa (En Prompt)
-├── 📄 Catálogo de Productos (Búsqueda Automática)
-├── 🔗 URL de Página de Precios (Búsqueda Automática)
-├── 📄 FAQ - Preguntas Comunes (Búsqueda Automática)
-├── 📄 Política de Devoluciones (Búsqueda Automática)
-└── 📄 Información de Contacto (En Prompt)
+
+#### Para URLs
+- Asegúrate de que las páginas tengan estructura HTML semántica
+- Evita páginas con mucho contenido dinámico o JavaScript
+- Prefiere páginas con contenido textual claro sobre imágenes
+
+#### Para Archivos
+- Usa documentos bien formateados (títulos, subtítulos)
+- Evita archivos escaneados de baja calidad
+- PDFs nativos funcionan mejor que PDFs escaneados
+
+### Estrategias de Organización
+
+1. **Principio de Especificidad**
+   - Información general → "En Prompt"
+   - Información específica → "Búsqueda Automática"
+
+2. **Evita Duplicación**
+   - No repitas la misma información en múltiples documentos
+   - Usa un documento maestro para información que aparece en varios contextos
+
+3. **Mantenimiento Regular**
+   - Revisa y actualiza documentos mensualmente
+   - Elimina información obsoleta
+   - Recarga URLs que cambian frecuentemente
+
+4. **Estructura Jerárquica**
+   ```
+   📚 Base de Conocimiento
+   ├── 📄 Información Corporativa (En Prompt)
+   │   └── Datos esenciales, horarios, contacto
+   ├── 🔍 Productos y Servicios (Búsqueda Automática)
+   │   ├── Catálogo completo
+   │   ├── Precios detallados
+   │   └── Especificaciones técnicas
+   ├── 🔍 Soporte al Cliente (Búsqueda Automática)
+   │   ├── FAQs extensas
+   │   ├── Guías de solución de problemas
+   │   └── Políticas de devolución
+   └── 📄 Promociones Actuales (En Prompt)
+       └── Ofertas vigentes y códigos de descuento
+   ```
+
+### Optimización para IA
+
+1. **Usa Lenguaje Natural Conversacional**
+   ```
+   ❌ Incorrecto: "PRC-001: €50 - 30min - M-F"
+   ✅ Correcto: "La Consulta Premium cuesta €50, dura 30 minutos y está disponible de lunes a viernes."
+   ```
+
+2. **Incluye Contexto y Ejemplos**
+   ```markdown
+   ## Política de Reembolsos
+   
+   Ofrecemos reembolsos completos dentro de los primeros 30 días de compra.
+   
+   **Ejemplo:** Si compras nuestro Plan Professional el 1 de enero, 
+   puedes solicitar un reembolso completo hasta el 31 de enero.
+   
+   **Para solicitar reembolso:**
+   1. Envía email a reembolsos@miempresa.com
+   2. Incluye número de orden
+   3. Recibirás confirmación en 24 horas
+   ```
+
+3. **Anticipa Variaciones en Preguntas**
+   ```markdown
+   ## Horarios de Atención
+   
+   Nuestro horario de atención es de lunes a viernes de 9:00 a 18:00 (hora de España).
+   
+   **También conocido como:**
+   - Horario de oficina
+   - Cuando están abiertos
+   - Horas de servicio al cliente
+   - Cuándo puedo llamar
+   
+   **Nota:** Los fines de semana y festivos españoles permanecemos cerrados.
+   ```
+
+## Monitoreo y Optimización
+
+### Análisis de Uso
+
+El sistema rastrea automáticamente:
+- **Documentos más consultados:** Identifica qué información es más valiosa
+- **Consultas sin respuesta:** Detecta gaps en tu base de conocimiento
+- **Tiempo de búsqueda:** Mide la eficiencia de recuperación de información
+
+### Métricas de Rendimiento
+
+<Info>
+Puedes acceder a métricas detalladas en la sección de Analytics del agente para ver cómo se utiliza tu base de conocimiento.
+</Info>
+
+- **Tasa de cobertura:** % de preguntas que el agente puede responder con tu contenido
+- **Precisión de búsqueda:** Qué tan relevante es la información recuperada
+- **Velocidad de respuesta:** Impacto en el tiempo de respuesta del agente
+
+### Señales para Optimización
+
+**Cuando añadir más contenido:**
+- El agente responde "No tengo información sobre eso" frecuentemente
+- Las consultas de clientes revelan gaps de conocimiento
+- Nuevos productos/servicios que no están documentados
+
+**Cuando simplificar:**
+- Respuestas del agente son demasiado largas o confusas
+- Documentos "En Prompt" superan los 3,000 caracteres
+- Tiempo de respuesta es lento por exceso de contexto
+
+## Casos de Uso Avanzados
+
+### E-commerce
+```markdown
+Base de Conocimiento E-commerce:
+
+📄 En Prompt (500 chars):
+- Información básica de la tienda
+- Promociones actuales
+- Horario de atención al cliente
+
+🔍 Búsqueda Automática:
+- Catálogo completo de productos (URL)
+- Políticas de envío y devolución (Archivo PDF)
+- FAQs por categoría (Texto estructurado)
+- Guías de tallas (Archivo Excel)
 ```
+
+### Servicios Profesionales
+```markdown
+Base de Conocimiento Servicios:
+
+📄 En Prompt (800 chars):
+- Tipos de servicios principales
+- Rangos de precio
+- Información de contacto
+
+🔍 Búsqueda Automática:
+- Portfolio de casos de éxito (URL múltiple)
+- Metodología detallada (Archivo PDF)
+- Preguntas técnicas frecuentes (Texto)
+- Testimonios de clientes (URL)
+```
+
+### SaaS/Software
+```markdown
+Base de Conocimiento SaaS:
+
+📄 En Prompt (600 chars):
+- Planes disponibles
+- Periodo de prueba
+- Contacto técnico
+
+🔍 Búsqueda Automática:
+- Documentación técnica completa (URL múltiple)
+- Guías de integración (Archivo)
+- API Documentation (URL)
+- Casos de uso por industria (Texto)
+```
+
+## Solución de Problemas Comunes
+
+### Error: "No se pudo procesar el documento"
+
+**Causas comunes:**
+- Archivo corrupto o protegido con contraseña
+- URL inaccesible o que requiere autenticación
+- Formato de archivo no soportado
+- Contenido demasiado extenso (>50MB)
+
+**Soluciones:**
+1. Verifica que el archivo no esté dañado
+2. Para PDFs protegidos, elimina la contraseña primero
+3. Asegúrate de que las URLs sean públicamente accesibles
+4. Divide documentos muy grandes en secciones más pequeñas
+
+### Problema: "El agente no encuentra información que sé que está en la base de conocimiento"
+
+**Diagnóstico:**
+1. Verifica que el documento esté en modo "Búsqueda Automática"
+2. Comprueba que el contenido sea textualmente claro
+3. Asegúrate de que la pregunta use términos similares al contenido
+
+**Optimizaciones:**
+- Reformula el contenido usando sinónimos comunes
+- Añade secciones de "Preguntas relacionadas"
+- Usa formato estructurado con encabezados claros
+
+### Problema: "Las respuestas del agente son inconsistentes"
+
+**Posibles causas:**
+- Información contradictoria entre documentos
+- Demasiado contenido en modo "En Prompt"
+- Información obsoleta mezclada con actual
+
+**Soluciones:**
+1. Audita todos los documentos buscando contradicciones
+2. Mueve contenido extenso a modo "Búsqueda Automática"
+3. Elimina o actualiza información desactualizada
 
 ## Siguientes Pasos
 
@@ -164,13 +499,27 @@ Mantén tu Base de Conocimiento organizada y actualizada para un rendimiento óp
     icon="wrench"
     href="/es/advanced-editor/actions-tools"
   >
-    Configura integraciones y webhooks
+    Configura integraciones y webhooks para tu agente
   </Card>
   <Card
     title="Playground"
     icon="gamepad"
     href="/es/advanced-editor/playground"
   >
-    Prueba tu agente con la base de conocimiento
+    Prueba tu agente con la base de conocimiento configurada
+  </Card>
+  <Card
+    title="Analytics"
+    icon="chart-bar"
+    href="/es/dashboard/analytics"
+  >
+    Analiza el rendimiento de tu base de conocimiento
+  </Card>
+  <Card
+    title="Configuración Avanzada"
+    icon="cog"
+    href="/es/advanced-editor/advanced-config"
+  >
+    Personaliza comportamientos avanzados del agente
   </Card>
 </CardGroup>

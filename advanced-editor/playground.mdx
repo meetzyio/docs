@@ -1,25 +1,28 @@
 ---
 title: 'Playground'
-description: 'Test your AI agent in real-time without making phone calls'
+description: 'Test your AI agent in real-time with AI streaming, voice commands, and enhanced debugging'
 icon: 'gamepad'
 ---
 
 ## What is the Playground?
 
-The Playground is an enhanced testing environment in the Advanced Editor where you can interact with your agent in real-time. It allows you to simulate conversations, test different scenarios, and validate your agent's behavior before deploying to production, all while leveraging the improved code editor features.
+The Playground is an enhanced testing environment in the Advanced Editor where you can interact with your agent in real-time. It allows you to simulate conversations, test different scenarios, and validate your agent's behavior before deploying to production, all while leveraging AI streaming capabilities and advanced voice commands.
 
 <Info>
-Testing in the Playground saves time and money by catching issues before they affect real customer calls, with enhanced debugging capabilities through the improved editor interface.
+Testing in the Playground saves time and money by catching issues before they affect real customer calls, with enhanced debugging capabilities through AI streaming and real-time statistics.
 </Info>
 
 ## Enhanced Editor Integration
 
 The Playground now benefits from the Advanced Editor's improved interface, including:
 
+- **AI Streaming**: Real-time AI responses with streaming capabilities for faster feedback
+- **Voice Commands**: Use Cmd+Shift+V for hands-free voice recording and testing
+- **Statistics Widgets**: Live performance metrics and real-time debugging information
 - **View Controls**: Use outline, indented view, and minimap for better code navigation
 - **Diff Mode**: Compare changes with inline/split view options when working with versions
 - **Focus Mode**: Minimize distractions while testing
-- **Version Integration**: See how changes from different versions affect playground behavior
+- **Collaborative Testing**: Multiple users can test simultaneously with real-time sync
 
 ## Accessing the Playground
 
@@ -35,98 +38,231 @@ The Playground is located in the right panel of the Advanced Editor. Click the "
   <Step title="Configure View">
     Use the editor view controls (outline, minimap, focus mode) to optimize your workspace.
   </Step>
+  <Step title="Enable AI Streaming">
+    Toggle on AI streaming for real-time responses during testing.
+  </Step>
 </Steps>
 
-## Call Types
+## AI Streaming Capabilities
 
-You can simulate two types of calls with enhanced testing capabilities:
+The Playground now supports advanced AI streaming features:
 
-| Type | Description | Use Case | Editor Features |
-|------|-------------|----------|----------------|
-| 📞 Inbound | Customer calling your agent | Test welcome flow, support scenarios | Use diff mode to compare different greeting versions |
-| 📤 Outbound | Agent calling a customer | Test introductions, sales scripts | Focus mode helps concentrate on script testing |
+### Real-time Response Streaming
+- **Live Generation**: See AI responses being generated in real-time
+- **Token-by-Token Display**: Watch the conversation unfold naturally
+- **Interruption Support**: Stop generation mid-stream if needed
+- **Performance Metrics**: Monitor response time and token usage
+
+### Statistics Widgets
+
+Real-time widgets display crucial metrics during testing:
+
+<Tabs>
+  <Tab title="Performance Metrics">
+    - **Response Time**: Live latency measurements
+    - **Token Usage**: Input/output token consumption
+    - **Memory Usage**: Current conversation context size
+    - **Streaming Rate**: Tokens per second generation speed
+  </Tab>
+  <Tab title="Conversation Stats">
+    - **Turn Count**: Number of conversation exchanges
+    - **Average Response Length**: Mean response size
+    - **Function Calls**: Tool invocation frequency
+    - **Context Retention**: Memory usage across turns
+  </Tab>
+  <Tab title="Quality Metrics">
+    - **Coherence Score**: Response consistency rating
+    - **Relevance Rating**: Context-appropriate responses
+    - **Error Rate**: Failed or incomplete responses
+    - **User Satisfaction**: Simulated rating based on flow
+  </Tab>
+</Tabs>
+
+<Warning>
+Statistics widgets update in real-time and may impact performance during intensive testing sessions. Toggle them off for maximum speed.
+</Warning>
+
+## Voice Commands Integration
+
+### Voice Recording (Cmd+Shift+V)
+
+The Playground features enhanced voice input capabilities:
+
+<Steps>
+  <Step title="Activate Voice Recording">
+    Press `Cmd+Shift+V` (Mac) or `Ctrl+Shift+V` (Windows) to start recording.
+  </Step>
+  <Step title="Speak Your Input">
+    The system will capture and transcribe your voice in real-time.
+  </Step>
+  <Step title="Review Transcription">
+    See live transcription with confidence indicators.
+  </Step>
+  <Step title="Send or Edit">
+    Either send directly or edit the transcribed text before submission.
+  </Step>
+</Steps>
+
+### Voice Command Features
+
+| Feature | Description | Keyboard Shortcut |
+|---------|-------------|-------------------|
+| 🎤 Quick Record | Start/stop voice recording | `Cmd+Shift+V` |
+| 🔄 Re-record | Clear and start new recording | `Cmd+Shift+R` |
+| ⏸️ Pause/Resume | Pause recording without stopping | `Spacebar` (during recording) |
+| 🔊 Playback | Hear your recorded audio | `Cmd+Shift+P` |
+| 📝 Edit Mode | Switch to text editing | `Escape` |
+
+<Info>
+Voice commands work with multiple languages and automatically adapt to your agent's language settings.
+</Info>
+
+## Call Types with Streaming Support
+
+You can simulate two types of calls with enhanced AI streaming:
+
+| Type | Description | AI Features | Voice Commands |
+|------|-------------|------------|----------------|
+| 📞 Inbound | Customer calling your agent | Real-time greeting generation | Voice input testing |
+| 📤 Outbound | Agent calling a customer | Streaming introductions | Voice script validation |
 
 <Tip>
-Switch between call types to test both greetings. Use the editor's version history to compare how different versions handle each scenario.
+Use streaming mode to test how your agent handles interruptions and overlapping speech, crucial for real phone conversations.
 </Tip>
 
 ## Enhanced Testing Interface
 
-### Code Editor Improvements
+### Monaco Editor with AI Integration
 
-The Playground now features:
+The Playground now features advanced editor capabilities:
 
 <Tabs>
-  <Tab title="View Controls">
-    - **Outline View**: Navigate through your agent's structure quickly
-    - **Indented View**: Better visualization of nested logic
-    - **Minimap**: Overview of your entire agent configuration
-    - **Focus Mode**: Hide distractions during testing
+  <Tab title="AI Streaming">
+    - **Live Code Analysis**: Real-time syntax validation
+    - **Smart Suggestions**: AI-powered completion
+    - **Error Detection**: Instant feedback on configuration issues
+    - **Performance Hints**: Optimization suggestions
   </Tab>
-  <Tab title="Diff Mode">
-    - **Inline Diff**: See changes directly in context
-    - **Split View**: Side-by-side comparison of versions
-    - **Change Highlighting**: Visual indicators for modifications
+  <Tab title="Voice Integration">
+    - **Speech-to-Code**: Convert voice commands to configuration
+    - **Audio Annotations**: Voice notes attached to code sections
+    - **Pronunciation Testing**: Validate how text sounds when spoken
+    - **Language Detection**: Auto-detect optimal voice settings
   </Tab>
-  <Tab title="Version Integration">
-    - **Real-time Sync**: Testing reflects current version state
-    - **Change Detection**: See how modifications affect behavior
-    - **Collaboration Support**: Multiple users can test simultaneously
+  <Tab title="Collaborative Features">
+    - **Live Cursors**: See other users' editing positions
+    - **Shared Voice Sessions**: Collaborative voice testing
+    - **Real-time Comments**: Voice and text annotations
+    - **Change Broadcasting**: Instant updates across sessions
   </Tab>
 </Tabs>
 
-## Sending Messages
+## Advanced Message Input
 
-### Text Input
+### Text Input with AI Assistance
 
-Type messages in the input field and press Enter or click Send. The agent will respond as it would in a real call, with enhanced debugging information available through the improved editor interface.
+Type messages with enhanced AI support:
+- **Auto-completion**: Smart suggestions based on context
+- **Grammar Check**: Real-time language validation
+- **Intent Detection**: Preview how the agent will interpret your input
+- **Template Suggestions**: Common testing phrases
 
-### Voice Input
+### Enhanced Voice Input
 
-Click the microphone icon to speak your message. The agent will:
-1. Transcribe your speech
-2. Process the message
-3. Respond with synthesized voice
-
-<Info>
-Voice testing now integrates with the version system - changes to voice settings are immediately reflected in testing.
-</Info>
-
-## Enhanced Conversation View
-
-The Playground displays messages chronologically with improved visualization:
-
-| Element | Description | Editor Enhancement |
-|---------|-------------|-------------------|
-| 👤 User Message | Your inputs (text or transcribed voice) | Syntax highlighting for better readability |
-| 🤖 Agent Message | Agent responses | Diff highlighting when comparing versions |
-| 🔧 Tool Call | When agent triggers a webhook or action | Collapsible view with detailed parameters |
-| ✅ Tool Result | Response from webhook or action | JSON formatting with syntax highlighting |
-
-### Audio Playback with Version Tracking
-
-For each agent response, you can:
-- ▶️ Play the audio response
-- ⏸️ Pause playback  
-- 🔁 Replay messages
-- 📊 Compare audio quality across versions
-
-## Context Variables with Version Control
-
-Test how your agent handles different input parameters with enhanced management:
+Click the microphone icon or use `Cmd+Shift+V` for advanced voice features:
 
 <Steps>
-  <Step title="Open Context Variables">
-    Click the "Context Variables" panel in the Playground.
+  <Step title="Start Voice Recording">
+    Activate with keyboard shortcut or button click.
   </Step>
-  <Step title="Configure Variables">
-    Set test values with version-aware validation.
+  <Step title="Real-time Transcription">
+    See words appear as you speak with confidence indicators.
   </Step>
-  <Step title="Version Comparison">
-    Use diff mode to see how variable handling changed between versions.
+  <Step title="Language Auto-Detection">
+    System automatically detects and switches languages.
   </Step>
-  <Step title="Start Testing">
-    Begin testing with the configured context.
+  <Step title="Voice Enhancement">
+    AI cleans up transcription for better testing accuracy.
+  </Step>
+  <Step title="Agent Processing">
+    Watch streaming response generation in real-time.
+  </Step>
+</Steps>
+
+## Real-time Conversation Visualization
+
+The enhanced conversation view displays:
+
+| Element | Description | Streaming Features |
+|---------|-------------|-------------------|
+| 👤 User Message | Your inputs with typing indicators | Live transcription display |
+| 🤖 Agent Message | Streaming AI responses | Token-by-token generation |
+| 🎙️ Voice Input | Audio waveforms and transcription | Real-time speech recognition |
+| 🔧 Tool Call | Function calls with streaming parameters | Live parameter generation |
+| ✅ Tool Result | Response with streaming data | Progressive result display |
+
+### Audio Playback with AI Enhancement
+
+For each agent response, you can:
+- ▶️ Play streaming audio responses
+- ⏸️ Pause/resume during playback
+- 🔁 Replay with different voice settings
+- 📊 Compare audio quality across versions
+- 🎛️ Adjust playback speed and tone
+- 📈 View audio analytics and clarity metrics
+
+## Statistics Dashboard
+
+### Live Performance Monitoring
+
+The playground features comprehensive real-time statistics:
+
+<AccordionGroup>
+  <Accordion title="Response Metrics" icon="chart-line">
+    - **Latency Tracking**: Response time distribution
+    - **Token Efficiency**: Input/output ratio analysis  
+    - **Streaming Performance**: Generation speed metrics
+    - **Error Rates**: Failed response tracking
+  </Accordion>
+  
+  <Accordion title="Voice Analytics" icon="microphone">
+    - **Recognition Accuracy**: Transcription confidence scores
+    - **Audio Quality**: Input clarity measurements
+    - **Response Clarity**: Generated audio quality metrics
+    - **Language Detection**: Confidence in language identification
+  </Accordion>
+  
+  <Accordion title="Conversation Flow" icon="comments">
+    - **Turn Analysis**: Conversation rhythm tracking
+    - **Context Retention**: Memory usage over time
+    - **Topic Coherence**: Subject consistency scoring
+    - **User Engagement**: Interaction quality metrics
+  </Accordion>
+  
+  <Accordion title="Resource Usage" icon="server">
+    - **Memory Consumption**: Real-time usage tracking
+    - **Processing Load**: System resource monitoring
+    - **Network Performance**: Connection quality metrics
+    - **Cache Efficiency**: Response caching effectiveness
+  </Accordion>
+</AccordionGroup>
+
+## Context Variables with AI Enhancement
+
+Test dynamic variables with intelligent assistance:
+
+<Steps>
+  <Step title="Open Enhanced Context Panel">
+    Access context variables with AI-powered validation.
+  </Step>
+  <Step title="Smart Value Generation">
+    Use AI to generate realistic test values for your variables.
+  </Step>
+  <Step title="Voice Variable Input">
+    Speak variable values using voice commands.
+  </Step>
+  <Step title="Real-time Validation">
+    See instant feedback on variable format and content.
   </Step>
 </Steps>
 
@@ -138,143 +274,192 @@ Test how your agent handles different input parameters with enhanced management:
   "order_number": "ORD-12345", 
   "is_premium_customer": true,
   "account_balance": 1250.50,
-  "_version_context": {
-    "version": "v1.2.3",
-    "changes": ["Updated premium logic", "New balance validation"]
+  "_ai_context": {
+    "streaming_enabled": true,
+    "voice_commands_active": true,
+    "statistics_level": "detailed",
+    "real_time_metrics": true
+  },
+  "_voice_settings": {
+    "input_language": "auto-detect",
+    "transcription_confidence": 0.95,
+    "voice_enhancement": true
   }
 }
 ```
 
-## Reliability Test with Version Integration
+## Reliability Testing with AI Insights
 
-Run multiple iterations with enhanced tracking:
+Run comprehensive tests with AI-powered analysis:
 
 <Steps>
-  <Step title="Configure Scenario">
-    Set up your test conversation and context variables.
+  <Step title="Configure Advanced Scenario">
+    Set up test with AI-generated edge cases.
   </Step>
-  <Step title="Select Version">
-    Choose which version to test or compare multiple versions.
+  <Step title="Enable Streaming Mode">
+    Test with real-time response generation.
   </Step>
-  <Step title="Set Iterations">
-    Choose how many times to run the test (e.g., 10, 50, 100).
+  <Step title="Set Voice Parameters">
+    Configure voice input variations for testing.
   </Step>
-  <Step title="Run Enhanced Test">
-    Click "Run Reliability Test" with version tracking enabled.
+  <Step title="Run AI-Enhanced Test">
+    Execute with streaming metrics and voice analysis.
   </Step>
-  <Step title="Analyze Results">
-    Review consistency with version-specific insights.
+  <Step title="Analyze AI Insights">
+    Review detailed performance analysis and suggestions.
   </Step>
 </Steps>
 
 <Warning>
-Reliability tests now track version-specific performance metrics. Results may vary between versions due to model or configuration changes.
+AI-enhanced reliability tests consume more resources. Consider running during off-peak hours for best results.
 </Warning>
 
-## Enhanced Testing Features
+## Voice Command Reference
 
-### Advanced Tool Call Testing
+### Global Commands (Available Anywhere)
 
-When your agent triggers a webhook:
+| Command | Action | Keyboard Shortcut |
+|---------|---------|-------------------|
+| "Start recording" | Begin voice input | `Cmd+Shift+V` |
+| "Stop recording" | End voice capture | `Cmd+Shift+V` again |
+| "Clear input" | Reset current input | `Cmd+Shift+C` |
+| "Send message" | Submit current input | `Cmd+Enter` |
+| "Show statistics" | Toggle stats panel | `Cmd+Shift+S` |
+| "Focus mode" | Enter distraction-free testing | `Cmd+Shift+F` |
 
-1. **Enhanced Visualization**: Tool calls appear with syntax highlighting
-2. **Parameter Inspection**: Detailed parameter view with diff comparison
-3. **Response Analysis**: JSON formatting with collapsible sections
-4. **Version Comparison**: See how tool behavior changed between versions
+### Context-Specific Commands
 
-### Evaluation Testing with Diff Support
+| Context | Command | Result |
+|---------|---------|---------|
+| Voice Recording | "Pause" | Pause recording without losing content |
+| Voice Recording | "Resume" | Continue recording from pause |
+| Voice Recording | "Delete last word" | Remove last spoken word |
+| Voice Recording | "Start over" | Clear and restart recording |
+| Testing Session | "Run test" | Execute current test scenario |
+| Testing Session | "Show metrics" | Display performance dashboard |
 
-After a conversation, run evaluations with enhanced analysis:
+## Advanced Features
 
-1. End the conversation naturally
-2. Click "Run Evaluations"
-3. **New**: Compare evaluation results across versions
-4. Review which evaluations pass or fail with detailed diff highlighting
+### AI-Powered Test Generation
 
-### Knowledge Base Testing with Version Tracking
+Let AI create test scenarios for you:
 
-Verify your agent's knowledge retrieval with version awareness:
+<Steps>
+  <Step title="Enable AI Test Generator">
+    Activate intelligent scenario creation.
+  </Step>
+  <Step title="Specify Test Goals">
+    Describe what you want to test using voice or text.
+  </Step>
+  <Step title="Review Generated Scenarios">
+    AI creates comprehensive test cases with edge conditions.
+  </Step>
+  <Step title="Execute with Streaming">
+    Run tests with real-time monitoring and voice interaction.
+  </Step>
+</Steps>
 
-1. Ask questions that require KB lookup
-2. Observe retrieval with enhanced debugging information
-3. **New**: Compare knowledge retrieval across different versions
-4. Check response accuracy with diff highlighting
+### Collaborative Voice Testing
 
-## Enhanced Best Practices
+Multiple team members can test together:
+- **Shared Voice Sessions**: Multiple users can provide voice input
+- **Real-time Transcription Sharing**: See all participants' input
+- **Collective Statistics**: Combined performance metrics
+- **Voice Queue Management**: Organized turn-taking for voice input
+
+### Intelligent Error Detection
+
+AI continuously monitors for issues:
+- **Response Quality**: Automatic coherence checking
+- **Performance Degradation**: Real-time slowdown detection
+- **Voice Recognition Errors**: Transcription accuracy monitoring
+- **Context Loss**: Memory management issue detection
+
+## Best Practices for AI Streaming
 
 <AccordionGroup>
-  <Accordion title="Version-Aware Testing" icon="code-branch">
-    Use the version system to test changes systematically. Compare behavior across versions using diff mode.
+  <Accordion title="Optimize Streaming Performance" icon="zap">
+    - Enable streaming only when needed for faster basic testing
+    - Use statistics widgets selectively to avoid performance impact
+    - Close unnecessary browser tabs during intensive testing
+    - Test with realistic network conditions
   </Accordion>
-  <Accordion title="Focus Mode Testing" icon="eye">
-    Enable focus mode when doing deep testing sessions to minimize distractions and concentrate on agent behavior.
+  
+  <Accordion title="Voice Command Efficiency" icon="microphone">
+    - Speak clearly and at moderate pace for better recognition
+    - Use consistent terminology for reliable command recognition
+    - Test in quiet environments for optimal transcription
+    - Configure microphone permissions before testing sessions
   </Accordion>
+  
   <Accordion title="Collaborative Testing" icon="users">
-    Multiple team members can test simultaneously with real-time sync showing current version state.
+    - Establish voice command protocols with team members
+    - Use shared statistics to identify performance trends
+    - Coordinate testing schedules to avoid resource conflicts
+    - Document findings using voice annotations
   </Accordion>
-  <Accordion title="Enhanced Edge Cases" icon="flask">
-    Use the improved editor interface to identify and test more complex edge cases with better visualization.
-  </Accordion>
-  <Accordion title="Diff-Driven Improvements" icon="arrows-left-right">
-    Use inline/split diff modes to understand exactly how changes affect agent behavior during testing.
+  
+  <Accordion title="Resource Management" icon="server">
+    - Monitor system resources during extended testing
+    - Use batch testing for high-volume scenarios
+    - Cache frequently tested scenarios for faster access
+    - Clean up test data regularly to maintain performance
   </Accordion>
 </AccordionGroup>
 
-## Advanced Testing Scenarios
+## Troubleshooting Enhanced Features
 
-### Version Regression Testing
-Test that new versions don't break existing functionality:
-- Load previous version in split diff view
-- Run same test scenarios
-- Compare responses side-by-side
+| Issue | Solution | AI Feature |
+|-------|----------|------------|
+| Voice not recognized | Check microphone permissions and speak clearly | Use voice enhancement settings |
+| Slow streaming | Disable unnecessary statistics widgets | Enable performance optimization mode |
+| Statistics not updating | Refresh statistics panel or restart testing | AI will auto-detect and suggest fixes |
+| Collaborative sync issues | Check network connection and user permissions | Real-time conflict resolution |
+| Memory usage high | Clear conversation history and restart session | AI memory management suggestions |
 
-### Collaborative Testing Sessions
-Multiple team members testing simultaneously:
-- Real-time version sync across all playground instances  
-- Shared context variables and test scenarios
-- Live collaboration indicators
+## Integration with Advanced Systems
 
-### Performance Testing with Version Metrics
-Track performance changes across versions:
-- Response time comparisons
-- Memory usage tracking (in debug mode)
-- Token consumption analysis
+### AI Streaming Integration
+- **Real-time Sync**: Streaming reflects current version state instantly
+- **Change Detection**: Visual indicators for modifications during streaming
+- **Performance Optimization**: AI adjusts streaming rate based on system performance
+- **Quality Assurance**: Continuous monitoring of stream quality
 
-## Enhanced Troubleshooting
-
-| Issue | Enhanced Solution | Editor Features |
-|-------|------------------|-----------------|
-| Agent not responding | Check LLM config with syntax highlighting | Use outline view to navigate to model settings |
-| Wrong greeting | Verify call type with diff comparison | Compare greeting logic across versions |
-| Missing personalization | Context variables with version validation | Use diff mode to see variable handling changes |
-| Webhook issues | Enhanced tool debugging with JSON formatting | Collapsible parameter inspection |
-| Version conflicts | Merge conflict resolution in playground | Inline diff shows conflicting changes |
-
-## Integration with Version System
-
-The Playground now integrates deeply with the version control system:
-
-<Info>
-- **Real-time Sync**: Testing always reflects the current version state
-- **Change Detection**: Visual indicators show when testing results might differ due to recent changes
-- **Conflict Resolution**: Test behavior during merge conflicts to ensure smooth transitions
-</Info>
+### Voice Command Integration  
+- **Cross-Platform Support**: Works across different operating systems
+- **Language Adaptation**: Automatically adapts to user's preferred language
+- **Context Awareness**: Commands change based on current testing phase
+- **Learning System**: AI learns from your voice patterns for better recognition
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card
-    title="Copilot Integration"
+    title="AI Copilot Integration"
     icon="robot"
     href="/advanced-editor/copilot"
   >
-    Get AI assistance with enhanced prompt analysis from playground results
+    Get AI assistance with enhanced prompt analysis and voice-powered coding
   </Card>
   <Card
-    title="Version History"
-    icon="clock-rotate-left"
-    href="/advanced-editor/version-history"
+    title="Statistics & Analytics"
+    icon="chart-bar"
+    href="/advanced-editor/analytics"
   >
-    Track how changes affect playground behavior over time
+    Deep dive into performance metrics and AI-powered insights
+  </Card>
+  <Card
+    title="Voice Configuration"
+    icon="microphone"
+    href="/advanced-editor/voice-settings"
+  >
+    Configure advanced voice commands and speech recognition settings
+  </Card>
+  <Card
+    title="Collaborative Features"
+    icon="users"
+    href="/advanced-editor/collaboration"
+  >
+    Set up team testing sessions with shared voice and streaming capabilities
   </Card>
 </CardGroup>
