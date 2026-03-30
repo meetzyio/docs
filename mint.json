@@ -1,3 +1,10 @@
+---
+title: "mint.json"
+description: "Configuration file for Meetzy documentation navigation and structure"
+icon: "gear"
+---
+
+```json
 {
   "name": "Meetzy Docs",
   "logo": {
@@ -79,6 +86,16 @@
       ]
     },
     {
+      "group": "WhatsApp Business",
+      "pages": [
+        "whatsapp/templates/overview",
+        "whatsapp/templates/creating-templates",
+        "whatsapp/templates/managing-templates",
+        "whatsapp/templates/template-approval",
+        "whatsapp/templates/variables-buttons"
+      ]
+    },
+    {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
@@ -111,6 +128,16 @@
       ]
     },
     {
+      "group": "WhatsApp Business",
+      "pages": [
+        "es/whatsapp/templates/overview",
+        "es/whatsapp/templates/creating-templates",
+        "es/whatsapp/templates/managing-templates",
+        "es/whatsapp/templates/template-approval",
+        "es/whatsapp/templates/variables-buttons"
+      ]
+    },
+    {
       "group": "Documentación de API",
       "pages": [
         "es/api-reference/introduction"
@@ -123,3 +150,4 @@
     "linkedin": "https://www.linkedin.com/company/meetzy"
   }
 }
+```
