@@ -31,6 +31,13 @@ El sistema muestra estados precisos con feedback inmediato:
 - **🔵 Syncing**: Operación de sincronización distribuida en progreso
 - **🟠 Locked**: Bloqueo colaborativo activo - otro desarrollador editando
 
+Los indicadores aparecen en el encabezado del editor junto con la información de versión:
+
+```
+Clean     v1.23
+Modified (3)  v1.24
+```
+
 ### Metadatos de Versión
 
 La información de versión incluye precisión temporal:
@@ -42,6 +49,28 @@ v1.23
 Este identificador representa el commit hash abreviado del estado actual, con trazabilidad completa al árbol de cambios.
 
 ## Protocolo de Gestión Distribuida
+
+### Controles de Git en la Interfaz
+
+El editor avanzado proporciona controles Git integrados en la barra de herramientas:
+
+<Steps>
+<Step title="Botón Check">
+Verifica actualizaciones remotas sin modificar el working tree local
+</Step>
+
+<Step title="Botón Pull">
+Sincroniza cambios remotos con merge automático o detección de conflictos
+</Step>
+
+<Step title="Botón Push">
+Envía cambios locales al repositorio remoto después de commit automático
+</Step>
+
+<Step title="Indicador de Estado">
+Badge visual que muestra el estado actual del repositorio en tiempo real
+</Step>
+</Steps>
 
 ### Verificación de Actualizaciones Remotas
 
@@ -71,9 +100,9 @@ El comando **Pull** implementa estrategias avanzadas de merge:
 Las operaciones de merge modifican el working tree local. Siempre ejecuta un backup del estado antes de pull en caso de cambios locales críticos.
 </Warning>
 
-## Resolución Algorítmica de Conflictos
+## Gestión Avanzada de Conflictos
 
-### Detección de Conflictos Distribuidos
+### Detección Automática de Conflictos
 
 Los conflictos emergen cuando:
 
@@ -81,7 +110,13 @@ Los conflictos emergen cuando:
 2. **Divergencia semántica** irreconciliable entre ramas de desarrollo
 3. **Colisión de hashes** en operaciones de merge distribuidas
 
-### Protocolo de Resolución
+El sistema detecta automáticamente estos estados y actualiza el indicador visual:
+
+```
+Conflicts (3)  v1.24
+```
+
+### Protocolo de Resolución de Conflictos
 
 <Steps>
 <Step title="Análisis de Diferencias">
@@ -111,6 +146,30 @@ La arquitectura multi-usuario proporciona visibilidad completa:
 - **Field-level locking**: Bloqueo granular por sección para prevenir conflictos
 - **Real-time sync**: Propagación automática de cambios mediante WebSockets
 
+Cuando múltiples usuarios editan simultáneamente:
+
+```
+Locked by 2 user(s)  v1.23
+```
+
+### Control de Acceso Distribuido
+
+El sistema implementa bloqueo optimista con resolución de conflictos:
+
+<Tabs>
+<Tab title="Bloqueo por Campo">
+- Campos individuales se bloquean cuando un editor comienza modificaciones
+- Liberación automática tras timeout configurable (default: 30 segundos)
+- Override manual para administradores en casos de locks huérfanos
+</Tab>
+
+<Tab title="Sincronización en Tiempo Real">
+- WebSocket bidireccional para propagación inmediata de cambios
+- Heartbeat para detección de desconexiones
+- Queue de operaciones para reconexión automática
+</Tab>
+</Tabs>
+
 ### Mejores Prácticas Distribuidas
 
 <Tabs>
@@ -124,6 +183,44 @@ La arquitectura multi-usuario proporciona visibilidad completa:
 - Fetch + merge antes de iniciar modificaciones locales
 - Commits atómicos con scope limitado para minimizar conflictos
 - Push frecuente durante sesiones de desarrollo extensas
+</Tab>
+</Tabs>
+
+## Controles de Git Integrados
+
+### Estados de Botones según Contexto
+
+Los controles Git se adaptan dinámicamente al estado del repositorio:
+
+<Tabs>
+<Tab title="Estado Clean">
+- **Check**: Habilitado para verificar actualizaciones
+- **Pull**: Deshabilitado (no hay cambios remotos)
+- **Push**: Deshabilitado (no hay cambios locales)
+</Tab>
+
+<Tab title="Estado Modified">
+- **Check**: Habilitado para verificar conflictos potenciales
+- **Pull**: Habilitado con advertencia de merge
+- **Push**: Habilitado para enviar cambios locales
+</Tab>
+
+<Tab title="Estado Conflict">
+- **Check**: Deshabilitado durante resolución
+- **Pull**: Deshabilitado hasta resolver conflictos
+- **Push**: Deshabilitado hasta resolución completa
+</Tab>
+
+<Tab title="Estado Syncing">
+- **Check**: Deshabilitado durante operación
+- **Pull**: Deshabilitado (operación en curso)
+- **Push**: Deshabilitado hasta completar sync
+</Tab>
+
+<Tab title="Estado Locked">
+- **Check**: Habilitado solo para lectura
+- **Pull**: Deshabilitado por bloqueo colaborativo
+- **Push**: Deshabilitado hasta liberar lock
 </Tab>
 </Tabs>
 
@@ -203,5 +300,22 @@ Para integridad comprometida del repositorio:
 1. **Verificación de checksums** SHA-256 de todos los objetos del repositorio
 2. **Reconstrucción desde backups** con validación de integridad criptográfica
 3. **Resincronización completa** desde el repositorio autoritativo remoto
+
+<Warning>
+La recuperación de estados corruptos puede requerir pérdida temporal de cambios locales no sincronizados. Mantén backups regulares de configuraciones críticas.
+</Warning>
+
+## Integración con Copilot de IA
+
+### Colaboración Humano-AI
+
+El sistema Git se integra con el Copilot para:
+
+- **Análisis de conflictos** mediante IA para sugerencias de resolución
+- **Generación de mensajes de commit** semánticamente descriptivos
+- **Detección de regresiones** en cambios de prompts y configuración
+- **Optimización de flujos de merge** basada en patrones históricos
+
+El Copilot puede generar cambios que requieren commit automático, manteniendo la integridad del historial distribuido.
 
 El sistema de control de versiones Git de Meetzy garantiza integridad absoluta y colaboración fluida mediante algoritmos distribuidos de última generación, proporcionando la robustez necesaria para desarrollo de agentes de IA de misión crítica.

@@ -70,6 +70,29 @@ The center panel shows key metadata about the call:
 | transferred | 🟣 Purple | Call was transferred |
 | no-answer | ⚪ Gray | Recipient didn't answer |
 
+### Analyze with Copilot
+
+A new **Analyze with Copilot** button is available in the call information section that allows you to dive deeper into the conversation:
+
+<Steps>
+  <Step title="Open Copilot Analysis">
+    Click the "Analyze with Copilot" button to navigate to the agent editor with this call's context pre-loaded
+  </Step>
+  <Step title="Automatic Context Loading">
+    The system automatically loads the call's transcription and metadata into Copilot for immediate analysis
+  </Step>
+  <Step title="Ask Questions">
+    You can now ask Copilot questions about this specific call, such as:
+    - "What were the key topics discussed in this call?"
+    - "How could the agent's response be improved?"
+    - "What patterns do you see in the customer's behavior?"
+  </Step>
+</Steps>
+
+<Info>
+The Copilot analysis maintains full context of the call, including transcript, input parameters, and output data for comprehensive insights.
+</Info>
+
 ## Output Response
 
 The right panel displays the output JSON containing all data captured during the call:
@@ -137,6 +160,25 @@ If call recording is enabled:
 Call recordings are stored for a limited time based on your plan. Download important recordings for permanent storage.
 </Warning>
 
+## Enhanced Analytics Workflow
+
+The new Copilot integration streamlines your analysis workflow:
+
+<CardGroup cols={2}>
+  <Card title="Quick Analysis" icon="bolt">
+    Jump directly from call details to Copilot analysis without losing context
+  </Card>
+  <Card title="Contextual Insights" icon="brain">
+    Get AI-powered insights based on the specific call's transcription and data
+  </Card>
+  <Card title="Pattern Recognition" icon="chart-line">
+    Identify trends and patterns across similar calls using Copilot's analytical capabilities
+  </Card>
+  <Card title="Agent Improvement" icon="arrow-up-right">
+    Use call-specific analysis to refine agent prompts and behaviors
+  </Card>
+</CardGroup>
+
 ## Copying Data
 
 ### Copy Buttons
@@ -163,8 +205,8 @@ When you copy data:
   <Card title="Integration Verification" icon="plug">
     Verify that webhook data was sent correctly and contains expected values.
   </Card>
-  <Card title="Training Data" icon="graduation-cap">
-    Export call details to improve agent prompts based on real conversations.
+  <Card title="AI-Powered Analysis" icon="robot">
+    Use Copilot to analyze call transcriptions and generate improvement recommendations.
   </Card>
 </CardGroup>
 
@@ -177,9 +219,12 @@ When you copy data:
 
 ## Next Steps
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card title="Call History" icon="list" href="/calls/call-history">
     Return to searching and filtering calls.
+  </Card>
+  <Card title="Copilot Analysis" icon="brain" href="/agents/copilot">
+    Analyze calls with AI-powered insights.
   </Card>
   <Card title="Reporting" icon="chart-line" href="/calls/reporting">
     Generate reports from your call data.

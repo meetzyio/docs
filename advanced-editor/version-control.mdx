@@ -4,103 +4,124 @@ description: "Master the integrated Git-based version control system for collabo
 icon: "git-branch"
 ---
 
-The Advanced Editor features a powerful integrated Git-based version control system that enables teams to collaborate on AI agents safely and efficiently. The system tracks changes, manages conflicts, and ensures data integrity across multiple users - functioning like a code repository but specifically designed for AI agent development.
+The Advanced Editor features a powerful integrated Git-based version control system that enables teams to collaborate on AI agents safely and efficiently. The system tracks changes in real-time, manages conflicts intelligently, and ensures data integrity across multiple users - functioning like a sophisticated code repository specifically designed for AI agent development.
 
 ## Version Control Interface
 
-The version control interface is located in the top-right section of the Advanced Editor toolbar, displaying real-time collaboration status and version information.
+The version control interface is prominently displayed in the top-right section of the Advanced Editor toolbar, providing instant visibility into collaboration status and version information.
 
 <Steps>
-  <Step title="Git Status Indicator">
-    Shows the current repository state with color-coded badges:
-    - **Clean** (Green): No local changes, synchronized with remote
-    - **Modified** (Yellow): Local changes detected with count
-    - **Conflicts** (Red): Merge conflicts requiring resolution
-    - **Syncing** (Blue): Currently synchronizing with remote
-    - **Locked** (Orange): Another user is actively editing
+  <Step title="Real-Time Git Status Indicator">
+    Shows the current repository state with intuitive color-coded badges:
+    - **Clean** (Green): No local changes, fully synchronized with remote
+    - **Modified** (Yellow): Local changes detected with precise count in parentheses
+    - **Conflicts** (Red): Merge conflicts requiring manual resolution
+    - **Syncing** (Blue): Currently synchronizing with remote repository
+    - **Locked** (Orange): Another user is actively editing, preventing concurrent modifications
   </Step>
 
-  <Step title="Version Information">
-    Displays current local version number in monospace format (e.g., `v42`)
+  <Step title="Version Information Display">
+    Displays current local version number in clean monospace format (e.g., `v42`)
   </Step>
 
-  <Step title="Control Buttons">
-    Three primary actions: **Check**, **Pull**, and **Commit**
+  <Step title="Three-Button Control System">
+    Primary actions: **Check**, **Pull**, and **Commit** with intelligent state management
   </Step>
 </Steps>
 
-## Git Status States
+## Git Status States & Real-Time Indicators
 
-The system maintains five distinct collaboration states, each with specific behaviors and available actions.
+The system maintains five distinct collaboration states with precise behavioral definitions and visual feedback.
 
 ### Clean State
 ```
 Status: Clean
 Version: v42
+Indicator: Green badge with solid circle
 ```
-- No local modifications detected
+
+**Characteristics:**
+- No local modifications detected across any configuration section
 - Fully synchronized with remote repository
 - All version control actions available
-- Safe to begin editing or switch contexts
+- Safe environment for new edits or context switching
+- Automatic background checks every 30 seconds maintain awareness
 
 ### Modified State
 ```
 Status: Modified (3)
 Version: v42
+Indicator: Yellow badge showing exact change count
 ```
-- Local changes detected (parentheses show number of modified fields)
-- Changes tracked in real-time across all configuration sections
-- Can commit changes or pull remote updates
-- May result in conflicts if remote has newer changes
 
-<Warning>
-Modified state indicates unsaved local changes. The system tracks modifications to system prompts, input parameters, output settings, evaluations, and agent configuration automatically.
-</Warning>
+**Real-Time Change Tracking:**
+- Detects modifications across system prompts, input parameters, output settings, evaluations, and agent configuration
+- Live counter updates as you type or modify settings
+- Changes persist through navigation within the editor
+- Background synchronization detects conflicts before they occur
+
+<Info>
+The system tracks granular changes including character-level edits in prompts, parameter additions/modifications, webhook URL changes, evaluation criteria updates, and agent metadata modifications.
+</Info>
 
 ### Conflict State
 ```
 Status: Conflicts (2)
 Version: v42
+Indicator: Red badge with conflict count
 ```
-- Merge conflicts detected during pull operation
-- Specific fields requiring manual resolution highlighted
-- Commit button disabled until all conflicts resolved
-- Conflict resolution interface available in Changes tab
+
+**Conflict Resolution Features:**
+- Field-by-field conflict identification and highlighting
+- Side-by-side comparison interface with syntax highlighting
+- Three resolution options: Keep Local, Keep Remote, or Manual Merge
+- Automatic validation ensures merged results maintain agent functionality
+- Commit operations disabled until all conflicts resolved
 
 ### Syncing State
 ```
 Status: Syncing...
 Version: v42
+Indicator: Blue badge with animated loading
 ```
-- Currently communicating with remote repository
-- All version control actions temporarily disabled
-- Automatic safety timeout after 30 seconds
-- Progress indicators show sync status
+
+**Synchronization Process:**
+- All version control buttons temporarily disabled
+- Progress indicators show real-time sync status
+- Automatic safety timeout after 30 seconds prevents hanging
+- Background processes continue during sync operations
 
 ### Locked State
 ```
 Status: Locked by 2 user(s)
 Version: v42
+Indicator: Orange badge with collaborator count
 ```
-- Another collaborator is actively editing the agent
-- Pull operations disabled to prevent editing conflicts
-- Check operations remain available for version monitoring
-- Real-time collaboration status updates
 
-## Version Control Actions
+**Collaborative Lock Management:**
+- Prevents simultaneous editing conflicts
+- Pull operations disabled to maintain consistency
+- Check operations remain available for monitoring
+- Real-time updates when collaborators finish editing
+
+<Warning>
+Locked state indicates active collaboration. The system automatically releases locks when users navigate away or become inactive, typically within 60 seconds.
+</Warning>
+
+## Version Control Actions & Smart Operations
 
 ### Check for Updates
 
-The **Check** button queries the remote repository for newer versions without downloading changes.
+The **Check** button performs non-destructive queries against the remote repository to detect version differences.
 
 <Tabs>
-  <Tab title="No Updates Available">
+  <Tab title="Up to Date">
     ```
     Local:  v42
     Remote: v42
-    Status: Up to date
+    Status: Repository synchronized
+    Action: No updates required
     ```
-    No action required - versions synchronized
   </Tab>
 
   <Tab title="Updates Available">
@@ -108,307 +129,483 @@ The **Check** button queries the remote repository for newer versions without do
     Local:  v42  
     Remote: v45
     Status: 3 versions behind
+    Action: Pull button automatically enabled
     ```
-    Pull button enabled to download updates
+    
+    **Update Information:**
+    - Precise version gap calculation
+    - Non-destructive preview of available changes
+    - Automatic pull button activation when updates detected
   </Tab>
 </Tabs>
 
-**Check Operation Benefits:**
-- Non-destructive query operation
-- Available during active editing sessions
-- Provides version comparison without changes
-- Updates collaboration status indicators
+**Intelligent Check Features:**
+- Runs automatically every 30 seconds in background
+- Available during active editing sessions without disruption
+- Provides instant feedback on team collaboration status
+- Updates collaboration indicators in real-time
 
-<Info>
-Check operations run automatically every 30 seconds in the background to maintain real-time collaboration awareness.
-</Info>
+### Pull Changes & Conflict Resolution
 
-### Pull Changes
-
-The **Pull** button downloads and merges remote changes with your local version, following a sophisticated conflict detection algorithm.
+The **Pull** button downloads and intelligently merges remote changes using sophisticated conflict detection algorithms.
 
 <Steps>
-  <Step title="Pre-Pull Validation">
-    System validates local state and checks for potential conflicts before initiating merge
+  <Step title="Pre-Pull Analysis">
+    System analyzes both local and remote changes to predict merge outcomes
   </Step>
 
-  <Step title="Change Detection">
-    Compares field-by-field differences between local and remote versions
+  <Step title="Smart Merging Engine">
+    Automatically merges non-conflicting changes across different configuration sections
   </Step>
 
-  <Step title="Automatic Merging">
-    Non-conflicting changes merge automatically (e.g., different configuration sections)
+  <Step title="Conflict Detection">
+    Identifies same-field modifications requiring manual intervention
   </Step>
 
-  <Step title="Conflict Identification">
-    Same-field modifications flagged for manual resolution
+  <Step title="Resolution Interface">
+    Provides intuitive tools for resolving conflicts with validation
   </Step>
 </Steps>
 
-**Pull Results:**
+**Pull Operation Outcomes:**
 
 <Tabs>
-  <Tab title="Successful Merge">
+  <Tab title="Successful Auto-Merge">
     ```
-    Before: v42 (Modified - 2)
+    Before: v42 (Modified - 2 changes)
     After:  v45 (Clean)
     
-    Changes Applied:
-    - Remote: Updated voice settings
-    - Local: Modified system prompt  
-    - Result: Both changes preserved
+    Merged Successfully:
+    ✓ Your system prompt changes (preserved)
+    ✓ Remote voice setting updates (applied)
+    ✓ Remote input parameter additions (applied)
+    
+    Result: All changes seamlessly combined
     ```
   </Tab>
 
-  <Tab title="Conflict Detection">
+  <Tab title="Conflict Resolution Required">
     ```
-    Before: v42 (Modified - 1)
-    After:  v45 (Conflicts - 1)
+    Before: v42 (Modified - 1 change)
+    After:  v45 (Conflicts - 1 field)
     
     Conflict in system_prompt:
-    Local:  "You are a sales assistant..."
-    Remote: "You are a customer service..."
+    ┌── Your Version ──────────────────────┐
+    │ You are a sales assistant focused on │
+    │ lead qualification and conversion... │
+    └──────────────────────────────────────┘
+    
+    ┌── Remote Version ────────────────────┐
+    │ You are a customer service agent     │
+    │ specializing in technical support... │
+    └──────────────────────────────────────┘
     ```
-    Manual resolution required before proceeding
+    
+    **Resolution Tools:**
+    - Side-by-side diff visualization
+    - One-click resolution options (Keep Local/Keep Remote)
+    - Manual merge editor with syntax highlighting
+    - Real-time validation of merged content
   </Tab>
 </Tabs>
 
-### Commit Changes
+### Commit Changes & Deployment
 
-The **Commit** button saves your local changes to the remote repository with automatic validation and deployment options.
+The **Commit** button saves local changes to the remote repository with comprehensive validation and optional deployment.
 
 ```typescript
-// Commit validation workflow
-commitWorkflow(): {
-  // 1. Validate agent configuration integrity
-  // 2. Check for unresolved conflicts
-  // 3. Create commit with descriptive message
-  // 4. Optional: Deploy to production environment
-  // 5. Update version numbers and sync status
+// Commit Process Flow
+const commitWorkflow = {
+  validation: "Real-time configuration integrity checks",
+  conflictCheck: "Verify no unresolved conflicts remain", 
+  messageCreation: "Generate descriptive commit message",
+  deployment: "Optional immediate production deployment",
+  versionUpdate: "Increment version and sync status"
 }
 ```
 
-**Commit Modal Interface:**
-- **Commit Message**: Descriptive text for change history
-- **Deploy to Production**: Toggle for immediate live deployment
-- **Validation Status**: Real-time configuration integrity checks
-- **Affected Fields**: Summary of modified sections
+**Enhanced Commit Modal:**
+
+<Steps>
+  <Step title="Commit Message Generation">
+    Intelligent auto-generation of descriptive commit messages based on detected changes
+  </Step>
+
+  <Step title="Change Summary">
+    Detailed breakdown of all modifications across configuration sections
+  </Step>
+
+  <Step title="Validation Dashboard">
+    Real-time integrity checks ensuring agent functionality preservation
+  </Step>
+
+  <Step title="Deployment Options">
+    Toggle for immediate production deployment with safety confirmations
+  </Step>
+</Steps>
+
+**Commit Results:**
+```
+Commit: v46
+Message: "Updated system prompt for better lead qualification, added phone_number input parameter"
+
+Changes Applied:
+- system_prompt: 47 characters modified
+- input_parameters: +1 field (phone_number)
+- Validation: ✅ All checks passed
+- Deployment: ⚡ Live in production
+```
 
 <Warning>
-Commits with "Deploy to Production" enabled immediately update the live agent. Test thoroughly before enabling production deployment.
+Commits with "Deploy to Production" enabled immediately update live agents. Always test changes in the Playground before enabling production deployment.
 </Warning>
 
 ## Advanced Collaboration Features
 
-### Real-Time Change Tracking
+### Real-Time Change Detection Engine
 
-The system monitors modifications across all agent configuration areas:
+The system continuously monitors modifications across all agent configuration areas with unprecedented granularity:
 
-- **System Prompt**: Character-level diff tracking
-- **Input Parameters**: Field additions, modifications, deletions
-- **Output Settings**: Webhook URLs, parameter mappings
-- **Evaluations**: Success criteria and scoring logic
-- **Agent Configuration**: Name, greetings, phone settings
-- **Knowledge Base**: Document additions and updates
+**Tracked Elements:**
+- **System Prompt**: Character-level diff tracking with syntax preservation
+- **Input Parameters**: Field additions, type changes, requirement modifications
+- **Output Settings**: Webhook configurations, parameter mappings, response formats
+- **Evaluations**: Success criteria, scoring algorithms, validation rules
+- **Agent Configuration**: Name changes, greeting updates, phone settings
+- **Knowledge Base**: Document additions, updates, and deletions
 
-### Field-Level Conflict Resolution
+**Live Tracking Features:**
+- Keystroke-level change detection in text areas
+- Form field modification monitoring
+- Real-time change counter updates
+- Background conflict detection during editing
 
-When conflicts occur, the system provides granular resolution tools:
+### Intelligent Conflict Resolution System
+
+When conflicts occur, the system provides sophisticated resolution tools designed for non-technical users:
 
 <Steps>
-  <Step title="Conflict Visualization">
-    Side-by-side comparison of local vs. remote changes with syntax highlighting
+  <Step title="Conflict Visualization Engine">
+    Advanced side-by-side comparison with:
+    - Syntax highlighting for readability
+    - Character-level diff annotations
+    - Contextual change indicators
+    - Impact analysis for each modification
   </Step>
 
-  <Step title="Resolution Options">
-    - **Keep Local**: Preserve your changes, discard remote
-    - **Keep Remote**: Accept teammate's changes, discard local
-    - **Manual Merge**: Combine both versions with custom editing
+  <Step title="Smart Resolution Options">
+    - **Keep Local**: Preserve your changes with impact preview
+    - **Keep Remote**: Accept teammate's changes with explanation
+    - **Manual Merge**: Guided combination editor with validation
+    - **Smart Suggestions**: AI-powered merge recommendations
   </Step>
 
-  <Step title="Validation Testing">
-    Automatic configuration validation ensures merged result maintains agent functionality
+  <Step title="Validation & Testing Integration">
+    - Automatic syntax and configuration validation
+    - Functional testing of merged configurations
+    - Performance impact analysis
+    - Rollback options if issues detected
   </Step>
 </Steps>
 
-### Collaborative Awareness
+### Team Collaboration Awareness
 
-**Live Status Indicators:**
-- Active collaborator count and identities
-- Real-time editing status across team members
-- Recent change timestamps and authors
-- Version history with commit messages
+**Live Status Dashboard:**
+- Real-time collaborator presence indicators
+- Active editing notifications with user identification
+- Recent change history with timestamps and authors
+- Comprehensive version timeline with commit messages
 
-**Conflict Prevention:**
-- Soft locks during active editing sessions  
-- Automatic conflict detection before saves
-- Background synchronization every 30 seconds
-- Smart merging for non-overlapping changes
-
-## Integration with Agent Development Workflow
-
-### Testing Integration
-
-Version control seamlessly integrates with the testing system:
+**Conflict Prevention System:**
+- Intelligent soft locks during active editing sessions
+- Predictive conflict detection before saves occur
+- Automatic background synchronization every 30 seconds
+- Smart merging algorithms for non-overlapping changes
 
 <Info>
-Test results are automatically associated with specific agent versions, enabling regression tracking and performance comparison across iterations.
+The collaboration system uses advanced algorithms to predict potential conflicts before they occur, providing warnings and suggestions to prevent editing collisions.
 </Info>
 
-- **Version-Specific Test Results**: Each test run tagged with exact agent version
-- **Regression Detection**: Automatic comparison of test performance across versions
-- **Rollback Testing**: Validate that reverting changes restores expected behavior
-- **Performance Metrics**: Track improvements and degradations over time
+## Integration with Advanced Editor Ecosystem
+
+### Seamless Testing Integration
+
+Version control deeply integrates with the testing and validation system:
+
+```typescript
+// Test-Version Association
+interface VersionedTestResult {
+  agentVersion: string;
+  testResults: TestOutcome[];
+  performanceMetrics: PerformanceData;
+  regressionStatus: 'improved' | 'stable' | 'degraded';
+  baselineComparison: ComparisonData;
+}
+```
+
+**Testing Features:**
+- **Version-Tagged Results**: Every test run automatically tagged with exact agent version
+- **Regression Analysis**: Automatic comparison of performance across versions  
+- **Rollback Validation**: Verify that reverting changes restores expected behavior
+- **Performance Trending**: Track improvements and degradations over development cycles
 
 ### AI Copilot Integration
 
-The AI Copilot respects the version control system:
+The AI Copilot seamlessly respects and enhances the version control workflow:
 
-- **Change Tracking**: Copilot modifications automatically tracked as local changes
-- **Conflict Awareness**: AI suggestions consider current collaboration state  
-- **Batch Operations**: Multiple Copilot changes grouped into single commits
-- **Validation Integration**: AI changes validated before commit proposals
+**Copilot-Version Control Coordination:**
+- **Change Tracking**: All Copilot modifications automatically tracked as local changes
+- **Collaboration Awareness**: AI suggestions consider current team editing state
+- **Batch Operations**: Multiple Copilot changes intelligently grouped into coherent commits
+- **Validation Integration**: AI-generated changes validated before commit proposals
+- **Conflict Resolution**: Copilot can suggest optimal merge strategies during conflicts
 
-### Deployment Pipeline
+### Production Deployment Pipeline
 
-**Production Deployment Options:**
+**Sophisticated Deployment Options:**
 
 <Tabs>
-  <Tab title="Manual Deployment">
+  <Tab title="Manual Deployment Workflow">
     ```
     1. Commit changes to repository
-    2. Review changes in staging environment
-    3. Manually deploy to production
-    4. Monitor performance metrics
+        ↓
+    2. Automatic staging environment update
+        ↓
+    3. Run validation tests in staging
+        ↓
+    4. Manual review and approval
+        ↓
+    5. Production deployment with monitoring
     ```
   </Tab>
 
-  <Tab title="Automatic Deployment">
+  <Tab title="Automated Deployment Pipeline">
     ```
     1. Enable "Deploy to Production" on commit
-    2. Changes immediately pushed to live environment
-    3. Automatic rollback on critical failures
-    4. Real-time monitoring activated
+        ↓
+    2. Automatic validation and testing
+        ↓
+    3. Immediate production deployment
+        ↓
+    4. Real-time performance monitoring
+        ↓
+    5. Automatic rollback on critical failures
     ```
   </Tab>
 </Tabs>
 
+**Deployment Safety Features:**
+- Automatic backup creation before production updates
+- Real-time performance monitoring post-deployment
+- Instant rollback capabilities for critical issues
+- Detailed deployment logs and audit trails
+
 ## Best Practices for Team Collaboration
 
-### Before Starting Work
+### Pre-Work Preparation
 
 <Steps>
-  <Step title="Sync Check">
-    Always run **Check** to verify you have the latest version before editing
-  </Step>
-
-  <Step title="Pull Updates">
-    Use **Pull** to download any available changes from teammates
-  </Step>
-
   <Step title="Status Verification">
+    Always click **Check** to verify latest version before starting edits
+  </Step>
+
+  <Step title="Update Synchronization">
+    Use **Pull** to download any available team changes
+  </Step>
+
+  <Step title="Clean State Confirmation">
     Ensure status shows **Clean** before beginning modifications
+  </Step>
+
+  <Step title="Collaboration Communication">
+    Inform team of significant changes before starting work
   </Step>
 </Steps>
 
-### During Development
+### During Active Development
 
-- **Monitor Status Indicator**: Watch for collaboration conflicts in real-time
-- **Commit Frequently**: Smaller, focused commits reduce merge complexity
-- **Descriptive Messages**: Use clear commit messages for team communication
-- **Test Before Commit**: Validate changes in Playground before saving
+**Real-Time Best Practices:**
+- **Monitor Collaboration Indicators**: Watch for teammate activity and potential conflicts
+- **Commit Frequently**: Smaller, focused commits reduce merge complexity and enable easier rollbacks
+- **Descriptive Commit Messages**: Use clear, actionable messages that explain the "why" behind changes
+- **Test-Driven Development**: Validate all changes in Playground before committing
+- **Regular Synchronization**: Pull team changes every 15-30 minutes during active development
 
-### Handling Complex Changes
+### Handling Complex Scenarios
 
-**For Large Modifications:**
-1. **Coordinate with Team**: Communicate major changes before starting
-2. **Work in Sections**: Break large changes into focused areas
-3. **Frequent Commits**: Save progress regularly to minimize conflicts
-4. **Integration Testing**: Validate combined changes from multiple contributors
+**Large-Scale Modifications:**
+<Steps>
+  <Step title="Team Coordination">
+    Communicate major architectural changes before implementation
+  </Step>
 
-**For Urgent Fixes:**
-1. **Priority Communication**: Alert team to urgent changes in progress
-2. **Fast Iteration**: Make minimal necessary changes quickly
-3. **Immediate Testing**: Validate fix functionality before committing
-4. **Production Deployment**: Use automatic deployment for critical fixes
+  <Step title="Modular Approach">
+    Break large changes into focused, independent sections
+  </Step>
+
+  <Step title="Progressive Commits">
+    Save progress frequently to minimize conflict surface area
+  </Step>
+
+  <Step title="Integration Testing">
+    Validate combined changes from multiple contributors comprehensively
+  </Step>
+</Steps>
+
+**Urgent Production Fixes:**
+<Steps>
+  <Step title="Priority Communication">
+    Alert team to urgent changes in progress via team channels
+  </Step>
+
+  <Step title="Minimal Change Scope">
+    Make only the essential changes required to resolve the issue
+  </Step>
+
+  <Step title="Immediate Validation">
+    Test fix functionality thoroughly before committing
+  </Step>
+
+  <Step title="Fast-Track Deployment">
+    Use automatic deployment for validated critical fixes
+  </Step>
+
+  <Step title="Post-Fix Monitoring">
+    Monitor system performance closely after urgent deployments
+  </Step>
+</Steps>
 
 ## Troubleshooting Common Issues
 
 ### Stuck in Syncing State
 
-If the status remains "Syncing..." beyond 30 seconds:
+If status remains "Syncing..." beyond the 30-second timeout:
 
 <Steps>
-  <Step title="Wait for Timeout">
-    System automatically recovers after 30-second safety timeout
+  <Step title="Automatic Recovery Wait">
+    Allow system's automatic recovery timeout to complete (30 seconds)
   </Step>
 
-  <Step title="Check Network">
-    Verify internet connectivity and API service status
+  <Step title="Network Diagnostics">
+    Verify internet connectivity and Meetzy API service status
   </Step>
 
-  <Step title="Refresh Editor">
-    Reload the Advanced Editor page to reset connection
+  <Step title="Editor Refresh">
+    Reload the Advanced Editor page to reset connection state
   </Step>
 
-  <Step title="Contact Support">
-    If issue persists, provide version numbers and error details
+  <Step title="Browser Console Check">
+    Open developer tools to check for JavaScript errors or network issues
+  </Step>
+
+  <Step title="Support Escalation">
+    If issue persists, contact support with specific version numbers and error details
   </Step>
 </Steps>
 
-### Lost Changes During Pull
+### Lost Changes During Pull Operations
 
-If local changes disappear after pulling remote updates:
+If local changes disappear unexpectedly after pulling remote updates:
 
-1. **Check Conflict Resolution**: Review Changes tab for merge results
-2. **Browser Console**: Look for JavaScript errors during merge process
-3. **Version History**: Verify changes weren't automatically merged
-4. **Recovery Options**: Contact support with before/after version numbers
+**Recovery Process:**
+1. **Conflict Resolution Review**: Check the Changes tab for merge results and resolution status
+2. **Browser Console Analysis**: Look for JavaScript errors or network interruptions during merge
+3. **Version History Audit**: Verify changes weren't automatically merged in unexpected ways
+4. **Backup Recovery**: Contact support with before/after version numbers for backup restoration
 
 <Warning>
-The system maintains automatic backups during pull operations, but complex merges may require manual recovery assistance.
+While the system maintains automatic backups during pull operations, complex merges involving significant conflicts may require manual recovery assistance from the support team.
 </Warning>
 
 ### Version Number Misalignment
 
-When local and remote versions show unexpected differences:
+When local and remote versions show unexpected differences or synchronization issues:
 
 ```typescript
-// Diagnostic information to collect
-{
+// Diagnostic Data Collection
+const diagnosticInfo = {
   localVersion: 42,
   remoteVersion: 45,  
-  status: "Modified (3)",
-  lastSync: "2024-01-15T14:30:00Z",
-  pendingChanges: ["system_prompt", "input_params", "evaluations"]
+  gitStatus: "Modified (3)",
+  lastSyncTimestamp: "2024-01-15T14:30:00Z",
+  pendingChanges: ["system_prompt", "input_params", "evaluations"],
+  conflictFields: [],
+  collaboratorCount: 2
 }
 ```
 
-**Resolution Steps:**
-1. Document current state with version numbers
-2. Save local changes as backup (copy/paste)
-3. Perform fresh Pull operation to resynchronize
-4. Manually reapply any lost modifications
-5. Commit restored changes with appropriate message
+**Systematic Resolution Steps:**
+<Steps>
+  <Step title="State Documentation">
+    Document current state with version numbers, status, and pending changes
+  </Step>
 
-## Security and Permissions
+  <Step title="Change Preservation">
+    Save local changes as backup (copy critical modifications to external document)
+  </Step>
 
-### Access Control
+  <Step title="Fresh Synchronization">
+    Perform fresh Pull operation to force resynchronization with remote
+  </Step>
 
-The version control system respects team permissions:
+  <Step title="Manual Reapplication">
+    Manually reapply any lost modifications using backup documentation
+  </Step>
 
-- **Read Access**: View agent configurations and version history
-- **Write Access**: Create commits and modify configurations  
-- **Admin Access**: Manage collaboration settings and force-resolve conflicts
-- **Production Deploy**: Special permission for automatic deployment toggle
+  <Step title="Validation Commit">
+    Commit restored changes with descriptive message explaining the recovery
+  </Step>
+</Steps>
 
-### Audit Trail
+### Persistent Conflict States
 
-Every version control operation creates audit records:
+When conflicts remain unresolvable through normal resolution tools:
 
-- **Commit History**: Complete log of changes with authors and timestamps
-- **Conflict Resolutions**: Records of manual merge decisions
-- **Deployment Events**: Production deployment logs with rollback capability
-- **Access Logs**: User actions and permission usage tracking
+**Advanced Resolution Techniques:**
+- **Field-by-Field Analysis**: Examine each conflicted field individually for resolution patterns
+- **Version History Review**: Check recent commits to understand the source of conflicting changes
+- **Team Consultation**: Coordinate with teammates who made conflicting changes for guided resolution
+- **Fresh Start Option**: In extreme cases, create new agent version and manually migrate working components
 
-This comprehensive version control system ensures that your AI agent development maintains the same professional standards as software development, enabling teams to collaborate confidently while maintaining agent quality and reliability.
+## Security & Permissions Framework
+
+### Granular Access Control
+
+The version control system implements role-based permissions aligned with team structure:
+
+**Permission Levels:**
+- **Read Access**: View agent configurations, version history, and collaboration status
+- **Write Access**: Create commits, modify configurations, and resolve conflicts
+- **Admin Access**: Manage collaboration settings, force-resolve complex conflicts, and access audit logs
+- **Production Deploy**: Special permission for enabling automatic deployment toggle
+
+### Comprehensive Audit Trail
+
+Every version control operation generates detailed audit records for compliance and debugging:
+
+**Audit Categories:**
+- **Commit History**: Complete chronological log of changes with full authorship details
+- **Conflict Resolutions**: Detailed records of manual merge decisions and resolution strategies  
+- **Deployment Events**: Production deployment logs with automatic rollback triggers
+- **Access Logs**: Comprehensive user action tracking and permission usage monitoring
+- **Collaboration Events**: Real-time logging of team interactions and editing sessions
+
+**Audit Data Structure:**
+```json
+{
+  "eventId": "evt_abc123",
+  "timestamp": "2024-01-15T14:30:00Z",
+  "eventType": "commit",
+  "userId": "user_def456", 
+  "agentId": "asst_ghi789",
+  "changes": {
+    "fieldsModified": ["system_prompt", "input_params"],
+    "linesAdded": 23,
+    "linesRemoved": 7
+  },
+  "deploymentStatus": "production",
+  "validationResults": "passed"
+}
+```
+
+This sophisticated version control system ensures that AI agent development maintains the same professional standards and collaborative capabilities as modern software development, enabling teams to work confidently while maintaining agent quality, reliability, and compliance with organizational requirements.

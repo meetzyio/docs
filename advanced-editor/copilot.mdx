@@ -9,7 +9,7 @@ icon: 'robot'
 Copilot is an advanced AI-powered system engineer integrated into the Advanced Editor. It goes far beyond simple prompt editing - **Copilot can configure your entire agent system** including input parameters, output settings, evaluations, and core configurations. Using sophisticated structured editing and intelligent analysis, Copilot transforms your agent based on natural language instructions and real call data.
 
 <Info>
-Copilot has evolved from a prompt assistant to a complete system engineer. It can modify prompts, configure parameters, set up evaluations, update basic settings, and even suggest tests - all through natural conversation and targeted operations.
+Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, create tests from call history, and even suggest improvements - all through natural conversation and targeted operations.
 </Info>
 
 ## Accessing Copilot
@@ -86,15 +86,15 @@ Copilot now operates as a comprehensive system engineer that can modify every as
     - **Goal Achievement**: Primary objective completion tracking  
     - **Customer Satisfaction**: Experience and satisfaction evaluation
     - **Process Adherence**: Compliance with required procedures
-    - **Test Generation**: Creates automated tests from call scenarios
+    - **Test Generation**: Creates automated tests from call scenarios and history
   </Tab>
   <Tab title="Basic Configuration">
     **Core Agent Settings** from natural language instructions
     
-    - Agent name optimization
-    - Inbound/outbound greeting configuration
+    - Agent name optimization based on role and personality
+    - Inbound/outbound greeting configuration for different scenarios
     - Phone number assignment and management
-    - Voice and personality adjustments
+    - Voice and personality adjustments for optimal customer experience
   </Tab>
 </Tabs>
 
@@ -237,6 +237,46 @@ Copilot intelligently suggests changes across all agent configuration areas:
   </Tab>
 </Tabs>
 
+## Advanced Test Creation from Call History
+
+One of Copilot's most powerful features is generating comprehensive test suites based on real call data:
+
+<Tabs>
+  <Tab title="Test Generation from Calls">
+    **Transform Call History into Automated Tests**:
+    
+    ```
+    @call:abc123 This call shows great objection handling. 
+    Create a test to ensure the agent maintains this quality.
+    ```
+    
+    Copilot automatically extracts:
+    - **Chat History**: Complete conversation flow from the call
+    - **Success Conditions**: What made this call successful
+    - **Success Examples**: Specific agent responses that worked well
+    - **Failure Examples**: Alternative responses to avoid
+    - **Dynamic Variables**: Contextual information that can be varied in tests
+  </Tab>
+  <Tab title="Test Types Generated">
+    **Multiple Test Scenarios** from single calls:
+    
+    - **Scenario Tests**: Complete conversation workflows
+    - **Simulation Tests**: Realistic customer interactions
+    - **Regression Tests**: Ensure quality doesn't degrade
+    - **Edge Case Tests**: Handle unusual customer behaviors
+  </Tab>
+  <Tab title="Intelligent Test Structure">
+    **Comprehensive Test Configuration**:
+    
+    - **Name**: Descriptive test identification
+    - **Type**: Scenario or simulation classification
+    - **Chat History**: Full conversation with timestamps
+    - **Success Conditions**: Clear pass/fail criteria
+    - **Dynamic Variables**: Customizable test parameters
+    - **Quality Benchmarks**: Performance expectations
+  </Tab>
+</Tabs>
+
 ## Voice Input & Call Context Analysis
 
 Enhanced natural interaction capabilities for comprehensive system configuration:
@@ -284,6 +324,7 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     - Suggests missing input/output parameters
     - Updates prompts based on specific context
     - Creates relevant evaluation criteria
+    - **Generates tests based on call patterns**
     
     ### Comprehensive Call Analysis
     
@@ -292,6 +333,7 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     - **Process Gap Analysis**: Where the conversation broke down
     - **Parameter Suggestions**: Input/output fields based on actual needs
     - **Evaluation Criteria**: Performance metrics based on real outcomes
+    - **Test Creation**: Automated test scenarios from successful interactions
   </Tab>
 </Tabs>
 
@@ -321,6 +363,7 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     - Output Settings reflect new capture requirements
     - Evaluations panel shows new measurement criteria
     - Basic Settings display updated configurations
+    - Tests panel includes newly generated test scenarios
   </Step>
 </Steps>
 
@@ -355,6 +398,7 @@ Set up a complete configuration for this sales agent.
 - **Output parameters**: Qualification score, next steps, contact preferences
 - **Evaluations**: Lead quality, objection handling, conversion tracking
 - **Basic settings**: Professional but approachable greeting updates
+- **Tests**: Automated scenarios based on the analyzed call patterns
 
 ### Multi-System Integration Configuration
 
@@ -370,6 +414,7 @@ qualification scoring, and success evaluations.
 - Prompt Instructions: Qualification process and scoring guidelines  
 - Evaluations: Lead quality metrics, conversion tracking, customer satisfaction
 - Output Enrichment: Lead processing and CRM integration instructions
+- Tests: Complete qualification workflow scenarios
 
 ### Performance Optimization from Multiple Calls
 
@@ -385,6 +430,22 @@ parameters, and we can't track booking success rates.
 - Adds confirmation and calendar integration parameters
 - Creates appointment booking success evaluations
 - Suggests test scenarios based on real conversation patterns
+- Generates regression tests for quality assurance
+
+### Test Creation from Successful Calls
+
+```
+@call:perfect123 This was a perfect call where the agent handled 
+all objections and booked the appointment. Create comprehensive 
+tests to maintain this quality.
+```
+
+**Intelligent test generation**:
+- Extracts complete conversation flow
+- Identifies successful objection handling patterns
+- Creates multiple test scenarios with variations
+- Sets up quality benchmarks based on the successful call
+- Includes dynamic variables for different customer personalities
 
 ## Quick Start with Predefined Actions
 
@@ -433,36 +494,6 @@ The welcome interface provides four **instant setup options**:
   </Tab>
 </Tabs>
 
-## Intelligent Test Generation
-
-Copilot can analyze call transcripts and create comprehensive test suites:
-
-<Tabs>
-  <Tab title="Automated Test Creation">
-    **From Call History Analysis**:
-    
-    ```
-    @call:abc123 Create tests to ensure the agent handles 
-    budget objections properly like in this call.
-    ```
-    
-    Copilot generates:
-    - **Test scenarios** based on actual conversation patterns
-    - **Success conditions** derived from desired outcomes
-    - **Failure examples** from problematic call segments
-    - **Dynamic variables** for realistic simulation
-  </Tab>
-  <Tab title="Regression Test Suites">
-    **Comprehensive Quality Assurance**:
-    
-    After making system changes, Copilot suggests:
-    - Tests for new parameter validation
-    - Evaluation criteria verification tests
-    - End-to-end conversation flow tests
-    - Edge case handling scenarios
-  </Tab>
-</Tabs>
-
 ## Next Step Suggestions & System Recommendations
 
 After completing comprehensive changes, Copilot provides intelligent system-wide recommendations:
@@ -475,6 +506,7 @@ After completing comprehensive changes, Copilot provides intelligent system-wide
     - Improved prompt handling → recommends relevant test creation
     - Updated evaluations → suggests parameter adjustments for better measurement
     - Enhanced greetings → recommends matching closing procedures
+    - Created tests → suggests additional edge case scenarios
   </Tab>
   <Tab title="Configuration Completeness">
     **System audit recommendations**:
@@ -483,6 +515,7 @@ After completing comprehensive changes, Copilot provides intelligent system-wide
     - Suggested output enrichment for captured data
     - Recommended tests for new conversation flows
     - Configuration validation and optimization tips
+    - Test coverage analysis and suggestions
   </Tab>
   <Tab title="Quality Assurance Prompts">
     **Comprehensive testing reminders**:
@@ -491,6 +524,7 @@ After completing comprehensive changes, Copilot provides intelligent system-wide
     - "Create regression tests for updated conversation flows"
     - "Verify evaluation criteria with sample calls"
     - "Validate output enrichment with webhook testing"
+    - "Run generated tests to ensure quality maintenance"
   </Tab>
 </Tabs>
 
@@ -510,6 +544,10 @@ Copilot: [Refines parameters and prompt approach across affected areas]
 User: Add follow-up scheduling and CRM integration
 
 Copilot: [Adds scheduling params, webhook configs, and integration tests]
+
+User: @call:abc123 Create tests based on this successful call
+
+Copilot: [Generates comprehensive test scenarios from call history]
 ```
 
 <Info>
@@ -522,35 +560,47 @@ Copilot maintains conversation context across multiple system modification reque
 ```
 Create a professional appointment scheduling agent named "Sarah" 
 with comprehensive lead qualification, appointment booking parameters, 
-success tracking evaluations, and friendly but professional greetings.
+success tracking evaluations, friendly but professional greetings,
+and test scenarios for quality assurance.
 ```
 
 ### Data-Driven System Optimization
 ```
 @call:abc123 @call:def456 Analyze these problematic calls and 
 optimize the entire agent system - fix the prompts, add missing 
-parameters, create better evaluations, and set up proper testing.
+parameters, create better evaluations, set up proper testing,
+and generate quality assurance tests.
 ```
 
 ### Multi-System Integration Configuration
 ```
 Set up this agent for CRM integration with Salesforce - add all 
 necessary input and output parameters, webhook configurations, 
-data enrichment instructions, and integration success evaluations.
+data enrichment instructions, integration success evaluations,
+and comprehensive test scenarios for the integration workflow.
 ```
 
 ### Performance-Driven System Updates
 ```
 Our conversion rate is low. Analyze the current setup and improve 
 the qualification process, add better objection handling, create 
-conversion tracking evaluations, and optimize output data capture.
+conversion tracking evaluations, optimize output data capture,
+and generate tests to maintain improved performance.
+```
+
+### Test Suite Creation from Call History
+```
+@call:perfect1 @call:perfect2 @call:perfect3 These are our best calls.
+Create a comprehensive test suite based on these successful patterns
+to ensure all agents maintain this quality level.
 ```
 
 ### Compliance and Quality Assurance Setup
 ```
 Add comprehensive compliance checking for this financial services 
 agent - include required disclosures in prompts, compliance tracking 
-parameters, regulatory evaluation criteria, and audit trail outputs.
+parameters, regulatory evaluation criteria, audit trail outputs,
+and compliance verification tests.
 ```
 
 ## Keyboard Shortcuts for System Navigation
@@ -566,6 +616,7 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
 | **⌘3** | Navigate to Input Parameters panel |
 | **⌘6** | Navigate to Evaluations panel |
 | **⌘7** | Navigate to Output Settings panel |
+| **⌘8** | Navigate to Tests panel |
 | **⌘G** | Navigate to Git Changes panel |
 
 ## Best Practices for System Engineering
@@ -582,7 +633,7 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
   <Step title="Use Comprehensive Natural Language">
     **Describe complete system needs rather than isolated changes**:
     
-    **Good:** "Set up complete lead qualification with budget tracking, contact preferences, scoring system, and success evaluations"
+    **Good:** "Set up complete lead qualification with budget tracking, contact preferences, scoring system, success evaluations, and quality assurance tests"
     
     **Limited:** "Add a budget parameter"
     
@@ -594,6 +645,7 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
     - Use `@call:ID` syntax to provide specific examples of system gaps
     - Let Copilot analyze real conversation data across all configuration areas
     - Address actual problems with coordinated parameter, prompt, and evaluation updates
+    - **Generate tests from successful calls to maintain quality**
   </Step>
   <Step title="Review All Affected Configuration Areas">
     **Check every panel with purple notification indicators**:
@@ -602,6 +654,7 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
     - Output Settings for enhanced data capture
     - Evaluations for performance measurement
     - Basic Settings for core configuration updates
+    - **Tests panel for newly generated test scenarios**
     - Consider the impact across the entire agent system
   </Step>
   <Step title="Think in System Integration Terms">
@@ -610,20 +663,29 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
     - New input parameters should have matching output fields
     - Prompt changes need corresponding evaluation criteria
     - Output configurations should include proper enrichment instructions
+    - **Successful configurations should include test scenarios for quality assurance**
     - Test comprehensive workflows after system-wide changes
   </Step>
   <Step title="Use Voice for Complex System Requests">
     **Natural speech excels for describing comprehensive system needs**:
     
-    - "Set up complete sales qualification with lead scoring and CRM integration"
-    - "Based on these three problem calls, optimize the entire agent system"
+    - "Set up complete sales qualification with lead scoring, CRM integration, and quality tests"
+    - "Based on these three problem calls, optimize the entire agent system with comprehensive testing"
     - Let conversational input guide holistic system improvements
+  </Step>
+  <Step title="Create Tests from Successful Call Patterns">
+    **Transform your best calls into quality assurance systems**:
+    
+    - Reference successful calls to generate test scenarios
+    - Build comprehensive test suites from proven conversation patterns
+    - Use tests to maintain quality as you scale your agent deployment
   </Step>
   <Step title="Follow Cross-Panel Notification Cues">
     **Purple indicators guide you to all affected system areas**:
     
     - Check every panel with notification dots
     - Don't miss configuration changes in different areas
+    - **Review generated tests in the Tests panel**
     - Use seamless navigation to review comprehensively
   </Step>
   <Step title="Test System Changes Comprehensively">
@@ -632,6 +694,7 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
     - Test new parameters with real data in Playground
     - Verify evaluation criteria work with actual conversations
     - Validate output configurations and webhook integrations
+    - **Run generated tests to ensure quality maintenance**
     - Run regression tests across the entire conversation flow
   </Step>
   <Step title="Iterate on Complete System Understanding">
@@ -640,6 +703,7 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
     - Start with high-level system requirements
     - Refine specific areas through follow-up conversations
     - Test and adjust system-wide configurations
+    - **Generate and refine tests based on real performance**
     - Build understanding of how all components work together
   </Step>
 </Steps>
@@ -676,17 +740,17 @@ parameters, regulatory evaluation criteria, and audit trail outputs.
     Configure core agent settings with AI-powered optimization
   </Card>
   <Card
+    title="Tests"
+    icon="clipboard-check"
+    href="/advanced-editor/tests"
+  >
+    Create comprehensive automated tests for your entire agent system, including scenarios generated from call history
+  </Card>
+  <Card
     title="Playground"
     icon="gamepad"
     href="/advanced-editor/playground"
   >
-    Test your complete system configuration with real data
-  </Card>
-  <Card
-    title="Tests" 
-    icon="clipboard-check"
-    href="/advanced-editor/tests"
-  >
-    Create comprehensive automated tests for your entire agent system
+    Test your complete system configuration with real data and validate generated test scenarios
   </Card>
 </CardGroup>
