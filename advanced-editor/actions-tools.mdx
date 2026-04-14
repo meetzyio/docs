@@ -71,9 +71,9 @@ Configure how your agent intelligently transfers calls to human agents, departme
   </Tab>
 </Tabs>
 
-### Transfer Prompt Configuration
+### Transfer Prompt Templates
 
-The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Here are professionally crafted templates:
+The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Use these professionally crafted multi-language templates:
 
 <Tabs>
   <Tab title="Spanish">
@@ -112,6 +112,39 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - Des informations spécifiques sont nécessaires qui ne sont pas disponibles dans le système
     - L'utilisateur nécessite une autorisation ou la gestion de données personnelles sensibles
     - Situations nécessitant négociation ou décisions complexes
+    ```
+  </Tab>
+  <Tab title="German">
+    ```
+    Wird verwendet, um den Anruf an eine Person zu übertragen in folgenden Fällen:
+
+    - Der Benutzer das Angebot oder den Service direkt ablehnt
+    - Der Benutzer ausdrücklich darum bittet, mit einer menschlichen Person zu sprechen
+    - Der Benutzer Misstrauen gegenüber dem virtuellen Assistenten zeigt
+    - Spezifische Informationen benötigt werden, die im System nicht verfügbar sind
+    - Der Benutzer eine Autorisierung oder Verwaltung sensibler persönlicher Daten benötigt
+    ```
+  </Tab>
+  <Tab title="Italian">
+    ```
+    Usato per trasferire la chiamata a una persona nei seguenti casi:
+
+    - L'utente rifiuta direttamente la proposta o il servizio
+    - L'utente richiede espressamente di parlare con una persona umana
+    - L'utente mostra sfiducia verso l'assistente virtuale
+    - Sono necessarie informazioni specifiche non disponibili nel sistema
+    - L'utente richiede autorizzazione o gestione di dati personali sensibili
+    ```
+  </Tab>
+  <Tab title="Portuguese">
+    ```
+    Usado para transferir a chamada para uma pessoa nos seguintes casos:
+
+    - O usuário rejeita diretamente a proposta ou serviço
+    - O usuário solicita expressamente falar com uma pessoa humana
+    - O usuário mostra desconfiança em relação ao assistente virtual
+    - São necessárias informações específicas que não estão disponíveis no sistema
+    - O usuário requer autorização ou gestão de dados pessoais sensíveis
     ```
   </Tab>
 </Tabs>
@@ -160,188 +193,288 @@ Our advanced detection system recognizes voicemail and answering machines across
 **Response Time**: Detection typically occurs within 3-5 seconds of answering
 </Info>
 
-**Common Detection Phrases:**
+### End Call Strategy Templates
+
+Configure professional call termination for various scenarios using our multi-language templates:
 
 <Tabs>
   <Tab title="Spanish">
-    - "En este momento no podemos atenderle"
-    - "Deje su mensaje después de la señal"
-    - "Gracias por llamar, en estos momentos..."
-    - "Bienvenido al buzón de voz de..."
-    - "Este es el contestador de..."
+    ```markdown
+    ## Finalización de llamada por Detección de Contestador Automático
+
+    Si se detecta que el usuario es un contestador automático, finaliza la llamada de inmediato. Aquí tienes ejemplos de mensajes que suelen decir los contestadores automáticos:
+
+    - En este momento no podemos atenderle
+    - Deje su mensaje después de la señal
+    - El número al que llama...
+    - Ha llamado al...
+    - Este es el contestador de...
+    - Puedes dejar tu mensaje al oir la señal
+    - Deje su mensaje después de oir la señal
+    - Gracias por llamar, en estos momentos...
+    - Por favor, deje su mensaje después del tono
+    - Lo sentimos, pero en estos momentos...
+    - Bienvenido al buzón de voz de...
+
+    ## Finalización de Llamada por otros motivos: 
+
+    También debes colgar las llamadas cuando:
+    - El usuario se despida de forma clara
+    - Te despidas tú mismo
+    ```
   </Tab>
   <Tab title="English">
-    - "We cannot attend you at this time"
-    - "Leave your message after the signal"
-    - "Thank you for calling, at this time..."
-    - "Welcome to the voicemail of..."
-    - "You have reached the voicemail of..."
+    ```markdown
+    ## Call Termination by Answering Machine Detection
+
+    If it is detected that the user is an answering machine, terminate the call immediately. Here are examples of messages that answering machines typically say:
+
+    - We cannot attend you at this time
+    - Leave your message after the signal
+    - The number you called...
+    - You have called...
+    - This is the answering machine of...
+    - You can leave your message when you hear the signal
+    - Leave your message after hearing the signal
+    - Thank you for calling, at this time...
+    - Please leave your message after the tone
+    - We're sorry, but at this time...
+    - Welcome to the voicemail of...
+
+    ## Call Termination for other reasons:
+
+    You should also hang up calls when:
+    - The user clearly says goodbye
+    - You say goodbye yourself
+    ```
   </Tab>
   <Tab title="French">
-    - "En ce moment nous ne pouvons pas vous répondre"
-    - "Laissez votre message après le signal"
-    - "Merci d'avoir appelé, en ce moment..."
-    - "Bienvenue sur la messagerie vocale de..."
+    ```markdown
+    ## Finalisation d'appel par Détection de Répondeur Automatique
+
+    Si il est détecté que l'utilisateur est un répondeur automatique, finalisez l'appel immédiatement. Voici des exemples de messages que les répondeurs disent généralement :
+
+    - En ce moment nous ne pouvons pas vous répondre
+    - Laissez votre message après le signal
+    - Le numéro que vous avez appelé...
+    - Vous avez appelé le...
+    - Ceci est le répondeur de...
+    - Vous pouvez laisser votre message en entendant le signal
+    - Laissez votre message après avoir entendu le signal
+    - Merci d'avoir appelé, en ce moment...
+    - Veuillez laisser votre message après le ton
+    - Nous sommes désolés, mais en ce moment...
+    - Bienvenue sur la messagerie vocale de...
+
+    ## Finalisation d'Appel pour d'autres raisons :
+
+    Vous devez également raccrocher les appels quand :
+    - L'utilisateur dit clairement au revoir
+    - Vous dites au revoir vous-même
+    ```
+  </Tab>
+  <Tab title="German">
+    ```markdown
+    ## Anrufbeendigung durch Anrufbeantworter-Erkennung
+
+    Wenn erkannt wird, dass der Benutzer ein Anrufbeantworter ist, beenden Sie den Anruf sofort. Hier sind Beispiele für Nachrichten, die Anrufbeantworter normalerweise sagen:
+
+    - Wir können Sie derzeit nicht erreichen
+    - Hinterlassen Sie Ihre Nachricht nach dem Signal
+    - Die Nummer, die Sie angerufen haben...
+    - Sie haben angerufen...
+    - Dies ist der Anrufbeantworter von...
+    - Sie können Ihre Nachricht hinterlassen, wenn Sie das Signal hören
+    - Hinterlassen Sie Ihre Nachricht nach dem Hören des Signals
+    - Vielen Dank für Ihren Anruf, derzeit...
+    - Bitte hinterlassen Sie Ihre Nachricht nach dem Ton
+
+    ## Anrufbeendigung aus anderen Gründen:
+
+    Sie sollten auch Anrufe beenden, wenn:
+    - Der Benutzer sich klar verabschiedet
+    - Sie sich selbst verabschieden
+    ```
+  </Tab>
+  <Tab title="Italian">
+    ```markdown
+    ## Terminazione Chiamata per Rilevamento Segreteria Telefonica
+
+    Se viene rilevato che l'utente è una segreteria telefonica, termina la chiamata immediatamente. Ecco esempi di messaggi che le segreterie telefoniche dicono solitamente:
+
+    - Al momento non possiamo rispondere
+    - Lasci il suo messaggio dopo il segnale
+    - Il numero che ha chiamato...
+    - Ha chiamato il...
+    - Questa è la segreteria di...
+    - Può lasciare il suo messaggio quando sente il segnale
+    - Lasci il suo messaggio dopo aver sentito il segnale
+    - Grazie per aver chiamato, al momento...
+    - Per favore, lasci il suo messaggio dopo il tono
+
+    ## Terminazione Chiamata per altri motivi:
+
+    Dovrebbe anche terminare le chiamate quando:
+    - L'utente si congeda chiaramente
+    - Si congeda lei stesso
+    ```
+  </Tab>
+  <Tab title="Portuguese">
+    ```markdown
+    ## Finalização de chamada por Detecção de Secretária Eletrônica
+
+    Se for detectado que o usuário é uma secretária eletrônica, finalize a chamada imediatamente. Aqui estão exemplos de mensagens que as secretárias eletrônicas normalmente dizem:
+
+    - No momento não podemos atendê-lo
+    - Deixe sua mensagem após o sinal
+    - O número que você ligou...
+    - Você ligou para...
+    - Esta é a secretária eletrônica de...
+    - Você pode deixar sua mensagem quando ouvir o sinal
+    - Deixe sua mensagem após ouvir o sinal
+    - Obrigado por ligar, neste momento...
+    - Por favor, deixe sua mensagem após o tom
+
+    ## Finalização de Chamada por outros motivos:
+
+    Você também deve encerrar chamadas quando:
+    - O usuário se despede claramente
+    - Você se despede
+    ```
   </Tab>
 </Tabs>
-
-### Strategic Call Ending
-
-Beyond answering machine detection, configure professional call termination for various scenarios:
-
-**Natural Completion Triggers:**
-- Customer explicitly says goodbye or indicates call completion
-- Agent has successfully completed the stated objective
-- All customer questions have been answered satisfactorily
-- Meeting or appointment has been successfully scheduled
-
-**Professional Termination Scenarios:**
-- Customer declines service and requests no further contact
-- Call duration exceeds maximum configured time
-- Customer becomes unresponsive for extended period
-- System detects inappropriate or abusive language
 
 ## Webhook Tools
 
-Create powerful API integrations that allow your agent to interact with external systems during conversations.
+Create powerful API integrations that allow your agent to interact with external systems during conversations through our sophisticated modal interface.
 
-### Webhook Fundamentals
+### Webhook Tool Modal Interface
 
-<Info>
-**Real-time Integration**: Execute API calls during live conversations
-**Dynamic Parameters**: Use conversation data to populate API requests  
-**Response Processing**: Agent can react to API responses and continue conversation
-**Error Handling**: Graceful fallbacks when APIs are unavailable
-</Info>
-
-### Creating Webhook Tools
+The webhook configuration uses an advanced modal interface with the following sections:
 
 <Steps>
-  <Step title="Add New Integration">
-    Click "Add Webhook Tool" to create a new API integration point.
+  <Step title="Tool Identity Configuration">
+    Configure the basic identity and trigger conditions for your webhook tool.
+    
+    **Required Fields:**
+    - **Name**: Unique identifier (e.g., "create_lead", "check_inventory")
+    - **Description**: Clear explanation of when the AI should use this tool
+    - **Execution Mode**: Choose immediate or deferred execution
   </Step>
-  <Step title="Configure Tool Identity">
-    - **Name**: Clear, descriptive name (e.g., "create_lead", "check_availability")
-    - **Description**: Explain when the AI should use this tool
-    - **Trigger Conditions**: Define conversation scenarios that should activate the tool
+  <Step title="API Endpoint Configuration">
+    Set up the core API connection details.
+    
+    **URL Configuration:**
+    - **Base URL**: The complete webhook endpoint URL
+    - **HTTP Method**: GET, POST, PUT, PATCH, or DELETE
+    - **Request Timeout**: 5-60 seconds (default: 20)
   </Step>
-  <Step title="Set API Endpoint">
-    - **URL**: The complete webhook endpoint URL
-    - **Method**: Choose GET, POST, PUT, PATCH, or DELETE
-    - **Authentication**: Configure headers for API security
+  <Step title="Authentication Setup">
+    Configure secure authentication for your API endpoints.
+    
+    **Authentication Types:**
+    - Bearer Token authentication
+    - API Key authentication
+    - Basic Auth with username/password
+    - Custom header authentication
   </Step>
-  <Step title="Define Parameters">
-    Map conversation data to API parameters using dynamic extraction.
+  <Step title="Parameter Mapping">
+    Define how conversation data maps to API parameters with intelligent extraction.
+    
+    **Parameter Types:**
+    - **Query Parameters**: URL-encoded parameters for GET requests
+    - **Body Parameters**: JSON payload for POST/PUT/PATCH requests
+    - **Header Parameters**: Custom HTTP headers
   </Step>
 </Steps>
 
-### Parameter Configuration
+### Advanced Parameter Configuration
 
-Each webhook parameter supports sophisticated data mapping:
-
-| Property | Description | Options | Example |
-|----------|-------------|---------|---------|
-| **Name** | Parameter identifier | Custom string | `customer_name` |
-| **Type** | Data validation | string, number, boolean, integer, array, object | `string` |
-| **Required** | Mandatory field | true/false | `true` |
-| **Description** | AI understanding | Natural language | "Customer's full name from conversation" |
-| **Value Source** | How to get value | LLM extraction, static value, conversation metadata | LLM prompt |
-| **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's full name" |
-
-### Advanced Parameter Types
+Each webhook parameter supports sophisticated data mapping through our modal interface:
 
 <Tabs>
-  <Tab title="Query Parameters">
-    **URL Parameters**
-    
-    Added to the URL query string for GET requests or as additional parameters.
-    
-    ```
-    GET https://api.example.com/customers?name=John&phone=+1234567890&source=phone_call
-    ```
-
-    **Best for:**
-    - Search queries
-    - Filtering parameters  
-    - API keys and tokens
-    - Simple data passing
+  <Tab title="Parameter Properties">
+    | Property | Description | Options | Example |
+    |----------|-------------|---------|---------|
+    | **Name** | Parameter identifier | Custom string | `customer_name` |
+    | **Type** | Data validation | string, number, boolean, integer, array, object | `string` |
+    | **Required** | Mandatory field | true/false | `true` |
+    | **Description** | AI understanding | Natural language | "Customer's full name from conversation" |
+    | **Value Source** | How to get value | LLM extraction, static value, conversation metadata | LLM prompt |
+    | **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's full name" |
   </Tab>
-  <Tab title="Body Parameters">
-    **Request Body Data**
+  <Tab title="Value Types">
+    **LLM Extraction**
     
-    Sent in the request body for POST, PUT, PATCH requests as JSON.
-    
-    ```json
-    {
-      "customer": {
-        "name": "John Smith",
-        "phone": "+1-555-123-4567",
-        "email": "john@example.com",
-        "interests": ["product-demo", "pricing"],
-        "call_timestamp": "2024-01-15T10:30:00Z"
-      },
-      "source": "ai_phone_call",
-      "agent_notes": "Customer interested in enterprise plan"
-    }
+    Let the AI intelligently extract information from the conversation:
+    ```
+    Extraction Prompt: "Extract the customer's email address from the conversation"
+    Parameter Type: string
+    Required: true
     ```
 
-    **Best for:**
-    - Complex data structures
-    - Creating records
-    - Nested information
-    - Large data payloads
+    **Static Values**
+    
+    Use fixed values for consistent data:
+    ```
+    Static Value: "phone_call"
+    Parameter: source
+    Type: string
+    ```
+
+    **Conversation Metadata**
+    
+    Access built-in conversation data:
+    - Call duration
+    - Call timestamp
+    - Agent ID
+    - Phone numbers
   </Tab>
-  <Tab title="Header Parameters">
-    **HTTP Headers**
-    
-    Authentication, content type, and custom headers.
-    
-    ```json
-    {
-      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
-      "Content-Type": "application/json",
-      "X-API-Version": "v2",
-      "X-Source": "meetzy-ai-agent"
-    }
-    ```
+  <Tab title="Data Types">
+    **Supported Parameter Types:**
 
-    **Best for:**
-    - API authentication
-    - Version control
-    - Request metadata
-    - Custom API requirements
+    - **string**: Text data, names, descriptions
+    - **number**: Numeric values with decimals
+    - **integer**: Whole numbers only
+    - **boolean**: true/false values
+    - **array**: List of values
+    - **object**: Complex nested data structures
+
+    **Type Validation:**
+    The system automatically validates parameter types and provides clear error messages for mismatched data.
   </Tab>
 </Tabs>
 
-### Webhook Execution Settings
+### Webhook Tool Execution Settings
 
-Configure how and when webhooks execute:
+Configure advanced execution behavior through the modal interface:
 
-**Execution Timing**:
+**Execution Control:**
 - **Immediate**: Execute during the active call
-- **Deferred**: Execute after the call ends  
+- **Deferred**: Execute after the call ends
 - **Conditional**: Execute based on conversation outcome
 
-**Agent Behavior**:
-- **Interruption Control**: Should agent pause while waiting for API response?
-- **Pre-tool Speech**: Force agent to announce action before executing
-- **Tool Call Sound**: Play typing sound during execution
-- **Response Timeout**: Maximum wait time for API response (5-60 seconds)
+**Agent Behavior Settings:**
+- **Disable Interruptions**: Prevent customer from speaking during execution
+- **Force Pre-tool Speech**: Require agent announcement before execution
+- **Tool Call Sound**: Play typing sound during execution (typing/none)
+- **Sound Behavior**: Auto or manual control of sound effects
 
-**Error Handling**:
+**Error Handling:**
+- **Response Timeout**: Maximum wait time for API response
 - **Retry Logic**: Automatic retries on failure
 - **Fallback Messages**: What to say if API fails
 - **Graceful Degradation**: Continue conversation without API data
 
-### Practical Webhook Examples
+### Webhook Integration Examples
 
 <Tabs>
-  <Tab title="CRM Integration">
-    **Lead Creation Webhook**
+  <Tab title="CRM Lead Creation">
+    **Salesforce Lead Integration**
 
     ```json
     {
-      "name": "create_crm_lead",
+      "name": "create_salesforce_lead",
       "description": "Create a new lead in Salesforce when customer shows purchase interest",
       "url": "https://api.salesforce.com/services/data/v52.0/sobjects/Lead",
       "method": "POST",
@@ -353,37 +486,69 @@ Configure how and when webhooks execute:
         "FirstName": {
           "type": "string",
           "required": true,
-          "description": "Customer's first name"
+          "value_type": "llm_prompt",
+          "description": "Extract customer's first name from conversation"
         },
         "LastName": {
           "type": "string", 
           "required": true,
-          "description": "Customer's last name"
+          "value_type": "llm_prompt",
+          "description": "Extract customer's last name from conversation"
         },
         "Phone": {
           "type": "string",
           "required": true,
+          "value_type": "conversation_metadata",
           "description": "Customer's phone number"
-        },
-        "Company": {
-          "type": "string",
-          "description": "Customer's company name if mentioned"
         },
         "LeadSource": {
           "type": "string",
+          "value_type": "static",
           "static_value": "AI Phone Call"
         }
       }
     }
     ```
   </Tab>
-  <Tab title="Appointment Booking">
-    **Calendar Integration**
+  <Tab title="Inventory Management">
+    **Product Availability Check**
 
     ```json
     {
-      "name": "book_appointment",
-      "description": "Schedule an appointment when customer requests a meeting",
+      "name": "check_product_availability",
+      "description": "Check real-time product availability when customer inquires about specific items",
+      "url": "https://inventory.yourcompany.com/api/check",
+      "method": "GET",
+      "query_parameters": {
+        "product_sku": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_prompt",
+          "description": "Extract product SKU or name mentioned by customer"
+        },
+        "location": {
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Customer's preferred store location or zip code"
+        },
+        "api_key": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "{{inventory_api_key}}"
+        }
+      },
+      "response_timeout": 10,
+      "disable_interruptions": false
+    }
+    ```
+  </Tab>
+  <Tab title="Calendar Booking">
+    **Appointment Scheduling**
+
+    ```json
+    {
+      "name": "book_calendar_appointment",
+      "description": "Schedule an appointment when customer requests a meeting or consultation",
       "url": "https://api.calendly.com/scheduled_events",
       "method": "POST",
       "headers": {
@@ -393,21 +558,25 @@ Configure how and when webhooks execute:
       "body_parameters": {
         "event_type": {
           "type": "string",
+          "value_type": "static",
           "static_value": "https://calendly.com/your-company/30-min-consultation"
         },
         "start_time": {
           "type": "string",
-          "description": "Preferred meeting time mentioned by customer in ISO format"
+          "value_type": "llm_prompt",
+          "description": "Extract preferred meeting time from customer in ISO format"
         },
         "invitee": {
           "type": "object",
           "properties": {
             "name": {
               "type": "string",
+              "value_type": "llm_prompt",
               "description": "Customer's full name"
             },
             "email": {
-              "type": "string", 
+              "type": "string",
+              "value_type": "llm_prompt",
               "description": "Customer's email address"
             }
           }
@@ -416,62 +585,185 @@ Configure how and when webhooks execute:
     }
     ```
   </Tab>
-  <Tab title="Inventory Check">
-    **Product Availability**
-
-    ```json
-    {
-      "name": "check_inventory",
-      "description": "Check product availability when customer asks about specific items",
-      "url": "https://inventory.yourcompany.com/api/check",
-      "method": "GET",
-      "query_parameters": {
-        "product_id": {
-          "type": "string",
-          "required": true,
-          "description": "Product SKU or ID mentioned by customer"
-        },
-        "location": {
-          "type": "string",
-          "description": "Customer's preferred store location or zip code"
-        }
-      },
-      "response_timeout": 10,
-      "disable_interruptions": false
-    }
-    ```
-  </Tab>
 </Tabs>
 
-### Authentication Methods
+### Authentication Configuration
+
+The modal interface supports multiple authentication methods:
 
 <Tabs>
   <Tab title="Bearer Token">
+    **JWT/OAuth 2.0 Authentication**
     ```json
     {
-      "Authorization": "Bearer your-jwt-token-here"
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
     }
     ```
-    Common for: REST APIs, OAuth 2.0, JWT authentication
+    
+    **Use Cases:**
+    - Modern REST APIs
+    - OAuth 2.0 protected endpoints
+    - JWT-based authentication systems
   </Tab>
   <Tab title="API Key">
+    **Simple API Key Authentication**
     ```json
     {
-      "X-API-Key": "your-api-key-here",
-      "Authorization": "ApiKey your-api-key"
+      "X-API-Key": "sk_live_abcd1234efgh5678ijkl",
+      "Authorization": "ApiKey sk_live_abcd1234efgh5678ijkl"
     }
     ```
-    Common for: Simple APIs, third-party services
+    
+    **Use Cases:**
+    - Third-party service APIs
+    - Simple authentication requirements
+    - Legacy system integration
   </Tab>
   <Tab title="Basic Auth">
+    **Username/Password Authentication**
     ```json
     {
-      "Authorization": "Basic base64(username:password)"
+      "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
     }
     ```
-    Common for: Legacy systems, simple authentication
+    
+    **Use Cases:**
+    - Legacy systems
+    - Internal APIs
+    - Simple HTTP authentication
   </Tab>
 </Tabs>
+
+## Email Integration
+
+Configure intelligent email sending capabilities during or after conversations.
+
+### Email Configuration
+
+<Steps>
+  <Step title="Enable Email Integration">
+    Toggle the "Send Email" option to activate email functionality.
+  </Step>
+  <Step title="Configure Email Triggers">
+    Define when the agent should send emails using natural language prompts.
+  </Step>
+  <Step title="Set Email Templates">
+    Configure dynamic subject lines and email body content.
+  </Step>
+  <Step title="Define Recipients">
+    Set up primary recipients and CC options.
+  </Step>
+</Steps>
+
+**Email Trigger Examples:**
+- Customer requests detailed product information via email
+- Follow-up emails after successful calls
+- Sending meeting confirmations and calendar invites
+- Quote or proposal delivery after phone conversations
+
+**Dynamic Content:**
+- Extract customer information from conversation
+- Include call summary and next steps
+- Personalized product recommendations
+- Contact information and appointment details
+
+## SMS Integration
+
+Set up intelligent SMS messaging capabilities for follow-up communications.
+
+### SMS Configuration
+
+<Steps>
+  <Step title="Enable SMS Integration">
+    Toggle the "Send SMS" option to activate messaging functionality.
+  </Step>
+  <Step title="Configure SMS Triggers">
+    Define conversation scenarios that should trigger SMS messages.
+  </Step>
+  <Step title="Create Message Templates">
+    Set up dynamic SMS content with conversation data.
+  </Step>
+  <Step title="Test SMS Delivery">
+    Validate SMS functionality with test messages.
+  </Step>
+</Steps>
+
+**SMS Use Cases:**
+- Appointment confirmations and reminders
+- Quick follow-up after missed calls
+- Delivery of reference numbers or confirmation codes
+- Links to online resources or booking pages
+
+**Best Practices:**
+- Keep messages concise and actionable
+- Include clear opt-out instructions
+- Use professional, branded messaging
+- Comply with SMS marketing regulations
+
+## Calendar Integration
+
+Configure sophisticated calendar booking with multiple provider support.
+
+### Supported Calendar Providers
+
+<Tabs>
+  <Tab title="Google Calendar">
+    **Google Calendar Integration**
+    
+    Full integration with Google Calendar for availability checking and appointment booking.
+
+    **Features:**
+    - Real-time availability checking
+    - Automatic event creation
+    - Meeting invitations and reminders
+    - Timezone handling
+    - Conflict detection
+
+    **Configuration:**
+    - Calendar ID for availability checking
+    - Booking calendar ID for new events
+    - Working hours and timezone settings
+    - Default meeting duration
+  </Tab>
+  <Tab title="Outlook Calendar">
+    **Microsoft Outlook Integration**
+    
+    Enterprise-grade integration with Microsoft Outlook and Office 365.
+
+    **Features:**
+    - Exchange Online compatibility
+    - Meeting room booking
+    - Teams meeting integration
+    - Corporate calendar policies
+    - Multi-tenant support
+
+    **Configuration:**
+    - Outlook calendar access
+    - Exchange server settings
+    - Authentication credentials
+    - Meeting preferences
+  </Tab>
+</Tabs>
+
+### Calendar Configuration Options
+
+**Availability Settings:**
+- **Multiple Calendar Support**: Check availability across multiple calendars
+- **Working Hours**: Define business hours for appointment booking
+- **Timezone Management**: Automatic timezone conversion
+- **Buffer Times**: Add buffer time between appointments
+
+**Booking Preferences:**
+- **Default Duration**: Standard meeting length (15, 30, 60 minutes)
+- **Advance Notice**: Minimum time required before booking
+- **Maximum Advance**: How far in advance bookings are allowed
+- **Blackout Dates**: Exclude specific dates from availability
+
+**Meeting Details:**
+- **Dynamic Titles**: Generate meeting titles from conversation context
+- **Custom Descriptions**: Include call summary and customer details
+- **Attendee Management**: Automatically add customer email
+- **Location Handling**: Include meeting location or virtual meeting links
 
 ## Recall Protocol
 
@@ -533,65 +825,21 @@ Set up sophisticated automatic callback systems for comprehensive customer follo
 - Answering machine message successfully delivered
 - Technical issues prevented meaningful conversation
 
-### Advanced Recall Features
-
-**Dynamic Scheduling:**
-```json
-{
-  "recall_attempts": [
-    {
-      "attempt": 1,
-      "delay_minutes": 30,
-      "strategy": "same_agent_voice",
-      "message_variation": "brief_follow_up"
-    },
-    {
-      "attempt": 2, 
-      "delay_hours": 4,
-      "strategy": "same_agent_voice",
-      "message_variation": "value_proposition"
-    },
-    {
-      "attempt": 3,
-      "delay_days": 1,
-      "strategy": "different_approach",
-      "message_variation": "limited_time_offer"
-    }
-  ]
-}
-```
-
-**Callback Context Preservation:**
-- Previous conversation summaries
-- Customer preferences and objections
-- Best times to call based on answer patterns  
-- Failed attempt reasons and adjustments needed
-
-**Compliance Features:**
-- Automatic DNC (Do Not Call) list checking
-- Time zone awareness for appropriate calling hours
-- Frequency limits (max calls per day/week)
-- Opt-out recognition and processing
-
-<Warning>
-**Legal Compliance Required**: Recall protocols must comply with local telecommunications laws like TCPA (US), GDPR (EU), and DNC regulations. Always include opt-out mechanisms and respect customer preferences.
-</Warning>
-
-## Caller ID Configuration
+## Caller ID Management
 
 Set up professional caller IDs for outbound calls to improve answer rates and brand recognition.
 
-### Caller ID Management
+### Caller ID Configuration
 
 <Steps>
   <Step title="Add Phone Numbers">
-    Register your business phone numbers for use as caller IDs.
+    Register your business phone numbers for use as caller IDs through the modal interface.
   </Step>
   <Step title="Verify Ownership">
-    Complete verification process via SMS or voice call.
+    Complete verification process via SMS or voice call verification.
   </Step>
   <Step title="Set Default Caller ID">
-    Choose which number appears for outbound calls.
+    Choose which number appears for outbound calls by default.
   </Step>
   <Step title="Monitor Performance">
     Track answer rates by caller ID to optimize selection.
@@ -606,7 +854,7 @@ Set up professional caller IDs for outbound calls to improve answer rates and br
 - Avoid numbers that look like spam (avoid 555, repeated digits)
 - Use toll-free numbers for national campaigns
 
-**Verification Requirements:**
+**Verification Process:**
 - SMS verification for mobile numbers
 - Voice verification for landlines  
 - Business documentation for toll-free numbers
@@ -618,78 +866,38 @@ Set up professional caller IDs for outbound calls to improve answer rates and br
 - Adjust caller ID based on campaign type
 - Use different numbers for different business units
 
-## Best Practices
+## Advanced Modal Interfaces
 
-### Call Transfer Optimization
+Our Actions & Tools section features sophisticated modal interfaces for complex configurations:
 
-1. **Clear Trigger Definition**
-   - Define specific, unambiguous scenarios for transfers
-   - Avoid vague conditions that could cause unnecessary transfers
-   - Include escalation paths for different types of issues
+### Webhook Tool Modal
 
-2. **Context Preservation**
-   - Ensure human agents receive comprehensive call context
-   - Include customer information, conversation summary, and specific needs
-   - Provide clear reason for transfer to minimize customer frustration
+**Multi-step Configuration:**
+1. **Tool Identity**: Name, description, and execution settings
+2. **API Configuration**: URL, method, authentication
+3. **Parameter Mapping**: Query params, body params, headers
+4. **Testing & Validation**: Real-time API testing
 
-3. **Fallback Planning**
-   - Configure backup numbers for failed transfers
-   - Set up alternative routing for business hours vs. after hours
-   - Have contingency plans for system outages
+**Advanced Features:**
+- **Syntax Highlighting**: JSON and code syntax highlighting
+- **Auto-completion**: Intelligent parameter suggestions
+- **Validation**: Real-time error checking and validation
+- **Templates**: Pre-built configurations for common integrations
 
-### Webhook Development
+### Calendar Integration Modal
 
-1. **API Design Principles**
-   - Use descriptive, semantic naming for webhook tools
-   - Ensure APIs return meaningful success/error responses
-   - Implement proper HTTP status codes and error messages
-   - Design for idempotency to handle retries safely
+**Provider-specific Configuration:**
+- **Google Calendar**: OAuth setup, calendar selection
+- **Outlook Calendar**: Exchange configuration, authentication
+- **Custom Settings**: Working hours, timezones, buffer times
 
-2. **Security Implementation**
-   - Always use HTTPS endpoints
-   - Implement proper authentication (Bearer tokens, API keys)
-   - Validate and sanitize all incoming data
-   - Use rate limiting to prevent abuse
+### Template Library
 
-3. **Performance Optimization**
-   - Keep API response times under 5 seconds when possible
-   - Implement proper caching strategies
-   - Use asynchronous processing for long-running operations
-   - Monitor webhook performance and success rates
-
-### End Call Strategy
-
-1. **Cultural Adaptation**
-   - Adapt detection phrases to local language variants
-   - Respect cultural norms for call termination
-   - Use appropriate farewell messages for different regions
-   - Consider local business customs and communication styles
-
-2. **Continuous Improvement**
-   - Monitor call completion rates and reasons
-   - Analyze answering machine detection accuracy
-   - Adjust prompts based on false positives/negatives
-   - Regular review of termination criteria effectiveness
-
-### Recall Protocol Management
-
-1. **Compliance First**
-   - Implement robust Do Not Call list checking
-   - Respect time zone restrictions and business hours
-   - Provide clear opt-out mechanisms in every interaction
-   - Document consent and preferences carefully
-
-2. **Strategic Timing**
-   - Use data-driven approach to optimize callback timing
-   - Consider customer behavior patterns and preferences
-   - Avoid over-communication that could damage relationships
-   - Balance persistence with respect for customer wishes
-
-3. **Success Measurement**
-   - Track callback success rates by attempt number
-   - Measure customer satisfaction with follow-up processes
-   - Monitor complaint rates and opt-out requests
-   - Optimize based on actual conversion data
+**Instant Configuration:**
+- Pre-built templates for common use cases
+- Multi-language support for international deployments
+- Industry-specific configurations
+- Best practice examples with explanations
 
 ## Troubleshooting Common Issues
 
@@ -709,7 +917,7 @@ Set up professional caller IDs for outbound calls to improve answer rates and br
   </Tab>
   <Tab title="Webhook Failures">
     **API Errors:**
-    - Verify endpoint URL accessibility
+    - Verify endpoint URL accessibility through modal testing tools
     - Check authentication credentials and headers
     - Validate request format and required parameters
     - Monitor API rate limits and quotas
@@ -720,73 +928,68 @@ Set up professional caller IDs for outbound calls to improve answer rates and br
     - Use asynchronous processing where possible
     - Add retry logic with exponential backoff
   </Tab>
-  <Tab title="Recall Issues">
-    **Excessive Callbacks:**
-    - Review success condition definitions
-    - Check for logic errors in completion detection
-    - Verify customer opt-out processing
-    - Monitor complaint rates and adjust frequency
+  <Tab title="Modal Interface Issues">
+    **Configuration Problems:**
+    - Clear browser cache if modal doesn't load properly
+    - Check JavaScript console for error messages
+    - Verify all required fields are completed
+    - Use template library for validated configurations
 
-    **Low Success Rates:**
-    - Analyze callback timing effectiveness
-    - Review message variations and strategies
-    - Consider customer preferences and behavior patterns
-    - Optimize caller ID selection for better answer rates
+    **Synchronization Issues:**
+    - Wait for auto-save indicators before closing modals
+    - Review change history in the interface
+    - Check network connectivity during configuration
+    - Use manual save options for complex configurations
   </Tab>
 </Tabs>
 
-## Integration Examples
+## Best Practices
 
-### Complete Sales Follow-up Workflow
+### Call Transfer Optimization
 
-```json
-{
-  "workflow_name": "comprehensive_sales_follow_up",
-  "components": {
-    "initial_call": {
-      "greeting": "Dynamic with customer name",
-      "objectives": ["present_offer", "gather_interest", "schedule_demo"]
-    },
-    "webhook_integrations": [
-      {
-        "name": "create_lead",
-        "trigger": "customer_shows_interest",
-        "crm_system": "salesforce"
-      },
-      {
-        "name": "schedule_demo", 
-        "trigger": "demo_requested",
-        "calendar_system": "calendly"
-      }
-    ],
-    "transfer_conditions": [
-      "pricing_negotiation_needed",
-      "technical_questions_beyond_scope",
-      "customer_explicitly_requests_human"
-    ],
-    "recall_protocol": {
-      "max_attempts": 3,
-      "schedule": ["1_hour", "1_day", "1_week"],
-      "success_conditions": ["demo_scheduled", "clear_rejection", "competitor_chosen"]
-    }
-  }
-}
-```
+1. **Clear Trigger Definition**
+   - Use multi-language templates for precise trigger conditions
+   - Define specific, unambiguous scenarios for transfers
+   - Include escalation paths for different types of issues
+   - Test transfer logic across different customer personas
 
-## Coming Soon
+2. **Context Preservation**
+   - Configure comprehensive call context transfer
+   - Include customer information, conversation summary, and specific needs
+   - Provide clear reason for transfer to minimize customer frustration
+   - Train human agents on receiving AI-transferred calls
 
-<Info>
-Our development roadmap includes exciting new capabilities to further enhance your agent's operational power:
-</Info>
+### Webhook Development
 
-| Feature | Description | Timeline | Impact |
-|---------|-------------|----------|---------|
-| **📧 Email Integration** | Send personalized emails during or after calls | Q2 2024 | Medium |
-| **💬 SMS Integration** | Text message capabilities for follow-up | Q2 2024 | High |
-| **📱 WhatsApp Integration** | WhatsApp Business API for messaging | Q3 2024 | High |
-| **🔄 Multi-step Workflows** | Complex, branching automation sequences | Q3 2024 | Very High |
-| **📊 Advanced Analytics** | Detailed performance metrics and optimization insights | Q3 2024 | Medium |
-| **🤖 AI-Powered Optimization** | Automatic improvement of webhook and transfer performance | Q4 2024 | Very High |
+1. **Modal-driven Configuration**
+   - Leverage the sophisticated modal interface for complex setups
+   - Use template library for validated starting configurations
+   - Test API endpoints directly within the interface
+   - Validate parameter mappings with real conversation data
+
+2. **Security Implementation**
+   - Always use HTTPS endpoints
+   - Configure proper authentication through secure header management
+   - Validate and sanitize all incoming data
+   - Use rate limiting to prevent abuse
+
+### Advanced Integration
+
+1. **Multi-tool Workflows**
+   - Combine webhook tools with calendar integration
+   - Chain email and SMS follow-ups after calls
+   - Use transfer capabilities as escalation paths
+   - Implement comprehensive callback strategies
+
+2. **Performance Monitoring**
+   - Track webhook success rates and response times
+   - Monitor caller ID performance by campaign
+   - Analyze transfer success and customer satisfaction
+   - Optimize based on actual usage data
+
+<Warning>
+**Compliance Requirements**: All integrations must comply with applicable regulations including TCPA (US), GDPR (EU), and industry-specific requirements. Always include proper consent mechanisms and opt-out procedures.
+</Warning>
 
 ## Next Steps
 

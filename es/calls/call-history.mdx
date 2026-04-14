@@ -1,195 +1,382 @@
 ---
 title: 'Historial de Llamadas'
-description: 'Busca, filtra y revisa todas las llamadas de tus agentes de IA'
+description: 'Busca, filtra y revisa todas las llamadas de tus agentes de IA con herramientas avanzadas de análisis'
 icon: 'phone'
 ---
 
 # Historial de Llamadas
 
-La sección de Historial de Llamadas proporciona una vista completa de todas las llamadas realizadas por tus agentes de IA. Puedes buscar, filtrar y analizar datos de llamadas para monitorear el rendimiento e identificar insights.
+La sección de Historial de Llamadas proporciona una vista completa y detallada de todas las llamadas realizadas por tus agentes de IA. Con herramientas avanzadas de filtrado, búsqueda y análisis, puedes monitorear el rendimiento e identificar insights valiosos para optimizar tus operaciones telefónicas.
 
 ## Acceder al Historial
 
-Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas.
+Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas con la nueva interfaz mejorada.
 
 ## Vista General de la Interfaz
 
-La interfaz de llamadas consiste en:
+La interfaz renovada del historial de llamadas incluye:
 
 | Sección | Descripción |
 |---------|-------------|
-| 📊 Cabecera | Título, descripción y estado de selección |
-| 🔍 Barra de Filtros | Controles avanzados de filtrado |
-| 📋 Tabla de Llamadas | Lista de todas las llamadas con información clave |
-| 📄 Modal de Detalles | Vista detallada de llamadas individuales |
+| 📊 **Cabecera Expandida** | Título, descripción detallada y estado de selección con acciones |
+| 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets y configuración personalizable |
+| 📋 **Tabla de Llamadas** | Lista interactiva con información clave y controles de visibilidad |
+| 📄 **Modal de Detalles** | Vista detallada de llamadas individuales con transcripciones |
+| ⚙️ **Panel de Configuración** | Control de visibilidad de columnas y presets de filtros |
 
-## Filtrar Llamadas
+## Sistema de Filtrado Avanzado
 
-### Filtro de Rango de Fechas
+### Filtro de Rango de Fechas Mejorado
 
-Filtra llamadas por períodos predefinidos o rangos personalizados:
-
-- **Today** - Llamadas del día actual
-- **Yesterday** - Llamadas del día anterior
-- **Last 7 Days** - Llamadas de la última semana
-- **Last 30 Days** - Llamadas del último mes
-- **Custom Range** - Selecciona fechas y horas específicas
-
-<Info>
-Usa el selector de fecha y hora para establecer rangos precisos en tus búsquedas.
-</Info>
-
-### Filtro de Agente
-
-Filtra llamadas por agentes específicos:
-
-1. Haz clic en el dropdown **Agents**
-2. Selecciona uno o varios agentes
-3. El filtro muestra "X agents selected" cuando está activo
-
-### Filtro de Estado
-
-Filtra por estado de la llamada:
-
-| Estado | Descripción |
-|--------|-------------|
-| 🟢 Completed | Llamada finalizada correctamente |
-| 🟡 In Progress | Llamada actualmente activa |
-| 🔴 Failed | Llamada con error |
-| ⚪ No Answer | El destinatario no contestó |
-| 🔵 Transferred | Llamada transferida |
-
-### Filtro de Dirección
-
-- **Inbound** - Llamadas recibidas por tus agentes
-- **Outbound** - Llamadas iniciadas por tus agentes
-- **All** - Ambas direcciones
-
-### Filtro de Éxito
-
-Filtra por resultado de la llamada:
-
-- **Successful** - Llamadas marcadas como exitosas
-- **Unsuccessful** - Llamadas que no cumplieron los criterios
-- **All** - Todas las llamadas
-
-### Buscar por Call ID
-
-Cuando tienes un ID de llamada específico:
-
-1. Ingresa el call ID en el campo de búsqueda
-2. Los otros filtros se desactivan temporalmente
-3. Se muestra la llamada exacta con ese ID
-
-<Info>
-La búsqueda por Call ID tiene prioridad sobre todos los demás filtros para búsquedas precisas.
-</Info>
-
-## Tabla de Llamadas
-
-La tabla muestra información clave de cada llamada:
-
-| Columna | Descripción |
-|---------|-------------|
-| Selección | Checkbox para seleccionar llamadas |
-| Status | Badge de estado de la llamada |
-| Success | Indicador ✓ o ✗ |
-| Agent | Nombre del agente que manejó la llamada |
-| Direction | 📞 Inbound o 📲 Outbound |
-| From | Número de teléfono origen |
-| To | Número de teléfono destino |
-| Duration | Duración en minutos:segundos |
-| Date | Cuándo ocurrió la llamada |
-
-### Acciones en Lote
-
-Cuando seleccionas múltiples llamadas:
-
-1. Aparece un indicador de selección mostrando "X selected"
-2. Haz clic en **Clear Selection** para deseleccionar
-3. Las opciones de exportación en lote se activan
-
-### Ordenamiento
-
-Haz clic en los encabezados de columna para ordenar:
-
-- Un clic para orden ascendente
-- Otro clic para orden descendente
-- Una flecha indica la dirección actual
-
-## Paginación
-
-- Usa los botones **Previous** y **Next** para navegar
-- Cambia el tamaño de página (10, 25, 50, 100 llamadas)
-- La posición actual muestra "Showing X to Y of Z calls"
-
-## Acciones Rápidas
-
-Para cada fila de llamada:
-
-| Acción | Descripción |
-|--------|-------------|
-| 👁️ View | Abrir modal de detalles |
-| 📋 Copy ID | Copiar ID de llamada al portapapeles |
-
-## Tendencias de Evaluaciones
-
-El historial de llamadas ahora incluye acceso directo a las tendencias de evaluaciones de tus agentes:
+El nuevo selector de fechas ofrece mayor flexibilidad y precisión:
 
 <Steps>
-  <Step title="Acceder a las Tendencias">
-    Desde el historial de llamadas, haz clic en **"View Evaluation Trends"** para un agente específico
+  <Step title="Presets Rápidos">
+    Accede a rangos predefinidos optimizados:
+    - **Today** - Llamadas del día actual
+    - **Yesterday** - Llamadas del día anterior  
+    - **Last 7 Days** - Llamadas de la última semana
+    - **Last 30 Days** - Llamadas del último mes
+    - **This Month** - Mes actual completo
+    - **Last Month** - Mes anterior completo
   </Step>
   
-  <Step title="Analizar el Rendimiento">
-    Revisa las métricas de evaluación a lo largo del tiempo para identificar patrones y mejoras
-  </Step>
-  
-  <Step title="Filtrar por Período">
-    Usa los controles de fecha para enfocar en períodos específicos de análisis
+  <Step title="Rango Personalizado">
+    Define períodos específicos con precisión horaria:
+    - Selector de fecha y hora inicial
+    - Selector de fecha y hora final
+    - Validación automática de rangos válidos
+    - Aplicación inmediata con un clic
   </Step>
 </Steps>
 
-### Métricas de Evaluación Disponibles
-
-Las tendencias de evaluaciones proporcionan insights sobre:
-
-- **Tasa de Éxito Global** - Porcentaje general de evaluaciones exitosas
-- **Evaluaciones Totales** - Número total de evaluaciones realizadas  
-- **Llamadas Evaluadas** - Cantidad de llamadas que han pasado por evaluaciones
-- **Tendencias Temporales** - Evolución del rendimiento a lo largo del tiempo
-
 <Info>
-Las evaluaciones se actualizan automáticamente y reflejan el rendimiento más reciente de tus agentes de IA.
+El selector de fechas se desactiva automáticamente cuando usas la búsqueda por Call ID para evitar conflictos de filtros.
 </Info>
 
-## Consejos para Búsquedas Eficientes
+### Filtro de Agentes con Multi-selección
+
+Sistema mejorado de selección de agentes:
+
+| Funcionalidad | Descripción |
+|---------------|-------------|
+| **Selección Múltiple** | Checkbox para cada agente disponible |
+| **Indicador de Estado** | Muestra "X agents selected" cuando hay filtros activos |
+| **Filtro de Búsqueda** | Campo de texto para encontrar agentes rápidamente |
+| **Seleccionar Todo** | Opción para incluir todos los agentes de una vez |
+
+### Filtros de Estado y Resultado
+
+Filtra con precisión por diferentes criterios:
+
+#### Estados de Llamada
+| Estado | Descripción | Indicador Visual |
+|--------|-------------|------------------|
+| 🟢 **Completed** | Llamada finalizada correctamente | Badge verde |
+| 🟡 **In Progress** | Llamada actualmente activa | Badge amarillo |
+| 🔴 **Failed** | Llamada con error o fallo técnico | Badge rojo |
+| ⚪ **No Answer** | El destinatario no contestó | Badge gris |
+| 🔵 **Transferred** | Llamada transferida a humano | Badge azul |
+
+#### Dirección de Llamadas
+- **Inbound** - Llamadas recibidas por tus agentes
+- **Outbound** - Llamadas iniciadas por tus agentes  
+- **All** - Ambas direcciones sin distinción
+
+#### Resultado de Éxito
+- **Successful** - Llamadas que cumplieron los criterios de éxito
+- **Unsuccessful** - Llamadas que no alcanzaron los objetivos
+- **All** - Todas las llamadas independientemente del resultado
+
+### Búsqueda por Call ID con Modo Exclusivo
+
+<Warning>
+Cuando introduces un Call ID específico, todos los demás filtros se desactivan temporalmente para mostrar únicamente la llamada exacta correspondiente a ese identificador.
+</Warning>
+
+Características de la búsqueda por ID:
+
+1. **Entrada de ID Específico** - Campo de texto para el identificador único
+2. **Búsqueda Exacta** - Coincidencia precisa sin aproximaciones
+3. **Prioridad Absoluta** - Override de todos los demás filtros activos
+4. **Restauración Automática** - Los filtros se reactivan al limpiar el campo
+
+## Configuración de Visibilidad de Columnas
+
+### Panel de Personalización
+
+Accede al panel de configuración mediante el botón de configuración (⚙️) para:
+
+<Tabs>
+  <Tab title="Visibilidad de Columnas">
+    Controla qué información mostrar en la tabla:
+    - **Información Básica**: Status, Success, Agent
+    - **Datos de Contacto**: Direction, From, To  
+    - **Métricas**: Duration, Cost, Quality Score
+    - **Metadatos**: Date, Tags, Custom Fields
+    
+    Cada columna puede activarse/desactivarse independientemente.
+  </Tab>
+  
+  <Tab title="Presets Guardados">
+    Crea y administra configuraciones predefinidas:
+    - **Preset Básico**: Columnas esenciales para vista rápida
+    - **Preset Completo**: Todas las columnas disponibles
+    - **Preset Analítico**: Métricas y datos de rendimiento
+    - **Presets Personalizados**: Configuraciones específicas del usuario
+  </Tab>
+  
+  <Tab title="Densidad de Datos">
+    Ajusta la cantidad de información por fila:
+    - **Compacta**: Máximo número de filas visibles
+    - **Estándar**: Balance entre información y legibilidad  
+    - **Espaciada**: Mayor claridad con más espacio vertical
+  </Tab>
+</Tabs>
+
+## Tabla de Llamadas Interactiva
+
+La tabla renovada incluye nuevas funcionalidades:
+
+### Nuevas Columnas Disponibles
+
+| Columna | Descripción | Configurable |
+|---------|-------------|--------------|
+| **Selección** | Checkbox para seleccionar llamadas | No |
+| **Status** | Badge visual del estado de la llamada | Sí |
+| **Success** | Indicador ✓/✗ de éxito | Sí |
+| **Agent** | Nombre del agente que manejó la llamada | Sí |
+| **Direction** | 📞 Inbound o 📲 Outbound | Sí |
+| **From** | Número de teléfono origen | Sí |
+| **To** | Número de teléfono destino | Sí |
+| **Duration** | Duración en formato mm:ss | Sí |
+| **Cost** | Costo de la llamada en moneda local | Sí |
+| **Quality Score** | Puntuación de calidad (1-10) | Sí |
+| **Date** | Timestamp completo de la llamada | Sí |
+| **Tags** | Etiquetas personalizadas | Sí |
+
+### Selección Masiva y Acciones en Lote
+
+Sistema mejorado de selección múltiple:
+
+<Steps>
+  <Step title="Seleccionar Llamadas">
+    - Checkbox individual en cada fila
+    - "Seleccionar todo" en el header de la tabla
+    - Selección por rango con Shift + Click
+    - Indicador de "X selected" en tiempo real
+  </Step>
+  
+  <Step title="Acciones Disponibles">
+    Con llamadas seleccionadas puedes:
+    - **Exportar** datos en CSV, Excel o PDF
+    - **Etiquetar** múltiples llamadas simultáneamente
+    - **Analizar** métricas de grupo
+    - **Generar reportes** específicos
+  </Step>
+  
+  <Step title="Limpiar Selección">
+    Botón "Clear Selection" visible cuando hay elementos seleccionados
+  </Step>
+</Steps>
+
+### Ordenamiento Avanzado
+
+Nuevas opciones de ordenamiento:
+
+- **Simple**: Un clic para ascendente, otro para descendente
+- **Múltiple**: Mantén Ctrl para ordenar por múltiples columnas
+- **Indicadores Visuales**: Flechas muestran dirección y prioridad de ordenamiento
+- **Ordenamiento Persistente**: La configuración se mantiene entre sesiones
+
+## Paginación Inteligente
+
+Sistema de navegación mejorado:
+
+| Funcionalidad | Descripción |
+|---------------|-------------|
+| **Tamaños Flexibles** | 10, 25, 50, 100, 200 llamadas por página |
+| **Navegación Rápida** | Salto a primera/última página |
+| **Indicador Detallado** | "Showing X to Y of Z total calls" |
+| **Carga Progresiva** | Loading states durante cambios de página |
+
+## Acciones Rápidas por Fila
+
+Cada llamada incluye un menú de acciones:
+
+| Acción | Descripción | Icono |
+|--------|-------------|-------|
+| 👁️ **View Details** | Abrir modal con información completa | Ojo |
+| 📋 **Copy Call ID** | Copiar ID al portapapeles | Portapapeles |
+| 🏷️ **Add Tags** | Agregar etiquetas personalizadas | Etiqueta |
+| 📊 **View Analytics** | Ver métricas específicas de la llamada | Gráfico |
+| 🔄 **Retry Call** | Reintentar llamada (si aplica) | Flecha circular |
+
+## Presets de Filtros Guardados
+
+### Administración de Presets
+
+<Warning>
+Los presets guardados incluyen toda la configuración de filtros y visibilidad de columnas, no solo los filtros.
+</Warning>
+
+Funcionalidades disponibles:
+
+1. **Crear Preset**
+   - Configura filtros y columnas según necesites
+   - Asigna un nombre descriptivo
+   - Guarda para uso futuro
+
+2. **Aplicar Preset**
+   - Selección desde dropdown dedicado
+   - Aplicación instantánea de toda la configuración
+   - Indicador visual del preset activo
+
+3. **Administrar Presets**
+   - Editar presets existentes
+   - Eliminar presets obsoletos
+   - Compartir presets con el equipo
+
+### Presets Predefinidos del Sistema
+
+| Preset | Configuración | Uso Recomendado |
+|--------|---------------|-----------------|
+| **Vista Rápida** | Columnas básicas, últimos 7 días | Revisión diaria |
+| **Análisis Completo** | Todas las columnas, últimos 30 días | Reportes mensuales |
+| **Solo Exitosas** | Filtro por éxito, métricas clave | Identificar mejores prácticas |
+| **Problemas** | Solo fallos, información técnica | Troubleshooting |
+
+## Integración con Tendencias de Evaluaciones
+
+Acceso directo a análisis de rendimiento:
+
+<Steps>
+  <Step title="Acceder desde Historial">
+    Botón **"View Evaluation Trends"** disponible para cada agente específico
+  </Step>
+  
+  <Step title="Análisis Contextual">
+    Las tendencias se abren con el mismo período de tiempo activo en el historial
+  </Step>
+  
+  <Step title="Navegación Fluida">
+    Regresa al historial manteniendo todos los filtros aplicados
+  </Step>
+</Steps>
+
+### Métricas de Evaluación Integradas
+
+Las tendencias proporcionan insights detallados sobre:
+
+- **Tasa de Éxito Global** - Porcentaje general de evaluaciones exitosas
+- **Evolución Temporal** - Gráficos de rendimiento a lo largo del tiempo
+- **Comparativa por Agente** - Benchmarking entre diferentes agentes
+- **Patrones Estacionales** - Identificación de tendencias por días/horas
+- **Alertas de Rendimiento** - Notificaciones de cambios significativos
+
+<Info>
+Las evaluaciones se actualizan en tiempo real y se sincronizan automáticamente con los datos del historial de llamadas.
+</Info>
+
+## Exportación de Datos Avanzada
+
+### Formatos de Exportación
+
+<Tabs>
+  <Tab title="CSV Básico">
+    - Datos tabulares simples
+    - Compatible con Excel y Google Sheets
+    - Incluye solo columnas visibles
+    - Respeta filtros activos
+  </Tab>
+  
+  <Tab title="Excel Avanzado">
+    - Múltiples hojas de cálculo
+    - Formato y gráficos incluidos
+    - Metadatos de filtros aplicados
+    - Resumen ejecutivo automático
+  </Tab>
+  
+  <Tab title="PDF Reporte">
+    - Formato profesional para presentaciones
+    - Gráficos y métricas visuales
+    - Logo y branding de empresa
+    - Configuración de layout personalizable
+  </Tab>
+</Tabs>
+
+### Opciones de Exportación
+
+- **Datos Filtrados**: Solo las llamadas que cumplen criterios activos
+- **Selección Manual**: Únicamente llamadas seleccionadas
+- **Rango Personalizado**: Período específico independiente de filtros
+- **Datos Completos**: Todo el historial disponible
+
+## Búsquedas Inteligentes y Consejos
+
+### Estrategias de Búsqueda Eficientes
 
 <CardGroup cols={2}>
-  <Card title="Usa Presets de Fecha" icon="calendar">
-    Comienza con presets como "Last 7 Days" para búsquedas rápidas.
+  <Card title="Usa Presets Inteligentes" icon="bookmark">
+    Comienza con presets predefinidos y personaliza según necesites. Esto ahorra tiempo y garantiza consistencia.
   </Card>
-  <Card title="Combina Filtros" icon="filter">
-    Combina múltiples filtros para encontrar llamadas específicas rápidamente.
+  
+  <Card title="Combina Filtros Gradualmente" icon="filter">
+    Aplica filtros de forma progresiva: primero fecha, luego agente, después estado. Esto te ayuda a refinar resultados paso a paso.
   </Card>
-  <Card title="Exporta Resultados" icon="download">
-    Exporta resultados filtrados para análisis offline o reportes.
+  
+  <Card title="Aprovecha la Búsqueda por ID" icon="hashtag">
+    Para debugging o soporte, usa directamente el Call ID exacto. Es la forma más rápida de encontrar llamadas específicas.
   </Card>
-  <Card title="Usa Call ID" icon="hashtag">
-    Cuando debuguees un problema específico, usa el call ID exacto.
+  
+  <Card title="Guarda Configuraciones Útiles" icon="save">
+    Crea presets para búsquedas recurrentes como reportes semanales, análisis de problemas, o revisiones de calidad.
   </Card>
 </CardGroup>
+
+### Atajos de Teclado
+
+| Atajo | Acción |
+|-------|--------|
+| `Ctrl + F` | Enfocar búsqueda por Call ID |
+| `Ctrl + A` | Seleccionar todas las llamadas visibles |
+| `Ctrl + D` | Deseleccionar todas |
+| `Ctrl + E` | Exportar selección actual |
+| `Ctrl + R` | Resetear todos los filtros |
+
+## Indicadores de Rendimiento en Tiempo Real
+
+### Dashboard Integrado
+
+La nueva interfaz incluye métricas en vivo:
+
+- **Llamadas del Día**: Contador en tiempo real
+- **Tasa de Éxito**: Porcentaje actualizado automáticamente  
+- **Duración Promedio**: Cálculo dinámico basado en filtros
+- **Costos Acumulados**: Total de gastos del período seleccionado
+
+### Alertas y Notificaciones
+
+<Warning>
+El sistema monitorea automáticamente patrones inusuales y genera alertas cuando detecta:
+- Caídas significativas en la tasa de éxito
+- Aumentos inesperados en la duración de llamadas
+- Incrementos en llamadas fallidas
+- Patrones de uso anómalos
+</Warning>
 
 ## Siguientes Pasos
 
 <CardGroup cols={3}>
   <Card title="Detalles de Llamada" icon="info-circle" href="/es/calls/call-details">
-    Aprende sobre la información detallada disponible para cada llamada.
+    Explora la información detallada disponible para cada llamada, incluyendo transcripciones y análisis.
   </Card>
-  <Card title="Reportes" icon="chart-line" href="/es/calls/reporting">
-    Genera reportes completos de tus datos de llamadas.
+  
+  <Card title="Reportes Avanzados" icon="chart-line" href="/es/calls/reporting">
+    Genera reportes completos y personalizados de tus datos de llamadas con visualizaciones.
   </Card>
+  
   <Card title="Tendencias de Evaluaciones" icon="trending-up" href="/es/calls/evaluation-trends">
-    Analiza el rendimiento de tus agentes a lo largo del tiempo.
+    Analiza el rendimiento de tus agentes a lo largo del tiempo con métricas avanzadas.
   </Card>
 </CardGroup>

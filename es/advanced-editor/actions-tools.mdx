@@ -674,96 +674,162 @@ Gestiona los números telefónicos que aparecerán como identificador de llamada
 - **Regulaciones Locales**: Cumple con regulaciones específicas de caller ID en tu jurisdicción
 - **Transparencia**: Usa caller IDs que identifiquen claramente tu empresa u organización
 
-## Plantillas Multiidioma Avanzadas
+## Integraciones de Comunicación Avanzada
 
-Meetzy incluye plantillas predefinidas optimizadas culturalmente para diferentes mercados y contextos regionales:
+### Configuración de Email Inteligente
+
+Configura el envío automático de correos electrónicos contextuales durante o después de las conversaciones telefónicas.
+
+<Steps>
+  <Step title="Activar Funcionalidad Email">
+    Habilita la opción de envío de email automático en la sección de Acciones y Herramientas.
+  </Step>
+  <Step title="Configurar Prompts de Activación">
+    Define cuándo el agente debe enviar automáticamente un correo electrónico al cliente.
+  </Step>
+  <Step title="Personalizar Asunto del Email">
+    Configura prompts dinámicos para generar asuntos relevantes basados en la conversación.
+  </Step>
+  <Step title="Configurar Contenido del Email">
+    Establece prompts para generar el cuerpo del email con información específica de la llamada.
+  </Step>
+  <Step title="Definir Copias Carbón (CC)">
+    Especifica direcciones de email adicionales que deben recibir copias del correo enviado.
+  </Step>
+</Steps>
+
+#### Configuración de Prompts de Email
 
 <Tabs>
-  <Tab title="Español - Transferencia">
+  <Tab title="Prompt de Activación">
     ```text
-    Criterios para transferir la llamada a un agente humano:
+    Enviar email automático en estos casos:
     
-    TRANSFERENCIAS OBLIGATORIAS:
-    - El cliente rechaza directamente la propuesta o servicio
-    - Solicita expresamente hablar con una persona humana
-    - Expresa desconfianza hacia el asistente virtual o automatización
-    - Requiere información técnica específica no disponible en el sistema
-    - Necesita autorización para gestión de datos personales sensibles
-    - Manifiesta frustración, enfado, o insatisfacción con el servicio
-    - Solicita hablar con un responsable, supervisor, o gerente
-    - La consulta requiere evaluación humana especializada
-    - Presenta una queja formal que requiere escalación
-    - Necesita negociar términos o condiciones especiales
-    
-    TRANSFERENCIAS CONTEXTUALES:
-    - Situaciones complejas que superan las capacidades del sistema
-    - Consultas que requieren acceso a sistemas no integrados
-    - Casos que requieren toma de decisiones ejecutivas
-    - Emergencias o situaciones de urgencia crítica
+    - El cliente solicita información adicional por escrito
+    - Se necesita confirmación de detalles importantes discutidos
+    - El cliente requiere documentación o enlaces de seguimiento
+    - Se programó una cita que requiere confirmación escrita
+    - Se proporcionó información técnica que debe documentarse
+    - El cliente expresó interés en productos/servicios específicos
     ```
   </Tab>
-  <Tab title="Español - Finalización de Llamada">
+  <Tab title="Prompt de Asunto">
     ```text
-    ## Protocolo de Finalización de Llamada
+    Generar asunto de email basado en:
     
-    DETECCIÓN DE CONTESTADOR AUTOMÁTICO:
-    Finalizar inmediatamente cuando se detecten estas frases:
-    - "Deje su mensaje después de la señal"
-    - "En este momento no podemos atenderle"
-    - "El número marcado no está disponible"
-    - "Gracias por llamar a [empresa/servicio]"
-    - "Buzón de voz de [nombre/empresa]"
-    - "Ha contactado con el servicio de..."
-    - "Bienvenido al contestador automático"
-    - "Su llamada es importante para nosotros"
-    - "No podemos atender su llamada ahora"
-    - "Por favor, inténtelo de nuevo más tarde"
+    - Motivo principal de la llamada
+    - Acción o información más relevante discutida
+    - Nombre de la empresa o servicio mencionado
+    - Urgencia o importancia del seguimiento
     
-    FINALIZACIÓN POR CUMPLIMIENTO DE OBJETIVOS:
-    - Todos los objetivos de la llamada han sido completados
-    - El cliente ha proporcionado toda la información requerida
-    - Se ha completado exitosamente el proceso solicitado
-    - El cliente confirma satisfacción con la resolución
-    
-    FINALIZACIÓN POR DESPEDIDA NATURAL:
-    - El cliente se despide de forma clara e inequívoca
-    - Intercambio de despedidas protocolarias completado
-    - El cliente indica que no necesita nada más
-    - Finalización cortés y profesional del diálogo
+    Formato: [Empresa] - [Tema Principal] - [Fecha]
+    Ejemplo: "MediCare - Confirmación Cita Consulta - 23 Enero"
     ```
   </Tab>
-  <Tab title="Español - Protocolo Recall">
+  <Tab title="Prompt de Contenido">
     ```text
-    ## Protocolo de Rellamada Automática
+    Incluir en el cuerpo del email:
     
-    ACTIVAR RELLAMADA EN ESTOS CASOS:
+    - Saludo personalizado con nombre del cliente
+    - Resumen conciso de los puntos clave discutidos
+    - Información específica solicitada o prometida
+    - Pasos siguientes o acciones requeridas
+    - Información de contacto para seguimiento
+    - Despedida profesional y cortés
     
-    CONDICIONES TÉCNICAS:
-    - No se obtiene respuesta después de timbre prolongado
-    - La línea telefónica está ocupada o congestionada
-    - Se detecta contestador automático o buzón de voz
-    - La llamada se corta inesperadamente por fallas técnicas
-    - Problemas de calidad de audio que impiden conversación
-    - Rechazo automático por parte del sistema del operador
-    
-    CONDICIONES DE NEGOCIO:
-    - No se completaron los objetivos principales de la llamada
-    - El cliente solicitó ser contactado en horario específico
-    - Información crítica pendiente de recopilación o confirmación
-    - Proceso de venta o gestión interrumpido antes de finalizar
-    - Seguimiento requerido según protocolo empresarial
-    - Confirmación de cita, servicio, o compromiso pendiente
-    
-    CONFIGURACIÓN DE REINTENTOS:
-    - Máximo 3 intentos de rellamada por contacto
-    - Intervalos progresivos: 30 min → 4 horas → 1 día
-    - Respetar horarios comerciales (9:00-18:00) zona local
-    - Excluir fines de semana y días festivos nacionales
-    - Detener rellamadas si cliente solicita no ser contactado
-    - Cumplir con regulaciones de protección de datos (LOPD/GDPR)
+    Tono: Profesional, claro, y orientado a la acción
     ```
   </Tab>
 </Tabs>
+
+### Configuración de SMS Inteligente
+
+Establece el envío automático de mensajes SMS para confirmaciones rápidas y recordatorios.
+
+<Steps>
+  <Step title="Activar Funcionalidad SMS">
+    Habilita la opción de envío de SMS automático en la configuración de acciones.
+  </Step>
+  <Step title="Definir Condiciones de Envío">
+    Especifica cuándo el agente debe enviar un SMS al cliente automáticamente.
+  </Step>
+  <Step title="Configurar Contenido del Mensaje">
+    Establece prompts para generar mensajes SMS concisos y relevantes.
+  </Step>
+</Steps>
+
+#### Casos de Uso Típicos para SMS
+
+- **Confirmaciones de Cita**: Envío inmediato tras programar cita médica o comercial
+- **Códigos de Verificación**: Autenticación de identidad durante llamadas sensibles
+- **Recordatorios Urgentes**: Información crítica que requiere confirmación rápida
+- **Enlaces de Seguimiento**: URLs cortas para documentos, formularios, o recursos
+- **Confirmaciones de Pedido**: Números de tracking o códigos de referencia
+
+### Configuración de Calendario Inteligente
+
+Integra directamente con sistemas de calendario para programación automática de citas.
+
+#### Proveedores Soportados
+
+<Tabs>
+  <Tab title="Google Calendar">
+    **Configuración requerida:**
+    
+    - **Calendar IDs de Disponibilidad**: IDs de calendarios para verificar disponibilidad
+    - **Calendar ID de Reserva**: ID del calendario donde se crearán las nuevas citas
+    - **Duración por Defecto**: Tiempo estándar de las citas en minutos
+    - **Horario de Trabajo**: Ventana horaria para programación de citas
+    - **Zona Horaria**: Zona horaria del calendario principal
+    
+    **Configuración avanzada:**
+    ```json
+    {
+      "provider": "google-calendar",
+      "availability_calendar_ids": ["cal1@gmail.com", "cal2@gmail.com"],
+      "booking_calendar_id": "booking@empresa.com",
+      "default_duration_minutes": 30,
+      "working_hours_start": "09:00",
+      "working_hours_end": "17:00",
+      "timezone": "Europe/Madrid",
+      "include_attendee_email": true,
+      "include_location": true
+    }
+    ```
+  </Tab>
+  <Tab title="Outlook Calendar">
+    **Configuración requerida:**
+    
+    - **Calendarios de Disponibilidad**: IDs de calendarios de Microsoft Exchange
+    - **Calendario de Reserva**: Calendario de destino para nuevas citas
+    - **Configuración de Acceso**: Tokens de autenticación de Microsoft Graph API
+    - **Políticas de Reunión**: Configuraciones específicas de Outlook/Teams
+    
+    **Configuración avanzada:**
+    ```json
+    {
+      "provider": "outlook-calendar",
+      "availability_calendar_ids": ["user1@empresa.onmicrosoft.com"],
+      "booking_calendar_id": "reservas@empresa.onmicrosoft.com",
+      "default_duration_minutes": 45,
+      "working_hours_start": "08:30",
+      "working_hours_end": "18:30",
+      "timezone": "Europe/Madrid",
+      "teams_integration": true,
+      "send_outlook_invitations": true
+    }
+    ```
+  </Tab>
+</Tabs>
+
+#### Prompts de Configuración de Calendario
+
+| Configuración | Descripción | Ejemplo |
+|---------------|-------------|---------|
+| **Check Availability Prompt** | Cuándo verificar disponibilidad de calendario | "Verificar disponibilidad cuando el cliente solicite programar una cita, reunión, o consulta específica" |
+| **Book Appointment Prompt** | Cuándo crear automáticamente la cita | "Crear cita cuando se confirme fecha, hora, y se obtenga información de contacto del cliente" |
+| **Event Title Prompt** | Cómo generar el título del evento | "Generar título descriptivo: [Tipo de Cita] - [Nombre Cliente] - [Motivo/Servicio]" |
+| **Event Description Prompt** | Contenido de la descripción del evento | "Incluir: motivo de la cita, información de contacto, notas especiales de la conversación" |
 
 ## Monitoreo y Análisis de Rendimiento
 
@@ -802,28 +868,6 @@ Evalúa el éxito del sistema de rellamadas:
 | **Costo por Recall Exitoso** | ROI de cada recall que convierte | Variable por industria | Positivo |
 | **Opt-out Rate** | % que solicitan no más contact | < 5% | < 3% |
 | **Compliance Score** | Cumplimiento de regulaciones | 100% | 100% (obligatorio) |
-
-## Integración con Servicios de Comunicación
-
-### Configuración de Email Automático (Próximamente)
-
-<Info>
-La funcionalidad de email automático estará disponible en Q1 2025, permitiendo envío contextual de correos durante o después de las llamadas.
-</Info>
-
-**Características planificadas:**
-- Templates de email dinámicos con variables de conversación
-- Trigger automático basado en eventos de llamada
-- Integración con proveedores SMTP populares
-- Personalización por industria y caso de uso
-
-### SMS Dinámico (En Desarrollo)
-
-**Funcionalidades en desarrollo:**
-- Envío de SMS de confirmación automática
-- Links de seguimiento y recursos adicionales
-- Códigos de verificación y autenticación
-- Recordatorios programados
 
 ## Solución de Problemas Avanzada
 
@@ -961,27 +1005,6 @@ Monitor clave a implementar en tu dashboard operativo:
 - **Compliance Score**: Indicador de cumplimiento normativo en tiempo real
 - **Caller ID Status**: Estados de verificación de todos los caller IDs registrados
 
-## Próximas Funcionalidades
-
-<Tabs>
-  <Tab title="Comunicación Avanzada">
-    | Característica | Descripción | Estado de Desarrollo | ETA Estimada |
-    |---------------|-------------|---------------------|--------------|
-    | 📧 **Email Contextual** | Envío inteligente durante llamadas | En desarrollo activo | Q1 2025 |
-    | 💬 **SMS Inteligente** | Mensajes dinámicos por triggers | En desarrollo activo | Q1 2025 |
-    | 📱 **WhatsApp Business** | Integración oficial con Meta API | Planeado | Q2 2025 |
-    | 🔔 **Push Notifications** | Notificaciones móviles contextuales | Investigación | Q2 2025 |
-  </Tab>
-  <Tab title="IA y Automatización">
-    | Característica | Descripción | Estado de Desarrollo | ETA Estimada |
-    |---------------|-------------|---------------------|--------------|
-    | 🧠 **Análisis Emocional** | Detección de sentimientos en tiempo real | Beta cerrada | Q1 2025 |
-    | 🎯 **Personalización IA** | Adaptación automática por cliente | En desarrollo | Q2 2025 |
-    | 📈 **Auto-optimización** | Mejoras automáticas via ML | Investigación | Q3 2025 |
-    | 🔮 **Predicción de Intent** | Anticipación de necesidades | Concepto | Q3 2025 |
-  </Tab>
-</Tabs>
-
 ## Mejores Prácticas de Implementación
 
 ### Para Transferencias de Alto Rendimiento
@@ -1057,6 +1080,27 @@ Monitor clave a implementar en tu dashboard operativo:
     - Implemente scoring dinámico para priorizar recalls de alto valor
   </Step>
 </Steps>
+
+## Próximas Funcionalidades
+
+<Tabs>
+  <Tab title="Comunicación Avanzada">
+    | Característica | Descripción | Estado de Desarrollo | ETA Estimada |
+    |---------------|-------------|---------------------|--------------|
+    | 📞 **Click-to-Call** | Iniciación de llamadas desde web/app | En desarrollo activo | Q1 2025 |
+    | 🔄 **Multi-canal Sync** | Sincronización entre llamadas, email, SMS | Planeado | Q2 2025 |
+    | 🎯 **Targeting Inteligente** | Selección automática de canal óptimo | Investigación | Q2 2025 |
+    | 📱 **WhatsApp Business** | Integración oficial con Meta API | Planeado | Q2 2025 |
+  </Tab>
+  <Tab title="IA y Automatización">
+    | Característica | Descripción | Estado de Desarrollo | ETA Estimada |
+    |---------------|-------------|---------------------|--------------|
+    | 🧠 **Análisis Emocional** | Detección de sentimientos en tiempo real | Beta cerrada | Q1 2025 |
+    | 🎯 **Personalización IA** | Adaptación automática por cliente | En desarrollo | Q2 2025 |
+    | 📈 **Auto-optimización** | Mejoras automáticas via ML | Investigación | Q3 2025 |
+    | 🔮 **Predicción de Intent** | Anticipación de necesidades | Concepto | Q3 2025 |
+  </Tab>
+</Tabs>
 
 ## Siguientes Pasos
 

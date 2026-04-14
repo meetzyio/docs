@@ -1,12 +1,12 @@
 ---
 title: 'Call History'
-description: 'Search, filter, and review all your AI agent calls'
+description: 'Search, filter, and review all your AI agent calls with advanced filtering and customization'
 icon: 'phone'
 ---
 
 # Call History
 
-The Call History section provides a comprehensive view of all calls made by your AI agents. You can search, filter, and analyze call data to monitor performance and identify insights.
+The Call History section provides a comprehensive view of all calls made by your AI agents. You can search, filter, and analyze call data to monitor performance and identify insights with powerful filtering capabilities and customizable views.
 
 ## Accessing Call History
 
@@ -19,11 +19,31 @@ The calls interface consists of:
 | Section | Description |
 |---------|-------------|
 | 📊 Header | Title, description, and selection status |
-| 🔍 Filter Bar | Advanced filtering controls |
+| 🔍 Filter Bar | Advanced filtering controls with visibility management |
 | 📋 Call Table | List of all calls with key information |
 | 📄 Details Modal | Detailed view of individual calls |
 
-## Filtering Calls
+## Advanced Filter System
+
+### Filter Visibility Configuration
+
+<Info>
+Customize which filters are visible in your interface to streamline your workflow and focus on the most relevant filtering options.
+</Info>
+
+The filter system now includes configurable visibility controls:
+
+<Steps>
+<Step title="Access Filter Settings">
+Click the settings icon next to the filter controls to open the filter visibility panel.
+</Step>
+<Step title="Toggle Filter Visibility">
+Use the checkboxes to show or hide specific filter types based on your needs.
+</Step>
+<Step title="Save Configuration">
+Your filter visibility preferences are automatically saved for future sessions.
+</Step>
+</Steps>
 
 ### Date Range Filter
 
@@ -35,102 +55,193 @@ Filter calls by predefined time periods or custom date ranges:
 - **Last 30 Days** - Calls from the past month
 - **Custom Range** - Select specific start and end dates with time
 
-<Tip>
-Use the datetime picker to set precise time ranges for your searches.
-</Tip>
+<Info>
+Use the datetime picker to set precise time ranges for your searches. The filter automatically adjusts to your local timezone.
+</Info>
 
-### Agent Filter
+### Agent Filter with Evaluation Trends
 
-Filter calls by specific agents (playbooks):
+Filter calls by specific agents (playbooks) with enhanced analytics integration:
 
 1. Click the **Agents** dropdown
 2. Select one or multiple agents
 3. The filter shows "X agents selected" when active
+4. Access **"View Evaluation Trends"** directly from the agent selector for performance analysis
+
+<Tip>
+When filtering by a single agent, the "View Evaluation Trends" button appears next to the agent name for quick access to performance analytics.
+</Tip>
 
 ### Status Filter
 
-Filter by call status:
+Filter by call status with visual indicators:
 
-| Status | Description |
-|--------|-------------|
-| 🟢 Completed | Call finished successfully |
-| 🟡 In Progress | Call currently active |
-| 🔴 Failed | Call encountered an error |
-| ⚪ No Answer | Recipient didn't answer |
-| 🔵 Transferred | Call was transferred |
+| Status | Description | Indicator |
+|--------|-------------|-----------|
+| 🟢 Completed | Call finished successfully | Green badge |
+| 🟡 In Progress | Call currently active | Yellow badge |
+| 🔴 Failed | Call encountered an error | Red badge |
+| ⚪ No Answer | Recipient didn't answer | White badge |
+| 🔵 Transferred | Call was transferred | Blue badge |
 
 ### Direction Filter
 
-- **Inbound** - Calls received by your agents
-- **Outbound** - Calls initiated by your agents
+- **Inbound** - Calls received by your agents with 📞 icon
+- **Outbound** - Calls initiated by your agents with 📲 icon
 - **All** - Both directions
 
 ### Success Filter
 
-Filter by call outcome:
+Filter by call outcome with enhanced evaluation criteria:
 
 - **Successful** - Calls marked as successful based on your evaluations
 - **Unsuccessful** - Calls that didn't meet success criteria
 - **All** - All calls regardless of outcome
 
-### Search by Call ID
+### Advanced Call ID Search
 
-When you have a specific call ID:
+<Warning>
+When using Call ID search, all other filters are temporarily disabled to ensure precise lookups.
+</Warning>
 
-1. Enter the call ID in the search field
-2. Other filters are temporarily disabled
-3. The exact call matching that ID is displayed
+Enhanced Call ID functionality with database search:
+
+<Steps>
+<Step title="Enter Call ID">
+Type the specific call ID in the dedicated search field
+</Step>
+<Step title="Database Query">
+The system performs a direct database lookup for the exact call ID
+</Step>
+<Step title="Instant Results">
+The matching call is displayed immediately, bypassing all other filters
+</Step>
+<Step title="Clear Search">
+Remove the call ID to restore normal filtering functionality
+</Step>
+</Steps>
+
+### Dynamic Tags Filter
 
 <Info>
-Call ID search takes priority over all other filters for precise lookups.
+Filter calls by dynamic tags that are automatically generated based on call content, outcomes, and agent behaviors.
 </Info>
+
+The tags filter provides:
+
+- **Dynamic Tag Generation** - Tags are automatically created based on call analysis
+- **Multi-Select Capability** - Select multiple tags to find calls matching any or all criteria
+- **Real-time Updates** - Tag list updates as new calls are processed
+- **Custom Tag Support** - Manual tags can be added to calls for additional categorization
+
+### Filter Presets
+
+<Tip>
+Save your most-used filter combinations as presets for quick access to common search patterns.
+</Tip>
+
+Create and manage filter presets:
+
+<Steps>
+<Step title="Configure Filters">
+Set up your desired combination of filters (date range, agents, status, etc.)
+</Step>
+<Step title="Save as Preset">
+Click "Save Preset" and give it a descriptive name
+</Step>
+<Step title="Quick Access">
+Access saved presets from the preset dropdown for instant filter application
+</Step>
+<Step title="Manage Presets">
+Edit or delete presets as your filtering needs evolve
+</Step>
+</Steps>
+
+## Enhanced Visual Indicators
+
+### Filter Status Indicators
+
+The interface now includes improved visual feedback:
+
+| Indicator | Meaning |
+|-----------|---------|
+| 🟦 Blue Badge | Active filter with values selected |
+| 🔢 Count Badge | Number of items selected in multi-select filters |
+| 🚫 Disabled State | Filter temporarily disabled (e.g., during Call ID search) |
+| ✨ Preset Active | A saved preset is currently applied |
+
+### Selection Status
+
+When calls are selected:
+
+- **Selection Counter** - Shows "X selected" in an emerald-colored badge
+- **Bulk Action Bar** - Appears with available actions for selected calls
+- **Clear Selection** - One-click option to deselect all calls
 
 ## Call Table
 
-The call table displays key information for each call:
+The call table displays key information for each call with enhanced visual design:
 
 | Column | Description |
 |--------|-------------|
 | Selection | Checkbox to select calls |
-| Status | Call status badge |
-| Success | ✓ or ✗ indicator |
+| Status | Call status badge with color coding |
+| Success | ✓ or ✗ indicator with evaluation context |
 | Agent | Name of the agent that handled the call |
-| Direction | 📞 Inbound or 📲 Outbound |
-| From | Caller phone number |
-| To | Recipient phone number |
+| Direction | 📞 Inbound or 📲 Outbound with clear icons |
+| From | Caller phone number with formatting |
+| To | Recipient phone number with formatting |
 | Duration | Call length in minutes:seconds |
-| Date | When the call occurred |
+| Date | When the call occurred with relative time |
+| Tags | Dynamic tags associated with the call |
 
 ### Bulk Actions
 
+<Tabs>
+<Tab title="Selection">
 When you select multiple calls:
-
 1. A selection indicator appears showing "X selected"
 2. Click **Clear Selection** to deselect all
 3. Bulk export options become available
+4. Additional bulk actions appear in the action bar
+</Tab>
+<Tab title="Export">
+Export filtered results:
+- CSV format for spreadsheet analysis
+- JSON format for technical analysis
+- PDF reports for presentations
+- Include/exclude specific columns
+</Tab>
+</Tabs>
 
-### Sorting
+### Enhanced Sorting
 
-Click column headers to sort:
+Click column headers to sort with improved indicators:
 
-- Click once for ascending order
-- Click again for descending order
-- An arrow indicates the current sort direction
+- **Single Click** - Ascending order with ↑ arrow
+- **Double Click** - Descending order with ↓ arrow
+- **Sort Memory** - Last sort preference is remembered
+- **Multi-Column Sort** - Hold Shift to sort by multiple columns
 
 ## Pagination
 
-- Use **Previous** and **Next** buttons to navigate pages
-- Change page size (10, 25, 50, 100 calls per page)
-- Current position shows "Showing X to Y of Z calls"
+Enhanced pagination controls:
+
+- **Smart Page Sizes** - 10, 25, 50, 100, 250 calls per page
+- **Jump to Page** - Direct page number input
+- **Results Counter** - "Showing X to Y of Z calls" with total count
+- **Performance Optimization** - Efficient loading for large datasets
 
 ## Quick Actions
 
-For each call row:
+For each call row with improved accessibility:
 
-| Action | Description |
-|--------|-------------|
-| 👁️ View | Open call details modal |
-| 📋 Copy ID | Copy call ID to clipboard |
+| Action | Description | Shortcut |
+|--------|-------------|----------|
+| 👁️ View | Open call details modal | Click row |
+| 📋 Copy ID | Copy call ID to clipboard | Right-click menu |
+| 🏷️ Add Tags | Add custom tags to the call | Tag icon |
+| 📊 Analytics | Quick performance insights | Chart icon |
 
 ## Evaluation Trends Analysis
 
@@ -155,37 +266,102 @@ The evaluation trends analysis provides:
 - **Historical Context** - Compare current performance with past periods
 - **Actionable Insights** - Understand which evaluations are performing well and which need optimization
 
+## Performance and Optimization
+
+### Smart Loading
+
+The system includes several performance optimizations:
+
+- **Lazy Loading** - Calls load as you scroll through the table
+- **Filter Debouncing** - Prevents excessive API calls while typing
+- **Caching** - Frequently accessed data is cached for faster loading
+- **Background Refresh** - New calls appear automatically without manual refresh
+
+### Search Optimization
+
 <Tip>
-Use evaluation trends analysis to make data-driven decisions about agent improvements and training focus areas.
+Use specific search criteria to improve performance when working with large datasets.
 </Tip>
+
+Best practices for efficient searching:
+
+1. **Start with Date Range** - Narrow down the time period first
+2. **Use Specific Agents** - Filter by particular agents when possible
+3. **Combine Filters Strategically** - Use multiple filters to reduce result sets
+4. **Save Common Searches** - Use presets for frequently used filter combinations
 
 ## Tips for Efficient Searching
 
 <CardGroup cols={2}>
-  <Card title="Use Date Presets" icon="calendar">
-    Start with date presets like "Last 7 Days" for quick searches, then narrow down if needed.
+  <Card title="Use Filter Presets" icon="bookmark">
+    Save your most common filter combinations as presets for instant access to frequently needed views.
   </Card>
-  <Card title="Combine Filters" icon="filter">
-    Combine multiple filters to quickly find specific calls (e.g., "Failed + Outbound + Last 24h").
+  <Card title="Leverage Dynamic Tags" icon="tags">
+    Use automatically generated tags to quickly find calls with specific characteristics or outcomes.
   </Card>
-  <Card title="Export Results" icon="download">
-    Export filtered results for offline analysis or reporting.
+  <Card title="Combine Multiple Filters" icon="filter">
+    Stack filters like "Failed + Outbound + Last 24h + Specific Agent" for precise targeting.
   </Card>
-  <Card title="Use Call ID" icon="hashtag">
-    When debugging a specific issue, use the exact call ID for instant lookup.
+  <Card title="Use Call ID for Debugging" icon="hashtag">
+    When investigating specific issues, use the exact call ID for instant lookup with database search.
+  </Card>
+  <Card title="Customize Filter Visibility" icon="eye">
+    Hide filters you don't use regularly to streamline your interface and focus on relevant options.
+  </Card>
+  <Card title="Export Filtered Results" icon="download">
+    Export your filtered results for offline analysis, reporting, or sharing with team members.
   </Card>
 </CardGroup>
+
+## Advanced Use Cases
+
+### Quality Assurance Workflow
+
+<Steps>
+<Step title="Create QA Preset">
+Save a filter preset for "Failed + Last 7 Days" to quickly review problematic calls.
+</Step>
+<Step title="Tag Review Calls">
+Use dynamic tags to identify calls that need quality review.
+</Step>
+<Step title="Bulk Analysis">
+Select multiple calls for bulk export and detailed analysis.
+</Step>
+<Step title="Track Improvements">
+Use evaluation trends to monitor quality improvements over time.
+</Step>
+</Steps>
+
+### Performance Monitoring
+
+<Steps>
+<Step title="Agent Comparison">
+Use the agent filter to compare performance across different agents.
+</Step>
+<Step title="Success Tracking">
+Filter by success/failure to identify patterns in call outcomes.
+</Step>
+<Step title="Trend Analysis">
+Access evaluation trends directly from agent filters for deep performance insights.
+</Step>
+<Step title="Regular Reviews">
+Set up filter presets for weekly/monthly performance reviews.
+</Step>
+</Steps>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card title="Call Details" icon="info-circle" href="/calls/call-details">
-    Learn about the detailed information available for each call.
+    Learn about the detailed information available for each call including transcripts and analysis.
   </Card>
   <Card title="Evaluation Trends" icon="chart-line" href="/calls/evaluation-trends">
     Analyze agent performance patterns over time with comprehensive trend analysis.
   </Card>
   <Card title="Reporting" icon="chart-bar" href="/calls/reporting">
-    Generate comprehensive reports from your call data.
+    Generate comprehensive reports from your call data with advanced analytics.
+  </Card>
+  <Card title="Filter Management" icon="settings" href="/calls/filter-management">
+    Advanced filter configuration and preset management options.
   </Card>
 </CardGroup>
