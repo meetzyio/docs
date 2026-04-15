@@ -16,20 +16,43 @@ Each Meetzy agent needs at least one phone number to:
   Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
 </Info>
 
-## Twilio Subaccount Navigation
+## Multi-Subaccount Phone Number Management
 
-The phone numbers interface includes a tabbed navigation system to manage numbers across different Twilio subaccounts:
+Meetzy now supports managing phone numbers across multiple Twilio subaccounts with enhanced assignment states and improved management features.
 
-### Subaccount Tabs
+### Assignment States
+
+Phone numbers can have three distinct assignment states:
+
+| State | Description | Visual Indicator |
+|-------|-------------|------------------|
+| **Assigned** | Fully assigned to an agent and active | 🟢 Green badge |
+| **Partial** | Partially assigned or pending configuration | 🟡 Yellow badge |
+| **Unassigned** | Available for assignment | ⚪ Gray badge |
+
+### Subaccount Credentials Management
+
+Each Twilio subaccount can have its own set of credentials configured independently:
 
 <Tabs>
   <Tab title="Main Account">
-    The primary Twilio account where most numbers are typically managed.
+    Your primary Twilio account with full management capabilities
   </Tab>
-  <Tab title="Subaccounts">
-    Additional Twilio subaccounts that may contain specialized phone numbers.
+  <Tab title="Configured Subaccounts">
+    Subaccounts with proper credentials - full management available
+  </Tab>
+  <Tab title="Unconfigured Subaccounts">
+    Subaccounts without credentials - view-only access
   </Tab>
 </Tabs>
+
+<Warning>
+  To fully manage phone numbers in a subaccount, you need to configure the subaccount credentials in your settings.
+</Warning>
+
+## Twilio Subaccount Navigation
+
+The phone numbers interface includes a tabbed navigation system to manage numbers across different Twilio subaccounts:
 
 ### How to Navigate Between Subaccounts
 
@@ -43,13 +66,16 @@ The phone numbers interface includes a tabbed navigation system to manage number
   <Step title="Wait for Loading">
     The system will load numbers for the selected subaccount automatically.
   </Step>
+  <Step title="Check Credential Status">
+    Look for the credential status badge on each subaccount tab.
+  </Step>
 </Steps>
 
 <Info>
   Phone numbers are cached per subaccount to improve performance when switching between tabs.
 </Info>
 
-## Advanced Phone Number Filtering
+## Enhanced Phone Number Filtering
 
 The interface provides several filtering options to help you manage large numbers of phone numbers:
 
@@ -57,41 +83,91 @@ The interface provides several filtering options to help you manage large number
 
 | Filter | Description | Use Case |
 |--------|-------------|----------|
-| **Todos** | Shows all phone numbers regardless of status | Complete overview |
-| **Asignados** | Shows only numbers assigned to agents | Review active assignments |
-| **No asignados** | Shows only unassigned numbers | Find available numbers |
-| **Descartados** | Shows numbers marked as discarded/returned | Cleanup and management |
+| **All** | Shows all phone numbers regardless of status | Complete overview |
+| **Assigned** | Shows only numbers assigned to agents | Review active assignments |
+| **Unassigned** | Shows only unassigned numbers | Find available numbers |
 
 ### Visual Status Indicators
 
-Each phone number displays color-coded status indicators:
+Each phone number displays color-coded status indicators based on the new assignment states:
 
 - 🟢 **Green**: Fully assigned and active
 - 🟡 **Yellow**: Partially assigned or pending
-- ⚪ **White/Gray**: Unassigned and available
-- 🔴 **Red**: Discarded or returned
+- ⚪ **Gray**: Unassigned and available
 
-## Direct Agent Assignment
+## Direct Agent Assignment System
 
-You can directly assign phone numbers to agents from the phone numbers interface:
+The new assignment system allows you to directly assign phone numbers to agents with improved feedback:
 
 <Steps>
-  <Step title="Locate Number">
+  <Step title="Locate Available Number">
     Find an unassigned number in the list.
   </Step>
   <Step title="Click Assign">
     Click the "Assign" button next to the phone number.
   </Step>
   <Step title="Select Agent">
-    Choose an agent from the dropdown list.
+    Choose an agent from the dropdown list of available agents.
   </Step>
   <Step title="Confirm Assignment">
-    Click confirm to complete the assignment.
+    Click confirm to complete the assignment with automatic state updates.
+  </Step>
+</Steps>
+
+### Assignment Process
+
+When you assign a number:
+1. The number's status changes to **assigned**
+2. The agent's configuration is updated
+3. The cache is refreshed for real-time updates
+4. Assignment status is reflected across all relevant interfaces
+
+<Warning>
+  Once assigned directly, the number will become unavailable for other agents until reassigned, reset, or returned.
+</Warning>
+
+## Advanced Number Management Operations
+
+### Reset Numbers
+
+The reset function allows you to clear a number's configuration while keeping it in your account:
+
+<Steps>
+  <Step title="Select Number to Reset">
+    Find the phone number you want to reset.
+  </Step>
+  <Step title="Click Reset">
+    Use the reset option in the number's actions menu.
+  </Step>
+  <Step title="Confirm Reset">
+    Confirm the reset operation - this will clear webhooks and assignments.
+  </Step>
+  <Step title="Verify Status">
+    The number will return to **unassigned** status and be available for new assignments.
+  </Step>
+</Steps>
+
+### Return Numbers
+
+The return function removes numbers from your account completely:
+
+<Steps>
+  <Step title="Select Number to Return">
+    Find the phone number you want to return to Twilio's pool.
+  </Step>
+  <Step title="Click Return">
+    Use the return option in the number's actions menu.
+  </Step>
+  <Step title="Confirm Return">
+    Confirm the return operation - this action cannot be undone.
+  </Step>
+  <Step title="Number Released">
+    The number is returned to Twilio and removed from your account.
   </Step>
 </Steps>
 
 <Warning>
-  Once assigned directly, the number will become unavailable for other agents until reassigned or disconnected.
+  Returned numbers cannot be recovered. They may be assigned to other customers.
 </Warning>
 
 ## Assign a Number When Creating an Agent
@@ -113,6 +189,7 @@ All numbers are assigned or configured.
 
 **Options:**
 - Release a number from another agent
+- Reset unused numbers
 - Request new numbers via the "Request more numbers" link
 
 ## View Assigned Numbers
@@ -166,8 +243,9 @@ You can swap a problematic number for a new one from the Phone Health report:
 
 ### What Happens During a Swap
 
-1. **Old number** is unlinked and marked as "RETURN"
-2. **New number** is assigned and immediately active
+1. **Old number** is unlinked and marked for return
+2. **New number** is assigned with **assigned** status
+3. Assignment states are updated in real-time
 
 ## Disconnect a Number
 
@@ -210,46 +288,56 @@ Meetzy supports phone numbers in multiple countries:
 
 ## Best Practices
 
+### Number Management Workflow
+
+For efficient number management:
+
+<Steps>
+  <Step title="Regular Monitoring">
+    Check assignment states regularly across all subaccounts.
+  </Step>
+  <Step title="Credential Management">
+    Ensure all subaccounts have proper credentials configured.
+  </Step>
+  <Step title="Assignment Tracking">
+    Use the new assignment states to track number utilization.
+  </Step>
+  <Step title="Cleanup Operations">
+    Use reset and return functions to manage unused numbers.
+  </Step>
+</Steps>
+
 ### Number Rotation
 
 For high-volume campaigns:
 
 1. Assign multiple numbers to the agent
-2. The system rotates automatically
+2. The system rotates automatically based on assignment status
 3. Monitor Phone Health regularly
 4. Swap numbers before they reach "Spam" status
-
-### Number Identification
-
-Each number has a **Friendly Name** for identification:
-
-```
-+1 555 123 4567 (Sales Team)
-       │              │
-       │              └── Friendly Name
-       └── Number
-```
-
-Use descriptive names like:
-- "Sales Team"
-- "Support Line"
-- "Campaign Q1"
 
 ### Subaccount Organization
 
 - Use the main account for primary business numbers
 - Organize specialized campaigns in separate subaccounts
 - Apply consistent naming conventions across subaccounts
-- Regularly review and clean up unused numbers
+- Configure credentials for full management capabilities
+- Regularly review and clean up unused numbers using reset/return functions
 
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="Can I use my own phone number?">
-    Currently, Meetzy only supports numbers provided through the platform. Number portability is under development.
+  <Accordion title="What's the difference between reset and return?">
+    **Reset** clears a number's configuration but keeps it in your account as unassigned. **Return** completely removes the number from your account and returns it to Twilio's pool.
   </Accordion>
-  <Accordion title="What happens if I run out of numbers?">
-    Outbound calls will fail and inbound calls will go to an error mailbox. Request more numbers before this happens.
+  <Accordion title="Can I recover a returned number?">
+    No, returned numbers cannot be recovered. They become available to other Twilio customers.
+  </Accordion>
+  <Accordion title="What happens if I don't configure subaccount credentials?">
+    You can view phone numbers in unconfigured subaccounts but cannot perform management operations like assign, reset, or return.
+  </Accordion>
+  <Accordion title="How do assignment states help with management?">
+    Assignment states provide clear visibility into number utilization and help identify numbers that need attention or can be reset/returned.
   </Accordion>
   <Accordion title="Are numbers exclusive or shared?">
     Each number is exclusive to your account. It's not shared between different Meetzy customers.
@@ -261,7 +349,7 @@ Use descriptive names like:
     No, each subaccount maintains its own pool of phone numbers that cannot be shared with other subaccounts.
   </Accordion>
   <Accordion title="How do I move a number between subaccounts?">
-    Numbers cannot be moved between subaccounts. You would need to release the number and request a new one in the target subaccount.
+    Numbers cannot be moved between subaccounts. You would need to return the number and request a new one in the target subaccount.
   </Accordion>
 </AccordionGroup>
 

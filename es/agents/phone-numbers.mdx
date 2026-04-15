@@ -107,6 +107,57 @@ Los números pueden tener diferentes estados de asignación:
   </Tab>
 </Tabs>
 
+## Configuración de Transferencia de Llamadas
+
+Los agentes pueden configurarse para transferir llamadas a números telefónicos o troncos SIP cuando sea necesario:
+
+### Transferencia a Número Telefónico
+
+<Steps>
+  <Step title="Habilitar Transferencia">
+    En la sección **Call Transfer** del editor, activa la transferencia de llamadas.
+  </Step>
+  <Step title="Seleccionar Tipo">
+    Elige **Phone Number** como tipo de transferencia.
+  </Step>
+  <Step title="Configurar Número">
+    Ingresa el número de teléfono de destino en formato internacional (ej: +1234567890).
+  </Step>
+  <Step title="Definir Mensaje">
+    Configura el mensaje que determinará cuándo transferir la llamada.
+  </Step>
+</Steps>
+
+### Transferencia a SIP Trunk
+
+<Steps>
+  <Step title="Seleccionar SIP">
+    Elige **SIP Trunk** como tipo de transferencia.
+  </Step>
+  <Step title="Configurar URI">
+    Ingresa la URI SIP en formato: `sip:extension@gateway_ip:port`
+    Ejemplo: `sip:100@78.136.102.246:5060`
+  </Step>
+  <Step title="Verificar Conectividad">
+    Asegúrate de que el gateway SIP sea accesible desde los servidores de Meetzy.
+  </Step>
+</Steps>
+
+### Mensajes de Transferencia por Idioma
+
+Meetzy incluye plantillas predefinidas para diferentes idiomas:
+
+- **Español**: Transferencia en casos de rechazo, solicitud humana o desconfianza
+- **Inglés**: Transfer for rejection, human request, or distrust scenarios
+- **Francés**: Transfert pour refus, demande humaine ou méfiance
+- **Alemán**: Übertragung bei Ablehnung, menschlicher Anfrage oder Misstrauen
+- **Italiano**: Trasferimento per rifiuto, richiesta umana o sfiducia
+- **Portugués**: Transferência para rejeição, solicitação humana ou desconfiança
+
+<Info>
+  Las plantillas de transferencia se adaptan automáticamente al idioma principal del agente para mantener coherencia en la conversación.
+</Info>
+
 ## Múltiples Números por Agente
 
 Un agente puede tener varios números asignados. Esto es útil para:
@@ -226,6 +277,31 @@ Ordena la lista por:
 - Estado de asignación
 - Agente asignado
 
+## Finalización Automática de Llamadas
+
+Los agentes pueden configurarse para finalizar llamadas automáticamente en situaciones específicas:
+
+### Detección de Contestador Automático
+
+El agente puede identificar y colgar automáticamente cuando detecta:
+
+- "En este momento no podemos atenderle"
+- "Deje su mensaje después de la señal"
+- "El número al que llama..."
+- "Este es el contestador de..."
+- "Gracias por llamar, en estos momentos..."
+
+### Finalización Natural
+
+El agente también finaliza llamadas cuando:
+- El usuario se despide claramente
+- El agente completa su despedida
+- Se alcanza el objetivo de la conversación
+
+<Info>
+  La detección de contestadores automáticos utiliza análisis de patrones de voz y frases comunes para identificar con precisión estos sistemas.
+</Info>
+
 ## Solicitar Nuevos Números
 
 Para solicitar números adicionales:
@@ -274,6 +350,37 @@ Cada número puede tener configuración avanzada:
 <Info>
   Los webhooks se configuran automáticamente cuando asignas un número a un agente. La configuración manual es solo para casos avanzados.
 </Info>
+
+## Estadísticas por Número de Teléfono
+
+El sistema rastrea estadísticas detalladas por cada número, incluyendo:
+
+- **Total de llamadas** realizadas y recibidas
+- **Duración promedio** de conversaciones
+- **Llamadas exitosas** vs. fallidas
+- **Distribución por estados**: contestadas, sin respuesta, ocupado, buzón de voz
+
+### Análisis de Rendimiento por Número
+
+<Tabs>
+  <Tab title="Llamadas Salientes">
+    - Tasa de respuesta por número
+    - Identificación de números con mejor rendimiento
+    - Detección temprana de problemas de reputación
+  </Tab>
+  <Tab title="Llamadas Entrantes">
+    - Volumen de llamadas recibidas
+    - Distribución temporal
+    - Eficiencia en el manejo de llamadas
+  </Tab>
+  <Tab title="Estados de Llamada">
+    - **Completed**: Llamadas completadas exitosamente
+    - **No Answer**: Llamadas sin respuesta
+    - **Busy**: Línea ocupada
+    - **Voicemail**: Dirigidas al buzón de voz
+    - **Failed**: Fallos técnicos
+  </Tab>
+</Tabs>
 
 ## Prefijos de País Soportados
 
@@ -339,6 +446,18 @@ Cada número tiene un **Friendly Name** para identificarlo:
 - "Campaña Black Friday 2024"
 - "Región Norte - México"
 
+### Configuración de Transferencias
+
+**Para transferencias telefónicas:**
+- Usa números en formato E.164 (+1234567890)
+- Verifica que el número de destino esté disponible 24/7
+- Configura mensajes claros que indiquen cuándo transferir
+
+**Para transferencias SIP:**
+- Asegúrate de que el gateway SIP sea accesible públicamente
+- Usa el formato correcto: sip:extension@ip:port
+- Prueba la conectividad antes de implementar en producción
+
 ## Troubleshooting
 
 ### Números No Aparecen
@@ -357,6 +476,15 @@ Si falla la asignación:
 - **Número ya asignado**: Otro agente puede estar usando el número
 - **Subcuenta incorrecta**: Verifica que el agente y número estén en la misma subcuenta
 - **Permisos insuficientes**: Confirma permisos de administración
+
+### Problemas de Transferencia
+
+Para problemas de transferencia de llamadas:
+
+1. **Verifica el número de destino**: Debe estar disponible y ser válido
+2. **Revisa la URI SIP**: Confirma formato y conectividad del gateway
+3. **Comprueba los mensajes**: Asegúrate de que las condiciones de transferencia sean claras
+4. **Prueba la conectividad**: Verifica que el destino esté accesible
 
 ### Problemas de Webhook
 
@@ -392,6 +520,14 @@ Para problemas de configuración:
   
   <Accordion title="¿Puedo mover números entre subcuentas?">
     Los números están vinculados a subcuentas específicas de Twilio y no pueden moverse directamente. Contacta soporte para casos especiales.
+  </Accordion>
+  
+  <Accordion title="¿Las transferencias tienen costo adicional?">
+    Las transferencias de llamadas tienen el costo estándar de una llamada saliente al número de destino. Los troncos SIP pueden tener tarifas diferentes según tu proveedor.
+  </Accordion>
+  
+  <Accordion title="¿Cómo puedo probar las transferencias SIP?">
+    Puedes configurar un agente de prueba con transferencia SIP y realizar una llamada de prueba. Asegúrate de que el gateway SIP esté configurado para recibir conexiones de los servidores de Meetzy.
   </Accordion>
 </AccordionGroup>
 

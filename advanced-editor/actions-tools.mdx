@@ -765,6 +765,29 @@ Configure sophisticated calendar booking with multiple provider support.
 - **Attendee Management**: Automatically add customer email
 - **Location Handling**: Include meeting location or virtual meeting links
 
+### Calendar Integration Workflow
+
+<Steps>
+  <Step title="Provider Authentication">
+    Set up OAuth 2.0 authentication with Google Calendar or Microsoft Graph API for Outlook integration.
+  </Step>
+  <Step title="Calendar Configuration">
+    Configure primary and secondary calendars, working hours, and availability preferences.
+  </Step>
+  <Step title="Event Templates">
+    Create dynamic event templates with conversation data extraction for title, description, and attendees.
+  </Step>
+  <Step title="Booking Logic">
+    Define availability checking logic, conflict resolution, and automatic scheduling preferences.
+  </Step>
+</Steps>
+
+**Event Data Extraction:**
+- Customer name and contact information from conversation
+- Meeting purpose and agenda items discussed
+- Preferred time slots mentioned by customer
+- Special requirements or preparation notes
+
 ## Recall Protocol
 
 Set up sophisticated automatic callback systems for comprehensive customer follow-up when initial calls don't achieve their objectives.
@@ -825,6 +848,26 @@ Set up sophisticated automatic callback systems for comprehensive customer follo
 - Answering machine message successfully delivered
 - Technical issues prevented meaningful conversation
 
+### Recall Configuration Options
+
+**Timing Controls:**
+- **Business Hours Only**: Restrict callbacks to business hours
+- **Time Zone Awareness**: Respect customer's local time zone
+- **Day-of-Week Preferences**: Avoid weekends or specific days
+- **Holiday Exclusions**: Skip holidays and blackout dates
+
+**Escalation Strategy:**
+- **Message Variation**: Change script or approach with each attempt
+- **Channel Switching**: Transition to email or SMS after failed calls
+- **Human Handoff**: Transfer persistent cases to human agents
+- **Compliance Monitoring**: Automatic DNC list checking
+
+**Performance Tracking:**
+- **Success Rate Analytics**: Track effectiveness by attempt number
+- **Optimal Timing Analysis**: Identify best callback windows
+- **Customer Response Patterns**: Learn from customer behavior
+- **ROI Measurement**: Calculate cost-effectiveness of recalls
+
 ## Caller ID Management
 
 Set up professional caller IDs for outbound calls to improve answer rates and brand recognition.
@@ -866,6 +909,20 @@ Set up professional caller IDs for outbound calls to improve answer rates and br
 - Adjust caller ID based on campaign type
 - Use different numbers for different business units
 
+### Multi-Account Caller ID Management
+
+**Twilio Subaccount Integration:**
+- Manage caller IDs across multiple Twilio subaccounts
+- Automatic synchronization of verified numbers
+- Centralized caller ID performance analytics
+- Cross-account number pooling for better coverage
+
+**Phone Number Assignment:**
+- Assign specific numbers to specific agents or campaigns
+- Automatic rotation for high-volume calling
+- Geographic number matching for local presence
+- Industry-specific number selection (healthcare, finance, etc.)
+
 ## Advanced Modal Interfaces
 
 Our Actions & Tools section features sophisticated modal interfaces for complex configurations:
@@ -890,6 +947,20 @@ Our Actions & Tools section features sophisticated modal interfaces for complex 
 - **Google Calendar**: OAuth setup, calendar selection
 - **Outlook Calendar**: Exchange configuration, authentication
 - **Custom Settings**: Working hours, timezones, buffer times
+
+**Event Template Configuration:**
+- **Dynamic Titles**: Smart title generation from conversation context
+- **Attendee Management**: Automatic customer information extraction
+- **Meeting Preferences**: Duration, location, reminder settings
+- **Conflict Resolution**: Automatic rescheduling and alternative time suggestions
+
+### Recall Protocol Modal
+
+**Comprehensive Recall Setup:**
+- **Success Criteria Configuration**: Define when callbacks are unnecessary
+- **Timing Strategy**: Configure sophisticated scheduling algorithms
+- **Escalation Rules**: Progressive strategy changes with each attempt
+- **Compliance Management**: Built-in DNC and regulatory compliance
 
 ### Template Library
 
@@ -928,18 +999,31 @@ Our Actions & Tools section features sophisticated modal interfaces for complex 
     - Use asynchronous processing where possible
     - Add retry logic with exponential backoff
   </Tab>
-  <Tab title="Modal Interface Issues">
-    **Configuration Problems:**
-    - Clear browser cache if modal doesn't load properly
-    - Check JavaScript console for error messages
-    - Verify all required fields are completed
-    - Use template library for validated configurations
+  <Tab title="Calendar Integration Issues">
+    **Authentication Problems:**
+    - Refresh OAuth tokens for Google Calendar and Outlook
+    - Verify permissions and scopes for calendar access
+    - Check authentication credentials and refresh tokens
+    - Validate calendar ID format and accessibility
 
-    **Synchronization Issues:**
-    - Wait for auto-save indicators before closing modals
-    - Review change history in the interface
-    - Check network connectivity during configuration
-    - Use manual save options for complex configurations
+    **Booking Failures:**
+    - Confirm calendar availability checking logic
+    - Verify timezone handling and conversion
+    - Check for calendar conflicts and overlaps
+    - Validate event creation permissions
+  </Tab>
+  <Tab title="Recall Protocol Issues">
+    **Scheduling Problems:**
+    - Review success criteria configuration for false positives
+    - Check timing constraints and business hour settings
+    - Verify DNC list compliance and filtering
+    - Monitor recall attempt limits and escalation triggers
+
+    **Performance Issues:**
+    - Analyze recall success rates by timing and strategy
+    - Review customer response patterns and preferences
+    - Optimize callback intervals based on historical data
+    - Monitor system load during high-volume recall periods
   </Tab>
 </Tabs>
 
@@ -973,6 +1057,34 @@ Our Actions & Tools section features sophisticated modal interfaces for complex 
    - Validate and sanitize all incoming data
    - Use rate limiting to prevent abuse
 
+### Calendar Integration Optimization
+
+1. **Multi-Provider Strategy**
+   - Support both Google Calendar and Outlook for maximum compatibility
+   - Configure fallback providers for high availability
+   - Implement cross-platform availability checking
+   - Maintain consistent booking experience across providers
+
+2. **Smart Scheduling**
+   - Use intelligent availability detection with buffer times
+   - Implement automatic conflict resolution and rescheduling
+   - Configure timezone-aware booking for global customers
+   - Set up automated reminder and confirmation systems
+
+### Recall Protocol Management
+
+1. **Strategic Planning**
+   - Define clear success criteria to prevent unnecessary callbacks
+   - Implement progressive escalation with varied approaches
+   - Respect customer preferences and compliance requirements
+   - Monitor and optimize based on performance analytics
+
+2. **Performance Optimization**
+   - Analyze recall effectiveness by timing and strategy
+   - A/B test different callback intervals and approaches
+   - Use customer behavior data to optimize scheduling
+   - Implement intelligent DNC management and compliance
+
 ### Advanced Integration
 
 1. **Multi-tool Workflows**
@@ -985,7 +1097,7 @@ Our Actions & Tools section features sophisticated modal interfaces for complex 
    - Track webhook success rates and response times
    - Monitor caller ID performance by campaign
    - Analyze transfer success and customer satisfaction
-   - Optimize based on actual usage data
+   - Optimize based on actual usage data and customer feedback
 
 <Warning>
 **Compliance Requirements**: All integrations must comply with applicable regulations including TCPA (US), GDPR (EU), and industry-specific requirements. Always include proper consent mechanisms and opt-out procedures.
