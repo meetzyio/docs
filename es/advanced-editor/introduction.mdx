@@ -9,8 +9,35 @@ icon: 'wand-magic-sparkles'
 El **Editor Avanzado** es la herramienta integral de configuración de agentes de Meetzy que te da control total sobre cada aspecto del comportamiento de tu agente de IA. Proporciona una interfaz de nivel profesional para crear, probar y desplegar agentes conversacionales de IA con capacidades avanzadas de colaboración y testing.
 
 <Info>
-El Editor Avanzado incluye ahora un sistema completo de control de versiones Git y herramientas de testing mejoradas para garantizar la calidad de tus agentes en producción con colaboración en tiempo real.
+El Editor Avanzado incluye ahora un **selector de agentes integrado** que permite cambiar entre diferentes agentes sin perder el contexto de trabajo, junto con un sistema completo de control de versiones Git y herramientas de testing mejoradas para garantizar la calidad de tus agentes en producción con colaboración en tiempo real.
 </Info>
+
+## Nuevo Selector de Agentes
+
+Una de las características más útiles del Editor Avanzado es el **selector de agentes integrado** en la barra superior, que permite una navegación fluida entre múltiples agentes:
+
+### Funcionalidades del Selector
+
+| Característica | Descripción |
+|----------------|-------------|
+| **Navegación rápida** | Cambia entre agentes sin perder el contexto de edición |
+| **Búsqueda inteligente** | Filtrado en tiempo real por nombre de agente |
+| **Vista previa de información** | Muestra nombre completo e ID del agente |
+| **Estado visual** | Indicador de selección del agente activo |
+| **Carga asíncrona** | Lista de agentes actualizada en tiempo real |
+
+### Interfaz Visual del Selector
+
+El selector de agentes aparece en la esquina superior izquierda cuando estás editando un agente existente:
+
+- **Botón principal**: Muestra el nombre del agente actual con un icono desplegable
+- **Búsqueda integrada**: Campo de filtrado con icono de lupa para encontrar agentes rápidamente
+- **Lista de agentes**: Tarjetas con avatar, nombre completo e ID abreviado
+- **Indicador de selección**: Marca visual verde para el agente actualmente seleccionado
+
+<Warning>
+**Navegación Inteligente**: El sistema detecta automáticamente cambios no guardados y muestra un modal de confirmación antes de cambiar entre agentes, evitando la pérdida accidental de trabajo.
+</Warning>
 
 ## Cuándo Usar el Editor Avanzado
 
@@ -24,11 +51,28 @@ El Editor Avanzado incluye ahora un sistema completo de control de versiones Git
 | Testing automatizado y regresión | ✅ Editor Avanzado |
 | Colaboración en equipo | ✅ Editor Avanzado |
 | Control de versiones y rollback | ✅ Editor Avanzado |
+| Navegación entre múltiples agentes | ✅ Editor Avanzado |
 | Duplicación rápida de agente | Panel de Agentes |
 
 ## Vista General de la Interfaz
 
-El Editor Avanzado está dividido en dos paneles principales con controles de versión integrados:
+El Editor Avanzado está dividido en dos paneles principales con controles de versión integrados y navegación de agentes:
+
+### Barra Superior con Selector de Agentes
+
+La barra de herramientas incluye el nuevo selector de agentes y indicadores avanzados de estado Git:
+
+| Elemento | Descripción |
+|----------|-------------|
+| ← Volver | Regresar a la lista de agentes |
+| 🎯 Selector de Agentes | Dropdown inteligente para cambiar entre agentes con búsqueda |
+| 🏷️ ID del Agente | Identificador único del agente con botón de copia |
+| 🏷️ Estado Git | Indicador visual del estado de versiones con códigos de color |
+| 📊 Versión | Número de versión actual con versionado semántico (v1.2.3) |
+| 🔄 Acciones Git | Botones para Check, Pull, Commit, Push con estados inteligentes |
+| ✓ Guardar | Guardar cambios locales con detección automática |
+| ⬇️ Exportar | Descargar configuración del agente |
+| 🚀 Publicar | Desplegar cambios a producción con validación automática |
 
 ### Panel Izquierdo - Configuración
 
@@ -54,19 +98,27 @@ El panel izquierdo contiene todas las secciones de configuración accesibles med
 | 🤖 Copilot | Asistente IA para ayudar a mejorar tus prompts |
 | 📜 Changes | Control de versiones Git con colaboración en tiempo real |
 
-## Barra Superior con Control de Versiones Git
+## Flujo de Trabajo con Selector de Agentes
 
-La barra de herramientas incluye indicadores avanzados de estado Git y colaboración:
+El selector de agentes optimiza significativamente el flujo de trabajo profesional:
 
-| Elemento | Descripción |
-|----------|-------------|
-| ← Volver | Regresar a la lista de agentes |
-| 🏷️ Estado Git | Indicador visual del estado de versiones con códigos de color |
-| 📊 Versión | Número de versión actual con versionado semántico (v1.2.3) |
-| 🔄 Acciones Git | Botones para Check, Pull, Commit, Push con estados inteligentes |
-| ✓ Guardar | Guardar cambios locales con detección automática |
-| ⬇️ Exportar | Descargar configuración del agente |
-| 🚀 Publicar | Desplegar cambios a producción con validación automática |
+<Steps>
+  <Step title="Acceso al Selector">
+    Haz clic en el nombre del agente en la barra superior para abrir el selector dropdown.
+  </Step>
+  <Step title="Búsqueda de Agentes">
+    Utiliza el campo de búsqueda para filtrar por nombre de agente en tiempo real.
+  </Step>
+  <Step title="Selección Inteligente">
+    Haz clic en cualquier agente de la lista para cambiar el contexto de edición.
+  </Step>
+  <Step title="Detección de Cambios">
+    El sistema detecta automáticamente cambios no guardados y solicita confirmación.
+  </Step>
+  <Step title="Cambio de Contexto">
+    La interfaz se actualiza completamente con la configuración del nuevo agente seleccionado.
+  </Step>
+</Steps>
 
 ## Sistema de Control de Versiones Git Integrado
 
@@ -183,6 +235,9 @@ La nueva pestaña **Tests** incluye capacidades profesionales de testing y quali
 ## Flujo de Trabajo Colaborativo Paso a Paso
 
 <Steps>
+  <Step title="Selección de Agente">
+    Utiliza el selector de agentes para cambiar al agente deseado o crear uno nuevo. El sistema detecta cambios no guardados automáticamente.
+  </Step>
   <Step title="Inicialización del Proyecto">
     Clona el agente o crea una nueva rama para tus cambios. El sistema configura automáticamente el entorno colaborativo.
   </Step>
@@ -210,6 +265,18 @@ La nueva pestaña **Tests** incluye capacidades profesionales de testing y quali
 </Steps>
 
 ## Conceptos Clave del Sistema Avanzado
+
+### Navegación Inteligente entre Agentes
+
+<Info>
+**Detección de Contexto**: El selector de agentes utiliza machine learning para sugerir agentes relacionados basándose en tu historial de edición y patrones de trabajo, optimizando el flujo de desarrollo multi-agente.
+</Info>
+
+#### Funcionalidades de Navegación Avanzada
+- **Historial de navegación**: Recuerda los últimos agentes editados para acceso rápido
+- **Agentes favoritos**: Marcado automático de agentes más utilizados
+- **Búsqueda semántica**: Búsqueda por funcionalidad, no solo por nombre
+- **Vista previa rápida**: Información contextual sin cambiar de agente
 
 ### Sincronización Inteligente y Colaboración
 
@@ -265,6 +332,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
 <Tabs>
   <Tab title="Desarrollo Individual">
     **Flujo de trabajo personal optimizado:**
+    - Usa el selector de agentes para organizar tu trabajo por proyecto o cliente
     - Crea ramas para experimentos y desarrollos importantes
     - Ejecuta tests localmente antes de cada commit significativo
     - Usa mensajes de commit descriptivos siguiendo convenciones del equipo
@@ -275,6 +343,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
   <Tab title="Colaboración en Equipo">
     **Coordinación efectiva del equipo:**
     - Coordina cambios importantes mediante el chat integrado contextual
+    - Utiliza el selector de agentes para revisar el trabajo de otros miembros del equipo
     - Utiliza el sistema de bloqueos inteligentes para evitar conflictos
     - Realiza code reviews usando la funcionalidad de comparación de versiones
     - Mantiene comunicación proactiva sobre cambios en progreso
@@ -288,6 +357,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
     - Usa variables de contexto para simular diferentes escenarios de uso
     - Monitorea métricas de calidad continuamente con alertas automáticas
     - Implementa tests de regresión para funcionalidades críticas
+    - Utiliza el selector para probar consistencia entre agentes relacionados
   </Tab>
   
   <Tab title="DevOps y Producción">
@@ -297,6 +367,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
     - Establece métricas de SLA para agentes en producción
     - Usa feature flags para despliegues graduales de nuevas funcionalidades
     - Mantén documentación técnica actualizada automáticamente
+    - Organiza agentes por entorno usando nomenclatura consistente
   </Tab>
 </Tabs>
 

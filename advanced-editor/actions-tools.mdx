@@ -162,6 +162,331 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
 - **Cold Transfer**: Direct transfer without agent introduction
 - **Conference**: Three-way call with agent, customer, and human
 
+## Webhook Tools
+
+Create powerful API integrations that allow your agent to interact with external systems during conversations through our sophisticated modal interface.
+
+<Info>
+**New Feature**: Webhook Tools now support advanced parameter mapping, authentication methods, and real-time testing through an intuitive modal interface. You can create custom API integrations that intelligently extract conversation data and trigger external systems.
+</Info>
+
+### Webhook Tool Modal Interface
+
+The webhook configuration uses an advanced modal interface with the following sections:
+
+<Steps>
+  <Step title="Tool Identity Configuration">
+    Configure the basic identity and trigger conditions for your webhook tool.
+    
+    **Required Fields:**
+    - **Name**: Unique identifier (e.g., "create_lead", "check_inventory")
+    - **Description**: Clear explanation of when the AI should use this tool
+    - **Execution Mode**: Choose immediate or deferred execution
+  </Step>
+  <Step title="API Endpoint Configuration">
+    Set up the core API connection details.
+    
+    **URL Configuration:**
+    - **Base URL**: The complete webhook endpoint URL
+    - **HTTP Method**: GET, POST, PUT, PATCH, or DELETE
+    - **Request Timeout**: 5-60 seconds (default: 20)
+  </Step>
+  <Step title="Authentication Setup">
+    Configure secure authentication for your API endpoints.
+    
+    **Authentication Types:**
+    - Bearer Token authentication
+    - API Key authentication
+    - Basic Auth with username/password
+    - Custom header authentication
+  </Step>
+  <Step title="Parameter Mapping">
+    Define how conversation data maps to API parameters with intelligent extraction.
+    
+    **Parameter Types:**
+    - **Query Parameters**: URL-encoded parameters for GET requests
+    - **Body Parameters**: JSON payload for POST/PUT/PATCH requests
+    - **Header Parameters**: Custom HTTP headers
+  </Step>
+</Steps>
+
+### Advanced Parameter Configuration
+
+Each webhook parameter supports sophisticated data mapping through our modal interface:
+
+<Tabs>
+  <Tab title="Parameter Properties">
+    | Property | Description | Options | Example |
+    |----------|-------------|---------|---------|
+    | **Name** | Parameter identifier | Custom string | `customer_name` |
+    | **Type** | Data validation | string, number, boolean, integer, array, object | `string` |
+    | **Required** | Mandatory field | true/false | `true` |
+    | **Description** | AI understanding | Natural language | "Customer's full name from conversation" |
+    | **Value Source** | How to get value | LLM extraction, static value, conversation metadata | LLM prompt |
+    | **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's full name" |
+  </Tab>
+  <Tab title="Value Types">
+    **LLM Extraction**
+    
+    Let the AI intelligently extract information from the conversation:
+    ```
+    Extraction Prompt: "Extract the customer's email address from the conversation"
+    Parameter Type: string
+    Required: true
+    ```
+
+    **Static Values**
+    
+    Use fixed values for consistent data:
+    ```
+    Static Value: "phone_call"
+    Parameter: source
+    Type: string
+    ```
+
+    **Conversation Metadata**
+    
+    Access built-in conversation data:
+    - Call duration
+    - Call timestamp
+    - Agent ID
+    - Phone numbers
+  </Tab>
+  <Tab title="Data Types">
+    **Supported Parameter Types:**
+
+    - **string**: Text data, names, descriptions
+    - **number**: Numeric values with decimals
+    - **integer**: Whole numbers only
+    - **boolean**: true/false values
+    - **array**: List of values
+    - **object**: Complex nested data structures
+
+    **Type Validation:**
+    The system automatically validates parameter types and provides clear error messages for mismatched data.
+  </Tab>
+</Tabs>
+
+### Webhook Tool Execution Settings
+
+Configure advanced execution behavior through the modal interface:
+
+**Execution Control:**
+- **Immediate**: Execute during the active call
+- **Deferred**: Execute after the call ends
+- **Conditional**: Execute based on conversation outcome
+
+**Agent Behavior Settings:**
+- **Disable Interruptions**: Prevent customer from speaking during execution
+- **Force Pre-tool Speech**: Require agent announcement before execution
+- **Tool Call Sound**: Play typing sound during execution (typing/none)
+- **Sound Behavior**: Auto or manual control of sound effects
+
+**Error Handling:**
+- **Response Timeout**: Maximum wait time for API response
+- **Retry Logic**: Automatic retries on failure
+- **Fallback Messages**: What to say if API fails
+- **Graceful Degradation**: Continue conversation without API data
+
+### Webhook Integration Examples
+
+<Tabs>
+  <Tab title="CRM Lead Creation">
+    **Salesforce Lead Integration**
+
+    Configure a webhook tool that automatically creates leads in Salesforce when customers show purchase interest:
+
+    ```json
+    {
+      "name": "create_salesforce_lead",
+      "description": "Create a new lead in Salesforce when customer shows purchase interest",
+      "url": "https://api.salesforce.com/services/data/v52.0/sobjects/Lead",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Bearer {{salesforce_token}}",
+        "Content-Type": "application/json"
+      },
+      "body_parameters": {
+        "FirstName": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_prompt",
+          "description": "Extract customer's first name from conversation"
+        },
+        "LastName": {
+          "type": "string", 
+          "required": true,
+          "value_type": "llm_prompt",
+          "description": "Extract customer's last name from conversation"
+        },
+        "Phone": {
+          "type": "string",
+          "required": true,
+          "value_type": "conversation_metadata",
+          "description": "Customer's phone number"
+        },
+        "LeadSource": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "AI Phone Call"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Inventory Management">
+    **Product Availability Check**
+
+    Create a real-time inventory checking tool that your agent can use during conversations:
+
+    ```json
+    {
+      "name": "check_product_availability",
+      "description": "Check real-time product availability when customer inquires about specific items",
+      "url": "https://inventory.yourcompany.com/api/check",
+      "method": "GET",
+      "query_parameters": {
+        "product_sku": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_prompt",
+          "description": "Extract product SKU or name mentioned by customer"
+        },
+        "location": {
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Customer's preferred store location or zip code"
+        },
+        "api_key": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "{{inventory_api_key}}"
+        }
+      },
+      "response_timeout": 10,
+      "disable_interruptions": false
+    }
+    ```
+  </Tab>
+  <Tab title="Calendar Booking">
+    **Appointment Scheduling**
+
+    Set up automatic appointment booking through your calendar system:
+
+    ```json
+    {
+      "name": "book_calendar_appointment",
+      "description": "Schedule an appointment when customer requests a meeting or consultation",
+      "url": "https://api.calendly.com/scheduled_events",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Bearer {{calendly_token}}",
+        "Content-Type": "application/json"
+      },
+      "body_parameters": {
+        "event_type": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "https://calendly.com/your-company/30-min-consultation"
+        },
+        "start_time": {
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Extract preferred meeting time from customer in ISO format"
+        },
+        "invitee": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "value_type": "llm_prompt",
+              "description": "Customer's full name"
+            },
+            "email": {
+              "type": "string",
+              "value_type": "llm_prompt",
+              "description": "Customer's email address"
+            }
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Authentication Configuration
+
+The modal interface supports multiple authentication methods:
+
+<Tabs>
+  <Tab title="Bearer Token">
+    **JWT/OAuth 2.0 Authentication**
+    
+    Most modern APIs use Bearer token authentication for security:
+    ```json
+    {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+    }
+    ```
+    
+    **Use Cases:**
+    - Modern REST APIs (Salesforce, HubSpot, etc.)
+    - OAuth 2.0 protected endpoints
+    - JWT-based authentication systems
+    - Enterprise SaaS platforms
+  </Tab>
+  <Tab title="API Key">
+    **Simple API Key Authentication**
+    
+    Traditional API key authentication for simpler integrations:
+    ```json
+    {
+      "X-API-Key": "sk_live_abcd1234efgh5678ijkl",
+      "Authorization": "ApiKey sk_live_abcd1234efgh5678ijkl"
+    }
+    ```
+    
+    **Use Cases:**
+    - Third-party service APIs
+    - Simple authentication requirements
+    - Legacy system integration
+    - Custom internal APIs
+  </Tab>
+  <Tab title="Basic Auth">
+    **Username/Password Authentication**
+    
+    Basic HTTP authentication for legacy systems:
+    ```json
+    {
+      "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
+    }
+    ```
+    
+    **Use Cases:**
+    - Legacy systems
+    - Internal APIs
+    - Simple HTTP authentication
+    - Testing environments
+  </Tab>
+</Tabs>
+
+### Webhook Testing and Validation
+
+The modal interface includes powerful testing capabilities:
+
+**Real-time Testing:**
+- Test API endpoints directly from the configuration modal
+- Validate authentication credentials before saving
+- Preview request/response data with sample conversation data
+- Debug parameter mapping with live extraction
+
+**Validation Features:**
+- Automatic URL validation and accessibility checking
+- Parameter type validation with clear error messages
+- Required field validation with helpful suggestions
+- Response format validation for proper integration
+
 ## End Call Strategy
 
 Configure intelligent call termination with sophisticated answering machine detection and strategic conversation ending.
@@ -341,296 +666,6 @@ Configure professional call termination for various scenarios using our multi-la
     - O usuário se despede claramente
     - Você se despede
     ```
-  </Tab>
-</Tabs>
-
-## Webhook Tools
-
-Create powerful API integrations that allow your agent to interact with external systems during conversations through our sophisticated modal interface.
-
-### Webhook Tool Modal Interface
-
-The webhook configuration uses an advanced modal interface with the following sections:
-
-<Steps>
-  <Step title="Tool Identity Configuration">
-    Configure the basic identity and trigger conditions for your webhook tool.
-    
-    **Required Fields:**
-    - **Name**: Unique identifier (e.g., "create_lead", "check_inventory")
-    - **Description**: Clear explanation of when the AI should use this tool
-    - **Execution Mode**: Choose immediate or deferred execution
-  </Step>
-  <Step title="API Endpoint Configuration">
-    Set up the core API connection details.
-    
-    **URL Configuration:**
-    - **Base URL**: The complete webhook endpoint URL
-    - **HTTP Method**: GET, POST, PUT, PATCH, or DELETE
-    - **Request Timeout**: 5-60 seconds (default: 20)
-  </Step>
-  <Step title="Authentication Setup">
-    Configure secure authentication for your API endpoints.
-    
-    **Authentication Types:**
-    - Bearer Token authentication
-    - API Key authentication
-    - Basic Auth with username/password
-    - Custom header authentication
-  </Step>
-  <Step title="Parameter Mapping">
-    Define how conversation data maps to API parameters with intelligent extraction.
-    
-    **Parameter Types:**
-    - **Query Parameters**: URL-encoded parameters for GET requests
-    - **Body Parameters**: JSON payload for POST/PUT/PATCH requests
-    - **Header Parameters**: Custom HTTP headers
-  </Step>
-</Steps>
-
-### Advanced Parameter Configuration
-
-Each webhook parameter supports sophisticated data mapping through our modal interface:
-
-<Tabs>
-  <Tab title="Parameter Properties">
-    | Property | Description | Options | Example |
-    |----------|-------------|---------|---------|
-    | **Name** | Parameter identifier | Custom string | `customer_name` |
-    | **Type** | Data validation | string, number, boolean, integer, array, object | `string` |
-    | **Required** | Mandatory field | true/false | `true` |
-    | **Description** | AI understanding | Natural language | "Customer's full name from conversation" |
-    | **Value Source** | How to get value | LLM extraction, static value, conversation metadata | LLM prompt |
-    | **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's full name" |
-  </Tab>
-  <Tab title="Value Types">
-    **LLM Extraction**
-    
-    Let the AI intelligently extract information from the conversation:
-    ```
-    Extraction Prompt: "Extract the customer's email address from the conversation"
-    Parameter Type: string
-    Required: true
-    ```
-
-    **Static Values**
-    
-    Use fixed values for consistent data:
-    ```
-    Static Value: "phone_call"
-    Parameter: source
-    Type: string
-    ```
-
-    **Conversation Metadata**
-    
-    Access built-in conversation data:
-    - Call duration
-    - Call timestamp
-    - Agent ID
-    - Phone numbers
-  </Tab>
-  <Tab title="Data Types">
-    **Supported Parameter Types:**
-
-    - **string**: Text data, names, descriptions
-    - **number**: Numeric values with decimals
-    - **integer**: Whole numbers only
-    - **boolean**: true/false values
-    - **array**: List of values
-    - **object**: Complex nested data structures
-
-    **Type Validation:**
-    The system automatically validates parameter types and provides clear error messages for mismatched data.
-  </Tab>
-</Tabs>
-
-### Webhook Tool Execution Settings
-
-Configure advanced execution behavior through the modal interface:
-
-**Execution Control:**
-- **Immediate**: Execute during the active call
-- **Deferred**: Execute after the call ends
-- **Conditional**: Execute based on conversation outcome
-
-**Agent Behavior Settings:**
-- **Disable Interruptions**: Prevent customer from speaking during execution
-- **Force Pre-tool Speech**: Require agent announcement before execution
-- **Tool Call Sound**: Play typing sound during execution (typing/none)
-- **Sound Behavior**: Auto or manual control of sound effects
-
-**Error Handling:**
-- **Response Timeout**: Maximum wait time for API response
-- **Retry Logic**: Automatic retries on failure
-- **Fallback Messages**: What to say if API fails
-- **Graceful Degradation**: Continue conversation without API data
-
-### Webhook Integration Examples
-
-<Tabs>
-  <Tab title="CRM Lead Creation">
-    **Salesforce Lead Integration**
-
-    ```json
-    {
-      "name": "create_salesforce_lead",
-      "description": "Create a new lead in Salesforce when customer shows purchase interest",
-      "url": "https://api.salesforce.com/services/data/v52.0/sobjects/Lead",
-      "method": "POST",
-      "headers": {
-        "Authorization": "Bearer {{salesforce_token}}",
-        "Content-Type": "application/json"
-      },
-      "body_parameters": {
-        "FirstName": {
-          "type": "string",
-          "required": true,
-          "value_type": "llm_prompt",
-          "description": "Extract customer's first name from conversation"
-        },
-        "LastName": {
-          "type": "string", 
-          "required": true,
-          "value_type": "llm_prompt",
-          "description": "Extract customer's last name from conversation"
-        },
-        "Phone": {
-          "type": "string",
-          "required": true,
-          "value_type": "conversation_metadata",
-          "description": "Customer's phone number"
-        },
-        "LeadSource": {
-          "type": "string",
-          "value_type": "static",
-          "static_value": "AI Phone Call"
-        }
-      }
-    }
-    ```
-  </Tab>
-  <Tab title="Inventory Management">
-    **Product Availability Check**
-
-    ```json
-    {
-      "name": "check_product_availability",
-      "description": "Check real-time product availability when customer inquires about specific items",
-      "url": "https://inventory.yourcompany.com/api/check",
-      "method": "GET",
-      "query_parameters": {
-        "product_sku": {
-          "type": "string",
-          "required": true,
-          "value_type": "llm_prompt",
-          "description": "Extract product SKU or name mentioned by customer"
-        },
-        "location": {
-          "type": "string",
-          "value_type": "llm_prompt",
-          "description": "Customer's preferred store location or zip code"
-        },
-        "api_key": {
-          "type": "string",
-          "value_type": "static",
-          "static_value": "{{inventory_api_key}}"
-        }
-      },
-      "response_timeout": 10,
-      "disable_interruptions": false
-    }
-    ```
-  </Tab>
-  <Tab title="Calendar Booking">
-    **Appointment Scheduling**
-
-    ```json
-    {
-      "name": "book_calendar_appointment",
-      "description": "Schedule an appointment when customer requests a meeting or consultation",
-      "url": "https://api.calendly.com/scheduled_events",
-      "method": "POST",
-      "headers": {
-        "Authorization": "Bearer {{calendly_token}}",
-        "Content-Type": "application/json"
-      },
-      "body_parameters": {
-        "event_type": {
-          "type": "string",
-          "value_type": "static",
-          "static_value": "https://calendly.com/your-company/30-min-consultation"
-        },
-        "start_time": {
-          "type": "string",
-          "value_type": "llm_prompt",
-          "description": "Extract preferred meeting time from customer in ISO format"
-        },
-        "invitee": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "value_type": "llm_prompt",
-              "description": "Customer's full name"
-            },
-            "email": {
-              "type": "string",
-              "value_type": "llm_prompt",
-              "description": "Customer's email address"
-            }
-          }
-        }
-      }
-    }
-    ```
-  </Tab>
-</Tabs>
-
-### Authentication Configuration
-
-The modal interface supports multiple authentication methods:
-
-<Tabs>
-  <Tab title="Bearer Token">
-    **JWT/OAuth 2.0 Authentication**
-    ```json
-    {
-      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
-    }
-    ```
-    
-    **Use Cases:**
-    - Modern REST APIs
-    - OAuth 2.0 protected endpoints
-    - JWT-based authentication systems
-  </Tab>
-  <Tab title="API Key">
-    **Simple API Key Authentication**
-    ```json
-    {
-      "X-API-Key": "sk_live_abcd1234efgh5678ijkl",
-      "Authorization": "ApiKey sk_live_abcd1234efgh5678ijkl"
-    }
-    ```
-    
-    **Use Cases:**
-    - Third-party service APIs
-    - Simple authentication requirements
-    - Legacy system integration
-  </Tab>
-  <Tab title="Basic Auth">
-    **Username/Password Authentication**
-    ```json
-    {
-      "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
-    }
-    ```
-    
-    **Use Cases:**
-    - Legacy systems
-    - Internal APIs
-    - Simple HTTP authentication
   </Tab>
 </Tabs>
 
@@ -1105,19 +1140,9 @@ Our Actions & Tools section features sophisticated modal interfaces for complex 
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card
-    title="Input Parameters"
-    icon="arrow-right-to-bracket"
-    href="/advanced-editor/input-params"
-  >
-    Configure dynamic variables and data inputs for personalized conversations
-  </Card>
-  <Card
-    title="Output Settings"
-    icon="arrow-right-from-bracket" 
-    href="/advanced-editor/output-settings"
-  >
-    Set up data extraction and webhook delivery for comprehensive automation
-  </Card>
-</CardGroup>
+After configuring your Actions & Tools, you can further enhance your agent with:
+
+- **Input Parameters**: Set up dynamic variables for personalized conversations
+- **Output Settings**: Configure data extraction and webhook delivery
+- **Evaluations**: Define success metrics and conversation quality measures
+- **Knowledge Base**: Add contextual information to improve agent responses
