@@ -9,8 +9,41 @@ icon: 'wand-magic-sparkles'
 El **Editor Avanzado** es la herramienta integral de configuración de agentes de Meetzy que te da control total sobre cada aspecto del comportamiento de tu agente de IA. Proporciona una interfaz de nivel profesional para crear, probar y desplegar agentes conversacionales de IA con capacidades avanzadas de colaboración y testing.
 
 <Info>
-El Editor Avanzado incluye ahora un **selector de agentes integrado** que permite cambiar entre diferentes agentes sin perder el contexto de trabajo, junto con un sistema completo de control de versiones Git y herramientas de testing mejoradas para garantizar la calidad de tus agentes en producción con colaboración en tiempo real.
+El Editor Avanzado incluye ahora un **flujo de creación prompt-first** que permite generar agentes automáticamente desde una descripción, junto con un **selector de agentes integrado** para navegación fluida entre múltiples agentes sin perder contexto de trabajo.
 </Info>
+
+## Creación Prompt-First de Agentes
+
+Una de las innovaciones más recientes del Editor Avanzado es la capacidad de generar agentes automáticamente mediante descripción en lenguaje natural.
+
+### Cómo Funciona
+
+Cuando accedes al Editor Avanzado para crear un nuevo agente, se presenta una experiencia de **generación guiada por IA**:
+
+<Steps>
+  <Step title="Interfaz de Creación Intuitiva">
+    Una pantalla inmersiva con animación de ondas WebGL donde describes qué debe hacer tu agente
+  </Step>
+  <Step title="Procesamiento por IA">
+    Meetzy analiza tu descripción y genera automáticamente toda la configuración del agente
+  </Step>
+  <Step title="Resultado Completo">
+    Obtén un agente funcional con prompt del sistema, configuraciones, herramientas y flujos de conversación
+  </Step>
+</Steps>
+
+### Ejemplos de Prompts Efectivos
+
+| Tipo de Agente | Prompt de Ejemplo |
+|----------------|-------------------|
+| **Soporte Técnico** | "Un agente que resuelve problemas técnicos de software, escalando casos complejos al equipo humano cuando es necesario" |
+| **Ventas** | "Agente de ventas para una tienda de moda online que ayuda a clientes a encontrar productos, procesa pedidos y maneja devoluciones" |
+| **Atención Médica** | "Asistente para clínica dental que agenda citas, responde preguntas sobre tratamientos y transfiere emergencias al doctor" |
+| **Educación** | "Tutor virtual que ayuda a estudiantes con matemáticas de bachillerato, adapta explicaciones al nivel del estudiante" |
+
+<Warning>
+**Generación Inteligente**: Cuanto más específico y detallado sea tu prompt inicial, más preciso será el agente generado. Incluye información sobre el contexto, funcionalidades específicas y casos de uso principales.
+</Warning>
 
 ## Nuevo Selector de Agentes
 
@@ -25,6 +58,7 @@ Una de las características más útiles del Editor Avanzado es el **selector de
 | **Vista previa de información** | Muestra nombre completo e ID del agente |
 | **Estado visual** | Indicador de selección del agente activo |
 | **Carga asíncrona** | Lista de agentes actualizada en tiempo real |
+| **Filtro por empresa** | Para administradores: filtrar agentes por organización |
 
 ### Interfaz Visual del Selector
 
@@ -34,6 +68,7 @@ El selector de agentes aparece en la esquina superior izquierda cuando estás ed
 - **Búsqueda integrada**: Campo de filtrado con icono de lupa para encontrar agentes rápidamente
 - **Lista de agentes**: Tarjetas con avatar, nombre completo e ID abreviado
 - **Indicador de selección**: Marca visual verde para el agente actualmente seleccionado
+- **Filtro de empresa**: (Solo administradores) Dropdown para filtrar por organización
 
 <Warning>
 **Navegación Inteligente**: El sistema detecta automáticamente cambios no guardados y muestra un modal de confirmación antes de cambiar entre agentes, evitando la pérdida accidental de trabajo.
@@ -43,7 +78,8 @@ El selector de agentes aparece en la esquina superior izquierda cuando estás ed
 
 | Escenario | Herramienta Recomendada |
 |----------|-----------------|
-| Crear un agente nuevo desde cero | ✅ Editor Avanzado |
+| Crear un agente nuevo desde cero | ✅ Editor Avanzado (con prompt-first) |
+| Generar agente desde descripción | ✅ Editor Avanzado (creación automática) |
 | Ajustar respuestas del agente | ✅ Editor Avanzado |
 | Añadir documentos a la base de conocimiento | ✅ Editor Avanzado |
 | Configurar integraciones webhook | ✅ Editor Avanzado |
@@ -98,9 +134,31 @@ El panel izquierdo contiene todas las secciones de configuración accesibles med
 | 🤖 Copilot | Asistente IA para ayudar a mejorar tus prompts |
 | 📜 Changes | Control de versiones Git con colaboración en tiempo real |
 
+## Flujo de Trabajo con Creación Prompt-First
+
+El nuevo sistema de generación automática optimiza significativamente el proceso de creación de agentes:
+
+<Steps>
+  <Step title="Acceso a Creación">
+    Al crear un nuevo agente, se presenta automáticamente la interfaz de generación prompt-first.
+  </Step>
+  <Step title="Descripción del Agente">
+    Describe en lenguaje natural qué debe hacer tu agente, incluyendo contexto y funcionalidades específicas.
+  </Step>
+  <Step title="Generación Automática">
+    Meetzy analiza tu descripción y genera automáticamente la configuración completa del agente.
+  </Step>
+  <Step title="Revisión y Ajustes">
+    Revisa la configuración generada y realiza ajustes finos según tus necesidades específicas.
+  </Step>
+  <Step title="Pruebas y Validación">
+    Utiliza el Playground y la suite de Tests para validar el comportamiento del agente generado.
+  </Step>
+</Steps>
+
 ## Flujo de Trabajo con Selector de Agentes
 
-El selector de agentes optimiza significativamente el flujo de trabajo profesional:
+El selector de agentes optimiza el flujo de trabajo para equipos que gestionan múltiples agentes:
 
 <Steps>
   <Step title="Acceso al Selector">
@@ -108,6 +166,9 @@ El selector de agentes optimiza significativamente el flujo de trabajo profesion
   </Step>
   <Step title="Búsqueda de Agentes">
     Utiliza el campo de búsqueda para filtrar por nombre de agente en tiempo real.
+  </Step>
+  <Step title="Filtrado por Empresa">
+    (Solo administradores) Filtra agentes por organización usando el dropdown de empresa.
   </Step>
   <Step title="Selección Inteligente">
     Haz clic en cualquier agente de la lista para cambiar el contexto de edición.
@@ -235,11 +296,11 @@ La nueva pestaña **Tests** incluye capacidades profesionales de testing y quali
 ## Flujo de Trabajo Colaborativo Paso a Paso
 
 <Steps>
-  <Step title="Selección de Agente">
-    Utiliza el selector de agentes para cambiar al agente deseado o crear uno nuevo. El sistema detecta cambios no guardados automáticamente.
+  <Step title="Creación o Selección de Agente">
+    Crea un nuevo agente usando prompt-first o utiliza el selector para cambiar al agente deseado. El sistema detecta cambios no guardados automáticamente.
   </Step>
   <Step title="Inicialización del Proyecto">
-    Clona el agente o crea una nueva rama para tus cambios. El sistema configura automáticamente el entorno colaborativo.
+    Si es un agente nuevo, se genera automáticamente desde la descripción. Para agentes existentes, clona o crea una nueva rama para tus cambios.
   </Step>
   <Step title="Desarrollo Colaborativo">
     Realiza cambios en configuración, prompts y funcionalidades. Los indicadores de presencia muestran dónde trabajan otros miembros del equipo.
@@ -266,6 +327,18 @@ La nueva pestaña **Tests** incluye capacidades profesionales de testing y quali
 
 ## Conceptos Clave del Sistema Avanzado
 
+### Generación Automática de Agentes
+
+<Info>
+**IA Generativa Contextual**: El sistema de generación prompt-first utiliza modelos de IA avanzados entrenados específicamente en configuraciones de agentes conversacionales, garantizando resultados coherentes y funcionales desde la primera iteración.
+</Info>
+
+#### Capacidades de Generación Avanzada
+- **Análisis semántico**: Comprensión profunda del contexto y propósito del agente
+- **Configuración automática**: Generación de prompts, herramientas y flujos de conversación
+- **Optimización inteligente**: Ajuste automático de parámetros según el dominio detectado
+- **Validación integrada**: Verificación automática de coherencia y completitud
+
 ### Navegación Inteligente entre Agentes
 
 <Info>
@@ -277,6 +350,7 @@ La nueva pestaña **Tests** incluye capacidades profesionales de testing y quali
 - **Agentes favoritos**: Marcado automático de agentes más utilizados
 - **Búsqueda semántica**: Búsqueda por funcionalidad, no solo por nombre
 - **Vista previa rápida**: Información contextual sin cambiar de agente
+- **Filtrado organizacional**: Para administradores, gestión multi-empresa centralizada
 
 ### Sincronización Inteligente y Colaboración
 
@@ -332,7 +406,8 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
 <Tabs>
   <Tab title="Desarrollo Individual">
     **Flujo de trabajo personal optimizado:**
-    - Usa el selector de agentes para organizar tu trabajo por proyecto o cliente
+    - Usa el prompt-first para crear nuevos agentes desde descripciones claras
+    - Utiliza el selector de agentes para organizar tu trabajo por proyecto o cliente
     - Crea ramas para experimentos y desarrollos importantes
     - Ejecuta tests localmente antes de cada commit significativo
     - Usa mensajes de commit descriptivos siguiendo convenciones del equipo
@@ -342,6 +417,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
   
   <Tab title="Colaboración en Equipo">
     **Coordinación efectiva del equipo:**
+    - Utiliza el prompt-first para generar prototipos rápidos que el equipo puede refinar
     - Coordina cambios importantes mediante el chat integrado contextual
     - Utiliza el selector de agentes para revisar el trabajo de otros miembros del equipo
     - Utiliza el sistema de bloqueos inteligentes para evitar conflictos
@@ -352,6 +428,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
   
   <Tab title="Testing y QA">
     **Aseguramiento de calidad continuo:**
+    - Valida agentes generados automáticamente con tests de humo inmediatos
     - Mantén la suite de tests actualizada con cada nueva funcionalidad
     - Ejecuta tests de stress antes de releases importantes
     - Usa variables de contexto para simular diferentes escenarios de uso
@@ -362,6 +439,7 @@ El sistema utiliza versionado semántico con detección automática de tipo de c
   
   <Tab title="DevOps y Producción">
     **Gestión de producción profesional:**
+    - Usa el prompt-first para prototipado rápido y validación de conceptos
     - Configura pipelines de CI/CD con quality gates apropiados
     - Implementa estrategias de rollback automático para deploy seguro
     - Establece métricas de SLA para agentes en producción
@@ -389,6 +467,39 @@ El Editor Avanzado soporta flujos de trabajo Git profesionales:
 - **API de integración**: Endpoints para sistemas de CI/CD externos
 - **Exportación de métricas**: Datos de calidad para dashboards empresariales
 - **Sincronización bidireccional**: Importación de cambios desde repositorios Git externos
+
+## Casos de Uso Avanzados
+
+### Generación Automática por Dominio
+
+El sistema prompt-first está optimizado para diferentes dominios de negocio:
+
+| Dominio | Características Automáticas | Herramientas Incluidas |
+|---------|------------------------------|------------------------|
+| **E-commerce** | Gestión de inventario, procesamiento de pedidos | Integración con sistemas de pago y CRM |
+| **Atención Sanitaria** | Protocolos de privacidad, escalación de urgencias | Integración con sistemas EMR/HIS |
+| **Servicios Financieros** | Cumplimiento regulatorio, verificación de identidad | APIs de verificación y análisis de riesgo |
+| **Educación** | Personalización del aprendizaje, seguimiento de progreso | Integración con LMS y herramientas educativas |
+| **Soporte Técnico** | Diagnóstico automático, gestión de tickets | Integración con sistemas de ticketing y base de conocimientos |
+
+### Workflows Multi-Agente
+
+Para organizaciones con múltiples agentes especializados:
+
+<Steps>
+  <Step title="Arquitectura de Agentes">
+    Diseña una familia de agentes especializados usando generación prompt-first para cada área de negocio.
+  </Step>
+  <Step title="Navegación Centralizada">
+    Utiliza el selector de agentes para gestionar eficientemente múltiples agentes desde una interfaz unificada.
+  </Step>
+  <Step title="Testing Integral">
+    Implementa tests que validen la interacción entre diferentes agentes y la consistencia de la experiencia.
+  </Step>
+  <Step title="Deploy Coordinado">
+    Usa el sistema Git para coordinar releases que afecten múltiples agentes simultáneamente.
+  </Step>
+</Steps>
 
 ## Siguientes Pasos
 

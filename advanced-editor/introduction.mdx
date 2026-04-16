@@ -1,22 +1,69 @@
 ---
 title: 'Introduction to Advanced Editor'
-description: 'Learn about the Advanced Editor and when to use it for creating powerful AI agents'
+description: 'Learn about the Advanced Editor and its enhanced features including prompt-first creation and advanced collaboration tools'
 icon: 'wand-magic-sparkles'
 ---
 
 ## What is the Advanced Editor?
 
-The **Advanced Editor** is Meetzy's comprehensive agent configuration tool that gives you full control over every aspect of your AI agent's behavior. It provides a professional-grade interface for creating, testing, and deploying conversational AI agents.
+The **Advanced Editor** is Meetzy's comprehensive agent configuration tool that gives you full control over every aspect of your AI agent's behavior. It now features a revolutionary **prompt-first creation system** with a beautiful visual overlay and enhanced team collaboration capabilities.
 
 <Info>
-The Advanced Editor is the recommended tool for creating production-ready agents with custom behaviors, integrations, and advanced logic.
+The Advanced Editor is the recommended tool for creating production-ready agents with custom behaviors, integrations, and advanced logic. The new prompt-first approach makes it faster than ever to get started.
 </Info>
+
+## New Prompt-First Creation Experience
+
+The Advanced Editor now begins with an elegant **creation overlay** that revolutionizes how you build AI agents. Simply describe what you want your agent to do, and Meetzy will intelligently configure the initial setup for you.
+
+### Creation Overlay Features
+
+- **Visual WebGL wave animation** provides an immersive, professional experience
+- **Natural language input** - describe your agent in plain English
+- **Intelligent configuration** - Meetzy automatically sets up basic settings, greetings, and system prompts
+- **Seamless transition** to the full editor for fine-tuning and customization
+
+<Steps>
+  <Step title="Describe Your Agent">
+    Enter a natural description of what your agent should do (e.g., "An agent that answers customer support calls for a dental clinic, books appointments, and transfers urgent cases")
+  </Step>
+  <Step title="AI-Powered Generation">
+    Meetzy analyzes your description and automatically configures the agent's initial settings
+  </Step>
+  <Step title="Customize & Refine">
+    Use the full Advanced Editor to fine-tune responses, add knowledge, and configure integrations
+  </Step>
+</Steps>
+
+## Enhanced Navigation System
+
+### Integrated Agent Selector
+
+The Advanced Editor now includes a powerful **agent selector** directly in the toolbar, enabling seamless navigation between agents without leaving the editor environment.
+
+<Info>
+The agent selector displays the current agent name as a dropdown button with visual avatars, making it easy to identify and switch between different agents quickly.
+</Info>
+
+#### Agent Selector Capabilities
+
+- **Quick Agent Switching**: Click the agent name to reveal a searchable dropdown
+- **Visual Identification**: Each agent shows an avatar with the first letter of its name  
+- **Search Functionality**: Built-in search box to quickly find agents by name
+- **Current Agent Highlighting**: Clear visual indicator for the currently selected agent
+- **Agent ID Display**: Shortened IDs help distinguish between similarly named agents
+
+### Navigation Best Practices
+
+<Warning>
+If you have unsaved changes when switching agents, you'll be prompted to save or discard them before proceeding to prevent data loss.
+</Warning>
 
 ## When to Use the Advanced Editor
 
 | Scenario | Recommended Tool |
 |----------|-----------------|
-| Creating a new agent from scratch | ✅ Advanced Editor |
+| Creating a new agent from scratch | ✅ Advanced Editor (with prompt-first overlay) |
 | Fine-tuning agent responses | ✅ Advanced Editor |
 | Adding knowledge base documents | ✅ Advanced Editor |
 | Configuring webhook integrations | ✅ Advanced Editor |
@@ -25,48 +72,38 @@ The Advanced Editor is the recommended tool for creating production-ready agents
 
 ## Interface Overview
 
-The Advanced Editor is divided into two main panels:
+The Advanced Editor features a professional two-panel layout with enhanced collaboration tools and visual indicators.
 
 ### Left Panel - Configuration
 
-The left panel contains all configuration sections accessible via an icon bar:
+The left panel contains all configuration sections accessible via an intuitive icon bar:
 
-| Icon | Section | Description |
-|------|---------|-------------|
-| ⚙️ | Basic Settings | Name, language, voice, LLM model |
-| 👋 | Greetings | Welcome messages for inbound/outbound calls |
-| 📄 | System Prompt | Agent personality and instructions |
-| 📥 | Input Params | Dynamic variables for personalized calls |
-| 📚 | Knowledge Base | Documents, FAQs, and reference materials |
-| 🔧 | Actions & Tools | Integrations, transfers, webhooks |
-| ✅ | Evaluations | Automated quality tests |
-| 📤 | Output Settings | Data extraction and webhooks |
+| Icon | Section | Description | Shortcut |
+|------|---------|-------------|----------|
+| ⚙️ | Basic Settings | Name, language, voice, LLM model | ⌘1 |
+| 👋 | Greetings | Welcome messages for inbound/outbound calls | ⌘2 |
+| 🔧 | Input Params | Dynamic variables for personalized calls | ⌘3 |
+| 📚 | Knowledge Base | Documents, FAQs, and reference materials | ⌘4 |
+| 🛠️ | Actions & Tools | Integrations, transfers, webhooks | ⌘5 |
+| 📊 | Evaluations | Automated quality tests and success criteria | ⌘6 |
+| 📤 | Output Settings | Data extraction and webhooks | ⌘7 |
 
 ### Right Panel - Testing & Tools
 
-| Tab | Purpose |
-|-----|---------|
-| 🎮 Playground | Test your agent in real-time with text or voice |
-| 📋 Tests | Create and run automated regression tests |
-| 🤖 Copilot | AI assistant to help improve your prompts |
-| 🔄 Changes | Track changes with Git-like version control |
+| Tab | Purpose | Shortcut |
+|-----|---------|----------|
+| ✨ Meetzy | AI assistant to help improve your prompts | ⌘J |
+| 🎮 Playground | Test your agent in real-time with text or voice | ⇧⌘P |
+| 📋 Tests | Create and run automated regression tests | ⇧⌘T |
+| 🔄 Changes | Track changes with Git-like version control | ⌘G |
 
 ## Advanced Version Control System
 
-The Advanced Editor includes a powerful **Git-like version control system** that revolutionizes how teams collaborate on AI agent development. This system provides enterprise-grade version management with real-time collaboration features.
+The Advanced Editor includes a sophisticated **Git-like version control system** that transforms team collaboration on AI agent development. This enterprise-grade system provides real-time collaboration with automatic conflict detection.
 
 <Info>
 The new version control system enables seamless team collaboration with automatic conflict detection, branching capabilities, and comprehensive change tracking.
 </Info>
-
-### Core Version Control Features
-
-- **Real-time collaboration awareness**: See when teammates are editing simultaneously
-- **Automatic conflict detection** and guided resolution
-- **Branch-based workflows** for parallel development
-- **Comprehensive audit trails** with detailed change history
-- **Rollback capabilities** to safely revert changes
-- **Team coordination tools** to prevent edit conflicts
 
 ### Git Status Indicators
 
@@ -84,279 +121,173 @@ The Advanced Editor displays comprehensive version control status in the top too
 When status shows "Conflicts" or "Locked", resolve these issues before attempting to publish changes to avoid data loss.
 </Warning>
 
-## Top Toolbar & Version Control
-
-The toolbar provides quick actions, collaboration features, and version control information:
-
-### Agent Selector
-
-The Advanced Editor now includes an **integrated agent selector** in the toolbar that allows you to seamlessly switch between different agents without leaving the editor. This powerful productivity feature saves valuable time by eliminating the need to navigate back to the agents dashboard.
-
-<Info>
-The agent selector displays the current agent name as a dropdown button, making it easy to identify which agent you're working on and quickly switch to another one.
-</Info>
-
-#### Agent Selector Features
-
-- **Quick Agent Switching**: Click the agent name to reveal a dropdown with all available agents
-- **Search Functionality**: Find agents quickly using the built-in search box
-- **Visual Identification**: Each agent shows an avatar with the first letter of its name
-- **Current Agent Highlighting**: The currently selected agent is clearly marked with a green indicator
-- **Agent ID Display**: Shortened agent IDs help distinguish between similarly named agents
-
-#### Using the Agent Selector
-
-<Steps>
-  <Step title="Access the Selector">
-    Click on the current agent name in the toolbar (shows a dropdown arrow when available)
-  </Step>
-  <Step title="Search for Agents">
-    Use the search box at the top of the dropdown to filter agents by name
-  </Step>
-  <Step title="Select an Agent">
-    Click on any agent in the list to switch to it immediately
-  </Step>
-  <Step title="Verify Selection">
-    The toolbar updates to show the new agent name and the dropdown closes automatically
-  </Step>
-</Steps>
-
-<Warning>
-If you have unsaved changes when switching agents, you'll be prompted to save or discard them before proceeding.
-</Warning>
-
-### Version Control Indicators
-
-The Advanced Editor displays comprehensive Git status information in the header:
-
-| Status | Badge Color | Description |
-|--------|-------------|-------------|
-| Clean | 🟢 Green | No local changes, up to date |
-| Modified | 🟡 Yellow | Local changes not yet saved |
-| Conflicts | 🔴 Red | Merge conflicts need resolution |
-| Syncing | 🔵 Blue | Currently syncing with remote |
-| Locked | 🟠 Orange | Another user is actively editing |
-
-<Info>
-The version indicator shows your current local version (e.g., `v1.2.3`) and displays the number of modified fields when changes are pending.
-</Info>
-
-### Collaboration Features
-
-Real-time collaboration indicators help you work seamlessly with your team:
-
-- **Status badges** show when teammates are editing simultaneously
-- **Version numbers** track your current working version
-- **Conflict detection** alerts you to potential merge issues
-- **Lock indicators** show when files are being edited by others
-
-<Warning>
-When the status shows "Conflicts" or "Locked", resolve these issues before attempting to publish changes.
-</Warning>
-
-### Collaborative Development Workflow
+### Collaborative Features
 
 The Git-like system supports sophisticated team workflows:
 
-<Steps>
-  <Step title="Check Status">
-    Always verify the Git status before starting work to understand the current state
-  </Step>
-  <Step title="Pull Latest Changes">
-    Use "Check" and "Pull" to synchronize with your team's latest changes
-  </Step>
-  <Step title="Make Changes">
-    Edit your agent configuration with real-time collaboration awareness
-  </Step>
-  <Step title="Resolve Conflicts">
-    Handle any merge conflicts that arise during collaborative editing
-  </Step>
-  <Step title="Commit Changes">
-    Save your changes with descriptive commit messages
-  </Step>
-  <Step title="Deploy to Production">
-    Safely publish your finalized agent to production
-  </Step>
-</Steps>
-
-### Toolbar Actions
-
-| Action | Description |
-|--------|-------------|
-| ← Back | Return to agents list |
-| 🏷️ Version | Current version indicator with collaboration status |
-| Check | Check for remote updates from other team members |
-| Pull | Merge remote changes into your local version |
-| ✓ Save | Save current changes locally |
-| ⬇️ Export | Download agent configuration |
-| 🚀 Publish | Deploy changes to production |
+- **Real-time collaboration awareness**: See when teammates are editing simultaneously
+- **Automatic conflict detection** and guided resolution
+- **Branch-based workflows** for parallel development  
+- **Comprehensive audit trails** with detailed change history
+- **Rollback capabilities** to safely revert changes
+- **Team coordination tools** to prevent edit conflicts
 
 ## Enhanced Testing System
 
 ### Improved Test Management
 
-The testing system has been significantly enhanced with new capabilities:
+The testing system has been significantly enhanced with powerful new capabilities:
 
-- **Batch testing**: Run multiple test iterations with configurable repeat counts
+- **Batch testing**: Run multiple test iterations with configurable repeat counts (1-10x)
 - **Test filtering**: Filter tests by status (All, Pass, Fail) with visual counters
-- **Test history**: View past test runs with detailed execution history
-- **Input parameters**: Configure dynamic variables for test scenarios
+- **Test history**: View comprehensive execution history with detailed results
+- **Input parameters**: Configure dynamic variables for realistic test scenarios
 - **Simulation mode**: Interactive conversation simulation for testing
 
-### Test Types and Features
+### Advanced Test Features
 
 <Tabs>
   <Tab title="Scenario Tests">
     Test specific conversation scenarios with defined success criteria:
-    - Configure user personas and goals
+    - Configure user personas and conversation goals
     - Set multiple success/failure examples
     - Use dynamic variables for realistic scenarios
     - Track test performance over time
   </Tab>
-  <Tab title="Simulation Tests">
-    Interactive conversation simulation:
-    - Real-time conversation testing
-    - Configurable turn limits
-    - Live streaming of AI responses
-    - Context variable injection
+  <Tab title="Interactive Simulation">
+    Real-time conversation simulation:
+    - Live conversation testing with the agent
+    - Configurable turn limits for focused testing
+    - Real-time streaming of AI responses
+    - Context variable injection for dynamic scenarios
   </Tab>
-  <Tab title="Batch Testing">
-    Run tests multiple times for reliability:
+  <Tab title="Batch Reliability Testing">
+    Run tests multiple times for statistical confidence:
     - Configurable repeat counts (1-10x)
-    - Batch progress tracking
+    - Batch progress tracking with visual indicators
     - Aggregate results analysis
-    - Statistical reliability testing
+    - Statistical reliability reporting
   </Tab>
 </Tabs>
 
 ### Test Status Indicators
 
-The testing interface provides clear visual indicators:
+The enhanced testing interface provides clear visual feedback:
 
-- **Pass/Fail counters**: See test results at a glance
-- **Running indicators**: Animated status for active tests
-- **History tracking**: Access to previous test runs
-- **Input parameters**: Visual indicators for configured variables
-
-## Key Features
-
-### Git-Like Version Control Benefits
-
-The Advanced Editor's version control system brings several key advantages to agent development:
-
-**Team Collaboration**
-- Multiple developers can work on the same agent simultaneously
-- Real-time awareness of teammate activities prevents conflicts
-- Automatic merge conflict detection and resolution guidance
-
-**Change Management**
-- Comprehensive audit trails for all modifications
-- Ability to revert to previous versions if issues arise  
-- Branching support for feature development and testing
-
-**Production Safety**
-- Staged deployment process prevents accidental production changes
-- Version validation before publishing to ensure quality
-- Rollback capabilities for quick issue resolution
-
-### Git Status Indicators
-
-<AccordionGroup>
-  <Accordion title="Clean Status" icon="check-circle">
-    <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded border border-green-200 dark:border-green-800">
-      **Clean** - Your agent is up to date with no pending changes. Safe to make new edits or switch branches.
-    </div>
-  </Accordion>
-  <Accordion title="Modified Status" icon="edit">
-    <div className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded border border-yellow-200 dark:border-yellow-800">
-      **Modified** - You have local changes that haven't been saved yet. The badge shows the number of modified fields.
-    </div>
-  </Accordion>
-  <Accordion title="Conflicts Status" icon="exclamation-triangle">
-    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border border-red-200 dark:border-red-800">
-      **Conflicts** - Changes from other team members conflict with your local changes. Resolve conflicts before publishing.
-    </div>
-  </Accordion>
-  <Accordion title="Syncing Status" icon="sync">
-    <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
-      **Syncing** - Currently synchronizing changes with the remote server. Wait for completion before making edits.
-    </div>
-  </Accordion>
-  <Accordion title="Locked Status" icon="lock">
-    <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded border border-orange-200 dark:border-orange-800">
-      **Locked** - Another team member is actively editing this agent. Wait for them to finish or coordinate with your team.
-    </div>
-  </Accordion>
-</AccordionGroup>
-
-### Real-time Collaboration
-
-Work together seamlessly with your team:
-
-- **Live status updates**: See teammate activity in real-time
-- **Automatic conflict detection** and resolution guidance
-- **Branch-based workflow** for parallel development
-- **Comprehensive change history** and audit trail
-- **Team coordination** features to prevent edit conflicts
+- **Pass/Fail counters**: See test results at a glance with color-coded badges
+- **Running indicators**: Animated status indicators for active tests
+- **History tracking**: Easy access to previous test runs and results
+- **Input parameters**: Visual indicators for configured dynamic variables
 
 ## Workflow Best Practices
 
 <Steps>
-  <Step title="Check Current Status">
-    Always check the Git status indicator before starting work. Ensure you're working on a clean version.
+  <Step title="Start with Prompt-First Creation">
+    Use the creation overlay to describe your agent in natural language for intelligent initial configuration.
   </Step>
-  <Step title="Pull Latest Changes">
-    Use the "Check" and "Pull" buttons to get the latest changes from your team before making edits.
+  <Step title="Check Version Control Status">
+    Always verify the Git status indicator before starting work to understand collaboration state.
   </Step>
-  <Step title="Configure Basic Settings">
-    Start with name, language, voice selection, and LLM model choice.
+  <Step title="Pull Latest Team Changes">
+    Use "Check" and "Pull" buttons to synchronize with your team's latest changes.
   </Step>
-  <Step title="Set Up Greetings">
-    Define how your agent introduces itself for different call types.
+  <Step title="Configure Core Settings">
+    Fine-tune basic settings, greetings, and system prompts generated from your initial description.
   </Step>
-  <Step title="Write System Prompt">
-    Describe your agent's role, personality, and conversation guidelines.
+  <Step title="Add Knowledge & Tools">
+    Upload knowledge base documents and configure actions/integrations as needed.
   </Step>
-  <Step title="Add Knowledge Base">
-    Upload documents and FAQs the agent can reference.
+  <Step title="Run Enhanced Testing">
+    Use the improved testing system with batch runs and simulation modes to validate behavior.
   </Step>
-  <Step title="Configure Actions">
-    Set up call transfers, webhooks, and other integrations.
+  <Step title="Review & Commit Changes">
+    Use the Git changes panel to review modifications and commit with descriptive messages.
   </Step>
-  <Step title="Define Output Settings">
-    Specify what data to extract from each call.
-  </Step>
-  <Step title="Create and Run Tests">
-    Use the enhanced testing system to validate agent behavior with multiple scenarios.
-  </Step>
-  <Step title="Review Version Status">
-    Check the Git status and resolve any conflicts before publishing.
-  </Step>
-  <Step title="Publish Changes">
-    Deploy your agent to production once all tests pass and status is clean.
+  <Step title="Deploy to Production">
+    Safely publish your agent once all tests pass and collaboration status is clean.
   </Step>
 </Steps>
 
-## Key Concepts
+## Key Features & Benefits
 
-<AccordionGroup>
-  <Accordion title="Version Control & Git Status" icon="code-branch">
-    The Advanced Editor supports Git-like version control with real-time status indicators. The system shows Clean, Modified, Conflicts, Syncing, or Locked status to help you understand the current state and collaborate effectively with your team.
-  </Accordion>
-  <Accordion title="Enhanced Testing System" icon="beaker">
-    The improved testing system supports batch runs, input parameter configuration, test filtering, and comprehensive history tracking. Tests can be run multiple times for reliability and include simulation modes for interactive testing.
-  </Accordion>
-  <Accordion title="Live vs Development" icon="rocket">
-    You can work on changes in development mode and only push them to production (Live) when you're satisfied with the results. The version control system ensures safe deployments with conflict detection.
-  </Accordion>
-  <Accordion title="Real-time Collaboration" icon="users">
-    Multiple team members can work on the same agent simultaneously with real-time conflict detection, status indicators, and collaborative editing features that prevent data loss.
-  </Accordion>
-</AccordionGroup>
+### Prompt-First Creation
+
+The new creation overlay transforms agent development:
+
+**Natural Language Input**
+- Describe your agent's purpose in plain English
+- AI-powered analysis of your requirements
+- Intelligent configuration of initial settings
+
+**Visual Experience**
+- Beautiful WebGL wave animation background
+- Clean, distraction-free interface focused on creation
+- Smooth transition to the full editor environment
+
+**Time Savings**
+- Skip repetitive initial configuration steps
+- Start with intelligently generated prompts and settings
+- Focus immediately on customization and refinement
+
+### Enhanced Navigation
+
+The integrated agent selector revolutionizes workflow efficiency:
+
+- **Seamless switching** between agents without leaving the editor
+- **Search functionality** to quickly locate specific agents
+- **Visual identification** with avatar-based agent indicators
+- **Context preservation** with unsaved changes protection
+
+### Advanced Collaboration
+
+The Git-like version control system brings enterprise-grade collaboration:
+
+**Team Coordination**
+- Real-time awareness of teammate editing activities
+- Automatic conflict detection prevents data conflicts
+- Lock indicators show when files are being edited by others
+
+**Change Management**
+- Comprehensive audit trails for all modifications
+- Ability to revert to previous versions safely
+- Branch-based workflows for feature development
+
+**Production Safety**
+- Staged deployment process prevents accidental changes
+- Version validation before publishing ensures quality
+- Rollback capabilities for quick issue resolution
 
 ## Next Steps
 
 <CardGroup cols={2}>
+  <Card
+    title="Prompt-First Creation"
+    icon="sparkles"
+    href="/advanced-editor/creation-overlay"
+  >
+    Learn how to use the new creation overlay for faster agent building
+  </Card>
+  <Card
+    title="Agent Navigation"
+    icon="arrows-right-left"
+    href="/advanced-editor/agent-selector"
+  >
+    Master the integrated agent selector for efficient workflow
+  </Card>
+  <Card
+    title="Version Control"
+    icon="code-branch"
+    href="/advanced-editor/version-control"
+  >
+    Understand Git-like collaboration and conflict resolution
+  </Card>
+  <Card
+    title="Enhanced Testing"
+    icon="clipboard-check"
+    href="/advanced-editor/tests"
+  >
+    Use batch testing and simulation for reliable agent validation
+  </Card>
   <Card
     title="Basic Settings"
     icon="gear"
@@ -370,33 +301,5 @@ Work together seamlessly with your team:
     href="/advanced-editor/knowledge-base"
   >
     Add documents and FAQs for your agent
-  </Card>
-  <Card
-    title="Actions & Tools"
-    icon="wrench"
-    href="/advanced-editor/actions-tools"
-  >
-    Set up integrations and webhooks
-  </Card>
-  <Card
-    title="Playground"
-    icon="gamepad"
-    href="/advanced-editor/playground"
-  >
-    Test your agent in real-time
-  </Card>
-  <Card
-    title="Version Control"
-    icon="code-branch"
-    href="/advanced-editor/version-control"
-  >
-    Learn about Git status indicators and collaboration
-  </Card>
-  <Card
-    title="Enhanced Testing"
-    icon="clipboard-check"
-    href="/advanced-editor/tests"
-  >
-    Use the improved testing system with batch runs and history
   </Card>
 </CardGroup>

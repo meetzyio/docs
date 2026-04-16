@@ -17,6 +17,23 @@ La sección **Agents** presenta una interfaz moderna de panel dividido que te pe
   </Card>
 </CardGroup>
 
+## Navegación Rápida
+
+<Tabs>
+  <Tab title="Panel de Agentes">
+    Explora la lista completa de agentes con herramientas de búsqueda y filtrado avanzado
+  </Tab>
+  <Tab title="Vista Detallada">
+    Analiza métricas de rendimiento, historial de llamadas y configuración específica de cada agente
+  </Tab>
+  <Tab title="Editor Avanzado">
+    Accede a funciones de configuración profesional para agentes con el badge "Advanced"
+  </Tab>
+  <Tab title="Herramientas de Prueba">
+    Realiza llamadas de prueba entrantes y salientes para validar el comportamiento del agente
+  </Tab>
+</Tabs>
+
 ## Buscar y Filtrar Agentes
 
 ### Búsqueda Inteligente
@@ -110,19 +127,35 @@ Para agentes que muestran el badge **"Advanced"**:
   <Step title="Acceder al editor">
     Haz clic en el botón **Advanced Editor**
   </Step>
-  <Step title="Configurar secciones">
-    Modifica cualquiera de estas áreas:
-    - **Configuración básica**: Nombre, descripción, idioma
-    - **Saludos**: Mensajes de bienvenida personalizados
-    - **Prompt del sistema**: Instrucciones de comportamiento del AI
-    - **Base de conocimiento**: Documentos y fuentes de información
-    - **Acciones y herramientas**: Integraciones y funcionalidades
-    - **Configuración de salida**: Parámetros de respuesta
+  <Step title="Navegar por secciones">
+    Utiliza el navegador lateral izquierdo para acceder a cada sección:
+    - **Basic Settings** (⌘1): Configuración básica del agente
+    - **Greetings** (⌘2): Mensajes de bienvenida personalizados
+    - **Input Parameters** (⌘3): Campos de entrada para llamadas
+    - **Knowledge Base** (⌘4): Documentos y fuentes de información
+    - **Actions & Tools** (⌘5): Transferencias, finalización de llamadas y protocolos
+    - **Evaluations** (⌘6): Criterios de éxito y evaluaciones
+    - **Output Settings** (⌘7): Configuración de salida y webhooks
+  </Step>
+  <Step title="Usar herramientas auxiliares">
+    Accede al panel derecho para:
+    - **Meetzy AI** (⌘J): Asistente IA para configuración
+    - **Playground** (⇧⌘P): Simulador de conversaciones
+    - **Tests** (⇧⌘T): Pruebas de regresión automatizadas
+    - **Changes** (⌘G): Control de versiones tipo Git
   </Step>
   <Step title="Guardar cambios">
-    Los cambios se aplican inmediatamente en producción
+    Los cambios se aplican inmediatamente o se pueden gestionar mediante commits según el nivel de control requerido
   </Step>
 </Steps>
+
+### Selector de Agentes
+
+En el editor avanzado, puedes cambiar rápidamente entre agentes:
+
+<Info>
+  El selector de agentes (disponible en escritorio) te permite cambiar entre agentes sin perder el contexto del editor.
+</Info>
 
 ### Agentes Estándar
 
@@ -131,6 +164,33 @@ Para agentes sin el badge "Advanced", las opciones se limitan al panel de config
 <Warning>
   Los cambios en agentes en producción afectan inmediatamente a las llamadas entrantes. Considera probar en un ambiente de desarrollo primero.
 </Warning>
+
+## Creación de Agentes con IA
+
+### Experiencia Prompt-First
+
+Meetzy ofrece una experiencia de creación guiada por IA:
+
+<Steps>
+  <Step title="Describe tu agente">
+    Utiliza el overlay de creación para describir en lenguaje natural qué debe hacer tu agente
+  </Step>
+  <Step title="Generación automática">
+    La IA analiza tu descripción y genera automáticamente:
+    - Configuración básica del agente
+    - Prompt del sistema optimizado
+    - Parámetros de entrada relevantes
+    - Configuración de salida
+  </Step>
+  <Step title="Refinamiento">
+    Utiliza el editor avanzado para ajustar y personalizar la configuración generada
+  </Step>
+</Steps>
+
+<Tip>
+  Ejemplos de descripción efectiva:
+  "Un agente que responde llamadas de soporte al cliente para una clínica dental, agenda citas y transfiere casos urgentes a la recepcionista..."
+</Tip>
 
 ## Duplicar y Clonar Agentes
 
@@ -264,6 +324,34 @@ Los agentes marcados como **Demo** aparecen en una sección colapsible separada 
   Los agentes demo se actualizan regularmente con las mejores prácticas y nuevas funcionalidades.
 </Tip>
 
+## Control de Versiones Tipo Git
+
+### Sistema de Cambios
+
+El editor avanzado incluye un sistema de control de versiones inspirado en Git:
+
+<Tabs>
+  <Tab title="Estados de Trabajo">
+    - **Clean**: Sin cambios pendientes
+    - **Modified**: Cambios locales no confirmados
+    - **Conflict**: Conflictos con cambios remotos
+    - **Syncing**: Sincronizando cambios
+    - **Locked**: Bloqueado por otro usuario
+  </Tab>
+  <Tab title="Gestión de Cambios">
+    - **Commits locales**: Guarda cambios con mensajes descriptivos
+    - **Auto-sync**: Sincronización automática con el servidor
+    - **Resolución de conflictos**: Herramientas para manejar cambios concurrentes
+    - **Historial**: Seguimiento completo de modificaciones
+  </Tab>
+</Tabs>
+
+### Colaboración en Tiempo Real
+
+- **Indicadores de colaboradores**: Ve quién más está editando
+- **Bloqueos inteligentes**: Previene conflictos en secciones específicas
+- **Notificaciones de cambios**: Alertas sobre actualizaciones remotas
+
 ## Acciones Rápidas y Atajos
 
 ### Acciones del Panel de Agente
@@ -275,14 +363,17 @@ Los agentes marcados como **Demo** aparecen en una sección colapsible separada 
 | **Ver todas las llamadas** | Botón "View All" | Abre la vista completa con filtros avanzados |
 | **Cerrar panel** | Clic en ✕ o seleccionar otro agente | Cierra la vista detallada |
 
-### Atajos de Teclado
+### Atajos de Teclado en el Editor Avanzado
 
 | Combinación | Función |
 |-------------|---------|
-| **Cmd/Ctrl + K** | Búsqueda rápida de agentes |
-| **Cmd/Ctrl + F** | Buscar en panel actual |
+| **⌘1-⌘7** | Cambiar entre paneles izquierdos |
+| **⌘J** | Abrir Meetzy AI Copilot |
+| **⇧⌘P** | Abrir Playground |
+| **⇧⌘T** | Abrir Tests |
+| **⌘G** | Ver Changes (control de versiones) |
+| **⌘K** | Búsqueda rápida de agentes |
 | **Escape** | Cerrar modales abiertos |
-| **Tab** | Navegar entre elementos |
 
 ### Acciones en Lote
 
@@ -355,6 +446,13 @@ Recibe alertas sobre:
     - Usuario administrador o Editor Avanzado
     - Números telefónicos disponibles
     - Límites de plan no excedidos
+  </Tab>
+  <Tab title="Conflictos de versiones">
+    **Pasos para resolver:**
+    - Usar el panel de Changes para ver diferencias
+    - Resolver conflictos manualmente
+    - Hacer commit con mensaje descriptivo
+    - Sincronizar con el servidor
   </Tab>
 </Tabs>
 

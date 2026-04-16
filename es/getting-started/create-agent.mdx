@@ -1,7 +1,16 @@
 ---
 title: 'Crea Tu Primer Agente'
 description: 'Guía completa para crear y configurar un agente de voz con IA en Meetzy'
+icon: 'plus'
 ---
+
+## El Nuevo Flujo Prompt-First
+
+Meetzy ahora ofrece una experiencia mejorada para crear agentes. Simplemente describe qué debe hacer tu agente y nuestra IA construirá la configuración inicial por ti.
+
+<Info>
+  **¿Nuevo en Meetzy?** El flujo prompt-first es la manera más rápida de empezar. Para usuarios avanzados, también puedes crear un agente desde cero.
+</Info>
 
 ## Requisitos Previos
 
@@ -9,7 +18,40 @@ Antes de crear un agente, asegúrate de tener:
 
 - Una cuenta activa de Meetzy con acceso al dashboard
 - Al menos un número de teléfono disponible en tu cuenta
-- Comprensión básica de tu caso de uso (ventas, soporte, etc.)
+- Una idea clara de tu caso de uso (ventas, soporte, etc.)
+
+## Crear un Agente con Prompt-First
+
+<Steps>
+  <Step title="Accede al Editor Avanzado">
+    Desde el dashboard, haz clic en "Create Agent" o navega directamente al Editor Avanzado.
+  </Step>
+  
+  <Step title="Describe tu Agente">
+    En la pantalla inicial, encontrarás un campo de texto con fondo animado. Describe qué debe hacer tu agente:
+    
+    ```
+    Un agente que responde llamadas de atención al cliente para una clínica dental, 
+    agenda citas y transfiere casos urgentes a la recepcionista...
+    ```
+  </Step>
+  
+  <Step title="Genera la Configuración">
+    Presiona **Enter** o haz clic en el botón de envío. Meetzy generará automáticamente:
+    - Prompt de sistema optimizado
+    - Configuración básica recomendada
+    - Saludos personalizados
+    - Parámetros de entrada sugeridos
+  </Step>
+  
+  <Step title="Refina y Personaliza">
+    Revisa la configuración generada y ajusta según tus necesidades específicas usando las herramientas del Editor Avanzado.
+  </Step>
+</Steps>
+
+<Warning>
+  Si prefieres empezar desde cero, puedes hacer clic en "or start from scratch" en la pantalla inicial.
+</Warning>
 
 ## El Editor Avanzado
 
@@ -19,7 +61,7 @@ El Editor Avanzado es una interfaz de tres paneles para configurar tu agente:
 |-------|-------------|
 | **Barra de Iconos** (izquierda) | Navegación entre secciones de configuración |
 | **Editor Central** | Área principal de edición para el prompt de sistema y ajustes |
-| **Panel Derecho** | Playground para pruebas y depuración |
+| **Panel Derecho** | Playground para pruebas y asistente IA |
 
 ### Acciones de la Barra de Herramientas
 
@@ -31,155 +73,129 @@ El Editor Avanzado es una interfaz de tres paneles para configurar tu agente:
 | ⬇️ **Pull** | Sincronizar con la última versión |
 | 🚀 **Publish** | Desplegar a producción |
 
-## Barra de Iconos (Panel Izquierdo)
+## Configuración del Agente
 
-La barra lateral izquierda contiene todas las secciones de configuración:
+### 1. Settings (⚙️)
 
-| Icono | Sección | Descripción |
-|-------|---------|-------------|
-| ⚙️ | **Settings** | Configuración básica del agente |
-| 👋 | **Greetings** | Mensajes de bienvenida para llamadas |
-| 📄 | **Input Params** | Variables dinámicas para personalización |
-| 📚 | **Knowledge Base** | Documentos y FAQs que el agente puede consultar |
-| 🔧 | **Actions & Tools** | Integraciones y APIs externas |
-| ✅ | **Evaluations** | Pruebas automatizadas para validar comportamiento |
-| 📥 | **Output Settings** | Datos que el agente debe capturar |
+La configuración básica incluye:
 
-## Paso 1: Configuración Básica
-
-Haz clic en el icono **Settings** (Engranaje) para configurar:
-
-### Nombre del Agente
-
-Identificador interno para tu agente. Elige un nombre descriptivo como:
+#### Nombre del Agente
+Identificador interno descriptivo:
 - "Agente de Cualificación de Ventas"
 - "Atención al Cliente - Facturación"
 - "Recordatorio de Citas"
 
-### Compañía
+#### Modelo de Lenguaje (LLM)
+Selecciona el modelo de IA que potenciará las conversaciones:
 
-Selecciona a qué compañía pertenece este agente (para cuentas multi-empresa).
+<Tabs>
+  <Tab title="Anthropic (Recomendado)">
+    **Claude Haiku 4.5** - Ultra rápido, excelente para tool calling
+  </Tab>
+  <Tab title="OpenAI">
+    - **GPT-4o** - Equilibrio entre velocidad y calidad
+    - **GPT-4.1** - Último modelo completo
+    - **GPT-4.1 Mini** - Más rápido y económico
+  </Tab>
+  <Tab title="Google">
+    - **Gemini 2.5 Flash** - Rápido y capaz
+    - **Gemini 1.5 Flash** - Ultra rápido, buen equilibrio
+    - **Gemini 1.5 Pro** - Más capaz, mayor latencia
+  </Tab>
+</Tabs>
 
-### Cuenta Twilio
+#### Número de Teléfono
 
-Elige la cuenta de Twilio para las llamadas telefónicas.
-
-### Número de Teléfono
-
-<Note>
+<Info>
   Los números de teléfono son recursos exclusivos. Cada número solo puede estar asignado a un agente a la vez.
-</Note>
+</Info>
 
-Selecciona un número disponible del dropdown. Si no hay ninguno disponible:
-- Libera un número de otro agente
-- Solicita nuevos números mediante el enlace "Request more numbers"
+Selecciona un número disponible o solicita nuevos números mediante "Request more numbers".
 
-### Modelo de Lenguaje (LLM)
+#### Componentes Foundation
+Mejoras opcionales para tu agente:
+- **Safety Guardrails** - Previene respuestas inapropiadas
+- **Conversational Aspects** - Mejora el flujo natural
+- **Agent Work Experience** - Comportamientos pre-entrenados
 
-Selecciona el modelo de IA que potenciará las conversaciones de tu agente. Modelos disponibles:
+### 2. Greetings (👋)
 
-#### Anthropic (Claude)
+Configura mensajes de bienvenida personalizados:
 
-| Modelo | Características |
-|--------|-----------------|
-| **Claude Haiku 4.5** | Recomendado. Ultra Rápido. Mejor para tool calling. |
-
-#### OpenAI (GPT)
-
-| Modelo | Características |
-|--------|-----------------|
-| **GPT-4o** | Equilibrio entre velocidad y calidad |
-| **GPT-4.1** | Último modelo completo |
-| **GPT-4.1 Mini** | Más rápido, económico |
-| **GPT-4.1 Nano** | El más rápido y económico |
-
-#### Google (Gemini)
-
-| Modelo | Características |
-|--------|-----------------|
-| **Gemini 3 Flash Preview** | El más nuevo. Versión preview. |
-| **Gemini 2.5 Flash** | Rápido y capaz |
-| **Gemini 2.5 Flash Lite** | Versión más ligera y rápida |
-| **Gemini 2.0 Flash** | Estable, rápido |
-| **Gemini 2.0 Flash Lite** | Versión ligera |
-| **Gemini 1.5 Pro** | Más capaz, mayor latencia |
-| **Gemini 1.5 Flash** | Ultra Rápido. Buen equilibrio. |
-
-<Tip>
-  Para la mayoría de casos de uso, comienza con **Claude Haiku 4.5** o **Gemini 2.5 Flash**. Ofrecen el mejor equilibrio de velocidad, calidad y costo.
-</Tip>
-
-### Grabación de Llamadas
-
-Activa/desactiva las grabaciones de llamadas. Cuando está activado:
-- Todas las llamadas se graban y almacenan
-- Las grabaciones están disponibles en la sección Calls
-- Requerido para control de calidad y entrenamiento
-
-### Meetzy Foundation
-
-Componentes base opcionales que mejoran tu agente:
-
-| Componente | Descripción |
-|------------|-------------|
-| **Safety Guardrails** | Previene respuestas dañinas o inapropiadas |
-| **Conversational Aspects** | Mejora el flujo natural de la conversación |
-| **Agent Work Experience** | Comportamientos pre-entrenados para escenarios comunes |
-
-## Paso 2: Saludos
-
-Haz clic en el icono **Greetings** (Mano Levantada) para configurar mensajes de bienvenida.
-
-### Saludo Entrante
-
-El primer mensaje cuando un cliente llama a tu agente:
-
+#### Saludo Entrante
 ```
 ¡Hola! Gracias por llamar a {{company_name}}. ¿En qué puedo ayudarte hoy?
 ```
 
-### Saludo Saliente
-
-El primer mensaje cuando tu agente llama a un cliente:
-
+#### Saludo Saliente
 ```
 Hola {{customer_name}}, soy {{agent_name}} de {{company_name}}. 
 Te llamo respecto a {{reason}}. ¿Es buen momento para hablar?
 ```
 
-### Plantillas
+### 3. Input Parameters (📄)
 
-Selecciona entre plantillas de saludo predefinidas:
-- Llamada de Ventas
-- Atención al Cliente
-- Recordatorio de Cita
-- Introducción de Encuesta
+Define variables dinámicas para personalización:
 
-### Variables Dinámicas
+| Parámetro | Tipo | Descripción |
+|-----------|------|-------------|
+| `phone` | String | Teléfono del cliente |
+| `name` | String | Nombre del cliente |
+| `email` | String | Email del cliente |
+| `company` | String | Empresa del cliente |
+| `lead_source` | String | Origen del lead |
 
-Usa variables para personalizar los saludos:
+### 4. Knowledge Base (📚)
 
-| Variable | Ejemplo |
-|----------|---------|
-| `{{customer_name}}` | "Juan" |
-| `{{company_name}}` | "Acme Corp" |
-| `{{agent_name}}` | "María" |
-| `{{appointment_date}}` | "15 de marzo a las 14h" |
+Sube documentos de referencia:
+- FAQs de productos
+- Información de precios
+- Políticas de la empresa
+- Objeciones comunes y respuestas
 
-## Paso 3: Prompt de Sistema
+<Info>
+  El agente busca en la knowledge base contextualmente durante las conversaciones, recuperando información relevante cuando es necesaria.
+</Info>
+
+### 5. Actions & Tools (🔧)
+
+Configura integraciones y acciones:
+
+| Acción | Descripción |
+|--------|-------------|
+| **Transfer Call** | Derivar a agente humano |
+| **Send SMS** | Enviar mensaje de texto |
+| **Send Email** | Enviar email al cliente |
+| **Calendar Booking** | Agendar citas |
+| **CRM Update** | Actualizar registros |
+| **Custom Webhook** | Llamar APIs externas |
+
+### 6. Evaluations (📊)
+
+Crea criterios de éxito automatizados:
+
+```
+Escenario: El cliente pregunta sobre precios
+Esperado: El agente NO debe discutir precios específicos
+Esperado: El agente debe ofrecer conectar con el equipo de ventas
+```
+
+### 7. Output Settings (📥)
+
+Define qué información debe capturar el agente:
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `qualified` | Boolean | ¿El lead está cualificado? |
+| `budget_range` | String | Rango de presupuesto |
+| `timeline` | String | Cronograma de compra |
+| `pain_points` | Array | Desafíos del cliente |
+
+## Prompt de Sistema
 
 El editor central contiene el **Prompt de Sistema** - las instrucciones principales que definen el comportamiento de tu agente.
 
-### Estructura
-
-Un buen prompt de sistema incluye:
-
-1. **Definición del Rol**: Quién es el agente
-2. **Objetivo**: Qué debe lograr el agente
-3. **Directrices**: Cómo manejar situaciones específicas
-4. **Restricciones**: Qué NO debe hacer el agente
-
-### Ejemplo
+### Estructura Recomendada
 
 ```markdown
 Eres un agente amigable de cualificación de ventas para Acme Corp.
@@ -200,92 +216,35 @@ luego agendar una demo con un representante de ventas.
 - Transfiere a un humano si el cliente está molesto
 ```
 
-## Paso 4: Input Params
+## Panel Derecho: Herramientas de Desarrollo
 
-Haz clic en el icono **Input Params** (Documento) para definir variables pasadas a cada llamada.
+### Meetzy AI (✨)
+Tu asistente personal para construir agentes. Puede:
+- Generar configuraciones automáticamente
+- Optimizar prompts existentes
+- Sugerir mejoras basadas en mejores prácticas
+- Responder preguntas sobre configuración
 
-Parámetros comunes:
+### Playground (▶️)
+Simula conversaciones para probar tu agente antes de publicar.
 
-| Parámetro | Tipo | Descripción |
-|-----------|------|-------------|
-| `phone` | String | Teléfono del cliente |
-| `name` | String | Nombre del cliente |
-| `email` | String | Email del cliente |
-| `company` | String | Empresa del cliente |
-| `lead_source` | String | Origen del lead |
+### Tests (✅)
+Ejecuta pruebas automatizadas para validar el comportamiento del agente.
 
-Estos parámetros están disponibles en tu prompt de sistema y saludos usando la sintaxis `{{param_name}}`.
-
-## Paso 5: Knowledge Base
-
-Haz clic en el icono **Knowledge Base** (Pila de Libros) para añadir documentos de referencia.
-
-Sube documentos que el agente puede consultar durante las llamadas:
-- FAQs de productos
-- Información de precios
-- Políticas de la empresa
-- Objeciones comunes y respuestas
-
-<Note>
-  El agente busca en la knowledge base de forma contextual durante las conversaciones. No memoriza todo - recupera información relevante cuando es necesaria.
-</Note>
-
-## Paso 6: Actions & Tools
-
-Haz clic en el icono **Actions & Tools** (Llave Inglesa) para configurar integraciones.
-
-Acciones disponibles:
-
-| Acción | Descripción |
-|--------|-------------|
-| **Transfer Call** | Derivar a agente humano |
-| **Send SMS** | Enviar mensaje de texto al cliente |
-| **Send Email** | Enviar email al cliente |
-| **Calendar Booking** | Agendar citas |
-| **CRM Update** | Actualizar registros de clientes |
-| **Custom Webhook** | Llamar a cualquier API externa |
-
-## Paso 7: Evaluations
-
-Haz clic en el icono **Evaluations** (Insignia Check) para configurar pruebas automatizadas.
-
-Crea escenarios de prueba para validar tu agente:
-
-```
-Escenario: El cliente pregunta sobre precios
-Esperado: El agente NO debe discutir precios específicos
-Esperado: El agente debe ofrecer conectar con el equipo de ventas
-```
-
-## Paso 8: Output Settings
-
-Haz clic en el icono **Output Settings** (Bandeja) para definir extracción de datos.
-
-Especifica qué información debe capturar el agente:
-
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `qualified` | Boolean | ¿El lead está cualificado? |
-| `budget_range` | String | Rango de presupuesto estimado |
-| `timeline` | String | Cronograma de compra |
-| `next_steps` | String | Acciones de seguimiento acordadas |
-| `pain_points` | Array | Desafíos del cliente |
-
-Los datos extraídos están disponibles en los resúmenes de llamadas y pueden enviarse a tu CRM.
+### Changes (📝)
+Revisa y gestiona cambios pendientes con un sistema similar a Git.
 
 ## Publicar Tu Agente
-
-Cuando tu configuración esté completa:
 
 <Steps>
   <Step title="Validar">
     Haz clic en **Check** para validar tu configuración. Corrige cualquier error.
   </Step>
   <Step title="Probar">
-    Usa el Playground (panel derecho) para probar conversaciones.
+    Usa el Playground para simular conversaciones y verificar el comportamiento.
   </Step>
   <Step title="Hacer llamadas de prueba">
-    Usa "Init Call" desde la lista de agentes para hacer llamadas telefónicas reales.
+    Usa "Test Agent" para hacer llamadas telefónicas reales de prueba.
   </Step>
   <Step title="Publicar">
     Haz clic en **Publish** para desplegar tu agente a producción.
@@ -295,6 +254,17 @@ Cuando tu configuración esté completa:
 <Warning>
   Publicar crea una nueva versión. La versión anterior permanece disponible para rollback si es necesario.
 </Warning>
+
+## Atajos de Teclado
+
+| Atajo | Acción |
+|-------|--------|
+| `⌘1` - `⌘7` | Navegar entre secciones del panel izquierdo |
+| `⌘J` | Abrir Meetzy AI |
+| `⇧⌘P` | Abrir Playground |
+| `⇧⌘T` | Abrir Tests |
+| `⌘G` | Ver Changes |
+| `⌘S` | Guardar cambios |
 
 ## Siguientes Pasos
 

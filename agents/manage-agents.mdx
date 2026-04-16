@@ -17,6 +17,49 @@ The **Agents** section provides comprehensive management tools for your voice ag
   </Tab>
 </Tabs>
 
+## Enhanced Navigation and Switching
+
+### Advanced Editor Agent Navigation
+
+The Advanced Editor now includes enhanced navigation capabilities to seamlessly switch between agents:
+
+<Steps>
+  <Step title="Agent Selector in Advanced Editor">
+    When editing an advanced agent, access the agent selector dropdown in the header toolbar (desktop only):
+    - Click the agent name button to reveal the dropdown
+    - Browse through all available agents with search and filter capabilities
+    - Switch between agents without losing your current work
+  </Step>
+  
+  <Step title="Smart Context Preservation">
+    Advanced Editor maintains your working context:
+    - **Unsaved changes protection**: Prompts to save or discard changes before switching
+    - **Tab state preservation**: Editor tabs remain open when switching agents
+    - **View preferences**: Minimap, focus mode, and layout settings persist
+  </Step>
+  
+  <Step title="Company-Based Filtering">
+    For admin users with multi-company access:
+    - Filter agents by specific companies
+    - Search within company-scoped agent lists
+    - Quick company switching within the editor interface
+  </Step>
+</Tabs>
+
+<Info>
+  The agent selector dropdown is optimized for desktop use. On mobile devices, use the "Back to Agents" button to return to the main agents list for navigation.
+</Info>
+
+### Quick Agent Switching Workflow
+
+```
+Current Agent: Customer Support Bot
+↓
+Click agent selector → Search "Sales" → Select "Sales Assistant"
+↓
+Auto-save current work → Load new agent → Preserve editor state
+```
+
 ## Enhanced Search and Filtering
 
 ### Global Agent Search
@@ -157,7 +200,7 @@ Enhanced calls section with:
 
 ### Advanced Editor Agents
 
-Agents with the **"Advanced"** badge support full configuration editing:
+Agents with the **"Advanced"** badge support full configuration editing with enhanced navigation:
 
 <Tabs>
   <Tab title="Configuration">
@@ -184,6 +227,27 @@ Agents with the **"Advanced"** badge support full configuration editing:
     - Output formatting and validation
   </Tab>
 </Tabs>
+
+### Advanced Editor Navigation Features
+
+<Info>
+  **New Navigation Capabilities**: The Advanced Editor now includes intelligent agent switching, context preservation, and multi-company filtering for seamless agent management workflows.
+</Info>
+
+#### Agent Selector Dropdown
+
+- **Quick Access**: Click agent name in header to open selector
+- **Search & Filter**: Find agents across companies with real-time search
+- **Context Aware**: Preserves editor state when switching between agents
+- **Company Scoping**: Filter agents by company for multi-org users
+
+#### Unsaved Changes Protection
+
+When switching agents, the editor automatically:
+- Detects unsaved modifications
+- Prompts to save or discard changes
+- Preserves work state during transitions
+- Maintains editor layout and preferences
 
 ### Standard Agents
 
@@ -235,6 +299,37 @@ Agent Version Selection:
   Test calls consume billable minutes from your plan. Monitor usage in the billing dashboard.
 </Warning>
 
+## Advanced Editor Keyboard Shortcuts
+
+### Navigation Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| **Cmd/Ctrl + K** | Open command palette |
+| **Cmd/Ctrl + Shift + E** | Toggle view mode |
+| **Cmd/Ctrl + F** | Focus search field |
+| **Cmd/Ctrl + G** | Open git changes panel |
+| **Escape** | Close active modal or dropdown |
+
+### Agent Switching Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| **Cmd/Ctrl + Shift + A** | Open agent selector |
+| **Cmd/Ctrl + S** | Save current agent |
+| **Cmd/Ctrl + Shift + S** | Save and switch agent |
+| **Cmd/Ctrl + ←** | Previous agent in list |
+| **Cmd/Ctrl + →** | Next agent in list |
+
+### Editor Tab Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| **Cmd/Ctrl + 1-7** | Switch to left panel tabs (1=Settings, 2=Greetings, etc.) |
+| **Cmd/Ctrl + J** | Open Meetzy AI panel |
+| **Shift + Cmd/Ctrl + P** | Open Playground |
+| **Shift + Cmd/Ctrl + T** | Open Tests panel |
+
 ## Bulk Operations and Management
 
 ### Bulk Selection
@@ -268,6 +363,7 @@ Search across all agents and team members:
     - Full agent management access
     - Advanced cloning and bulk operations
     - Cross-company agent management
+    - Agent selector with company filtering
     - System configuration access
   </Tab>
   
@@ -275,6 +371,7 @@ Search across all agents and team members:
     - Create and edit advanced agents
     - Access to Knowledge Base and Tools
     - Version management and testing
+    - Enhanced navigation within assigned agents
     - Performance analytics
   </Tab>
   
@@ -289,19 +386,9 @@ Search across all agents and team members:
 ### Company Access Management
 
 Control agent visibility and access across organizations:
-- **Multi-company Users**: Filter and manage agents across companies
+- **Multi-company Users**: Filter and manage agents across companies with enhanced selector
 - **Single Company Users**: Restricted to assigned organization
 - **Guest Access**: View-only permissions with limited functionality
-
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| **Cmd/Ctrl + K** | Open command palette |
-| **Cmd/Ctrl + Shift + E** | Toggle view mode |
-| **Cmd/Ctrl + F** | Focus search field |
-| **Cmd/Ctrl + Z** | Undo last action |
-| **Escape** | Close active modal |
 
 ## Next Steps
 
@@ -310,7 +397,7 @@ Control agent visibility and access across organizations:
     Assign and manage phone numbers for your agents.
   </Card>
   <Card title="Advanced Editor" icon="code" href="/agents/advanced-editor">
-    Learn to use the Advanced Editor for complex configurations.
+    Learn to use the Advanced Editor with enhanced navigation features.
   </Card>
   <Card title="Knowledge Base" icon="book-open" href="/agents/knowledge-base">
     Manage agent knowledge and information sources.

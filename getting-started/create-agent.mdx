@@ -1,7 +1,50 @@
 ---
 title: 'Create Your First Agent'
 description: 'Complete guide to creating and configuring an AI voice agent in Meetzy'
+icon: 'plus'
 ---
+
+## Creating an Agent
+
+Meetzy offers two ways to create your AI voice agent:
+
+<Tabs>
+  <Tab title="Prompt-First Creation (Recommended)">
+    The fastest way to get started. Simply describe what your agent should do, and Meetzy builds it for you automatically.
+  </Tab>
+  <Tab title="Advanced Editor">
+    Full control over every aspect of your agent's configuration using our three-panel interface.
+  </Tab>
+</Tabs>
+
+## Prompt-First Creation
+
+When creating a new agent, Meetzy presents an intuitive creation overlay where you can describe your agent in natural language.
+
+<Steps>
+  <Step title="Describe Your Agent">
+    Type a description of what your agent should do. For example:
+    
+    ```
+    An agent that answers customer support calls for a dental clinic, 
+    books appointments, and transfers urgent cases to the receptionist.
+    ```
+  </Step>
+  <Step title="Let Meetzy Build It">
+    Press **Enter** or click the send button. Meetzy's AI will automatically:
+    - Generate an appropriate system prompt
+    - Configure basic settings
+    - Set up default greetings
+    - Create relevant input/output parameters
+  </Step>
+  <Step title="Review and Refine">
+    Your agent opens in the Advanced Editor where you can review and customize the generated configuration.
+  </Step>
+</Steps>
+
+<Info>
+  You can always skip the prompt-first creation and start from scratch by clicking "or start from scratch" in the creation overlay.
+</Info>
 
 ## Prerequisites
 
@@ -66,9 +109,9 @@ Choose the Twilio account for phone calls.
 
 ### Phone Number
 
-<Note>
+<Warning>
   Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
-</Note>
+</Warning>
 
 Select an available phone number from the dropdown. If none are available:
 - Release a number from another agent
@@ -105,9 +148,9 @@ Select the AI model that powers your agent's conversations. Available models:
 | **Gemini 1.5 Pro** | Most capable, higher latency |
 | **Gemini 1.5 Flash** | Ultra Fast. Good balance. |
 
-<Tip>
+<Info>
   For most use cases, start with **Claude Haiku 4.5** or **Gemini 2.5 Flash**. They offer the best balance of speed, quality, and cost.
-</Tip>
+</Info>
 
 ### Call Recording
 
@@ -170,6 +213,10 @@ Use variables to personalize greetings:
 
 The central editor contains the **System Prompt** - the core instructions that define your agent's behavior.
 
+<Info>
+  If you used prompt-first creation, Meetzy has already generated an optimized system prompt based on your description. You can review and customize it here.
+</Info>
+
 ### Structure
 
 A good system prompt includes:
@@ -226,9 +273,9 @@ Upload documents the agent can reference during calls:
 - Company policies
 - Common objections and responses
 
-<Note>
+<Warning>
   The agent searches the knowledge base contextually during conversations. It doesn't memorize everything - it retrieves relevant information when needed.
-</Note>
+</Warning>
 
 ## Step 6: Actions & Tools
 
@@ -295,6 +342,26 @@ When your configuration is complete:
 <Warning>
   Publishing creates a new version. The previous version remains available for rollback if needed.
 </Warning>
+
+## Testing Your Agent
+
+Before going live, thoroughly test your agent:
+
+### Playground Testing
+
+Use the right panel's Playground to:
+- Simulate conversations
+- Test different scenarios
+- Verify response quality
+- Check knowledge base integration
+
+### Test Calls
+
+Make actual phone calls to verify:
+- Audio quality
+- Response timing
+- Phone number routing
+- End-to-end functionality
 
 ## Next Steps
 
