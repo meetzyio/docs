@@ -1,198 +1,157 @@
 ---
-title: 'API Tokens'
-description: 'Genera y gestiona tokens de API para acceso programático'
-icon: 'key'
+title: "Tokens API"
+description: "Gestiona tokens de API para acceso programático a la plataforma"
+icon: "key"
 ---
 
-# API Tokens
-
-Los tokens de API te permiten autenticarte con la API de Meetzy para acceso programático a tu cuenta. Usa tokens para integrar Meetzy con tus sistemas, disparar llamadas y recuperar datos.
-
-## Acceder a API Tokens
-
-Navega a **Account** → **API Tokens** para ver y gestionar tus tokens.
-
-## Vista General de Tokens
-
-Tus tokens de API se listan con:
-
-| Campo | Descripción |
-|-------|-------------|
-| Name | Identificador del token |
-| Token | La clave secreta (parcialmente oculta) |
-| Expires In | Cuándo expirará el token |
-
-## Guías de Seguridad
+Los tokens API te permiten acceder programáticamente a la API de Meetzy. Estos tokens funcionan como llaves secretas que autentican tus solicitudes automáticamente.
 
 <Warning>
-**¡Mantén tus tokens de API en secreto!**
-
-- Nunca compartas tokens con otros
-- Nunca expongas tokens en código del lado del cliente
-- Nunca hagas commit de tokens a control de versiones
-- Meetzy puede deshabilitar automáticamente tokens filtrados
+Los tokens API son credenciales sensibles. Nunca los compartas públicamente ni los expongas en código del lado del cliente. Guárdalos de forma segura como variables de entorno.
 </Warning>
 
-## Usando tu Token
+## Gestión de Tokens
 
-### Header de Autenticación
+### Acceder al Gestor de Tokens
 
-Incluye tu token en el header `Authorization`:
+1. Navega a tu **Panel de Cuenta**
+2. Selecciona **API Tokens** en el menú lateral
+3. Verás una lista de todos tus tokens activos
 
-```bash
-curl -X POST https://api.meetzy.io/call \
-  -H "Authorization: Bearer TU_API_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"phone": "+1234567890", "playbook_id": "..."}'
-```
+El gestor de tokens muestra:
+- **Nombre del token**: Identificador descriptivo
+- **Token enmascarado**: Primeros caracteres visibles para identificación
+- **Fecha de expiración**: Cuándo expira el token
+- **Estado**: Activo o revocado
 
-### Ejemplos en Código
+### Crear un Nuevo Token
 
-<CodeGroup>
-```javascript Node.js
-const axios = require('axios');
+<Steps>
+<Step title="Abrir modal de creación">
+Haz clic en el botón **"New Token"** en la esquina superior derecha del gestor de tokens.
+</Step>
 
-const response = await axios.post('https://api.meetzy.io/call', {
-  phone: '+1234567890',
-  playbook_id: 'your-playbook-id'
-}, {
-  headers: {
-    'Authorization': `Bearer ${process.env.MEETZY_API_TOKEN}`,
-    'Content-Type': 'application/json'
-  }
-});
-```
+<Step title="Configurar el token">
+- **Nombre**: Asigna un nombre descriptivo (ej: "API Producción", "Webhook Desarrollo")
+- **Expiración**: Selecciona el período de validez:
+  - 30 días
+  - 90 días  
+  - 6 meses
+  - 1 año
+  - Sin expiración (4 años)
+</Step>
 
-```python Python
-import requests
-import os
+<Step title="Validación del nombre">
+El nombre del token debe:
+- Tener al menos 2 caracteres
+- Ser único en tu cuenta
+- Ser descriptivo para facilitar la gestión
+</Step>
 
-response = requests.post(
-    'https://api.meetzy.io/call',
-    json={
-        'phone': '+1234567890',
-        'playbook_id': 'your-playbook-id'
-    },
-    headers={
-        'Authorization': f'Bearer {os.environ["MEETZY_API_TOKEN"]}',
-        'Content-Type': 'application/json'
-    }
-)
-```
-</CodeGroup>
+<Step title="Crear y copiar">
+1. Haz clic en **"Create Token"**
+2. **Copia inmediatamente el token completo**
+3. Guárdalo en un lugar seguro
 
-## Copiando tu Token
+<Warning>
+El token completo solo se muestra una vez por seguridad. Si no lo copias ahora, tendrás que crear uno nuevo.
+</Warning>
+</Step>
+</Steps>
 
-1. Encuentra el token en tu lista
-2. Haz clic en el botón **Copy** junto al token
-3. El botón cambia a "Copied!" cuando es exitoso
-4. Pega el token en tu aplicación
+## Estado Después de la Creación
+
+Una vez creado exitosamente, verás:
+
+### Modal de Confirmación
+- ✅ **Icono de éxito** y nombre del token
+- ⚠️ **Advertencia de seguridad** destacada
+- 🔑 **Token completo** en formato copiable
+- 📋 **Botón "Copy"** que cambia a "Copied!" tras el clic
+
+### Información Importante
+- El token se agrega automáticamente a tu lista
+- El modal permanece abierto para que copies el valor
+- Puedes cerrar el modal haciendo clic fuera o en el botón cerrar
+
+## Revocar Tokens
+
+### Proceso de Revocación
+
+<Steps>
+<Step title="Identificar el token">
+En la lista de tokens, localiza el que deseas revocar.
+</Step>
+
+<Step title="Iniciar revocación">
+Haz clic en el **icono de papelera** (🗑️) que aparece al pasar el cursor sobre el token.
+</Step>
+
+<Step title="Confirmar acción">
+Se abrirá un modal de confirmación mostrando:
+- Nombre del token a revocar
+- Advertencia sobre la irreversibilidad
+- Botones "Cancel" y "Revoke Token"
+</Step>
+
+<Step title="Completar revocación">
+Haz clic en **"Revoke Token"** para confirmar. El token será eliminado inmediatamente.
+</Step>
+</Steps>
 
 <Info>
-Solo los primeros 40 caracteres se muestran por seguridad. La función de copiar copia el token completo.
+La revocación de tokens es **inmediata e irreversible**. Todas las solicitudes API que usen ese token fallarán instantáneamente.
 </Info>
 
-## Expiración del Token
+## Funciones de la Interfaz
 
-Los tokens tienen un período de expiración mostrado en la columna "Expires In":
+### Copiado Rápido
+- **Icono de copia** (📋) junto a cada token enmascarado
+- Feedback visual: el botón cambia a "Copied!" con ícono de check
+- Copia automática al portapapeles del sistema
 
-| Estado | Significado |
-|--------|-------------|
-| X días | Token expira en X días |
-| Expired | Token ya no funciona |
-| Never | Token no expira (no recomendado) |
+### Tokens Enmascarados
+Los tokens se muestran parcialmente para seguridad:
+```
+sk_live_abcdef123456789••••••••••••••••
+```
+- Primeros 24 caracteres visibles para identificación
+- Resto oculto con puntos para protección
 
-### Antes de la Expiración
+### Estados Visuales
+- **Punto verde**: Token activo
+- **Hover effects**: Resaltan las acciones disponibles
+- **Contador**: "X active token(s)" en el footer
 
-1. Genera un nuevo token
-2. Actualiza tus aplicaciones
-3. El token antiguo sigue funcionando hasta expirar
-4. Prueba con el nuevo token antes de que expire el antiguo
+## Estado Vacío
+
+Cuando no tienes tokens configurados:
+
+- **Ilustración central** con ícono de llave
+- **Mensaje guía**: "No tokens yet"
+- **Descripción**: Explica el propósito de los tokens
+- **CTA prominente**: "Create your first token"
 
 ## Mejores Prácticas
 
-<CardGroup cols={2}>
-  <Card title="Variables de Entorno" icon="gear">
-    Almacena tokens en variables de entorno, nunca en código.
-  </Card>
-  <Card title="Rota Regularmente" icon="arrows-rotate">
-    Genera nuevos tokens periódicamente por seguridad.
-  </Card>
-  <Card title="Permisos Mínimos" icon="shield-check">
-    Usa tokens solo donde sea necesario.
-  </Card>
-  <Card title="Monitorea Uso" icon="eye">
-    Rastrea llamadas API para detectar acceso no autorizado.
-  </Card>
-</CardGroup>
+<Info>
+**Gestión Segura de Tokens:**
+- Usa nombres descriptivos que indiquen el propósito
+- Establece fechas de expiración apropiadas
+- Revoca tokens no utilizados regularmente
+- Nunca hardcodees tokens en tu código fuente
+</Info>
 
-## Configuración de Variables de Entorno
+### Organización Recomendada
+- **Producción**: `api-prod-2024` - Sin expiración
+- **Desarrollo**: `api-dev-enero` - 90 días  
+- **Testing**: `api-test-temp` - 30 días
+- **Webhooks**: `webhook-payments` - 1 año
 
-<CodeGroup>
-```bash Linux/Mac
-export MEETZY_API_TOKEN="tu-token-aqui"
-```
+### Rotación de Tokens
+1. Crea un nuevo token antes de que expire el anterior
+2. Actualiza todas las integraciones con el nuevo token
+3. Verifica que funcionen correctamente
+4. Revoca el token anterior
 
-```powershell Windows
-$env:MEETZY_API_TOKEN="tu-token-aqui"
-```
-
-```env Archivo .env
-MEETZY_API_TOKEN=tu-token-aqui
-```
-</CodeGroup>
-
-## Permisos del Token
-
-Los tokens de API tienen acceso completo a tu cuenta, incluyendo:
-
-- ✅ Crear y gestionar llamadas
-- ✅ Acceder al historial y detalles de llamadas
-- ✅ Gestionar agentes (playbooks)
-- ✅ Acceder a datos del CRM
-- ✅ Ver analíticas
-
-<Note>
-El control granular de permisos llegará pronto. Actualmente, todos los tokens tienen acceso completo a la cuenta.
-</Note>
-
-## Solución de Problemas
-
-| Error | Solución |
-|-------|----------|
-| `401 Unauthorized` | Verifica que el token sea correcto y no haya expirado |
-| `403 Forbidden` | El token puede estar deshabilitado, contacta a soporte |
-| `Token not working` | Asegúrate de que no haya espacios extra al copiar |
-| `Rate limited` | Demasiadas peticiones, implementa backoff |
-
-## Si tu Token es Comprometido
-
-1. **Inmediatamente** ve a la página de API Tokens
-2. Contacta a soporte para deshabilitar el token
-3. Genera un nuevo token
-4. Actualiza todas las aplicaciones
-5. Revisa la actividad reciente de API para llamadas sospechosas
-
-## Crear Nuevos Tokens
-
-<Note>
-La creación de tokens actualmente es gestionada por soporte de Meetzy. Contáctanos para solicitar tokens adicionales.
-</Note>
-
-La futura creación self-service de tokens incluirá:
-
-- Nombres de token personalizados
-- Configuración de expiración
-- Alcances de permisos
-- Límites de uso
-
-## Siguientes Pasos
-
-<CardGroup cols={2}>
-  <Card title="API Reference" icon="book" href="/api-reference/introduction">
-    Aprende sobre los endpoints de API disponibles.
-  </Card>
-  <Card title="Crear una Llamada" icon="phone" href="/api-reference/endpoint/create">
-    Haz tu primera llamada a la API.
-  </Card>
-</CardGroup>
+El sistema te notificará cuando los tokens estén próximos a expirar para facilitar la rotación proactiva.
