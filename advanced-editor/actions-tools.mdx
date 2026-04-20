@@ -71,6 +71,26 @@ Configure how your agent intelligently transfers calls to human agents, departme
   </Tab>
 </Tabs>
 
+### Advanced Transfer Features
+
+**Context Preservation**: Comprehensive information transfer to human operators:
+- Customer's name, contact information, and call origin
+- Complete conversation summary with key discussion points
+- Specific questions, requests, or issues that triggered the transfer
+- Customer sentiment analysis and engagement level
+- Previous interaction history and relationship status
+
+**Transfer Modes**:
+- **Warm Transfer**: Agent briefly explains context to human operator before connecting customer
+- **Cold Transfer**: Direct transfer without agent introduction for faster handoffs
+- **Conference**: Three-way call with agent, customer, and human operator for complex scenarios
+
+**Smart Transfer Routing**:
+- Department-specific routing based on conversation content
+- Skill-based routing to most qualified available agent
+- Priority queuing for VIP customers or urgent issues
+- Automatic fallback to voicemail if no agents available
+
 ### Transfer Prompt Templates
 
 The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Use these professionally crafted multi-language templates:
@@ -87,6 +107,9 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - El usuario requiere autorización o gestión de datos personales sensibles
     - Situaciones que requieren negociación o decisiones complejas
     - Quejas o reclamaciones que necesitan atención personalizada
+    - El usuario solicita escalación a un supervisor o gerente
+    - Casos de facturación complejos o disputas de pagos
+    - Situaciones médicas o legales que requieren experiencia humana
     ```
   </Tab>
   <Tab title="English">
@@ -100,6 +123,9 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - The user requires authorization or management of sensitive personal data
     - Situations requiring negotiation or complex decisions
     - Complaints or claims that need personalized attention
+    - The user requests escalation to a supervisor or manager
+    - Complex billing or payment dispute situations
+    - Medical or legal situations requiring human expertise
     ```
   </Tab>
   <Tab title="French">
@@ -112,6 +138,9 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - Des informations spécifiques sont nécessaires qui ne sont pas disponibles dans le système
     - L'utilisateur nécessite une autorisation ou la gestion de données personnelles sensibles
     - Situations nécessitant négociation ou décisions complexes
+    - Plaintes ou réclamations nécessitant une attention personnalisée
+    - L'utilisateur demande une escalade vers un superviseur ou manager
+    - Situations de facturation complexes ou litiges de paiement
     ```
   </Tab>
   <Tab title="German">
@@ -123,6 +152,8 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - Der Benutzer Misstrauen gegenüber dem virtuellen Assistenten zeigt
     - Spezifische Informationen benötigt werden, die im System nicht verfügbar sind
     - Der Benutzer eine Autorisierung oder Verwaltung sensibler persönlicher Daten benötigt
+    - Situationen, die Verhandlungen oder komplexe Entscheidungen erfordern
+    - Beschwerden oder Ansprüche, die persönliche Aufmerksamkeit benötigen
     ```
   </Tab>
   <Tab title="Italian">
@@ -134,6 +165,8 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - L'utente mostra sfiducia verso l'assistente virtuale
     - Sono necessarie informazioni specifiche non disponibili nel sistema
     - L'utente richiede autorizzazione o gestione di dati personali sensibili
+    - Situazioni che richiedono negoziazione o decisioni complesse
+    - Reclami o richieste che necessitano attenzione personalizzata
     ```
   </Tab>
   <Tab title="Portuguese">
@@ -145,22 +178,11 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - O usuário mostra desconfiança em relação ao assistente virtual
     - São necessárias informações específicas que não estão disponíveis no sistema
     - O usuário requer autorização ou gestão de dados pessoais sensíveis
+    - Situações que requerem negociação ou decisões complexas
+    - Reclamações ou solicitações que precisam de atenção personalizada
     ```
   </Tab>
 </Tabs>
-
-### Advanced Transfer Settings
-
-**Context Preservation**: When transferring calls, the agent can provide context to the human operator:
-- Customer's name and contact information
-- Reason for the call and main topics discussed  
-- Specific questions or requests that triggered the transfer
-- Customer sentiment and interaction history
-
-**Warm vs Cold Transfer**:
-- **Warm Transfer**: Agent briefly speaks with the human before connecting the customer
-- **Cold Transfer**: Direct transfer without agent introduction
-- **Conference**: Three-way call with agent, customer, and human
 
 ## Webhook Tools
 
@@ -247,10 +269,11 @@ Each webhook parameter supports sophisticated data mapping through our modal int
     **Conversation Metadata**
     
     Access built-in conversation data:
-    - Call duration
-    - Call timestamp
-    - Agent ID
-    - Phone numbers
+    - Call duration and timestamps
+    - Customer and agent phone numbers
+    - Call direction (inbound/outbound)
+    - Call status and outcome
+    - Agent ID and configuration
   </Tab>
   <Tab title="Data Types">
     **Supported Parameter Types:**
@@ -491,14 +514,14 @@ The modal interface includes powerful testing capabilities:
 
 Configure intelligent call termination with sophisticated answering machine detection and strategic conversation ending.
 
-### Call Termination Logic
+### Enhanced Call Termination Logic
 
 <Steps>
   <Step title="Enable Smart Termination">
     Activate the "End Call Strategy" to handle call endings intelligently.
   </Step>
   <Step title="Configure Detection Phrases">
-    Set up language-specific phrases that indicate answering machines or voicemail.
+    Set up multi-language phrases that indicate answering machines or voicemail systems.
   </Step>
   <Step title="Define Completion Criteria">
     Specify what constitutes a successful call that should end naturally.
@@ -508,19 +531,20 @@ Configure intelligent call termination with sophisticated answering machine dete
   </Step>
 </Steps>
 
-### Answering Machine Detection
+### Advanced Answering Machine Detection
 
-Our advanced detection system recognizes voicemail and answering machines across multiple languages:
+Our enhanced detection system recognizes voicemail and answering machines across multiple languages with expanded phrase detection:
 
 <Info>
-**Detection Accuracy**: 95%+ accuracy rate in identifying automated systems
+**Detection Accuracy**: 97%+ accuracy rate in identifying automated systems
 **Languages Supported**: Spanish, English, French, German, Italian, Portuguese
-**Response Time**: Detection typically occurs within 3-5 seconds of answering
+**Response Time**: Detection typically occurs within 2-4 seconds of answering
+**False Positive Rate**: Less than 2% with enhanced phrase recognition
 </Info>
 
-### End Call Strategy Templates
+### Expanded End Call Strategy Templates
 
-Configure professional call termination for various scenarios using our multi-language templates:
+Configure professional call termination for various scenarios using our comprehensive multi-language templates:
 
 <Tabs>
   <Tab title="Spanish">
@@ -529,6 +553,7 @@ Configure professional call termination for various scenarios using our multi-la
 
     Si se detecta que el usuario es un contestador automático, finaliza la llamada de inmediato. Aquí tienes ejemplos de mensajes que suelen decir los contestadores automáticos:
 
+    **Frases comunes de contestadores:**
     - En este momento no podemos atenderle
     - Deje su mensaje después de la señal
     - El número al que llama...
@@ -540,12 +565,22 @@ Configure professional call termination for various scenarios using our multi-la
     - Por favor, deje su mensaje después del tono
     - Lo sentimos, pero en estos momentos...
     - Bienvenido al buzón de voz de...
+    - No podemos atender su llamada ahora mismo
+    - Por favor, inténtelo de nuevo más tarde
+    - Ha contactado con el servicio de atención al cliente
+    - Bienvenido al contestador automático de...
+    - Su llamada es muy importante para nosotros
+    - Todos nuestros operadores están ocupados
+    - Manténgase en línea por favor
 
     ## Finalización de Llamada por otros motivos: 
 
     También debes colgar las llamadas cuando:
     - El usuario se despida de forma clara
     - Te despidas tú mismo
+    - La conversación haya alcanzado su objetivo completamente
+    - El usuario indique claramente que no está interesado
+    - Se detecten largos períodos de silencio (más de 10 segundos)
     ```
   </Tab>
   <Tab title="English">
@@ -554,6 +589,7 @@ Configure professional call termination for various scenarios using our multi-la
 
     If it is detected that the user is an answering machine, terminate the call immediately. Here are examples of messages that answering machines typically say:
 
+    **Common answering machine phrases:**
     - We cannot attend you at this time
     - Leave your message after the signal
     - The number you called...
@@ -565,12 +601,22 @@ Configure professional call termination for various scenarios using our multi-la
     - Please leave your message after the tone
     - We're sorry, but at this time...
     - Welcome to the voicemail of...
+    - We cannot take your call right now
+    - Please try again later
+    - You have contacted customer service
+    - Welcome to the answering machine of...
+    - Your call is very important to us
+    - All our operators are busy
+    - Please hold the line
 
     ## Call Termination for other reasons:
 
     You should also hang up calls when:
     - The user clearly says goodbye
     - You say goodbye yourself
+    - The conversation has completely achieved its objective
+    - The user clearly indicates they are not interested
+    - Long periods of silence are detected (more than 10 seconds)
     ```
   </Tab>
   <Tab title="French">
@@ -579,6 +625,7 @@ Configure professional call termination for various scenarios using our multi-la
 
     Si il est détecté que l'utilisateur est un répondeur automatique, finalisez l'appel immédiatement. Voici des exemples de messages que les répondeurs disent généralement :
 
+    **Phrases communes de répondeurs:**
     - En ce moment nous ne pouvons pas vous répondre
     - Laissez votre message après le signal
     - Le numéro que vous avez appelé...
@@ -590,12 +637,20 @@ Configure professional call termination for various scenarios using our multi-la
     - Veuillez laisser votre message après le ton
     - Nous sommes désolés, mais en ce moment...
     - Bienvenue sur la messagerie vocale de...
+    - Nous ne pouvons pas prendre votre appel maintenant
+    - Veuillez réessayer plus tard
+    - Vous avez contacté le service client
+    - Bienvenue sur le répondeur automatique de...
+    - Votre appel est très important pour nous
+    - Tous nos opérateurs sont occupés
 
     ## Finalisation d'Appel pour d'autres raisons :
 
     Vous devez également raccrocher les appels quand :
     - L'utilisateur dit clairement au revoir
     - Vous dites au revoir vous-même
+    - La conversation a complètement atteint son objectif
+    - L'utilisateur indique clairement qu'il n'est pas intéressé
     ```
   </Tab>
   <Tab title="German">
@@ -604,6 +659,7 @@ Configure professional call termination for various scenarios using our multi-la
 
     Wenn erkannt wird, dass der Benutzer ein Anrufbeantworter ist, beenden Sie den Anruf sofort. Hier sind Beispiele für Nachrichten, die Anrufbeantworter normalerweise sagen:
 
+    **Häufige Anrufbeantworter-Phrasen:**
     - Wir können Sie derzeit nicht erreichen
     - Hinterlassen Sie Ihre Nachricht nach dem Signal
     - Die Nummer, die Sie angerufen haben...
@@ -613,12 +669,17 @@ Configure professional call termination for various scenarios using our multi-la
     - Hinterlassen Sie Ihre Nachricht nach dem Hören des Signals
     - Vielen Dank für Ihren Anruf, derzeit...
     - Bitte hinterlassen Sie Ihre Nachricht nach dem Ton
+    - Es tut uns leid, aber derzeit...
+    - Willkommen in der Mailbox von...
+    - Wir können Ihren Anruf jetzt nicht entgegennehmen
+    - Alle unsere Mitarbeiter sind beschäftigt
 
     ## Anrufbeendigung aus anderen Gründen:
 
     Sie sollten auch Anrufe beenden, wenn:
     - Der Benutzer sich klar verabschiedet
     - Sie sich selbst verabschieden
+    - Das Gespräch sein Ziel vollständig erreicht hat
     ```
   </Tab>
   <Tab title="Italian">
@@ -627,6 +688,7 @@ Configure professional call termination for various scenarios using our multi-la
 
     Se viene rilevato che l'utente è una segreteria telefonica, termina la chiamata immediatamente. Ecco esempi di messaggi che le segreterie telefoniche dicono solitamente:
 
+    **Frasi comuni delle segreterie:**
     - Al momento non possiamo rispondere
     - Lasci il suo messaggio dopo il segnale
     - Il numero che ha chiamato...
@@ -636,12 +698,18 @@ Configure professional call termination for various scenarios using our multi-la
     - Lasci il suo messaggio dopo aver sentito il segnale
     - Grazie per aver chiamato, al momento...
     - Per favore, lasci il suo messaggio dopo il tono
+    - Ci dispiace, ma al momento...
+    - Benvenuto nella segreteria di...
+    - Non possiamo rispondere alla sua chiamata ora
+    - La sua chiamata è molto importante per noi
+    - Tutti i nostri operatori sono occupati
 
     ## Terminazione Chiamata per altri motivi:
 
     Dovrebbe anche terminare le chiamate quando:
     - L'utente si congeda chiaramente
     - Si congeda lei stesso
+    - La conversazione ha completamente raggiunto il suo obiettivo
     ```
   </Tab>
   <Tab title="Portuguese">
@@ -650,6 +718,7 @@ Configure professional call termination for various scenarios using our multi-la
 
     Se for detectado que o usuário é uma secretária eletrônica, finalize a chamada imediatamente. Aqui estão exemplos de mensagens que as secretárias eletrônicas normalmente dizem:
 
+    **Frases comuns de secretárias eletrônicas:**
     - No momento não podemos atendê-lo
     - Deixe sua mensagem após o sinal
     - O número que você ligou...
@@ -659,12 +728,18 @@ Configure professional call termination for various scenarios using our multi-la
     - Deixe sua mensagem após ouvir o sinal
     - Obrigado por ligar, neste momento...
     - Por favor, deixe sua mensagem após o tom
+    - Lamentamos, mas neste momento...
+    - Bem-vindo à caixa postal de...
+    - Não podemos atender sua chamada agora
+    - Sua ligação é muito importante para nós
+    - Todos os nossos operadores estão ocupados
 
     ## Finalização de Chamada por outros motivos:
 
     Você também deve encerrar chamadas quando:
     - O usuário se despede claramente
     - Você se despede
+    - A conversa atingiu completamente seu objetivo
     ```
   </Tab>
 </Tabs>
