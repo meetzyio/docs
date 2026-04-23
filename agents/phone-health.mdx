@@ -7,9 +7,29 @@ description: 'Monitor your phone numbers health and avoid being marked as spam'
 
 **Phone Health** is a monitoring system that analyzes the reputation of phone numbers assigned to your agents. It helps you identify numbers being marked as spam and take preventive action.
 
-<Note>
-  Numbers marked as spam have significantly lower answer rates. Keeping numbers "healthy" is crucial for campaign success.
-</Note>
+<Info>
+Numbers marked as spam have significantly lower answer rates. Keeping numbers "healthy" is crucial for campaign success.
+</Info>
+
+## Understanding Number Types
+
+Your agents can use two types of phone numbers for outbound calls:
+
+### Twilio Numbers
+- **Owned by Meetzy**: Numbers from our Twilio inventory
+- **Badge**: Show "Twilio" badge in the health report
+- **Management**: Can be swapped automatically for new numbers
+- **Billing**: Included in your Meetzy subscription
+
+### Caller IDs (Verified Numbers)
+- **Client-owned**: Your own phone numbers verified through Twilio
+- **Badge**: Show "Caller ID" badge in the health report  
+- **Management**: Can be disconnected but not automatically swapped
+- **Purpose**: Use your existing business numbers for outbound calls
+
+<Warning>
+Some agents may operate exclusively with Caller IDs and have no Twilio numbers assigned. These agents can only make outbound calls using verified client numbers.
+</Warning>
 
 ## Phone Health Indicator
 
@@ -30,19 +50,27 @@ The number on the badge indicates how many numbers have spam issues.
 
 To view the detailed report:
 
-1. Find the agent in the list
-2. Click the **signal/antenna icon** next to the name
-3. The **Phone Health Report** modal opens
+<Steps>
+  <Step title="Locate the agent">
+    Find the agent in the list
+  </Step>
+  <Step title="Click health indicator">
+    Click the **signal/antenna icon** next to the agent name
+  </Step>
+  <Step title="Review report">
+    The **Phone Health Report** modal opens with detailed analysis
+  </Step>
+</Steps>
 
 ## Report Content
 
-### Summary
+### Summary Dashboard
 
 The report shows three main metrics:
 
 | Metric | Description |
 |--------|-------------|
-| **Total Numbers** | Number of numbers assigned to the agent |
+| **Total Numbers** | All numbers assigned to the agent (Twilio + Caller IDs) |
 | **Healthy Numbers** | Numbers without spam issues |
 | **Spam Numbers** | Numbers with high spam ratio |
 
@@ -54,20 +82,22 @@ Spam Threshold: Numbers with ≥50% spam ratio are considered problematic
 
 A number is considered "spam" when more than 50% of its calls are marked or reported as spam.
 
-### Detailed Analysis
+### Detailed Analysis Table
 
-The table shows each number with:
+Each number in the table shows:
 
 | Column | Description |
 |--------|-------------|
-| **Phone Number** | The phone number |
+| **Phone Number** | The phone number with type badge |
+| **Type Badge** | "Twilio" or "Caller ID" indicator |
 | **Status** | Healthy, Warning, or Spam |
-| **Total Calls** | Total calls made |
+| **Total Calls** | Total calls made from this number |
 | **Spam Calls** | Calls marked as spam |
 | **Completed Calls** | Successfully completed calls |
-| **Spam Ratio** | Spam percentage (with visual bar) |
+| **Spam Ratio** | Spam percentage with visual bar |
+| **Actions** | Available management options |
 
-### Number Statuses
+### Number Status Types
 
 | Status | Spam Ratio | Description |
 |--------|------------|-------------|
@@ -77,31 +107,65 @@ The table shows each number with:
 
 ## Available Actions
 
-### Swap Number
+### For Twilio Numbers
 
-For numbers with **Warning** or **Spam** status, you can swap them for a new number:
+#### Swap Number
+Replace a problematic Twilio number with a fresh one:
 
-1. Click the **Swap** button next to the number
-2. The system finds an available number
-3. Confirm the swap
-4. The old number is automatically unlinked
+<Steps>
+  <Step title="Identify number">
+    Find a number with **Warning** or **Spam** status
+  </Step>
+  <Step title="Click Swap">
+    Click the **Swap** button next to the number
+  </Step>
+  <Step title="Confirm replacement">
+    The system automatically finds and assigns a new number
+  </Step>
+  <Step title="Complete swap">
+    The old number is marked as "RETURN" and unlinked
+  </Step>
+</Steps>
 
 <Warning>
-  The old number will be marked as "RETURN" and will no longer be used by this agent.
+The old number will no longer be used by this agent after swapping.
 </Warning>
 
-### Disconnect Number
+#### Disconnect Number
+Remove a Twilio number without replacing it:
 
-To remove a number without replacing it:
+<Steps>
+  <Step title="Click Disconnect">
+    Click the **Disconnect** button next to the number
+  </Step>
+  <Step title="Confirm action">
+    Confirm the disconnection
+  </Step>
+  <Step title="Number released">
+    The number becomes available for other agents
+  </Step>
+</Steps>
 
-1. Click the **Disconnect** button
-2. Confirm the action
-3. The number remains available but unassigned
+### For Caller IDs (Verified Numbers)
 
-Use this option when:
-- You want to reduce the agent's number count
-- The number has severe issues
-- You'll request a new number manually
+#### Disconnect Only
+Caller IDs can only be disconnected (not swapped):
+
+<Steps>
+  <Step title="Click Disconnect">
+    Click the **Disconnect** button next to the Caller ID
+  </Step>
+  <Step title="Confirm removal">
+    Confirm the disconnection
+  </Step>
+  <Step title="Manual replacement">
+    To replace, manually verify a new Caller ID in agent settings
+  </Step>
+</Steps>
+
+<Info>
+Caller IDs are client-owned numbers and cannot be automatically replaced. You must verify new numbers manually if needed.
+</Info>
 
 ## Best Practices
 
@@ -109,27 +173,52 @@ Use this option when:
 
 <Steps>
   <Step title="Monitor regularly">
-    Check Phone Health at least once a week.
+    Check Phone Health at least once a week
   </Step>
   <Step title="Act early">
-    Swap numbers when they reach "Warning" (50%), don't wait for "Spam" (70%).
+    Swap Twilio numbers when they reach "Warning" (50%), don't wait for "Spam" (70%)
   </Step>
   <Step title="Distribute load">
-    If making many calls, use multiple numbers to distribute volume.
+    Use multiple numbers for high-volume campaigns
   </Step>
   <Step title="Respect schedules">
-    Avoid calling at inappropriate times that generate more spam reports.
+    Avoid calling at inappropriate times that generate more spam reports
+  </Step>
+  <Step title="Manage Caller IDs">
+    Monitor verified numbers and disconnect problematic ones promptly
   </Step>
 </Steps>
 
 ### Warning Signs
 
-Watch for:
+Watch for these indicators:
 
-- Declining answer rates
-- Calls ending very quickly
+- Declining answer rates across campaigns
+- Calls ending very quickly (under 3 seconds)
 - Sudden increase in spam ratio
-- Customers mentioning they blocked the number
+- Customer complaints about blocked numbers
+- Poor performance from newly verified Caller IDs
+
+## Mixed Number Strategy
+
+For optimal performance, consider using both number types:
+
+<Tabs>
+  <Tab title="Twilio Numbers">
+    **Best for:**
+    - High-volume calling
+    - Testing campaigns
+    - Automated number rotation
+    - Quick replacement when marked as spam
+  </Tab>
+  <Tab title="Caller IDs">
+    **Best for:**
+    - Brand recognition
+    - Important client calls
+    - Local presence
+    - Regulatory compliance
+  </Tab>
+</Tabs>
 
 ## How Spam Ratio is Calculated
 
@@ -140,9 +229,10 @@ Spam Ratio = (Spam Calls / Total Calls) × 100
 Calls are classified as "spam" based on:
 
 - Direct user reports to carriers
-- Public spam databases
+- Public spam databases  
 - Extremely short duration (< 3 seconds)
 - Systematic rejection patterns
+- Carrier-level blocking
 
 ## Top Performer Number
 
@@ -152,22 +242,33 @@ In the report, the best-performing number is marked with:
 🏆 Top Performer
 ```
 
-This is the recommended number to prioritize for important calls, as it has the best completion history.
+This number has the best completion history and should be prioritized for important calls.
 
 ## FAQ
 
 <AccordionGroup>
+  <Accordion title="Can I swap a Caller ID like a Twilio number?">
+    No, Caller IDs are client-owned and cannot be automatically swapped. You can only disconnect them and manually verify new ones if needed.
+  </Accordion>
+  
+  <Accordion title="Why does my agent only have Caller IDs?">
+    Some agents are configured to use only verified client numbers for outbound calls. This is common for compliance or branding requirements.
+  </Accordion>
+  
   <Accordion title="How often is Phone Health updated?">
     Data is updated every hour. The indicator in the agents list reflects the latest available analysis.
   </Accordion>
-  <Accordion title="Can I recover a number after swapping?">
+  
+  <Accordion title="Can I recover a Twilio number after swapping?">
     Not automatically. Once swapped, the number is unlinked. Contact support if you need to recover it.
   </Accordion>
-  <Accordion title="What happens to active calls during a Swap?">
-    Active calls are not interrupted. The change applies only to new calls.
+  
+  <Accordion title="What happens to active calls during actions?">
+    Active calls are not interrupted. Changes apply only to new calls.
   </Accordion>
-  <Accordion title="Why does my new number already have spam?">
-    New numbers may inherit history from previous owners. If this happens, contact support.
+  
+  <Accordion title="Why does my new Caller ID already have spam history?">
+    Verified numbers may inherit reputation from previous usage. Monitor new Caller IDs closely and disconnect if problematic.
   </Accordion>
 </AccordionGroup>
 
@@ -175,7 +276,7 @@ This is the recommended number to prioritize for important calls, as it has the 
 
 <CardGroup cols={2}>
   <Card title="Configure Numbers" icon="phone" href="/agents/phone-numbers">
-    Learn to assign and manage phone numbers.
+    Learn to assign and manage phone numbers and Caller IDs.
   </Card>
   <Card title="Manage Agents" icon="list" href="/agents/manage-agents">
     View and organize your agents.

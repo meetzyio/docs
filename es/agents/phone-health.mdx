@@ -7,9 +7,23 @@ description: 'Monitorea la salud de tus números telefónicos y evita que sean m
 
 **Phone Health** es un sistema de monitoreo que analiza la reputación de los números de teléfono asignados a tus agentes. Te ayuda a identificar números que están siendo marcados como spam y a tomar acciones preventivas.
 
-<Note>
-  Los números marcados como spam tienen tasas de respuesta significativamente menores. Mantener números "sanos" es crucial para el éxito de tus campañas.
-</Note>
+<Info>
+Los números marcados como spam tienen tasas de respuesta significativamente menores. Mantener números "sanos" es crucial para el éxito de tus campañas.
+</Info>
+
+## Tipos de Números
+
+Tu agente puede usar dos tipos de números telefónicos:
+
+### Números de Inventario (Twilio)
+Números administrados por Meetzy desde el inventario de Twilio. Estos números se asignan automáticamente y pueden intercambiarse libremente.
+
+### Caller IDs Verificados
+Números de tu propiedad que has verificado para usar como identificador de llamada. Estos números aparecen con un **badge azul** distintivo en el reporte.
+
+<Warning>
+Los Caller IDs son números de tu propiedad. Al desconectarlos se eliminarán de tu agente, pero seguirán siendo tuyos.
+</Warning>
 
 ## Indicador de Phone Health
 
@@ -30,9 +44,17 @@ El número en el badge indica cuántos números tienen problemas de spam.
 
 Para ver el reporte detallado:
 
-1. Encuentra el agente en la lista
-2. Haz clic en el icono de **señal/antena** junto al nombre
-3. Se abre el modal de **Phone Health Report**
+<Steps>
+  <Step title="Localizar el agente">
+    Encuentra el agente en la lista de agentes
+  </Step>
+  <Step title="Abrir el reporte">
+    Haz clic en el icono de **señal/antena** junto al nombre del agente
+  </Step>
+  <Step title="Analizar datos">
+    Se abre el modal de **Phone Health Report** con información detallada
+  </Step>
+</Steps>
 
 ## Contenido del Reporte
 
@@ -42,9 +64,9 @@ El reporte muestra tres métricas principales:
 
 | Métrica | Descripción |
 |---------|-------------|
-| **Total Numbers** | Cantidad de números asignados al agente |
-| **Healthy Numbers** | Números sin problemas de spam |
-| **Spam Numbers** | Números con ratio de spam alto |
+| **Total Numbers** | Cantidad total de números asignados al agente |
+| **Healthy Numbers** | Números sin problemas de spam detectados |
+| **Spam Numbers** | Números con ratio de spam alto (≥50%) |
 
 ### Umbral de Spam
 
@@ -56,69 +78,131 @@ Un número se considera "spam" cuando más del 50% de sus llamadas son marcadas 
 
 ### Análisis Detallado
 
-La tabla muestra cada número con:
+La tabla muestra cada número con información completa:
 
 | Columna | Descripción |
 |---------|-------------|
-| **Phone Number** | El número de teléfono |
-| **Status** | Healthy, Warning o Spam |
-| **Total Calls** | Total de llamadas realizadas |
+| **Phone Number** | El número de teléfono con badge si es Caller ID |
+| **Status** | Healthy, Warning o Spam según el ratio |
+| **Total Calls** | Total de llamadas realizadas con este número |
 | **Spam Calls** | Llamadas marcadas como spam |
 | **Completed Calls** | Llamadas completadas exitosamente |
-| **Spam Ratio** | Porcentaje de spam (con barra visual) |
+| **Spam Ratio** | Porcentaje de spam con barra visual |
 
 ### Estados de los Números
 
 | Estado | Spam Ratio | Descripción |
 |--------|------------|-------------|
-| 🟢 **Healthy** | Menos de 50% | El número funciona bien |
-| 🟡 **Warning** | 50% - 70% | Toma acción preventiva |
-| 🔴 **Spam** | Más de 70% | El número debe ser reemplazado |
+| 🟢 **Healthy** | Menos de 50% | El número funciona correctamente |
+| 🟡 **Warning** | 50% - 70% | Toma acción preventiva pronto |
+| 🔴 **Spam** | Más de 70% | El número debe ser reemplazado urgentemente |
+
+### Badges de Identificación
+
+Los números aparecen con badges distintivos:
+
+- **🔵 Caller ID**: Números verificados de tu propiedad
+- **🏆 Top Performer**: El número con mejor rendimiento del agente
 
 ## Acciones Disponibles
 
-### Intercambiar Número (Swap)
+Las acciones disponibles dependen del tipo de número:
 
-Para números con estado **Warning** o **Spam**, puedes intercambiarlos por un número nuevo:
+### Para Números de Inventario (Twilio)
 
-1. Haz clic en el botón **Swap** junto al número
-2. El sistema busca un número disponible
-3. Confirma el intercambio
-4. El número antiguo se desvincula automáticamente
+#### Intercambiar Número (Swap)
+Para números con estado **Warning** o **Spam**:
+
+<Steps>
+  <Step title="Iniciar intercambio">
+    Haz clic en el botón **Swap** junto al número problemático
+  </Step>
+  <Step title="Selección automática">
+    El sistema busca y asigna automáticamente un número disponible
+  </Step>
+  <Step title="Confirmación">
+    Confirma el intercambio para completar el proceso
+  </Step>
+</Steps>
 
 <Warning>
-  El número antiguo será marcado como "DEVOLVER" y ya no se usará para este agente.
+El número antiguo será marcado como "DEVOLVER" y no se usará más para este agente. El cambio es inmediato.
 </Warning>
 
-### Desconectar Número
-
+#### Desconectar Número
 Para eliminar un número sin reemplazarlo:
 
-1. Haz clic en el botón **Disconnect**
-2. Confirma la acción
-3. El número queda disponible pero no asignado
+<Steps>
+  <Step title="Iniciar desconexión">
+    Haz clic en el botón **Disconnect** junto al número
+  </Step>
+  <Step title="Confirmar acción">
+    Confirma la desconexión del número
+  </Step>
+  <Step title="Completar">
+    El número queda disponible en el inventario pero no asignado
+  </Step>
+</Steps>
 
-Usa esta opción cuando:
-- Quieres reducir la cantidad de números del agente
-- El número tiene problemas graves
-- Vas a solicitar un número nuevo manualmente
+### Para Caller IDs Verificados
+
+#### Solo Desconectar
+Los Caller IDs verificados solo pueden desconectarse, no intercambiarse:
+
+- **Desconectar**: Elimina el Caller ID de tu agente
+- **No Swap**: Los Caller IDs no pueden intercambiarse automáticamente
+
+<Info>
+Los Caller IDs son tus números personales verificados. Solo pueden desconectarse del agente, pero siguen siendo de tu propiedad.
+</Info>
+
+## Agentes Solo con Caller IDs
+
+Si tu agente usa **exclusivamente** Caller IDs verificados:
+
+### Características Especiales
+
+- **Solo números verificados**: No hay números de inventario Twilio
+- **Control total**: Todos los números son de tu propiedad
+- **Sin intercambios automáticos**: Los Caller IDs no se pueden intercambiar
+- **Gestión manual**: Debes agregar/quitar Caller IDs manualmente
+
+### Acciones Recomendadas
+
+<Steps>
+  <Step title="Monitorear regularmente">
+    Revisa Phone Health frecuentemente para números problemáticos
+  </Step>
+  <Step title="Desconectar números spam">
+    Desconecta Caller IDs con ratio alto de spam
+  </Step>
+  <Step title="Agregar números nuevos">
+    Verifica y agrega nuevos Caller IDs para reemplazar los problemáticos
+  </Step>
+  <Step title="Distribuir carga">
+    Usa múltiples Caller IDs para distribuir el volumen de llamadas
+  </Step>
+</Steps>
 
 ## Mejores Prácticas
 
 ### Prevenir el Spam
 
 <Steps>
-  <Step title="Monitorea regularmente">
-    Revisa Phone Health al menos una vez por semana.
+  <Step title="Monitoreo regular">
+    Revisa Phone Health al menos una vez por semana
   </Step>
-  <Step title="Actúa temprano">
-    Intercambia números cuando lleguen a "Warning" (50%), no esperes a "Spam" (70%).
+  <Step title="Acción temprana">
+    Actúa cuando lleguen a "Warning" (50%), no esperes a "Spam" (70%)
   </Step>
-  <Step title="Distribuye la carga">
-    Si haces muchas llamadas, usa múltiples números para distribuir el volumen.
+  <Step title="Distribuir volumen">
+    Usa múltiples números para distribuir la carga de llamadas
   </Step>
-  <Step title="Respeta horarios">
-    Evita llamar en horarios inapropiados que generen más reportes de spam.
+  <Step title="Horarios apropiados">
+    Evita llamar en horarios que generen más reportes de spam
+  </Step>
+  <Step title="Gestión de Caller IDs">
+    Mantén varios Caller IDs verificados como respaldo
   </Step>
 </Steps>
 
@@ -126,23 +210,51 @@ Usa esta opción cuando:
 
 Presta atención si notas:
 
-- Caída en tasas de respuesta
-- Llamadas que terminan muy rápido
+- Caída súbita en tasas de respuesta
+- Llamadas que terminan muy rápido (< 3 segundos)
 - Aumento súbito en el spam ratio
-- Clientes que mencionan haber bloqueado el número
+- Clientes que mencionan números bloqueados
+- Badge de spam en el dashboard
+
+## Estrategias por Tipo de Agente
+
+### Agentes Híbridos (Inventario + Caller IDs)
+
+<Tabs>
+  <Tab title="Números de Inventario">
+    - Usa **Swap** para números problemáticos
+    - Intercambia automáticamente cuando sea necesario
+    - Mantén un pool de números rotativos
+  </Tab>
+  <Tab title="Caller IDs">
+    - Desconecta números con spam alto
+    - Verifica nuevos números como reemplazo
+    - Prioriza Caller IDs para llamadas importantes
+  </Tab>
+</Tabs>
+
+### Agentes Solo Caller IDs
+
+- **Preparación**: Mantén múltiples Caller IDs verificados
+- **Rotación**: Cambia entre Caller IDs para distribuir carga
+- **Reemplazo**: Ten números nuevos listos para verificar
+- **Monitoreo**: Revisa spam ratio más frecuentemente
 
 ## Cómo se Calcula el Spam Ratio
 
-```
+```javascript
 Spam Ratio = (Spam Calls / Total Calls) × 100
 ```
 
+### Criterios de Clasificación
+
 Las llamadas se clasifican como "spam" basándose en:
 
-- Reportes directos de usuarios a operadores
-- Bases de datos de spam públicas
-- Duración extremadamente corta (< 3 segundos)
-- Patrones de rechazo sistemático
+- **Reportes directos** de usuarios a operadores telefónicos
+- **Bases de datos** de spam públicas y privadas
+- **Duración extrema** (< 3 segundos indica rechazo inmediato)
+- **Patrones de rechazo** sistemático del destinatario
+- **Listas negras** de números conocidos
 
 ## El Número "Top Performer"
 
@@ -152,32 +264,56 @@ En el reporte, el número con mejor rendimiento se marca con:
 🏆 Top Performer
 ```
 
-Este es el número recomendado para priorizar en llamadas importantes, ya que tiene el mejor historial de completación.
+**Criterios de selección:**
+- Menor ratio de spam
+- Mayor cantidad de llamadas completadas
+- Mejor tasa de respuesta general
+
+Este número es recomendado para priorizar en llamadas importantes.
 
 ## Preguntas Frecuentes
 
 <AccordionGroup>
-  <Accordion title="¿Cada cuánto se actualiza el Phone Health?">
+  <Accordion title="¿Cada cuánto se actualiza Phone Health?">
     Los datos se actualizan cada hora. El indicador en la lista de agentes refleja el último análisis disponible.
   </Accordion>
+  
   <Accordion title="¿Puedo recuperar un número después de intercambiarlo?">
-    No automáticamente. Una vez intercambiado, el número se desvincula. Contacta a soporte si necesitas recuperarlo.
+    **Números de inventario**: No automáticamente. Contacta a soporte si necesitas recuperarlo.  
+    **Caller IDs**: Puedes reconectarlos en cualquier momento desde la configuración.
   </Accordion>
+  
   <Accordion title="¿Qué pasa con las llamadas activas durante un Swap?">
-    Las llamadas activas no se interrumpen. El cambio aplica solo a nuevas llamadas.
+    Las llamadas activas no se interrumpen. El cambio de número aplica solo a nuevas llamadas salientes.
   </Accordion>
+  
   <Accordion title="¿Por qué mi número nuevo ya tiene spam?">
-    Los números nuevos pueden heredar historial del dueño anterior. Si esto ocurre, contacta a soporte.
+    Los números pueden heredar historial del propietario anterior. Si esto ocurre frecuentemente, contacta a soporte para solicitar números "limpios".
+  </Accordion>
+  
+  <Accordion title="¿Qué diferencia hay entre Caller ID y número de inventario?">
+    **Caller IDs**: Números de tu propiedad que has verificado. Aparecen con badge azul.  
+    **Inventario**: Números administrados por Meetzy que se pueden intercambiar libremente.
+  </Accordion>
+  
+  <Accordion title="¿Puedo usar solo Caller IDs en mi agente?">
+    Sí, puedes configurar agentes que usen exclusivamente tus Caller IDs verificados. Esto te da control total pero requiere gestión manual.
   </Accordion>
 </AccordionGroup>
 
 ## Siguientes Pasos
 
 <CardGroup cols={2}>
-  <Card title="Configurar Números" icon="phone" href="/es/agents/phone-numbers">
-    Aprende a asignar y gestionar números de teléfono.
+  <Card title="Configurar Caller IDs" icon="shield-check" href="/es/agents/caller-ids">
+    Aprende a verificar y gestionar tus números personales.
   </Card>
-  <Card title="Gestionar Agentes" icon="list" href="/es/agents/manage-agents">
-    Ve y organiza tus agentes.
+  <Card title="Gestionar Números" icon="phone" href="/es/agents/phone-numbers">
+    Administra la asignación de números de inventario.
+  </Card>
+  <Card title="Configurar Agentes" icon="robot" href="/es/agents/manage-agents">
+    Configura y optimiza tus agentes de llamadas.
+  </Card>
+  <Card title="Métricas de Llamadas" icon="chart-line" href="/es/analytics/call-metrics">
+    Analiza el rendimiento de tus campañas telefónicas.
   </Card>
 </CardGroup>

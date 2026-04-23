@@ -16,6 +16,41 @@ Each Meetzy agent needs at least one phone number to:
   Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
 </Info>
 
+## Phone Number Types
+
+Meetzy supports two types of phone numbers for your agents:
+
+### Twilio Phone Numbers
+Standard phone numbers managed through your Twilio account:
+- Automatically provisioned and configured
+- Support both inbound and outbound calls
+- Can be swapped and reassigned automatically
+- Managed through Meetzy's interface
+
+### Verified Caller IDs
+Client-owned phone numbers verified for outbound calling:
+- Numbers you already own and want to use as caller ID
+- Must be verified through Twilio's verification process
+- Appear with a special verification badge in the interface
+- Cannot be swapped automatically (manual process required)
+
+<Warning>
+  Caller IDs are for outbound calling only and cannot be automatically rotated like Twilio numbers. They require manual management for spam protection.
+</Warning>
+
+## Visual Identification
+
+In the Meetzy interface, you can distinguish between phone number types:
+
+| Type | Visual Indicator | Description |
+|------|------------------|-------------|
+| **Twilio Number** | Standard format with swap controls | Fully managed by Meetzy |
+| **Verified Caller ID** | 🔒 Lock icon with verification badge | Client-owned verified number |
+
+<Info>
+  Verified Caller IDs show verification status badges (pending, verified, disabled) to help you track their state.
+</Info>
+
 ## Multi-Subaccount Phone Number Management
 
 Meetzy now supports managing phone numbers across multiple Twilio subaccounts with enhanced assignment states and improved management features.
@@ -205,6 +240,47 @@ Phone number assigned to this agent
   The phone number cannot be changed directly once assigned. To change it, use the Swap function from Phone Health.
 </Warning>
 
+## Caller ID Management
+
+Verified Caller IDs provide additional flexibility for outbound calling with your own phone numbers.
+
+### Adding a Caller ID
+
+<Steps>
+  <Step title="Navigate to Agent Settings">
+    Open the agent configuration in the Advanced Editor.
+  </Step>
+  <Step title="Add Caller ID">
+    In the Caller IDs section, enter your phone number.
+  </Step>
+  <Step title="Start Verification">
+    Twilio will initiate the verification process.
+  </Step>
+  <Step title="Complete Verification">
+    Follow the verification steps provided by Twilio.
+  </Step>
+</Steps>
+
+### Caller ID Limitations
+
+<Warning>
+  Verified Caller IDs have specific limitations compared to Twilio numbers:
+  - Cannot be automatically swapped for spam protection
+  - Require manual management if flagged
+  - Only support outbound calls as caller ID
+  - Must be verified through Twilio's process
+</Warning>
+
+### Managing Caller ID Status
+
+Caller IDs can have different verification states:
+
+| Status | Description | Actions Available |
+|--------|-------------|-------------------|
+| **Pending** | Verification in progress | Complete verification process |
+| **Verified** | Ready for use | Use for outbound calls |
+| **Disabled** | Verification failed or revoked | Re-verify or remove |
+
 ## Multiple Numbers per Agent
 
 An agent can have multiple assigned numbers. This is useful for:
@@ -246,6 +322,10 @@ You can swap a problematic number for a new one from the Phone Health report:
 1. **Old number** is unlinked and marked for return
 2. **New number** is assigned with **assigned** status
 3. Assignment states are updated in real-time
+
+<Info>
+  Only Twilio numbers can be swapped automatically. Verified Caller IDs must be managed manually.
+</Info>
 
 ## Disconnect a Number
 
@@ -316,6 +396,15 @@ For high-volume campaigns:
 3. Monitor Phone Health regularly
 4. Swap numbers before they reach "Spam" status
 
+### Caller ID Strategy
+
+For verified Caller IDs:
+
+1. Use for brand recognition and customer trust
+2. Monitor spam reports manually
+3. Have backup Twilio numbers ready
+4. Keep verification status current
+
 ### Subaccount Organization
 
 - Use the main account for primary business numbers
@@ -327,6 +416,15 @@ For high-volume campaigns:
 ## FAQ
 
 <AccordionGroup>
+  <Accordion title="What's the difference between Twilio numbers and Caller IDs?">
+    **Twilio numbers** are fully managed by Meetzy and can be automatically swapped. **Verified Caller IDs** are your own phone numbers that require verification and manual management.
+  </Accordion>
+  <Accordion title="Can Caller IDs be swapped automatically?">
+    No, verified Caller IDs cannot be swapped automatically like Twilio numbers. They require manual management if they become flagged for spam.
+  </Accordion>
+  <Accordion title="How do I identify Caller IDs in the interface?">
+    Caller IDs appear with a 🔒 lock icon and verification status badge, while Twilio numbers show standard management controls.
+  </Accordion>
   <Accordion title="What's the difference between reset and return?">
     **Reset** clears a number's configuration but keeps it in your account as unassigned. **Return** completely removes the number from your account and returns it to Twilio's pool.
   </Accordion>

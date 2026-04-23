@@ -16,6 +16,54 @@ Cada agente de Meetzy necesita al menos un número de teléfono para:
   Los números de teléfono son recursos exclusivos. Cada número solo puede estar asignado a un agente a la vez.
 </Info>
 
+## Tipos de Números de Teléfono
+
+Meetzy soporta dos tipos de números telefónicos:
+
+### Números Twilio (Propiedad de Meetzy)
+
+- **Administrados por Meetzy**: Números comprados y gestionados por la plataforma
+- **Uso ilimitado**: Sin restricciones de volumen de llamadas
+- **Intercambio automático**: Disponibles para función de swap automático
+- **Indicador visual**: Aparecen sin marcadores especiales en la interfaz
+
+### Caller IDs Verificados (Propiedad del Cliente)
+
+- **Números del cliente**: Números telefónicos propios verificados por Twilio
+- **Mayor confianza**: Los destinatarios reconocen números conocidos
+- **Control total**: El cliente mantiene la propiedad y control del número
+- **Indicador visual**: Aparecen marcados como **"(verified)"** en la interfaz
+
+<Tabs>
+  <Tab title="Números Twilio">
+    ```
+    +34 612 345 678 (Equipo de Ventas)
+    ✅ Disponible para swap
+    ✅ Sin límites de uso
+    ✅ Gestión automática
+    ```
+  </Tab>
+  <Tab title="Caller IDs Verificados">
+    ```
+    +34 987 654 321 (verified) (Línea Principal)
+    🔒 Propiedad del cliente
+    📞 Número conocido por destinatarios
+    ⚠️ No disponible para swap automático
+    ```
+  </Tab>
+</Tabs>
+
+### Diferencias Operativas
+
+| Aspecto | Números Twilio | Caller IDs Verificados |
+|---------|----------------|------------------------|
+| **Propiedad** | Meetzy | Cliente |
+| **Función Swap** | ✅ Disponible | ❌ No disponible |
+| **Volumen** | Sin límites | Sin límites |
+| **Identificación** | Número genérico | Número conocido |
+| **Gestión** | Automática | Manual por cliente |
+| **Desconexión** | Devuelve al pool | Elimina de la lista |
+
 ## Gestión de Subcuentas de Twilio
 
 Meetzy soporta el uso de **subcuentas de Twilio** para organizar mejor tus números y facturación. Esto te permite:
@@ -52,6 +100,8 @@ Al crear un nuevo agente en el Editor Avanzado:
   </Step>
   <Step title="Seleccionar Número">
     En el campo **Phone Number**, selecciona un número disponible del dropdown.
+    - Los números Twilio aparecen sin marcadores
+    - Los Caller IDs verificados aparecen con "(verified)"
   </Step>
   <Step title="Confirmar Asignación">
     El número quedará asignado exclusivamente a este agente.
@@ -70,19 +120,30 @@ All numbers are assigned or configured.
 **Opciones disponibles:**
 - **Liberar un número** de otro agente
 - **Solicitar nuevos números** mediante el enlace "Request more numbers"
+- **Verificar caller IDs** propios a través del proceso de verificación
 - **Cambiar de subcuenta** si tienes acceso a otras con números disponibles
 
 ## Ver Números Asignados
 
 Una vez asignado, el número aparece en modo solo lectura:
 
-```
-Phone Number: +34 612 345 678 (Equipo de Ventas) 🔒
-Phone number assigned to this agent
-```
+<Tabs>
+  <Tab title="Número Twilio">
+    ```
+    Phone Number: +34 612 345 678 (Equipo de Ventas) 🔒
+    Phone number assigned to this agent
+    ```
+  </Tab>
+  <Tab title="Caller ID Verificado">
+    ```
+    Phone Number: +34 987 654 321 (verified) (Línea Principal) 🔒
+    Phone number assigned to this agent
+    ```
+  </Tab>
+</Tabs>
 
 <Warning>
-  El número de teléfono no puede cambiarse directamente una vez asignado. Para cambiarlo, usa la función de Swap desde Phone Health.
+  El número de teléfono no puede cambiarse directamente una vez asignado. Para cambiarlo, usa la función de Swap desde Phone Health (solo para números Twilio).
 </Warning>
 
 ## Estados de Asignación
@@ -104,6 +165,123 @@ Los números pueden tener diferentes estados de asignación:
     **Sin asignar** - disponible para uso.
     - 💡 Listo para ser asignado a cualquier agente
     - 📞 No recibe ni realiza llamadas hasta ser asignado
+  </Tab>
+</Tabs>
+
+## Múltiples Números por Agente
+
+Un agente puede tener varios números asignados, incluyendo mezclas de números Twilio y Caller IDs verificados:
+
+### Beneficios de Múltiples Números
+
+- **Distribución de volumen**: Reducir riesgo de spam
+- **Segmentación regional**: Diferentes números para diferentes áreas
+- **Redundancia**: Respaldo si un número tiene problemas
+- **Campañas específicas**: Números dedicados por campaña
+- **Mayor confianza**: Combinar números conocidos con números de respaldo
+
+### Comportamiento con Múltiples Números
+
+| Tipo de Llamada | Comportamiento |
+|-----------------|----------------|
+| **Entrante** | El cliente puede llamar a cualquiera de los números |
+| **Saliente** | El sistema selecciona automáticamente el mejor número disponible |
+
+**Prioridad para llamadas salientes:**
+1. Caller IDs verificados (mayor confianza)
+2. Números Twilio con mejor Phone Health
+3. Números disponibles por orden de asignación
+
+## Verificación de Caller IDs
+
+Para usar tus propios números telefónicos como Caller IDs:
+
+<Steps>
+  <Step title="Acceder a Verificación">
+    En el Editor Avanzado, sección Settings, busca "Add Caller ID".
+  </Step>
+  <Step title="Introducir Número">
+    Ingresa el número telefónico propio en formato internacional (+34612345678).
+  </Step>
+  <Step title="Recibir Llamada de Verificación">
+    Twilio realizará una llamada automática al número proporcionado.
+  </Step>
+  <Step title="Introducir Código">
+    Anota el código de verificación de 6 dígitos y introdúcelo en el formulario.
+  </Step>
+  <Step title="Completar Verificación">
+    Una vez verificado, el número aparecerá disponible como "(verified)" en el dropdown.
+  </Step>
+</Steps>
+
+### Estados de Caller ID
+
+- **Pending**: Verificación en proceso
+- **Verified**: Listo para usar en llamadas salientes
+- **Disabled**: Temporalmente deshabilitado
+
+<Info>
+  Los Caller IDs verificados deben ser números telefónicos reales bajo tu control. No pueden ser números gratuitos ni líneas especiales.
+</Info>
+
+## Intercambiar Números (Swap)
+
+Puedes intercambiar un número Twilio problemático por uno nuevo desde el reporte de Phone Health:
+
+<Steps>
+  <Step title="Abrir Phone Health">
+    Haz clic en el indicador de salud del agente.
+  </Step>
+  <Step title="Identificar el número">
+    Busca el número Twilio con estado Warning o Spam.
+  </Step>
+  <Step title="Iniciar el Swap">
+    Haz clic en el botón **Swap** junto al número problemático.
+  </Step>
+  <Step title="Confirmar intercambio">
+    El sistema muestra el nuevo número propuesto. Confirma el intercambio.
+  </Step>
+</Steps>
+
+### Limitaciones del Swap
+
+<Warning>
+  La función de swap solo está disponible para números Twilio. Los Caller IDs verificados no pueden ser intercambiados automáticamente ya que son propiedad del cliente.
+</Warning>
+
+### Qué Sucede Durante el Swap
+
+1. **Número Twilio antiguo** se desvincula y marca como "DEVOLVER"
+2. **Número Twilio nuevo** se asigna y está activo inmediatamente
+3. **Caller IDs verificados** permanecen inalterados
+4. **Configuraciones** se transfieren al nuevo número Twilio
+5. **Historial** se mantiene asociado al agente
+
+## Gestión desde Phone Health
+
+El reporte de Phone Health muestra información detallada sobre todos los números del agente:
+
+### Información Mostrada
+
+Para cada número se muestra:
+
+- **Número telefónico** y tipo (Twilio o verified)
+- **Estado de salud** (Healthy, Warning, Spam)
+- **Estadísticas de llamadas** (total, completadas, spam ratio)
+- **Acciones disponibles** según el tipo de número
+
+### Acciones Disponibles por Tipo
+
+<Tabs>
+  <Tab title="Números Twilio">
+    - **Swap**: Intercambiar por un número nuevo
+    - **Disconnect**: Desconectar y devolver al pool
+    - **View Details**: Ver estadísticas detalladas
+  </Tab>
+  <Tab title="Caller IDs Verificados">
+    - **Disconnect**: Eliminar de la lista del agente
+    - **View Details**: Ver estadísticas detalladas
+    - ❌ **Swap no disponible** (son propiedad del cliente)
   </Tab>
 </Tabs>
 
@@ -158,50 +336,6 @@ Meetzy incluye plantillas predefinidas para diferentes idiomas:
   Las plantillas de transferencia se adaptan automáticamente al idioma principal del agente para mantener coherencia en la conversación.
 </Info>
 
-## Múltiples Números por Agente
-
-Un agente puede tener varios números asignados. Esto es útil para:
-
-- **Distribución de volumen**: Reducir riesgo de spam
-- **Segmentación regional**: Diferentes números para diferentes áreas
-- **Redundancia**: Respaldo si un número tiene problemas
-- **Campañas específicas**: Números dedicados por campaña
-
-### Cómo se Usan Múltiples Números
-
-| Tipo de Llamada | Comportamiento |
-|-----------------|----------------|
-| **Entrante** | El cliente puede llamar a cualquiera de los números |
-| **Saliente** | El sistema selecciona automáticamente el mejor número disponible |
-
-El número con mejor **Phone Health** tiene prioridad para llamadas salientes.
-
-## Intercambiar Números (Swap)
-
-Puedes intercambiar un número problemático por uno nuevo desde el reporte de Phone Health:
-
-<Steps>
-  <Step title="Abrir Phone Health">
-    Haz clic en el indicador de salud del agente.
-  </Step>
-  <Step title="Identificar el número">
-    Busca el número con estado Warning o Spam.
-  </Step>
-  <Step title="Iniciar el Swap">
-    Haz clic en el botón **Swap** junto al número problemático.
-  </Step>
-  <Step title="Confirmar intercambio">
-    El sistema muestra el nuevo número propuesto. Confirma el intercambio.
-  </Step>
-</Steps>
-
-### Qué Sucede Durante el Swap
-
-1. **Número antiguo** se desvincula y marca como "DEVOLVER"
-2. **Número nuevo** se asigna y está activo inmediatamente
-3. **Configuraciones** se transfieren al nuevo número
-4. **Historial** se mantiene asociado al agente
-
 ## Gestión Avanzada de Números
 
 ### Asignar Números Manualmente
@@ -210,7 +344,7 @@ Desde la vista de Phone Numbers puedes:
 
 <Steps>
   <Step title="Seleccionar número no asignado">
-    Identifica números con estado "Unassigned".
+    Identifica números con estado "Unassigned" (Twilio o verified).
   </Step>
   <Step title="Hacer clic en Assign">
     Usa el botón de asignación junto al número.
@@ -225,7 +359,7 @@ Desde la vista de Phone Numbers puedes:
 
 ### Desconectar un Número
 
-Para eliminar un número sin reemplazarlo:
+Para eliminar un número del agente:
 
 <Steps>
   <Step title="Abrir Phone Health">
@@ -242,33 +376,53 @@ Para eliminar un número sin reemplazarlo:
   </Step>
 </Steps>
 
+### Comportamiento de Desconexión
+
+<Tabs>
+  <Tab title="Números Twilio">
+    - Se devuelven al pool de números disponibles
+    - Pueden ser reasignados a otros agentes
+    - Mantienen su configuración Twilio
+  </Tab>
+  <Tab title="Caller IDs Verificados">
+    - Se eliminan de la lista del agente
+    - Mantienen su estado de verificación en Twilio
+    - Pueden ser reasignados usando el mismo proceso
+  </Tab>
+</Tabs>
+
 <Warning>
-  Si desconectas el único número del agente, este no podrá hacer ni recibir llamadas hasta que asignes otro.
+  Si desconectas todos los números del agente, este no podrá hacer ni recibir llamadas hasta que asignes otro número.
 </Warning>
 
 ### Devolver Números al Pool
 
-Los números marcados como "discarded" o problemáticos pueden devolverse:
+Los números Twilio marcados como "discarded" o problemáticos pueden devolverse:
 
 1. En la vista de Phone Numbers, filtra por números descartados
-2. Selecciona **Return to Pool** para números específicos
+2. Selecciona **Return to Pool** para números específicos  
 3. El número queda disponible para reasignación
+
+<Info>
+  Esta función solo aplica a números Twilio. Los Caller IDs verificados no forman parte del pool de Meetzy.
+</Info>
 
 ## Filtrado y Búsqueda
 
 La interfaz de Phone Numbers incluye herramientas avanzadas:
 
 ### Filtros por Estado
-- **All**: Todos los números
+- **All**: Todos los números (Twilio y verified)
 - **Assigned**: Solo números asignados
 - **Unassigned**: Solo números disponibles
-- **Discarded**: Números marcados para devolución
+- **Discarded**: Números Twilio marcados para devolución
 
 ### Búsqueda Inteligente
 Busca por:
 - **Número de teléfono**: Parcial o completo
 - **Nombre amigable**: Descripción del número
 - **Agente asignado**: Nombre del agente
+- **Tipo**: "verified" para filtrar solo Caller IDs
 
 ### Ordenamiento
 Ordena la lista por:
@@ -276,6 +430,82 @@ Ordena la lista por:
 - Nombre amigable
 - Estado de asignación
 - Agente asignado
+- Tipo de número (Twilio/verified)
+
+## Solicitar Nuevos Números
+
+Para solicitar números Twilio adicionales:
+
+<Steps>
+  <Step title="Acceder al formulario">
+    En el Editor Avanzado, sección Settings, haz clic en **"Request more numbers"**.
+  </Step>
+  <Step title="Especificar requisitos">
+    Indica cuántos números necesitas y para qué subcuenta.
+  </Step>
+  <Step title="Enviar solicitud">
+    Serás redirigido al portal de solicitud para completar el proceso.
+  </Step>
+  <Step title="Esperar aprovisionamiento">
+    Los números nuevos suelen estar disponibles en 24-48 horas.
+  </Step>
+</Steps>
+
+<Info>
+  Este proceso solo aplica a números Twilio administrados por Meetzy. Para usar tus propios números, utiliza el proceso de verificación de Caller ID.
+</Info>
+
+## Mejores Prácticas
+
+### Estrategia de Números Mixta
+
+Para campañas optimizadas, combina ambos tipos:
+
+<Steps>
+  <Step title="Caller ID Principal">
+    Asigna tu número principal verificado para mayor reconocimiento.
+  </Step>
+  <Step title="Números de Respaldo">
+    Añade números Twilio para distribuir volumen y evitar saturación.
+  </Step>
+  <Step title="Monitorear Rendimiento">
+    Usa Phone Health para identificar qué tipo funciona mejor.
+  </Step>
+  <Step title="Rotar Números Twilio">
+    Intercambia números Twilio problemáticos manteniendo los Caller IDs.
+  </Step>
+</Steps>
+
+### Identificación del Número
+
+Cada número tiene un **Friendly Name** para identificarlo:
+
+```
++34 612 345 678 (Equipo de Ventas España)
+       │                    │
+       │                    └── Friendly Name descriptivo
+       └── Número de teléfono
+
++34 987 654 321 (verified) (Línea Principal)
+       │            │               │
+       │            │               └── Friendly Name descriptivo
+       │            └── Indicador de Caller ID verificado
+       └── Número de teléfono
+```
+
+**Usa nombres descriptivos como:**
+- "Número Principal (verified)"
+- "Respaldo Ventas España"
+- "Campaña Black Friday 2024"
+- "Línea Directa CEO (verified)"
+
+### Organización por Tipo
+
+Organiza tus números por propósito:
+
+- **Caller IDs verificados**: Para números principales y reconocibles
+- **Números Twilio**: Para distribución de volumen y campañas específicas
+- **Transferencias**: Para destinos de escalación y soporte humano
 
 ## Finalización Automática de Llamadas
 
@@ -302,162 +532,6 @@ El agente también finaliza llamadas cuando:
   La detección de contestadores automáticos utiliza análisis de patrones de voz y frases comunes para identificar con precisión estos sistemas.
 </Info>
 
-## Solicitar Nuevos Números
-
-Para solicitar números adicionales:
-
-<Steps>
-  <Step title="Acceder al formulario">
-    En el Editor Avanzado, sección Settings, haz clic en **"Request more numbers"**.
-  </Step>
-  <Step title="Especificar requisitos">
-    Indica cuántos números necesitas y para qué subcuenta.
-  </Step>
-  <Step title="Enviar solicitud">
-    Serás redirigido al portal de solicitud para completar el proceso.
-  </Step>
-  <Step title="Esperar aprovisionamiento">
-    Los números nuevos suelen estar disponibles en 24-48 horas.
-  </Step>
-</Steps>
-
-## Webhooks y Configuración Técnica
-
-Cada número puede tener configuración avanzada:
-
-### Webhooks
-- **URL del webhook**: Endpoint para recibir eventos de llamada
-- **Método**: GET o POST (recomendado POST)
-- **Status Callback**: URL para recibir actualizaciones de estado
-
-### Configuración desde Phone Numbers
-
-<Steps>
-  <Step title="Encontrar el número">
-    En la lista de Phone Numbers, localiza el número a configurar.
-  </Step>
-  <Step title="Abrir configuración">
-    Haz clic en el icono de configuración (engranaje) junto al número.
-  </Step>
-  <Step title="Editar webhook">
-    Modifica la URL del webhook, método y callbacks según necesites.
-  </Step>
-  <Step title="Guardar cambios">
-    Confirma la configuración. Los cambios son inmediatos.
-  </Step>
-</Steps>
-
-<Info>
-  Los webhooks se configuran automáticamente cuando asignas un número a un agente. La configuración manual es solo para casos avanzados.
-</Info>
-
-## Estadísticas por Número de Teléfono
-
-El sistema rastrea estadísticas detalladas por cada número, incluyendo:
-
-- **Total de llamadas** realizadas y recibidas
-- **Duración promedio** de conversaciones
-- **Llamadas exitosas** vs. fallidas
-- **Distribución por estados**: contestadas, sin respuesta, ocupado, buzón de voz
-
-### Análisis de Rendimiento por Número
-
-<Tabs>
-  <Tab title="Llamadas Salientes">
-    - Tasa de respuesta por número
-    - Identificación de números con mejor rendimiento
-    - Detección temprana de problemas de reputación
-  </Tab>
-  <Tab title="Llamadas Entrantes">
-    - Volumen de llamadas recibidas
-    - Distribución temporal
-    - Eficiencia en el manejo de llamadas
-  </Tab>
-  <Tab title="Estados de Llamada">
-    - **Completed**: Llamadas completadas exitosamente
-    - **No Answer**: Llamadas sin respuesta
-    - **Busy**: Línea ocupada
-    - **Voicemail**: Dirigidas al buzón de voz
-    - **Failed**: Fallos técnicos
-  </Tab>
-</Tabs>
-
-## Prefijos de País Soportados
-
-Meetzy soporta números de teléfono en múltiples países:
-
-| País | Prefijo | Disponibilidad | Notas |
-|------|---------|----------------|-------|
-| Estados Unidos | +1 | ✅ Disponible | Mayor disponibilidad |
-| España | +34 | ✅ Disponible | Números locales y móviles |
-| México | +52 | ✅ Disponible | Cobertura nacional |
-| Argentina | +54 | ✅ Disponible | Buenos Aires y principales ciudades |
-| Colombia | +57 | ✅ Disponible | Bogotá y otras ciudades |
-| Reino Unido | +44 | ✅ Disponible | Londres y números nacionales |
-
-<Info>
-  Usa números locales del país de tus clientes para aumentar la tasa de respuesta. Los clientes son más propensos a contestar llamadas de números locales.
-</Info>
-
-## Mejores Prácticas
-
-### Rotación de Números
-
-Para campañas de alto volumen:
-
-<Steps>
-  <Step title="Asignar múltiples números">
-    Asigna varios números al mismo agente para distribuir el volumen.
-  </Step>
-  <Step title="Monitorear salud">
-    Revisa Phone Health regularmente para detectar problemas temprano.
-  </Step>
-  <Step title="Rotar proactivamente">
-    Intercambia números antes de que lleguen a estado "Spam".
-  </Step>
-  <Step title="Mantener reserva">
-    Ten números adicionales disponibles para intercambios rápidos.
-  </Step>
-</Steps>
-
-### Organización por Subcuentas
-
-Organiza tus números eficientemente:
-
-- **Por proyecto**: Una subcuenta por proyecto o campaña
-- **Por equipo**: Separa ventas, soporte, marketing
-- **Por región**: Subcuentas por país o región geográfica
-- **Por cliente**: Si manejas números para múltiples clientes
-
-### Identificación del Número
-
-Cada número tiene un **Friendly Name** para identificarlo:
-
-```
-+34 612 345 678 (Equipo de Ventas España)
-       │                    │
-       │                    └── Friendly Name descriptivo
-       └── Número de teléfono
-```
-
-**Usa nombres descriptivos como:**
-- "Equipo de Ventas España"
-- "Soporte Técnico 24/7"
-- "Campaña Black Friday 2024"
-- "Región Norte - México"
-
-### Configuración de Transferencias
-
-**Para transferencias telefónicas:**
-- Usa números en formato E.164 (+1234567890)
-- Verifica que el número de destino esté disponible 24/7
-- Configura mensajes claros que indiquen cuándo transferir
-
-**Para transferencias SIP:**
-- Asegúrate de que el gateway SIP sea accesible públicamente
-- Usa el formato correcto: sip:extension@ip:port
-- Prueba la conectividad antes de implementar en producción
-
 ## Troubleshooting
 
 ### Números No Aparecen
@@ -467,7 +541,25 @@ Si no ves números esperados:
 1. **Verifica la subcuenta** - Asegúrate de estar en la pestaña correcta
 2. **Actualiza la vista** - Recarga la página o cambia de pestaña
 3. **Revisa permisos** - Confirma acceso a la subcuenta específica
-4. **Contacta soporte** si el problema persiste
+4. **Verifica Caller IDs** - Los números verificados aparecen con "(verified)"
+5. **Contacta soporte** si el problema persiste
+
+### Problemas de Verificación de Caller ID
+
+Si falla la verificación:
+
+1. **Número incorrecto**: Verifica que el número esté en formato internacional correcto
+2. **Número ocupado**: Asegúrate de estar disponible para recibir la llamada de verificación
+3. **Código incorrecto**: Anota cuidadosamente el código de 6 dígitos
+4. **Número no válido**: Algunos tipos de números no son elegibles para verificación
+
+### Problemas de Swap
+
+Para números Twilio:
+
+1. **Sin números disponibles**: Solicita más números antes de hacer swap
+2. **Caller ID no elegible**: Los Caller IDs verificados no pueden ser intercambiados
+3. **Permisos insuficientes**: Confirma permisos de administración
 
 ### Errores de Asignación
 
@@ -475,59 +567,42 @@ Si falla la asignación:
 
 - **Número ya asignado**: Otro agente puede estar usando el número
 - **Subcuenta incorrecta**: Verifica que el agente y número estén en la misma subcuenta
+- **Caller ID no verificado**: Completa el proceso de verificación primero
 - **Permisos insuficientes**: Confirma permisos de administración
-
-### Problemas de Transferencia
-
-Para problemas de transferencia de llamadas:
-
-1. **Verifica el número de destino**: Debe estar disponible y ser válido
-2. **Revisa la URI SIP**: Confirma formato y conectividad del gateway
-3. **Comprueba los mensajes**: Asegúrate de que las condiciones de transferencia sean claras
-4. **Prueba la conectividad**: Verifica que el destino esté accesible
-
-### Problemas de Webhook
-
-Para problemas de configuración:
-
-1. **Verifica la URL**: Debe ser accesible públicamente
-2. **Confirma el método**: POST es recomendado
-3. **Revisa los logs**: Busca errores en los callbacks
-4. **Prueba la conectividad**: Usa herramientas como curl o Postman
 
 ## Preguntas Frecuentes
 
 <AccordionGroup>
   <Accordion title="¿Puedo usar mi propio número de teléfono?">
-    Actualmente, Meetzy solo soporta números proporcionados a través de la plataforma. La portabilidad de números está en desarrollo para futuras versiones.
+    Sí, a través del sistema de Caller IDs verificados. Puedes verificar tus números propios y usarlos como identificación para llamadas salientes.
   </Accordion>
   
-  <Accordion title="¿Qué pasa si se agotan mis números?">
-    Las llamadas salientes fallarán y las entrantes irán a un buzón de error. Solicita más números antes de que esto ocurra o usa la función de intercambio para redistribuir números existentes.
+  <Accordion title="¿Cuál es la diferencia entre números Twilio y Caller IDs verificados?">
+    Los números Twilio son administrados por Meetzy y pueden ser intercambiados automáticamente. Los Caller IDs verificados son tus números propios, ofrecen mayor confianza pero no pueden ser intercambiados automáticamente.
   </Accordion>
   
-  <Accordion title="¿Los números son exclusivos o compartidos?">
-    Cada número es exclusivo para tu cuenta y subcuenta específica. No se comparte entre diferentes clientes de Meetzy ni entre subcuentas.
+  <Accordion title="¿Puedo mezclar números Twilio y Caller IDs en un mismo agente?">
+    Sí, puedes asignar ambos tipos al mismo agente. El sistema priorizará los Caller IDs verificados para llamadas salientes por su mayor confianza.
   </Accordion>
   
-  <Accordion title="¿Puedo tener números de diferentes países en un agente?">
-    Sí, puedes asignar números de múltiples países al mismo agente, siempre que estén en la misma subcuenta.
+  <Accordion title="¿Por qué no puedo hacer swap de un Caller ID verificado?">
+    Los Caller IDs verificados son números de tu propiedad. Meetzy no puede intercambiarlos automáticamente porque no los administra. Debes gestionarlos manualmente.
   </Accordion>
   
-  <Accordion title="¿Cómo funcionan las subcuentas con la facturación?">
-    Cada subcuenta de Twilio factura por separado. Esto te permite segregar costos por proyecto, departamento o cliente.
+  <Accordion title="¿Qué pasa si se agotan mis números Twilio?">
+    Las llamadas salientes priorizarán los Caller IDs verificados disponibles. Si no hay números disponibles, las llamadas fallarán hasta que solicites más números o liberes algunos existentes.
   </Accordion>
   
-  <Accordion title="¿Puedo mover números entre subcuentas?">
-    Los números están vinculados a subcuentas específicas de Twilio y no pueden moverse directamente. Contacta soporte para casos especiales.
+  <Accordion title="¿Los Caller IDs verificados tienen límites de uso?">
+    No, una vez verificados pueden usarse ilimitadamente para llamadas salientes, igual que los números Twilio.
   </Accordion>
   
-  <Accordion title="¿Las transferencias tienen costo adicional?">
-    Las transferencias de llamadas tienen el costo estándar de una llamada saliente al número de destino. Los troncos SIP pueden tener tarifas diferentes según tu proveedor.
+  <Accordion title="¿Puedo verificar números internacionales?">
+    Sí, puedes verificar números de cualquier país soportado por Twilio. El proceso de verificación funciona globalmente.
   </Accordion>
   
-  <Accordion title="¿Cómo puedo probar las transferencias SIP?">
-    Puedes configurar un agente de prueba con transferencia SIP y realizar una llamada de prueba. Asegúrate de que el gateway SIP esté configurado para recibir conexiones de los servidores de Meetzy.
+  <Accordion title="¿Cómo mantengo la salud de mis números?">
+    Usa el reporte Phone Health para monitorear el rendimiento. Para números Twilio, usa la función swap cuando sea necesario. Para Caller IDs, considera rotar su uso o verificar números adicionales.
   </Accordion>
 </AccordionGroup>
 
