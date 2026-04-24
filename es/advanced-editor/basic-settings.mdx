@@ -8,105 +8,45 @@ icon: 'gear'
 
 La Configuración Básica establece los **Componentes Fundacionales** de tu agente conversacional de IA, incluyendo la configuración de infraestructura telefónica con cuentas Twilio, gestión de números de teléfono y caller IDs, así como la personalización con agentes de voz especializados por industria y capacidades conversacionales avanzadas.
 
-## Gestión de Infraestructura Telefónica
-
-### Cuentas Twilio
+## Componentes Base de Meetzy
 
 <Info>
-**Solo usuarios administradores**: La selección de cuentas Twilio está disponible únicamente para usuarios con permisos administrativos.
+Los Componentes Base están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento.
 </Info>
 
-Los administradores pueden seleccionar diferentes cuentas Twilio para organizar y distribuir recursos telefónicos:
+Los Componentes Base de Meetzy proporcionan la fundación para agentes conversacionales profesionales y consistentes. Esta funcionalidad permite un control granular sobre qué elementos base del sistema Meetzy se incluyen en el prompt del asistente.
 
-<Steps>
-  <Step title="Seleccionar cuenta Twilio">
-    Elige la cuenta Twilio que proporcionará los recursos para este agente
-  </Step>
-  <Step title="Cargar números disponibles">
-    Los números de teléfono se actualizarán automáticamente según la cuenta seleccionada
-  </Step>
-  <Step title="Verificar compatibilidad">
-    Asegúrate de que la cuenta tenga números disponibles para asignación
-  </Step>
-</Steps>
+### 🛡️ Guardrails Fundacionales
+**Protección y Límites Profesionales:**
+- Restricciones éticas y de comportamiento
+- Mantenimiento del contexto profesional
+- Prevención de temas inapropiados
+- Límites de conversación seguros
+- Protocolos de escalación automática
 
-### Gestión de Números de Teléfono
+### 🎭 Aspectos Conversacionales
+**Habilidades de Comunicación Natural:**
+- Manejo inteligente de interrupciones
+- Gestión profesional de silencios
+- Transiciones conversacionales fluidas
+- Técnicas de clarificación activa
+- Adaptación al ritmo del interlocutor
 
-<Tabs>
-  <Tab title="Agentes Nuevos">
-    <Steps>
-      <Step title="Seleccionar número disponible">
-        Elige de la lista de números no asignados del menú desplegable
-      </Step>
-      <Step title="Verificar disponibilidad">
-        Solo se muestran números que no están en uso por otros agentes
-      </Step>
-      <Step title="Solicitar números adicionales">
-        Usa "Request more numbers" si necesitas más opciones disponibles
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Agentes Existentes">
-    El número asignado se muestra como solo lectura y no puede modificarse después de la creación del agente.
-    
-    <Warning>
-    Cambiar números en agentes existentes requiere crear un nuevo agente o contactar soporte técnico.
-    </Warning>
-  </Tab>
-</Tabs>
-
-### Gestión de Caller IDs (Números de Salida)
-
-Los Caller IDs permiten configurar números específicos para llamadas salientes, mejorando la confianza del destinatario:
-
-#### Añadir Nuevo Caller ID
-
-<Steps>
-  <Step title="Abrir modal de adición">
-    Haz clic en "Add Caller ID" para iniciar el proceso
-  </Step>
-  <Step title="Introducir información">
-    - **Nombre**: Identificación descriptiva del número
-    - **Teléfono**: Número en formato E.164 (+1234567890)
-  </Step>
-  <Step title="Iniciar validación">
-    Twilio enviará una llamada automática con código de verificación
-  </Step>
-  <Step title="Introducir código">
-    Responde la llamada e introduce el código de 6 dígitos recibido
-  </Step>
-  <Step title="Completar verificación">
-    El número queda disponible para llamadas salientes una vez verificado
-  </Step>
-</Steps>
-
-#### Estados de Caller ID
-
-<Tabs>
-  <Tab title="Verificado">
-    - **Estado**: ✅ Verified
-    - **Disponibilidad**: Listo para usar en llamadas salientes
-    - **Acciones**: Eliminar (con confirmación)
-  </Tab>
-  <Tab title="Pendiente">
-    - **Estado**: ⏳ Pending
-    - **Disponibilidad**: En proceso de verificación
-    - **Acciones**: Reenviar código, Eliminar
-  </Tab>
-  <Tab title="Fallido">
-    - **Estado**: ❌ Failed
-    - **Disponibilidad**: Requiere nueva verificación
-    - **Acciones**: Reintentar verificación, Eliminar
-  </Tab>
-</Tabs>
+### 💼 Background Laboral de Agentes
+**Experiencia Profesional Integrada:**
+- Conocimiento de protocolos telefónicos empresariales
+- Mejores prácticas del sector de atención
+- Experiencia en comunicación corporativa
+- Estándares de servicio al cliente
+- Competencias profesionales transversales
 
 <Warning>
-Los Caller IDs no verificados no pueden utilizarse para llamadas salientes. Completa siempre el proceso de verificación.
+**Importante**: Deshabilitar los Componentes Base puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado y probado.
 </Warning>
 
-## Agentes de Voz Especializados
+## Habilidades del Agente (Skills)
 
-### Sistema de Skills Profesionales
+### Sistema de Agentes de Voz Especializados
 
 En lugar de configurar voces individuales, selecciona un **Agente de Voz Especializado** que combina voz optimizada, personalidad profesional y conocimiento específico del sector.
 
@@ -239,6 +179,195 @@ Cada Agente de Voz incluye configuración optimizada de voz, personalidad profes
 - Velocidad y entonación apropiadas
 - Claridad y profesionalismo adaptados
 
+## Voz e Idioma
+
+### Configuración de Idioma
+
+<Info>
+**Idioma por defecto**: El español está configurado como idioma principal para asegurar una experiencia conversacional natural en español latinoamericano.
+</Info>
+
+Selecciona el idioma principal que utilizará tu agente especializado para todas las interacciones:
+
+<Tabs>
+  <Tab title="Idiomas Principales">
+    **Idiomas más utilizados:**
+    - **Español** ⭐ (por defecto) - Español latinoamericano neutro
+    - **English** - Inglés estadounidense
+    - **Français** - Francés
+    - **Português** - Portugués
+    - **Deutsch** - Alemán
+    - **Italiano** - Italiano
+    - **Nederlands** - Holandés
+  </Tab>
+  
+  <Tab title="Idiomas Asiáticos">
+    **Soporte para mercados asiáticos:**
+    - **中文** - Chino mandarín
+    - **日本語** - Japonés
+    - **한국어** - Coreano
+    - **हिन्दी** - Hindi
+    - **العربية** - Árabe
+    - **ไทย** - Tailandés
+    - **Tiếng Việt** - Vietnamita
+    - **தமிழ்** - Tamil
+  </Tab>
+  
+  <Tab title="Idiomas Europeos">
+    **Idiomas adicionales europeos:**
+    - **Русский** - Ruso
+    - **Polski** - Polaco
+    - **Svenska** - Sueco
+    - **Ελληνικά** - Griego
+    - **Čeština** - Checo
+    - **Dansk** - Danés
+    - **Suomi** - Finlandés
+    - **Български** - Búlgaro
+    - **Hrvatski** - Croata
+    - **Slovenčina** - Eslovaco
+    - **Română** - Rumano
+    - **Українська** - Ucraniano
+    - **Magyar** - Húngaro
+    - **Norsk** - Noruego
+  </Tab>
+</Tabs>
+
+### Configuración Avanzada de Voz
+
+<Tabs>
+  <Tab title="Velocidad">
+    **Control de ritmo conversacional:**
+    - **Rango**: 0.70x - 1.20x (por defecto: 1.06x)
+    - **Lenta** (0.70-0.85): Para explicaciones complejas o públicos senior
+    - **Normal** (0.90-1.10): Conversación empresarial estándar
+    - **Rápida** (1.15-1.20): Dinámicas comerciales o soporte técnico
+    
+    <Info>
+    La velocidad ligeramente acelerada (1.06x) mejora la percepción de profesionalismo y eficiencia sin comprometer la claridad.
+    </Info>
+  </Tab>
+  
+  <Tab title="Estabilidad">
+    **Consistencia vocal:**
+    - **Rango**: 0.00 - 1.00 (por defecto: 0.15)
+    - **Baja** (0.00-0.30): Voz más expresiva y variable
+    - **Media** (0.31-0.70): Balance entre expresividad y consistencia
+    - **Alta** (0.71-1.00): Voz muy consistente y predecible
+    
+    <Warning>
+    Valores muy altos de estabilidad pueden resultar en voces monótonas y poco naturales.
+    </Warning>
+  </Tab>
+  
+  <Tab title="Similitud">
+    **Fidelidad al modelo vocal:**
+    - **Rango**: 0.00 - 1.00 (por defecto: 0.65)
+    - **Baja** (0.00-0.40): Mayor creatividad vocal
+    - **Media** (0.41-0.80): Balance óptimo recomendado
+    - **Alta** (0.81-1.00): Máxima fidelidad al modelo original
+    
+    <Info>
+    El valor por defecto de 0.65 proporciona el mejor balance entre naturalidad y fidelidad vocal para contextos empresariales.
+    </Info>
+  </Tab>
+</Tabs>
+
+## Gestión de Infraestructura Telefónica
+
+### Cuentas Twilio
+
+<Info>
+**Solo usuarios administradores**: La selección de cuentas Twilio está disponible únicamente para usuarios con permisos administrativos.
+</Info>
+
+Los administradores pueden seleccionar diferentes cuentas Twilio para organizar y distribuir recursos telefónicos:
+
+<Steps>
+  <Step title="Seleccionar cuenta Twilio">
+    Elige la cuenta Twilio que proporcionará los recursos para este agente
+  </Step>
+  <Step title="Cargar números disponibles">
+    Los números de teléfono se actualizarán automáticamente según la cuenta seleccionada
+  </Step>
+  <Step title="Verificar compatibilidad">
+    Asegúrate de que la cuenta tenga números disponibles para asignación
+  </Step>
+</Steps>
+
+### Gestión de Números de Teléfono
+
+<Tabs>
+  <Tab title="Agentes Nuevos">
+    <Steps>
+      <Step title="Seleccionar número disponible">
+        Elige de la lista de números no asignados del menú desplegable
+      </Step>
+      <Step title="Verificar disponibilidad">
+        Solo se muestran números que no están en uso por otros agentes
+      </Step>
+      <Step title="Solicitar números adicionales">
+        Usa "Request more numbers" si necesitas más opciones disponibles
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Agentes Existentes">
+    El número asignado se muestra como solo lectura y no puede modificarse después de la creación del agente.
+    
+    <Warning>
+    Cambiar números en agentes existentes requiere crear un nuevo agente o contactar soporte técnico.
+    </Warning>
+  </Tab>
+</Tabs>
+
+### Gestión de Caller IDs (Números de Salida)
+
+Los Caller IDs permiten configurar números específicos para llamadas salientes, mejorando la confianza del destinatario:
+
+#### Añadir Nuevo Caller ID
+
+<Steps>
+  <Step title="Abrir modal de adición">
+    Haz clic en "Add Caller ID" para iniciar el proceso
+  </Step>
+  <Step title="Introducir información">
+    - **Nombre**: Identificación descriptiva del número
+    - **Teléfono**: Número en formato E.164 (+1234567890)
+  </Step>
+  <Step title="Iniciar validación">
+    Twilio enviará una llamada automática con código de verificación
+  </Step>
+  <Step title="Introducir código">
+    Responde la llamada e introduce el código de 6 dígitos recibido
+  </Step>
+  <Step title="Completar verificación">
+    El número queda disponible para llamadas salientes una vez verificado
+  </Step>
+</Steps>
+
+#### Estados de Caller ID
+
+<Tabs>
+  <Tab title="Verificado">
+    - **Estado**: ✅ Verified
+    - **Disponibilidad**: Listo para usar en llamadas salientes
+    - **Acciones**: Eliminar (con confirmación)
+  </Tab>
+  <Tab title="Pendiente">
+    - **Estado**: ⏳ Pending
+    - **Disponibilidad**: En proceso de verificación
+    - **Acciones**: Reenviar código, Eliminar
+  </Tab>
+  <Tab title="Fallido">
+    - **Estado**: ❌ Failed
+    - **Disponibilidad**: Requiere nueva verificación
+    - **Acciones**: Reintentar verificación, Eliminar
+  </Tab>
+</Tabs>
+
+<Warning>
+Los Caller IDs no verificados no pueden utilizarse para llamadas salientes. Completa siempre el proceso de verificación.
+</Warning>
+
 ## Configuración de Modelo de IA (LLM)
 
 Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacional de tu agente especializado.
@@ -331,42 +460,6 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
 **Recomendación por defecto**: **Gemini 3.1 Flash Lite Preview** ofrece el mejor balance entre capacidades avanzadas, velocidad de respuesta y costo-efectividad para la mayoría de agentes especializados empresariales.
 </Info>
 
-## Componentes Fundamentales de Meetzy
-
-<Info>
-Los Componentes Fundamentales están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento.
-</Info>
-
-Los Componentes Fundamentales de Meetzy proporcionan la base para agentes conversacionales profesionales y consistentes. Esta funcionalidad permite un control granular sobre qué elementos base del sistema Meetzy se incluyen en el prompt del asistente.
-
-### 🛡️ Guardrails Fundacionales
-**Protección y Límites Profesionales:**
-- Restricciones éticas y de comportamiento
-- Mantenimiento del contexto profesional
-- Prevención de temas inapropiados
-- Límites de conversación seguros
-- Protocolos de escalación automática
-
-### 🎭 Aspectos Conversacionales
-**Habilidades de Comunicación Natural:**
-- Manejo inteligente de interrupciones
-- Gestión profesional de silencios
-- Transiciones conversacionales fluidas
-- Técnicas de clarificación activa
-- Adaptación al ritmo del interlocutor
-
-### 💼 Background Laboral de Agentes
-**Experiencia Profesional Integrada:**
-- Conocimiento de protocolos telefónicos empresariales
-- Mejores prácticas del sector de atención
-- Experiencia en comunicación corporativa
-- Estándares de servicio al cliente
-- Competencias profesionales transversales
-
-<Warning>
-**Importante**: Deshabilitar los Componentes Fundamentales puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado y probado.
-</Warning>
-
 ## Configuración Avanzada del Agente
 
 ### Nombre Interno del Agente
@@ -412,7 +505,7 @@ Proporciona un nombre descriptivo que facilite la identificación y gestión en 
 <Steps>
   <Step title="Configuración Base Recomendada">
     - Usar **Gemini 3.1 Flash Lite Preview** como modelo por defecto
-    - Mantener todos los Componentes Fundamentales activados
+    - Mantener todos los Componentes Base activados
     - Habilitar grabación de llamadas
   </Step>
   <Step title="Configuración de Infraestructura">
@@ -543,33 +636,9 @@ Proporciona un nombre descriptivo que facilite la identificación y gestión en 
 
 ## Siguientes Pasos
 
-<CardGroup cols={2}>
-  <Card
-    title="Saludos Personalizados"
-    icon="hand-wave"
-    href="/es/advanced-editor/greetings"
-  >
-    Configura mensajes de bienvenida específicos para llamadas entrantes y salientes adaptados a tu agente especializado
-  </Card>
-  <Card
-    title="Prompt del Sistema"
-    icon="file-lines"
-    href="/es/getting-started/create-agent#prompt-del-sistema"
-  >
-    Define la personalidad específica, comportamiento y objetivos del agente especializado
-  </Card>
-  <Card
-    title="Acciones del Agente"
-    icon="tools"
-    href="/es/advanced-editor/agent-actions"
-  >
-    Configura transferencias inteligentes de llamadas, envío de emails y SMS automatizados
-  </Card>
-  <Card
-    title="Playground de Pruebas"
-    icon="play"
-    href="/es/getting-started/test-agent"
-  >
-    Prueba y valida exhaustivamente tu agente especializado antes del despliegue en producción
-  </Card>
-</CardGroup>
+Después de configurar los aspectos fundamentales de tu agente especializado, continúa personalizando su comportamiento y capacidades:
+
+- **Saludos Personalizados**: Configura mensajes de bienvenida específicos para llamadas entrantes y salientes adaptados a tu agente especializado
+- **Prompt del Sistema**: Define la personalidad específica, comportamiento y objetivos del agente especializado
+- **Acciones del Agente**: Configura transferencias inteligentes de llamadas, envío de emails y SMS automatizados
+- **Playground de Pruebas**: Prueba y valida exhaustivamente tu agente especializado antes del despliegue en producción
