@@ -12,6 +12,99 @@ Meetzy ahora ofrece una experiencia mejorada para crear agentes. Simplemente des
   **¿Nuevo en Meetzy?** El flujo prompt-first es la manera más rápida de empezar. Para usuarios avanzados, también puedes crear un agente desde cero.
 </Info>
 
+## Creación Automática desde Onboarding
+
+Meetzy incluye un proceso completamente automatizado para nuevos usuarios que llegan desde nuestro landing page de autoservicio. Este flujo preserva todos los datos introducidos y redirige automáticamente al usuario al editor de agentes.
+
+### Cómo Funciona la Preservación de Datos
+
+<Steps>
+  <Step title="Captura de Datos en Landing Page">
+    Los usuarios completan un formulario en la página de autoservicio que captura:
+    - Prompt/descripción del agente deseado
+    - Canales de comunicación preferidos
+    - Dirección de negocio específica
+  </Step>
+  
+  <Step title="Almacenamiento Temporal">
+    Los datos se guardan en `localStorage` con una expiración automática:
+    ```javascript
+    localStorage.setItem('meetzy_onboarding_prompt', JSON.stringify({
+      prompt: userPrompt,
+      channels: selectedChannels,
+      directions: businessDirections,
+      expiresAt: Date.now() + (24 * 60 * 60 * 1000) // 24 horas
+    }));
+    ```
+  </Step>
+  
+  <Step title="Redirección Inteligente">
+    Al completar la autenticación, el sistema detecta automáticamente si el usuario viene del onboarding:
+    - Verifica datos válidos en `localStorage`
+    - Redirige directamente al editor de agentes
+    - Preserva el contexto completo del proceso
+  </Step>
+  
+  <Step title="Aplicación Automática">
+    El editor de agentes recupera y aplica automáticamente todos los datos preservados, generando la configuración inicial sin intervención del usuario.
+  </Step>
+</Steps>
+
+### Detección de Modo Onboarding
+
+El sistema detecta automáticamente cuando un usuario viene del proceso de onboarding:
+
+<Tabs>
+  <Tab title="URL Parameters">
+    ```
+    /login?source=onboarding
+    ```
+    Activa automáticamente el modo onboarding en la pantalla de autenticación.
+  </Tab>
+  
+  <Tab title="Data Preservation">
+    ```typescript
+    // AuthService verifica datos válidos
+    getOnboardingData(): { prompt: string; channels: string; directions: string } | null {
+      const savedData = localStorage.getItem('meetzy_onboarding_prompt');
+      if (!savedData) return null;
+      
+      const parsed = JSON.parse(savedData);
+      if (parsed.expiresAt && parsed.expiresAt < Date.now()) {
+        localStorage.removeItem('meetzy_onboarding_prompt');
+        return null;
+      }
+      
+      return {
+        prompt: parsed.prompt || '',
+        channels: parsed.channels || '',
+        directions: parsed.directions || '',
+      };
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Automatic Redirect">
+    ```typescript
+    // LoginComponent redirige automáticamente
+    private navigateToDashboard(): void {
+      const onboardingData = this.authService.getOnboardingData();
+      if (onboardingData?.prompt) {
+        this.router.navigate(['/agents/new'], {
+          queryParams: { onboarding: 'true' }
+        });
+      } else {
+        this.router.navigate(['/playbooks']);
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Info>
+  **Expiración Automática**: Los datos de onboarding expiran automáticamente después de 24 horas para mantener la seguridad y evitar datos obsoletos.
+</Info>
+
 ## Requisitos Previos
 
 Antes de crear un agente, asegúrate de tener:
