@@ -1,45 +1,79 @@
 ---
 title: 'Introduction to Advanced Editor'
-description: 'Learn about the Advanced Editor and its enhanced features including prompt-first creation and advanced collaboration tools'
+description: 'Learn about the Advanced Editor and its enhanced features including Creation Overlay, prompt-first agent creation, and advanced collaboration tools'
 icon: 'wand-magic-sparkles'
 ---
 
 ## What is the Advanced Editor?
 
-The **Advanced Editor** is Meetzy's comprehensive agent configuration tool that gives you full control over every aspect of your AI agent's behavior. It now features a revolutionary **prompt-first creation system** with a beautiful visual overlay and enhanced team collaboration capabilities.
+The **Advanced Editor** is Meetzy's comprehensive agent configuration tool that gives you full control over every aspect of your AI agent's behavior. It now features a revolutionary **Creation Overlay** with prompt-first creation, beautiful visual design, and enhanced team collaboration capabilities.
 
 <Info>
-The Advanced Editor is the recommended tool for creating production-ready agents with custom behaviors, integrations, and advanced logic. The new prompt-first approach makes it faster than ever to get started.
+The Advanced Editor is the recommended tool for creating production-ready agents with custom behaviors, integrations, and advanced logic. The new Creation Overlay makes it faster than ever to get started.
 </Info>
 
-## New Prompt-First Creation Experience
+## Creation Overlay - Revolutionary Agent Building
 
-The Advanced Editor now begins with an elegant **creation overlay** that revolutionizes how you build AI agents. Simply describe what you want your agent to do, and Meetzy will intelligently configure the initial setup for you.
+The Advanced Editor now begins with an elegant **Creation Overlay** that transforms how you build AI agents. This innovative feature allows users to create agents through natural language descriptions, making agent development accessible to everyone.
 
-### Creation Overlay Features
-
-- **Visual WebGL wave animation** provides an immersive, professional experience
-- **Natural language input** - describe your agent in plain English
-- **Intelligent configuration** - Meetzy automatically sets up basic settings, greetings, and system prompts
-- **Seamless transition** to the full editor for fine-tuning and customization
+### How Creation Overlay Works
 
 <Steps>
   <Step title="Describe Your Agent">
-    Enter a natural description of what your agent should do (e.g., "An agent that answers customer support calls for a dental clinic, books appointments, and transfers urgent cases")
+    Simply describe what you want your agent to do in plain English
+    
+    Example: "An agent that answers customer support calls for a dental clinic, books appointments, and transfers urgent cases to the receptionist"
   </Step>
   <Step title="AI-Powered Generation">
-    Meetzy analyzes your description and automatically configures the agent's initial settings
+    Meetzy's AI analyzes your description and automatically configures:
+    - Basic agent settings and metadata
+    - Initial greeting messages
+    - System prompts and conversation behavior
+    - Suggested voice and language settings
   </Step>
-  <Step title="Customize & Refine">
-    Use the full Advanced Editor to fine-tune responses, add knowledge, and configure integrations
+  <Step title="Seamless Transition">
+    The overlay smoothly transitions to the full Advanced Editor for customization and fine-tuning
   </Step>
 </Steps>
+
+### Creation Overlay Features
+
+**Beautiful Visual Experience**
+- **WebGL wave animation** provides an immersive, professional background
+- **Clean, distraction-free interface** focused entirely on creation
+- **Responsive design** works perfectly on desktop and mobile devices
+
+**Natural Language Processing**
+- **Intelligent prompt analysis** understands complex agent requirements
+- **Context-aware configuration** sets appropriate defaults based on description
+- **Multi-language support** for describing agents in various languages
+
+**Smart Defaults & Configuration**
+- **Automatic voice selection** based on agent purpose and language
+- **Intelligent greeting generation** tailored to the described use case
+- **System prompt optimization** for the specific agent type
+- **Foundation settings** automatically configured for best practices
+
+<Warning>
+You can always skip the Creation Overlay and start with a blank agent by clicking "or start from scratch" during the creation process.
+</Warning>
+
+### Creation Overlay Interface Elements
+
+The Creation Overlay features a minimal, focused design:
+
+- **Navigation**: Easy back button to return to the agents dashboard
+- **Meetzy Branding**: Clean logo placement that adapts to light/dark themes
+- **Central Prompt Area**: Large textarea with gradient border effects
+- **Smart Send Button**: Appears automatically when text is entered
+- **Keyboard Shortcuts**: Enter key to generate, ESC to close
+- **Skip Option**: Direct link to traditional editor for advanced users
 
 ## Enhanced Navigation System
 
 ### Integrated Agent Selector
 
-The Advanced Editor now includes a powerful **agent selector** directly in the toolbar, enabling seamless navigation between agents without leaving the editor environment.
+The Advanced Editor includes a powerful **agent selector** directly in the toolbar, enabling seamless navigation between agents without leaving the editor environment.
 
 <Info>
 The agent selector displays the current agent name as a dropdown button with visual avatars, making it easy to identify and switch between different agents quickly.
@@ -47,11 +81,12 @@ The agent selector displays the current agent name as a dropdown button with vis
 
 #### Agent Selector Capabilities
 
-- **Quick Agent Switching**: Click the agent name to reveal a searchable dropdown
-- **Visual Identification**: Each agent shows an avatar with the first letter of its name  
-- **Search Functionality**: Built-in search box to quickly find agents by name
-- **Current Agent Highlighting**: Clear visual indicator for the currently selected agent
-- **Agent ID Display**: Shortened IDs help distinguish between similarly named agents
+- **Visual Agent Identification**: Avatar-based indicators with agent name initials
+- **Quick Switching**: Dropdown interface for rapid agent navigation
+- **Search Functionality**: Built-in search to find agents by name
+- **Company Filtering**: Admin users can filter agents by company
+- **Context Preservation**: Unsaved changes protection during navigation
+- **Real-time Updates**: Automatically reflects current agent state
 
 ### Navigation Best Practices
 
@@ -63,12 +98,14 @@ If you have unsaved changes when switching agents, you'll be prompted to save or
 
 | Scenario | Recommended Tool |
 |----------|-----------------|
-| Creating a new agent from scratch | ✅ Advanced Editor (with prompt-first overlay) |
-| Fine-tuning agent responses | ✅ Advanced Editor |
+| Creating a new agent from natural description | ✅ Advanced Editor (Creation Overlay) |
+| Building agents with specific requirements | ✅ Advanced Editor (Full Editor) |
+| Fine-tuning agent responses and behavior | ✅ Advanced Editor |
 | Adding knowledge base documents | ✅ Advanced Editor |
 | Configuring webhook integrations | ✅ Advanced Editor |
-| Testing agent in real-time | ✅ Advanced Editor |
+| Testing agents in real-time | ✅ Advanced Editor |
 | Quick agent duplication | Agents Dashboard |
+| Bulk agent management | Agents Dashboard |
 
 ## Interface Overview
 
@@ -80,7 +117,7 @@ The left panel contains all configuration sections accessible via an intuitive i
 
 | Icon | Section | Description | Shortcut |
 |------|---------|-------------|----------|
-| ⚙️ | Basic Settings | Name, language, voice, LLM model | ⌘1 |
+| ⚙️ | Basic Settings | Name, language, voice, LLM model, phone numbers | ⌘1 |
 | 👋 | Greetings | Welcome messages for inbound/outbound calls | ⌘2 |
 | 🔧 | Input Params | Dynamic variables for personalized calls | ⌘3 |
 | 📚 | Knowledge Base | Documents, FAQs, and reference materials | ⌘4 |
@@ -102,7 +139,7 @@ The left panel contains all configuration sections accessible via an intuitive i
 The Advanced Editor includes a sophisticated **Git-like version control system** that transforms team collaboration on AI agent development. This enterprise-grade system provides real-time collaboration with automatic conflict detection.
 
 <Info>
-The new version control system enables seamless team collaboration with automatic conflict detection, branching capabilities, and comprehensive change tracking.
+The version control system enables seamless team collaboration with automatic conflict detection, branching capabilities, and comprehensive change tracking.
 </Info>
 
 ### Git Status Indicators
@@ -182,26 +219,26 @@ The enhanced testing interface provides clear visual feedback:
 ## Workflow Best Practices
 
 <Steps>
-  <Step title="Start with Prompt-First Creation">
-    Use the creation overlay to describe your agent in natural language for intelligent initial configuration.
+  <Step title="Start with Creation Overlay">
+    Use the Creation Overlay to describe your agent in natural language for intelligent initial configuration and faster setup.
   </Step>
   <Step title="Check Version Control Status">
-    Always verify the Git status indicator before starting work to understand collaboration state.
+    Always verify the Git status indicator before starting work to understand collaboration state and avoid conflicts.
   </Step>
   <Step title="Pull Latest Team Changes">
-    Use "Check" and "Pull" buttons to synchronize with your team's latest changes.
+    Use "Check" and "Pull" buttons to synchronize with your team's latest changes before making modifications.
   </Step>
   <Step title="Configure Core Settings">
     Fine-tune basic settings, greetings, and system prompts generated from your initial description.
   </Step>
   <Step title="Add Knowledge & Tools">
-    Upload knowledge base documents and configure actions/integrations as needed.
+    Upload knowledge base documents and configure actions/integrations as needed for your specific use case.
   </Step>
   <Step title="Run Enhanced Testing">
-    Use the improved testing system with batch runs and simulation modes to validate behavior.
+    Use the improved testing system with batch runs and simulation modes to validate behavior comprehensively.
   </Step>
   <Step title="Review & Commit Changes">
-    Use the Git changes panel to review modifications and commit with descriptive messages.
+    Use the Git changes panel to review modifications and commit with descriptive messages for proper version control.
   </Step>
   <Step title="Deploy to Production">
     Safely publish your agent once all tests pass and collaboration status is clean.
@@ -210,21 +247,21 @@ The enhanced testing interface provides clear visual feedback:
 
 ## Key Features & Benefits
 
-### Prompt-First Creation
+### Creation Overlay Revolution
 
-The new creation overlay transforms agent development:
+The Creation Overlay transforms agent development from technical configuration to natural conversation:
 
-**Natural Language Input**
-- Describe your agent's purpose in plain English
-- AI-powered analysis of your requirements
-- Intelligent configuration of initial settings
+**Natural Language Interface**
+- Describe your agent's purpose in everyday language
+- AI-powered analysis understands complex requirements
+- Automatic configuration of technical settings
 
-**Visual Experience**
-- Beautiful WebGL wave animation background
-- Clean, distraction-free interface focused on creation
-- Smooth transition to the full editor environment
+**Visual Excellence**
+- Stunning WebGL wave animation background
+- Distraction-free, focused creation environment  
+- Smooth transitions and professional aesthetics
 
-**Time Savings**
+**Time & Efficiency Savings**
 - Skip repetitive initial configuration steps
 - Start with intelligently generated prompts and settings
 - Focus immediately on customization and refinement
@@ -233,10 +270,10 @@ The new creation overlay transforms agent development:
 
 The integrated agent selector revolutionizes workflow efficiency:
 
-- **Seamless switching** between agents without leaving the editor
+- **Seamless switching** between agents without losing context
 - **Search functionality** to quickly locate specific agents
 - **Visual identification** with avatar-based agent indicators
-- **Context preservation** with unsaved changes protection
+- **Context preservation** with comprehensive unsaved changes protection
 
 ### Advanced Collaboration
 
@@ -261,45 +298,45 @@ The Git-like version control system brings enterprise-grade collaboration:
 
 <CardGroup cols={2}>
   <Card
-    title="Prompt-First Creation"
+    title="Creation Overlay"
     icon="sparkles"
     href="/advanced-editor/creation-overlay"
   >
-    Learn how to use the new creation overlay for faster agent building
+    Master the new Creation Overlay for faster agent building through natural language descriptions
   </Card>
   <Card
     title="Agent Navigation"
     icon="arrows-right-left"
     href="/advanced-editor/agent-selector"
   >
-    Master the integrated agent selector for efficient workflow
+    Learn to use the integrated agent selector for efficient workflow management
   </Card>
   <Card
     title="Version Control"
     icon="code-branch"
     href="/advanced-editor/version-control"
   >
-    Understand Git-like collaboration and conflict resolution
+    Understand Git-like collaboration, conflict resolution, and team coordination
   </Card>
   <Card
     title="Enhanced Testing"
     icon="clipboard-check"
     href="/advanced-editor/tests"
   >
-    Use batch testing and simulation for reliable agent validation
+    Use batch testing, simulation modes, and advanced test features for reliable validation
   </Card>
   <Card
     title="Basic Settings"
     icon="gear"
     href="/advanced-editor/basic-settings"
   >
-    Configure name, language, voice, and AI model
+    Configure name, language, voice, LLM model, and foundational settings
   </Card>
   <Card
     title="Knowledge Base"
     icon="book"
     href="/advanced-editor/knowledge-base"
   >
-    Add documents and FAQs for your agent
+    Add documents, FAQs, and reference materials to enhance your agent's capabilities
   </Card>
 </CardGroup>

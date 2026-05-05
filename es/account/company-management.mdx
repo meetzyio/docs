@@ -42,6 +42,64 @@ El panel de control proporciona métricas clave sobre el ecosistema de tu plataf
   </Tab>
 </Tabs>
 
+## Paleta de Comandos
+
+### Acceso Rápido con Cmd+K
+
+La paleta de comandos proporciona acceso instantáneo a todas las funcionalidades del sistema mediante atajos de teclado.
+
+<Steps>
+  <Step title="Activar la Paleta">
+    Presiona `Cmd+K` (macOS) o `Ctrl+K` (Windows/Linux) desde cualquier pantalla
+  </Step>
+  <Step title="Buscar Elementos">
+    Escribe para buscar empresas, miembros o acciones específicas
+  </Step>
+  <Step title="Navegar Resultados">
+    Usa las flechas `↑↓` para navegar entre opciones
+  </Step>
+  <Step title="Ejecutar Acción">
+    Presiona `Enter` para ejecutar la acción seleccionada
+  </Step>
+</Steps>
+
+### Funciones Disponibles
+
+La paleta de comandos permite buscar y acceder a:
+
+#### Gestión de Empresas
+- **Buscar empresa**: Localización rápida por nombre o dominio
+- **Ver detalles**: Acceso directo a información completa
+- **Editar configuración**: Modificación de datos empresariales
+- **Gestionar miembros**: Navegación directa al equipo
+
+#### Gestión de Miembros
+- **Buscar miembro**: Localización transversal de usuarios
+- **Ver permisos**: Revisión de accesos asignados
+- **Editar usuario**: Modificación de datos y permisos
+- **Impersonar**: Acceso directo como el usuario
+
+#### Acciones del Sistema
+- **Crear nueva empresa**: Formulario de registro rápido
+- **Añadir miembro**: Invitación directa a equipos
+- **Exportar datos**: Generación de reportes
+- **Configurar filtros**: Personalización de vistas
+
+### Resultados de Búsqueda
+
+Los resultados se organizan por categorías con iconos distintivos:
+
+| Tipo | Icono | Descripción |
+|------|-------|-------------|
+| 🏢 | Empresa | Organizaciones registradas |
+| 👤 | Miembro | Usuarios del sistema |
+| ⚙️ | Acción | Operaciones disponibles |
+| 📊 | Reporte | Análisis y exportaciones |
+
+<Info>
+La búsqueda es inteligente y encuentra coincidencias parciales en nombres, emails y descripciones.
+</Info>
+
 ## Gestión de Empresas
 
 ### Información de Empresas
@@ -68,7 +126,7 @@ interface Company {
 
 <Steps>
   <Step title="Seleccionar Empresa">
-    Haz clic en el icono de edición junto al nombre de la empresa
+    Haz clic en el icono de edición junto al nombre de la empresa o usa `Cmd+K` para buscar
   </Step>
   <Step title="Modificar Información">
     Actualiza los campos necesarios:
@@ -108,11 +166,27 @@ Los permisos se aplican de forma jerárquica. Un usuario con permisos de edició
 - **Editor avanzado**: Acceso a herramientas de desarrollo
 - **CRM**: Integración con sistemas CRM
 
+### Búsqueda Global de Miembros
+
+La paleta de comandos permite localizar usuarios en todo el sistema:
+
+<Steps>
+  <Step title="Activar Búsqueda">
+    Presiona `Cmd+K` y comienza a escribir el nombre o email del usuario
+  </Step>
+  <Step title="Filtrar Resultados">
+    Los resultados muestran el nombre del miembro y la empresa a la que pertenece
+  </Step>
+  <Step title="Acceso Directo">
+    Selecciona el resultado para acceder directamente al perfil del usuario
+  </Step>
+</Steps>
+
 ### Añadir Nuevos Miembros
 
 <Steps>
   <Step title="Expandir Empresa">
-    Haz clic en el nombre de la empresa para ver sus miembros
+    Haz clic en el nombre de la empresa para ver sus miembros o usa `Cmd+K` para buscar "Añadir miembro"
   </Step>
   <Step title="Botón Añadir Miembro">
     Selecciona "Añadir miembro" en el panel expandido
@@ -148,18 +222,27 @@ Los administradores pueden modificar cualquier aspecto de los usuarios:
 
 ## Herramientas de Administración
 
-### Búsqueda Global
+### Búsqueda y Navegación
 
-El sistema incluye múltiples opciones de búsqueda:
+El sistema incluye múltiples opciones de búsqueda integradas con la paleta de comandos:
 
+#### Búsqueda Contextual
 - **Búsqueda por empresa**: Filtro por nombre o dominio
 - **Búsqueda global de miembros**: Localización transversal
-- **Paleta de comandos**: Acceso rápido con `Cmd+K`
+- **Búsqueda de acciones**: Operaciones disponibles por contexto
+
+#### Navegación con Teclado
+```
+Cmd/Ctrl + K  → Abrir paleta de comandos
+↑ ↓          → Navegar resultados
+Enter        → Ejecutar acción seleccionada
+Escape       → Cerrar paleta
+```
 
 ### Filtros y Ordenación
 
 <Info>
-Las preferencias de filtro se guardan automáticamente para cada sesión.
+Las preferencias de filtro se guardan automáticamente para cada sesión y son accesibles desde la paleta de comandos.
 </Info>
 
 #### Filtros Disponibles
@@ -182,7 +265,7 @@ Para operaciones en múltiples elementos simultáneamente:
 selectedCompanies: Set<string>;
 selectedMembers: Set<string>;
 
-// Acciones disponibles
+// Acciones disponibles via paleta de comandos
 - Habilitar/deshabilitar empresas
 - Exportar datos seleccionados
 - Modificar permisos en lote
@@ -194,7 +277,7 @@ selectedMembers: Set<string>;
 ### Sistema de Auditoría
 
 <Warning>
-Todas las acciones administrativas quedan registradas para auditoría y compliance.
+Todas las acciones administrativas quedan registradas para auditoría y compliance, incluyendo el uso de la paleta de comandos.
 </Warning>
 
 El sistema mantiene un historial completo de:
@@ -202,17 +285,18 @@ El sistema mantiene un historial completo de:
 - Modificaciones de permisos de usuarios
 - Creación y eliminación de cuentas
 - Accesos administrativos
+- **Uso de paleta de comandos**: Búsquedas y acciones ejecutadas
 
 ### Impersonación de Usuarios
 
-Los administradores pueden acceder como cualquier usuario para:
-- Resolver incidencias técnicas
-- Validar configuraciones
-- Proporcionar soporte directo
+Los administradores pueden acceder como cualquier usuario, incluso desde la paleta de comandos:
 
 <Steps>
-  <Step title="Seleccionar Usuario">
-    En la lista de miembros, haz clic en "Impersonar usuario"
+  <Step title="Buscar Usuario">
+    Usa `Cmd+K` y escribe "impersonar" seguido del nombre del usuario
+  </Step>
+  <Step title="Seleccionar de Resultados">
+    Elige el usuario específico de los resultados de búsqueda
   </Step>
   <Step title="Confirmar Acción">
     El sistema solicitará confirmación de la impersonación
@@ -221,20 +305,23 @@ Los administradores pueden acceder como cualquier usuario para:
     Accederás con los permisos exactos del usuario seleccionado
   </Step>
   <Step title="Finalizar Sesión">
-    Usa el banner superior para volver a tu cuenta administrativa
+    Usa el banner superior o la paleta de comandos para volver a tu cuenta administrativa
   </Step>
 </Steps>
 
 ### Gestión de Duplicados
 
-El sistema detecta automáticamente empresas potencialmente duplicadas basándose en:
-- Dominios similares
-- Nombres de empresa coincidentes
-- Emails corporativos relacionados
+El sistema detecta automáticamente empresas potencialmente duplicadas y las hace disponibles en la paleta de comandos:
+
+- Busca "duplicados" para ver empresas similares
+- Dominios similares aparecen agrupados
+- Nombres de empresa coincidentes se destacan
+- Emails corporativos relacionados se vinculan
 
 ### Centro de Notificaciones
 
-Panel centralizado para gestionar:
+Panel centralizado accessible via `Cmd+K` → "notificaciones":
+
 - Notificaciones del sistema
 - Alertas de seguridad
 - Confirmaciones de acciones
@@ -249,18 +336,21 @@ Para mayor eficiencia en la gestión:
 | `Cmd+K` | Abrir paleta de comandos |
 | `Cmd+Shift+E` | Alternar modo de vista |
 | `Cmd+Z` | Deshacer última acción |
+| `Cmd+Shift+F` | Búsqueda global avanzada |
 | `Escape` | Cerrar modales activos |
 
 <Info>
-Los atajos están optimizados para macOS (`Cmd`) y Windows/Linux (`Ctrl`).
+Los atajos están optimizados para macOS (`Cmd`) y Windows/Linux (`Ctrl`). La paleta de comandos se adapta automáticamente al sistema operativo.
 </Info>
 
 ## Exportación de Datos
 
 ### Formatos Disponibles
 
+Accessible desde la paleta de comandos escribiendo "exportar":
+
 - **CSV**: Para análisis en hojas de cálculo
-- **JSON**: Para integraciones técnicas
+- **JSON**: Para integraciones técnicas  
 - **PDF**: Para reportes ejecutivos
 
 ### Datos Exportables
@@ -291,24 +381,55 @@ Los atajos están optimizados para macOS (`Cmd`) y Windows/Linux (`Ctrl`).
 
 ## Mejores Prácticas
 
+### Uso de la Paleta de Comandos
+
+1. **Aprende los patrones**: Memoriza búsquedas frecuentes como "empresa X" o "miembro Y"
+2. **Usa palabras clave**: "editar", "ver", "crear", "exportar" activan acciones contextuales
+3. **Aprovecha la búsqueda parcial**: No necesitas escribir nombres completos
+
 ### Gestión de Permisos
 
 1. **Principio de menor privilegio**: Asigna únicamente los permisos necesarios
-2. **Revisión periódica**: Audita permisos trimestralmente
+2. **Revisión periódica**: Audita permisos trimestralmente usando filtros de la paleta
 3. **Segregación de funciones**: Separa roles administrativos de operativos
 
 ### Organización de Empresas
 
-1. **Nomenclatura consistente**: Mantén estándares de nombres
+1. **Nomenclatura consistente**: Mantén estándares de nombres para facilitar búsquedas
 2. **Agrupación lógica**: Organiza por sector o tamaño
 3. **Documentación**: Mantén notas sobre configuraciones especiales
+4. **Usa la paleta para navegación**: Accede rápidamente a empresas frecuentes
 
 ### Monitorización
 
-1. **Métricas de uso**: Revisa regularmente las estadísticas
+1. **Métricas de uso**: Revisa regularmente las estadísticas via paleta de comandos
 2. **Patrones de acceso**: Identifica comportamientos anómalos
 3. **Rendimiento**: Monitoriza tiempos de respuesta del sistema
+4. **Búsquedas frecuentes**: Usa la paleta para crear accesos directos mentales
 
 <Warning>
-Recuerda que las acciones administrativas tienen impacto directo en la experiencia de los usuarios finales. Siempre valida los cambios en entornos de prueba cuando sea posible.
+Recuerda que las acciones administrativas tienen impacto directo en la experiencia de los usuarios finales. La paleta de comandos facilita la navegación pero mantén la validación de cambios en entornos de prueba cuando sea posible.
 </Warning>
+
+## Notificaciones Toast y Confirmaciones
+
+### Sistema de Deshacer
+
+El sistema incluye notificaciones toast para acciones reversibles:
+
+- **Eliminaciones**: Opción de deshacer en los primeros 10 segundos
+- **Modificaciones masivas**: Restauración de estados anteriores
+- **Cambios de permisos**: Reversión temporal para correcciones
+
+### Modales de Confirmación
+
+Para acciones críticas, el sistema solicita confirmación:
+
+- **Eliminación de empresas**: Modal con advertencia destructiva
+- **Cambios de permisos críticos**: Confirmación de impacto
+- **Impersonación de usuarios**: Verificación de intención
+- **Exportación de datos sensibles**: Confirmación de compliance
+
+<Info>
+Las confirmaciones también están disponibles desde la paleta de comandos, mostrando el contexto de la acción antes de ejecutarla.
+</Info>
