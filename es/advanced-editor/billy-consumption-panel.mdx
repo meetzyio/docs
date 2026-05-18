@@ -15,6 +15,7 @@ El panel de consumo Billy es un componente flotante que se muestra en la esquina
 - **Seguimiento en tiempo real** del consumo de minutos
 - **Desglose detallado** por asistente
 - **Filtros flexibles** por período
+- **Gráficos históricos** para administradores
 - **Indicadores visuales** del estado del servicio
 - **Panel expandible/colapsible** para optimizar el espacio
 
@@ -28,16 +29,19 @@ El panel utiliza indicadores de color para mostrar el estado del servicio:
   <Tab title="Activo">
     - **Verde pulsante**: Servicio operativo y datos actualizados
     - Consumo cargado correctamente
+    - Indicador animado con efecto de pulso
   </Tab>
   
   <Tab title="Error">
     - **Ámbar fijo**: Error al cargar los datos de consumo
     - Mensaje: "No se pudo cargar el consumo"
+    - Sin animación de pulso
   </Tab>
   
   <Tab title="Cargando">
     - **Indicador giratorio**: Recalculando consumo
     - Mensaje: "Recalculando consumo..."
+    - Botón de actualización deshabilitado
   </Tab>
 </Tabs>
 
@@ -45,15 +49,15 @@ El panel utiliza indicadores de color para mostrar el estado del servicio:
 
 <Steps>
   <Step title="Actualización Manual">
-    Botón de refresh para recalcular el consumo actual usando los filtros establecidos
+    Botón de refresh para recalcular el consumo actual usando los filtros establecidos. Se deshabilita durante la carga.
   </Step>
   
   <Step title="Expandir/Colapsar">
-    Botón para alternar entre vista completa y vista compacta del panel
+    Botón para alternar entre vista completa y vista compacta del panel. El estado se persiste en localStorage.
   </Step>
   
   <Step title="Filtros Avanzados">
-    Sección expandible para configurar períodos personalizados
+    Sección expandible para configurar períodos personalizados con validación automática de fechas.
   </Step>
 </Steps>
 
@@ -63,9 +67,10 @@ El panel utiliza indicadores de color para mostrar el estado del servicio:
 
 El panel incluye un sistema de filtros que permite:
 
-- **Períodos predefinidos**: Basados en el día de inicio del período de facturación
+- **Períodos predefinidos**: Basados en el día de inicio del período de facturación (8 períodos históricos)
 - **Rangos personalizados**: Selección libre de fechas de inicio y fin
 - **Validación automática**: Verificación de rangos de fechas válidos
+- **Sincronización automática**: Los filtros se sincronizan con los datos de consumo recibidos
 
 ### Configuración de Filtros
 
@@ -73,14 +78,89 @@ El panel incluye un sistema de filtros que permite:
 Los filtros de fecha deben respetar la lógica temporal:
 - La fecha de inicio no puede ser posterior a la de fin
 - Ambas fechas son requeridas para rangos personalizados
+- Los mensajes de error se muestran en tiempo real
 </Warning>
 
-```html
-<select [(ngModel)]="selectedPeriodKey" (ngModelChange)="onPeriodChange($event)">
-  <option *ngFor="let period of periodOptions" [value]="period.key">
-    {{ period.label }}
-  </option>
-</select>
+```typescript
+async applyCustomRange(): Promise<void> {
+  this.dateMode = 'custom';
+  if (!this.customStart || !this.customEnd) {
+    this.filterError = 'Selecciona una fecha de inicio y fin.';
+    return;
+  }
+
+  if (this.customStart > this.customEnd) {
+    this.filterError = 'La fecha de inicio no puede ser posterior a la de fin.';
+    return;
+  }
+
+  await this.loadConsumption({
+    startDate: this.customStart,
+    endDate: this.customEnd
+  });
+}
+```
+
+### Períodos Automáticos
+
+Los períodos predefinidos se calculan dinámicamente basándose en:
+
+- **Día de inicio de facturación** configurado en el perfil
+- **Fecha de anclaje** del período actual
+- **8 períodos históricos** incluyendo el período actual
+- **Ajuste automático** para meses con diferentes números de días
+
+## Vistas del Panel
+
+### Vista Cliente
+
+Para usuarios normales, el panel muestra:
+
+- **Consumo por asistente** del cliente actual
+- **Totales del período** seleccionado
+- **Desglose de costos** detallado
+- **Filtros de período** disponibles
+
+### Vista Administrador
+
+<Info>
+Los administradores tienen acceso a funcionalidades adicionales cuando el `view_mode` es `admin_clients`.
+</Info>
+
+Para administradores, se incluyen características extra:
+
+<Tabs>
+  <Tab title="Gráficos Históricos">
+    - **Vista histórica** de facturación mensual
+    - **Gráfico interactivo** con Chart.js
+    - **Carga bajo demanda** para optimizar rendimiento
+    - **Manejo de errores** específico para datos históricos
+  </Tab>
+  
+  <Tab title="Datos Agregados">
+    - **Consumo consolidado** de múltiples clientes
+    - **Totales globales** del período
+    - **Perspectiva administrativa** completa
+  </Tab>
+</Tabs>
+
+### Gráfico Histórico de Facturación
+
+```typescript
+async toggleHistoryChart(): Promise<void> {
+  this.showHistoryChart = !this.showHistoryChart;
+
+  if (!this.showHistoryChart) {
+    return;
+  }
+
+  if (!this.historyLoaded) {
+    await this.loadBillingHistory();
+    return;
+  }
+
+  setTimeout(() => void this.renderHistoryChart());
+}
 ```
 
 ## Desglose de Consumo
@@ -92,8 +172,26 @@ Para cada asistente se muestra:
 - **Nombre del asistente**
 - **Unidades consumidas** (con formato localizado)
 - **Tipo de unidad** (minutos, llamadas, etc.)
+- **Precio por unidad** en la moneda configurada
 - **Mínimo aplicable** (si corresponde)
-- **Subtotal** en la moneda configurada
+- **Subtotal** calculado
+
+### Estructura de Datos
+
+```typescript
+interface BillyConsumptionBreakdownItem {
+  rule_id: string;
+  assistant_id: string;
+  assistant_name: string;
+  billing_type: string;
+  price_per_unit: number;
+  minimum: number;
+  units: number;
+  unit_label: string;
+  subtotal: number;
+  detail?: Record<string, any>;
+}
+```
 
 ### Cálculos Totales
 
@@ -101,40 +199,15 @@ El panel incluye cálculos finales que muestran:
 
 - **Subtotal** de todos los servicios
 - **Mínimos aplicados** (si los hay)
-- **Correcciones** aplicadas
+- **Factor de corrección** aplicado
+- **Cantidad de corrección** calculada
 - **Total final** a facturar
 
-## Accesibilidad y UX
-
-### Navegación por Teclado
-
-El panel cumple con estándares de accesibilidad:
-
-- **aria-label**: Etiquetas descriptivas para lectores de pantalla
-- **aria-expanded**: Estados de expansión claramente indicados
-- **focus-visible**: Indicadores visuales de foco para navegación por teclado
-
-### Responsividad
-
-<Tabs>
-  <Tab title="Escritorio">
-    - Ancho fijo de 38rem
-    - Posición fija en esquina inferior izquierda
-    - Máximo ancho adaptativo en pantallas pequeñas
-  </Tab>
-  
-  <Tab title="Móvil">
-    - Ancho adaptativo: `calc(100vw - 2rem)`
-    - Máximo ancho de 24rem (xl)
-    - Espaciado optimizado para touch
-  </Tab>
-</Tabs>
-
-## Formateo de Datos
+## Formateo y Localización
 
 ### Números y Monedas
 
-El panel utiliza formateo internacionalizado:
+El panel utiliza formateo internacionalizado para español:
 
 ```typescript
 formatCurrency(value: number, currency: string = 'EUR'): string {
@@ -142,6 +215,12 @@ formatCurrency(value: number, currency: string = 'EUR'): string {
     style: 'currency',
     currency,
     minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(Number(value || 0));
+}
+
+formatNumber(value: number): string {
+  return new Intl.NumberFormat('es-ES', {
     maximumFractionDigits: 2
   }).format(Number(value || 0));
 }
@@ -162,6 +241,66 @@ formatShortDate(date: Date): string {
 }
 ```
 
+### Traducción de Unidades
+
+```typescript
+private translateUnitLabel(label: string, units: number): string {
+  const normalized = String(label || '').toLowerCase();
+  const translations: Record<string, { singular: string; plural: string }> = {
+    minute: { singular: 'minuto', plural: 'minutos' },
+    call: { singular: 'llamada', plural: 'llamadas' },
+    second: { singular: 'segundo', plural: 'segundos' },
+    hour: { singular: 'hora', plural: 'horas' }
+  };
+  
+  const translation = translations[normalized];
+  if (translation) {
+    return Math.abs(units) === 1 ? translation.singular : translation.plural;
+  }
+  
+  return label;
+}
+```
+
+## Accesibilidad y UX
+
+### Navegación por Teclado
+
+El panel cumple con estándares de accesibilidad WCAG 2.1:
+
+- **aria-label**: Etiquetas descriptivas para lectores de pantalla
+- **aria-expanded**: Estados de expansión claramente indicados
+- **focus-visible**: Indicadores visuales de foco para navegación por teclado
+- **aria-controls**: Asociación clara entre botones y contenido controlado
+
+### Responsividad
+
+<Tabs>
+  <Tab title="Escritorio">
+    - Ancho fijo de 38rem (608px)
+    - Posición fija en esquina inferior izquierda
+    - Z-index elevado (50) para superposición
+    - Bordes redondeados y sombras suaves
+  </Tab>
+  
+  <Tab title="Móvil">
+    - Ancho adaptativo: `calc(100vw - 2rem)`
+    - Máximo ancho de 24rem (384px) en pantallas xl
+    - Espaciado optimizado para interacción táctil
+    - Margen lateral reducido (5px) en pantallas pequeñas
+  </Tab>
+</Tabs>
+
+### Temas Visual
+
+El panel soporta modo oscuro y claro:
+
+```html
+[ngClass]="isDarkMode
+  ? 'border-gray-700/80 bg-gray-900/95 text-gray-100 shadow-black/40'
+  : 'border-gray-200/80 bg-white/95 text-gray-900 shadow-gray-900/10'"
+```
+
 ## Integración con Permisos
 
 <Info>
@@ -172,23 +311,112 @@ El panel solo se renderiza si el usuario tiene permisos para visualizar minutos 
 
 ```typescript
 async ngOnInit(): Promise<void> {
+  this.restoreCollapsedState();
+
   const canView = await this.permissionsService.canViewBillableMinutes();
   if (!canView) {
     return; // Panel no se renderiza
   }
-  
+
   await this.loadConsumption();
 }
 ```
 
+### Manejo de Estados
+
+El componente maneja tres estados principales:
+
+1. **Sin permisos**: El panel no se renderiza en absoluto
+2. **Con permisos, sin datos**: Se muestra el panel con mensaje de error
+3. **Con permisos y datos**: Se muestra el panel completo con información
+
 ## Persistencia de Estado
+
+### LocalStorage
 
 El panel mantiene su estado de expansión usando localStorage:
 
 - **Clave**: `meetzy_billy_consumption_panel_collapsed`
 - **Valor**: String boolean ('true'/'false')
 - **Recuperación**: Automática al inicializar el componente
+- **Manejo de errores**: Graceful fallback si localStorage no está disponible
+
+```typescript
+private restoreCollapsedState(): void {
+  try {
+    this.collapsed = localStorage.getItem(this.COLLAPSED_KEY) === 'true';
+  } catch {
+    this.collapsed = false;
+  }
+}
+
+toggleCollapsed(): void {
+  this.collapsed = !this.collapsed;
+  try {
+    localStorage.setItem(this.COLLAPSED_KEY, String(this.collapsed));
+  } catch {
+    // Ignore storage failures in private browsing or restricted contexts.
+  }
+}
+```
+
+## Performance y Optimización
+
+### Carga Diferida
+
+<Steps>
+  <Step title="Inicialización">
+    Solo se cargan los datos básicos de consumo al inicializar
+  </Step>
+  
+  <Step title="Datos Históricos">
+    Los gráficos históricos se cargan bajo demanda solo para administradores
+  </Step>
+  
+  <Step title="Chart.js">
+    La biblioteca de gráficos se carga únicamente cuando se necesita
+  </Step>
+</Steps>
+
+### Manejo de Errores
+
+El panel implementa manejo robusto de errores:
+
+- **Errores de API**: Mensajes descriptivos en la interfaz
+- **Errores de localStorage**: Fallback silencioso
+- **Errores de validación**: Feedback inmediato al usuario
 
 <Warning>
 En contextos de navegación privada o con restricciones de almacenamiento, el panel funcionará correctamente pero no recordará el estado de expansión entre sesiones.
 </Warning>
+
+## Integración con API
+
+### Endpoints Utilizados
+
+1. **getCurrentBillyConsumption**: Obtiene el consumo actual con filtros opcionales
+2. **getBillyBillingHistory**: Obtiene el historial de facturación para administradores
+
+### Filtros de Consulta
+
+```typescript
+interface BillyConsumptionFilters {
+  startDate?: string; // Formato YYYY-MM-DD
+  endDate?: string;   // Formato YYYY-MM-DD
+}
+```
+
+### Tipos de Respuesta
+
+```typescript
+export type BillyConsumptionData =
+  | {
+      visible: false;
+      reason: 'missing_billy_profile' | 'missing_billing_rules';
+    }
+  | {
+      visible: true;
+      view_mode?: 'client_agents' | 'admin_clients';
+      // ... datos completos de consumo
+    };
+```

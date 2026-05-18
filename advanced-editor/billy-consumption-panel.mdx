@@ -1,10 +1,10 @@
 ---
 title: "Billy Consumption Panel"
-description: "Monitor and analyze your billing consumption in real-time with the Billy consumption panel"
+description: "Monitor and analyze your billing consumption in real-time with enhanced filtering, admin historical charts, and comprehensive cost tracking"
 icon: "chart-bar"
 ---
 
-The Billy consumption panel provides real-time visibility into your billing consumption across different assistants and time periods. This floating panel appears in the bottom-left corner of your dashboard when billing rules are configured.
+The Billy consumption panel provides comprehensive real-time visibility into your billing consumption with advanced filtering capabilities and administrative insights. This floating panel appears in the bottom-left corner of your dashboard when billing rules are configured.
 
 <Info>
 The Billy panel automatically appears when you have billing rules configured for your account. If you don't see it, contact your administrator to set up billing configuration.
@@ -12,165 +12,292 @@ The Billy panel automatically appears when you have billing rules configured for
 
 ## Panel Overview
 
-The Billy consumption panel displays:
+The enhanced Billy consumption panel displays:
 
-- **Real-time consumption data** for the current billing period
-- **Cost breakdown by assistant** with detailed metrics
-- **Flexible time period filtering** options
+- **Real-time consumption data** with intelligent period detection
+- **Advanced filtering system** with predefined periods and custom date ranges
+- **Cost breakdown by assistant** with detailed unit metrics
+- **Administrative historical charts** for trend analysis
 - **Billing adjustments** including minimums and corrections
+- **Flexible view modes** for different user types
 
-## Using the Panel
+## Panel Interface
+
+### Header Controls
+
+The panel header includes:
+- **Status indicator**: Green pulse for active monitoring, amber for errors
+- **Refresh button**: Manual data refresh with loading state
+- **Collapse/expand toggle**: Minimizes panel while keeping it accessible
 
 ### Expanding and Collapsing
 
 <Steps>
 <Step title="Locate the Panel">
-The panel appears as a small indicator in the bottom-left corner with a green pulse animation when active
+The panel appears as a small indicator in the bottom-left corner with status-based color coding
 </Step>
 
 <Step title="Expand the Panel">
-Click the expand button (down arrow) to view detailed consumption data
+Click the expand button (down arrow) to view detailed consumption data and controls
 </Step>
 
 <Step title="Collapse When Needed">
-Click the collapse button (up arrow) to minimize the panel while keeping it accessible
+Click the collapse button (up arrow) to minimize the panel. Your preference is automatically saved
 </Step>
 </Steps>
 
-### Period Filters
+## Advanced Filtering System
 
-The panel offers multiple ways to filter your consumption data:
+### Predefined Period Filters
 
-#### Predefined Periods
+The panel automatically generates billing periods based on your account configuration:
 
-Select from automatically generated billing periods:
-- Current billing period (default)
-- Previous billing periods
-- Historical periods based on your billing cycle
-
-#### Custom Date Range
+- **Current billing period** (default selection)
+- **Previous billing periods** (up to 8 historical periods)
+- **Automatically calculated periods** based on your billing cycle start day
 
 <Steps>
-<Step title="Open Filters">
-Click the "Filter" section to expand the date range options
+<Step title="Open Filter Section">
+Click "Filter" to expand the filtering controls
 </Step>
 
-<Step title="Set Custom Dates">
-Use the "Desde" (From) and "Hasta" (To) date inputs to define your range
+<Step title="Select Predefined Period">
+Choose from the dropdown of automatically generated billing periods
 </Step>
 
-<Step title="Apply Range">
-Click "Aplicar" to load data for your custom period
+<Step title="View Updated Data">
+Data automatically refreshes when a new period is selected
+</Step>
+</Steps>
+
+### Custom Date Range Filtering
+
+For flexible analysis beyond predefined periods:
+
+<Steps>
+<Step title="Set Start Date">
+Use the "From" date picker to select your analysis start date
+</Step>
+
+<Step title="Set End Date">
+Use the "To" date picker to define the end of your analysis period
+</Step>
+
+<Step title="Apply Custom Range">
+Click "Apply" to load consumption data for your custom date range
 </Step>
 </Steps>
 
 <Warning>
-Custom date ranges must have a start date before or equal to the end date. The panel will show an error if dates are invalid.
+Custom date ranges must have a start date before or equal to the end date. The panel will show validation errors for invalid date combinations.
 </Warning>
 
-## Understanding the Data
+### Filter States and Error Handling
 
-### Consumption Breakdown
+The filtering system includes comprehensive validation:
 
-Each assistant shows:
+- **Date validation**: Prevents invalid date combinations
+- **Loading states**: Shows "Recalculating consumption..." during data refresh
+- **Error recovery**: Displays helpful error messages and retry options
+- **Auto-synchronization**: Keeps filter state in sync with consumption data
 
-- **Assistant name** and associated costs
-- **Usage units** (minutes, calls, etc.) with unit labels
-- **Subtotal cost** for the period
-- **Minimum charges** when applicable
+## Administrative Features
 
-### Billing Adjustments
+### Historical Chart View
 
-The panel displays additional charges:
+<Info>
+Historical charts are only available for administrators with appropriate permissions.
+</Info>
 
-- **Minimum Applied**: Additional charges to meet minimum billing requirements
-- **Corrections**: Adjustments or credits applied to your account
-
-### Total Calculation
-
-The final total includes:
-```
-Subtotal + Minimum Applied - Correction Amount = Total Cost
-```
-
-## Refreshing Data
+For admin users, the panel includes an additional historical analysis section:
 
 <Steps>
-<Step title="Manual Refresh">
-Click the refresh icon (circular arrow) next to the collapse button
+<Step title="Access Historical View">
+Look for the "View historical chart" section below the filters (admin accounts only)
 </Step>
 
-<Step title="Automatic Updates">
-The panel automatically recalculates when you change filter periods
+<Step title="Toggle Chart Display">
+Click to show/hide the billing history chart
 </Step>
 
-<Step title="Loading States">
-A spinning refresh icon indicates data is being recalculated
+<Step title="Analyze Trends">
+Review the interactive chart showing billing trends across multiple months
 </Step>
 </Steps>
 
-## Panel States
+The historical chart provides:
+- **Monthly billing totals** over time
+- **Visual trend analysis** for budget planning
+- **Interactive data points** with detailed monthly breakdowns
 
-### Normal Operation
-- Green pulse indicator shows active monitoring
-- All consumption data loads successfully
+### View Modes
 
-### Error States
-- Amber indicator appears when data cannot be loaded
-- "No se pudo cargar el consumo" message displays
-- Try refreshing or contact support if errors persist
+The panel adapts its display based on user permissions:
+
+- **Client View** (`client_agents`): Shows consumption for your assistants
+- **Admin View** (`admin_clients`): Shows consumption across clients with additional controls
+
+## Understanding Consumption Data
+
+### Breakdown by Assistant
+
+Each assistant entry shows:
+
+- **Assistant name** and identification
+- **Usage metrics** with proper unit labels (minutes, calls, etc.)
+- **Unit pricing** and subtotal calculations
+- **Billing type** information
+
+### Cost Calculation Structure
+
+The panel displays a transparent cost breakdown:
+
+```
+Subtotal (all assistant usage)
++ Minimum Applied (billing minimums)
+- Correction Amount (adjustments/credits)
+= Total Cost
+```
+
+### Unit Display and Formatting
+
+- **Automatic pluralization**: Units display correctly for singular/plural amounts
+- **Localized formatting**: Numbers and currency display according to your locale
+- **Consistent precision**: Monetary values show appropriate decimal places
+
+## Data Refresh and States
+
+### Manual Refresh
+
+<Steps>
+<Step title="Trigger Refresh">
+Click the circular arrow refresh icon in the panel header
+</Step>
+
+<Step title="Monitor Progress">
+The icon shows a spinning animation during data loading
+</Step>
+
+<Step title="Handle Errors">
+If refresh fails, the status indicator changes to amber and error messages appear
+</Step>
+</Steps>
 
 ### Loading States
-- "Recalculando consumo..." message during data refresh
-- Disabled controls prevent multiple simultaneous requests
+
+The panel provides clear feedback during operations:
+
+- **"Recalculating consumption..."**: Data is being refreshed
+- **"Loading billing history..."**: Historical chart data is loading
+- **Disabled controls**: Prevent multiple simultaneous requests
+
+### Error Recovery
+
+When errors occur, the panel:
+- Changes status indicator to amber
+- Displays clear error messages
+- Allows retry through manual refresh
+- Maintains last successful data when possible
+
+## Panel States and Indicators
+
+### Normal Operation
+- **Green pulsing indicator**: Active monitoring with successful data loading
+- **Smooth transitions**: All controls respond normally
+- **Current data display**: Shows up-to-date consumption information
+
+### Error States
+- **Amber indicator**: Data loading failures or connectivity issues
+- **Error messages**: Clear descriptions of what went wrong
+- **Retry mechanisms**: Options to refresh and recover
+
+### Maintenance Mode
+- **Disabled controls**: During data recalculation
+- **Loading indicators**: Show processing status
+- **Preserved state**: Maintains panel position and preferences
 
 ## Troubleshooting
 
 <Tabs>
 <Tab title="Panel Not Visible">
 **Possible causes:**
-- No billing rules configured
-- Insufficient permissions
-- Account not set up for billing
+- No Billy billing profile configured
+- Insufficient permissions for consumption viewing
+- Billing rules not set up for your account
 
 **Solutions:**
-- Contact your administrator
-- Verify billing configuration
-- Check account permissions
+- Contact your administrator to configure Billy billing
+- Verify your account has consumption viewing permissions
+- Check if billing rules exist for your assistants
 </Tab>
 
-<Tab title="Data Not Loading">
+<Tab title="Filters Not Working">
 **Possible causes:**
+- Invalid date range selections
 - Network connectivity issues
-- Server temporary unavailable
-- Invalid date range
+- Server-side date processing errors
 
 **Solutions:**
-- Check your internet connection
-- Try refreshing the panel
-- Verify your date range is valid
+- Verify start date is before or equal to end date
+- Try using predefined periods instead of custom ranges
+- Check your internet connection and retry
 </Tab>
 
-<Tab title="Incorrect Data">
+<Tab title="Historical Chart Missing">
 **Possible causes:**
-- Cached data showing
-- Recent billing changes not reflected
-- Time zone differences
+- Non-admin account (feature restricted)
+- Insufficient billing history data
+- Chart rendering failures
 
 **Solutions:**
-- Refresh the panel manually
-- Clear browser cache
-- Verify your time zone settings
+- Verify you have administrative permissions
+- Contact support if you should have admin access
+- Try refreshing the panel to reload chart data
+</Tab>
+
+<Tab title="Incorrect Consumption Data">
+**Possible causes:**
+- Cached data showing outdated information
+- Recent billing changes not yet reflected
+- Time zone calculation differences
+
+**Solutions:**
+- Use the manual refresh button
+- Clear browser cache and reload
+- Verify your account time zone settings
 </Tab>
 </Tabs>
 
 ## Best Practices
 
-1. **Regular Monitoring**: Check consumption regularly to stay within budget
-2. **Period Comparison**: Use different time periods to track usage trends
-3. **Assistant Analysis**: Monitor which assistants consume the most resources
-4. **Budget Planning**: Use historical data for future budget planning
+### Regular Monitoring
+- **Check consumption frequently** to stay within budget limits
+- **Use period comparisons** to identify usage trends
+- **Monitor assistant performance** to optimize resource allocation
+
+### Effective Filtering
+- **Start with predefined periods** for standard analysis
+- **Use custom ranges** for specific investigation periods
+- **Combine filters** with manual refresh for most current data
+
+### Administrative Usage
+- **Review historical charts** for long-term planning
+- **Monitor client consumption patterns** for resource allocation
+- **Use trend analysis** for budget forecasting
+
+### Performance Optimization
+- **Keep the panel collapsed** when not actively monitoring
+- **Refresh manually** when you need the most current data
+- **Use appropriate filter periods** to avoid loading excessive data
 
 <Info>
-The panel remembers your collapsed/expanded preference and restores it when you return to the dashboard.
+The panel automatically saves your collapsed/expanded preference and filter settings, restoring them when you return to the dashboard.
 </Info>
+
+## Data Privacy and Security
+
+The Billy consumption panel:
+- **Respects permissions**: Only shows data you're authorized to view
+- **Maintains privacy**: Client data isolation in multi-tenant environments
+- **Secure communication**: All data transfer uses encrypted connections
+- **Audit compliance**: Administrative actions are logged for compliance
