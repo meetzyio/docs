@@ -1,0 +1,194 @@
+---
+title: Panel de Consumo Billy
+description: Gestiona y supervisa el consumo de minutos facturables en tiempo real
+icon: chart-bar
+---
+
+<Info>
+El panel de consumo Billy proporciona una vista integral de tu consumo actual de minutos facturables, permitiendo el seguimiento y análisis detallado de los costos por asistente.
+</Info>
+
+## Descripción General
+
+El panel de consumo Billy es un componente flotante que se muestra en la esquina inferior izquierda del editor avanzado. Ofrece:
+
+- **Seguimiento en tiempo real** del consumo de minutos
+- **Desglose detallado** por asistente
+- **Filtros flexibles** por período
+- **Indicadores visuales** del estado del servicio
+- **Panel expandible/colapsible** para optimizar el espacio
+
+## Características del Panel
+
+### Estados Visuales
+
+El panel utiliza indicadores de color para mostrar el estado del servicio:
+
+<Tabs>
+  <Tab title="Activo">
+    - **Verde pulsante**: Servicio operativo y datos actualizados
+    - Consumo cargado correctamente
+  </Tab>
+  
+  <Tab title="Error">
+    - **Ámbar fijo**: Error al cargar los datos de consumo
+    - Mensaje: "No se pudo cargar el consumo"
+  </Tab>
+  
+  <Tab title="Cargando">
+    - **Indicador giratorio**: Recalculando consumo
+    - Mensaje: "Recalculando consumo..."
+  </Tab>
+</Tabs>
+
+### Controles de Interacción
+
+<Steps>
+  <Step title="Actualización Manual">
+    Botón de refresh para recalcular el consumo actual usando los filtros establecidos
+  </Step>
+  
+  <Step title="Expandir/Colapsar">
+    Botón para alternar entre vista completa y vista compacta del panel
+  </Step>
+  
+  <Step title="Filtros Avanzados">
+    Sección expandible para configurar períodos personalizados
+  </Step>
+</Steps>
+
+## Sistema de Filtros
+
+### Filtros por Período
+
+El panel incluye un sistema de filtros que permite:
+
+- **Períodos predefinidos**: Basados en el día de inicio del período de facturación
+- **Rangos personalizados**: Selección libre de fechas de inicio y fin
+- **Validación automática**: Verificación de rangos de fechas válidos
+
+### Configuración de Filtros
+
+<Warning>
+Los filtros de fecha deben respetar la lógica temporal:
+- La fecha de inicio no puede ser posterior a la de fin
+- Ambas fechas son requeridas para rangos personalizados
+</Warning>
+
+```html
+<select [(ngModel)]="selectedPeriodKey" (ngModelChange)="onPeriodChange($event)">
+  <option *ngFor="let period of periodOptions" [value]="period.key">
+    {{ period.label }}
+  </option>
+</select>
+```
+
+## Desglose de Consumo
+
+### Información por Asistente
+
+Para cada asistente se muestra:
+
+- **Nombre del asistente**
+- **Unidades consumidas** (con formato localizado)
+- **Tipo de unidad** (minutos, llamadas, etc.)
+- **Mínimo aplicable** (si corresponde)
+- **Subtotal** en la moneda configurada
+
+### Cálculos Totales
+
+El panel incluye cálculos finales que muestran:
+
+- **Subtotal** de todos los servicios
+- **Mínimos aplicados** (si los hay)
+- **Correcciones** aplicadas
+- **Total final** a facturar
+
+## Accesibilidad y UX
+
+### Navegación por Teclado
+
+El panel cumple con estándares de accesibilidad:
+
+- **aria-label**: Etiquetas descriptivas para lectores de pantalla
+- **aria-expanded**: Estados de expansión claramente indicados
+- **focus-visible**: Indicadores visuales de foco para navegación por teclado
+
+### Responsividad
+
+<Tabs>
+  <Tab title="Escritorio">
+    - Ancho fijo de 38rem
+    - Posición fija en esquina inferior izquierda
+    - Máximo ancho adaptativo en pantallas pequeñas
+  </Tab>
+  
+  <Tab title="Móvil">
+    - Ancho adaptativo: `calc(100vw - 2rem)`
+    - Máximo ancho de 24rem (xl)
+    - Espaciado optimizado para touch
+  </Tab>
+</Tabs>
+
+## Formateo de Datos
+
+### Números y Monedas
+
+El panel utiliza formateo internacionalizado:
+
+```typescript
+formatCurrency(value: number, currency: string = 'EUR'): string {
+  return new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(Number(value || 0));
+}
+```
+
+### Fechas y Períodos
+
+Las fechas se muestran en formato localizado español:
+
+```typescript
+formatShortDate(date: Date): string {
+  return new Intl.DateTimeFormat('es-ES', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC'
+  }).format(date);
+}
+```
+
+## Integración con Permisos
+
+<Info>
+El panel solo se renderiza si el usuario tiene permisos para visualizar minutos facturables. Esta verificación se realiza a través del servicio `PermissionsService`.
+</Info>
+
+### Control de Visibilidad
+
+```typescript
+async ngOnInit(): Promise<void> {
+  const canView = await this.permissionsService.canViewBillableMinutes();
+  if (!canView) {
+    return; // Panel no se renderiza
+  }
+  
+  await this.loadConsumption();
+}
+```
+
+## Persistencia de Estado
+
+El panel mantiene su estado de expansión usando localStorage:
+
+- **Clave**: `meetzy_billy_consumption_panel_collapsed`
+- **Valor**: String boolean ('true'/'false')
+- **Recuperación**: Automática al inicializar el componente
+
+<Warning>
+En contextos de navegación privada o con restricciones de almacenamiento, el panel funcionará correctamente pero no recordará el estado de expansión entre sesiones.
+</Warning>

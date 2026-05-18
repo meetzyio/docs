@@ -1,12 +1,12 @@
 ---
 title: 'Import Contacts'
-description: 'Import contacts from Excel files or Google Sheets'
+description: 'Import contacts from Excel files or Google Sheets with advanced filters and AI-powered search'
 icon: 'file-import'
 ---
 
 # Import Contacts
 
-Meetzy allows you to import contacts in bulk from Excel files (.xlsx, .xls, .xlsm) or directly from Google Sheets. This enables you to quickly populate your contact database for campaigns.
+Meetzy allows you to import contacts in bulk from Excel files (.xlsx, .xls, .xlsm) or directly from Google Sheets. This enables you to quickly populate your contact database for campaigns with advanced filtering and AI-powered search capabilities.
 
 ## Import Methods
 
@@ -24,7 +24,7 @@ The import process follows three steps:
     Choose your source file or spreadsheet.
   </Step>
   <Step title="Configure">
-    Map columns and set import options.
+    Map columns and set import options with advanced filters.
   </Step>
   <Step title="Import">
     Process contacts and view results.
@@ -41,9 +41,9 @@ The import process follows three steps:
 4. Supported formats: `.xlsx`, `.xls`, `.xlsm`
 5. Maximum file size: 10MB
 
-<Tip>
+<Info>
 Drag and drop works directly on the upload zone. The border turns green when a valid file is detected.
-</Tip>
+</Info>
 
 ### File Validation
 
@@ -77,6 +77,53 @@ If not connected:
 3. Click on a spreadsheet to select it
 4. The system validates the sheet structure
 
+## Advanced Filters & Search
+
+### AI-Powered Search
+
+Use natural language to find specific contacts:
+
+<Steps>
+  <Step title="Open AI Search">
+    Click the AI search icon in the search bar.
+  </Step>
+  <Step title="Enter Query">
+    Type your search in natural language, e.g., "Find all contacts from California with more than 5 calls"
+  </Step>
+  <Step title="Review Results">
+    AI will process your query and display matching contacts.
+  </Step>
+</Steps>
+
+<Info>
+AI search works with contact data, call history, location information, and custom fields to provide intelligent results.
+</Info>
+
+### Advanced Filtering
+
+Access advanced filters to narrow down your import data:
+
+| Filter Type | Options | Description |
+|-------------|---------|-------------|
+| **Status** | Active, Inactive, All | Filter by contact status |
+| **Call Range** | Min/Max calls | Filter by number of previous calls |
+| **Date Range** | From/To dates | Filter by creation or last contact date |
+| **Location** | City, Country | Filter by geographic location |
+| **Contact Info** | Has Email | Filter contacts with/without email |
+
+### Smart Filter Combinations
+
+Combine multiple filters for precise targeting:
+
+```
+Status: Active + 
+Min Calls: 3 + 
+Has Email: Yes + 
+City: Madrid
+```
+
+This finds active contacts from Madrid with at least 3 calls and email addresses.
+
 ## Column Mapping
 
 ### Required Fields
@@ -87,11 +134,24 @@ If not connected:
 | Name | Contact name | No |
 | Email | Contact email | No |
 
-### Mapping Columns
+### Enhanced Mapping Options
 
-1. For each field, select the corresponding column from your file
-2. Preview data updates in real-time
-3. Highlighted columns indicate mapped fields
+1. **Standard Fields**: Phone, Name, Email
+2. **Location Fields**: City, State, Country, Postal Code
+3. **Business Fields**: Company, Job Title
+4. **Marketing Fields**: UTM Source, Medium, Campaign
+5. **Custom Fields**: Any additional columns from your file
+
+### Smart Column Detection
+
+The system automatically suggests column mappings based on:
+- Column headers
+- Data patterns
+- Common naming conventions
+
+<Info>
+The system recognizes headers like "First Name", "fname", "given_name" and maps them appropriately.
+</Info>
 
 ### Custom Fields
 
@@ -102,25 +162,49 @@ Add additional columns as custom fields:
 3. Custom fields are stored with the contact
 4. Use them in agent prompts with input parameters
 
-<Info>
+<Warning>
 Columns already mapped to standard fields (Phone, Name, Email) cannot be added as custom fields.
-</Info>
+</Warning>
 
-## Data Preview
+## Data Preview & Validation
 
-Before importing, review your data:
+### Enhanced Preview
 
-- First rows are displayed in a preview table
-- Mapped columns are highlighted in green
-- Verify data looks correct before proceeding
+Before importing, review your data with advanced preview features:
 
-## Sheet Selection
+- **Data Quality Indicators**: Shows data completeness and quality scores
+- **Duplicate Detection**: Highlights potential duplicate contacts
+- **Format Validation**: Verifies phone numbers and email formats
+- **Geographic Validation**: Validates city/country combinations
 
-If your file contains multiple sheets:
+### Data Quality Metrics
 
-1. A dropdown appears to select the sheet
-2. Choose the sheet containing your contacts
-3. Mapping updates based on the selected sheet's columns
+| Metric | Description | Action |
+|--------|-------------|---------|
+| ✅ Valid | Properly formatted data | Ready to import |
+| ⚠️ Warning | Potentially incorrect data | Review recommended |
+| ❌ Error | Invalid data format | Must fix before import |
+
+## AI-Enhanced Data Enrichment
+
+### Automatic Data Enhancement
+
+During import, the system can automatically:
+
+1. **Format phone numbers** with proper country codes
+2. **Standardize addresses** using geographic databases  
+3. **Detect duplicates** using fuzzy matching algorithms
+4. **Enrich contact data** with additional information
+
+### Intelligent Duplicate Handling
+
+Choose how to handle duplicates:
+
+| Option | Description | Recommendation |
+|--------|-------------|----------------|
+| Skip | Skip duplicate entries | Best for clean data |
+| Update | Update existing contacts | Good for data refresh |
+| Create New | Create duplicate entries | Use with caution |
 
 ## Segment Assignment
 
@@ -129,10 +213,18 @@ All imported contacts are automatically added to a segment:
 1. Enter a **Segment Name**
 2. This creates a new segment with your imports
 3. Use segments for targeted campaigns
+4. Apply advanced filters to segment creation
 
-<Tip>
-Use descriptive segment names like "February 2024 Leads" or "Real Estate Prospects" for easy identification.
-</Tip>
+<Info>
+Use descriptive segment names like "Q1 2024 Leads - Madrid Tech Companies" for easy identification and targeting.
+</Info>
+
+### Smart Segment Suggestions
+
+Based on your data, the system suggests segment names:
+- **By Location**: "Madrid Contacts", "Spain Prospects"  
+- **By Source**: "LinkedIn Import March 2024"
+- **By Industry**: "Tech Companies", "Real Estate Leads"
 
 ## Admin Features
 
@@ -141,88 +233,125 @@ For admin users:
 ### Company Selection
 
 1. A company selector appears at the top
-2. Search for a company by name
+2. Search for a company by name with intelligent autocomplete
 3. Select to import contacts to that company
 4. "My Account" imports to your own account
+
+### Bulk Import Analytics
+
+View detailed analytics during import:
+- **Import velocity** (contacts per minute)
+- **Data quality scores** 
+- **Enrichment statistics**
+- **Duplicate resolution summary**
 
 ## Import Process
 
 Once configuration is complete:
 
 1. Click **Start Import**
-2. A progress circle shows completion percentage
+2. Real-time progress with advanced metrics
 3. Live stats display:
    - New contacts created
    - Existing contacts updated
-   - Rows skipped
+   - Data enrichment applied
+   - Rows skipped with reasons
 
-### Import Duration
+### Enhanced Import Duration
 
-Processing time depends on:
-- Number of rows
-- Network speed
-- Server load
+Processing includes:
+- **Data validation** and formatting
+- **Duplicate detection** and resolution  
+- **AI-powered data enrichment**
+- **Advanced segmentation**
 
-Large imports (10,000+ rows) may take several minutes.
+Large imports (10,000+ rows) may take several minutes depending on enrichment settings.
 
 ## Import Report
 
-After completion, you'll see:
+After completion, you'll see an enhanced report:
 
 | Metric | Description |
 |--------|-------------|
-| ✅ Imported | New contacts created |
-| 🔄 Updated | Existing contacts updated |
-| ⏭️ Skipped | Rows not imported |
-| 📊 In Segment | Total contacts in segment |
+| ✅ Imported | New contacts created successfully |
+| 🔄 Updated | Existing contacts updated with new data |
+| 🤖 Enriched | Contacts enhanced with additional data |
+| ⏭️ Skipped | Rows not imported with detailed reasons |
+| 📊 In Segment | Total contacts added to segment |
 
-### Error Details
+### Advanced Error Analysis
 
 If errors occurred:
+- **Categorized error types** (format, validation, duplicate)
+- **Suggested fixes** for common issues
+- **Bulk correction options** for similar errors
+- **Export error report** for offline review
 
-- View the errors table
-- Each row shows: Row number, Phone, Error message
-- Common errors: Invalid phone format, missing required data
+### Post-Import Actions
 
-### Quick Actions
+- **View Segment** - Go to the created segment with applied filters
+- **Run AI Analysis** - Get insights about imported contacts
+- **Start Campaign** - Create targeted campaigns immediately
+- **Export Results** - Download import summary report
 
-- **View Segment** - Go to the created segment
-- **Import More** - Start a new import
-- **View All Contacts** - Browse your CRM
+## AI-Powered Insights
+
+After import, access AI insights about your new contacts:
+
+<CardGroup cols={2}>
+  <Card title="Contact Analysis" icon="chart-line">
+    Geographic distribution, industry breakdown, and quality metrics.
+  </Card>
+  <Card title="Engagement Prediction" icon="crystal-ball">
+    AI predicts which contacts are most likely to engage.
+  </Card>
+  <Card title="Segmentation Suggestions" icon="layer-group">
+    Smart recommendations for additional segment creation.
+  </Card>
+  <Card title="Campaign Optimization" icon="target">
+    Optimal calling times and approach strategies.
+  </Card>
+</CardGroup>
 
 ## Best Practices
 
 <CardGroup cols={2}>
-  <Card title="Clean Data First" icon="broom">
-    Remove duplicates and format phone numbers before importing.
+  <Card title="Data Quality First" icon="shield-check">
+    Use advanced filters to ensure high-quality imports with proper validation.
   </Card>
-  <Card title="Use Headers" icon="heading">
-    Ensure your first row contains column headers for accurate mapping.
+  <Card title="Smart Segmentation" icon="layer-group">
+    Leverage AI suggestions for creating meaningful contact segments.
   </Card>
-  <Card title="Phone Format" icon="phone">
-    Include country codes (e.g., +1 for US, +34 for Spain).
+  <Card title="Duplicate Prevention" icon="copy">
+    Enable intelligent duplicate detection to maintain clean databases.
   </Card>
-  <Card title="Test Small" icon="flask">
-    Test with a small batch first to verify mapping works correctly.
+  <Card title="Gradual Enrichment" icon="sparkles">
+    Start with basic imports, then use AI enhancement for progressive data improvement.
   </Card>
 </CardGroup>
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| "No phone numbers found" | Verify your phone column is selected correctly |
-| "Invalid phone format" | Add country codes to phone numbers |
-| "File too large" | Split into multiple files under 10MB |
-| "Google Sheets not connected" | Go to Integrations to reconnect |
+| Issue | Advanced Solution |
+|-------|-------------------|
+| "AI search not working" | Check internet connection and try simpler queries |
+| "Advanced filters slow" | Reduce filter complexity or import in smaller batches |
+| "Data enrichment failed" | Verify data quality and contact support for API limits |
+| "Smart duplicates missed" | Adjust duplicate detection sensitivity in settings |
 
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Manage Contacts" icon="address-book" href="/crm/manage-contacts">
-    View and edit your imported contacts.
+  <Card title="AI Contact Search" icon="magnifying-glass" href="/crm/ai-search">
+    Use AI to find specific contacts with natural language queries.
   </Card>
-  <Card title="Segments" icon="layer-group" href="/crm/segments">
-    Organize contacts into targeted groups.
+  <Card title="Advanced Segments" icon="layer-group" href="/crm/segments">
+    Create intelligent segments using advanced filters and AI.
+  </Card>
+  <Card title="Campaign Optimization" icon="rocket" href="/campaigns/optimization">
+    Use AI insights to optimize your calling campaigns.
+  </Card>
+  <Card title="Data Analytics" icon="chart-bar" href="/analytics/contacts">
+    Analyze contact data with advanced reporting tools.
   </Card>
 </CardGroup>

@@ -1,0 +1,176 @@
+---
+title: "Billy Consumption Panel"
+description: "Monitor and analyze your billing consumption in real-time with the Billy consumption panel"
+icon: "chart-bar"
+---
+
+The Billy consumption panel provides real-time visibility into your billing consumption across different assistants and time periods. This floating panel appears in the bottom-left corner of your dashboard when billing rules are configured.
+
+<Info>
+The Billy panel automatically appears when you have billing rules configured for your account. If you don't see it, contact your administrator to set up billing configuration.
+</Info>
+
+## Panel Overview
+
+The Billy consumption panel displays:
+
+- **Real-time consumption data** for the current billing period
+- **Cost breakdown by assistant** with detailed metrics
+- **Flexible time period filtering** options
+- **Billing adjustments** including minimums and corrections
+
+## Using the Panel
+
+### Expanding and Collapsing
+
+<Steps>
+<Step title="Locate the Panel">
+The panel appears as a small indicator in the bottom-left corner with a green pulse animation when active
+</Step>
+
+<Step title="Expand the Panel">
+Click the expand button (down arrow) to view detailed consumption data
+</Step>
+
+<Step title="Collapse When Needed">
+Click the collapse button (up arrow) to minimize the panel while keeping it accessible
+</Step>
+</Steps>
+
+### Period Filters
+
+The panel offers multiple ways to filter your consumption data:
+
+#### Predefined Periods
+
+Select from automatically generated billing periods:
+- Current billing period (default)
+- Previous billing periods
+- Historical periods based on your billing cycle
+
+#### Custom Date Range
+
+<Steps>
+<Step title="Open Filters">
+Click the "Filter" section to expand the date range options
+</Step>
+
+<Step title="Set Custom Dates">
+Use the "Desde" (From) and "Hasta" (To) date inputs to define your range
+</Step>
+
+<Step title="Apply Range">
+Click "Aplicar" to load data for your custom period
+</Step>
+</Steps>
+
+<Warning>
+Custom date ranges must have a start date before or equal to the end date. The panel will show an error if dates are invalid.
+</Warning>
+
+## Understanding the Data
+
+### Consumption Breakdown
+
+Each assistant shows:
+
+- **Assistant name** and associated costs
+- **Usage units** (minutes, calls, etc.) with unit labels
+- **Subtotal cost** for the period
+- **Minimum charges** when applicable
+
+### Billing Adjustments
+
+The panel displays additional charges:
+
+- **Minimum Applied**: Additional charges to meet minimum billing requirements
+- **Corrections**: Adjustments or credits applied to your account
+
+### Total Calculation
+
+The final total includes:
+```
+Subtotal + Minimum Applied - Correction Amount = Total Cost
+```
+
+## Refreshing Data
+
+<Steps>
+<Step title="Manual Refresh">
+Click the refresh icon (circular arrow) next to the collapse button
+</Step>
+
+<Step title="Automatic Updates">
+The panel automatically recalculates when you change filter periods
+</Step>
+
+<Step title="Loading States">
+A spinning refresh icon indicates data is being recalculated
+</Step>
+</Steps>
+
+## Panel States
+
+### Normal Operation
+- Green pulse indicator shows active monitoring
+- All consumption data loads successfully
+
+### Error States
+- Amber indicator appears when data cannot be loaded
+- "No se pudo cargar el consumo" message displays
+- Try refreshing or contact support if errors persist
+
+### Loading States
+- "Recalculando consumo..." message during data refresh
+- Disabled controls prevent multiple simultaneous requests
+
+## Troubleshooting
+
+<Tabs>
+<Tab title="Panel Not Visible">
+**Possible causes:**
+- No billing rules configured
+- Insufficient permissions
+- Account not set up for billing
+
+**Solutions:**
+- Contact your administrator
+- Verify billing configuration
+- Check account permissions
+</Tab>
+
+<Tab title="Data Not Loading">
+**Possible causes:**
+- Network connectivity issues
+- Server temporary unavailable
+- Invalid date range
+
+**Solutions:**
+- Check your internet connection
+- Try refreshing the panel
+- Verify your date range is valid
+</Tab>
+
+<Tab title="Incorrect Data">
+**Possible causes:**
+- Cached data showing
+- Recent billing changes not reflected
+- Time zone differences
+
+**Solutions:**
+- Refresh the panel manually
+- Clear browser cache
+- Verify your time zone settings
+</Tab>
+</Tabs>
+
+## Best Practices
+
+1. **Regular Monitoring**: Check consumption regularly to stay within budget
+2. **Period Comparison**: Use different time periods to track usage trends
+3. **Assistant Analysis**: Monitor which assistants consume the most resources
+4. **Budget Planning**: Use historical data for future budget planning
+
+<Info>
+The panel remembers your collapsed/expanded preference and restores it when you return to the dashboard.
+</Info>
