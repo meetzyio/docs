@@ -46,6 +46,10 @@ Click the collapse button (up arrow) to minimize the panel. Your preference is a
 </Step>
 </Steps>
 
+<Info>
+The panel automatically saves your collapsed/expanded preference, restoring it when you return to the dashboard.
+</Info>
+
 ## Advanced Filtering System
 
 ### Predefined Period Filters
@@ -92,6 +96,24 @@ Click "Apply" to load consumption data for your custom date range
 Custom date ranges must have a start date before or equal to the end date. The panel will show validation errors for invalid date combinations.
 </Warning>
 
+### Filter Collapse and Expansion
+
+The filter section can be collapsed to save space while still providing quick access to filtering options:
+
+<Steps>
+<Step title="Toggle Filter Visibility">
+Click the "Filter" header to expand or collapse the filtering controls
+</Step>
+
+<Step title="Access Quick Filters">
+When collapsed, the section still shows the current filter status
+</Step>
+
+<Step title="Expand for Full Control">
+Open the section to access all filtering options including period selection and custom dates
+</Step>
+</Steps>
+
 ### Filter States and Error Handling
 
 The filtering system includes comprehensive validation:
@@ -117,7 +139,7 @@ Look for the "View historical chart" section below the filters (admin accounts o
 </Step>
 
 <Step title="Toggle Chart Display">
-Click to show/hide the billing history chart
+Click to show/hide the billing history chart with smart loading
 </Step>
 
 <Step title="Analyze Trends">
@@ -129,6 +151,16 @@ The historical chart provides:
 - **Monthly billing totals** over time
 - **Visual trend analysis** for budget planning
 - **Interactive data points** with detailed monthly breakdowns
+- **Smart loading**: Chart data is only loaded when first requested
+
+### Enhanced Chart Controls
+
+The historical chart section includes improved controls:
+
+- **Collapsible interface**: Toggle chart visibility to save space
+- **Loading states**: Clear feedback during data loading
+- **Error handling**: Graceful failure recovery with retry options
+- **Memory efficient**: Charts are destroyed when collapsed
 
 ### View Modes
 
@@ -182,6 +214,15 @@ The icon shows a spinning animation during data loading
 If refresh fails, the status indicator changes to amber and error messages appear
 </Step>
 </Steps>
+
+### Smart Refresh Logic
+
+The refresh system intelligently handles different scenarios:
+
+- **Period filters**: Refreshes data for the currently selected period
+- **Custom ranges**: Re-applies custom date filters
+- **Default mode**: Falls back to standard consumption loading
+- **State preservation**: Maintains current filter selections
 
 ### Loading States
 
@@ -278,15 +319,18 @@ When errors occur, the panel:
 ### Effective Filtering
 - **Start with predefined periods** for standard analysis
 - **Use custom ranges** for specific investigation periods
+- **Collapse filters** when not actively adjusting to save space
 - **Combine filters** with manual refresh for most current data
 
 ### Administrative Usage
 - **Review historical charts** for long-term planning
 - **Monitor client consumption patterns** for resource allocation
 - **Use trend analysis** for budget forecasting
+- **Toggle chart visibility** to optimize screen space
 
 ### Performance Optimization
 - **Keep the panel collapsed** when not actively monitoring
+- **Collapse filter sections** when not in use
 - **Refresh manually** when you need the most current data
 - **Use appropriate filter periods** to avoid loading excessive data
 

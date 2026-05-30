@@ -61,15 +61,15 @@ El panel utiliza indicadores de color para mostrar el estado del servicio:
   </Step>
 </Steps>
 
-## Sistema de Filtros
+## Sistema de Filtros Avanzados
 
 ### Filtros por Período
 
-El panel incluye un sistema de filtros que permite:
+El panel incluye un sistema de filtros completo que permite:
 
 - **Períodos predefinidos**: Basados en el día de inicio del período de facturación (8 períodos históricos)
 - **Rangos personalizados**: Selección libre de fechas de inicio y fin
-- **Validación automática**: Verificación de rangos de fechas válidos
+- **Validación en tiempo real**: Verificación automática de rangos de fechas válidos
 - **Sincronización automática**: Los filtros se sincronizan con los datos de consumo recibidos
 
 ### Configuración de Filtros
@@ -81,34 +81,32 @@ Los filtros de fecha deben respetar la lógica temporal:
 - Los mensajes de error se muestran en tiempo real
 </Warning>
 
-```typescript
-async applyCustomRange(): Promise<void> {
-  this.dateMode = 'custom';
-  if (!this.customStart || !this.customEnd) {
-    this.filterError = 'Selecciona una fecha de inicio y fin.';
-    return;
-  }
+El sistema de filtros ofrece una sección expandible que permite:
 
-  if (this.customStart > this.customEnd) {
-    this.filterError = 'La fecha de inicio no puede ser posterior a la de fin.';
-    return;
-  }
-
-  await this.loadConsumption({
-    startDate: this.customStart,
-    endDate: this.customEnd
-  });
-}
-```
+- **Selector de período**: Dropdown con períodos predefinidos calculados dinámicamente
+- **Campos de fecha personalizados**: Inputs de fecha para rangos específicos
+- **Botón "Aplicar"**: Para confirmar rangos personalizados
+- **Validación inmediata**: Feedback visual de errores de validación
 
 ### Períodos Automáticos
 
 Los períodos predefinidos se calculan dinámicamente basándose en:
 
-- **Día de inicio de facturación** configurado en el perfil
+- **Día de inicio de facturación** configurado en el perfil del cliente
 - **Fecha de anclaje** del período actual
 - **8 períodos históricos** incluyendo el período actual
 - **Ajuste automático** para meses con diferentes números de días
+
+```typescript
+private buildPeriodOptions(
+  billingPeriodStartDay: number,
+  anchorDateKey: string,
+  currentPeriodEndDateKey: string,
+  count: number
+): PeriodOption[] {
+  // Calcula automáticamente períodos basados en la configuración de facturación
+}
+```
 
 ## Vistas del Panel
 
@@ -146,6 +144,13 @@ Para administradores, se incluyen características extra:
 
 ### Gráfico Histórico de Facturación
 
+El gráfico histórico se activa únicamente para administradores y ofrece:
+
+- **Carga diferida**: Solo se carga cuando el usuario lo solicita
+- **Visualización interactiva**: Gráfico de barras con información detallada
+- **Manejo de estados**: Loading, error y éxito claramente diferenciados
+- **Optimización de rendimiento**: Destrucción automática del gráfico al cambiar contexto
+
 ```typescript
 async toggleHistoryChart(): Promise<void> {
   this.showHistoryChart = !this.showHistoryChart;
@@ -170,7 +175,7 @@ async toggleHistoryChart(): Promise<void> {
 Para cada asistente se muestra:
 
 - **Nombre del asistente**
-- **Unidades consumidas** (con formato localizado)
+- **Unidades consumidas** (con formato localizado en español)
 - **Tipo de unidad** (minutos, llamadas, etc.)
 - **Precio por unidad** en la moneda configurada
 - **Mínimo aplicable** (si corresponde)
@@ -203,11 +208,11 @@ El panel incluye cálculos finales que muestran:
 - **Cantidad de corrección** calculada
 - **Total final** a facturar
 
-## Formateo y Localización
+## Formateo y Localización Española
 
 ### Números y Monedas
 
-El panel utiliza formateo internacionalizado para español:
+El panel utiliza formateo internacionalizado específico para España:
 
 ```typescript
 formatCurrency(value: number, currency: string = 'EUR'): string {
@@ -243,6 +248,10 @@ formatShortDate(date: Date): string {
 
 ### Traducción de Unidades
 
+<Info>
+El sistema incluye traducción automática de etiquetas de unidades al español, respetando las reglas de pluralización.
+</Info>
+
 ```typescript
 private translateUnitLabel(label: string, units: number): string {
   const normalized = String(label || '').toLowerCase();
@@ -261,6 +270,16 @@ private translateUnitLabel(label: string, units: number): string {
   return label;
 }
 ```
+
+## Mensajes de Error Localizados
+
+Los mensajes de error se muestran en español:
+
+- **"No se pudo cargar el consumo"**: Error general de carga de datos
+- **"Selecciona una fecha de inicio y fin"**: Validación de rangos vacíos
+- **"La fecha de inicio no puede ser posterior a la de fin"**: Validación de rango temporal
+- **"Recalculando consumo..."**: Indicador de proceso de carga
+- **"Cargando historial de facturación..."**: Carga de gráfico histórico
 
 ## Accesibilidad y UX
 
@@ -291,9 +310,9 @@ El panel cumple con estándares de accesibilidad WCAG 2.1:
   </Tab>
 </Tabs>
 
-### Temas Visual
+### Soporte para Modo Oscuro
 
-El panel soporta modo oscuro y claro:
+El panel soporta modo oscuro y claro con transiciones suaves:
 
 ```html
 [ngClass]="isDarkMode
@@ -382,9 +401,9 @@ toggleCollapsed(): void {
 
 El panel implementa manejo robusto de errores:
 
-- **Errores de API**: Mensajes descriptivos en la interfaz
+- **Errores de API**: Mensajes descriptivos en español en la interfaz
 - **Errores de localStorage**: Fallback silencioso
-- **Errores de validación**: Feedback inmediato al usuario
+- **Errores de validación**: Feedback inmediato al usuario en español
 
 <Warning>
 En contextos de navegación privada o con restricciones de almacenamiento, el panel funcionará correctamente pero no recordará el estado de expansión entre sesiones.
@@ -419,4 +438,55 @@ export type BillyConsumptionData =
       view_mode?: 'client_agents' | 'admin_clients';
       // ... datos completos de consumo
     };
+```
+
+## Funcionalidades de Filtrado
+
+### Sincronización de Filtros
+
+El panel sincroniza automáticamente los filtros con los datos recibidos:
+
+- **Detección de modo**: Identifica si el período es predefinido o personalizado
+- **Construcción dinámica**: Genera opciones de período basadas en configuración
+- **Persistencia de estado**: Mantiene la selección del usuario entre actualizaciones
+
+### Validación de Fechas
+
+<Steps>
+  <Step title="Validación Básica">
+    Verifica que ambas fechas estén presentes para rangos personalizados
+  </Step>
+  
+  <Step title="Validación Temporal">
+    Confirma que la fecha de inicio sea anterior o igual a la fecha de fin
+  </Step>
+  
+  <Step title="Feedback Visual">
+    Muestra mensajes de error claros en español cuando la validación falla
+  </Step>
+</Steps>
+
+### Actualización Inteligente
+
+El botón de actualización aplica el filtro apropiado:
+
+- **Rango personalizado**: Si hay fechas personalizadas válidas
+- **Período seleccionado**: Si hay un período predefinido activo
+- **Sin filtros**: Carga datos del período actual por defecto
+
+```typescript
+async refreshCurrentFilter(): Promise<void> {
+  if (this.dateMode === 'custom' && this.customStart && this.customEnd) {
+    await this.applyCustomRange();
+    return;
+  }
+
+  const selectedPeriod = this.periodOptions.find((option) => option.key === this.selectedPeriodKey);
+  if (selectedPeriod) {
+    await this.onPeriodChange(selectedPeriod.key);
+    return;
+  }
+
+  await this.loadConsumption();
+}
 ```
