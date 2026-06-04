@@ -83,7 +83,7 @@ Consulta Premium: €120
 Sube documentos directamente desde tu computadora.
 
 <Steps>
-  <Step title="Haz clic en 'Añadir Archivo'">
+  <Step title="Haz clic en 'Subir Archivo'">
     Selecciona la opción de subida de archivo.
   </Step>
   <Step title="Selecciona Archivo">
@@ -98,10 +98,14 @@ Sube documentos directamente desde tu computadora.
 </Steps>
 
 **Formatos soportados:**
-- **Documentos:** PDF, DOC, DOCX, TXT, RTF
-- **Hojas de cálculo:** XLS, XLSX, CSV
-- **Presentaciones:** PPT, PPTX
-- **Otros:** ODT, ODS, ODP
+- **Documentos:** PDF, DOCX, TXT, MD
+- **Hojas de cálculo:** CSV
+- **Formatos web:** HTML, EPUB
+- **Otros formatos de texto estructurado**
+
+<Warning>
+Los archivos se convierten automáticamente a texto para su procesamiento. Asegúrate de que el contenido sea legible y esté bien estructurado.
+</Warning>
 
 ### 4. Importación Múltiple por URLs
 
@@ -201,6 +205,242 @@ Cada documento en tu Base de Conocimiento puede configurarse con uno de estos mo
 **Importante:** Usar "En Prompt" para documentos grandes (>3,000 caracteres) puede aumentar significativamente los costos y ralentizar las respuestas. Úsalo solo para información esencial que el agente debe conocer en cada conversación.
 </Warning>
 
+## Editando Documentos
+
+Puedes editar cualquier documento después de añadirlo a tu base de conocimiento. El proceso varía según el tipo de documento:
+
+### Modal de Edición
+
+Cuando haces clic en el botón **Editar** (✏️) de cualquier documento, se abre un modal de edición que te permite:
+
+<Tabs>
+  <Tab title="Documentos de Texto">
+    **Edición Completa de Contenido**
+    
+    Para documentos de texto, puedes modificar todo el contenido directamente:
+    
+    - **Campo de texto amplio:** Editor con formato que permite editar todo el contenido
+    - **Vista previa en tiempo real:** Ve cómo se mostrará el documento
+    - **Historial de cambios:** Sistema de versiones para rastrear modificaciones
+    
+    **Casos de uso:**
+    - Actualizar FAQs con nuevas preguntas
+    - Modificar información de productos
+    - Corregir errores en políticas internas
+    - Añadir información estacional o promocional
+    
+    ```markdown
+    Ejemplo de edición:
+    
+    Original:
+    "Nuestro horario es 9:00-17:00"
+    
+    Editado:
+    "Nuestro horario es 9:00-18:00 (ampliado desde enero 2024)
+    Fines de semana: Solo citas de urgencia"
+    ```
+  </Tab>
+  
+  <Tab title="Documentos de URL">
+    **Edición de URL y Recarga de Contenido**
+    
+    Para documentos importados desde URLs, puedes:
+    
+    - **Cambiar la URL:** Actualizar la dirección web fuente
+    - **Recargar contenido:** Obtener la versión más reciente de la página
+    - **Editar contenido:** Modificar el texto importado si es necesario
+    
+    **Funcionalidades especiales:**
+    - **Recarga automática:** Botón para actualizar contenido sin cambiar URL
+    - **Validación de URL:** Verificación de que la nueva URL es accesible
+    - **Comparación de cambios:** Ve qué ha cambiado en la página web
+    
+    **Ejemplo de flujo:**
+    ```
+    URL original: https://empresa.com/precios-2023
+    ↓
+    URL actualizada: https://empresa.com/precios-2024
+    ↓ 
+    Sistema recarga contenido automáticamente
+    ↓
+    Base de conocimiento actualizada con nuevos precios
+    ```
+  </Tab>
+  
+  <Tab title="Documentos de Archivo">
+    **Edición Limitada**
+    
+    Para archivos subidos, las opciones de edición son más limitadas:
+    
+    - **No se puede editar contenido:** El contenido extraído del archivo no es modificable
+    - **Solo metadatos:** Puedes cambiar nombre y modo de uso
+    - **Reemplazo necesario:** Para cambiar contenido, sube un nuevo archivo
+    
+    **Alternativas para actualizar:**
+    1. Elimina el archivo existente
+    2. Sube la versión actualizada del documento
+    3. O convierte a texto y edita libremente
+    
+    **Conversión a texto:**
+    - Copia el contenido extraído
+    - Crea nuevo documento de texto
+    - Elimina el archivo original
+    - Ahora puedes editar libremente
+  </Tab>
+</Tabs>
+
+### Campos Editables Comunes
+
+Todos los tipos de documentos permiten editar estos campos:
+
+<Steps>
+  <Step title="Nombre del Documento">
+    **Campo:** Nombre personalizado
+    
+    - Identificación clara en la lista
+    - Facilita búsqueda y organización
+    - No afecta el contenido, solo la etiqueta
+    
+    **Buenas prácticas:**
+    ```
+    ❌ Evitar: "doc1.pdf"
+    ✅ Mejor: "Política de Devoluciones 2024"
+    ✅ Mejor: "FAQ - Facturación y Pagos"
+    ✅ Mejor: "Catálogo Productos Premium"
+    ```
+  </Step>
+  
+  <Step title="Modo de Uso">
+    **Selector:** En Prompt vs Búsqueda Automática
+    
+    - Cambia cómo el agente accede a la información
+    - Impacta costos y velocidad de respuesta
+    - Se puede cambiar en cualquier momento
+    
+    **Ejemplo de cambio:**
+    ```
+    Documento: "Precios Principales"
+    Cambio: Búsqueda Automática → En Prompt
+    Razón: Queremos que el agente siempre mencione 
+           nuestros precios principales
+    ```
+  </Step>
+  
+  <Step title="Contenido (según tipo)">
+    **Variable según origen:**
+    
+    - **Texto:** Editor completo con formato
+    - **URL:** Campo de URL + editor de contenido
+    - **Archivo:** Solo metadatos (no contenido)
+    
+    **Limitaciones por tipo:**
+    - Archivos PDF: No editables directamente
+    - URLs dinámicas: Contenido puede cambiar al recargar
+    - Texto: Completamente editable
+  </Step>
+</Steps>
+
+### Proceso de Guardar Cambios
+
+<Steps>
+  <Step title="Validación Automática">
+    El sistema verifica que todos los campos obligatorios estén completos:
+    
+    - **Nombre:** No puede estar vacío
+    - **URL:** Debe ser válida y accesible (para documentos URL)
+    - **Contenido:** Debe tener al menos 10 caracteres (para texto)
+  </Step>
+  
+  <Step title="Vista Previa de Cambios">
+    Antes de guardar, puedes revisar:
+    
+    - Qué campos han cambiado
+    - Impacto en el modo de uso
+    - Preview del contenido actualizado
+  </Step>
+  
+  <Step title="Procesamiento">
+    Una vez guardados los cambios:
+    
+    - **Actualización inmediata:** Los metadatos se actualizan al instante
+    - **Procesamiento de contenido:** El contenido nuevo se indexa
+    - **Disponibilidad:** Cambios activos en 1-2 minutos
+  </Step>
+  
+  <Step title="Confirmación">
+    El sistema confirma que los cambios se han guardado exitosamente:
+    
+    - Mensaje de éxito en la interfaz
+    - El documento actualizado aparece en la lista
+    - Se cierra automáticamente el modal de edición
+  </Step>
+</Steps>
+
+### Casos de Uso Comunes de Edición
+
+**1. Actualización Estacional**
+```markdown
+Documento: "Horarios de Atención"
+
+Edición (Diciembre):
+Horario regular: Lunes-Viernes 9:00-18:00
+Horario navideño (24-31 Dic): 9:00-14:00
+Cerrado: 25 Dic, 1 Enero
+
+Modo: En Prompt (información crítica)
+```
+
+**2. Corrección de Errores**
+```markdown
+Documento: "Precios Servicios"
+
+Error detectado: "Consulta Premium: €50"
+Corrección: "Consulta Premium: €120"
+
+Edición inmediata vía modal de texto
+```
+
+**3. Expansión de Información**
+```markdown
+Documento: "FAQ Facturación"
+
+Adición de nueva pregunta:
+P: ¿Aceptan pagos fraccionados?
+R: Sí, ofrecemos planes de pago en 3 cuotas 
+   sin intereses para servicios superiores a €200.
+
+Modo: Búsqueda Automática
+```
+
+**4. Actualización de URLs**
+```markdown
+URL obsoleta: https://empresa.com/productos-2023
+Nueva URL: https://empresa.com/productos-2024
+
+Acción:
+1. Editar documento
+2. Cambiar URL
+3. Sistema recarga contenido automáticamente
+4. Base de conocimiento actualizada
+```
+
+### Seguimiento de Cambios
+
+<Info>
+El sistema mantiene un registro de cambios para ayudarte a rastrear modificaciones y revertir si es necesario.
+</Info>
+
+**Información rastreada:**
+- Fecha y hora de cada modificación
+- Qué campos fueron cambiados
+- Usuario que realizó los cambios
+- Versión anterior del contenido
+
+**Acceso al historial:**
+- Visible en las propiedades del documento
+- Útil para auditorías y control de versiones
+- Permite identificar cuándo se introdujeron cambios específicos
+
 ## Gestionando Documentos
 
 ### Vista de Lista de Documentos
@@ -215,25 +455,6 @@ Todos los documentos añadidos aparecen en una lista organizada que muestra:
 | **Vista Previa** | Primeras líneas del contenido | Texto truncado para identificación rápida |
 | **Estado** | Información de procesamiento | ✅ Procesado / ⚠️ Procesando / ❌ Error |
 | **Acciones** | Botones de gestión | Editar (✏️), Eliminar (🗑️), Recargar (🔄) |
-
-### Editando Documentos
-
-<Steps>
-  <Step title="Accede al modo edición">
-    Haz clic en el icono de editar (✏️) junto a cualquier documento.
-  </Step>
-  <Step title="Modifica el contenido">
-    - **Documentos de texto:** Edita directamente el contenido
-    - **URLs:** Cambia la dirección web o recargar contenido
-    - **Archivos:** Solo puedes cambiar nombre y modo (sube nuevo archivo para cambiar contenido)
-  </Step>
-  <Step title="Actualiza configuración">
-    Cambia el nombre personalizado o modo de uso según necesites.
-  </Step>
-  <Step title="Guarda cambios">
-    Los cambios se procesan y actualizan automáticamente.
-  </Step>
-</Steps>
 
 ### Funciones Avanzadas de Gestión
 
@@ -261,9 +482,9 @@ Los documentos eliminados no pueden recuperarse. El sistema te pedirá confirmac
 
 ### Estructuración de Contenido
 
-<Tip>
+<Info>
 Organiza tu información usando encabezados claros, listas y formato estructurado para que el agente pueda extraer datos más eficientemente.
-</Tip>
+</Info>
 
 #### Para Documentos de Texto
 ```markdown
@@ -493,33 +714,19 @@ Base de Conocimiento SaaS:
 
 ## Siguientes Pasos
 
-<CardGroup cols={2}>
-  <Card
-    title="Acciones y Herramientas"
-    icon="wrench"
-    href="/es/advanced-editor/actions-tools"
-  >
-    Configura integraciones y webhooks para tu agente
-  </Card>
-  <Card
-    title="Playground"
-    icon="gamepad"
-    href="/es/advanced-editor/playground"
-  >
-    Prueba tu agente con la base de conocimiento configurada
-  </Card>
-  <Card
-    title="Analytics"
-    icon="chart-bar"
-    href="/es/dashboard/analytics"
-  >
-    Analiza el rendimiento de tu base de conocimiento
-  </Card>
-  <Card
-    title="Configuración Avanzada"
-    icon="cog"
-    href="/es/advanced-editor/advanced-config"
-  >
-    Personaliza comportamientos avanzados del agente
-  </Card>
-</CardGroup>
+Después de configurar tu base de conocimiento, estos son los próximos pasos recomendados:
+
+<Steps>
+  <Step title="Prueba tu Agente">
+    Ve al [Playground](/es/advanced-editor/playground) para probar cómo responde tu agente usando la base de conocimiento configurada.
+  </Step>
+  <Step title="Configura Acciones">
+    Añade [Acciones y Herramientas](/es/advanced-editor/actions-tools) para que tu agente pueda realizar tareas específicas.
+  </Step>
+  <Step title="Monitorea el Rendimiento">
+    Usa [Analytics](/es/dashboard/analytics) para ver métricas de uso y optimizar tu base de conocimiento.
+  </Step>
+  <Step title="Configuración Avanzada">
+    Explora opciones de [Configuración Avanzada](/es/advanced-editor/advanced-config) para personalizar el comportamiento del agente.
+  </Step>
+</Steps>

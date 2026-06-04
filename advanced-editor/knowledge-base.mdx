@@ -126,30 +126,80 @@ The Knowledge Base displays all your documents in a organized list showing:
 | **Preview** | First few lines of content |
 | **Actions** | Edit (✏️) and Delete (🗑️) buttons |
 
-### Real-Time Editing
+### Editing Existing Documents
+
+You can modify existing documents to update content, names, or usage modes using the edit functionality.
 
 <Steps>
-  <Step title="Click Edit Icon">
-    Click the edit icon (✏️) next to any document to modify it.
+  <Step title="Click Edit Button">
+    Locate the edit icon (✏️) next to any document in your Knowledge Base list.
   </Step>
-  <Step title="Make Changes">
-    Update content, name, or usage mode as needed.
+  <Step title="Modify Document Fields">
+    The edit modal will open with current document details loaded. You can modify different fields based on the document type:
+    - **All documents:** Name and usage mode
+    - **URL documents:** Source URL (will refetch content)
+    - **Text documents:** Full text content
+    - **File documents:** Only name and usage mode (content cannot be edited)
   </Step>
   <Step title="Save Changes">
-    Changes are processed immediately and integrated into your agent's knowledge.
+    Click "Save Changes" to update the document. Changes are processed immediately.
   </Step>
 </Steps>
 
+#### Document Type-Specific Editing
+
+<Tabs>
+  <Tab title="URL Documents">
+    **Editable Fields:**
+    - Document name
+    - Source URL
+    - Usage mode (Auto Search / In Prompt)
+
+    **How it works:** When you update the URL, the system will automatically refetch the content from the new location and update the document.
+
+    **Use cases:** Updating documentation URLs, fixing broken links, switching to newer versions of web pages.
+  </Tab>
+
+  <Tab title="Text Documents">
+    **Editable Fields:**
+    - Document name  
+    - Full text content
+    - Usage mode (Auto Search / In Prompt)
+
+    **How it works:** You can modify the text content directly in the editor. The system loads the complete document content for editing.
+
+    <Warning>
+    When you edit the text content of a document, the system creates a new document ID internally. This ensures proper content indexing but means conversation references to the old document ID will not work.
+    </Warning>
+
+    **Use cases:** Updating FAQs, modifying policies, correcting information, adding new details.
+  </Tab>
+
+  <Tab title="File Documents">
+    **Editable Fields:**
+    - Document name
+    - Usage mode (Auto Search / In Prompt)
+
+    **Limitations:** The actual file content cannot be edited through the interface.
+
+    **How it works:** You can only change the display name and how the document is used by the agent.
+
+    **To update content:** Delete the document and upload a new version of the file.
+  </Tab>
+</Tabs>
+
+### Real-Time Content Loading
+
+For optimal performance, the system handles content loading intelligently:
+
+- **Document List:** Shows content previews for quick reference
+- **Edit Modal:** Loads full document content automatically when editing text or URL documents
+- **Loading States:** Clear indicators when content is being fetched
+- **Error Handling:** Graceful fallback to preview content if full loading fails
+
 <Info>
-Document changes take effect immediately - your agent will have access to updated information in new conversations right away.
+When editing URL or text documents, the system automatically loads the complete content. This may take a few seconds for large documents.
 </Info>
-
-### Dynamic Content Loading
-
-For text and URL documents, the system provides:
-- **Preview** in the main list for quick reference
-- **Full content loading** when editing for complete document access
-- **Real-time content updates** that sync with your agent's knowledge
 
 ### Document Deletion
 
@@ -172,10 +222,16 @@ Deleted documents cannot be recovered. Make sure to export or backup important c
 ## Best Practices
 
 ### Content Organization
-- **Keep Current:** Regularly update documents to reflect latest information
+- **Keep Current:** Regularly update documents to reflect latest information using the edit functionality
 - **Be Specific:** Include exact phrases and terms customers might use  
 - **Structure Well:** Use clear headings, bullet points, and organized sections
 - **Avoid Duplication:** Don't repeat the same information across multiple documents
+
+### Editing Workflow
+- **Review Before Editing:** Check the current content and usage mode before making changes
+- **Test After Updates:** Verify the agent can access and use the updated information correctly
+- **Monitor Performance:** Large content changes may affect response times
+- **Consider Document IDs:** Remember that editing text content creates new document IDs
 
 ### Usage Mode Strategy
 - **Auto Search for:** Large documents, comprehensive guides, detailed product info
@@ -185,10 +241,11 @@ Deleted documents cannot be recovered. Make sure to export or backup important c
 - **Test Regularly:** Verify the agent can find and use information correctly
 - **Monitor Conversations:** Review how the agent uses knowledge base content
 - **Optimize Content:** Remove outdated or redundant information
+- **Update Incrementally:** Make small, targeted edits rather than large overhauls
 
-<Tip>
+<Info>
 Start with Auto Search mode for most documents. Only switch to In Prompt mode for absolutely critical information that must always be available.
-</Tip>
+</Info>
 
 ## Example Knowledge Base Structure
 
@@ -229,6 +286,7 @@ Your Knowledge Base documents are dynamically integrated into your agent's conve
 - Verify the document is saved and shows in the Knowledge Base list
 - Try using Auto Search mode for better semantic matching
 - Include variations of keywords customers might use
+- Check if recent edits created new document IDs
 
 **Slow agent responses:**
 - Check if you have too many In Prompt documents
@@ -236,9 +294,19 @@ Your Knowledge Base documents are dynamically integrated into your agent's conve
 - Review total character count of In Prompt content
 
 **Outdated information:**
-- Update documents directly in the Knowledge Base
+- Use the edit functionality to update documents directly
 - Changes take effect immediately in new conversations
 - Consider setting up regular review schedules
+
+**Content loading issues:**
+- Verify internet connectivity for URL documents
+- Check file format compatibility for uploaded documents
+- Try editing the document again if loading fails
+
+**Edit modal problems:**
+- Wait for content loading to complete before making changes
+- Check that the assistant is properly published
+- Verify you have editing permissions
 
 ## Next Steps
 
