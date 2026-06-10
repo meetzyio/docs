@@ -55,14 +55,14 @@ Meetzy incluye un proceso completamente automatizado para nuevos usuarios que ll
 El sistema detecta automáticamente cuando un usuario viene del proceso de onboarding:
 
 <Tabs>
-  <Tab title="URL Parameters">
+  <Tab title="Parámetros de URL">
     ```
     /login?source=onboarding
     ```
     Activa automáticamente el modo onboarding en la pantalla de autenticación.
   </Tab>
   
-  <Tab title="Data Preservation">
+  <Tab title="Preservación de Datos">
     ```typescript
     // AuthService verifica datos válidos
     getOnboardingData(): { prompt: string; channels: string; directions: string } | null {
@@ -84,7 +84,7 @@ El sistema detecta automáticamente cuando un usuario viene del proceso de onboa
     ```
   </Tab>
   
-  <Tab title="Automatic Redirect">
+  <Tab title="Redirección Automática">
     ```typescript
     // LoginComponent redirige automáticamente
     private navigateToDashboard(): void {
@@ -107,53 +107,79 @@ El sistema detecta automáticamente cuando un usuario viene del proceso de onboa
 
 ## Experiencia Prompt-First Mejorada
 
-### Pantalla de Creación
+### Pantalla de Creación Renovada
 
-La nueva pantalla de creación presenta:
+La nueva experiencia de creación presenta un diseño completamente rediseñado:
 
-- **Fondo Animado WebGL**: Ondas fluidas que responden al cursor
-- **Campo de Texto Inteligente**: Con bordes gradientes dinámicos
-- **Logo Centrado**: Posicionamiento perfecto en modo claro y oscuro
-- **Navegación Sencilla**: Botón de regreso en la esquina superior izquierda
+- **Fondo Animado WebGL**: Ondas fluidas que responden al cursor para una experiencia inmersiva
+- **Campo de Texto Inteligente**: Con bordes gradientes dinámicos que reaccionan al estado del usuario
+- **Logo Centrado**: Posicionamiento perfecto que se adapta automáticamente a modo claro y oscuro
+- **Navegación Intuitiva**: Botón de regreso en la esquina superior izquierda para fácil navegación
+- **Indicadores Visuales**: Animaciones sutiles que guían al usuario a través del proceso
 
-### Generación Automática
+### Generación Automática Avanzada
 
-Al describir tu agente, Meetzy genera automáticamente:
+Al describir tu agente, Meetzy genera automáticamente una configuración completa:
 
-1. **Prompt de Sistema**: Instrucciones optimizadas para el comportamiento del agente
-2. **Configuración Inicial**: Parámetros básicos recomendados
-3. **Saludos Personalizados**: Mensajes apropiados para tu caso de uso
-4. **Parámetros de Entrada**: Variables dinámicas sugeridas
+1. **Prompt de Sistema Optimizado**: Instrucciones detalladas basadas en mejores prácticas
+2. **Configuración Inicial Inteligente**: Parámetros básicos ajustados para tu caso de uso específico
+3. **Saludos Personalizados**: Mensajes de bienvenida apropiados para tu industria y contexto
+4. **Parámetros de Entrada Sugeridos**: Variables dinámicas relevantes para tu flujo de trabajo
+5. **Estructura de Salida**: Campos de captura de datos optimizados para tu caso de uso
 
-### Casos de Uso Comunes
+### Casos de Uso Predefinidos
 
 <Tabs>
   <Tab title="Atención al Cliente">
     ```
     Un agente que responde llamadas de atención al cliente para una clínica dental, 
-    agenda citas y transfiere casos urgentes a la recepcionista
+    agenda citas, verifica seguros, y transfiere casos urgentes a la recepcionista. 
+    Debe ser empático, profesional y eficiente en el manejo de información médica.
     ```
+    
+    **Genera automáticamente:**
+    - Protocolo de manejo de información médica
+    - Flujo de verificación de seguros
+    - Criterios de escalación de urgencias
   </Tab>
   
-  <Tab title="Ventas">
+  <Tab title="Cualificación de Ventas">
     ```
-    Un agente de cualificación de ventas que entiende las necesidades del cliente, 
-    evalúa su presupuesto y agenda demos con el equipo comercial
+    Un agente de cualificación de ventas para software empresarial que entiende 
+    las necesidades del cliente, evalúa presupuesto usando metodología BANT, 
+    y agenda demos con el equipo comercial según el nivel de cualificación.
     ```
+    
+    **Genera automáticamente:**
+    - Cuestionario BANT estructurado
+    - Criterios de cualificación por niveles
+    - Flujo de agendamiento inteligente
   </Tab>
   
-  <Tab title="Cobranzas">
+  <Tab title="Cobranza Amigable">
     ```
-    Un agente amigable que contacta clientes con pagos pendientes, 
-    explica opciones de pago y negocia planes de financiación
+    Un agente amigable especializado en cobranza que contacta clientes con pagos 
+    pendientes, explica opciones de pago flexibles, negocia planes de financiación 
+    personalizados, y mantiene una relación comercial positiva.
     ```
+    
+    **Genera automáticamente:**
+    - Scripts de manejo de objeciones
+    - Calculadora de planes de pago
+    - Protocolo de escalación por monto
   </Tab>
   
-  <Tab title="Encuestas">
+  <Tab title="Investigación de Mercado">
     ```
-    Un agente que realiza encuestas de satisfacción postventa, 
-    recopila feedback y programa seguimientos según las respuestas
+    Un agente que realiza encuestas de satisfacción postventa comprensivas, 
+    recopila feedback detallado sobre productos y servicios, identifica áreas 
+    de mejora, y programa seguimientos según las respuestas del cliente.
     ```
+    
+    **Genera automáticamente:**
+    - Cuestionario de satisfacción estructurado
+    - Lógica de seguimiento condicional
+    - Sistema de puntuación de feedback
   </Tab>
 </Tabs>
 
@@ -164,599 +190,1065 @@ Antes de crear un agente, asegúrate de tener:
 - Una cuenta activa de Meetzy con acceso al dashboard
 - Al menos un número de teléfono disponible en tu cuenta
 - Una idea clara de tu caso de uso (ventas, soporte, etc.)
+- Acceso a documentos de conocimiento relevantes (opcional)
 
 ## Crear un Agente con Prompt-First
 
 <Steps>
   <Step title="Accede al Editor Avanzado">
-    Desde el dashboard, haz clic en "Create Agent" o navega directamente al Editor Avanzado.
+    Desde el dashboard, haz clic en "Create Agent" o navega directamente al Editor Avanzado. 
+    Se abrirá automáticamente la pantalla de creación prompt-first.
   </Step>
   
-  <Step title="Describe tu Agente">
-    En la pantalla inicial con fondo animado, describe qué debe hacer tu agente:
+  <Step title="Describe tu Agente en Detalle">
+    En la pantalla inicial con fondo animado, describe específicamente qué debe hacer tu agente:
     
     ```
-    Un agente que responde llamadas de atención al cliente para una clínica dental, 
-    agenda citas y transfiere casos urgentes a la recepcionista...
+    Un agente especializado en atención al cliente para una clínica dental que:
+    - Responde consultas sobre servicios y precios
+    - Agenda citas verificando disponibilidad en tiempo real
+    - Maneja cancelaciones y reprogramaciones
+    - Transfiere casos de emergencia dental inmediatamente
+    - Verifica cobertura de seguros antes del agendamiento
+    - Envía recordatorios de citas por SMS
     ```
     
     <Info>
-      **Consejo**: Sé específico sobre el rol, la industria y las acciones principales que debe realizar.
+      **Consejo Pro**: Sé específico sobre el rol, la industria, las acciones principales y los criterios de escalación. Esto mejora significativamente la calidad de la configuración generada.
     </Info>
   </Step>
   
-  <Step title="Genera la Configuración">
+  <Step title="Genera la Configuración Automática">
     Presiona **Enter** o haz clic en el botón de envío. Meetzy generará automáticamente:
-    - Prompt de sistema optimizado
-    - Configuración básica recomendada
-    - Saludos personalizados
-    - Parámetros de entrada sugeridos
+    - Prompt de sistema optimizado con personalidad definida
+    - Configuración básica recomendada para tu industria
+    - Saludos personalizados para llamadas entrantes y salientes
+    - Parámetros de entrada sugeridos (nombre, teléfono, motivo, etc.)
+    - Criterios de evaluación básicos
+    - Estructura de datos de salida relevante
   </Step>
   
   <Step title="Refina y Personaliza">
-    Revisa la configuración generada y ajusta según tus necesidades específicas usando las herramientas del Editor Avanzado.
+    Revisa la configuración generada y utiliza las herramientas del Editor Avanzado para:
+    - Ajustar el prompt de sistema según tu marca y tono
+    - Añadir documentos a la base de conocimiento
+    - Configurar integraciones específicas (CRM, calendarios)
+    - Definir flujos de transferencia y escalación
+    - Personalizar mensajes y respuestas automatizadas
   </Step>
 </Steps>
 
 <Warning>
-  Si prefieres empezar desde cero, puedes hacer clic en "or start from scratch" en la pantalla inicial.
+  Si prefieres control total desde el inicio, puedes hacer clic en "or start from scratch" en la pantalla inicial para crear un agente completamente manual.
 </Warning>
 
 ## El Editor Avanzado
 
-El Editor Avanzado es una interfaz de tres paneles para configurar tu agente:
+El Editor Avanzado es una interfaz de tres paneles diseñada para máxima productividad:
 
-| Panel | Descripción |
-|-------|-------------|
-| **Barra de Iconos** (izquierda) | Navegación entre secciones de configuración |
-| **Editor Central** | Área principal de edición para el prompt de sistema y ajustes |
-| **Panel Derecho** | Playground para pruebas y asistente IA |
+| Panel | Función | Herramientas |
+|-------|---------|-------------|
+| **Barra de Iconos** (izquierda) | Navegación entre secciones | 7 pestañas de configuración |
+| **Editor Central** | Edición del prompt de sistema | Monaco Editor con sintaxis |
+| **Panel Derecho** | Herramientas de desarrollo | AI Assistant, Playground, Tests |
 
-### Acciones de la Barra de Herramientas
+### Barra de Herramientas Superior
 
-| Botón | Descripción |
-|-------|-------------|
-| ← **Back** | Volver a la lista de agentes |
-| 🏷️ **Version Badge** | Versión actual (ej., v.1, v.2) |
-| ✓ **Check** | Validar configuración |
-| ⬇️ **Pull** | Sincronizar con la última versión |
-| 🚀 **Publish** | Desplegar a producción |
+| Elemento | Función | Descripción |
+|----------|---------|-------------|
+| ← **Back** | Navegación | Volver a la lista de agentes |
+| 🏷️ **Version Badge** | Control de versiones | Indica versión actual (ej., v.1, v.2) |
+| 🏢 **Agent Selector** | Navegación rápida | Cambiar entre agentes (modo edición) |
+| ✓ **Check** | Validación | Verificar configuración completa |
+| ⬇️ **Pull** | Sincronización | Obtener última versión remota |
+| 🚀 **Publish** | Despliegue | Publicar a producción |
 
 ### Selector de Agentes (Modo Edición)
 
-En modo edición, la barra de herramientas incluye un selector de agentes:
-- **Icono del Agente**: Primera letra del nombre en un badge colorido
-- **Nombre Completo**: Truncado automáticamente si es necesario
-- **Dropdown Expandible**: Acceso rápido a todos tus agentes
+En modo edición, la barra incluye un selector inteligente:
+- **Badge Colorido**: Primera letra del nombre del agente
+- **Nombre Completo**: Con truncado automático si es necesario
+- **Dropdown Filtrable**: Busca y filtra por empresa (admins)
+- **Navegación Rápida**: Cambio instantáneo entre agentes
 
-## Configuración del Agente
+## Configuración Detallada del Agente
 
-### 1. Settings (⚙️)
+### 1. Basic Settings (⚙️)
 
-La configuración básica incluye:
+La configuración fundamental que define tu agente:
 
-#### Información General
-- **Nombre del Agente**: Identificador interno descriptivo
-- **Descripción**: Breve resumen del propósito del agente
+#### Información del Perfil
+- **Nombre del Agente**: Identificador interno descriptivo y único
+- **Descripción**: Breve resumen del propósito y función del agente
+- **Empresa**: Asignación organizacional (solo administradores)
 
 #### Modelo de Lenguaje (LLM)
+
 Selecciona el modelo de IA que potenciará las conversaciones:
 
 <Tabs>
-  <Tab title="Anthropic (Recomendado)">
-    **Claude Haiku 4.5** - Ultra rápido, excelente para tool calling
+  <Tab title="Google Gemini (Recomendado)">
+    - **Gemini 3.1 Flash Lite** - Ultra rápido y eficiente, ideal para la mayoría de casos
+    - **Gemini 2.5 Flash** - Equilibrio perfecto entre velocidad y capacidad
+    - **Gemini 1.5 Pro** - Máxima capacidad, mayor latencia
   </Tab>
-  <Tab title="OpenAI">
-    - **GPT-4o** - Equilibrio entre velocidad y calidad
-    - **GPT-4.1** - Último modelo completo
-    - **GPT-4.1 Mini** - Más rápido y económico
+  <Tab title="Anthropic Claude">
+    - **Claude Haiku 4.5** - Ultra rápido, excelente para tool calling y acciones
   </Tab>
-  <Tab title="Google">
-    - **Gemini 3.1 Flash Lite** (predeterminado) - Ultra rápido y eficiente
-    - **Gemini 2.5 Flash** - Rápido y capaz
-    - **Gemini 1.5 Pro** - Más capaz, mayor latencia
+  <Tab title="OpenAI GPT">
+    - **GPT-4o** - Equilibrio premium entre velocidad y calidad
+    - **GPT-4.1** - Último modelo con capacidades avanzadas
+    - **GPT-4.1 Mini** - Versión optimizada para velocidad y costo
   </Tab>
-  <Tab title="X.AI">
-    - **Grok Beta** - Modelo experimental de X.AI
+  <Tab title="X.AI Grok">
+    - **Grok Beta** - Modelo experimental de X.AI con características únicas
   </Tab>
 </Tabs>
 
-#### Configuración de Teléfono
+#### Configuración de Números Telefónicos
 
 <Info>
-  Los números de teléfono son recursos exclusivos. Cada número solo puede estar asignado a un agente a la vez.
+  Los números de teléfono son recursos exclusivos. Cada número solo puede estar asignado a un agente activo a la vez.
 </Info>
 
 **Para Agentes Nuevos:**
-- Selecciona un número disponible del dropdown
-- Los administradores pueden elegir la cuenta Twilio
-- Solicita números adicionales con "Request more numbers"
+- Selecciona un número disponible del dropdown filtrado
+- Los administradores pueden elegir la cuenta Twilio específica
+- Solicita números adicionales mediante "Request more numbers"
+- Vista previa de disponibilidad en tiempo real
 
 **Para Agentes Existentes:**
-- Muestra el número actual asignado
-- Opción de cambiar a otro número disponible
+- Muestra el número actual asignado como solo lectura
+- Información de estado y salud del número
+- Opción de reasignación a otro número disponible
 
-#### Configuración de Voz
+#### Configuración Avanzada de Voz
 
 <Tabs>
-  <Tab title="Idioma">
-    Selecciona entre 32 idiomas soportados:
-    - Español (predeterminado)
-    - Inglés, Francés, Alemán, Italiano
-    - Chino, Japonés, Coreano, Árabe
-    - Y muchos más...
+  <Tab title="Selección de Idioma">
+    Elige entre 32+ idiomas soportados:
+    - **Español** (predeterminado) - España, México, Argentina
+    - **Inglés** - US, UK, Australia, Canadá
+    - **Europeos** - Francés, Alemán, Italiano, Portugués
+    - **Asiáticos** - Chino, Japonés, Coreano, Hindi
+    - **Otros** - Árabe, Holandés, Sueco, Noruego
   </Tab>
   
-  <Tab title="Voz">
-    Elige entre múltiples voces con filtros por:
-    - **Tipo**: Todas, Neural, Standard
-    - **Búsqueda**: Por nombre o características
-    - **Vista Previa**: Escucha muestras antes de seleccionar
+  <Tab title="Biblioteca de Voces">
+    Amplia selección con filtros avanzados:
+    - **Filtro por Tipo**: Neural (recomendado), Standard, Premium
+    - **Búsqueda Inteligente**: Por nombre, características o idioma
+    - **Vista Previa Integrada**: Escucha muestras directamente
+    - **Favoritos**: Guarda tus voces preferidas para uso futuro
   </Tab>
   
-  <Tab title="Ajustes Finos">
-    - **Velocidad**: 0.70 - 1.20 (predeterminado: 1.06)
-    - **Estabilidad**: 0 - 1 (predeterminado: 0.15)
-    - **Similitud**: 0 - 1 (predeterminado: 0.65)
+  <Tab title="Ajustes de Síntesis">
+    - **Velocidad de Habla**: 0.70 - 1.20 (óptimo: 1.06)
+    - **Estabilidad de Voz**: 0 - 1 (recomendado: 0.15 para naturalidad)
+    - **Similitud de Tono**: 0 - 1 (estándar: 0.65)
+    - **Optimización de Claridad**: Automática según el caso de uso
   </Tab>
 </Tabs>
 
-#### Comportamiento Conversacional
+#### Comportamiento Conversacional Avanzado
 
 <Tabs>
-  <Tab title="Configuración Básica">
-    - **Entusiasmo**: Bajo, Normal, Alto, Automático
-    - **Paciencia de Deletreo**: Automático, Habilitado, Deshabilitado
-    - **Turno Especulativo**: Mejora la fluidez de la conversación
+  <Tab title="Configuración de Personalidad">
+    - **Nivel de Entusiasmo**: Bajo, Normal, Alto, Automático según contexto
+    - **Paciencia de Deletreo**: Control automático, forzado, o deshabilitado
+    - **Turno Especulativo**: Mejora la fluidez anticipando respuestas
+    - **Manejo de Interrupciones**: Configuración de sensibilidad
   </Tab>
   
-  <Tab title="Timeouts">
-    - **Timeout de Turno**: 6 segundos (predeterminado)
-    - **Timeout de Silencio**: 25 segundos antes de colgar
-    - **Duración Máxima**: 600 segundos por conversación
+  <Tab title="Timeouts Configurables">
+    - **Timeout de Turno**: 6 segundos por defecto (2-15s disponible)
+    - **Timeout de Silencio**: 25 segundos antes de cierre automático
+    - **Duración Máxima**: 600 segundos por conversación (configurable)
+    - **Advertencias Temporales**: Notificaciones antes del timeout
   </Tab>
   
-  <Tab title="Opciones Avanzadas">
-    - **Filtrar Habla de Fondo**: Reduce ruido ambiental
-    - **Grabación**: Habilitada por defecto
-    - **Mensaje de Finalización**: Personalizable
+  <Tab title="Opciones de Audio">
+    - **Filtro de Habla de Fondo**: Reducción de ruido ambiental
+    - **Grabación de Llamadas**: Habilitada por defecto con opciones de calidad
+    - **Detección de Actividad de Voz**: Configuración de sensibilidad
+    - **Mensaje de Finalización**: Personalizable con variables dinámicas
   </Tab>
 </Tabs>
 
 #### Componentes Foundation
 
-Mejoras pre-entrenadas para tu agente (habilitadas por defecto):
+Mejoras pre-entrenadas para tu agente (recomendadas para activar):
 
-- **Safety Guardrails** - Previene respuestas inapropiadas
-- **Conversational Aspects** - Mejora el flujo natural
-- **Agent Work Experience** - Comportamientos profesionales
+- **Safety Guardrails** - Previene respuestas inapropiadas y protege la marca
+- **Conversational Aspects** - Mejora el flujo natural y la comprensión contextual  
+- **Agent Work Experience** - Comportamientos profesionales y mejores prácticas
 
 ### 2. Greetings (👋)
 
-Configura mensajes de bienvenida personalizados:
+Configura mensajes de bienvenida personalizados y profesionales:
 
-#### Saludo Entrante
+#### Saludo para Llamadas Entrantes
 ```
-¡Hola! Gracias por llamar a {{company_name}}. ¿En qué puedo ayudarte hoy?
+¡Hola! Gracias por llamar a {{company_name}}. Soy {{agent_name}}, 
+tu asistente virtual. ¿En qué puedo ayudarte hoy?
 ```
 
-#### Saludo Saliente
+#### Saludo para Llamadas Salientes
 ```
 Hola {{customer_name}}, soy {{agent_name}} de {{company_name}}. 
-Te llamo respecto a {{reason}}. ¿Es buen momento para hablar?
+Te llamo respecto a {{reason}}. ¿Tienes unos minutos para conversar?
 ```
 
+#### Variables Dinámicas Disponibles
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `{{agent_name}}` | Nombre del agente | "María" |
+| `{{company_name}}` | Nombre de la empresa | "Clínica Dental San José" |
+| `{{customer_name}}` | Nombre del cliente | "Carlos Rodríguez" |
+| `{{reason}}` | Motivo de la llamada | "tu consulta sobre implantes" |
+| `{{appointment_date}}` | Fecha de cita | "mañana a las 3 PM" |
+
 <Info>
-  Los saludos soportan variables dinámicas que se reemplazan automáticamente durante las llamadas.
+  Los saludos soportan lógica condicional y se adaptan automáticamente según el contexto de la llamada y los parámetros de entrada proporcionados.
 </Info>
 
 ### 3. Input Parameters (📄)
 
-Define variables dinámicas para personalización:
+Define variables dinámicas para personalización avanzada:
 
-| Parámetro | Tipo | Descripción |
-|-----------|------|-------------|
-| `phone` | String | Teléfono del cliente |
-| `name` | String | Nombre del cliente |
-| `email` | String | Email del cliente |
-| `company` | String | Empresa del cliente |
-| `lead_source` | String | Origen del lead |
-| `appointment_date` | String | Fecha de cita |
-| `reason` | String | Motivo de la llamada |
+#### Parámetros Estándar Recomendados
+
+| Parámetro | Tipo | Requerido | Descripción |
+|-----------|------|-----------|-------------|
+| `phone` | String | Sí | Teléfono del cliente |
+| `name` | String | Sí | Nombre completo del cliente |
+| `email` | String | No | Email para seguimientos |
+| `company` | String | No | Empresa del cliente (B2B) |
+| `lead_source` | String | No | Origen del lead |
+| `appointment_date` | String | No | Fecha/hora de cita existente |
+| `reason` | String | No | Motivo específico de la llamada |
+| `priority` | String | No | Nivel de prioridad (alto/medio/bajo) |
+
+#### Parámetros Específicos por Industria
+
+<Tabs>
+  <Tab title="Clínica Dental">
+    ```json
+    {
+      "insurance_provider": "string",
+      "treatment_type": "string", 
+      "pain_level": "integer",
+      "preferred_doctor": "string",
+      "emergency": "boolean"
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Inmobiliaria">
+    ```json
+    {
+      "property_type": "string",
+      "budget_max": "number",
+      "location_preference": "string",
+      "move_timeline": "string",
+      "financing_approved": "boolean"
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Software B2B">
+    ```json
+    {
+      "company_size": "integer",
+      "current_solution": "string",
+      "budget_range": "string",
+      "decision_timeline": "string",
+      "key_stakeholders": "array"
+    }
+    ```
+  </Tab>
+</Tabs>
 
 ### 4. Knowledge Base (📚)
 
-Sube documentos de referencia para que el agente tenga contexto:
+Carga documentos de referencia para proporcionar contexto experto:
 
-**Tipos de documentos soportados:**
-- PDFs, Word, texto plano
-- FAQs de productos
-- Información de precios
-- Políticas de la empresa
-- Scripts de objeciones
+#### Tipos de Documentos Soportados
+- **PDFs**: Manuales, catálogos, políticas
+- **Word**: Documentos de proceso, FAQs
+- **Texto**: Scripts, guías de conversación
+- **Hojas de cálculo**: Listas de precios, inventarios
+
+#### Categorías de Conocimiento Recomendadas
+
+<Tabs>
+  <Tab title="Información de Productos/Servicios">
+    - Catálogos con precios y especificaciones
+    - Comparativas entre productos
+    - Términos y condiciones de servicio
+    - Políticas de garantía y devoluciones
+  </Tab>
+  
+  <Tab title="Procesos Operativos">
+    - Flujos de trabajo de atención al cliente
+    - Protocolos de escalación
+    - Procedimientos de facturación
+    - Guías de resolución de problemas
+  </Tab>
+  
+  <Tab title="FAQs y Objeciones">
+    - Preguntas frecuentes por categoría
+    - Scripts de manejo de objeciones
+    - Respuestas a quejas comunes
+    - Alternativas y soluciones creativas
+  </Tab>
+</Tabs>
 
 <Info>
-  El agente busca en la knowledge base contextualmente durante las conversaciones, recuperando información relevante cuando es necesaria.
+  El agente utiliza búsqueda semántica avanzada para encontrar información relevante contextualmente durante las conversaciones, asegurando respuestas precisas y actualizadas.
 </Info>
 
 ### 5. Actions & Tools (🔧)
 
-Configura integraciones y acciones que el agente puede ejecutar:
+Configura integraciones y acciones que el agente puede ejecutar automáticamente:
 
-| Acción | Descripción | Casos de Uso |
-|--------|-------------|--------------|
-| **Transfer Call** | Derivar a agente humano | Escalación de casos complejos |
-| **Send SMS** | Enviar mensaje de texto | Confirmaciones, recordatorios |
-| **Send Email** | Enviar email al cliente | Seguimientos, documentación |
-| **Calendar Booking** | Agendar citas | Reservas, consultas |
-| **CRM Update** | Actualizar registros | Sincronización de datos |
-| **Custom Webhook** | Llamar APIs externas | Integraciones personalizadas |
+#### Acciones de Comunicación
+
+| Acción | Propósito | Configuración |
+|--------|-----------|---------------|
+| **Transfer Call** | Derivar a agente humano | Números de destino, criterios de transferencia |
+| **Send SMS** | Mensajes de confirmación | Templates, triggers automáticos |
+| **Send Email** | Seguimientos documentados | Plantillas HTML, adjuntos |
+| **Schedule Callback** | Reagendar contacto | Calendarios integrados, recordatorios |
+
+#### Integraciones Empresariales
+
+| Sistema | Función | Datos Sincronizados |
+|---------|---------|-------------------|
+| **CRM Update** | Actualizar registros | Contactos, oportunidades, notas |
+| **Calendar Booking** | Gestión de citas | Disponibilidad, recordatorios, cancelaciones |
+| **Payment Processing** | Cobros y facturación | Transacciones, estados, recibos |
+| **Custom Webhook** | APIs personalizadas | Datos específicos del negocio |
+
+#### Configuración de Transferencias Inteligentes
+
+<Tabs>
+  <Tab title="Criterios de Transferencia">
+    - **Por Palabras Clave**: "hablar con manager", "cancelar"
+    - **Por Nivel de Frustración**: Detección de tono negativo
+    - **Por Complejidad**: Casos que exceden capacidades del bot
+    - **Por Valor**: Oportunidades de alto valor económico
+  </Tab>
+  
+  <Tab title="Destinos de Transferencia">
+    - **Departamentos Específicos**: Ventas, soporte, facturación
+    - **Especialistas**: Por producto o área de expertise
+    - **Horarios**: Transferencias según disponibilidad
+    - **Cola de Prioridad**: Basada en tipo de cliente o urgencia
+  </Tab>
+</Tabs>
 
 ### 6. Evaluations (📊)
 
-Crea criterios de éxito automatizados para medir el rendimiento:
+Crea criterios de éxito automatizados para medir y mejorar el rendimiento:
 
-**Tipos de evaluaciones:**
+#### Tipos de Evaluación
 
 <Tabs>
-  <Tab title="Comportamiento">
-    ```
-    Escenario: El cliente pregunta sobre precios
-    Esperado: El agente NO debe discutir precios específicos
-    Esperado: El agente debe ofrecer conectar con el equipo de ventas
-    ```
-  </Tab>
-  
-  <Tab title="Calidad">
-    ```
-    Criterio: Cortesía profesional
-    Métrica: El agente debe ser educado en un 95% de las interacciones
-    Palabras clave: "por favor", "gracias", "disculpe"
+  <Tab title="Evaluaciones de Comportamiento">
+    ```yaml
+    Escenario: Cliente pregunta sobre precios
+    Comportamiento Esperado:
+      - NO debe discutir precios específicos sin cualificación
+      - DEBE preguntar sobre presupuesto y necesidades
+      - DEBE ofrecer conectar con especialista en ventas
+    
+    Palabras Prohibidas: ["gratis", "descuento sin condiciones"]
+    Frases Requeridas: ["déjame conectarte", "especialista"]
     ```
   </Tab>
   
-  <Tab title="Objetivos">
+  <Tab title="Métricas de Calidad">
+    ```yaml
+    Criterio: Cortesía Profesional
+    Objetivo: 95% de interacciones corteses
+    Indicadores:
+      - Uso de "por favor", "gracias", "disculpe"
+      - Tono empático en situaciones difíciles
+      - Ausencia de interrupciones bruscas
+    
+    Medición: Análisis de sentimiento + palabras clave
     ```
-    Meta: Agendar citas
-    Éxito: Al menos 3 de cada 10 llamadas deben resultar en cita agendada
-    Seguimiento: Medir conversión semanal
+  </Tab>
+  
+  <Tab title="Objetivos de Negocio">
+    ```yaml
+    Meta: Conversión a Citas Agendadas
+    Target: 30% de conversión en llamadas cualificadas
+    Tracking:
+      - Llamadas que resultan en cita confirmada
+      - Tiempo promedio hasta agendamiento
+      - Tasa de show-up de citas agendadas
+    
+    Reportes: Semanales con análisis de tendencias
     ```
   </Tab>
 </Tabs>
+
+#### Configuración de KPIs Automáticos
+
+| Métrica | Medición | Objetivo Típico |
+|---------|----------|----------------|
+| **Tiempo de Resolución** | Duración promedio | < 3 minutos |
+| **Tasa de Transferencia** | % llamadas transferidas | < 15% |
+| **Satisfacción Cliente** | Análisis de sentimiento | > 80% positivo |
+| **Conversión de Leads** | % leads que avanzan | > 25% |
+| **Retención en Llamada** | % que completan conversación | > 85% |
 
 ### 7. Output Settings (📥)
 
 Define qué información debe capturar el agente al final de cada conversación:
 
+#### Estructura de Datos de Salida Estándar
+
 | Campo | Tipo | Descripción | Ejemplo |
 |-------|------|-------------|---------|
-| `qualified` | Boolean | ¿El lead está cualificado? | true/false |
-| `budget_range` | String | Rango de presupuesto | "€5,000-€10,000" |
-| `timeline` | String | Cronograma de compra | "1-3 meses" |
-| `pain_points` | Array | Desafíos del cliente | ["costo", "tiempo"] |
+| `call_outcome` | Enum | Resultado de la llamada | "qualified", "not_interested", "callback" |
+| `qualified` | Boolean | ¿Lead cualificado? | true/false |
+| `budget_range` | String | Rango presupuestario | "€5,000-€10,000" |
+| `timeline` | String | Cronograma de decisión | "1-3 meses" |
+| `pain_points` | Array | Desafíos identificados | ["costo", "tiempo", "complejidad"] |
 | `interest_level` | Integer | Nivel de interés (1-10) | 7 |
-| `next_step` | String | Siguiente acción | "demo_agendada" |
+| `next_step` | String | Siguiente acción requerida | "demo_agendada" |
+| `contact_preference` | String | Método de contacto preferido | "email", "phone", "whatsapp" |
 
-## Prompt de Sistema
+#### Configuraciones Avanzadas de Webhook
 
-El editor central contiene el **Prompt de Sistema** - las instrucciones principales que definen el comportamiento de tu agente.
+<Tabs>
+  <Tab title="Envío en Tiempo Real">
+    - **URL de Destino**: Endpoint de tu sistema
+    - **Autenticación**: API keys, tokens JWT
+    - **Formato**: JSON, XML, Form-data
+    - **Retry Policy**: Reintentos automáticos en caso de falla
+  </Tab>
+  
+  <Tab title="Filtros Condicionales">
+    - **Solo Cualificados**: Enviar solo leads que cumplen criterios
+    - **Por Valor**: Umbral mínimo de oportunidad
+    - **Por Departamento**: Routing según tipo de consulta
+    - **Horario de Envío**: Respetar horarios de oficina
+  </Tab>
+  
+  <Tab title="Transformación de Datos">
+    - **Mapeo de Campos**: Adaptar a tu esquema CRM
+    - **Enriquecimiento**: Añadir datos de fuentes externas
+    - **Validación**: Verificar integridad antes del envío
+    - **Formateo**: Fechas, números, texto según estándares
+  </Tab>
+</Tabs>
 
-### Estructura Recomendada
+## Prompt de Sistema Avanzado
+
+El editor central contiene el **Prompt de Sistema** - las instrucciones principales que definen la personalidad y comportamiento de tu agente.
+
+### Estructura Recomendada para Prompts Efectivos
 
 ```markdown
-Eres un agente amigable de cualificación de ventas para Acme Corp.
+# {{AGENT_NAME}} - Agente de {{DEPARTMENT}} para {{COMPANY}}
 
-## Objetivo
-Cualificar leads entendiendo sus necesidades y presupuesto,
-luego agendar una demo con un representante de ventas.
+## Identidad y Propósito
+Eres un especialista en {{EXPERTISE_AREA}} con {{YEARS}} años de experiencia virtual.
+Tu misión es {{PRIMARY_OBJECTIVE}} mientras mantienes los más altos estándares de 
+servicio al cliente.
 
-## Tu Personalidad
-- Profesional pero cercano
-- Empático y buen oyente  
-- Orientado a soluciones
-- Respetuoso con el tiempo del cliente
+## Personalidad Profesional
+- **Tono**: Profesional pero cálido y accesible
+- **Estilo**: Conversacional, paciente y orientado a soluciones
+- **Valores**: Honestidad, transparencia y orientación al cliente
+- **Énfasis**: Escucha activa y comprensión antes de proponer soluciones
 
-## Proceso de Cualificación
-1. Saluda calurosamente y presenta la empresa
-2. Pregunta sobre sus desafíos actuales
-3. Entiende su cronograma y presupuesto
-4. Evalúa el ajuste con nuestras soluciones
-5. Si está cualificado, agenda una demo
+## Proceso Estructurado
+### Fase 1: Bienvenida y Contexto (30-45 segundos)
+1. Saluda calurosamente y preséntate
+2. Confirma el motivo de la llamada
+3. Establece expectativas sobre el proceso
+
+### Fase 2: Descubrimiento de Necesidades (2-4 minutos)
+1. Haz preguntas abiertas para entender la situación
+2. Identifica pain points específicos
+3. Evalúa urgencia y prioridades
+4. Confirma comprensión reformulando
+
+### Fase 3: Cualificación y Validación (1-2 minutos)
+1. Evalúa criterios de cualificación específicos
+2. Determina autoridad de decisión
+3. Valida presupuesto y cronograma
+4. Identifica posibles objeciones
+
+### Fase 4: Propuesta de Valor y Cierre (1-2 minutos)
+1. Conecta nuestra solución con sus necesidades
+2. Destaca beneficios específicos para su caso
+3. Propone siguiente paso concreto
+4. Confirma compromiso y expectativas
 
 ## Directrices de Conversación
-- Sé conversacional y amigable
-- Haz preguntas abiertas para entender mejor
-- Escucha activamente y reformula para confirmar
-- Mantén el foco en sus necesidades, no en vender
+### ✅ SÍ hacer siempre:
+- Usar el nombre del cliente regularmente
+- Reformular para confirmar comprensión
+- Ser específico en lugar de usar generalidades
+- Ofrecer opciones cuando sea apropiado
+- Mantener control respetuoso de la conversación
+- Documentar información clave en tiempo real
 
-## Restricciones
-- Nunca discutas precios directamente
-- No hagas promesas sobre características específicas
-- Transfiere a un humano si el cliente está molesto
-- No interrumpas cuando el cliente está hablando
+### ❌ NO hacer nunca:
+- Interrumpir cuando el cliente habla
+- Dar información incorrecta o inventada
+- Presionar agresivamente para cerrar
+- Discutir precios sin contexto previo
+- Hacer promesas que no puedes cumplir
+- Revelar información confidencial de otros clientes
 
-## Palabras Clave para Cualificación
-- Presupuesto: "inversión", "costo", "precio"
-- Urgencia: "cuándo", "pronto", "urgente" 
-- Autoridad: "decisión", "aprobación", "jefe"
-- Necesidad: "problema", "desafío", "mejorar"
+## Manejo de Situaciones Específicas
+### Cliente Impaciente o Molesto:
+1. Reconoce su frustración con empatía
+2. Disculpate por cualquier inconveniente
+3. Enfócate en la solución inmediata
+4. Ofrece transferencia si es necesario
+
+### Objeciones de Precio:
+1. No defiendas el precio directamente
+2. Vuelve al valor y beneficios
+3. Pregunta sobre presupuesto específico
+4. Ofrece opciones de financiamiento
+
+### Solicitud de Información Técnica Avanzada:
+1. Proporciona información básica disponible
+2. Reconoce limitaciones de tu conocimiento
+3. Ofrece conectar con especialista técnico
+4. Agenda seguimiento específico
+
+## Base de Conocimiento Clave
+- Acceso completo a documentación de productos/servicios
+- Políticas actualizadas de la empresa
+- FAQs con respuestas aprobadas
+- Protocolos de escalación por situación
+
+## Métricas de Éxito
+- Tiempo de resolución: < 5 minutos promedio
+- Tasa de transferencia: < 20%
+- Calificación de satisfacción: > 4.5/5
+- Conversión a siguiente paso: > 35%
+
+## Palabras y Frases Poder
+### Para Construir Rapport:
+- "Entiendo perfectamente tu situación..."
+- "Esa es una excelente pregunta..."
+- "Me alegra que hayas llamado..."
+
+### Para Transiciones:
+- "Basándome en lo que me has contado..."
+- "Para asegurarme de darte la mejor recomendación..."
+- "El siguiente paso lógico sería..."
+
+### Para Manejo de Objeciones:
+- "Aprecio que seas directo sobre eso..."
+- "Muchos de nuestros clientes tenían la misma preocupación..."
+- "Déjame explicarte cómo hemos resuelto esto para otros..."
 ```
 
-### Consejos para un Prompt Efectivo
+### Consejos Avanzados para Prompts de Alto Rendimiento
 
-<Tips>
-  <Tip title="Sé Específico">
-    Define claramente el rol, objetivos y personalidad del agente
-  </Tip>
+<Tabs>
+  <Tab title="Estructura y Organización">
+    - **Usa títulos claros** para diferentes secciones
+    - **Numera los pasos** de procesos complejos
+    - **Separa lo que SÍ hacer de lo que NO hacer**
+    - **Incluye ejemplos específicos** de tu industria
+    - **Define métricas concretas** para evaluar éxito
+  </Tab>
   
-  <Tip title="Usa Ejemplos">
-    Incluye ejemplos de respuestas apropiadas e inapropiadas
-  </Tip>
+  <Tab title="Personalidad Consistente">
+    - **Define un tono específico** (profesional, casual, empático)
+    - **Mantén coherencia** en todas las respuestas
+    - **Adapta el lenguaje** a tu audiencia objetivo
+    - **Incluye valores empresariales** en el comportamiento
+    - **Establece límites claros** de autoridad y conocimiento
+  </Tab>
   
-  <Tip title="Define Límites">
-    Especifica qué debe y no debe hacer el agente
-  </Tip>
-  
-  <Tip title="Incluye Contexto">
-    Proporciona información sobre la empresa y los productos/servicios
-  </Tip>
-</Tips>
+  <Tab title="Manejo de Casos Edge">
+    - **Incluye respuestas para objeciones comunes**
+    - **Define cuándo escalar a un humano**
+    - **Proporciona alternativas y opciones**
+    - **Maneja situaciones emocionales** con empatía
+    - **Establece protocolos de emergencia** si aplica
+  </Tab>
+</Tabs>
 
 ## Panel Derecho: Herramientas de Desarrollo
 
 ### Meetzy AI (✨)
 
-Tu asistente personal para construir agentes. Capacidades:
+Tu asistente personal especializado para construir agentes de alto rendimiento:
 
-- **Generación Automática**: Crea configuraciones completas desde descripciones
-- **Optimización de Prompts**: Mejora prompts existentes
-- **Sugerencias Inteligentes**: Recomienda mejoras basadas en mejores prácticas
-- **Resolución de Problemas**: Ayuda con configuraciones complejas
+#### Capacidades Avanzadas
+- **Generación Automática**: Crea configuraciones completas desde descripciones detalladas
+- **Optimización de Prompts**: Mejora prompts existentes basándose en mejores prácticas
+- **Sugerencias Inteligentes**: Recomienda mejoras específicas para tu industria
+- **Resolución de Problemas**: Diagnostica y corrige configuraciones problemáticas
+- **Análisis de Rendimiento**: Identifica áreas de mejora en base a métricas
 
-**Comandos útiles:**
-```
-"Mejora este prompt para ventas B2B"
-"Agrega manejo de objeciones comunes"
-"Optimiza para llamadas en frío"
-"Incluye cualificación BANT"
-```
+#### Comandos Útiles por Categoría
+
+<Tabs>
+  <Tab title="Optimización de Prompts">
+    ```
+    "Mejora este prompt para ventas B2B de software"
+    "Hazlo más empático para atención al cliente"
+    "Optimiza para llamadas en frío inmobiliarias"
+    "Añade manejo profesional de objeciones"
+    ```
+  </Tab>
+  
+  <Tab title="Configuración Específica">
+    ```
+    "Configura cualificación BANT automática"
+    "Añade protocolo de escalación médica"
+    "Crea flujo de agendamiento para spa"
+    "Optimiza para retención de clientes"
+    ```
+  </Tab>
+  
+  <Tab title="Resolución de Problemas">
+    ```
+    "¿Por qué mi agente transfiere demasiado?"
+    "Cómo reducir la latencia de respuesta"
+    "Mejora la tasa de conversión"
+    "Diagnostica problemas de calidad de voz"
+    ```
+  </Tab>
+</Tabs>
 
 ### Playground (▶️)
 
-Simula conversaciones para probar tu agente antes de publicar:
+Simulador avanzado de conversaciones para testing exhaustivo:
 
-**Características:**
-- Interfaz de chat en tiempo real
-- Prueba diferentes escenarios
-- Revisa respuestas del agente
-- Valida flujos de conversación
+#### Características del Simulador
+- **Interfaz de Chat en Tiempo Real**: Simula conversaciones telefónicas
+- **Múltiples Escenarios**: Prueba diferentes tipos de clientes y situaciones
+- **Análisis de Respuestas**: Revisa lógica y calidad de respuestas del agente
+- **Validación de Flujos**: Confirma que los procesos funcionan correctamente
+- **Métricas en Tiempo Real**: Ve estadísticas de la conversación actual
 
-**Escenarios de prueba comunes:**
-- Cliente interesado
-- Cliente con objeciones
-- Cliente molesto
-- Solicitud de transferencia
+#### Escenarios de Prueba Recomendados
+
+<Tabs>
+  <Tab title="Cliente Ideal">
+    ```
+    - Cliente interesado y colaborativo
+    - Información completa y precisa
+    - Presupuesto adecuado
+    - Urgencia moderada
+    - Autoridad de decisión
+    ```
+  </Tab>
+  
+  <Tab title="Cliente con Objeciones">
+    ```
+    - Preocupación por precio
+    - Dudas sobre el producto/servicio
+    - Experiencias negativas previas
+    - Comparación con competencia
+    - Solicitud de descuentos
+    ```
+  </Tab>
+  
+  <Tab title="Cliente Difícil">
+    ```
+    - Impaciente o molesto
+    - Información incompleta
+    - Solicitudes fuera de scope
+    - Expectativas poco realistas
+    - Solicitud inmediata de supervisor
+    ```
+  </Tab>
+  
+  <Tab title="Casos Edge">
+    ```
+    - Emergencias médicas/técnicas
+    - Información confidencial
+    - Múltiples necesidades complejas
+    - Restricciones regulatorias
+    - Situaciones sin precedente
+    ```
+  </Tab>
+</Tabs>
 
 ### Tests (✅)
 
-Ejecuta pruebas automatizadas para validar el comportamiento:
+Sistema de pruebas automatizadas para garantizar calidad consistente:
 
-**Tipos de pruebas:**
-- **Funcionales**: Verifica que las acciones funcionen
-- **Conversacionales**: Evalúa la calidad de las respuestas
-- **De Rendimiento**: Mide tiempos de respuesta
-- **De Seguridad**: Confirma que los guardrails funcionan
+#### Tipos de Pruebas Disponibles
+
+<Tabs>
+  <Tab title="Pruebas Funcionales">
+    - **Validación de Configuración**: Verifica que todos los campos estén completos
+    - **Pruebas de Integración**: Confirma que webhooks y APIs funcionan
+    - **Tests de Transferencia**: Valida protocolos de escalación
+    - **Verificación de Acciones**: Prueba SMS, emails, agendamientos
+  </Tab>
+  
+  <Tab title="Pruebas de Calidad Conversacional">
+    - **Análisis de Coherencia**: Evalúa lógica en las respuestas
+    - **Tests de Personalidad**: Confirma consistencia de tono
+    - **Validación de Conocimiento**: Verifica acceso a information base
+    - **Pruebas de Manejo de Objeciones**: Evalúa respuestas a situaciones difíciles
+  </Tab>
+  
+  <Tab title="Pruebas de Rendimiento">
+    - **Latencia de Respuesta**: Mide tiempos de procesamiento
+    - **Throughput**: Capacidad de llamadas concurrentes
+    - **Estabilidad**: Tests de larga duración
+    - **Recuperación de Errores**: Manejo de fallos temporales
+  </Tab>
+  
+  <Tab title="Pruebas de Seguridad">
+    - **Validación de Guardrails**: Confirma que las protecciones funcionan
+    - **Tests de Bypass**: Intenta eludir restricciones de seguridad
+    - **Manejo de Datos Sensibles**: Verifica protección de información privada
+    - **Compliance**: Confirma adherencia a regulaciones aplicables
+  </Tab>
+</Tabs>
 
 ### Changes (📝)
 
-Sistema de control de versiones similar a Git:
+Sistema avanzado de control de versiones similar a Git:
 
-- **Ver Cambios**: Revisa modificaciones pendientes
-- **Comparar Versiones**: Ve diferencias entre versiones
-- **Historial**: Accede a versiones anteriores
-- **Rollback**: Revertir a versiones estables
+#### Funcionalidades de Versioning
 
-## Comando Palette
-
-Accede rápidamente a funciones con **Cmd+K** (Mac) o **Ctrl+K** (Windows):
-
-| Comando | Descripción |
-|---------|-------------|
-| "check" | Validar configuración |
-| "publish" | Publicar agente |
-| "test" | Abrir playground |
-| "ai" | Consultar Meetzy AI |
-
-## Publicar Tu Agente
-
-<Steps>
-  <Step title="Validar Configuración">
-    Haz clic en **Check** para validar tu configuración. El sistema verificará:
-    - Prompt de sistema completo
-    - Número de teléfono asignado
-    - Configuración de voz válida
-    - Parámetros obligatorios
-  </Step>
+<Tabs>
+  <Tab title="Tracking de Cambios">
+    - **Diff Visualization**: Compara versiones lado a lado
+    - **Change History**: Historial completo de modificaciones
+    - **Author Tracking**: Quién hizo qué cambio y cuándo
+    - **Change Descriptions**: Notas explicativas para cada modificación
+  </Tab>
   
-  <Step title="Probar en Playground">
-    Usa el Playground para simular conversaciones:
-    - Prueba diferentes tipos de clientes
-    - Verifica el flujo de conversación
-    - Confirma que las acciones funcionan
-  </Step>
+  <Tab title="Colaboración">
+    - **Merge Conflicts**: Detecta y resuelve conflictos automáticamente
+    - **Branch Management**: Trabaja en versiones paralelas
+    - **Review Process**: Proceso de aprobación para cambios críticos
+    - **Team Notifications**: Alertas sobre modificaciones importantes
+  </Tab>
   
-  <Step title="Ejecutar Tests">
-    Ejecuta las pruebas automatizadas:
-    - Tests funcionales
-    - Tests de calidad conversacional
-    - Validación de seguridad
-  </Step>
-  
-  <Step title="Llamadas de Prueba">
-    Realiza llamadas telefónicas reales de prueba:
-    - Usa "Test Agent" desde el dashboard
-    - Llama al número asignado
-    - Valida la experiencia completa
-  </Step>
-  
-  <Step title="Publicar a Producción">
-    Haz clic en **Publish** para desplegar:
-    - Se crea una nueva versión
-    - El agente queda disponible para llamadas
-    - La versión anterior se mantiene para rollback
-  </Step>
-</Steps>
+  <Tab title="Rollback y Recovery">
+    - **Instant Rollback**: Revertir a cualquier versión anterior
+    - **Selective Restore**: Restaurar solo partes específicas
+    - **Backup Automático**: Respaldos antes de cada cambio mayor
+    - **Change Validation**: Verificación antes de aplicar cambios
+  </Tab>
+</Tabs>
 
-<Warning>
-  **Importante**: Publicar crea una nueva versión. La versión anterior permanece disponible para rollback si es necesario.
-</Warning>
-
-## Atajos de Teclado
+## Atajos de Teclado Avanzados
 
 ### Navegación General
-| Atajo | Acción |
-|-------|--------|
-| `⌘1` - `⌘7` | Navegar entre secciones del panel izquierdo |
-| `⌘K` | Abrir Command Palette |
-| `⌘J` | Abrir Meetzy AI |
-| `⇧⌘P` | Abrir Playground |
-| `⇧⌘T` | Abrir Tests |
-| `⌘G` | Ver Changes |
-| `⌘S` | Guardar cambios |
+| Atajo | Acción | Contexto |
+|-------|--------|----------|
+| `⌘1` - `⌘7` | Navegar entre secciones del panel izquierdo | Cualquier momento |
+| `⌘K` | Abrir Command Palette | Global |
+| `⌘J` | Abrir/enfocar Meetzy AI | Global |
+| `⇧⌘P` | Abrir/enfocar Playground | Global |
+| `⇧⌘T` | Abrir/enfocar Tests | Global |
+| `⌘G` | Ver Changes/Git panel | Global |
+| `⌘S` | Guardar cambios | Global |
 
-### Editor de Prompt
-| Atajo | Acción |
-|-------|--------|
-| `⌘/` | Comentar/descomentar línea |
-| `⌘F` | Buscar en texto |
-| `⌘Z` | Deshacer |
-| `⌘Y` | Rehacer |
+### Editor de Prompt Avanzado
+| Atajo | Acción | Descripción |
+|-------|--------|-------------|
+| `⌘/` | Comentar/descomentar línea | Toggle comentarios |
+| `⌘F` | Buscar en texto | Búsqueda local |
+| `⌘H` | Buscar y reemplazar | Reemplazo masivo |
+| `⌘Z` | Deshacer | Hasta 50 acciones |
+| `⌘Y` / `⇧⌘Z` | Rehacer | Revertir deshacer |
+| `⌘L` | Seleccionar línea completa | Selección rápida |
+| `⇧⌘K` | Eliminar línea | Borrado eficiente |
 
-### Acciones Rápidas
-| Atajo | Acción |
-|-------|--------|
-| `⌘⏎` | Publicar agente |
-| `⇧⌘C` | Validar configuración |
-| `⌘B` | Volver a la lista de agentes |
+### Acciones Rápidas de Producción
+| Atajo | Acción | Confirmación |
+|-------|--------|--------------|
+| `⌘⏎` | Publicar agente | Modal de confirmación |
+| `⇧⌘C` | Validar configuración | Reporte automático |
+| `⌘B` | Volver a lista de agentes | Sin confirmación |
+| `⇧⌘D` | Duplicar agente actual | Con nuevo nombre |
 
-## Mejores Prácticas
+### Debugging y Testing
+| Atajo | Acción | Ventana |
+|-------|--------|---------|
+| `⌘D` | Modo debug | Consola de desarrollo |
+| `⇧⌘I` | Inspector de agente | Panel lateral |
+| `⌘R` | Ejecutar test rápido | Playground automático |
 
-### Diseño de Prompts
+## Mejores Prácticas Avanzadas
+
+### Diseño de Prompts de Alto Rendimiento
 
 <Tabs>
-  <Tab title="Estructura Clara">
-    - Usa títulos y secciones bien definidas
-    - Separa objetivos, personalidad y restricciones
-    - Incluye ejemplos específicos de tu industria
+  <Tab title="Estructura Jerárquica">
+    - **Usa headers clara (H1, H2, H3)** para organizar secciones
+    - **Numera procesos complejos** paso a paso
+    - **Separa instrucciones por contexto** (inicio, medio, cierre)
+    - **Incluye ejemplos específicos** de tu industria
+    - **Define métricas de éxito concretas** y medibles
   </Tab>
   
-  <Tab title="Personalidad Consistente">
-    - Define un tono específico (profesional, casual, empático)
-    - Mantén coherencia en todas las respuestas
-    - Adapta el lenguaje a tu audiencia objetivo
+  <Tab title="Personalidad Profesional Consistente">
+    - **Define un tono específico** adaptado a tu marca
+    - **Mantén coherencia emocional** en todas las respuestas
+    - **Adapta el registro lingüístico** a tu audiencia objetivo
+    - **Incorpora valores empresariales** en cada interacción
+    - **Establece límites de autoridad** claros y respetables
   </Tab>
   
-  <Tab title="Manejo de Objeciones">
-    - Incluye respuestas para objeciones comunes
-    - Define cuándo escalar a un humano
-    - Proporciona alternativas y opciones
+  <Tab title="Manejo Proactivo de Objeciones">
+    - **Anticipa objeciones comunes** de tu industria
+    - **Prepara respuestas escalonadas** por nivel de resistencia
+    - **Define cuándo escalar** vs. cuando persistir
+    - **Incluye alternativas creativas** para situaciones difíciles
+    - **Mantén foco en valor** no en características
   </Tab>
 </Tabs>
 
-### Configuración de Voz
+### Optimización de Configuración de Voz
 
 <Tabs>
-  <Tab title="Selección de Voz">
-    - Prueba múltiples opciones antes de decidir
-    - Considera la edad y género de tu audiencia
-    - Ajusta según la formalidad de tu industria
+  <Tab title="Selección Estratégica de Voz">
+    - **Prueba múltiples opciones** con tu audiencia real
+    - **Considera demografía del cliente** (edad, región, sector)
+    - **Ajusta según formalidad** requerida por tu industria
+    - **Testa en diferentes dispositivos** y calidades de línea
+    - **Valida con stakeholders** antes de decidir
   </Tab>
   
-  <Tab title="Ajustes Finos">
-    - Velocidad: Más lenta para información técnica
-    - Estabilidad: Mayor para conversaciones serias
-    - Similitud: Ajustar según naturalidad deseada
+  <Tab title="Ajustes Finos Técnicos">
+    - **Velocidad**: Más lenta para información técnica/legal
+    - **Estabilidad**: Mayor para conversaciones serias/formales
+    - **Similitud**: Balancear naturalidad vs. consistencia
+    - **Optimiza para calidad de línea** promedio de tu mercado
   </Tab>
 </Tabs>
 
-### Testing y Calidad
+### Estrategias de Testing y Calidad
 
 <Tabs>
-  <Tab title="Pruebas Exhaustivas">
-    - Testa múltiples escenarios antes de publicar
-    - Incluye casos edge y situaciones difíciles
-    - Verifica que las transferencias funcionen correctamente
+  <Tab title="Testing Sistemático Pre-Launch">
+    - **Testa múltiples escenarios** antes de publicar
+    - **Incluye casos edge** y situaciones inesperadas
+    - **Verifica integrations** end-to-end
+    - **Confirma protocolos de transferencia** funcionan
+    - **Valida capture de datos** en sistemas downstream
   </Tab>
   
-  <Tab title="Monitoreo Continuo">
-    - Revisa regularmente las conversaciones grabadas
-    - Ajusta según feedback de clientes
-    - Actualiza la knowledge base periódicamente
+  <Tab title="Monitoreo Continuo Post-Launch">
+    - **Revisa conversaciones grabadas** semanalmente
+    - **Analiza métricas de satisfacción** regularmente
+    - **Ajusta según feedback** de clientes reales
+    - **Actualiza knowledge base** con nueva información
+    - **Optimiza basándose en patrones** de uso real
+  </Tab>
+  
+  <Tab title="Mejora Iterativa">
+    - **Implementa cambios graduales** para medir impacto
+    - **A/B testing** de diferentes approaches
+    - **Documenta qué funciona** y qué no
+    - **Mantén baseline metrics** para comparación
+    - **Escala exitosos** a otros agentes
   </Tab>
 </Tabs>
 
-## Solución de Problemas
+## Solución de Problemas Avanzada
 
-### Errores Comunes
+### Problemas de Configuración
 
 <Tabs>
   <Tab title="Validación Fallida">
-    **Problema**: El agente no pasa la validación
+    **Síntomas**: El agente no pasa la validación automática
     
-    **Soluciones**:
-    - Verifica que el prompt no esté vacío
-    - Confirma que hay un número de teléfono asignado
-    - Revisa que la configuración de voz sea válida
+    **Diagnóstico sistemático**:
+    1. Verifica que el prompt del sistema no esté vacío
+    2. Confirma número de teléfono asignado y activo
+    3. Revisa configuración de voz completa y válida
+    4. Valida que todos los campos requeridos estén completados
+    5. Confirma que las integraciones estén correctamente autenticadas
+    
+    **Soluciones escaladas**:
+    - Usa el comando "Check Configuration" en Meetzy AI
+    - Revisa logs de validación en el panel de Changes
+    - Compara con template de agente exitoso similar
   </Tab>
   
   <Tab title="Respuestas Inconsistentes">
-    **Problema**: El agente responde de manera impredecible
+    **Síntomas**: El agente responde de manera impredecible o contradictoria
     
-    **Soluciones**:
-    - Haz el prompt más específico y claro
+    **Análisis root cause**:
+    1. Prompt demasiado complejo o ambiguo
+    2. Conflictos entre diferentes secciones del prompt
+    3. Knowledge base con información contradictoria
+    4. Falta de ejemplos específicos para edge cases
+    
+    **Estrategias de solución**:
+    - Simplifica el prompt manteniendo funcionalidad core
     - Añade más ejemplos de respuestas esperadas
-    - Reduce la complejidad del rol del agente
+    - Revisa y organiza la knowledge base por prioridad
+    - Usa Meetzy AI para identificar conflictos automáticamente
   </Tab>
   
-  <Tab title="Problemas de Audio">
-    **Problema**: La voz suena robótica o poco natural
+  <Tab title="Problemas de Integración">
+    **Síntomas**: Webhooks fallan, transferencias no funcionan, datos no se sincronizan
     
-    **Soluciones**:
-    - Ajusta la velocidad de habla
-    - Reduce la estabilidad para más variación
-    - Prueba una voz diferente
+    **Checklist de troubleshooting**:
+    1. Verifica URLs de endpoints y credenciales
+    2. Testa conectividad desde herramientas externas
+    3. Revisa logs de errores en panel de Changes
+    4. Confirma formato de payload esperado
+    5. Valida rate limits y quotas de APIs
+    
+    **Escalación**:
+    - Usa "Test Integration" en el panel de Actions & Tools
+    - Revisa documentación de API de terceros
+    - Contacta soporte técnico si persiste
   </Tab>
 </Tabs>
 
 ### Optimización de Rendimiento
 
 <Tabs>
-  <Tab title="Latencia">
-    - Usa modelos más rápidos (Gemini Flash, GPT-4o Mini)
-    - Simplifica el prompt del sistema
-    - Reduce el tamaño de la knowledge base
+  <Tab title="Reducción de Latencia">
+    **Factores que afectan velocidad**:
+    - Modelo LLM seleccionado (Gemini Flash < GPT-4 < Claude)
+    - Complejidad del prompt de sistema
+    - Tamaño y cantidad de documentos en knowledge base
+    - Número de integraciones activas simultáneas
+    
+    **Optimizaciones probadas**:
+    - Usa modelos "Flash" o "Mini" para casos simples
+    - Simplifica prompt sin perder funcionalidad core
+    - Organiza knowledge base por relevancia
+    - Implementa caching para consultas frecuentes
   </Tab>
   
-  <Tab title="Precisión">
-    - Usa modelos más capaces (GPT-4, Gemini Pro)
-    - Añade más contexto y ejemplos
-    - Implementa evaluaciones automáticas
+  <Tab title="Mejora de Precisión">
+    **Cuando necesitas máxima precisión**:
+    - Información médica, legal o financiera sensible
+    - Procesos complejos con múltiples pasos
+    - Manejo de datos personales o confidenciales
+    - Integración con sistemas críticos empresariales
+    
+    **Configuración optimizada**:
+    - Usa modelos más capaces (GPT-4, Gemini Pro, Claude)
+    - Añade más contexto y ejemplos específicos
+    - Implementa evaluaciones automáticas estrictas
+    - Establece protocolos de escalación conservadores
+  </Tab>
+  
+  <Tab title="Escalabilidad">
+    **Preparación para alto volumen**:
+    - Monitorea métricas de throughput y latencia
+    - Implementa load balancing inteligente
+    - Configura auto-scaling basado en demanda
+    - Establece circuit breakers para proteger integraciones
+    
+    **Alertas proactivas**:
+    - Umbrales de latencia > 5 segundos
+    - Tasa de errores > 2%
+    - Uso de CPU > 80% sostenido
+    - Queue depth > 100 llamadas
   </Tab>
 </Tabs>
+
+## Publicar y Gestionar Tu Agente
+
+<Steps>
+  <Step title="Validación Pre-Publicación">
+    Ejecuta el checklist completo de validación:
+    
+    **Configuración Básica:**
+    - ✅ Prompt de sistema completo y coherente
+    - ✅ Número de teléfono asignado y funcional
+    - ✅ Configuración de voz optimizada
+    - ✅ Parámetros de entrada definidos
+    
+    **Testing Integral:**
+    - ✅ Pruebas en Playground con múltiples escenarios
+    - ✅ Tests automatizados pasando exitosamente
+    - ✅ Validación de integraciones end-to-end
+    - ✅ Verificación de protocolos de transferencia
+  </Step>
+  
+  <Step title="Testing en Ambiente de Pre-Producción">
+    Antes del lanzamiento completo:
+    
+    **Llamadas de Prueba Reales:**
+    - Usa "Test Agent" desde el dashboard
+    - Llama al número asignado desde diferentes dispositivos
+    - Prueba con diferentes calidades de línea
+    - Valida la experiencia completa end-to-end
+    
+    **Validación con Stakeholders:**
+    - Demo con equipo interno
+    - Feedback de usuarios beta si aplica
+    - Aprobación de compliance y legal
+    - Sign-off de product owners
+  </Step>
+  
+  <Step title="Despliegue Gradual a Producción">
+    Estrategia de roll-out controlado:
+    
+    **Publicación Inicial:**
+    - Haz clic en **Publish** para crear nueva versión
+    - Configura routing de tráfico gradual (10% → 50% → 100%)
+    - Monitorea métricas en tiempo real
+    - Mantén versión anterior lista para rollback
+    
+    **Validación Post-Despliegue:**
+    - Monitorea primeras 100 conversaciones
+    - Revisa métricas de calidad y satisfacción
+    - Confirma que integraciones funcionan correctamente
+    - Ajusta configuración según datos reales
+  </Step>
+  
+  <Step title="Optimización Continua">
+    Proceso de mejora post-launch:
+    
+    **Monitoreo Semanal:**
+    - Analiza conversaciones grabadas
+    - Revisa métricas de performance
+    - Identifica patrones y oportunidades de mejora
+    - Actualiza knowledge base según nuevas consultas
+    
+    **Iteración Basada en Datos:**
+    - A/B testing de diferentes approaches
+    - Optimización de prompts basada en resultados
+    - Ajustes de configuración de voz según feedback
+    - Expansión de funcionalidades según demanda
+  </Step>
+</Steps>
+
+<Warning>
+  **Importante**: Cada publicación crea una nueva versión inmutable. Las versiones anteriores permanecen disponibles para rollback instantáneo si detectas problemas en producción.
+</Warning>
 
 ## Siguientes Pasos
 
 <CardGroup cols={2}>
   <Card title="Gestionar Agentes" icon="list" href="/es/agents/manage-agents">
-    Aprende a ver, editar y organizar tus agentes existentes.
+    Aprende a ver, editar y organizar tus agentes existentes de manera eficiente.
   </Card>
   <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
-    Monitorea la salud y disponibilidad de tus números telefónicos.
+    Monitorea la salud y disponibilidad de tus números telefónicos en tiempo real.
   </Card>
-  <Card title="Analytics" icon="chart-line" href="/es/analytics/overview">
-    Analiza el rendimiento y métricas de tus agentes.
+  <Card title="Analytics Avanzado" icon="chart-line" href="/es/analytics/overview">
+    Analiza rendimiento detallado y métricas de negocio de tus agentes.
   </Card>
-  <Card title="Integraciones" icon="plug" href="/es/integrations/overview">
-    Conecta tus agentes con CRMs y herramientas externas.
+  <Card title="Integraciones Empresariales" icon="plug" href="/es/integrations/overview">
+    Conecta tus agentes con CRMs, sistemas de calendario y herramientas externas.
   </Card>
 </CardGroup>
