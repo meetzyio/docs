@@ -26,7 +26,7 @@ Configure how your agent intelligently transfers calls to human agents, departme
     Select between traditional phone numbers or SIP trunk endpoints based on your infrastructure.
   </Step>
   <Step title="Configure Transfer Logic">
-    Define when and how your agent should initiate transfers using smart prompting.
+    Define when and how your agent should initiate transfers using smart prompting and multi-language templates.
   </Step>
   <Step title="Test Transfer Flow">
     Validate that transfers work correctly with your phone system before going live.
@@ -71,29 +71,9 @@ Configure how your agent intelligently transfers calls to human agents, departme
   </Tab>
 </Tabs>
 
-### Advanced Transfer Features
+### Multi-Language Transfer Prompt Templates
 
-**Context Preservation**: Comprehensive information transfer to human operators:
-- Customer's name, contact information, and call origin
-- Complete conversation summary with key discussion points
-- Specific questions, requests, or issues that triggered the transfer
-- Customer sentiment analysis and engagement level
-- Previous interaction history and relationship status
-
-**Transfer Modes**:
-- **Warm Transfer**: Agent briefly explains context to human operator before connecting customer
-- **Cold Transfer**: Direct transfer without agent introduction for faster handoffs
-- **Conference**: Three-way call with agent, customer, and human operator for complex scenarios
-
-**Smart Transfer Routing**:
-- Department-specific routing based on conversation content
-- Skill-based routing to most qualified available agent
-- Priority queuing for VIP customers or urgent issues
-- Automatic fallback to voicemail if no agents available
-
-### Transfer Prompt Templates
-
-The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Use these professionally crafted multi-language templates:
+The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Choose from professionally crafted templates in 6 languages:
 
 <Tabs>
   <Tab title="Spanish">
@@ -141,6 +121,7 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - Plaintes ou réclamations nécessitant une attention personnalisée
     - L'utilisateur demande une escalade vers un superviseur ou manager
     - Situations de facturation complexes ou litiges de paiement
+    - Situations médicales ou légales nécessitant une expertise humaine
     ```
   </Tab>
   <Tab title="German">
@@ -154,6 +135,9 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - Der Benutzer eine Autorisierung oder Verwaltung sensibler persönlicher Daten benötigt
     - Situationen, die Verhandlungen oder komplexe Entscheidungen erfordern
     - Beschwerden oder Ansprüche, die persönliche Aufmerksamkeit benötigen
+    - Der Benutzer eine Eskalation zu einem Vorgesetzten oder Manager anfordert
+    - Komplexe Abrechnungs- oder Zahlungsstreitigkeiten
+    - Medizinische oder rechtliche Situationen, die menschliche Expertise erfordern
     ```
   </Tab>
   <Tab title="Italian">
@@ -167,6 +151,9 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - L'utente richiede autorizzazione o gestione di dati personali sensibili
     - Situazioni che richiedono negoziazione o decisioni complesse
     - Reclami o richieste che necessitano attenzione personalizzata
+    - L'utente richiede escalation a un supervisore o manager
+    - Situazioni di fatturazione complesse o dispute di pagamento
+    - Situazioni mediche o legali che richiedono competenza umana
     ```
   </Tab>
   <Tab title="Portuguese">
@@ -180,6 +167,9 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
     - O usuário requer autorização ou gestão de dados pessoais sensíveis
     - Situações que requerem negociação ou decisões complexas
     - Reclamações ou solicitações que precisam de atenção personalizada
+    - O usuário solicita escalação para um supervisor ou gerente
+    - Situações complexas de faturamento ou disputas de pagamento
+    - Situações médicas ou legais que requerem expertise humana
     ```
   </Tab>
 </Tabs>
@@ -189,52 +179,54 @@ The transfer prompt is crucial - it teaches your AI agent exactly when to transf
 Create powerful API integrations that allow your agent to interact with external systems during conversations through our sophisticated modal interface.
 
 <Info>
-**New Feature**: Webhook Tools now support advanced parameter mapping, authentication methods, and real-time testing through an intuitive modal interface. You can create custom API integrations that intelligently extract conversation data and trigger external systems.
+**Enhanced Modal Interface**: Webhook Tools now feature an advanced configuration modal with real-time testing, parameter mapping, authentication methods, and intelligent conversation data extraction.
 </Info>
 
 ### Webhook Tool Modal Interface
 
-The webhook configuration uses an advanced modal interface with the following sections:
+Configure webhook tools through our comprehensive modal interface:
 
 <Steps>
   <Step title="Tool Identity Configuration">
-    Configure the basic identity and trigger conditions for your webhook tool.
+    Set up the basic tool identity and activation conditions.
     
     **Required Fields:**
     - **Name**: Unique identifier (e.g., "create_lead", "check_inventory")
     - **Description**: Clear explanation of when the AI should use this tool
     - **Execution Mode**: Choose immediate or deferred execution
   </Step>
-  <Step title="API Endpoint Configuration">
-    Set up the core API connection details.
+  <Step title="API Endpoint Setup">
+    Configure the core API connection details.
     
-    **URL Configuration:**
-    - **Base URL**: The complete webhook endpoint URL
+    **Configuration Options:**
+    - **Base URL**: Complete webhook endpoint URL
     - **HTTP Method**: GET, POST, PUT, PATCH, or DELETE
     - **Request Timeout**: 5-60 seconds (default: 20)
+    - **Error Handling**: Retry logic and fallback behavior
   </Step>
-  <Step title="Authentication Setup">
-    Configure secure authentication for your API endpoints.
+  <Step title="Authentication Configuration">
+    Set up secure authentication for your API endpoints.
     
-    **Authentication Types:**
-    - Bearer Token authentication
-    - API Key authentication
+    **Supported Authentication Types:**
+    - Bearer Token authentication (OAuth 2.0, JWT)
+    - API Key authentication (Header or Query parameter)
     - Basic Auth with username/password
     - Custom header authentication
   </Step>
   <Step title="Parameter Mapping">
-    Define how conversation data maps to API parameters with intelligent extraction.
+    Define intelligent parameter mapping with conversation data extraction.
     
-    **Parameter Types:**
-    - **Query Parameters**: URL-encoded parameters for GET requests
-    - **Body Parameters**: JSON payload for POST/PUT/PATCH requests
+    **Parameter Configuration:**
+    - **Query Parameters**: URL-encoded for GET requests
+    - **Body Parameters**: JSON payload for POST/PUT/PATCH
     - **Header Parameters**: Custom HTTP headers
+    - **Value Sources**: LLM extraction, static values, conversation metadata
   </Step>
 </Steps>
 
 ### Advanced Parameter Configuration
 
-Each webhook parameter supports sophisticated data mapping through our modal interface:
+Each webhook parameter supports sophisticated data mapping:
 
 <Tabs>
   <Tab title="Parameter Properties">
@@ -243,210 +235,64 @@ Each webhook parameter supports sophisticated data mapping through our modal int
     | **Name** | Parameter identifier | Custom string | `customer_name` |
     | **Type** | Data validation | string, number, boolean, integer, array, object | `string` |
     | **Required** | Mandatory field | true/false | `true` |
-    | **Description** | AI understanding | Natural language | "Customer's full name from conversation" |
-    | **Value Source** | How to get value | LLM extraction, static value, conversation metadata | LLM prompt |
-    | **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's full name" |
+    | **Description** | AI understanding context | Natural language | "Customer's full name from conversation" |
+    | **Value Source** | Data extraction method | LLM extraction, static value, metadata | LLM prompt |
+    | **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's email address" |
   </Tab>
-  <Tab title="Value Types">
+  <Tab title="Value Sources">
     **LLM Extraction**
     
-    Let the AI intelligently extract information from the conversation:
-    ```
-    Extraction Prompt: "Extract the customer's email address from the conversation"
-    Parameter Type: string
-    Required: true
+    Intelligent conversation data extraction:
+    ```json
+    {
+      "extraction_prompt": "Extract the customer's phone number from the conversation",
+      "parameter_type": "string",
+      "required": true
+    }
     ```
 
     **Static Values**
     
-    Use fixed values for consistent data:
-    ```
-    Static Value: "phone_call"
-    Parameter: source
-    Type: string
+    Fixed values for consistent data:
+    ```json
+    {
+      "static_value": "phone_call",
+      "parameter": "source",
+      "type": "string"
+    }
     ```
 
     **Conversation Metadata**
     
-    Access built-in conversation data:
+    Built-in conversation data:
     - Call duration and timestamps
     - Customer and agent phone numbers
     - Call direction (inbound/outbound)
     - Call status and outcome
-    - Agent ID and configuration
+    - Agent ID and configuration details
   </Tab>
   <Tab title="Data Types">
     **Supported Parameter Types:**
 
-    - **string**: Text data, names, descriptions
-    - **number**: Numeric values with decimals
-    - **integer**: Whole numbers only
-    - **boolean**: true/false values
-    - **array**: List of values
-    - **object**: Complex nested data structures
+    - **string**: Text data, names, descriptions, addresses
+    - **number**: Numeric values with decimal precision
+    - **integer**: Whole numbers only (IDs, quantities)
+    - **boolean**: true/false values for flags
+    - **array**: List of values or complex objects
+    - **object**: Nested data structures with properties
 
     **Type Validation:**
-    The system automatically validates parameter types and provides clear error messages for mismatched data.
+    Automatic validation ensures data consistency and provides clear error messages for type mismatches.
   </Tab>
 </Tabs>
 
-### Webhook Tool Execution Settings
-
-Configure advanced execution behavior through the modal interface:
-
-**Execution Control:**
-- **Immediate**: Execute during the active call
-- **Deferred**: Execute after the call ends
-- **Conditional**: Execute based on conversation outcome
-
-**Agent Behavior Settings:**
-- **Disable Interruptions**: Prevent customer from speaking during execution
-- **Force Pre-tool Speech**: Require agent announcement before execution
-- **Tool Call Sound**: Play typing sound during execution (typing/none)
-- **Sound Behavior**: Auto or manual control of sound effects
-
-**Error Handling:**
-- **Response Timeout**: Maximum wait time for API response
-- **Retry Logic**: Automatic retries on failure
-- **Fallback Messages**: What to say if API fails
-- **Graceful Degradation**: Continue conversation without API data
-
-### Webhook Integration Examples
-
-<Tabs>
-  <Tab title="CRM Lead Creation">
-    **Salesforce Lead Integration**
-
-    Configure a webhook tool that automatically creates leads in Salesforce when customers show purchase interest:
-
-    ```json
-    {
-      "name": "create_salesforce_lead",
-      "description": "Create a new lead in Salesforce when customer shows purchase interest",
-      "url": "https://api.salesforce.com/services/data/v52.0/sobjects/Lead",
-      "method": "POST",
-      "headers": {
-        "Authorization": "Bearer {{salesforce_token}}",
-        "Content-Type": "application/json"
-      },
-      "body_parameters": {
-        "FirstName": {
-          "type": "string",
-          "required": true,
-          "value_type": "llm_prompt",
-          "description": "Extract customer's first name from conversation"
-        },
-        "LastName": {
-          "type": "string", 
-          "required": true,
-          "value_type": "llm_prompt",
-          "description": "Extract customer's last name from conversation"
-        },
-        "Phone": {
-          "type": "string",
-          "required": true,
-          "value_type": "conversation_metadata",
-          "description": "Customer's phone number"
-        },
-        "LeadSource": {
-          "type": "string",
-          "value_type": "static",
-          "static_value": "AI Phone Call"
-        }
-      }
-    }
-    ```
-  </Tab>
-  <Tab title="Inventory Management">
-    **Product Availability Check**
-
-    Create a real-time inventory checking tool that your agent can use during conversations:
-
-    ```json
-    {
-      "name": "check_product_availability",
-      "description": "Check real-time product availability when customer inquires about specific items",
-      "url": "https://inventory.yourcompany.com/api/check",
-      "method": "GET",
-      "query_parameters": {
-        "product_sku": {
-          "type": "string",
-          "required": true,
-          "value_type": "llm_prompt",
-          "description": "Extract product SKU or name mentioned by customer"
-        },
-        "location": {
-          "type": "string",
-          "value_type": "llm_prompt",
-          "description": "Customer's preferred store location or zip code"
-        },
-        "api_key": {
-          "type": "string",
-          "value_type": "static",
-          "static_value": "{{inventory_api_key}}"
-        }
-      },
-      "response_timeout": 10,
-      "disable_interruptions": false
-    }
-    ```
-  </Tab>
-  <Tab title="Calendar Booking">
-    **Appointment Scheduling**
-
-    Set up automatic appointment booking through your calendar system:
-
-    ```json
-    {
-      "name": "book_calendar_appointment",
-      "description": "Schedule an appointment when customer requests a meeting or consultation",
-      "url": "https://api.calendly.com/scheduled_events",
-      "method": "POST",
-      "headers": {
-        "Authorization": "Bearer {{calendly_token}}",
-        "Content-Type": "application/json"
-      },
-      "body_parameters": {
-        "event_type": {
-          "type": "string",
-          "value_type": "static",
-          "static_value": "https://calendly.com/your-company/30-min-consultation"
-        },
-        "start_time": {
-          "type": "string",
-          "value_type": "llm_prompt",
-          "description": "Extract preferred meeting time from customer in ISO format"
-        },
-        "invitee": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "value_type": "llm_prompt",
-              "description": "Customer's full name"
-            },
-            "email": {
-              "type": "string",
-              "value_type": "llm_prompt",
-              "description": "Customer's email address"
-            }
-          }
-        }
-      }
-    }
-    ```
-  </Tab>
-</Tabs>
-
-### Authentication Configuration
-
-The modal interface supports multiple authentication methods:
+### Webhook Authentication Methods
 
 <Tabs>
   <Tab title="Bearer Token">
     **JWT/OAuth 2.0 Authentication**
     
-    Most modern APIs use Bearer token authentication for security:
+    Modern token-based authentication for secure API access:
     ```json
     {
       "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
@@ -454,7 +300,7 @@ The modal interface supports multiple authentication methods:
     ```
     
     **Use Cases:**
-    - Modern REST APIs (Salesforce, HubSpot, etc.)
+    - Salesforce, HubSpot, and modern CRM systems
     - OAuth 2.0 protected endpoints
     - JWT-based authentication systems
     - Enterprise SaaS platforms
@@ -462,7 +308,7 @@ The modal interface supports multiple authentication methods:
   <Tab title="API Key">
     **Simple API Key Authentication**
     
-    Traditional API key authentication for simpler integrations:
+    Traditional API key authentication:
     ```json
     {
       "X-API-Key": "sk_live_abcd1234efgh5678ijkl",
@@ -472,14 +318,14 @@ The modal interface supports multiple authentication methods:
     
     **Use Cases:**
     - Third-party service APIs
-    - Simple authentication requirements
     - Legacy system integration
     - Custom internal APIs
+    - Simple authentication requirements
   </Tab>
   <Tab title="Basic Auth">
     **Username/Password Authentication**
     
-    Basic HTTP authentication for legacy systems:
+    HTTP Basic authentication:
     ```json
     {
       "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
@@ -490,38 +336,153 @@ The modal interface supports multiple authentication methods:
     - Legacy systems
     - Internal APIs
     - Simple HTTP authentication
-    - Testing environments
+    - Development and testing environments
   </Tab>
 </Tabs>
 
-### Webhook Testing and Validation
+### Webhook Integration Examples
 
-The modal interface includes powerful testing capabilities:
+<Tabs>
+  <Tab title="CRM Lead Creation">
+    **Salesforce Lead Integration**
 
-**Real-time Testing:**
-- Test API endpoints directly from the configuration modal
-- Validate authentication credentials before saving
-- Preview request/response data with sample conversation data
-- Debug parameter mapping with live extraction
+    Automatically create leads when customers show purchase interest:
 
-**Validation Features:**
-- Automatic URL validation and accessibility checking
-- Parameter type validation with clear error messages
-- Required field validation with helpful suggestions
-- Response format validation for proper integration
+    ```json
+    {
+      "name": "create_salesforce_lead",
+      "description": "Create a new lead in Salesforce when customer shows purchase interest",
+      "url": "https://api.salesforce.com/services/data/v52.0/sobjects/Lead",
+      "method": "POST",
+      "authentication": {
+        "type": "bearer_token",
+        "token": "{{salesforce_access_token}}"
+      },
+      "body_parameters": {
+        "FirstName": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract customer's first name from conversation"
+        },
+        "LastName": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract customer's last name from conversation"
+        },
+        "Phone": {
+          "type": "string",
+          "required": true,
+          "value_type": "conversation_metadata",
+          "metadata_field": "customer_phone"
+        },
+        "LeadSource": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "AI Phone Call"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Inventory Checking">
+    **Real-time Product Availability**
+
+    Check product availability during customer inquiries:
+
+    ```json
+    {
+      "name": "check_product_availability",
+      "description": "Check real-time product availability when customer asks about specific items",
+      "url": "https://inventory.yourcompany.com/api/check",
+      "method": "GET",
+      "authentication": {
+        "type": "api_key",
+        "key": "{{inventory_api_key}}",
+        "location": "header"
+      },
+      "query_parameters": {
+        "product_sku": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract product SKU or name mentioned by customer"
+        },
+        "location": {
+          "type": "string",
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract customer's preferred store location or zip code"
+        },
+        "quantity": {
+          "type": "integer",
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract desired quantity, default to 1 if not specified"
+        }
+      },
+      "response_timeout": 10
+    }
+    ```
+  </Tab>
+  <Tab title="Calendar Booking">
+    **Appointment Scheduling**
+
+    Automatically schedule appointments through calendar systems:
+
+    ```json
+    {
+      "name": "book_calendar_appointment",
+      "description": "Schedule an appointment when customer requests a meeting or consultation",
+      "url": "https://api.calendly.com/scheduled_events",
+      "method": "POST",
+      "authentication": {
+        "type": "bearer_token",
+        "token": "{{calendly_access_token}}"
+      },
+      "body_parameters": {
+        "event_type": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "https://calendly.com/your-company/30-min-consultation"
+        },
+        "start_time": {
+          "type": "string",
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract preferred meeting time from customer in ISO format"
+        },
+        "invitee": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "value_type": "llm_extraction",
+              "extraction_prompt": "Customer's full name"
+            },
+            "email": {
+              "type": "string",
+              "value_type": "llm_extraction",
+              "extraction_prompt": "Customer's email address"
+            }
+          }
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
 
 ## End Call Strategy
 
-Configure intelligent call termination with sophisticated answering machine detection and strategic conversation ending.
+Configure intelligent call termination with sophisticated answering machine detection and strategic conversation ending across multiple languages.
 
 ### Enhanced Call Termination Logic
 
 <Steps>
   <Step title="Enable Smart Termination">
-    Activate the "End Call Strategy" to handle call endings intelligently.
+    Activate the "End Call Strategy" to handle call endings intelligently with multi-language support.
   </Step>
   <Step title="Configure Detection Phrases">
-    Set up multi-language phrases that indicate answering machines or voicemail systems.
+    Use comprehensive phrase detection across 6 languages for answering machines and voicemail systems.
   </Step>
   <Step title="Define Completion Criteria">
     Specify what constitutes a successful call that should end naturally.
@@ -531,20 +492,15 @@ Configure intelligent call termination with sophisticated answering machine dete
   </Step>
 </Steps>
 
-### Advanced Answering Machine Detection
+### Multi-Language End Call Strategy Templates
 
-Our enhanced detection system recognizes voicemail and answering machines across multiple languages with expanded phrase detection:
+Professional call termination templates with comprehensive answering machine detection:
 
 <Info>
-**Detection Accuracy**: 97%+ accuracy rate in identifying automated systems
-**Languages Supported**: Spanish, English, French, German, Italian, Portuguese
-**Response Time**: Detection typically occurs within 2-4 seconds of answering
+**Detection Accuracy**: 97%+ accuracy in identifying automated systems across all supported languages
+**Response Time**: Detection typically occurs within 2-4 seconds
 **False Positive Rate**: Less than 2% with enhanced phrase recognition
 </Info>
-
-### Expanded End Call Strategy Templates
-
-Configure professional call termination for various scenarios using our comprehensive multi-language templates:
 
 <Tabs>
   <Tab title="Spanish">
@@ -651,6 +607,7 @@ Configure professional call termination for various scenarios using our comprehe
     - Vous dites au revoir vous-même
     - La conversation a complètement atteint son objectif
     - L'utilisateur indique clairement qu'il n'est pas intéressé
+    - De longues périodes de silence sont détectées (plus de 10 secondes)
     ```
   </Tab>
   <Tab title="German">
@@ -673,6 +630,7 @@ Configure professional call termination for various scenarios using our comprehe
     - Willkommen in der Mailbox von...
     - Wir können Ihren Anruf jetzt nicht entgegennehmen
     - Alle unsere Mitarbeiter sind beschäftigt
+    - Bitte versuchen Sie es später erneut
 
     ## Anrufbeendigung aus anderen Gründen:
 
@@ -680,6 +638,8 @@ Configure professional call termination for various scenarios using our comprehe
     - Der Benutzer sich klar verabschiedet
     - Sie sich selbst verabschieden
     - Das Gespräch sein Ziel vollständig erreicht hat
+    - Der Benutzer klar angibt, dass er nicht interessiert ist
+    - Lange Stillstandsperioden erkannt werden (mehr als 10 Sekunden)
     ```
   </Tab>
   <Tab title="Italian">
@@ -710,6 +670,8 @@ Configure professional call termination for various scenarios using our comprehe
     - L'utente si congeda chiaramente
     - Si congeda lei stesso
     - La conversazione ha completamente raggiunto il suo obiettivo
+    - L'utente indica chiaramente che non è interessato
+    - Vengono rilevati lunghi periodi di silenzio (più di 10 secondi)
     ```
   </Tab>
   <Tab title="Portuguese">
@@ -740,423 +702,390 @@ Configure professional call termination for various scenarios using our comprehe
     - O usuário se despede claramente
     - Você se despede
     - A conversa atingiu completamente seu objetivo
+    - O usuário indica claramente que não está interessado
+    - Longos períodos de silêncio são detectados (mais de 10 segundos)
     ```
   </Tab>
 </Tabs>
 
-## Email Integration
-
-Configure intelligent email sending capabilities during or after conversations.
-
-### Email Configuration
-
-<Steps>
-  <Step title="Enable Email Integration">
-    Toggle the "Send Email" option to activate email functionality.
-  </Step>
-  <Step title="Configure Email Triggers">
-    Define when the agent should send emails using natural language prompts.
-  </Step>
-  <Step title="Set Email Templates">
-    Configure dynamic subject lines and email body content.
-  </Step>
-  <Step title="Define Recipients">
-    Set up primary recipients and CC options.
-  </Step>
-</Steps>
-
-**Email Trigger Examples:**
-- Customer requests detailed product information via email
-- Follow-up emails after successful calls
-- Sending meeting confirmations and calendar invites
-- Quote or proposal delivery after phone conversations
-
-**Dynamic Content:**
-- Extract customer information from conversation
-- Include call summary and next steps
-- Personalized product recommendations
-- Contact information and appointment details
-
-## SMS Integration
-
-Set up intelligent SMS messaging capabilities for follow-up communications.
-
-### SMS Configuration
-
-<Steps>
-  <Step title="Enable SMS Integration">
-    Toggle the "Send SMS" option to activate messaging functionality.
-  </Step>
-  <Step title="Configure SMS Triggers">
-    Define conversation scenarios that should trigger SMS messages.
-  </Step>
-  <Step title="Create Message Templates">
-    Set up dynamic SMS content with conversation data.
-  </Step>
-  <Step title="Test SMS Delivery">
-    Validate SMS functionality with test messages.
-  </Step>
-</Steps>
-
-**SMS Use Cases:**
-- Appointment confirmations and reminders
-- Quick follow-up after missed calls
-- Delivery of reference numbers or confirmation codes
-- Links to online resources or booking pages
-
-**Best Practices:**
-- Keep messages concise and actionable
-- Include clear opt-out instructions
-- Use professional, branded messaging
-- Comply with SMS marketing regulations
-
 ## Calendar Integration
 
-Configure sophisticated calendar booking with multiple provider support.
+Configure sophisticated calendar booking with comprehensive multi-provider support for seamless appointment scheduling.
 
 ### Supported Calendar Providers
+
+<Info>
+**Multi-Provider Support**: Full integration with both Google Calendar and Microsoft Outlook/Exchange Online for maximum compatibility and business flexibility.
+</Info>
 
 <Tabs>
   <Tab title="Google Calendar">
     **Google Calendar Integration**
     
-    Full integration with Google Calendar for availability checking and appointment booking.
+    Complete integration with Google Calendar ecosystem:
 
     **Features:**
-    - Real-time availability checking
-    - Automatic event creation
-    - Meeting invitations and reminders
-    - Timezone handling
-    - Conflict detection
+    - Real-time availability checking across multiple calendars
+    - Automatic event creation with intelligent conflict detection
+    - Meeting invitations and automated reminder systems
+    - Comprehensive timezone handling and conversion
+    - Integration with Google Meet for virtual meetings
 
-    **Configuration:**
+    **Configuration Requirements:**
+    - Google Calendar API access with OAuth 2.0
     - Calendar ID for availability checking
-    - Booking calendar ID for new events
-    - Working hours and timezone settings
-    - Default meeting duration
+    - Dedicated booking calendar ID for new events
+    - Working hours and timezone preferences
+    - Default meeting duration and buffer settings
   </Tab>
   <Tab title="Outlook Calendar">
     **Microsoft Outlook Integration**
     
-    Enterprise-grade integration with Microsoft Outlook and Office 365.
+    Enterprise-grade integration with Microsoft ecosystem:
 
     **Features:**
-    - Exchange Online compatibility
-    - Meeting room booking
-    - Teams meeting integration
-    - Corporate calendar policies
-    - Multi-tenant support
+    - Exchange Online and Office 365 compatibility
+    - Meeting room booking and resource management
+    - Microsoft Teams meeting integration
+    - Corporate calendar policies and compliance
+    - Multi-tenant support for enterprise environments
 
-    **Configuration:**
-    - Outlook calendar access
-    - Exchange server settings
-    - Authentication credentials
-    - Meeting preferences
+    **Configuration Requirements:**
+    - Microsoft Graph API permissions
+    - Exchange server configuration
+    - Azure AD authentication credentials
+    - Corporate policy compliance settings
+    - Teams integration for virtual meetings
   </Tab>
 </Tabs>
 
 ### Calendar Configuration Options
 
-**Availability Settings:**
-- **Multiple Calendar Support**: Check availability across multiple calendars
-- **Working Hours**: Define business hours for appointment booking
-- **Timezone Management**: Automatic timezone conversion
-- **Buffer Times**: Add buffer time between appointments
+**Availability Management:**
+- **Multi-Calendar Support**: Check availability across personal and shared calendars
+- **Working Hours Definition**: Set business hours for appointment availability
+- **Timezone Intelligence**: Automatic timezone detection and conversion
+- **Buffer Time Management**: Configure buffer periods between appointments
+- **Blackout Dates**: Exclude holidays and special dates from booking
 
 **Booking Preferences:**
-- **Default Duration**: Standard meeting length (15, 30, 60 minutes)
-- **Advance Notice**: Minimum time required before booking
-- **Maximum Advance**: How far in advance bookings are allowed
-- **Blackout Dates**: Exclude specific dates from availability
-
-**Meeting Details:**
-- **Dynamic Titles**: Generate meeting titles from conversation context
-- **Custom Descriptions**: Include call summary and customer details
-- **Attendee Management**: Automatically add customer email
-- **Location Handling**: Include meeting location or virtual meeting links
+- **Duration Templates**: Standard meeting lengths (15, 30, 60 minutes)
+- **Advance Notice**: Minimum time required before booking (e.g., 2 hours)
+- **Booking Window**: Maximum advance booking period (e.g., 30 days)
+- **Conflict Resolution**: Automatic handling of scheduling conflicts
+- **Confirmation Settings**: Email confirmations and calendar invitations
 
 ### Calendar Integration Workflow
 
 <Steps>
   <Step title="Provider Authentication">
-    Set up OAuth 2.0 authentication with Google Calendar or Microsoft Graph API for Outlook integration.
+    Set up OAuth 2.0 authentication:
+    - Google Calendar: Configure Google Cloud Console project
+    - Outlook: Set up Azure AD application registration
+    - Obtain necessary API credentials and permissions
+    - Test authentication flow and token refresh
   </Step>
   <Step title="Calendar Configuration">
-    Configure primary and secondary calendars, working hours, and availability preferences.
+    Configure calendar access and preferences:
+    - Select primary and secondary calendars for availability
+    - Define working hours and timezone settings
+    - Set up meeting room and resource booking
+    - Configure default meeting preferences
   </Step>
   <Step title="Event Templates">
-    Create dynamic event templates with conversation data extraction for title, description, and attendees.
+    Create dynamic event templates:
+    - Extract meeting title from conversation context
+    - Generate descriptions with call summary and customer details
+    - Automatically add customer email as attendee
+    - Include relevant meeting preparation notes
   </Step>
-  <Step title="Booking Logic">
-    Define availability checking logic, conflict resolution, and automatic scheduling preferences.
+  <Step title="Booking Intelligence">
+    Configure smart scheduling logic:
+    - Real-time availability checking with conflict detection
+    - Automatic time slot suggestions based on preferences
+    - Integration with CRM systems for customer data
+    - Follow-up confirmation and reminder automation
   </Step>
 </Steps>
-
-**Event Data Extraction:**
-- Customer name and contact information from conversation
-- Meeting purpose and agenda items discussed
-- Preferred time slots mentioned by customer
-- Special requirements or preparation notes
 
 ## Recall Protocol
 
-Set up sophisticated automatic callback systems for comprehensive customer follow-up when initial calls don't achieve their objectives.
-
-### Recall System Architecture
+Set up sophisticated automatic callback systems for comprehensive customer follow-up with intelligent scheduling and success detection.
 
 <Info>
-**Smart Scheduling**: Intelligent timing based on customer behavior and business rules
-**Success Detection**: Automatic recognition of completed objectives to prevent unnecessary callbacks  
-**Compliance Built-in**: Respects Do Not Call lists and regulatory requirements
-**Escalation Paths**: Gradually increase intervals and change strategies over time
+**Smart Recall System**: Intelligent callback scheduling that recognizes successful calls, respects customer preferences, and optimizes timing for maximum effectiveness while maintaining regulatory compliance.
 </Info>
 
-### Recall Configuration
+### Recall System Configuration
 
 <Steps>
-  <Step title="Enable Recall System">
-    Activate the recall protocol and set maximum callback attempts.
+  <Step title="Enable Recall Protocol">
+    Activate the recall system and configure maximum callback attempts (typically 3-5 attempts).
   </Step>
   <Step title="Define Success Conditions">
-    Specify what constitutes a successful call that doesn't require follow-up.
+    Specify what constitutes a successful call that doesn't require follow-up:
+    - Objective achievement (information gathered, appointment scheduled)
+    - Explicit customer requests (no contact, different method preferred)
+    - Call completion scenarios (full conversation, clear decline)
   </Step>
   <Step title="Configure Callback Schedule">
-    Set intelligent timing intervals between recall attempts.
+    Set intelligent timing intervals between recall attempts:
+    - Progressive delays (15 minutes → 4 hours → next day → weekly)
+    - Business hours only restrictions
+    - Timezone-aware scheduling
+    - Holiday and blackout date exclusions
   </Step>
   <Step title="Set Escalation Rules">
-    Define how callback strategy changes with each attempt.
+    Define how callback strategy evolves:
+    - Message variation with each attempt
+    - Channel switching (phone → email → SMS)
+    - Human agent escalation for persistent cases
+    - Automatic compliance monitoring
   </Step>
 </Steps>
 
-### Recall Timing Strategies
+### Recall Timing Strategy
 
 | Attempt | Timing | Use Case | Success Rate |
 |---------|--------|----------|-------------|
 | **1st Recall** | 15-30 minutes | Busy signal, no answer | 35% |
 | **2nd Recall** | 2-4 hours | Same day follow-up | 25% |
-| **3rd Recall** | Next business day | Professional follow-up | 20% |
-| **4th Recall** | 3-5 days later | Persistent but respectful | 15% |
+| **3rd Recall** | Next business day | Professional persistence | 20% |
+| **4th Recall** | 3-5 days later | Respectful follow-up | 15% |
 | **5th Recall** | 1-2 weeks later | Final attempt | 10% |
 
-### Success Condition Examples
+### Success Detection Examples
 
-**Objective Achievement:**
-- Customer provided required information (contact details, preferences)
-- Meeting or appointment successfully scheduled
+**Objective Achievement Scenarios:**
+- Customer provided required information (contact details, preferences, requirements)
+- Meeting or appointment successfully scheduled with confirmation
 - Purchase decision made (positive or negative with clear finality)
-- Information successfully delivered (pricing, product details, etc.)
+- Information successfully delivered (pricing, product details, service options)
+- Support issue resolved or escalated to appropriate department
 
-**Explicit Customer Requests:**
-- Customer explicitly requested no further contact
-- Customer scheduled their own callback time
-- Customer was transferred to human agent successfully
-- Customer asked to be contacted via different method (email, text)
+**Customer-Directed Scenarios:**
+- Explicit request for no further contact ("Please don't call again")
+- Customer scheduled their own callback time ("Call me next Tuesday")
+- Successful transfer to human agent with context preservation
+- Customer requested different communication method (email, text, online)
 
 **Call Completion Scenarios:**
-- Full conversation completed with all questions answered
-- Customer showed clear lack of interest with polite decline
+- Full conversation completed with all objectives addressed
+- Customer showed clear disinterest with polite but firm decline
 - Answering machine message successfully delivered
 - Technical issues prevented meaningful conversation
 
 ### Recall Configuration Options
 
-**Timing Controls:**
-- **Business Hours Only**: Restrict callbacks to business hours
-- **Time Zone Awareness**: Respect customer's local time zone
-- **Day-of-Week Preferences**: Avoid weekends or specific days
-- **Holiday Exclusions**: Skip holidays and blackout dates
+**Compliance and Timing:**
+- **Business Hours Only**: Restrict callbacks to defined business hours
+- **Time Zone Intelligence**: Respect customer's local time zone automatically
+- **Day Preferences**: Avoid weekends or specific days based on business type
+- **Holiday Exclusions**: Skip national holidays and company blackout dates
+- **DNC Integration**: Automatic Do Not Call list checking and compliance
 
-**Escalation Strategy:**
+**Strategy Evolution:**
 - **Message Variation**: Change script or approach with each attempt
-- **Channel Switching**: Transition to email or SMS after failed calls
-- **Human Handoff**: Transfer persistent cases to human agents
-- **Compliance Monitoring**: Automatic DNC list checking
+- **Channel Diversification**: Transition to email or SMS after failed calls
+- **Human Escalation**: Transfer persistent cases to human agents
+- **Performance Analytics**: Track and optimize recall effectiveness
 
-**Performance Tracking:**
-- **Success Rate Analytics**: Track effectiveness by attempt number
-- **Optimal Timing Analysis**: Identify best callback windows
-- **Customer Response Patterns**: Learn from customer behavior
-- **ROI Measurement**: Calculate cost-effectiveness of recalls
+## Communication Tools (Coming Soon)
 
-## Caller ID Management
+Expand your agent's communication capabilities beyond voice calls with integrated email, SMS, and messaging platforms.
 
-Set up professional caller IDs for outbound calls to improve answer rates and brand recognition.
+### Email Integration
 
-### Caller ID Configuration
+<Info>
+**Status**: Coming Soon - Advanced email integration with dynamic templating and conversation-based content generation.
+</Info>
 
-<Steps>
-  <Step title="Add Phone Numbers">
-    Register your business phone numbers for use as caller IDs through the modal interface.
-  </Step>
-  <Step title="Verify Ownership">
-    Complete verification process via SMS or voice call verification.
-  </Step>
-  <Step title="Set Default Caller ID">
-    Choose which number appears for outbound calls by default.
-  </Step>
-  <Step title="Monitor Performance">
-    Track answer rates by caller ID to optimize selection.
-  </Step>
-</Steps>
+**Planned Features:**
+- Intelligent email trigger detection during conversations
+- Dynamic subject line and content generation from call context
+- Customer information extraction and personalization
+- Follow-up email automation with call summaries
+- Integration with popular email service providers
+- Template library for common business scenarios
 
-### Caller ID Best Practices
+**Use Cases:**
+- Send detailed product information requested during calls
+- Deliver quotes, proposals, and pricing documents
+- Provide meeting confirmations and calendar invitations
+- Follow up with additional resources and next steps
 
-**Number Selection:**
-- Use local area codes when possible (increases answer rates by 20-30%)
-- Choose memorable, professional-looking numbers
-- Avoid numbers that look like spam (avoid 555, repeated digits)
-- Use toll-free numbers for national campaigns
+### SMS Integration
+
+<Info>
+**Status**: Coming Soon - Smart SMS messaging for immediate follow-up and confirmations.
+</Info>
+
+**Planned Features:**
+- Conversation-triggered SMS sending
+- Dynamic message content with call data
+- Appointment confirmations and reminders
+- Reference number and confirmation code delivery
+- Compliance with SMS marketing regulations
+- Integration with major SMS service providers
+
+**Use Cases:**
+- Immediate appointment confirmations
+- Quick follow-up after missed calls
+- Delivery of confirmation codes and reference numbers
+- Links to online resources, booking pages, or surveys
+
+### WhatsApp Integration
+
+<Info>
+**Status**: Coming Soon - WhatsApp Business API integration for rich media messaging.
+</Info>
+
+**Planned Features:**
+- WhatsApp Business API integration
+- Rich media message support (images, documents, links)
+- Template message compliance
+- Interactive message buttons and quick replies
+- Conversation continuation from voice to chat
+- International messaging support
+
+**Use Cases:**
+- Share visual product catalogs and brochures
+- Send interactive booking confirmations
+- Provide customer support resource links
+- Continue complex conversations in chat format
+
+## Advanced Features
+
+### Caller ID Management
+
+<Info>
+**Professional Caller ID**: Configure multiple verified phone numbers to improve answer rates and brand recognition for outbound calls.
+</Info>
+
+**Caller ID Configuration:**
+- **Number Registration**: Add and verify business phone numbers
+- **Local Presence**: Use local area codes to increase answer rates by 20-30%
+- **Brand Recognition**: Display professional, memorable numbers
+- **Performance Tracking**: Monitor answer rates by caller ID
+- **Automated Selection**: Smart caller ID selection based on customer location
 
 **Verification Process:**
 - SMS verification for mobile numbers
-- Voice verification for landlines  
+- Voice verification for landlines
 - Business documentation for toll-free numbers
-- Compliance with carrier requirements
+- Carrier compliance requirements
 
-**Performance Optimization:**
-- A/B test different caller IDs
-- Monitor answer rates by time of day
-- Adjust caller ID based on campaign type
-- Use different numbers for different business units
-
-### Multi-Account Caller ID Management
+### Multi-Account Management
 
 **Twilio Subaccount Integration:**
 - Manage caller IDs across multiple Twilio subaccounts
 - Automatic synchronization of verified numbers
-- Centralized caller ID performance analytics
+- Centralized performance analytics and reporting
 - Cross-account number pooling for better coverage
+- Industry-specific number assignment (healthcare, finance, etc.)
 
-**Phone Number Assignment:**
-- Assign specific numbers to specific agents or campaigns
-- Automatic rotation for high-volume calling
-- Geographic number matching for local presence
-- Industry-specific number selection (healthcare, finance, etc.)
-
-## Troubleshooting Common Issues
+## Troubleshooting
 
 <Tabs>
-  <Tab title="Transfer Problems">
-    **Failed Transfers:**
-    - Check phone number format (use international format)
-    - Verify SIP URI syntax and network connectivity
-    - Test transfer destinations manually
-    - Review carrier compatibility and routing
+  <Tab title="Transfer Issues">
+    **Common Transfer Problems:**
+    - **Failed Transfers**: Check phone number format (use international +format)
+    - **SIP Issues**: Verify SIP URI syntax and network connectivity
+    - **Context Loss**: Ensure transfer prompts include context instructions
+    - **Authentication**: Review SIP credentials and routing configuration
 
-    **Context Loss:**
-    - Ensure transfer prompts include context instructions
-    - Verify human agent training on receiving transferred calls
-    - Check integration between systems
-    - Review call logging and recording setup
+    **Solutions:**
+    - Test transfer destinations manually before deployment
+    - Verify carrier compatibility and routing paths
+    - Train human agents on receiving AI-transferred calls
+    - Monitor transfer success rates and optimize prompts
   </Tab>
   <Tab title="Webhook Failures">
-    **API Errors:**
-    - Verify endpoint URL accessibility through modal testing tools
-    - Check authentication credentials and headers
-    - Validate request format and required parameters
-    - Monitor API rate limits and quotas
+    **API Integration Issues:**
+    - **Authentication Errors**: Verify credentials and token expiration
+    - **Timeout Issues**: Adjust timeout settings for slow APIs
+    - **Parameter Mapping**: Validate extraction prompts and data types
+    - **Rate Limiting**: Implement proper retry logic and queuing
 
-    **Timeout Issues:**
-    - Reduce response timeout if APIs are slow
-    - Implement webhook queuing for non-critical operations
-    - Use asynchronous processing where possible
-    - Add retry logic with exponential backoff
+    **Debugging Steps:**
+    - Use modal testing tools to validate endpoints
+    - Check API documentation for parameter requirements
+    - Monitor webhook response codes and error messages
+    - Implement proper error handling and fallback behavior
   </Tab>
-  <Tab title="Calendar Integration Issues">
-    **Authentication Problems:**
-    - Refresh OAuth tokens for Google Calendar and Outlook
-    - Verify permissions and scopes for calendar access
-    - Check authentication credentials and refresh tokens
-    - Validate calendar ID format and accessibility
+  <Tab title="Calendar Sync">
+    **Calendar Integration Problems:**
+    - **Authentication Failures**: Refresh OAuth tokens regularly
+    - **Permission Issues**: Verify calendar access scopes
+    - **Timezone Conflicts**: Ensure proper timezone handling
+    - **Booking Failures**: Check availability logic and conflict detection
 
-    **Booking Failures:**
-    - Confirm calendar availability checking logic
-    - Verify timezone handling and conversion
-    - Check for calendar conflicts and overlaps
-    - Validate event creation permissions
+    **Resolution Steps:**
+    - Validate OAuth credentials and refresh tokens
+    - Test calendar permissions with manual API calls
+    - Verify timezone configuration and conversion logic
+    - Monitor booking success rates and error patterns
   </Tab>
-  <Tab title="Recall Protocol Issues">
-    **Scheduling Problems:**
-    - Review success criteria configuration for false positives
-    - Check timing constraints and business hour settings
-    - Verify DNC list compliance and filtering
-    - Monitor recall attempt limits and escalation triggers
+  <Tab title="Recall Protocol">
+    **Callback System Issues:**
+    - **False Positives**: Review success criteria for accuracy
+    - **Timing Problems**: Check business hours and timezone settings
+    - **Compliance Issues**: Verify DNC list integration
+    - **Performance**: Optimize callback intervals based on data
 
-    **Performance Issues:**
+    **Optimization:**
     - Analyze recall success rates by timing and strategy
-    - Review customer response patterns and preferences
-    - Optimize callback intervals based on historical data
-    - Monitor system load during high-volume recall periods
+    - Monitor customer response patterns and preferences
+    - Adjust success detection criteria based on outcomes
+    - Implement A/B testing for different recall approaches
   </Tab>
 </Tabs>
 
 ## Best Practices
 
-### Call Transfer Optimization
+### Integration Strategy
 
-1. **Clear Trigger Definition**
-   - Use multi-language templates for precise trigger conditions
-   - Define specific, unambiguous scenarios for transfers
-   - Include escalation paths for different types of issues
-   - Test transfer logic across different customer personas
+1. **Start Simple, Scale Complex**
+   - Begin with basic call transfer and single webhook integrations
+   - Gradually add sophisticated parameter mapping and multi-system connections
+   - Test each integration thoroughly before adding complexity
+   - Monitor performance and optimize based on real usage data
 
-2. **Context Preservation**
-   - Configure comprehensive call context transfer
-   - Include customer information, conversation summary, and specific needs
-   - Provide clear reason for transfer to minimize customer frustration
-   - Train human agents on receiving AI-transferred calls
+2. **Security First Approach**
+   - Always use HTTPS endpoints for webhook integrations
+   - Implement proper authentication and token management
+   - Validate and sanitize all incoming and outgoing data
+   - Regular security audits and credential rotation
 
-### Webhook Development
+3. **User Experience Optimization**
+   - Design transfers to minimize customer frustration
+   - Ensure context preservation across all handoffs
+   - Provide clear communication about next steps
+   - Monitor customer satisfaction scores post-integration
 
-1. **Modal-driven Configuration**
-   - Leverage the sophisticated modal interface for complex setups
-   - Use template library for validated starting configurations
-   - Test API endpoints directly within the interface
-   - Validate parameter mappings with real conversation data
+### Performance Monitoring
 
-2. **Security Implementation**
-   - Always use HTTPS endpoints
-   - Configure proper authentication through secure header management
-   - Validate and sanitize all incoming data
-   - Use rate limiting to prevent abuse
+1. **Key Metrics Tracking**
+   - Transfer success rates and context preservation
+   - Webhook response times and error rates
+   - Calendar booking success and no-show rates
+   - Recall protocol effectiveness and compliance
 
-### Calendar Integration Optimization
-
-1. **Multi-Provider Strategy**
-   - Support both Google Calendar and Outlook for maximum compatibility
-   - Configure fallback providers for high availability
-   - Implement cross-platform availability checking
-   - Maintain consistent booking experience across providers
-
-2. **Smart Scheduling**
-   - Use intelligent availability detection with buffer times
-   - Implement automatic conflict resolution and rescheduling
-   - Configure timezone-aware booking for global customers
-   - Set up automated reminder and confirmation systems
-
-### Recall Protocol Management
-
-1. **Strategic Planning**
-   - Define clear success criteria to prevent unnecessary callbacks
-   - Implement progressive escalation with varied approaches
-   - Respect customer preferences and compliance requirements
-   - Monitor and optimize based on performance analytics
-
-2. **Performance Optimization**
-   - Analyze recall effectiveness by timing and strategy
-   - A/B test different callback intervals and approaches
-   - Use customer behavior data to optimize scheduling
-   - Implement intelligent DNC management and compliance
+2. **Continuous Improvement**
+   - Regular analysis of integration performance
+   - A/B testing of different configurations
+   - Customer feedback incorporation
+   - System optimization based on usage patterns
 
 <Warning>
-**Compliance Requirements**: All integrations must comply with applicable regulations including TCPA (US), GDPR (EU), and industry-specific requirements. Always include proper consent mechanisms and opt-out procedures.
+**Compliance Requirements**: All integrations must comply with applicable regulations including TCPA (US), GDPR (EU), CCPA (California), and industry-specific requirements. Always include proper consent mechanisms, opt-out procedures, and data handling policies.
 </Warning>
 
 ## Next Steps
 
-After configuring your Actions & Tools, you can further enhance your agent with:
+After configuring your Actions & Tools, enhance your agent further with:
 
-- **Input Parameters**: Set up dynamic variables for personalized conversations
-- **Output Settings**: Configure data extraction and webhook delivery
-- **Evaluations**: Define success metrics and conversation quality measures
-- **Knowledge Base**: Add contextual information to improve agent responses
+- **[Input Parameters](/advanced-editor/input-parameters)**: Set up dynamic variables for personalized conversations
+- **[Output Settings](/advanced-editor/output-settings)**: Configure data extraction and delivery
+- **[Evaluations](/advanced-editor/evaluations)**: Define success metrics and quality measures
+- **[Knowledge Base](/advanced-editor/knowledge-base)**: Add contextual information for better responses

@@ -1,24 +1,24 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura transferencias, finalización de llamadas, webhooks y automatizaciones avanzadas'
+description: 'Configura transferencias, finalización de llamadas, webhooks, recall automático y comunicación multicanal'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas, detección automática de contestadores, webhooks personalizados, protocolos de rellamada y configuración de caller IDs para llamadas salientes.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, integración de calendario y próximamente comunicación multicanal con Email, SMS y WhatsApp.
 
 <Info>
-Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes.
+Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
 </Info>
 
 ## Transferencia de Llamadas
 
-Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos.
+Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos con plantillas multiidioma optimizadas.
 
 ### Tipos de Transferencia Disponibles
 
-Meetzy soporta dos métodos principales de transferencia:
+Meetzy soporta dos métodos principales de transferencia con configuración flexible:
 
 <Tabs>
   <Tab title="Número de Teléfono">
@@ -31,6 +31,7 @@ Meetzy soporta dos métodos principales de transferencia:
     - Conectar con departamentos específicos
     - Transferir a supervisores o especialistas
     - Dirigir a líneas de emergencia
+    - Routing geográfico por ubicación del cliente
   </Tab>
   <Tab title="SIP Trunk">
     Transferir a través del protocolo SIP para sistemas telefónicos empresariales.
@@ -44,6 +45,7 @@ Meetzy soporta dos métodos principales de transferencia:
     - Conectar con sistemas VoIP empresariales
     - Integrar con infraestructura telefónica existente
     - Enrutar a grupos de agentes específicos
+    - Queue management inteligente
   </Tab>
 </Tabs>
 
@@ -60,8 +62,11 @@ Meetzy soporta dos métodos principales de transferencia:
     - Para números telefónicos: Introduce el número en formato E.164 (+país + número)
     - Para SIP: Especifica la URI completa con extensión, IP y puerto
   </Step>
-  <Step title="Definir Condiciones de Transferencia">
-    Establece mediante prompts específicos cuándo el agente debe activar la transferencia automáticamente.
+  <Step title="Definir Plantilla de Transferencia">
+    Selecciona una plantilla predefinida optimizada para tu idioma o crea una personalizada.
+  </Step>
+  <Step title="Validar Configuración">
+    Prueba la configuración con llamadas de test para verificar conectividad.
   </Step>
 </Steps>
 
@@ -82,6 +87,8 @@ El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y
     - El cliente expresa frustración o necesita atención personalizada
     - La consulta requiere conocimiento técnico especializado
     - Se solicita hablar con un supervisor o responsable
+    - El caso requiere decisiones comerciales o excepciones
+    - Se detecta alta complejidad emocional o sensibilidad
     ```
   </Tab>
   <Tab title="Inglés">
@@ -96,6 +103,8 @@ El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y
     - The client expresses frustration or needs personalized attention
     - The query requires specialized technical knowledge
     - Request to speak with a supervisor or manager
+    - The case requires business decisions or exceptions
+    - High emotional complexity or sensitivity is detected
     ```
   </Tab>
   <Tab title="Francés">
@@ -110,6 +119,8 @@ El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y
     - Le client exprime sa frustration ou a besoin d'attention personnalisée
     - La demande nécessite des connaissances techniques spécialisées
     - Demande de parler avec un superviseur ou responsable
+    - Le cas nécessite des décisions commerciales ou des exceptions
+    - Une complexité émotionnelle élevée ou sensibilité est détectée
     ```
   </Tab>
   <Tab title="Alemán">
@@ -124,6 +135,8 @@ El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y
     - Der Kunde äußert Frustration oder benötigt persönliche Betreuung
     - Die Anfrage erfordert spezialisiertes technisches Wissen
     - Anfrage, mit einem Supervisor oder Manager zu sprechen
+    - Der Fall erfordert Geschäftsentscheidungen oder Ausnahmen
+    - Hohe emotionale Komplexität oder Sensibilität wird erkannt
     ```
   </Tab>
   <Tab title="Italiano">
@@ -138,6 +151,8 @@ El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y
     - Il cliente esprime frustrazione o necessita di attenzione personalizzata
     - La richiesta richiede conoscenza tecnica specializzata
     - Si richiede di parlare con un supervisore o responsabile
+    - Il caso richiede decisioni commerciali o eccezioni
+    - Viene rilevata alta complessità emotiva o sensibilità
     ```
   </Tab>
   <Tab title="Portugués">
@@ -152,30 +167,32 @@ El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y
     - O cliente expressa frustração ou precisa de atenção personalizada
     - A consulta requer conhecimento técnico especializado
     - Solicita falar com um supervisor ou responsável
+    - O caso requer decisões comerciais ou exceções
+    - É detectada alta complexidade emocional ou sensibilidade
     ```
   </Tab>
 </Tabs>
 
 ## Estrategia de Finalización de Llamada
 
-Configura cómo y cuándo tu agente debe finalizar automáticamente las conversaciones para optimizar recursos y mejorar la experiencia del usuario.
+Configura cómo y cuándo tu agente debe finalizar automáticamente las conversaciones para optimizar recursos y mejorar la experiencia del usuario con detección inteligente multiidioma.
 
 ### Detección Automática de Contestadores
 
 Una funcionalidad crítica es la detección automática de contestadores telefónicos para evitar conversaciones con sistemas automatizados:
 
 <Warning>
-La detección de contestadores automáticos es esencial para evitar conversaciones innecesarias y optimizar costos operacionales. Esta funcionalidad previene la frustración de interacciones con buzones de voz y sistemas automatizados.
+La detección de contestadores automáticos es esencial para evitar conversaciones innecesarias y optimizar costos operacionales. Esta funcionalidad previene la frustración de interacciones con buzones de voz y sistemas automatizados, mejorando significativamente el ROI de campañas.
 </Warning>
 
 #### Frases de Detección por Idioma
 
-El sistema AI reconoce patrones específicos en cada idioma:
+El sistema AI reconoce patrones específicos en cada idioma con alta precisión:
 
 <Tabs>
   <Tab title="Español">
     ```text
-    Frases comunes detectadas automáticamente:
+    Frases detectadas automáticamente:
     - "En este momento no podemos atenderle"
     - "Deje su mensaje después de la señal"
     - "El número al que llama no está disponible"
@@ -188,11 +205,13 @@ El sistema AI reconoce patrones específicos en cada idioma:
     - "Por favor, inténtelo de nuevo más tarde"
     - "No podemos atender su llamada ahora"
     - "Ha contactado con el servicio de..."
+    - "Este es el servicio de mensajería de..."
+    - "Deje su recado después del pitido"
     ```
   </Tab>
   <Tab title="Inglés">
     ```text
-    Frases comunes detectadas automáticamente:
+    Frases detectadas automáticamente:
     - "Please leave your message after the tone"
     - "We're sorry, but we cannot take your call..."
     - "The person you're calling is not available"
@@ -203,11 +222,13 @@ El sistema AI reconoce patrones específicos en cada idioma:
     - "Leave your message at the sound of the beep"
     - "This is the answering machine of..."
     - "Please try your call again later"
+    - "You've reached the voice mailbox of..."
+    - "The number you have dialed is not available"
     ```
   </Tab>
   <Tab title="Francés">
     ```text
-    Frases comunes detectadas automáticamente:
+    Frases detectadas automáticamente:
     - "Veuillez laisser votre message après le signal"
     - "Nous sommes désolés, mais en ce moment..."
     - "La personne que vous appelez n'est pas disponible"
@@ -215,11 +236,14 @@ El sistema AI reconoce patrones específicos en cada idioma:
     - "Merci d'avoir appelé, nous sommes actuellement..."
     - "Bienvenue sur le répondeur de..."
     - "Laissez votre message après le bip"
+    - "Vous êtes bien sur la messagerie de..."
+    - "Veuillez rappeler plus tard"
+    - "Ce numéro n'est pas disponible actuellement"
     ```
   </Tab>
   <Tab title="Alemán">
     ```text
-    Frases comunes detectadas automáticamente:
+    Frases detectadas automáticamente:
     - "Bitte hinterlassen Sie Ihre Nachricht nach dem Ton"
     - "Es tut uns leid, aber zur Zeit können wir..."
     - "Die Person, die Sie anrufen, ist nicht verfügbar"
@@ -227,11 +251,13 @@ El sistema AI reconoce patrones específicos en cada idioma:
     - "Vielen Dank für Ihren Anruf, wir sind derzeit..."
     - "Willkommen beim Anrufbeantworter von..."
     - "Hinterlassen Sie Ihre Nachricht nach dem Piepton"
+    - "Sie sind mit der Sprachnachricht von... verbunden"
+    - "Bitte versuchen Sie es später erneut"
     ```
   </Tab>
   <Tab title="Italiano">
     ```text
-    Frases comunes detectadas automáticamente:
+    Frases detectadas automáticamente:
     - "Per favore lasci il suo messaggio dopo il tono"
     - "Ci dispiace, ma al momento non possiamo..."
     - "La persona che sta chiamando non è disponibile"
@@ -239,11 +265,13 @@ El sistema AI reconoce patrones específicos en cada idioma:
     - "Grazie per aver chiamato, al momento siamo..."
     - "Benvenuto alla segreteria telefonica di..."
     - "Lasci il suo messaggio dopo il segnale acustico"
+    - "È collegato con la segreteria di..."
+    - "La preghiamo di richiamare più tardi"
     ```
   </Tab>
   <Tab title="Portugués">
     ```text
-    Frases comunes detectadas automáticamente:
+    Frases detectadas automáticamente:
     - "Por favor deixe sua mensagem após o sinal"
     - "Lamentamos, mas no momento não podemos..."
     - "A pessoa que você está ligando não está disponível"
@@ -251,24 +279,86 @@ El sistema AI reconoce patrones específicos en cada idioma:
     - "Obrigado por ligar, no momento estamos..."
     - "Bem-vindo à secretária eletrônica de..."
     - "Deixe sua mensagem após o bip"
+    - "Você está conectado com a caixa postal de..."
+    - "Por favor, tente ligar novamente mais tarde"
+    ```
+  </Tab>
+</Tabs>
+
+### Plantillas de Finalización por Idioma
+
+Configura respuestas inteligentes de finalización según el idioma detectado:
+
+<Tabs>
+  <Tab title="Español">
+    ```text
+    ## Finalización de llamada por Detección de Contestador Automático
+
+    Si se detecta que el usuario es un contestador automático, finaliza la llamada de inmediato.
+
+    ## Finalización de Llamada por otros motivos: 
+
+    También debes finalizar las llamadas cuando:
+    - El usuario se despida de forma clara y definitiva
+    - Te despidas tú mismo tras completar el objetivo
+    - Se alcancen todos los objetivos principales establecidos
+    - El usuario solicite expresamente finalizar la conversación
+    - Se detecte hostilidad persistente o abuso verbal
+    - La llamada sea colgada por problemas técnicos
+    ```
+  </Tab>
+  <Tab title="Inglés">
+    ```text
+    ## Call Termination by Answering Machine Detection
+
+    If it is detected that the user is an answering machine, terminate the call immediately.
+
+    ## Call Termination for other reasons:
+
+    You should also terminate calls when:
+    - The user clearly and definitively says goodbye
+    - You say goodbye yourself after completing the objective
+    - All main established objectives are achieved
+    - The user expressly requests to end the conversation
+    - Persistent hostility or verbal abuse is detected
+    - The call is dropped due to technical problems
+    ```
+  </Tab>
+  <Tab title="Francés">
+    ```text
+    ## Finalisation d'appel par Détection de Répondeur Automatique
+
+    Si il est détecté que l'utilisateur est un répondeur automatique, finalisez l'appel immédiatement.
+
+    ## Finalisation d'Appel pour d'autres raisons :
+
+    Vous devez également finaliser les appels quand :
+    - L'utilisateur dit clairement et définitivement au revoir
+    - Vous dites au revoir vous-même après avoir terminé l'objectif
+    - Tous les objectifs principaux établis sont atteints
+    - L'utilisateur demande expressément de terminer la conversation
+    - Une hostilité persistante ou des abus verbaux sont détectés
+    - L'appel est raccroché à cause de problèmes techniques
     ```
   </Tab>
 </Tabs>
 
 ### Condiciones Adicionales de Finalización
 
-Además de contestadores automáticos, el agente finalizará llamadas en estas situaciones:
+El agente finalizará llamadas automáticamente en estas situaciones optimizadas:
 
 - **Despedida Natural**: El usuario se despide claramente y el agente completa protocolarmente su despedida
-- **Objetivos Completados**: Se han alcanzado exitosamente los objetivos específicos de la conversación
-- **Timeout Configurado**: Se supera el tiempo máximo establecido para la duración de la llamada
-- **Detección de Silencio Prolongado**: Períodos extendidos sin respuesta audible del interlocutor
-- **Interrupción de Línea**: Llamada cortada inesperadamente por problemas técnicos o cuelgue
+- **Objetivos Completados**: Se han alcanzado exitosamente todos los objetivos específicos de la conversación
+- **Timeout Configurado**: Se supera el tiempo máximo establecido para la duración de la llamada (configurable por agente)
+- **Detección de Silencio Prolongado**: Períodos extendidos sin respuesta audible del interlocutor (umbral ajustable)
+- **Interrupción de Línea**: Llamada cortada inesperadamente por problemas técnicos o cuelgue del cliente
 - **Transferencia Exitosa**: Después de completar satisfactoriamente la transferencia a un agente humano
+- **Detección de Hostilidad**: Cuando se identifica agresividad sostenida o abuso verbal del interlocutor
+- **Compliance Violation**: Si se detecta solicitud de opt-out o violación de políticas de comunicación
 
 ## Herramientas Webhook Personalizadas
 
-Crea integraciones poderosas con sistemas externos mediante webhooks que tu agente puede ejecutar durante las conversaciones en tiempo real.
+Crea integraciones poderosas con sistemas externos mediante webhooks que tu agente puede ejecutar durante las conversaciones en tiempo real, con configuración avanzada y monitoreo completo.
 
 ### Creando una Nueva Herramienta Webhook
 
@@ -279,69 +369,69 @@ Crea integraciones poderosas con sistemas externos mediante webhooks que tu agen
   <Step title="Configuración Básica">
     - **Nombre de Herramienta**: Identificador único y descriptivo (ej. "consultar_inventario", "crear_lead_crm")
     - **Descripción Detallada**: Explica específicamente cuándo y por qué la IA debe usar esta herramienta
-    - **Contexto de Uso**: Define escenarios precisos que deben activar la herramienta
+    - **Contexto de Uso**: Define escenarios precisos que deben activar la herramienta automáticamente
   </Step>
   <Step title="Configuración de Endpoint">
     - **URL de Destino**: Endpoint HTTP/HTTPS que procesará las peticiones
-    - **Método HTTP**: Selecciona GET, POST, PUT, PATCH o DELETE según la operación
-    - **Encabezados**: Configura autenticación y metadatos requeridos
+    - **Método HTTP**: Selecciona GET, POST, PUT, PATCH o DELETE según la operación requerida
+    - **Encabezados**: Configura autenticación, content-type y metadatos requeridos
   </Step>
   <Step title="Definir Parámetros">
     Configure parámetros de query string y campos del cuerpo de petición con validaciones específicas.
   </Step>
   <Step title="Configuración Avanzada">
-    Ajusta timeouts, comportamiento de interrupciones, modo de ejecución y feedback de audio.
+    Ajusta timeouts, comportamiento de interrupciones, modo de ejecución y feedback de audio personalizado.
   </Step>
 </Steps>
 
 ### Configuración Detallada de Parámetros
 
-Cada parámetro webhook se puede configurar con precisión técnica:
+Cada parámetro webhook se puede configurar con precisión técnica avanzada:
 
-| Propiedad | Descripción | Opciones Disponibles |
-|----------|-------------|---------------------|
-| **Identificador** | Nombre del parámetro en la API | string único (snake_case recomendado) |
-| **Tipo de Dato** | Formato y validación del valor | string, number, boolean, integer, array, object |
-| **Campo Requerido** | Obligatoriedad para la ejecución | true (obligatorio) / false (opcional) |
-| **Descripción para IA** | Contexto detallado que guía el uso correcto | texto descriptivo y ejemplos de uso |
-| **Fuente del Valor** | Origen de los datos | llm_prompt (IA genera) / static (valor fijo) |
-| **Valores Enum** | Restricción a opciones predefinidas | lista cerrada de valores permitidos |
-| **Validación** | Reglas adicionales de formato | regex, rangos numéricos, longitud |
+| Propiedad | Descripción | Opciones Disponibles | Ejemplos de Uso |
+|----------|-------------|---------------------|-----------------|
+| **Identificador** | Nombre del parámetro en la API | string único (snake_case recomendado) | customer_id, product_sku, appointment_date |
+| **Tipo de Dato** | Formato y validación del valor | string, number, boolean, integer, array, object | string para emails, integer para IDs |
+| **Campo Requerido** | Obligatoriedad para la ejecución | true (obligatorio) / false (opcional) | email required: true, notes optional: false |
+| **Descripción para IA** | Contexto detallado que guía el uso | texto descriptivo y ejemplos de uso | "Email del cliente obtenido durante conversación" |
+| **Fuente del Valor** | Origen de los datos | llm_prompt (IA genera) / static (valor fijo) | IA extrae email, valor fijo: "source": "phone_call" |
+| **Valores Enum** | Restricción a opciones predefinidas | lista cerrada de valores permitidos | ["urgente", "normal", "bajo"] para prioridades |
+| **Validación** | Reglas adicionales de formato | regex, rangos numéricos, longitud mín/máx | email regex, telefono 9-15 dígitos |
 
 ### Configuración Avanzada de Webhooks
 
 #### Control de Interrupciones Durante Ejecución
 
 <Info>
-Controla si el usuario puede interrumpir al agente mientras espera la respuesta del webhook. Esta configuración es crucial para operaciones críticas que requieren completarse sin interrupciones.
+Controla si el usuario puede interrumpir al agente mientras espera la respuesta del webhook. Esta configuración es crucial para operaciones críticas que requieren completarse sin interrupciones, mejorando la fiabilidad de transacciones importantes.
 </Info>
 
-- **Deshabilitar Interrupciones**: El agente no puede ser interrumpido durante la ejecución (ideal para transacciones)
-- **Permitir Interrupciones**: El usuario puede interrumpir mientras se procesa (recomendado para consultas rápidas)
+- **Deshabilitar Interrupciones**: El agente no puede ser interrumpido durante la ejecución (ideal para transacciones críticas)
+- **Permitir Interrupciones**: El usuario puede interrumpir mientras se procesa (recomendado para consultas informativas rápidas)
 
 #### Modos de Ejecución de Webhooks
 
 | Modo | Comportamiento | Casos de Uso Ideales | Ventajas | Desventajas |
 |------|---------------|---------------------|----------|-------------|
-| **Inmediato** | Ejecuta durante la conversación | Consultas de datos, validaciones en tiempo real | Respuesta inmediata al usuario | Puede afectar fluidez si es lento |
-| **Diferido** | Ejecuta después de finalizar la llamada | Logs, notificaciones, actualizaciones de CRM | No interrumpe la conversación | Usuario no recibe confirmación inmediata |
+| **Inmediato** | Ejecuta durante la conversación | Consultas de datos, validaciones en tiempo real | Respuesta inmediata, UX fluida | Puede afectar fluidez si es lento |
+| **Diferido** | Ejecuta después de finalizar llamada | Logs, notificaciones, actualizaciones CRM | No interrumpe conversación | Usuario no recibe confirmación directa |
 
 #### Configuración de Feedback de Audio
 
-- **Sonido de Herramienta**: Reproduce efecto sonoro de "tecleado" durante ejecución para proporcionar feedback al usuario
-- **Control de Audio**: Automático (siempre reproduce) o inteligente (controlado por la IA según contexto)
-- **Síntesis Previa Forzada**: Garantiza que el agente termine de hablar antes de ejecutar la herramienta
+- **Sonido de Herramienta**: Reproduce efecto sonoro de "tecleado" durante ejecución para proporcionar feedback auditivo al usuario
+- **Control de Audio**: Automático (siempre reproduce) o inteligente (controlado por la IA según contexto conversacional)
+- **Síntesis Previa Forzada**: Garantiza que el agente termine de hablar completamente antes de ejecutar la herramienta
 
 ### Ejemplos Avanzados de Implementación
 
 <Tabs>
   <Tab title="Integración CRM Salesforce">
-    **Caso de Uso**: Crear lead automáticamente cuando el cliente muestra interés comercial
+    **Caso de Uso**: Crear lead automáticamente cuando el cliente muestra interés comercial genuino
     
     ```json
     {
       "name": "crear_lead_salesforce",
-      "description": "Crear lead en Salesforce cuando el cliente muestra interés genuino en nuestros productos o servicios, solicita información comercial, o proporciona datos de contacto",
+      "description": "Crear lead en Salesforce cuando el cliente muestra interés genuino en productos/servicios, solicita información comercial detallada, o proporciona datos de contacto voluntariamente",
       "api_schema": {
         "url": "https://api.salesforce.com/services/data/v57.0/sobjects/Lead",
         "method": "POST",
@@ -358,34 +448,39 @@ Controla si el usuario puede interrumpir al agente mientras espera la respuesta 
               "description": "Nombre del prospecto obtenido durante la conversación"
             },
             "LastName": {
-              "type": "string",
+              "type": "string", 
               "description": "Apellido del prospecto (requerido por Salesforce)"
             },
             "Email": {
               "type": "string",
-              "description": "Dirección de correo electrónico del prospecto"
+              "format": "email",
+              "description": "Dirección de correo electrónico válida del prospecto"
             },
             "Company": {
-              "type": "string", 
-              "description": "Nombre de la empresa del prospecto"
+              "type": "string",
+              "description": "Nombre de la empresa/organización del prospecto"
             },
             "Phone": {
               "type": "string",
-              "description": "Número de teléfono desde donde llama"
+              "description": "Número de teléfono desde donde realiza la llamada"
             },
             "LeadSource": {
               "type": "string",
               "enum": ["Llamada Entrante", "Llamada Saliente", "Web", "Referido"],
-              "description": "Fuente del lead para tracking"
+              "description": "Fuente del lead para tracking y atribución"
             },
             "Industry": {
-              "type": "string",
-              "description": "Sector o industria del prospecto"
+              "type": "string", 
+              "description": "Sector o industria específica del prospecto"
             },
             "LeadStatus": {
               "type": "string",
               "enum": ["Nuevo", "Calificado", "Interesado", "No Calificado"],
-              "description": "Estado inicial del lead basado en la conversación"
+              "description": "Estado inicial basado en el nivel de interés demostrado"
+            },
+            "Description": {
+              "type": "string",
+              "description": "Resumen de la conversación y necesidades identificadas"
             }
           }
         }
@@ -393,43 +488,60 @@ Controla si el usuario puede interrumpir al agente mientras espera la respuesta 
       "response_timeout_secs": 15,
       "execution_mode": "immediate",
       "tool_call_sound": "typing",
-      "disable_interruptions": true
+      "disable_interruptions": true,
+      "force_pre_tool_speech": true
     }
     ```
   </Tab>
-  <Tab title="Sistema de Inventario">
-    **Caso de Uso**: Verificar disponibilidad de productos en tiempo real durante ventas
+  <Tab title="Sistema de Inventario E-commerce">
+    **Caso de Uso**: Verificar disponibilidad de productos en tiempo real con información detallada
     
     ```json
     {
-      "name": "consultar_inventario",
-      "description": "Verificar disponibilidad de productos en inventario cuando el cliente pregunta por stock, disponibilidad, precios, o quiere realizar una compra",
+      "name": "consultar_inventario_avanzado",
+      "description": "Verificar disponibilidad detallada de productos cuando cliente pregunta por stock, precios, variantes, o especificaciones técnicas específicas",
       "api_schema": {
-        "url": "https://api.miempresa.com/inventory/check",
-        "method": "GET",
+        "url": "https://api.miempresa.com/inventory/detailed-check",
+        "method": "GET", 
         "request_headers": {
           "X-API-Key": "YOUR_INVENTORY_API_KEY",
-          "Accept": "application/json"
+          "Accept": "application/json",
+          "User-Agent": "Meetzy-Agent/1.0"
         },
         "query_params_schema": {
           "properties": {
             "product_id": {
               "type": "string",
-              "description": "ID, código SKU, o nombre del producto a consultar"
+              "description": "ID, código SKU, código de barras o nombre exacto del producto"
             },
             "location": {
-              "type": "string", 
-              "description": "Código de sucursal o almacén para verificar disponibilidad local",
-              "enum": ["MAD001", "BCN001", "VLC001", "SEV001", "ONLINE"]
+              "type": "string",
+              "enum": ["MAD001", "BCN001", "VLC001", "SEV001", "ONLINE", "ALL"],
+              "description": "Ubicación específica para verificar disponibilidad local"
             },
             "quantity": {
               "type": "integer",
-              "description": "Cantidad específica que el cliente necesita",
-              "minimum": 1
+              "minimum": 1,
+              "maximum": 1000,
+              "description": "Cantidad específica requerida por el cliente"
             },
-            "variant": {
+            "variant_color": {
               "type": "string",
-              "description": "Variante del producto (color, talla, modelo) si aplica"
+              "description": "Color específico si el producto tiene variantes"
+            },
+            "variant_size": {
+              "type": "string", 
+              "description": "Talla/tamaño si aplica (S, M, L, XL, etc.)"
+            },
+            "include_pricing": {
+              "type": "boolean",
+              "default": true,
+              "description": "Incluir información de precios y descuentos activos"
+            },
+            "check_alternatives": {
+              "type": "boolean",
+              "default": false,
+              "description": "Buscar productos alternativos similares si no hay stock"
             }
           },
           "required": ["product_id"]
@@ -438,189 +550,243 @@ Controla si el usuario puede interrumpir al agente mientras espera la respuesta 
       "disable_interruptions": false,
       "execution_mode": "immediate",
       "response_timeout_secs": 8,
-      "tool_call_sound": "typing"
+      "tool_call_sound": "typing",
+      "retry_config": {
+        "max_retries": 2,
+        "retry_delay_ms": 1000
+      }
     }
     ```
   </Tab>
-  <Tab title="Programación de Citas">
-    **Caso de Uso**: Agendar citas médicas con validación de disponibilidad
+  <Tab title="Programación de Citas Médicas">
+    **Caso de Uso**: Sistema completo de agendamiento médico con validaciones múltiples
     
     ```json
     {
-      "name": "programar_cita_medica",
-      "description": "Programar nueva cita médica cuando el paciente solicita una cita, quiere reprogramar una existente, o necesita atención médica específica",
+      "name": "agendar_cita_medica_completa",
+      "description": "Programar cita médica cuando paciente solicita atención médica, necesita reprogramar cita existente, o requiere consulta especializada específica",
       "api_schema": {
-        "url": "https://api.clinica.com/appointments",
+        "url": "https://api.clinica.com/appointments/comprehensive",
         "method": "POST",
         "request_headers": {
           "Authorization": "Bearer YOUR_CLINIC_TOKEN",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "X-Source": "voice-assistant"
         },
         "request_body_schema": {
           "type": "object",
-          "required": ["patient_name", "preferred_date", "service_type", "contact_phone"],
+          "required": ["patient_name", "patient_phone", "preferred_date", "service_type"],
           "properties": {
             "patient_name": {
               "type": "string",
-              "description": "Nombre completo del paciente según documento de identidad"
+              "minLength": 2,
+              "description": "Nombre completo del paciente tal como aparece en documentos"
             },
             "patient_phone": {
               "type": "string",
-              "description": "Teléfono principal del paciente para confirmaciones"
+              "pattern": "^\\+?[1-9]\\d{8,14}$",
+              "description": "Teléfono principal para confirmaciones (formato internacional)"
             },
             "patient_email": {
               "type": "string",
-              "description": "Email del paciente para envío de confirmaciones (opcional)"
+              "format": "email",
+              "description": "Email del paciente para envío de confirmaciones digitales"
+            },
+            "patient_dni": {
+              "type": "string",
+              "description": "Documento de identidad nacional del paciente"
             },
             "preferred_date": {
               "type": "string",
               "format": "date",
               "description": "Fecha preferida en formato YYYY-MM-DD"
             },
+            "preferred_time_slot": {
+              "type": "string",
+              "enum": ["morning", "afternoon", "evening", "any"],
+              "description": "Franja horaria preferida del paciente"
+            },
             "preferred_time": {
               "type": "string",
-              "enum": ["09:00", "10:00", "11:00", "12:00", "15:00", "16:00", "17:00"],
-              "description": "Hora preferida según disponibilidad médica"
+              "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
+              "description": "Hora específica preferida en formato HH:MM"
             },
             "service_type": {
               "type": "string",
-              "enum": ["Consulta General", "Especialidad", "Urgencia", "Revisión", "Telemedicina"],
+              "enum": ["Consulta General", "Cardiología", "Dermatología", "Traumatología", "Ginecología", "Pediatría", "Oftalmología", "Urgencia", "Revisión", "Telemedicina"],
               "description": "Tipo de servicio médico requerido"
             },
             "doctor_preference": {
               "type": "string",
-              "description": "Nombre del médico preferido si el paciente tiene preferencia"
+              "description": "Nombre del médico preferido si el paciente especifica"
             },
             "insurance_provider": {
               "type": "string",
-              "description": "Nombre del seguro médico del paciente"
+              "description": "Nombre de la compañía de seguros médicos"
+            },
+            "insurance_number": {
+              "type": "string", 
+              "description": "Número de póliza o tarjeta del seguro médico"
             },
             "reason": {
               "type": "string",
-              "description": "Motivo de la consulta o síntomas principales"
+              "maxLength": 500,
+              "description": "Motivo detallado de la consulta o síntomas principales"
+            },
+            "urgency_level": {
+              "type": "string",
+              "enum": ["baja", "media", "alta", "urgente"],
+              "default": "media",
+              "description": "Nivel de urgencia médica percibida"
+            },
+            "is_follow_up": {
+              "type": "boolean",
+              "default": false,
+              "description": "Indica si es una cita de seguimiento de tratamiento previo"
+            },
+            "previous_appointment_id": {
+              "type": "string",
+              "description": "ID de cita anterior si es seguimiento o reprogramación"
             }
           }
         }
       },
-      "response_timeout_secs": 20,
+      "response_timeout_secs": 25,
       "tool_call_sound": "typing",
       "force_pre_tool_speech": true,
-      "execution_mode": "immediate"
+      "execution_mode": "immediate",
+      "disable_interruptions": true,
+      "success_feedback": "Cita médica agendada exitosamente",
+      "error_handling": {
+        "timeout": "Lo siento, el sistema médico está tardando en responder. ¿Podríamos intentarlo de nuevo?",
+        "server_error": "Hay un problema técnico con el sistema de citas. Por favor, contacte directamente con la clínica.",
+        "validation_error": "Necesito verificar algunos datos adicionales para completar su cita."
+      }
     }
     ```
   </Tab>
 </Tabs>
 
-### Mejores Prácticas para Webhooks Exitosos
+### Mejores Prácticas para Webhooks Empresariales
 
 <Steps>
   <Step title="Diseño de Descripciones Efectivas">
-    - Sé específico sobre cuándo usar cada herramienta
-    - Incluye ejemplos de frases que deben activar la herramienta
-    - Proporciona contexto sobre qué información debe recopilar primero
-    - Especifica cómo manejar errores o respuestas inesperadas
+    - Sé específico sobre cuándo usar cada herramienta con ejemplos concretos
+    - Incluye frases disparadoras que deben activar la herramienta automáticamente
+    - Proporciona contexto sobre información previa necesaria antes de ejecutar
+    - Especifica cómo manejar errores, timeouts y respuestas inesperadas
+    - Documenta valores esperados y formatos de respuesta del endpoint
   </Step>
   <Step title="Optimización de Rendimiento">
-    - Implementa caching para consultas frecuentes
-    - Usa índices en bases de datos para consultas rápidas
-    - Configura timeouts realistas según tu infraestructura
-    - Implementa circuit breakers para manejo de fallos
+    - Implementa caching inteligente para consultas frecuentes (Redis/Memcached)
+    - Usa índices optimizados en bases de datos para consultas sub-segundo
+    - Configura timeouts realistas basados en tu infraestructura específica
+    - Implementa circuit breakers y graceful degradation para alta disponibilidad
+    - Usa connection pooling y keep-alive para optimizar latencia de red
   </Step>
-  <Step title="Seguridad Robusta">
-    - Usa HTTPS exclusivamente para todas las comunicaciones
-    - Implementa autenticación por tokens con renovación automática
-    - Valida y sanitiza todos los inputs del usuario
-    - Registra logs de auditoría sin exponer información sensible
-    - Configura rate limiting para prevenir abuso
+  <Step title="Seguridad Robusta de Grado Empresarial">
+    - Usa exclusivamente HTTPS con certificados válidos y actualizados
+    - Implementa autenticación por tokens JWT con renovación automática
+    - Valida y sanitiza rigurosamente todos los inputs del usuario
+    - Registra logs de auditoría detallados sin exponer información sensible
+    - Configura rate limiting progresivo y IP whitelisting
+    - Implementa WAF (Web Application Firewall) para protección adicional
   </Step>
-  <Step title="Manejo de Errores">
-    - Define respuestas de error claras y amigables para el usuario
-    - Implementa reintentos automáticos para fallos temporales
-    - Proporciona alternativas cuando el servicio no está disponible
-    - Registra errores detallados para debugging técnico
+  <Step title="Manejo de Errores Avanzado">
+    - Define respuestas de error específicas y amigables por tipo de fallo
+    - Implementa reintentos automáticos con backoff exponencial
+    - Proporciona alternativas cuando servicios externos no están disponibles  
+    - Registra métricas detalladas para debugging y optimización continua
+    - Configura alertas proactivas para degradación de performance
   </Step>
 </Steps>
 
 ## Protocolo de Rellamada Automática (Recall)
 
-Configura un sistema inteligente de rellamadas automáticas cuando no se logran completar los objetivos de la conversación inicial o se requiere continuidad en la comunicación.
+Configura un sistema inteligente de rellamadas automáticas cuando no se logran completar los objetivos de la conversación inicial o se requiere continuidad en la comunicación, con cumplimiento legal estricto.
 
 ### Configuración del Sistema Recall
 
 <Steps>
   <Step title="Activar Protocolo de Rellamada">
-    Habilita el sistema de rellamadas automáticas desde el panel de configuración avanzada.
+    Habilita el sistema de rellamadas automáticas desde el panel de configuración avanzada con controles granulares.
   </Step>
   <Step title="Configurar Límites de Intentos">
-    Establece el número máximo de intentos de rellamada (recomendado: 2-3 para evitar molestias al cliente).
+    Establece el número máximo de intentos de rellamada (recomendado: 2-3 para evitar molestias y cumplir regulaciones).
   </Step>
   <Step title="Definir Estrategia de Intervalos">
     Configure intervalos progresivos entre intentos para maximizar probabilidades de éxito y minimizar intrusión.
   </Step>
   <Step title="Establecer Condiciones de Activación">
-    Especifica detalladamente qué situaciones deben desencadenar una rellamada automática del sistema.
+    Especifica detalladamente qué situaciones técnicas y comerciales deben desencadenar una rellamada automática.
   </Step>
-  <Step title="Configurar Horarios Permitidos">
-    Define ventanas horarias, zonas horarias y restricciones de días para respetar preferencias del cliente.
+  <Step title="Configurar Horarios y Compliance">
+    Define ventanas horarias, zonas horarias y restricciones de días para respetar preferencias y regulaciones.
   </Step>
 </Steps>
 
-### Estrategias de Intervalos Optimizadas
+### Estrategias de Intervalos Optimizadas por Contexto
 
-| Intervalo de Reintento | Contexto de Aplicación | Ejemplos de Uso | Tasa de Éxito Esperada |
-|----------------------|----------------------|-----------------|----------------------|
-| **5-15 minutos** | Línea ocupada, urgencia alta | Confirmaciones médicas urgentes, emergencias | 60-70% |
-| **30 minutos - 1 hora** | No contestó, mismo día | Citas médicas, servicios técnicos | 45-55% |
-| **2-4 horas** | Seguimiento comercial activo | Ventas consultivas, ofertas con tiempo limitado | 35-45% |
-| **Siguiente día hábil** | Seguimiento profesional | Propuestas comerciales, información general | 25-35% |
-| **48-72 horas** | Nurturing a largo plazo | Seguimiento de leads fríos, relaciones de largo plazo | 15-25% |
-| **1 semana** | Mantenimiento de relación | Check-ins periódicos, renovaciones anuales | 10-20% |
+| Intervalo de Reintento | Contexto de Aplicación | Ejemplos de Uso Específicos | Tasa de Éxito Esperada |
+|----------------------|----------------------|----------------------------|----------------------|
+| **5-15 minutos** | Línea ocupada, urgencia alta, problemas técnicos | Confirmaciones médicas urgentes, servicios de emergencia | 65-75% |
+| **30 minutos - 1 hora** | No contestó, mismo día hábil | Citas médicas del día, servicios técnicos urgentes | 50-60% |
+| **2-4 horas** | Seguimiento comercial activo, horario laboral | Ventas consultivas B2B, ofertas con tiempo limitado | 40-50% |
+| **Siguiente día hábil** | Seguimiento profesional estándar | Propuestas comerciales, información de productos/servicios | 30-40% |
+| **48-72 horas** | Nurturing programado, leads tibios | Seguimiento de leads cualificados, ofertas especiales | 20-30% |
+| **1 semana** | Mantenimiento de relación, seguimiento largo plazo | Check-ins periódicos, renovaciones, campañas estacionales | 15-25% |
 
-### Condiciones de Activación Inteligente
+### Condiciones de Activación Inteligente Detalladas
 
-Las rellamadas se activan automáticamente en diversos escenarios técnicos y de negocio:
+Las rellamadas se activan automáticamente en diversos escenarios técnicos y de negocio optimizados:
 
 <Tabs>
   <Tab title="Condiciones Técnicas">
-    **Situaciones de infraestructura que requieren reintento:**
+    **Situaciones de infraestructura que requieren reintento automático:**
     
-    - **No Response (Ring No Answer)**: Timbre sin respuesta después de tiempo configurado
-    - **Busy Signal**: Línea ocupada o todas las líneas del destino ocupadas  
-    - **Voicemail Detection**: Se detectó contestador automático mediante análisis de patrones
-    - **Network Issues**: Problemas de conectividad, latencia alta, o pérdida de paquetes
-    - **Call Dropped**: Llamada cortada inesperadamente por problemas técnicos
-    - **Poor Audio Quality**: Calidad de audio insuficiente para conversación efectiva
-    - **Carrier Rejection**: Rechazo por parte del operador telefónico
-    - **Invalid Number Format**: Número mal formateado que requiere corrección automática
+    - **No Response (Ring No Answer)**: Timbre sin respuesta después de tiempo configurado (15-30 segundos)
+    - **Busy Signal**: Línea ocupada o todas las líneas del destino congestionadas  
+    - **Voicemail Detection**: Se detectó contestador automático mediante análisis de patrones de audio
+    - **Network Issues**: Problemas de conectividad, latencia alta (>2000ms), o pérdida significativa de paquetes
+    - **Call Dropped**: Llamada cortada inesperadamente por problemas técnicos del operador
+    - **Poor Audio Quality**: Calidad de audio insuficiente para conversación efectiva (SNR < 15dB)
+    - **Carrier Rejection**: Rechazo por parte del operador telefónico (número inválido, bloqueado)
+    - **Invalid Number Format**: Número mal formateado que requiere corrección y reintento automático
+    - **Timeout**: Llamada no completada dentro del tiempo límite establecido
+    - **SIP Errors**: Errores específicos del protocolo SIP (503, 480, 486, etc.)
   </Tab>
   <Tab title="Condiciones de Negocio">
-    **Situaciones conversacionales que justifican seguimiento:**
+    **Situaciones conversacionales que justifican seguimiento estratégico:**
     
     - **Incomplete Objective**: Objetivos principales de la llamada no completados satisfactoriamente
-    - **Customer Request**: Cliente solicitó explícitamente ser contactado en otro momento específico
+    - **Customer Request**: Cliente solicitó explícitamente ser contactado en momento específico futuro
     - **Information Pending**: Información crítica pendiente de confirmación o recopilación adicional
-    - **Follow-up Required**: El tipo de interacción requiere seguimiento por protocolo empresarial
-    - **Partial Completion**: Conversación interrumpida antes de completar proceso crítico
+    - **Follow-up Required**: El tipo de interacción requiere seguimiento según protocolo empresarial
+    - **Partial Completion**: Conversación interrumpida antes de completar proceso crítico de negocio
     - **Appointment Confirmation**: Confirmación de cita programada según protocolo médico/empresarial
-    - **Payment Reminder**: Recordatorio de pago con protocolo de cobranza específico
-    - **Document Verification**: Verificación de documentos o información pendiente
+    - **Payment Reminder**: Recordatorio de pago con protocolo de cobranza específico y escalonado
+    - **Document Verification**: Verificación de documentos o información pendiente de validación
+    - **Interest Shown**: Cliente mostró interés pero requiere más tiempo para decidir
+    - **Technical Issues During Call**: Problemas técnicos impidieron completar la interacción exitosamente
   </Tab>
   <Tab title="Condiciones Personalizadas">
-    **Configuraciones específicas del negocio:**
+    **Configuraciones específicas del negocio y compliance:**
     
-    - **Business Hours Only**: Rellamar exclusivamente en horarios comerciales configurados
+    - **Business Hours Only**: Rellamar exclusivamente dentro de horarios comerciales configurados
     - **Customer Timezone**: Respetar automáticamente zona horaria del cliente objetivo
     - **Campaign Rules**: Reglas específicas de la campaña de marketing o playbook comercial
-    - **Lead Score Threshold**: Basado en puntuación automática de calidad del contacto
-    - **Previous Interaction History**: Análisis del historial de interacciones previas del cliente
-    - **Seasonal Restrictions**: Evitar períodos vacacionales, festivos, o de baja actividad comercial
-    - **Channel Preference**: Priorizar canal de comunicación preferido por el cliente
-    - **Compliance Requirements**: Cumplir regulaciones específicas de telecomunicaciones
+    - **Lead Score Threshold**: Basado en puntuación automática de calidad y potencial del contacto
+    - **Previous Interaction History**: Análisis del historial completo de interacciones previas del cliente
+    - **Seasonal Restrictions**: Evitar períodos vacacionales, festivos nacionales, o baja actividad comercial
+    - **Channel Preference**: Priorizar canal de comunicación preferido expresado por el cliente
+    - **Compliance Requirements**: Cumplir regulaciones específicas de telecomunicaciones y protección de datos
+    - **Industry Specific**: Reglas particulares del sector (sanitario, financiero, legal, etc.)
+    - **VIP Customer Status**: Tratamiento especial para clientes de alto valor con protocolos diferenciados
   </Tab>
 </Tabs>
 
 <Warning>
-**Cumplimiento Legal Obligatorio**: El uso de protocolos de rellamada debe cumplir estrictamente con regulaciones locales e internacionales. Esto incluye respetar listas de "No Llamar", preferencias explícitas del cliente, GDPR/LOPD para protección de datos, y regulaciones específicas de telecomunicaciones. El incumplimiento puede resultar en sanciones legales y daño reputacional.
+**Cumplimiento Legal Obligatorio**: El uso de protocolos de rellamada debe cumplir estrictamente con regulaciones locales e internacionales. Esto incluye respetar listas de "No Llamar", preferencias explícitas del cliente, GDPR/LOPD para protección de datos, y regulaciones específicas de telecomunicaciones como la Ley de Protección de Datos y la normativa de comunicaciones comerciales. El incumplimiento puede resultar en sanciones legales severas y daño reputacional significativo.
 </Warning>
 
 ### Configuración Avanzada JSON del Sistema Recall
@@ -635,556 +801,380 @@ Las rellamadas se activan automáticamente en diversos escenarios técnicos y de
         "attempt": 1,
         "delay_value": 30,
         "delay_unit": "minutes",
-        "conditions": ["busy", "no_answer"]
+        "conditions": ["busy", "no_answer", "network_issues"],
+        "business_hours_only": true
       },
       {
         "attempt": 2,
         "delay_value": 4,
-        "delay_unit": "hours",
-        "conditions": ["voicemail", "incomplete_objective"]
+        "delay_unit": "hours", 
+        "conditions": ["voicemail", "incomplete_objective", "call_dropped"],
+        "respect_customer_timezone": true
       },
       {
         "attempt": 3,
         "delay_value": 1,
         "delay_unit": "days",
-        "conditions": ["customer_request", "follow_up_required"]
+        "conditions": ["customer_request", "follow_up_required", "partial_completion"],
+        "exclude_weekends": true,
+        "exclude_holidays": true
       }
     ],
     "success_conditions": [
-      "Call answered and conversation completed successfully",
-      "Transfer completed to human agent",
-      "Primary objective achieved",
-      "Customer explicitly requested no further contact",
-      "Appointment confirmed and scheduled"
+      "Conversación completada exitosamente con objetivos alcanzados",
+      "Transferencia completada satisfactoriamente a agente humano",
+      "Objetivo principal de la llamada logrado completamente",
+      "Cliente solicitó explícitamente no más contacto (opt-out)",
+      "Cita confirmada y agendada en el sistema",
+      "Información requerida obtenida y procesada correctamente"
     ],
     "failure_conditions": [
-      "Number permanently invalid",
-      "Customer opted out explicitly",
-      "Maximum attempts exceeded",
-      "Legal compliance violation detected"
+      "Número permanentemente inválido o desconectado",
+      "Cliente optó explícitamente por no recibir más llamadas",
+      "Número máximo de intentos excedido según política",
+      "Violación de compliance legal detectada automáticamente",
+      "Cliente en lista de No Llamar (DNC List)",
+      "Horario fuera de ventanas legales permitidas"
     ],
     "business_rules": {
       "respect_timezone": true,
       "business_hours": {
         "enabled": true,
         "start_time": "09:00",
-        "end_time": "18:00",
-        "timezone": "Europe/Madrid"
+        "end_time": "18:00", 
+        "timezone": "Europe/Madrid",
+        "allow_early_morning": false,
+        "allow_evening_calls": false
       },
       "exclude_weekends": true,
       "exclude_holidays": true,
-      "exclude_dates": ["2025-12-25", "2025-01-01"],
+      "exclude_dates": ["2025-12-25", "2025-01-01", "2025-12-31"],
       "compliance_checks": {
         "dncl_respect": true,
         "gdpr_compliance": true,
-        "caller_id_verification": true
+        "caller_id_verification": true,
+        "opt_out_immediate": true,
+        "max_daily_attempts": 1,
+        "consent_verification": true
+      },
+      "intelligent_scheduling": {
+        "avoid_lunch_hours": true,
+        "prefer_mid_morning": true,
+        "avoid_monday_morning": true,
+        "avoid_friday_afternoon": true,
+        "respect_local_customs": true
       }
     },
     "analytics": {
       "track_success_rates": true,
-      "measure_conversion": true,
-      "cost_analysis": true,
-      "compliance_monitoring": true
+      "measure_conversion_by_attempt": true,
+      "cost_analysis_detailed": true,
+      "compliance_monitoring": true,
+      "performance_optimization": true,
+      "roi_calculation": true
+    },
+    "notifications": {
+      "successful_recalls": true,
+      "failed_recalls": true,
+      "compliance_violations": true,
+      "performance_alerts": true
     }
   }
 }
 ```
 
-## Configuración de Caller ID para Llamadas Salientes
+## Integración de Calendario Inteligente
 
-Gestiona los números telefónicos que aparecerán como identificador de llamada cuando tu agente realice llamadas salientes, crucial para establecer confianza y cumplir regulaciones.
+Configura la integración directa con sistemas de calendario populares para programación automática de citas durante las conversaciones, con soporte completo para Google Calendar y Microsoft Outlook.
 
-### Gestión de Números de Caller ID
-
-<Steps>
-  <Step title="Acceder a Configuración de Caller ID">
-    En la sección de configuración básica, ubica el campo "From" donde se muestran los caller IDs disponibles.
-  </Step>
-  <Step title="Añadir Nuevo Caller ID">
-    Haz clic en "Añadir Caller ID" para registrar un nuevo número telefónico para llamadas salientes.
-  </Step>
-  <Step title="Proceso de Verificación">
-    - Introduce el número telefónico en formato internacional
-    - Proporciona un nombre descriptivo para identificar el número
-    - Inicia el proceso de verificación automática
-  </Step>
-  <Step title="Confirmar Verificación">
-    - Recibirás una llamada automática de verificación en el número proporcionado
-    - Introduce el código de verificación de 4-6 dígitos que escucharás
-    - Confirma la verificación para activar el caller ID
-  </Step>
-  <Step title="Asignar a Agente">
-    Una vez verificado, selecciona el caller ID validado para tu agente conversacional.
-  </Step>
-</Steps>
-
-### Estados del Caller ID
-
-| Estado | Descripción | Acciones Disponibles |
-|--------|-------------|---------------------|
-| **Verificación Pendiente** | Número añadido pero no verificado | Verificar, Eliminar |
-| **Verificado** | Número validado y listo para usar | Usar como Caller ID, Eliminar |
-| **Verificación Fallida** | Error en el proceso de verificación | Reintentar Verificación, Eliminar |
-| **En Uso** | Actualmente asignado a un agente | Ver Detalles, Cambiar |
-
-### Consideraciones Legales y Técnicas
-
-<Warning>
-**Compliance Caller ID**: Solo puedes usar números telefónicos que poseas legalmente o tengas autorización explícita para usar. El spoofing de caller ID sin autorización es ilegal en la mayoría de jurisdicciones y puede resultar en sanciones severas.
-</Warning>
-
-- **Verificación Obligatoria**: Todos los caller IDs deben ser verificados mediante llamada automática
-- **Números Propios**: Solo registra números telefónicos que poseas o controles legalmente
-- **Regulaciones Locales**: Cumple con regulaciones específicas de caller ID en tu jurisdicción
-- **Transparencia**: Usa caller IDs que identifiquen claramente tu empresa u organización
-
-## Integraciones de Comunicación Avanzada
-
-### Configuración de Email Inteligente
-
-Configura el envío automático de correos electrónicos contextuales durante o después de las conversaciones telefónicas.
-
-<Steps>
-  <Step title="Activar Funcionalidad Email">
-    Habilita la opción de envío de email automático en la sección de Acciones y Herramientas.
-  </Step>
-  <Step title="Configurar Prompts de Activación">
-    Define cuándo el agente debe enviar automáticamente un correo electrónico al cliente.
-  </Step>
-  <Step title="Personalizar Asunto del Email">
-    Configura prompts dinámicos para generar asuntos relevantes basados en la conversación.
-  </Step>
-  <Step title="Configurar Contenido del Email">
-    Establece prompts para generar el cuerpo del email con información específica de la llamada.
-  </Step>
-  <Step title="Definir Copias Carbón (CC)">
-    Especifica direcciones de email adicionales que deben recibir copias del correo enviado.
-  </Step>
-</Steps>
-
-#### Configuración de Prompts de Email
-
-<Tabs>
-  <Tab title="Prompt de Activación">
-    ```text
-    Enviar email automático en estos casos:
-    
-    - El cliente solicita información adicional por escrito
-    - Se necesita confirmación de detalles importantes discutidos
-    - El cliente requiere documentación o enlaces de seguimiento
-    - Se programó una cita que requiere confirmación escrita
-    - Se proporcionó información técnica que debe documentarse
-    - El cliente expresó interés en productos/servicios específicos
-    ```
-  </Tab>
-  <Tab title="Prompt de Asunto">
-    ```text
-    Generar asunto de email basado en:
-    
-    - Motivo principal de la llamada
-    - Acción o información más relevante discutida
-    - Nombre de la empresa o servicio mencionado
-    - Urgencia o importancia del seguimiento
-    
-    Formato: [Empresa] - [Tema Principal] - [Fecha]
-    Ejemplo: "MediCare - Confirmación Cita Consulta - 23 Enero"
-    ```
-  </Tab>
-  <Tab title="Prompt de Contenido">
-    ```text
-    Incluir en el cuerpo del email:
-    
-    - Saludo personalizado con nombre del cliente
-    - Resumen conciso de los puntos clave discutidos
-    - Información específica solicitada o prometida
-    - Pasos siguientes o acciones requeridas
-    - Información de contacto para seguimiento
-    - Despedida profesional y cortés
-    
-    Tono: Profesional, claro, y orientado a la acción
-    ```
-  </Tab>
-</Tabs>
-
-### Configuración de SMS Inteligente
-
-Establece el envío automático de mensajes SMS para confirmaciones rápidas y recordatorios.
-
-<Steps>
-  <Step title="Activar Funcionalidad SMS">
-    Habilita la opción de envío de SMS automático en la configuración de acciones.
-  </Step>
-  <Step title="Definir Condiciones de Envío">
-    Especifica cuándo el agente debe enviar un SMS al cliente automáticamente.
-  </Step>
-  <Step title="Configurar Contenido del Mensaje">
-    Establece prompts para generar mensajes SMS concisos y relevantes.
-  </Step>
-</Steps>
-
-#### Casos de Uso Típicos para SMS
-
-- **Confirmaciones de Cita**: Envío inmediato tras programar cita médica o comercial
-- **Códigos de Verificación**: Autenticación de identidad durante llamadas sensibles
-- **Recordatorios Urgentes**: Información crítica que requiere confirmación rápida
-- **Enlaces de Seguimiento**: URLs cortas para documentos, formularios, o recursos
-- **Confirmaciones de Pedido**: Números de tracking o códigos de referencia
-
-### Configuración de Calendario Inteligente
-
-Integra directamente con sistemas de calendario para programación automática de citas.
-
-#### Proveedores Soportados
+### Proveedores de Calendario Soportados
 
 <Tabs>
   <Tab title="Google Calendar">
-    **Configuración requerida:**
+    **Configuración completa para Google Calendar:**
     
-    - **Calendar IDs de Disponibilidad**: IDs de calendarios para verificar disponibilidad
-    - **Calendar ID de Reserva**: ID del calendario donde se crearán las nuevas citas
-    - **Duración por Defecto**: Tiempo estándar de las citas en minutos
-    - **Horario de Trabajo**: Ventana horaria para programación de citas
-    - **Zona Horaria**: Zona horaria del calendario principal
+    - **Calendar IDs de Disponibilidad**: Lista de calendarios para verificar disponibilidad en tiempo real
+    - **Calendar ID de Reserva**: Calendario de destino donde se crearán automáticamente las nuevas citas
+    - **Duración por Defecto**: Tiempo estándar de las citas en minutos (configurable por tipo de servicio)
+    - **Horario de Trabajo**: Ventana horaria específica para programación de citas profesionales
+    - **Zona Horaria**: Zona horaria del calendario principal y conversión automática
     
-    **Configuración avanzada:**
+    **Configuración JSON avanzada:**
     ```json
     {
       "provider": "google-calendar",
-      "availability_calendar_ids": ["cal1@gmail.com", "cal2@gmail.com"],
-      "booking_calendar_id": "booking@empresa.com",
+      "availability_calendar_ids": ["cal1@gmail.com", "cal2@gmail.com", "team@empresa.com"],
+      "booking_calendar_id": "reservas@empresa.com",
       "default_duration_minutes": 30,
+      "service_durations": {
+        "consulta_general": 30,
+        "consulta_especializada": 45,
+        "reunion_comercial": 60,
+        "seguimiento": 15
+      },
       "working_hours_start": "09:00",
       "working_hours_end": "17:00",
       "timezone": "Europe/Madrid",
       "include_attendee_email": true,
-      "include_location": true
+      "include_location": true,
+      "auto_send_invitations": true,
+      "buffer_minutes": 15,
+      "max_advance_days": 60
     }
     ```
   </Tab>
-  <Tab title="Outlook Calendar">
-    **Configuración requerida:**
+  <Tab title="Microsoft Outlook">
+    **Configuración completa para Outlook Calendar:**
     
-    - **Calendarios de Disponibilidad**: IDs de calendarios de Microsoft Exchange
-    - **Calendario de Reserva**: Calendario de destino para nuevas citas
-    - **Configuración de Acceso**: Tokens de autenticación de Microsoft Graph API
-    - **Políticas de Reunión**: Configuraciones específicas de Outlook/Teams
+    - **Calendarios de Disponibilidad**: IDs de calendarios de Microsoft Exchange para verificación
+    - **Calendario de Reserva**: Calendario de destino para nuevas citas con permisos adecuados
+    - **Configuración de Acceso**: Tokens de autenticación de Microsoft Graph API con permisos
+    - **Integración Teams**: Creación automática de reuniones de Microsoft Teams
+    - **Políticas Empresariales**: Configuraciones específicas de Outlook para empresas
     
-    **Configuración avanzada:**
+    **Configuración JSON avanzada:**
     ```json
     {
       "provider": "outlook-calendar",
-      "availability_calendar_ids": ["user1@empresa.onmicrosoft.com"],
-      "booking_calendar_id": "reservas@empresa.onmicrosoft.com",
+      "availability_calendar_ids": ["user1@empresa.onmicrosoft.com", "sala1@empresa.com"],
+      "booking_calendar_id": "reservas@empresa.onmicrosoft.com", 
       "default_duration_minutes": 45,
       "working_hours_start": "08:30",
       "working_hours_end": "18:30",
       "timezone": "Europe/Madrid",
       "teams_integration": true,
-      "send_outlook_invitations": true
+      "auto_teams_meeting": true,
+      "send_outlook_invitations": true,
+      "require_organizer_approval": false,
+      "allow_conflicts": false,
+      "resource_booking": {
+        "meeting_rooms": ["sala1@empresa.com", "sala2@empresa.com"],
+        "equipment": ["proyector@empresa.com"]
+      }
     }
     ```
   </Tab>
 </Tabs>
 
-#### Prompts de Configuración de Calendario
+### Configuración de Prompts de Calendario
 
-| Configuración | Descripción | Ejemplo |
-|---------------|-------------|---------|
-| **Check Availability Prompt** | Cuándo verificar disponibilidad de calendario | "Verificar disponibilidad cuando el cliente solicite programar una cita, reunión, o consulta específica" |
-| **Book Appointment Prompt** | Cuándo crear automáticamente la cita | "Crear cita cuando se confirme fecha, hora, y se obtenga información de contacto del cliente" |
-| **Event Title Prompt** | Cómo generar el título del evento | "Generar título descriptivo: [Tipo de Cita] - [Nombre Cliente] - [Motivo/Servicio]" |
-| **Event Description Prompt** | Contenido de la descripción del evento | "Incluir: motivo de la cita, información de contacto, notas especiales de la conversación" |
+| Configuración | Descripción | Ejemplo Optimizado |
+|---------------|-------------|-------------------|
+| **Check Availability Prompt** | Cuándo verificar disponibilidad de calendario | "Verificar disponibilidad cuando el cliente solicite programar una cita, reunión, consulta específica, o mencione necesidad de agendamiento" |
+| **Book Appointment Prompt** | Cuándo crear automáticamente la cita | "Crear cita cuando se confirme fecha y hora específica, se obtenga información de contacto válida, y el cliente confirme su disponibilidad" |
+| **Event Title Prompt** | Cómo generar el título del evento | "Generar título descriptivo siguiendo formato: [Tipo de Cita] - [Nombre Cliente] - [Motivo/Servicio Principal]" |
+| **Event Description Prompt** | Contenido detallado de la descripción | "Incluir: motivo específico de la cita, información de contacto completa, notas especiales de la conversación, y preparación requerida" |
 
-## Monitoreo y Análisis de Rendimiento
+### Funcionalidades Avanzadas de Calendario
+
+#### Verificación de Disponibilidad en Tiempo Real
+
+- **Consulta Múltiple**: Verifica disponibilidad en varios calendarios simultáneamente
+- **Buffer Time**: Configura tiempo de buffer antes y después de cada cita
+- **Conflictos Inteligentes**: Detecta y resuelve automáticamente conflictos de horarios
+- **Disponibilidad Recurrente**: Maneja patrones de disponibilidad complejos
+
+#### Creación Automática de Citas
+
+- **Invitaciones Automáticas**: Envía invitaciones de calendario al cliente automáticamente
+- **Detalles Enriquecidos**: Incluye toda la información recopilada durante la conversación
+- **Recordatorios Configurables**: Establece recordatorios automáticos personalizados
+- **Metadatos Conversacionales**: Guarda contexto de la llamada en los detalles del evento
+
+## Configuración de Caller ID para Llamadas Salientes
+
+Gestiona los números telefónicos que aparecerán como identificador de llamada cuando tu agente realice llamadas salientes, crucial para establecer confianza, cumplir regulaciones y maximizar tasas de respuesta.
+
+### Gestión Avanzada de Números de Caller ID
+
+<Steps>
+  <Step title="Acceder a Configuración de Caller ID">
+    En la sección de configuración básica, ubica el campo "From" donde se muestran todos los caller IDs disponibles y verificados.
+  </Step>
+  <Step title="Añadir Nuevo Caller ID">
+    Haz clic en "Añadir Caller ID" para registrar un nuevo número telefónico para llamadas salientes con verificación obligatoria.
+  </Step>
+  <Step title="Proceso de Verificación Automática">
+    - Introduce el número telefónico en formato internacional completo (E.164)
+    - Proporciona un nombre descriptivo para identificar claramente el número
+    - Especifica el propósito comercial del caller ID (ventas, soporte, etc.)
+    - Inicia el proceso de verificación automática del sistema
+  </Step>
+  <Step title="Confirmar Verificación Telefónica">
+    - Recibirás una llamada automática de verificación en el número proporcionado
+    - Introduce el código de verificación de 4-6 dígitos que escucharás claramente
+    - Confirma la verificación para activar completamente el caller ID
+    - El sistema validará la propiedad legal del número automáticamente
+  </Step>
+  <Step title="Asignar y Configurar">
+    Una vez verificado exitosamente, selecciona el caller ID validado para tu agente conversacional específico.
+  </Step>
+</Steps>
+
+### Estados Detallados del Caller ID
+
+| Estado | Descripción | Acciones Disponibles | Tiempo Estimado |
+|--------|-------------|---------------------|-----------------|
+| **Verificación Pendiente** | Número añadido pero no verificado aún | Verificar, Eliminar, Reenviar código | 2-5 minutos |
+| **Verificado** | Número validado y listo para usar | Usar como Caller ID, Editar nombre, Eliminar | Inmediato |
+| **Verificación Fallida** | Error en el proceso de verificación | Reintentar Verificación, Eliminar, Soporte | 24 horas cooldown |
+| **En Uso** | Actualmente asignado a uno o más agentes | Ver Detalles, Cambiar asignación, Estadísticas | Inmediato |
+| **Suspendido** | Temporalmente deshabilitado por compliance | Revisar motivo, Solicitar reactivación | Variable |
+| **Bloqueado** | Bloqueado por operadores o compliance | Contactar soporte, Revisar políticas | Requiere revisión |
+
+### Consideraciones Legales y Técnicas Avanzadas
+
+<Warning>
+**Compliance Caller ID Estricto**: Solo puedes usar números telefónicos que poseas legalmente o tengas autorización explícita y documentada para usar. El spoofing de caller ID sin autorización es ilegal en la mayoría de jurisdicciones y puede resultar en sanciones severas, multas significativas y daño reputacional permanente.
+</Warning>
+
+#### Requisitos de Compliance
+
+- **Verificación Obligatoria**: Todos los caller IDs deben ser verificados mediante llamada automática y validación de propiedad
+- **Números Propios**: Solo registra números telefónicos que poseas legalmente o controles bajo contrato válido
+- **Regulaciones Locales**: Cumple con regulaciones específicas de caller ID en tu jurisdicción (TCPA, GDPR, etc.)
+- **Transparencia Empresarial**: Usa caller IDs que identifiquen claramente tu empresa u organización
+- **Documentación Legal**: Mantén documentación que demuestre la propiedad o autorización legal del número
+
+#### Mejores Prácticas para Caller ID
+
+- **Números Locales**: Usa números locales del área geográfica de tus clientes para mayor confianza
+- **Consistencia de Marca**: Mantén consistencia en los caller IDs usados para el mismo tipo de comunicaciones
+- **Monitoreo de Reputación**: Supervisa la reputación de tus números ante operadores telefónicos
+- **Rotación Inteligente**: Alterna números para evitar saturación y filtros de spam
+- **Análisis de Performance**: Analiza tasas de respuesta por caller ID para optimización continua
+
+## Próximas Funcionalidades de Comunicación Multicanal
+
+### Email Inteligente (Próximamente - Q1 2025)
+
+Sistema avanzado de envío automático de correos electrónicos contextuales durante o después de las conversaciones telefónicas.
+
+<Tabs>
+  <Tab title="Configuración de Email">
+    **Funcionalidades principales en desarrollo:**
+    
+    - **Activación Inteligente**: El agente decidirá automáticamente cuándo enviar emails basado en el contexto
+    - **Personalización Dinámica**: Asuntos y contenidos generados automáticamente usando IA conversacional
+    - **Templates Responsive**: Plantillas de email móvil-first con diseño profesional
+    - **Seguimiento Avanzado**: Open rates, click rates, y analytics detallados
+    - **Integración CRM**: Sincronización automática con sistemas CRM populares
+    
+    **Casos de uso anticipados:**
+    ```text
+    - Envío de información adicional solicitada durante la llamada
+    - Confirmaciones escritas de acuerdos o citas programadas
+    - Documentación técnica o links de seguimiento
+    - Propuestas comerciales personalizadas post-llamada
+    - Recordatorios y follow-ups automatizados
+    ```
+  </Tab>
+  <Tab title="Configuración de Prompts">
+    **Prompts de configuración anticipados:**
+    
+    - **Prompt de Activación**: Condiciones específicas para envío automático
+    - **Prompt de Asunto**: Generación dinámica de asuntos relevantes  
+    - **Prompt de Contenido**: Estructura y tono del cuerpo del email
+    - **Prompts de Personalización**: Variables dinámicas por cliente
+    - **Prompts de Compliance**: Cumplimiento de regulaciones de email marketing
+  </Tab>
+</Tabs>
+
+### SMS Inteligente (Próximamente - Q2 2025)
+
+Establece el envío automático de mensajes SMS para confirmaciones rápidas, recordatorios y seguimiento inmediato.
+
+#### Casos de Uso Anticipados
+
+- **Confirmaciones Instantáneas**: Envío inmediato tras programar cita médica o comercial
+- **Códigos de Verificación**: Autenticación de identidad durante llamadas sensibles
+- **Recordatorios Urgentes**: Información crítica que requiere confirmación rápida
+- **Enlaces de Seguimiento**: URLs cortas para documentos, formularios, o recursos web
+- **Confirmaciones de Pedido**: Números de tracking, códigos de referencia, o estados de pedido
+
+### WhatsApp Business (Próximamente - Q2 2025)
+
+Integración oficial con Meta Business API para comunicación rica y multimedia.
+
+#### Funcionalidades Planeadas
+
+- **Mensajes de Plantilla**: Templates pre-aprobados por WhatsApp para notificaciones
+- **Mensajes Multimedia**: Envío de imágenes, documentos, y contenido rico
+- **WhatsApp Flows**: Formularios interactivos dentro de la conversación
+- **Status de Lectura**: Confirmación de entrega y lectura de mensajes
+- **Integración Completa**: Sincronización bidireccional con el sistema de agentes
+
+<Info>
+Estas funcionalidades de comunicación multicanal expandirán significativamente las capacidades del sistema, permitiendo experiencias omnicanal completas y seguimiento automatizado inteligente. La integración será nativa y mantendrá la misma facilidad de configuración que las funcionalidades actuales.
+</Info>
+
+## Monitoreo y Análisis de Rendimiento Avanzado
 
 ### Métricas Clave de Transferencias
 
-Monitorea el rendimiento de las transferencias para optimizar la experiencia:
+Monitorea el rendimiento de las transferencias para optimizar continuamente la experiencia:
 
-| Métrica | Descripción | Objetivo Recomendado | Umbral de Alerta |
-|---------|-------------|---------------------|------------------|
-| **Tasa de Transferencia** | % de llamadas que requieren transferencia | < 15% | > 20% |
-| **Tiempo de Transferencia** | Duración desde solicitud hasta conexión | < 30 segundos | > 45 segundos |
-| **Éxito de Transferencia** | % de transferencias completadas exitosamente | > 95% | < 90% |
-| **Satisfacción Post-Transferencia** | Rating de calidad después de transferencia | > 4.0/5.0 | < 3.5/5.0 |
-| **Motivos de Transferencia** | Categorización de razones para transferir | Análisis cualitativo | Patrones repetitivos |
+| Métrica | Descripción | Objetivo Recomendado | Umbral de Alerta | Impacto en Negocio |
+|---------|-------------|---------------------|------------------|-------------------|
+| **Tasa de Transferencia** | % de llamadas que requieren transferencia | < 15% | > 25% | Alto - Indica problemas de IA |
+| **Tiempo de Transferencia** | Duración desde solicitud hasta conexión | < 30 segundos | > 60 segundos | Medio - Afecta satisfacción |
+| **Éxito de Transferencia** | % de transferencias completadas exitosamente | > 95% | < 88% | Crítico - Pérdida directa de clientes |
+| **Satisfacción Post-Transferencia** | Rating de calidad después de transferencia | > 4.2/5.0 | < 3.8/5.0 | Alto - Experiencia del cliente |
+| **Motivos de Transferencia** | Categorización de razones para transferir | Análisis cualitativo | Patrones repetitivos | Medio - Optimización de IA |
 
 ### Métricas de Rendimiento de Webhooks
 
-Supervisa la performance de integraciones webhook:
+Supervisa la performance de integraciones webhook con alertas proactivas:
 
-| Métrica | Descripción | Umbral Óptimo | Alerta Crítica |
-|---------|-------------|---------------|----------------|
-| **Latencia Promedio** | Tiempo de respuesta de webhooks | < 3 segundos | > 8 segundos |
-| **Tasa de Éxito** | % de webhooks ejecutados exitosamente | > 98% | < 95% |
-| **Errores por Herramienta** | Fallos específicos por webhook | < 1% | > 3% |
-| **Throughput** | Requests por minuto procesados | Según capacidad | Límite de saturación |
-| **Timeout Rate** | % de webhooks que exceden timeout | < 0.5% | > 2% |
+| Métrica | Descripción | Umbral Óptimo | Alerta Crítica | Impacto en Negocio |
+|---------|-------------|---------------|----------------|-------------------|
+| **Latencia Promedio** | Tiempo de respuesta de webhooks | < 2 segundos | > 8 segundos | Alto - UX durante llamada |
+| **Tasa de Éxito** | % de webhooks ejecutados exitosamente | > 98.5% | < 94% | Crítico - Funcionalidad perdida |
+| **Errores por Herramienta** | Fallos específicos por webhook | < 0.5% | > 2% | Variable - Según herramienta |
+| **Throughput** | Requests por minuto procesados | Según capacidad | 80% de límite | Medio - Escalabilidad |
+| **Timeout Rate** | % de webhooks que exceden timeout | < 0.2% | > 1.5% | Alto - Experiencia interrumpida |
 
 ### Métricas de Efectividad de Recalls
 
-Evalúa el éxito del sistema de rellamadas:
+Evalúa el éxito del sistema de rellamadas con ROI detallado:
 
-| Métrica | Descripción | Benchmark Industria | Meta Optimizada |
-|---------|-------------|-------------------|-----------------|
-| **Tasa de Conexión** | % de recalls que logran contacto | 40-60% | > 55% |
-| **Conversión Post-Recall** | % que completan objetivos tras recall | 20-40% | > 35% |
-| **Costo por Recall Exitoso** | ROI de cada recall que convierte | Variable por industria | Positivo |
-| **Opt-out Rate** | % que solicitan no más contact | < 5% | < 3% |
-| **Compliance Score** | Cumplimiento de regulaciones | 100% | 100% (obligatorio) |
+| Métrica | Descripción | Benchmark Industria | Meta Optimizada | ROI Esperado |
+|---------|-------------|-------------------|-----------------|--------------|
+| **Tasa de Conexión** | % de recalls que logran contacto | 45-65% | > 60% | +15% revenue |
+| **Conversión Post-Recall** | % que completan objetivos tras recall | 25-45% | > 40% | +25% conversion |
+| **Costo por Recall Exitoso** | ROI de cada recall que convierte | Variable | ROI > 3:1 | Positivo |
+| **Opt-out Rate** | % que solicitan no más contacto | < 3% | < 2% | Crítico compliance |
+| **Compliance Score** | Cumplimiento de regulaciones | 100% | 100% | Legal obligatorio |
 
-## Solución de Problemas Avanzada
+## Solución de Problemas Avanzada y Debugging
 
 <Tabs>
   <Tab title="Problemas de Transferencia">
-    **Síntoma**: Las transferencias fallan constantemente o no se conectan
+    **Síntoma**: Las transferencias fallan constantemente o no se conectan exitosamente
     
     **Diagnóstico paso a paso:**
     ```bash
     # 1. Verificar conectividad del número destino
     curl -X POST "https://api.meetzy.com/test-call" \
       -H "Content-Type: application/json" \
-      -d '{"number": "+34600123456"}'
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -d '{"number": "+34600123456", "test_mode": true}'
     
     # 2. Para SIP, verificar conectividad del gateway
     telnet your-sip-gateway.com 5060
+    nmap -p 5060 your-sip-gateway.com
     
     # 3. Verificar formato de número (debe ser E.164)
     echo "+34600123456" | grep -E '^\+[1-9]\d{1,14}$'
+    
+    # 4. Test de latencia y calidad de conexión
+    ping -c 10 your-sip-gateway.com
+    traceroute your-sip-gateway.com
     ```
     
-    **Soluciones comunes:**
-    - **Formato incorrecto**: Usar formato E.164 (+país + número sin espacios)
-    - **Permisos insuficientes**: Verificar permisos de transferencia en la cuenta
-    - **SIP mal configurado**: Validar URI SIP, IP y puerto correctos
-    - **Firewall bloqueando**: Abrir puertos necesarios para SIP (5060)
-    - **Credenciales erróneas**: Verificar autenticación SIP
-    - **Número inválido**: Probar con número alternativo conocido
-  </Tab>
-  <Tab title="Problemas de Webhooks">
-    **Síntoma**: Webhooks lentos, con fallos, o respuestas inesperadas
-    
-    **Diagnóstico avanzado:**
-    ```bash
-    # Test de latencia completa
-    curl -w "@curl-format.txt" -o /dev/null -s \
-      -X POST "https://your-api.com/webhook" \
-      -H "Content-Type: application/json" \
-      -d '{"test": "data"}'
-    
-    # Verificar certificados SSL
-    openssl s_client -connect your-api.com:443 -servername your-api.com
-    
-    # Test de carga básica
-    for i in {1..10}; do
-      curl -s -o /dev/null -w "%{http_code} %{time_total}\n" \
-        https://your-api.com/webhook &
-    done
-    wait
-    ```
-    
-    **Optimizaciones recomendadas:**
-    - **Base de datos**: Optimizar queries, añadir índices apropiados
-    - **Caching**: Implementar Redis/Memcached para datos frecuentes
-    - **CDN**: Usar CDN para recursos estáticos y geolocalización
-    - **Connection pooling**: Reutilizar conexiones de base de datos
-    - **Async processing**: Procesar tareas pesadas de forma asíncrona
-    - **Circuit breaker**: Implementar patrón para manejo de fallos
-  </Tab>
-  <Tab title="Problemas de Recall">
-    **Síntoma**: Recalls no se ejecutan, fallan, o violan compliance
-    
-    **Diagnóstico del sistema:**
-    ```json
-    // Revisar logs del sistema recall
-    {
-      "recall_id": "rec_12345",
-      "status": "failed",
-      "error_code": "INVALID_TIMEZONE",
-      "last_attempt": "2025-01-20T15:30:00Z",
-      "attempts_remaining": 1,
-      "failure_reason": "Outside business hours",
-      "next_scheduled": "2025-01-21T09:00:00Z"
-    }
-    ```
-    
-    **Soluciones específicas:**
-    - **Formato de números**: Validar E.164 antes de programar recall
-    - **Zonas horarias**: Configurar correctamente timezone del cliente
-    - **Horarios comerciales**: Revisar configuración de business hours
-    - **Límites excedidos**: Verificar max_attempts y resetear si necesario
-    - **Compliance violations**: Auditar lista de "No Llamar" y opt-outs
-    - **Scheduling conflicts**: Verificar no solapamiento con holidays/weekends
-  </Tab>
-</Tabs>
-
-## Configuración de Alertas y Monitoreo
-
-### Sistema de Alertas Proactivo
-
-Configura alertas automáticas para mantener el sistema funcionando óptimamente:
-
-```json
-{
-  "alerts": {
-    "transfer_failure_rate": {
-      "metric": "failed_transfers_percentage",
-      "threshold": 5.0,
-      "period": "5_minutes",
-      "severity": "high",
-      "actions": ["email_admin", "slack_notification"]
-    },
-    "webhook_high_latency": {
-      "metric": "webhook_response_time_avg",
-      "threshold": 8.0,
-      "period": "1_minute",
-      "severity": "medium", 
-      "actions": ["dashboard_warning", "email_devops"]
-    },
-    "recall_compliance_violation": {
-      "metric": "compliance_violations",
-      "threshold": 1,
-      "period": "1_hour",
-      "severity": "critical",
-      "actions": ["immediate_stop", "legal_notification", "ceo_alert"]
-    },
-    "caller_id_verification_failed": {
-      "metric": "caller_id_verification_failures",
-      "threshold": 3,
-      "period": "24_hours",
-      "severity": "medium",
-      "actions": ["admin_email", "suspend_outbound"]
-    }
-  }
-}
-```
-
-### Dashboard de Métricas en Tiempo Real
-
-Monitor clave a implementar en tu dashboard operativo:
-
-- **Transferencias por Hora**: Gráfico de líneas mostrando tasa horaria
-- **Latencia de Webhooks**: Histograma de distribución de tiempos de respuesta  
-- **Success Rate de Recalls**: Porcentaje de recalls exitosos vs fallidos
-- **Compliance Score**: Indicador de cumplimiento normativo en tiempo real
-- **Caller ID Status**: Estados de verificación de todos los caller IDs registrados
-
-## Mejores Prácticas de Implementación
-
-### Para Transferencias de Alto Rendimiento
-
-<Steps>
-  <Step title="Redundancia y Backup">
-    - Configure múltiples números de respaldo por si la línea principal falla
-    - Verifique horarios de atención de todos los destinos de transferencia
-    - Pruebe conectividad SIP regularmente si usa transferencias internas
-    - Mantenga documentación actualizada de todos los destinos activos
-  </Step>
-  <Step title="Contexto Completo para Agentes">
-    - Transmita resumen completo de conversación al momento de transferencia
-    - Incluya información del cliente recopilada durante la interacción
-    - Proporcione motivo específico y contexto de la escalación
-    - Adjunte metadata relevante (caller ID, duración, objetivos alcanzados)
-  </Step>
-  <Step title="Escalación Estructurada">
-    Defina jerarquía clara de escalación:
-    ```
-    Nivel 1: Soporte Básico → Consultas generales, FAQ, procesos estándar
-    Nivel 2: Especialista → Consultas técnicas, casos complejos
-    Nivel 3: Supervisor → Quejas, decisiones comerciales, excepciones
-    Nivel 4: Gerencia → Casos críticos, decisiones ejecutivas
-    ```
-  </Step>
-</Steps>
-
-### Para Webhooks de Grado Empresarial
-
-<Steps>
-  <Step title="Arquitectura Robusta">
-    - Implemente endpoints RESTful siguiendo estándares HTTP
-    - Use códigos de estado HTTP apropiados (200, 400, 401, 500, etc.)
-    - Documente exhaustivamente todos los parámetros y responses
-    - Implemente versionado de API para mantener compatibilidad
-  </Step>
-  <Step title="Seguridad de Grado Empresarial">
-    - Implemente rate limiting progresivo para prevenir abuso
-    - Use autenticación JWT con refresh tokens y expiración
-    - Valide y sanitice rigurosamente todos los inputs del usuario
-    - Mantenga logs de auditoría detallados sin exponer datos sensibles
-    - Configure WAF (Web Application Firewall) para protección adicional
-  </Step>
-  <Step title="Monitoreo Proactivo">
-    - Configure alertas granulares por tiempo de respuesta y tasa de error
-    - Implemente health checks automáticos con heartbeat
-    - Use APM (Application Performance Monitoring) para visibilidad profunda
-    - Mantenga dashboards en tiempo real para métricas clave
-  </Step>
-</Steps>
-
-### Para Recalls Compliance y Efectivos
-
-<Steps>
-  <Step title="Cumplimiento Legal Estricto">
-    - Audite regulaciones locales de telecomunicaciones regularmente
-    - Mantenga y actualice listas de "Do Not Call" automáticamente
-    - Implemente opt-out inmediato en cada interacción
-    - Documente consentimiento explícito para cada contacto
-    - Configure auditorías de compliance automatizadas
-  </Step>
-  <Step title="Optimización de Timing Inteligente">
-    - Analice patrones de respuesta específicos por industria y región
-    - Respete automáticamente zonas horarias y horarios culturales locales
-    - Evite días festivos, vacaciones, y períodos de baja actividad
-    - Implemente machine learning para optimizar horarios óptimos por perfil
-  </Step>
-  <Step title="Personalización Basada en Datos">
-    - Ajuste frecuencia según historial de respuesta del contacto
-    - Modifique estrategia y mensaje según intentos fallidos anteriores
-    - Considere canal de comunicación preferido del cliente
-    - Implemente scoring dinámico para priorizar recalls de alto valor
-  </Step>
-</Steps>
-
-## Próximas Funcionalidades
-
-<Tabs>
-  <Tab title="Comunicación Avanzada">
-    | Característica | Descripción | Estado de Desarrollo | ETA Estimada |
-    |---------------|-------------|---------------------|--------------|
-    | 📞 **Click-to-Call** | Iniciación de llamadas desde web/app | En desarrollo activo | Q1 2025 |
-    | 🔄 **Multi-canal Sync** | Sincronización entre llamadas, email, SMS | Planeado | Q2 2025 |
-    | 🎯 **Targeting Inteligente** | Selección automática de canal óptimo | Investigación | Q2 2025 |
-    | 📱 **WhatsApp Business** | Integración oficial con Meta API | Planeado | Q2 2025 |
-  </Tab>
-  <Tab title="IA y Automatización">
-    | Característica | Descripción | Estado de Desarrollo | ETA Estimada |
-    |---------------|-------------|---------------------|--------------|
-    | 🧠 **Análisis Emocional** | Detección de sentimientos en tiempo real | Beta cerrada | Q1 2025 |
-    | 🎯 **Personalización IA** | Adaptación automática por cliente | En desarrollo | Q2 2025 |
-    | 📈 **Auto-optimización** | Mejoras automáticas via ML | Investigación | Q3 2025 |
-    | 🔮 **Predicción de Intent** | Anticipación de necesidades | Concepto | Q3 2025 |
-  </Tab>
-</Tabs>
-
-## Siguientes Pasos
-
-<Info>
-Una vez configuradas las acciones y herramientas avanzadas, puedes personalizar aún más tu agente con parámetros dinámicos de entrada y configuración de datos de salida para crear workflows completos.
-</Info>
-
-<CardGroup cols={2}>
-  <Card
-    title="Parámetros de Entrada"
-    icon="arrow-right-to-bracket"
-    href="/es/advanced-editor/input-params"
-  >
-    Configura variables dinámicas y personalización por llamada individual
-  </Card>
-  <Card
-    title="Configuración de Salida"
-    icon="arrow-right-from-bracket"
-    href="/es/advanced-editor/output-settings"
-  >
-    Define extracción inteligente de datos y webhooks de salida post-llamada
-  </Card>
-</CardGroup>
+    **Soluciones comunes por orden de frecuencia:**
+    - **Formato incorrecto (40%)**: Usar formato E.164 (+país + número sin espacios ni caracteres especiales)
+    - **Permisos insuficientes (25%)**: Verificar permisos de transferencia en la cuenta y carrier
+    - **SIP mal configurado (15%)**: Validar URI SIP, IP correcta y puerto accesible
+    - **Firewall bloqueando (10%)**: Abrir puertos SIP (5060) y RTP (10000-20000) en ambas direcciones
+    - **Credenciales erróneas (5%)**: Verificar usuario/password SIP en gateway
