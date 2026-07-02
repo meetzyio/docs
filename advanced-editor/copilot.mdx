@@ -16,31 +16,102 @@ Copilot has evolved from a prompt assistant to a complete system engineer - like
 
 Copilot is located in the right panel of the Advanced Editor. Click the "Copilot" tab or press **⌘J** to access it quickly.
 
-## Enhanced Welcome Experience
+## Meet the Copilot Orb
 
-When you first open Copilot, you'll see a clean welcome interface with **quick action buttons** to get started immediately:
+Copilot now has a face: a gradient orb avatar that represents Meetzy across the entire chat experience, replacing the generic bot icon.
 
 <Tabs>
-  <Tab title="Quick Actions">
-    **Four predefined actions** for common agent improvements:
-    
-    - 🔍 **Analyze & Improve**: Find gaps, add clarity, enhance conversation flow
-    - ✏️ **Refine Tone**: Make content more concise, polished, and professional
-    - 📋 **Add Output Fields**: Set up lead qualification with name, email, phone, interest level
-    - 🛡️ **Create Evaluations**: Build performance metrics for quality, goals, and satisfaction
+  <Tab title="Idle State">
+    A **slow, ambient breathing animation** while Copilot is waiting for your next message - a calm, always-present visual anchor in the empty state and next to every assistant reply.
   </Tab>
-  <Tab title="One-Click Setup">
-    **Instant agent enhancement** with single clicks:
-    
-    ```
-    Click "Analyze & Improve" → "Find gaps, add clarity, enhance flow"
-    Click "Add Output Fields" → "Add output parameters for lead qualification: name, email, phone, interest level"
-    Click "Create Evaluations" → "Create evaluations to measure: conversation quality, goal completion, customer satisfaction"
-    ```
-    
-    Each button pre-fills optimized prompts and starts the conversation immediately.
+  <Tab title="Active State">
+    When Copilot is thinking or streaming a response, the orb switches to a **faster pulse with expanding rings**, echoing the feeling of a call connecting - a subtle nod to Meetzy being a voice-agent copilot rather than a generic chat bot.
   </Tab>
 </Tabs>
+
+<Info>
+The orb appears in three places: the welcome screen hero, the avatar next to each assistant message, and the typing/thinking indicator - giving Copilot a consistent, recognizable identity throughout the conversation.
+</Info>
+
+## Enhanced Welcome Experience
+
+When you first open Copilot, you'll see a clean welcome screen led by the Copilot orb, followed by **four quick action cards** to get started immediately without typing a single word:
+
+<Tabs>
+  <Tab title="Quick Action Cards">
+    **Four color-coded cards** for the most common engineering workflows:
+
+    - 🟣 **Diagnose performance** — analyzes real metrics, failed evaluations, and relevant calls, then shows the key findings visually (KPIs & call evidence)
+    - 🌹 **Find recurring failures** — scans failed evaluations across your call history and returns a table of recurring issues with real examples
+    - 🟢 **Create a regression test** — turns a real failed call into an automated regression test so the same bug never ships again
+    - 🟡 **Improve and verify** — updates the prompt based on the current diagnosis and suggests how to verify the change afterward
+  </Tab>
+  <Tab title="One-Click Setup">
+    **Instant analysis and fixes** with a single click:
+
+    ```
+    Click "Diagnose performance" → Runs a full performance diagnosis with visual KPIs
+    Click "Find recurring failures" → Surfaces failure patterns in a table with call evidence
+    Click "Create a regression test" → Builds a regression test from a real failed call
+    Click "Improve and verify" → Improves the prompt and proposes a verification plan
+    ```
+
+    Each card pre-fills an optimized prompt and starts the conversation immediately - no typing required to get your first insight.
+  </Tab>
+</Tabs>
+
+<Info>
+These quick actions are designed to close the loop: diagnose → find failures → fix with a regression test → improve and verify. Together they form a fast, guided workflow for continuously improving your agent.
+</Info>
+
+## Rich Response Blocks
+
+Copilot doesn't just reply with text anymore - when the situation calls for it, it renders **rich, interactive blocks** directly inside the chat, making diagnostics and analysis far easier to scan than a wall of text.
+
+<Tabs>
+  <Tab title="Stat Grids">
+    **At-a-glance KPI cards** for quick diagnostics:
+
+    - Compact grid of metric cards (e.g. success rate, average duration, failed evaluations)
+    - Optional **delta and trend indicators** (up, down, flat) to show change over time
+    - Color-coded tones (neutral, info, success, warning, danger) to highlight what needs attention
+    - Optional hint text under each stat for extra context
+
+    Perfect for summarizing "Diagnose performance" results in a single scannable view.
+  </Tab>
+  <Tab title="Tables">
+    **Structured data views** for lists of calls, failures, or test results:
+
+    - Sticky header with sortable-style columns
+    - Automatic badge styling for common status values (Yes/No, Passed/Failed, Success/Error, Pending)
+    - Scrollable body for long result sets without breaking the chat layout
+    - Optional footnote for extra context or data source
+
+    Ideal for "Find recurring failures" results, showing each failure pattern with examples side by side.
+  </Tab>
+  <Tab title="Charts">
+    **Visual trend analysis** rendered inline with the conversation:
+
+    - Supports line, bar, pie, and doughnut chart types
+    - Multiple datasets with automatic color palette
+    - Dark mode aware styling for axes, legends, and gridlines
+
+    Great for visualizing performance trends over time or comparing metrics across segments.
+  </Tab>
+  <Tab title="Cards">
+    **Highlighted callouts** for summaries, recommendations, or warnings:
+
+    - Optional title, body text, and bullet list
+    - Tone-based styling (neutral, info, success, warning, danger) to match the message
+    - Used for wrapping up findings or proposing next steps after a diagnosis
+
+    Often appears after a stat grid or table to summarize "what this means" and "what to do next."
+  </Tab>
+</Tabs>
+
+<Info>
+Rich blocks stream in alongside regular text, so Copilot can explain a finding in natural language and immediately back it up with a stat grid, table, or chart - all within the same response.
+</Info>
 
 ## System Engineering Capabilities
 
@@ -113,6 +184,7 @@ Copilot uses a streamlined event system for real-time feedback across all system
 | **evaluation_change** | Evaluation criteria update | 📊 Evaluation configuration | Evaluations |
 | **test_create** | Automated test generation | 🧪 Test scenario preview | Test creation |
 | **agent_config** | Basic settings update | ⚙️ Configuration preview | Core settings |
+| **rich_block** | Rich UI block (stat grid, table, chart, card) | 📊 Inline visual component | Diagnostics & analysis |
 | **complete** | Operation finished | ✅ Summary with next steps | All operations |
 | **error** | Operation failed | ❌ Error with suggested fixes | All operations |
 
@@ -447,50 +519,69 @@ tests to maintain this quality.
 - Sets up quality benchmarks based on the successful call
 - Includes dynamic variables for different customer personalities
 
+### Diagnosing Performance with Rich Blocks
+
+```
+Click "Diagnose performance" on the welcome screen
+```
+
+**Copilot responds with**:
+- A short natural-language summary of the agent's current state
+- A **stat grid** showing success rate, average call duration, and failed evaluations with trend indicators
+- A **table** listing the most relevant calls tied to those metrics
+- A closing **card** with tone-coded recommendations on what to fix first
+
+### Finding Recurring Failures
+
+```
+Click "Find recurring failures" on the welcome screen
+```
+
+**Copilot responds with**:
+- A **table** of recurring failure patterns extracted from failed evaluations
+- Each row includes the failure type, frequency, and a linked call example
+- A follow-up suggestion to turn the top failure into a regression test
+
 ## Quick Start with Predefined Actions
 
 The welcome interface provides four **instant setup options**:
 
 <Tabs>
-  <Tab title="Analyze & Improve">
-    **One-click prompt optimization**:
+  <Tab title="Diagnose Performance">
+    **One-click performance diagnostics**:
     
-    - Identifies gaps in conversation flow
-    - Adds missing context and clarity
-    - Enhances professional tone
-    - Suggests structural improvements
+    - Pulls real metrics, failed evaluations, and relevant calls
+    - Renders findings as stat grids, tables, and charts
+    - Closes with a card summarizing what needs attention
     
-    Perfect for: New agents needing comprehensive review
+    Perfect for: Getting a fast health check on any agent
   </Tab>
-  <Tab title="Refine Tone">
-    **Professional polish and conciseness**:
+  <Tab title="Find Recurring Failures">
+    **Pattern detection across failed evaluations**:
     
-    - Makes content more concise
-    - Enhances professional language
-    - Improves readability
-    - Maintains personality while adding polish
+    - Scans call history for repeated failure types
+    - Presents results in a sortable, badge-styled table
+    - Links directly to real call examples
     
-    Perfect for: Agents that are too verbose or casual
+    Perfect for: Root-causing quality issues before they scale
   </Tab>
-  <Tab title="Add Output Fields">
-    **Lead qualification setup**:
+  <Tab title="Create a Regression Test">
+    **Turn bugs into safeguards**:
     
-    - Adds name, email, phone capture
-    - Includes interest level scoring
-    - Sets up contact preferences
-    - Creates qualification workflow
+    - Builds a regression test from a real failed call
+    - Captures the exact conditions that caused the failure
+    - Adds it to your Tests panel to prevent recurrence
     
-    Perfect for: Sales and lead generation agents
+    Perfect for: Locking in a fix after resolving an issue
   </Tab>
-  <Tab title="Create Evaluations">
-    **Performance measurement framework**:
+  <Tab title="Improve and Verify">
+    **Close the loop on prompt changes**:
     
-    - Conversation quality metrics
-    - Goal completion tracking
-    - Customer satisfaction scoring
-    - Process adherence monitoring
+    - Updates the prompt based on the latest diagnosis
+    - Suggests a verification plan (Playground or regression test)
+    - Keeps changes traceable through the diff review system
     
-    Perfect for: Agents needing performance insights
+    Perfect for: Applying and validating a fix in one flow
   </Tab>
 </Tabs>
 
@@ -623,12 +714,12 @@ and compliance verification tests.
 
 <Steps>
   <Step title="Start with Quick Actions">
-    **Use predefined buttons for common improvements**:
+    **Use the welcome-screen cards for common workflows**:
     
-    - Start with "Analyze & Improve" for comprehensive review
-    - Use "Add Output Fields" for lead generation setup  
-    - Click "Create Evaluations" for performance tracking
-    - Try "Refine Tone" to polish existing content
+    - Start with "Diagnose performance" for a comprehensive health check
+    - Use "Find recurring failures" to root-cause quality issues
+    - Click "Create a regression test" to lock in a fix
+    - Try "Improve and verify" to close the loop on a diagnosis
   </Step>
   <Step title="Use Comprehensive Natural Language">
     **Describe complete system needs rather than isolated changes**:
@@ -646,6 +737,13 @@ and compliance verification tests.
     - Let Copilot analyze real conversation data across all configuration areas
     - Address actual problems with coordinated parameter, prompt, and evaluation updates
     - **Generate tests from successful calls to maintain quality**
+  </Step>
+  <Step title="Read the Rich Blocks Before Acting">
+    **Use stat grids, tables, and charts to validate assumptions**:
+    
+    - Check trend indicators in stat grids before deciding what to prioritize
+    - Scan failure tables for patterns rather than reacting to a single call
+    - Use the closing card's recommendations as your next prompt to Copilot
   </Step>
   <Step title="Review All Affected Configuration Areas">
     **Check every panel with purple notification indicators**:
