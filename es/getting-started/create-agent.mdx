@@ -109,13 +109,55 @@ El sistema detecta automáticamente cuando un usuario viene del proceso de onboa
 
 ### Pantalla de Creación Renovada
 
-La nueva experiencia de creación presenta un diseño completamente rediseñado:
+Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente existente, Meetzy te recibe con una pantalla de creación completamente rediseñada, pensada para que empieces describiendo tu idea en lugar de rellenar formularios:
 
-- **Fondo Animado WebGL**: Ondas fluidas que responden al cursor para una experiencia inmersiva
-- **Campo de Texto Inteligente**: Con bordes gradientes dinámicos que reaccionan al estado del usuario
-- **Logo Centrado**: Posicionamiento perfecto que se adapta automáticamente a modo claro y oscuro
-- **Navegación Intuitiva**: Botón de regreso en la esquina superior izquierda para fácil navegación
-- **Indicadores Visuales**: Animaciones sutiles que guían al usuario a través del proceso
+- **Fondo Animado WebGL**: Ondas fluidas renderizadas en un `<canvas>` que responden sutilmente al cursor, creando una experiencia inmersiva y moderna
+- **Campo de Texto Inteligente**: Un textarea central con bordes gradientes dinámicos que reaccionan al foco y al contenido introducido
+- **Logo Centrado**: El logo de Meetzy se posiciona en la parte superior y se adapta automáticamente a modo claro y oscuro
+- **Navegación Intuitiva**: Un botón de regreso (flecha) en la esquina superior izquierda te permite volver a la lista de agentes en cualquier momento
+- **Indicadores Visuales**: Un botón de envío aparece dinámicamente en cuanto empiezas a escribir, junto con un hint que indica el atajo `Enter` para generar
+
+<Info>
+  Esta pantalla se muestra únicamente al crear un **agente nuevo**. Si estás editando un agente existente, accederás directamente al Editor Avanzado con la configuración ya cargada.
+</Info>
+
+### Cómo Usar la Pantalla Prompt-First
+
+<Steps>
+  <Step title="Describe tu agente">
+    Escribe en el campo central una descripción de qué debe hacer tu agente. Por ejemplo:
+    
+    ```
+    Un agente que responde llamadas de atención al cliente para una clínica dental, 
+    agenda citas, verifica seguros, y transfiere casos urgentes a la recepcionista.
+    ```
+    
+    El campo se enfoca automáticamente al cargar la pantalla, así que puedes empezar a escribir de inmediato.
+  </Step>
+  
+  <Step title="Genera la configuración">
+    Presiona **Enter** o haz clic en el botón de envío (icono de avión de papel) que aparece en la esquina inferior derecha del campo de texto en cuanto detecta contenido.
+    
+    Meetzy procesará tu descripción y construirá automáticamente la configuración inicial del agente, incluyendo prompt de sistema, saludos y parámetros sugeridos.
+  </Step>
+  
+  <Step title="Continúa en el Editor Avanzado">
+    Tras la generación, la pantalla se cierra con una animación de salida y aterrizas directamente en el Editor Avanzado con tu agente ya configurado, listo para refinar cualquier detalle.
+  </Step>
+</Steps>
+
+<Warning>
+  Si prefieres control total desde el inicio, haz clic en el enlace **"or start from scratch"** debajo del campo de texto. Esto omite la generación automática y te lleva directamente al Editor Avanzado con una configuración en blanco.
+</Warning>
+
+### Atajos en la Pantalla de Creación
+
+| Acción | Cómo hacerlo |
+|--------|--------------|
+| Generar configuración | Escribe tu descripción y presiona `Enter` |
+| Enviar con el ratón | Haz clic en el botón de envío una vez que hay texto |
+| Empezar desde cero | Haz clic en **"or start from scratch"** |
+| Volver atrás | Haz clic en la flecha superior izquierda |
 
 ### Generación Automática Avanzada
 
@@ -547,6 +589,10 @@ Configura integraciones y acciones que el agente puede ejecutar automáticamente
     - **Cola de Prioridad**: Basada en tipo de cliente o urgencia
   </Tab>
 </Tabs>
+
+<Info>
+  Además del modo de destino único, Actions & Tools ofrece un modo **beta de transferencia con múltiples reglas**: en lugar de un solo número de destino, puedes definir varias condiciones (por ejemplo, "si el cliente pide hablar con ventas") cada una con su propio destino, ya sea un número de teléfono o una extensión SIP.
+</Info>
 
 ### 6. Evaluations (📊)
 
@@ -991,264 +1037,4 @@ Sistema avanzado de control de versiones similar a Git:
 
 ### Diseño de Prompts de Alto Rendimiento
 
-<Tabs>
-  <Tab title="Estructura Jerárquica">
-    - **Usa headers clara (H1, H2, H3)** para organizar secciones
-    - **Numera procesos complejos** paso a paso
-    - **Separa instrucciones por contexto** (inicio, medio, cierre)
-    - **Incluye ejemplos específicos** de tu industria
-    - **Define métricas de éxito concretas** y medibles
-  </Tab>
-  
-  <Tab title="Personalidad Profesional Consistente">
-    - **Define un tono específico** adaptado a tu marca
-    - **Mantén coherencia emocional** en todas las respuestas
-    - **Adapta el registro lingüístico** a tu audiencia objetivo
-    - **Incorpora valores empresariales** en cada interacción
-    - **Establece límites de autoridad** claros y respetables
-  </Tab>
-  
-  <Tab title="Manejo Proactivo de Objeciones">
-    - **Anticipa objeciones comunes** de tu industria
-    - **Prepara respuestas escalonadas** por nivel de resistencia
-    - **Define cuándo escalar** vs. cuando persistir
-    - **Incluye alternativas creativas** para situaciones difíciles
-    - **Mantén foco en valor** no en características
-  </Tab>
-</Tabs>
-
-### Optimización de Configuración de Voz
-
-<Tabs>
-  <Tab title="Selección Estratégica de Voz">
-    - **Prueba múltiples opciones** con tu audiencia real
-    - **Considera demografía del cliente** (edad, región, sector)
-    - **Ajusta según formalidad** requerida por tu industria
-    - **Testa en diferentes dispositivos** y calidades de línea
-    - **Valida con stakeholders** antes de decidir
-  </Tab>
-  
-  <Tab title="Ajustes Finos Técnicos">
-    - **Velocidad**: Más lenta para información técnica/legal
-    - **Estabilidad**: Mayor para conversaciones serias/formales
-    - **Similitud**: Balancear naturalidad vs. consistencia
-    - **Optimiza para calidad de línea** promedio de tu mercado
-  </Tab>
-</Tabs>
-
-### Estrategias de Testing y Calidad
-
-<Tabs>
-  <Tab title="Testing Sistemático Pre-Launch">
-    - **Testa múltiples escenarios** antes de publicar
-    - **Incluye casos edge** y situaciones inesperadas
-    - **Verifica integrations** end-to-end
-    - **Confirma protocolos de transferencia** funcionan
-    - **Valida capture de datos** en sistemas downstream
-  </Tab>
-  
-  <Tab title="Monitoreo Continuo Post-Launch">
-    - **Revisa conversaciones grabadas** semanalmente
-    - **Analiza métricas de satisfacción** regularmente
-    - **Ajusta según feedback** de clientes reales
-    - **Actualiza knowledge base** con nueva información
-    - **Optimiza basándose en patrones** de uso real
-  </Tab>
-  
-  <Tab title="Mejora Iterativa">
-    - **Implementa cambios graduales** para medir impacto
-    - **A/B testing** de diferentes approaches
-    - **Documenta qué funciona** y qué no
-    - **Mantén baseline metrics** para comparación
-    - **Escala exitosos** a otros agentes
-  </Tab>
-</Tabs>
-
-## Solución de Problemas Avanzada
-
-### Problemas de Configuración
-
-<Tabs>
-  <Tab title="Validación Fallida">
-    **Síntomas**: El agente no pasa la validación automática
-    
-    **Diagnóstico sistemático**:
-    1. Verifica que el prompt del sistema no esté vacío
-    2. Confirma número de teléfono asignado y activo
-    3. Revisa configuración de voz completa y válida
-    4. Valida que todos los campos requeridos estén completados
-    5. Confirma que las integraciones estén correctamente autenticadas
-    
-    **Soluciones escaladas**:
-    - Usa el comando "Check Configuration" en Meetzy AI
-    - Revisa logs de validación en el panel de Changes
-    - Compara con template de agente exitoso similar
-  </Tab>
-  
-  <Tab title="Respuestas Inconsistentes">
-    **Síntomas**: El agente responde de manera impredecible o contradictoria
-    
-    **Análisis root cause**:
-    1. Prompt demasiado complejo o ambiguo
-    2. Conflictos entre diferentes secciones del prompt
-    3. Knowledge base con información contradictoria
-    4. Falta de ejemplos específicos para edge cases
-    
-    **Estrategias de solución**:
-    - Simplifica el prompt manteniendo funcionalidad core
-    - Añade más ejemplos de respuestas esperadas
-    - Revisa y organiza la knowledge base por prioridad
-    - Usa Meetzy AI para identificar conflictos automáticamente
-  </Tab>
-  
-  <Tab title="Problemas de Integración">
-    **Síntomas**: Webhooks fallan, transferencias no funcionan, datos no se sincronizan
-    
-    **Checklist de troubleshooting**:
-    1. Verifica URLs de endpoints y credenciales
-    2. Testa conectividad desde herramientas externas
-    3. Revisa logs de errores en panel de Changes
-    4. Confirma formato de payload esperado
-    5. Valida rate limits y quotas de APIs
-    
-    **Escalación**:
-    - Usa "Test Integration" en el panel de Actions & Tools
-    - Revisa documentación de API de terceros
-    - Contacta soporte técnico si persiste
-  </Tab>
-</Tabs>
-
-### Optimización de Rendimiento
-
-<Tabs>
-  <Tab title="Reducción de Latencia">
-    **Factores que afectan velocidad**:
-    - Modelo LLM seleccionado (Gemini Flash < GPT-4 < Claude)
-    - Complejidad del prompt de sistema
-    - Tamaño y cantidad de documentos en knowledge base
-    - Número de integraciones activas simultáneas
-    
-    **Optimizaciones probadas**:
-    - Usa modelos "Flash" o "Mini" para casos simples
-    - Simplifica prompt sin perder funcionalidad core
-    - Organiza knowledge base por relevancia
-    - Implementa caching para consultas frecuentes
-  </Tab>
-  
-  <Tab title="Mejora de Precisión">
-    **Cuando necesitas máxima precisión**:
-    - Información médica, legal o financiera sensible
-    - Procesos complejos con múltiples pasos
-    - Manejo de datos personales o confidenciales
-    - Integración con sistemas críticos empresariales
-    
-    **Configuración optimizada**:
-    - Usa modelos más capaces (GPT-4, Gemini Pro, Claude)
-    - Añade más contexto y ejemplos específicos
-    - Implementa evaluaciones automáticas estrictas
-    - Establece protocolos de escalación conservadores
-  </Tab>
-  
-  <Tab title="Escalabilidad">
-    **Preparación para alto volumen**:
-    - Monitorea métricas de throughput y latencia
-    - Implementa load balancing inteligente
-    - Configura auto-scaling basado en demanda
-    - Establece circuit breakers para proteger integraciones
-    
-    **Alertas proactivas**:
-    - Umbrales de latencia > 5 segundos
-    - Tasa de errores > 2%
-    - Uso de CPU > 80% sostenido
-    - Queue depth > 100 llamadas
-  </Tab>
-</Tabs>
-
-## Publicar y Gestionar Tu Agente
-
-<Steps>
-  <Step title="Validación Pre-Publicación">
-    Ejecuta el checklist completo de validación:
-    
-    **Configuración Básica:**
-    - ✅ Prompt de sistema completo y coherente
-    - ✅ Número de teléfono asignado y funcional
-    - ✅ Configuración de voz optimizada
-    - ✅ Parámetros de entrada definidos
-    
-    **Testing Integral:**
-    - ✅ Pruebas en Playground con múltiples escenarios
-    - ✅ Tests automatizados pasando exitosamente
-    - ✅ Validación de integraciones end-to-end
-    - ✅ Verificación de protocolos de transferencia
-  </Step>
-  
-  <Step title="Testing en Ambiente de Pre-Producción">
-    Antes del lanzamiento completo:
-    
-    **Llamadas de Prueba Reales:**
-    - Usa "Test Agent" desde el dashboard
-    - Llama al número asignado desde diferentes dispositivos
-    - Prueba con diferentes calidades de línea
-    - Valida la experiencia completa end-to-end
-    
-    **Validación con Stakeholders:**
-    - Demo con equipo interno
-    - Feedback de usuarios beta si aplica
-    - Aprobación de compliance y legal
-    - Sign-off de product owners
-  </Step>
-  
-  <Step title="Despliegue Gradual a Producción">
-    Estrategia de roll-out controlado:
-    
-    **Publicación Inicial:**
-    - Haz clic en **Publish** para crear nueva versión
-    - Configura routing de tráfico gradual (10% → 50% → 100%)
-    - Monitorea métricas en tiempo real
-    - Mantén versión anterior lista para rollback
-    
-    **Validación Post-Despliegue:**
-    - Monitorea primeras 100 conversaciones
-    - Revisa métricas de calidad y satisfacción
-    - Confirma que integraciones funcionan correctamente
-    - Ajusta configuración según datos reales
-  </Step>
-  
-  <Step title="Optimización Continua">
-    Proceso de mejora post-launch:
-    
-    **Monitoreo Semanal:**
-    - Analiza conversaciones grabadas
-    - Revisa métricas de performance
-    - Identifica patrones y oportunidades de mejora
-    - Actualiza knowledge base según nuevas consultas
-    
-    **Iteración Basada en Datos:**
-    - A/B testing de diferentes approaches
-    - Optimización de prompts basada en resultados
-    - Ajustes de configuración de voz según feedback
-    - Expansión de funcionalidades según demanda
-  </Step>
-</Steps>
-
-<Warning>
-  **Importante**: Cada publicación crea una nueva versión inmutable. Las versiones anteriores permanecen disponibles para rollback instantáneo si detectas problemas en producción.
-</Warning>
-
-## Siguientes Pasos
-
-<CardGroup cols={2}>
-  <Card title="Gestionar Agentes" icon="list" href="/es/agents/manage-agents">
-    Aprende a ver, editar y organizar tus agentes existentes de manera eficiente.
-  </Card>
-  <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
-    Monitorea la salud y disponibilidad de tus números telefónicos en tiempo real.
-  </Card>
-  <Card title="Analytics Avanzado" icon="chart-line" href="/es/analytics/overview">
-    Analiza rendimiento detallado y métricas de negocio de tus agentes.
-  </Card>
-  <Card title="Integraciones Empresariales" icon="plug" href="/es/integrations/overview">
-    Conecta tus agentes con CRMs, sistemas de calendario y herramientas externas.
-  </Card>
-</CardGroup>
+<Tabs

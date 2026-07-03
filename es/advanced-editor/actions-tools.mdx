@@ -1,12 +1,12 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura transferencias, finalización de llamadas, webhooks, recall automático y comunicación multicanal'
+description: 'Configura transferencias, finalización de llamadas, webhooks, recall automático, horarios de atención y comunicación multicanal'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, integración de calendario y próximamente comunicación multicanal con Email, SMS y WhatsApp.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, la nueva herramienta de Horario Comercial, integración de calendario y próximamente comunicación multicanal con Email, SMS y WhatsApp.
 
 <Info>
 Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
@@ -15,6 +15,10 @@ Las funcionalidades configuradas aquí son clave para crear experiencias convers
 ## Transferencia de Llamadas
 
 Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos con plantillas multiidioma optimizadas.
+
+<Info>
+Meetzy ofrece dos versiones del sistema de transferencia: la versión clásica (destino único) y la nueva **Transfer v2 (Beta)**, que permite definir múltiples reglas de transferencia con condiciones independientes. Puedes alternar entre ambas desde el interruptor "Transfer to multiple destinations (Beta)" en el panel de configuración.
+</Info>
 
 ### Tipos de Transferencia Disponibles
 
@@ -55,8 +59,11 @@ Meetzy soporta dos métodos principales de transferencia con configuración flex
   <Step title="Activar Transferencia">
     Habilita la opción de transferencia de llamadas usando el interruptor en la interfaz de usuario.
   </Step>
+  <Step title="Elegir Versión del Sistema de Transferencia">
+    Decide si usarás el modo clásico (un único destino) o **Transfer v2 (Beta)**, que permite configurar múltiples reglas con condiciones distintas.
+  </Step>
   <Step title="Seleccionar Tipo de Transferencia">
-    Elige entre "Número de Teléfono" o "SIP Trunk" según tu infraestructura de comunicaciones.
+    Elige entre "Número de Teléfono" o "SIP Trunk" según tu infraestructura de comunicaciones (esta elección se hace por cada regla en v2).
   </Step>
   <Step title="Configurar Destino">
     - Para números telefónicos: Introduce el número en formato E.164 (+país + número)
@@ -69,6 +76,109 @@ Meetzy soporta dos métodos principales de transferencia con configuración flex
     Prueba la configuración con llamadas de test para verificar conectividad.
   </Step>
 </Steps>
+
+### Transfer v2 (Beta): Reglas Múltiples de Transferencia
+
+<Info>
+**Transfer v2 (Beta)** es la evolución del sistema de transferencia clásico. En lugar de definir un único destino y una única plantilla de condiciones, permite crear **múltiples reglas independientes**, cada una con su propia condición de activación y su propio destino. Esto es ideal para agentes que deben enrutar llamadas a distintos departamentos, idiomas o niveles de prioridad según el motivo de la consulta.
+</Info>
+
+Para activar esta funcionalidad, utiliza el interruptor **"Transfer to multiple destinations (Beta)"** que aparece al habilitar la transferencia de llamadas. Al activarlo, la interfaz cambia de un formulario de destino único a una lista dinámica de reglas.
+
+#### Cómo Funciona una Regla de Transferencia
+
+Cada regla se compone de dos partes:
+
+| Componente | Descripción | Ejemplo |
+|-----------|-------------|---------|
+| **Condición** | Frase en lenguaje natural que describe cuándo debe aplicarse la regla. La IA evalúa esta condición durante la conversación. | "el cliente pregunta por facturación o pagos" |
+| **Destino** | Número de teléfono o URI SIP al que se transferirá la llamada cuando se cumpla la condición | `+34911234567` o `sip:200@gateway.empresa.com:5060` |
+
+<Steps>
+  <Step title="Activar Transfer v2">
+    Activa el interruptor "Transfer to multiple destinations (Beta)" dentro de la sección de Call Transfer.
+  </Step>
+  <Step title="Añadir Reglas">
+    Haz clic en "Añadir Regla" para crear una nueva regla de transferencia. Puedes crear tantas reglas como necesites.
+  </Step>
+  <Step title="Definir la Condición">
+    Escribe en el campo "When should this be used?" una descripción clara de la situación que debe activar esta regla (ej. "el cliente solicita cancelar su suscripción").
+  </Step>
+  <Step title="Elegir Tipo de Destino">
+    Selecciona "Phone" o "SIP" para cada regla de forma independiente.
+  </Step>
+  <Step title="Configurar el Valor de Destino">
+    Introduce el número en formato E.164 o la URI SIP completa según el tipo seleccionado.
+  </Step>
+  <Step title="Priorizar y Ordenar Reglas">
+    Ordena las reglas de mayor a menor prioridad; la IA evaluará las condiciones en el orden establecido y aplicará la primera que coincida.
+  </Step>
+  <Step title="Eliminar o Editar Reglas">
+    Usa el botón "Remove" en cada tarjeta de regla para eliminarla, o edita directamente los campos para actualizarla.
+  </Step>
+</Steps>
+
+#### Ejemplo de Configuración con Múltiples Reglas
+
+```json
+{
+  "transfer_version": "v2",
+  "transfer_enabled": true,
+  "rules": [
+    {
+      "condition": "El cliente pregunta por facturación, pagos o cargos duplicados",
+      "destination": {
+        "type": "phone",
+        "value": "+34911234567"
+      }
+    },
+    {
+      "condition": "El cliente solicita soporte técnico o reporta un problema con el producto",
+      "destination": {
+        "type": "sip",
+        "value": "sip:200@gateway.empresa.com:5060"
+      }
+    },
+    {
+      "condition": "El cliente pide expresamente hablar con un supervisor o gerente",
+      "destination": {
+        "type": "phone",
+        "value": "+34911234568"
+      }
+    },
+    {
+      "condition": "El cliente muestra alta frustración o el caso requiere atención urgente",
+      "destination": {
+        "type": "sip",
+        "value": "sip:911@gateway.empresa.com:5060"
+      }
+    }
+  ]
+}
+```
+
+#### Transfer v1 vs Transfer v2 (Beta): Comparativa
+
+| Característica | Transfer Clásico (v1) | Transfer v2 (Beta) |
+|----------------|------------------------|---------------------|
+| **Número de destinos** | Uno único | Múltiples, sin límite práctico |
+| **Condiciones** | Una plantilla general multiidioma | Una condición independiente por regla |
+| **Enrutamiento por departamento** | No soportado nativamente | Soportado de forma nativa |
+| **Priorización de reglas** | No aplica | Sí, orden configurable |
+| **Complejidad de configuración** | Baja | Media (requiere definir cada regla) |
+| **Casos de uso ideales** | Agentes con un único punto de escalado | Contact centers con múltiples departamentos o niveles de servicio |
+
+<Warning>
+Transfer v2 se encuentra en fase **Beta**. Es recomendable probar exhaustivamente cada regla con llamadas de test antes de desplegar en producción, especialmente cuando existen condiciones que podrían solaparse entre sí. En caso de solapamiento, la IA aplicará la primera regla que coincida según el orden configurado.
+</Warning>
+
+#### Buenas Prácticas para Reglas de Transferencia
+
+- **Condiciones mutuamente excluyentes**: Redacta las condiciones de forma que no se superpongan entre sí para evitar ambigüedad en el enrutamiento
+- **Orden por especificidad**: Coloca las reglas más específicas primero y las más genéricas al final como fallback
+- **Regla de respaldo (fallback)**: Considera añadir siempre una última regla genérica ("cualquier otra situación que requiera atención humana") apuntando a un destino general
+- **Nombres descriptivos en la condición**: Usa lenguaje natural claro y verbos de acción ("el cliente solicita...", "el cliente pregunta por...") para maximizar la precisión de detección de la IA
+- **Pruebas por regla**: Valida cada regla individualmente con llamadas de test simulando distintos escenarios de conversación
 
 ### Plantillas de Transferencia Multiidioma
 
@@ -355,6 +465,113 @@ El agente finalizará llamadas automáticamente en estas situaciones optimizadas
 - **Transferencia Exitosa**: Después de completar satisfactoriamente la transferencia a un agente humano
 - **Detección de Hostilidad**: Cuando se identifica agresividad sostenida o abuso verbal del interlocutor
 - **Compliance Violation**: Si se detecta solicitud de opt-out o violación de políticas de comunicación
+
+## Herramienta de Horario Comercial (Business Hours - Beta)
+
+<Info>
+**Business Hours (Beta)** es una nueva herramienta del editor avanzado que permite que tu agente conozca en tiempo real si la llamada se está produciendo dentro o fuera del horario comercial configurado, y actúe en consecuencia (informar al usuario, ofrecer alternativas, activar un recall, o transferir a otro destino según el horario).
+</Info>
+
+### ¿Qué Resuelve Esta Herramienta?
+
+Antes de esta funcionalidad, gestionar el horario de atención requería lógica externa vía webhooks personalizados. Ahora, Business Hours se integra de forma nativa en el editor avanzado como una herramienta más que la IA puede consultar durante la conversación, sin necesidad de configurar infraestructura adicional.
+
+**Casos de uso principales:**
+
+- Informar al cliente si está llamando fuera de horario y comunicar el próximo horario de apertura
+- Evitar transferencias a agentes humanos cuando el departamento está cerrado
+- Activar automáticamente el protocolo de Recall para reintentar la llamada en horario laboral
+- Ofrecer un mensaje diferenciado según sea horario laboral, fin de semana o festivo
+- Enrutar a un buzón de mensajes o a un flujo de auto-servicio fuera de horario
+
+### Proceso de Configuración
+
+<Steps>
+  <Step title="Activar la Herramienta">
+    Habilita "Business Hours" desde el interruptor correspondiente en la sección de Acciones y Herramientas.
+  </Step>
+  <Step title="Definir Horario Semanal">
+    Configura la hora de inicio y fin para cada día de la semana. Puedes marcar días completos como cerrados (ej. domingos).
+  </Step>
+  <Step title="Establecer Zona Horaria">
+    Selecciona la zona horaria de referencia para que los cálculos de horario sean precisos independientemente de dónde llame el cliente.
+  </Step>
+  <Step title="Añadir Excepciones y Festivos">
+    Define fechas específicas (festivos nacionales, vacaciones de empresa, eventos especiales) que sobrescriban el horario habitual.
+  </Step>
+  <Step title="Configurar el Prompt de Uso">
+    Describe cuándo y cómo la IA debe consultar esta herramienta durante la conversación (ej. al inicio de la llamada, o cuando el cliente solicite ser transferido).
+  </Step>
+  <Step title="Definir Comportamiento Fuera de Horario">
+    Establece la acción a ejecutar cuando la llamada ocurra fuera de horario: mensaje informativo, activación de Recall, o transferencia a un destino alternativo.
+  </Step>
+</Steps>
+
+### Configuración JSON de Ejemplo
+
+```json
+{
+  "business_hours": {
+    "enabled": true,
+    "timezone": "Europe/Madrid",
+    "schedule": {
+      "monday": { "open": "09:00", "close": "18:00" },
+      "tuesday": { "open": "09:00", "close": "18:00" },
+      "wednesday": { "open": "09:00", "close": "18:00" },
+      "thursday": { "open": "09:00", "close": "18:00" },
+      "friday": { "open": "09:00", "close": "15:00" },
+      "saturday": { "closed": true },
+      "sunday": { "closed": true }
+    },
+    "exceptions": [
+      { "date": "2025-12-25", "closed": true, "reason": "Navidad" },
+      { "date": "2025-01-01", "closed": true, "reason": "Año Nuevo" },
+      { "date": "2025-08-15", "open": "10:00", "close": "13:00", "reason": "Horario reducido de verano" }
+    ],
+    "check_prompt": "Consultar el horario comercial al inicio de la llamada y siempre que el cliente solicite hablar con un agente humano o pregunte por horarios de atención",
+    "out_of_hours_behavior": {
+      "action": "inform_and_offer_recall",
+      "message_template": "En este momento estamos fuera de nuestro horario de atención. Nuestro horario es de lunes a jueves de 9:00 a 18:00 y viernes de 9:00 a 15:00. ¿Le gustaría que le llamemos en cuanto abramos?",
+      "fallback_transfer": null
+    }
+  }
+}
+```
+
+### Comportamientos Disponibles Fuera de Horario
+
+| Comportamiento | Descripción | Caso de Uso Recomendado |
+|----------------|-------------|--------------------------|
+| **Solo Informar** | El agente comunica el horario y continúa la conversación con opciones limitadas | Consultas informativas generales |
+| **Informar y Ofrecer Recall** | Informa del horario y activa automáticamente el protocolo de Recall para la próxima apertura | Ventas y soporte que requieren atención humana |
+| **Transferencia Alternativa** | Redirige a un destino distinto (ej. línea de urgencias 24h) en vez del destino habitual | Servicios con guardia o soporte crítico |
+| **Mensaje y Finalización** | Informa del horario y finaliza la llamada educadamente | Negocios sin necesidad de seguimiento posterior |
+
+### Integración con Otras Herramientas
+
+<Tabs>
+  <Tab title="Con Transferencia">
+    Cuando Business Hours está activo, puedes condicionar las reglas de Transfer v2 (Beta) al horario comercial. Por ejemplo, definir una regla que transfiera a un número de guardia únicamente si la consulta es urgente **y** ocurre fuera de horario, evitando transferencias a un departamento cerrado.
+  </Tab>
+  <Tab title="Con Recall">
+    Business Hours se integra de forma nativa con el Protocolo de Rellamada: si la llamada ocurre fuera de horario y el objetivo no puede completarse, el sistema puede programar automáticamente un recall dentro de la próxima ventana de horario comercial disponible, respetando la configuración de `business_hours` del sistema de Recall.
+  </Tab>
+  <Tab title="Con Webhooks">
+    Puedes usar el estado de Business Hours (abierto/cerrado) como parámetro estático o dinámico dentro de tus herramientas webhook personalizadas, permitiendo que sistemas externos reciban contexto sobre si la llamada se produjo dentro o fuera de horario.
+  </Tab>
+</Tabs>
+
+<Warning>
+Business Hours se encuentra actualmente en fase **Beta**. Verifica siempre la zona horaria configurada y realiza pruebas en distintos horarios (dentro, fuera, y en el límite exacto de apertura/cierre) antes de desplegar en producción, especialmente si tu negocio opera en múltiples zonas horarias o países.
+</Warning>
+
+### Buenas Prácticas para Business Hours
+
+- **Zona horaria explícita**: Configura siempre la zona horaria de tu negocio, no asumas la zona horaria del cliente que llama
+- **Mensajes claros con horario completo**: Incluye el horario completo semanal en el mensaje fuera de horario para reducir llamadas repetidas
+- **Excepciones actualizadas**: Mantén actualizada la lista de festivos y fechas especiales, revisándola trimestralmente
+- **Combinar con Recall**: Para negocios orientados a ventas, combina Business Hours con Recall para no perder oportunidades comerciales fuera de horario
+- **Pruebas en bordes horarios**: Testea el comportamiento justo en los minutos de apertura y cierre para evitar falsos negativos
 
 ## Herramientas Webhook Personalizadas
 
@@ -655,526 +872,3 @@ Controla si el usuario puede interrumpir al agente mientras espera la respuesta 
       "tool_call_sound": "typing",
       "force_pre_tool_speech": true,
       "execution_mode": "immediate",
-      "disable_interruptions": true,
-      "success_feedback": "Cita médica agendada exitosamente",
-      "error_handling": {
-        "timeout": "Lo siento, el sistema médico está tardando en responder. ¿Podríamos intentarlo de nuevo?",
-        "server_error": "Hay un problema técnico con el sistema de citas. Por favor, contacte directamente con la clínica.",
-        "validation_error": "Necesito verificar algunos datos adicionales para completar su cita."
-      }
-    }
-    ```
-  </Tab>
-</Tabs>
-
-### Mejores Prácticas para Webhooks Empresariales
-
-<Steps>
-  <Step title="Diseño de Descripciones Efectivas">
-    - Sé específico sobre cuándo usar cada herramienta con ejemplos concretos
-    - Incluye frases disparadoras que deben activar la herramienta automáticamente
-    - Proporciona contexto sobre información previa necesaria antes de ejecutar
-    - Especifica cómo manejar errores, timeouts y respuestas inesperadas
-    - Documenta valores esperados y formatos de respuesta del endpoint
-  </Step>
-  <Step title="Optimización de Rendimiento">
-    - Implementa caching inteligente para consultas frecuentes (Redis/Memcached)
-    - Usa índices optimizados en bases de datos para consultas sub-segundo
-    - Configura timeouts realistas basados en tu infraestructura específica
-    - Implementa circuit breakers y graceful degradation para alta disponibilidad
-    - Usa connection pooling y keep-alive para optimizar latencia de red
-  </Step>
-  <Step title="Seguridad Robusta de Grado Empresarial">
-    - Usa exclusivamente HTTPS con certificados válidos y actualizados
-    - Implementa autenticación por tokens JWT con renovación automática
-    - Valida y sanitiza rigurosamente todos los inputs del usuario
-    - Registra logs de auditoría detallados sin exponer información sensible
-    - Configura rate limiting progresivo y IP whitelisting
-    - Implementa WAF (Web Application Firewall) para protección adicional
-  </Step>
-  <Step title="Manejo de Errores Avanzado">
-    - Define respuestas de error específicas y amigables por tipo de fallo
-    - Implementa reintentos automáticos con backoff exponencial
-    - Proporciona alternativas cuando servicios externos no están disponibles  
-    - Registra métricas detalladas para debugging y optimización continua
-    - Configura alertas proactivas para degradación de performance
-  </Step>
-</Steps>
-
-## Protocolo de Rellamada Automática (Recall)
-
-Configura un sistema inteligente de rellamadas automáticas cuando no se logran completar los objetivos de la conversación inicial o se requiere continuidad en la comunicación, con cumplimiento legal estricto.
-
-### Configuración del Sistema Recall
-
-<Steps>
-  <Step title="Activar Protocolo de Rellamada">
-    Habilita el sistema de rellamadas automáticas desde el panel de configuración avanzada con controles granulares.
-  </Step>
-  <Step title="Configurar Límites de Intentos">
-    Establece el número máximo de intentos de rellamada (recomendado: 2-3 para evitar molestias y cumplir regulaciones).
-  </Step>
-  <Step title="Definir Estrategia de Intervalos">
-    Configure intervalos progresivos entre intentos para maximizar probabilidades de éxito y minimizar intrusión.
-  </Step>
-  <Step title="Establecer Condiciones de Activación">
-    Especifica detalladamente qué situaciones técnicas y comerciales deben desencadenar una rellamada automática.
-  </Step>
-  <Step title="Configurar Horarios y Compliance">
-    Define ventanas horarias, zonas horarias y restricciones de días para respetar preferencias y regulaciones.
-  </Step>
-</Steps>
-
-### Estrategias de Intervalos Optimizadas por Contexto
-
-| Intervalo de Reintento | Contexto de Aplicación | Ejemplos de Uso Específicos | Tasa de Éxito Esperada |
-|----------------------|----------------------|----------------------------|----------------------|
-| **5-15 minutos** | Línea ocupada, urgencia alta, problemas técnicos | Confirmaciones médicas urgentes, servicios de emergencia | 65-75% |
-| **30 minutos - 1 hora** | No contestó, mismo día hábil | Citas médicas del día, servicios técnicos urgentes | 50-60% |
-| **2-4 horas** | Seguimiento comercial activo, horario laboral | Ventas consultivas B2B, ofertas con tiempo limitado | 40-50% |
-| **Siguiente día hábil** | Seguimiento profesional estándar | Propuestas comerciales, información de productos/servicios | 30-40% |
-| **48-72 horas** | Nurturing programado, leads tibios | Seguimiento de leads cualificados, ofertas especiales | 20-30% |
-| **1 semana** | Mantenimiento de relación, seguimiento largo plazo | Check-ins periódicos, renovaciones, campañas estacionales | 15-25% |
-
-### Condiciones de Activación Inteligente Detalladas
-
-Las rellamadas se activan automáticamente en diversos escenarios técnicos y de negocio optimizados:
-
-<Tabs>
-  <Tab title="Condiciones Técnicas">
-    **Situaciones de infraestructura que requieren reintento automático:**
-    
-    - **No Response (Ring No Answer)**: Timbre sin respuesta después de tiempo configurado (15-30 segundos)
-    - **Busy Signal**: Línea ocupada o todas las líneas del destino congestionadas  
-    - **Voicemail Detection**: Se detectó contestador automático mediante análisis de patrones de audio
-    - **Network Issues**: Problemas de conectividad, latencia alta (>2000ms), o pérdida significativa de paquetes
-    - **Call Dropped**: Llamada cortada inesperadamente por problemas técnicos del operador
-    - **Poor Audio Quality**: Calidad de audio insuficiente para conversación efectiva (SNR < 15dB)
-    - **Carrier Rejection**: Rechazo por parte del operador telefónico (número inválido, bloqueado)
-    - **Invalid Number Format**: Número mal formateado que requiere corrección y reintento automático
-    - **Timeout**: Llamada no completada dentro del tiempo límite establecido
-    - **SIP Errors**: Errores específicos del protocolo SIP (503, 480, 486, etc.)
-  </Tab>
-  <Tab title="Condiciones de Negocio">
-    **Situaciones conversacionales que justifican seguimiento estratégico:**
-    
-    - **Incomplete Objective**: Objetivos principales de la llamada no completados satisfactoriamente
-    - **Customer Request**: Cliente solicitó explícitamente ser contactado en momento específico futuro
-    - **Information Pending**: Información crítica pendiente de confirmación o recopilación adicional
-    - **Follow-up Required**: El tipo de interacción requiere seguimiento según protocolo empresarial
-    - **Partial Completion**: Conversación interrumpida antes de completar proceso crítico de negocio
-    - **Appointment Confirmation**: Confirmación de cita programada según protocolo médico/empresarial
-    - **Payment Reminder**: Recordatorio de pago con protocolo de cobranza específico y escalonado
-    - **Document Verification**: Verificación de documentos o información pendiente de validación
-    - **Interest Shown**: Cliente mostró interés pero requiere más tiempo para decidir
-    - **Technical Issues During Call**: Problemas técnicos impidieron completar la interacción exitosamente
-  </Tab>
-  <Tab title="Condiciones Personalizadas">
-    **Configuraciones específicas del negocio y compliance:**
-    
-    - **Business Hours Only**: Rellamar exclusivamente dentro de horarios comerciales configurados
-    - **Customer Timezone**: Respetar automáticamente zona horaria del cliente objetivo
-    - **Campaign Rules**: Reglas específicas de la campaña de marketing o playbook comercial
-    - **Lead Score Threshold**: Basado en puntuación automática de calidad y potencial del contacto
-    - **Previous Interaction History**: Análisis del historial completo de interacciones previas del cliente
-    - **Seasonal Restrictions**: Evitar períodos vacacionales, festivos nacionales, o baja actividad comercial
-    - **Channel Preference**: Priorizar canal de comunicación preferido expresado por el cliente
-    - **Compliance Requirements**: Cumplir regulaciones específicas de telecomunicaciones y protección de datos
-    - **Industry Specific**: Reglas particulares del sector (sanitario, financiero, legal, etc.)
-    - **VIP Customer Status**: Tratamiento especial para clientes de alto valor con protocolos diferenciados
-  </Tab>
-</Tabs>
-
-<Warning>
-**Cumplimiento Legal Obligatorio**: El uso de protocolos de rellamada debe cumplir estrictamente con regulaciones locales e internacionales. Esto incluye respetar listas de "No Llamar", preferencias explícitas del cliente, GDPR/LOPD para protección de datos, y regulaciones específicas de telecomunicaciones como la Ley de Protección de Datos y la normativa de comunicaciones comerciales. El incumplimiento puede resultar en sanciones legales severas y daño reputacional significativo.
-</Warning>
-
-### Configuración Avanzada JSON del Sistema Recall
-
-```json
-{
-  "recall": {
-    "enabled": true,
-    "max_attempts": 3,
-    "progressive_intervals": [
-      {
-        "attempt": 1,
-        "delay_value": 30,
-        "delay_unit": "minutes",
-        "conditions": ["busy", "no_answer", "network_issues"],
-        "business_hours_only": true
-      },
-      {
-        "attempt": 2,
-        "delay_value": 4,
-        "delay_unit": "hours", 
-        "conditions": ["voicemail", "incomplete_objective", "call_dropped"],
-        "respect_customer_timezone": true
-      },
-      {
-        "attempt": 3,
-        "delay_value": 1,
-        "delay_unit": "days",
-        "conditions": ["customer_request", "follow_up_required", "partial_completion"],
-        "exclude_weekends": true,
-        "exclude_holidays": true
-      }
-    ],
-    "success_conditions": [
-      "Conversación completada exitosamente con objetivos alcanzados",
-      "Transferencia completada satisfactoriamente a agente humano",
-      "Objetivo principal de la llamada logrado completamente",
-      "Cliente solicitó explícitamente no más contacto (opt-out)",
-      "Cita confirmada y agendada en el sistema",
-      "Información requerida obtenida y procesada correctamente"
-    ],
-    "failure_conditions": [
-      "Número permanentemente inválido o desconectado",
-      "Cliente optó explícitamente por no recibir más llamadas",
-      "Número máximo de intentos excedido según política",
-      "Violación de compliance legal detectada automáticamente",
-      "Cliente en lista de No Llamar (DNC List)",
-      "Horario fuera de ventanas legales permitidas"
-    ],
-    "business_rules": {
-      "respect_timezone": true,
-      "business_hours": {
-        "enabled": true,
-        "start_time": "09:00",
-        "end_time": "18:00", 
-        "timezone": "Europe/Madrid",
-        "allow_early_morning": false,
-        "allow_evening_calls": false
-      },
-      "exclude_weekends": true,
-      "exclude_holidays": true,
-      "exclude_dates": ["2025-12-25", "2025-01-01", "2025-12-31"],
-      "compliance_checks": {
-        "dncl_respect": true,
-        "gdpr_compliance": true,
-        "caller_id_verification": true,
-        "opt_out_immediate": true,
-        "max_daily_attempts": 1,
-        "consent_verification": true
-      },
-      "intelligent_scheduling": {
-        "avoid_lunch_hours": true,
-        "prefer_mid_morning": true,
-        "avoid_monday_morning": true,
-        "avoid_friday_afternoon": true,
-        "respect_local_customs": true
-      }
-    },
-    "analytics": {
-      "track_success_rates": true,
-      "measure_conversion_by_attempt": true,
-      "cost_analysis_detailed": true,
-      "compliance_monitoring": true,
-      "performance_optimization": true,
-      "roi_calculation": true
-    },
-    "notifications": {
-      "successful_recalls": true,
-      "failed_recalls": true,
-      "compliance_violations": true,
-      "performance_alerts": true
-    }
-  }
-}
-```
-
-## Integración de Calendario Inteligente
-
-Configura la integración directa con sistemas de calendario populares para programación automática de citas durante las conversaciones, con soporte completo para Google Calendar y Microsoft Outlook.
-
-### Proveedores de Calendario Soportados
-
-<Tabs>
-  <Tab title="Google Calendar">
-    **Configuración completa para Google Calendar:**
-    
-    - **Calendar IDs de Disponibilidad**: Lista de calendarios para verificar disponibilidad en tiempo real
-    - **Calendar ID de Reserva**: Calendario de destino donde se crearán automáticamente las nuevas citas
-    - **Duración por Defecto**: Tiempo estándar de las citas en minutos (configurable por tipo de servicio)
-    - **Horario de Trabajo**: Ventana horaria específica para programación de citas profesionales
-    - **Zona Horaria**: Zona horaria del calendario principal y conversión automática
-    
-    **Configuración JSON avanzada:**
-    ```json
-    {
-      "provider": "google-calendar",
-      "availability_calendar_ids": ["cal1@gmail.com", "cal2@gmail.com", "team@empresa.com"],
-      "booking_calendar_id": "reservas@empresa.com",
-      "default_duration_minutes": 30,
-      "service_durations": {
-        "consulta_general": 30,
-        "consulta_especializada": 45,
-        "reunion_comercial": 60,
-        "seguimiento": 15
-      },
-      "working_hours_start": "09:00",
-      "working_hours_end": "17:00",
-      "timezone": "Europe/Madrid",
-      "include_attendee_email": true,
-      "include_location": true,
-      "auto_send_invitations": true,
-      "buffer_minutes": 15,
-      "max_advance_days": 60
-    }
-    ```
-  </Tab>
-  <Tab title="Microsoft Outlook">
-    **Configuración completa para Outlook Calendar:**
-    
-    - **Calendarios de Disponibilidad**: IDs de calendarios de Microsoft Exchange para verificación
-    - **Calendario de Reserva**: Calendario de destino para nuevas citas con permisos adecuados
-    - **Configuración de Acceso**: Tokens de autenticación de Microsoft Graph API con permisos
-    - **Integración Teams**: Creación automática de reuniones de Microsoft Teams
-    - **Políticas Empresariales**: Configuraciones específicas de Outlook para empresas
-    
-    **Configuración JSON avanzada:**
-    ```json
-    {
-      "provider": "outlook-calendar",
-      "availability_calendar_ids": ["user1@empresa.onmicrosoft.com", "sala1@empresa.com"],
-      "booking_calendar_id": "reservas@empresa.onmicrosoft.com", 
-      "default_duration_minutes": 45,
-      "working_hours_start": "08:30",
-      "working_hours_end": "18:30",
-      "timezone": "Europe/Madrid",
-      "teams_integration": true,
-      "auto_teams_meeting": true,
-      "send_outlook_invitations": true,
-      "require_organizer_approval": false,
-      "allow_conflicts": false,
-      "resource_booking": {
-        "meeting_rooms": ["sala1@empresa.com", "sala2@empresa.com"],
-        "equipment": ["proyector@empresa.com"]
-      }
-    }
-    ```
-  </Tab>
-</Tabs>
-
-### Configuración de Prompts de Calendario
-
-| Configuración | Descripción | Ejemplo Optimizado |
-|---------------|-------------|-------------------|
-| **Check Availability Prompt** | Cuándo verificar disponibilidad de calendario | "Verificar disponibilidad cuando el cliente solicite programar una cita, reunión, consulta específica, o mencione necesidad de agendamiento" |
-| **Book Appointment Prompt** | Cuándo crear automáticamente la cita | "Crear cita cuando se confirme fecha y hora específica, se obtenga información de contacto válida, y el cliente confirme su disponibilidad" |
-| **Event Title Prompt** | Cómo generar el título del evento | "Generar título descriptivo siguiendo formato: [Tipo de Cita] - [Nombre Cliente] - [Motivo/Servicio Principal]" |
-| **Event Description Prompt** | Contenido detallado de la descripción | "Incluir: motivo específico de la cita, información de contacto completa, notas especiales de la conversación, y preparación requerida" |
-
-### Funcionalidades Avanzadas de Calendario
-
-#### Verificación de Disponibilidad en Tiempo Real
-
-- **Consulta Múltiple**: Verifica disponibilidad en varios calendarios simultáneamente
-- **Buffer Time**: Configura tiempo de buffer antes y después de cada cita
-- **Conflictos Inteligentes**: Detecta y resuelve automáticamente conflictos de horarios
-- **Disponibilidad Recurrente**: Maneja patrones de disponibilidad complejos
-
-#### Creación Automática de Citas
-
-- **Invitaciones Automáticas**: Envía invitaciones de calendario al cliente automáticamente
-- **Detalles Enriquecidos**: Incluye toda la información recopilada durante la conversación
-- **Recordatorios Configurables**: Establece recordatorios automáticos personalizados
-- **Metadatos Conversacionales**: Guarda contexto de la llamada en los detalles del evento
-
-## Configuración de Caller ID para Llamadas Salientes
-
-Gestiona los números telefónicos que aparecerán como identificador de llamada cuando tu agente realice llamadas salientes, crucial para establecer confianza, cumplir regulaciones y maximizar tasas de respuesta.
-
-### Gestión Avanzada de Números de Caller ID
-
-<Steps>
-  <Step title="Acceder a Configuración de Caller ID">
-    En la sección de configuración básica, ubica el campo "From" donde se muestran todos los caller IDs disponibles y verificados.
-  </Step>
-  <Step title="Añadir Nuevo Caller ID">
-    Haz clic en "Añadir Caller ID" para registrar un nuevo número telefónico para llamadas salientes con verificación obligatoria.
-  </Step>
-  <Step title="Proceso de Verificación Automática">
-    - Introduce el número telefónico en formato internacional completo (E.164)
-    - Proporciona un nombre descriptivo para identificar claramente el número
-    - Especifica el propósito comercial del caller ID (ventas, soporte, etc.)
-    - Inicia el proceso de verificación automática del sistema
-  </Step>
-  <Step title="Confirmar Verificación Telefónica">
-    - Recibirás una llamada automática de verificación en el número proporcionado
-    - Introduce el código de verificación de 4-6 dígitos que escucharás claramente
-    - Confirma la verificación para activar completamente el caller ID
-    - El sistema validará la propiedad legal del número automáticamente
-  </Step>
-  <Step title="Asignar y Configurar">
-    Una vez verificado exitosamente, selecciona el caller ID validado para tu agente conversacional específico.
-  </Step>
-</Steps>
-
-### Estados Detallados del Caller ID
-
-| Estado | Descripción | Acciones Disponibles | Tiempo Estimado |
-|--------|-------------|---------------------|-----------------|
-| **Verificación Pendiente** | Número añadido pero no verificado aún | Verificar, Eliminar, Reenviar código | 2-5 minutos |
-| **Verificado** | Número validado y listo para usar | Usar como Caller ID, Editar nombre, Eliminar | Inmediato |
-| **Verificación Fallida** | Error en el proceso de verificación | Reintentar Verificación, Eliminar, Soporte | 24 horas cooldown |
-| **En Uso** | Actualmente asignado a uno o más agentes | Ver Detalles, Cambiar asignación, Estadísticas | Inmediato |
-| **Suspendido** | Temporalmente deshabilitado por compliance | Revisar motivo, Solicitar reactivación | Variable |
-| **Bloqueado** | Bloqueado por operadores o compliance | Contactar soporte, Revisar políticas | Requiere revisión |
-
-### Consideraciones Legales y Técnicas Avanzadas
-
-<Warning>
-**Compliance Caller ID Estricto**: Solo puedes usar números telefónicos que poseas legalmente o tengas autorización explícita y documentada para usar. El spoofing de caller ID sin autorización es ilegal en la mayoría de jurisdicciones y puede resultar en sanciones severas, multas significativas y daño reputacional permanente.
-</Warning>
-
-#### Requisitos de Compliance
-
-- **Verificación Obligatoria**: Todos los caller IDs deben ser verificados mediante llamada automática y validación de propiedad
-- **Números Propios**: Solo registra números telefónicos que poseas legalmente o controles bajo contrato válido
-- **Regulaciones Locales**: Cumple con regulaciones específicas de caller ID en tu jurisdicción (TCPA, GDPR, etc.)
-- **Transparencia Empresarial**: Usa caller IDs que identifiquen claramente tu empresa u organización
-- **Documentación Legal**: Mantén documentación que demuestre la propiedad o autorización legal del número
-
-#### Mejores Prácticas para Caller ID
-
-- **Números Locales**: Usa números locales del área geográfica de tus clientes para mayor confianza
-- **Consistencia de Marca**: Mantén consistencia en los caller IDs usados para el mismo tipo de comunicaciones
-- **Monitoreo de Reputación**: Supervisa la reputación de tus números ante operadores telefónicos
-- **Rotación Inteligente**: Alterna números para evitar saturación y filtros de spam
-- **Análisis de Performance**: Analiza tasas de respuesta por caller ID para optimización continua
-
-## Próximas Funcionalidades de Comunicación Multicanal
-
-### Email Inteligente (Próximamente - Q1 2025)
-
-Sistema avanzado de envío automático de correos electrónicos contextuales durante o después de las conversaciones telefónicas.
-
-<Tabs>
-  <Tab title="Configuración de Email">
-    **Funcionalidades principales en desarrollo:**
-    
-    - **Activación Inteligente**: El agente decidirá automáticamente cuándo enviar emails basado en el contexto
-    - **Personalización Dinámica**: Asuntos y contenidos generados automáticamente usando IA conversacional
-    - **Templates Responsive**: Plantillas de email móvil-first con diseño profesional
-    - **Seguimiento Avanzado**: Open rates, click rates, y analytics detallados
-    - **Integración CRM**: Sincronización automática con sistemas CRM populares
-    
-    **Casos de uso anticipados:**
-    ```text
-    - Envío de información adicional solicitada durante la llamada
-    - Confirmaciones escritas de acuerdos o citas programadas
-    - Documentación técnica o links de seguimiento
-    - Propuestas comerciales personalizadas post-llamada
-    - Recordatorios y follow-ups automatizados
-    ```
-  </Tab>
-  <Tab title="Configuración de Prompts">
-    **Prompts de configuración anticipados:**
-    
-    - **Prompt de Activación**: Condiciones específicas para envío automático
-    - **Prompt de Asunto**: Generación dinámica de asuntos relevantes  
-    - **Prompt de Contenido**: Estructura y tono del cuerpo del email
-    - **Prompts de Personalización**: Variables dinámicas por cliente
-    - **Prompts de Compliance**: Cumplimiento de regulaciones de email marketing
-  </Tab>
-</Tabs>
-
-### SMS Inteligente (Próximamente - Q2 2025)
-
-Establece el envío automático de mensajes SMS para confirmaciones rápidas, recordatorios y seguimiento inmediato.
-
-#### Casos de Uso Anticipados
-
-- **Confirmaciones Instantáneas**: Envío inmediato tras programar cita médica o comercial
-- **Códigos de Verificación**: Autenticación de identidad durante llamadas sensibles
-- **Recordatorios Urgentes**: Información crítica que requiere confirmación rápida
-- **Enlaces de Seguimiento**: URLs cortas para documentos, formularios, o recursos web
-- **Confirmaciones de Pedido**: Números de tracking, códigos de referencia, o estados de pedido
-
-### WhatsApp Business (Próximamente - Q2 2025)
-
-Integración oficial con Meta Business API para comunicación rica y multimedia.
-
-#### Funcionalidades Planeadas
-
-- **Mensajes de Plantilla**: Templates pre-aprobados por WhatsApp para notificaciones
-- **Mensajes Multimedia**: Envío de imágenes, documentos, y contenido rico
-- **WhatsApp Flows**: Formularios interactivos dentro de la conversación
-- **Status de Lectura**: Confirmación de entrega y lectura de mensajes
-- **Integración Completa**: Sincronización bidireccional con el sistema de agentes
-
-<Info>
-Estas funcionalidades de comunicación multicanal expandirán significativamente las capacidades del sistema, permitiendo experiencias omnicanal completas y seguimiento automatizado inteligente. La integración será nativa y mantendrá la misma facilidad de configuración que las funcionalidades actuales.
-</Info>
-
-## Monitoreo y Análisis de Rendimiento Avanzado
-
-### Métricas Clave de Transferencias
-
-Monitorea el rendimiento de las transferencias para optimizar continuamente la experiencia:
-
-| Métrica | Descripción | Objetivo Recomendado | Umbral de Alerta | Impacto en Negocio |
-|---------|-------------|---------------------|------------------|-------------------|
-| **Tasa de Transferencia** | % de llamadas que requieren transferencia | < 15% | > 25% | Alto - Indica problemas de IA |
-| **Tiempo de Transferencia** | Duración desde solicitud hasta conexión | < 30 segundos | > 60 segundos | Medio - Afecta satisfacción |
-| **Éxito de Transferencia** | % de transferencias completadas exitosamente | > 95% | < 88% | Crítico - Pérdida directa de clientes |
-| **Satisfacción Post-Transferencia** | Rating de calidad después de transferencia | > 4.2/5.0 | < 3.8/5.0 | Alto - Experiencia del cliente |
-| **Motivos de Transferencia** | Categorización de razones para transferir | Análisis cualitativo | Patrones repetitivos | Medio - Optimización de IA |
-
-### Métricas de Rendimiento de Webhooks
-
-Supervisa la performance de integraciones webhook con alertas proactivas:
-
-| Métrica | Descripción | Umbral Óptimo | Alerta Crítica | Impacto en Negocio |
-|---------|-------------|---------------|----------------|-------------------|
-| **Latencia Promedio** | Tiempo de respuesta de webhooks | < 2 segundos | > 8 segundos | Alto - UX durante llamada |
-| **Tasa de Éxito** | % de webhooks ejecutados exitosamente | > 98.5% | < 94% | Crítico - Funcionalidad perdida |
-| **Errores por Herramienta** | Fallos específicos por webhook | < 0.5% | > 2% | Variable - Según herramienta |
-| **Throughput** | Requests por minuto procesados | Según capacidad | 80% de límite | Medio - Escalabilidad |
-| **Timeout Rate** | % de webhooks que exceden timeout | < 0.2% | > 1.5% | Alto - Experiencia interrumpida |
-
-### Métricas de Efectividad de Recalls
-
-Evalúa el éxito del sistema de rellamadas con ROI detallado:
-
-| Métrica | Descripción | Benchmark Industria | Meta Optimizada | ROI Esperado |
-|---------|-------------|-------------------|-----------------|--------------|
-| **Tasa de Conexión** | % de recalls que logran contacto | 45-65% | > 60% | +15% revenue |
-| **Conversión Post-Recall** | % que completan objetivos tras recall | 25-45% | > 40% | +25% conversion |
-| **Costo por Recall Exitoso** | ROI de cada recall que convierte | Variable | ROI > 3:1 | Positivo |
-| **Opt-out Rate** | % que solicitan no más contacto | < 3% | < 2% | Crítico compliance |
-| **Compliance Score** | Cumplimiento de regulaciones | 100% | 100% | Legal obligatorio |
-
-## Solución de Problemas Avanzada y Debugging
-
-<Tabs>
-  <Tab title="Problemas de Transferencia">
-    **Síntoma**: Las transferencias fallan constantemente o no se conectan exitosamente
-    
-    **Diagnóstico paso a paso:**
-    ```bash
-    # 1. Verificar conectividad del número destino
-    curl -X POST "https://api.meetzy.com/test-call" \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer YOUR_API_KEY" \
-      -d '{"number": "+34600123456", "test_mode": true}'
-    
-    # 2. Para SIP, verificar conectividad del gateway
-    telnet your-sip-gateway.com 5060
-    nmap -p 5060 your-sip-gateway.com
-    
-    # 3. Verificar formato de número (debe ser E.164)
-    echo "+34600123456" | grep -E '^\+[1-9]\d{1,14}$'
-    
-    # 4. Test de latencia y calidad de conexión
-    ping -c 10 your-sip-gateway.com
-    traceroute your-sip-gateway.com
-    ```
-    
-    **Soluciones comunes por orden de frecuencia:**
-    - **Formato incorrecto (40%)**: Usar formato E.164 (+país + número sin espacios ni caracteres especiales)
-    - **Permisos insuficientes (25%)**: Verificar permisos de transferencia en la cuenta y carrier
-    - **SIP mal configurado (15%)**: Validar URI SIP, IP correcta y puerto accesible
-    - **Firewall bloqueando (10%)**: Abrir puertos SIP (5060) y RTP (10000-20000) en ambas direcciones
-    - **Credenciales erróneas (5%)**: Verificar usuario/password SIP en gateway

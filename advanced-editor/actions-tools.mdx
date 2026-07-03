@@ -71,6 +71,96 @@ Configure how your agent intelligently transfers calls to human agents, departme
   </Tab>
 </Tabs>
 
+### Transfer v2 (Beta): Multiple Transfer Rules
+
+<Info>
+**Transfer v2** is a Beta upgrade to Call Transfer that replaces the single destination model with a flexible list of **transfer rules**. Instead of sending every transfer to the same number, your agent evaluates each rule's condition in real time and routes the call to the matching destination.
+</Info>
+
+Enable Transfer v2 with the **"Transfer to multiple destinations (Beta)"** toggle inside the Call Transfer panel. Once active, you can define as many rules as you need.
+
+Each rule includes:
+
+| Field | Description |
+|-------|-------------|
+| **Condition** | A natural-language description of when this rule should trigger (e.g., "the customer asks to speak with sales", "the customer wants to cancel a subscription") |
+| **Destination Type** | `Phone` or `SIP`, matching the same formats used in standard Call Transfer |
+| **Destination Value** | The phone number (`+1234567890`) or SIP URI (`sip:extension@ip:port`) to route to |
+| **Transfer Type** | `Direct` or `Warm` — controls how the handoff is performed |
+| **Custom Message** | An optional per-rule message the agent says right before transferring, overriding the default transfer phrase |
+
+<Tabs>
+  <Tab title="Direct Transfer">
+    **Direct (Cold) Transfer**
+    
+    The agent immediately connects the caller to the destination without staying on the line.
+
+    - **Best for**: Simple routing to a known extension or department
+    - **Experience**: Fastest handoff, no context relay
+    - **Use when**: The destination doesn't need a live briefing before speaking with the customer
+  </Tab>
+  <Tab title="Warm Transfer">
+    **Warm Transfer**
+    
+    The agent stays connected momentarily to introduce the call and pass context before disconnecting.
+
+    - **Best for**: Complex cases, VIP customers, or situations requiring a smooth handoff
+    - **Experience**: The receiving agent gets a short summary before taking over
+    - **Use when**: Context preservation is critical to avoid the customer repeating themselves
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Enable Transfer v2">
+    Toggle "Transfer to multiple destinations (Beta)" within the Call Transfer section.
+  </Step>
+  <Step title="Add a Rule">
+    Click "Add rule" and describe the condition that should trigger this specific transfer.
+  </Step>
+  <Step title="Configure Destination">
+    Choose Phone or SIP and enter the corresponding destination value.
+  </Step>
+  <Step title="Choose Transfer Type">
+    Select Direct for an immediate handoff or Warm to relay context before disconnecting.
+  </Step>
+  <Step title="Add a Custom Message (Optional)">
+    Write a message specific to this rule, such as "Let me connect you with our billing team" for a billing-related rule.
+  </Step>
+  <Step title="Repeat for Additional Rules">
+    Add as many rules as needed to cover all the transfer scenarios for your agent.
+  </Step>
+</Steps>
+
+<Warning>
+Rules are evaluated in the order they appear. Place more specific conditions above general ones to avoid a broad rule capturing calls meant for a more precise destination.
+</Warning>
+
+**Example Configuration:**
+
+```
+Rule 1
+Condition: the customer wants to talk to sales or ask about pricing
+Destination: Phone → +1-555-200-1000
+Type: Warm
+Message: "I'll connect you with our sales team, one moment please."
+
+Rule 2
+Condition: the customer reports a technical issue or outage
+Destination: SIP → sip:support@pbx.company.com:5060
+Type: Direct
+Message: "Transferring you to technical support now."
+
+Rule 3
+Condition: the customer explicitly asks for a manager or wants to file a complaint
+Destination: Phone → +1-555-200-2000
+Type: Warm
+Message: (default transfer phrase)
+```
+
+<Info>
+When Transfer v2 is disabled, your agent falls back to the classic single-destination Call Transfer configuration described above.
+</Info>
+
 ### Multi-Language Transfer Prompt Templates
 
 The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Choose from professionally crafted templates in 6 languages:
@@ -471,6 +561,70 @@ Each webhook parameter supports sophisticated data mapping:
   </Tab>
 </Tabs>
 
+## Business Hours Tool (Beta)
+
+<Info>
+**Business Hours** is a new built-in tool (Beta) that lets your agent automatically resolve whether the current call is happening within your configured business hours — no webhook or external calendar needed.
+</Info>
+
+Instead of building custom logic or prompting the model to reason about dates and time zones, the Business Hours tool evaluates the call timestamp against your schedule and returns a simple `open` / `closed` result the agent can act on.
+
+### What It Solves
+
+- Avoids transferring calls to a human team that isn't available
+- Lets the agent give accurate opening hours or "we're currently closed" messaging
+- Enables conditional logic such as "only offer callback scheduling outside business hours"
+- Removes the need for manual date/time reasoning in the system prompt
+
+### Configuration
+
+<Steps>
+  <Step title="Enable Business Hours">
+    Add the Business Hours tool from the Actions & Tools panel and toggle it on.
+  </Step>
+  <Step title="Set Your Schedule">
+    Define opening and closing times for each day of the week. Mark days as fully closed when applicable (e.g., weekends or holidays).
+  </Step>
+  <Step title="Configure Time Zone">
+    Select the time zone your business hours are defined in, so the tool correctly resolves the call time regardless of where the customer is calling from.
+  </Step>
+  <Step title="Reference the Tool in Your Prompt or Rules">
+    Use the tool's result in your system prompt logic, or combine it with a Transfer v2 rule condition (e.g., "only transfer to sales if within business hours").
+  </Step>
+</Steps>
+
+### Example Schedule
+
+```
+Monday - Friday: 09:00 - 18:00
+Saturday: 10:00 - 14:00
+Sunday: Closed
+Time Zone: Europe/Madrid
+```
+
+### Example Usage
+
+**Combined with Transfer v2:**
+
+```
+Rule 1
+Condition: the customer wants to talk to sales AND the call is within business hours
+Destination: Phone → +1-555-200-1000
+Type: Warm
+
+Rule 2
+Condition: the customer wants to talk to sales AND the call is outside business hours
+Destination: (no transfer — offer to schedule a callback instead)
+```
+
+**Combined with End Call Strategy or system prompt:**
+
+Instruct the agent to check the Business Hours result before offering live transfer, and fall back to taking a message or booking a callback when the result is `closed`.
+
+<Warning>
+Business Hours is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and holiday exceptions, which may require manual configuration.
+</Warning>
+
 ## End Call Strategy
 
 Configure intelligent call termination with sophisticated answering machine detection and strategic conversation ending across multiple languages.
@@ -844,6 +998,10 @@ Set up sophisticated automatic callback systems for comprehensive customer follo
   </Step>
 </Steps>
 
+<Info>
+Pair the Recall Protocol with the **Business Hours Tool (Beta)** to automatically restrict callback attempts to your configured working hours instead of manually setting time windows.
+</Info>
+
 ### Recall Timing Strategy
 
 | Attempt | Timing | Use Case | Success Rate |
@@ -941,151 +1099,4 @@ Expand your agent's communication capabilities beyond voice calls with integrate
 </Info>
 
 **Planned Features:**
-- WhatsApp Business API integration
-- Rich media message support (images, documents, links)
-- Template message compliance
-- Interactive message buttons and quick replies
-- Conversation continuation from voice to chat
-- International messaging support
-
-**Use Cases:**
-- Share visual product catalogs and brochures
-- Send interactive booking confirmations
-- Provide customer support resource links
-- Continue complex conversations in chat format
-
-## Advanced Features
-
-### Caller ID Management
-
-<Info>
-**Professional Caller ID**: Configure multiple verified phone numbers to improve answer rates and brand recognition for outbound calls.
-</Info>
-
-**Caller ID Configuration:**
-- **Number Registration**: Add and verify business phone numbers
-- **Local Presence**: Use local area codes to increase answer rates by 20-30%
-- **Brand Recognition**: Display professional, memorable numbers
-- **Performance Tracking**: Monitor answer rates by caller ID
-- **Automated Selection**: Smart caller ID selection based on customer location
-
-**Verification Process:**
-- SMS verification for mobile numbers
-- Voice verification for landlines
-- Business documentation for toll-free numbers
-- Carrier compliance requirements
-
-### Multi-Account Management
-
-**Twilio Subaccount Integration:**
-- Manage caller IDs across multiple Twilio subaccounts
-- Automatic synchronization of verified numbers
-- Centralized performance analytics and reporting
-- Cross-account number pooling for better coverage
-- Industry-specific number assignment (healthcare, finance, etc.)
-
-## Troubleshooting
-
-<Tabs>
-  <Tab title="Transfer Issues">
-    **Common Transfer Problems:**
-    - **Failed Transfers**: Check phone number format (use international +format)
-    - **SIP Issues**: Verify SIP URI syntax and network connectivity
-    - **Context Loss**: Ensure transfer prompts include context instructions
-    - **Authentication**: Review SIP credentials and routing configuration
-
-    **Solutions:**
-    - Test transfer destinations manually before deployment
-    - Verify carrier compatibility and routing paths
-    - Train human agents on receiving AI-transferred calls
-    - Monitor transfer success rates and optimize prompts
-  </Tab>
-  <Tab title="Webhook Failures">
-    **API Integration Issues:**
-    - **Authentication Errors**: Verify credentials and token expiration
-    - **Timeout Issues**: Adjust timeout settings for slow APIs
-    - **Parameter Mapping**: Validate extraction prompts and data types
-    - **Rate Limiting**: Implement proper retry logic and queuing
-
-    **Debugging Steps:**
-    - Use modal testing tools to validate endpoints
-    - Check API documentation for parameter requirements
-    - Monitor webhook response codes and error messages
-    - Implement proper error handling and fallback behavior
-  </Tab>
-  <Tab title="Calendar Sync">
-    **Calendar Integration Problems:**
-    - **Authentication Failures**: Refresh OAuth tokens regularly
-    - **Permission Issues**: Verify calendar access scopes
-    - **Timezone Conflicts**: Ensure proper timezone handling
-    - **Booking Failures**: Check availability logic and conflict detection
-
-    **Resolution Steps:**
-    - Validate OAuth credentials and refresh tokens
-    - Test calendar permissions with manual API calls
-    - Verify timezone configuration and conversion logic
-    - Monitor booking success rates and error patterns
-  </Tab>
-  <Tab title="Recall Protocol">
-    **Callback System Issues:**
-    - **False Positives**: Review success criteria for accuracy
-    - **Timing Problems**: Check business hours and timezone settings
-    - **Compliance Issues**: Verify DNC list integration
-    - **Performance**: Optimize callback intervals based on data
-
-    **Optimization:**
-    - Analyze recall success rates by timing and strategy
-    - Monitor customer response patterns and preferences
-    - Adjust success detection criteria based on outcomes
-    - Implement A/B testing for different recall approaches
-  </Tab>
-</Tabs>
-
-## Best Practices
-
-### Integration Strategy
-
-1. **Start Simple, Scale Complex**
-   - Begin with basic call transfer and single webhook integrations
-   - Gradually add sophisticated parameter mapping and multi-system connections
-   - Test each integration thoroughly before adding complexity
-   - Monitor performance and optimize based on real usage data
-
-2. **Security First Approach**
-   - Always use HTTPS endpoints for webhook integrations
-   - Implement proper authentication and token management
-   - Validate and sanitize all incoming and outgoing data
-   - Regular security audits and credential rotation
-
-3. **User Experience Optimization**
-   - Design transfers to minimize customer frustration
-   - Ensure context preservation across all handoffs
-   - Provide clear communication about next steps
-   - Monitor customer satisfaction scores post-integration
-
-### Performance Monitoring
-
-1. **Key Metrics Tracking**
-   - Transfer success rates and context preservation
-   - Webhook response times and error rates
-   - Calendar booking success and no-show rates
-   - Recall protocol effectiveness and compliance
-
-2. **Continuous Improvement**
-   - Regular analysis of integration performance
-   - A/B testing of different configurations
-   - Customer feedback incorporation
-   - System optimization based on usage patterns
-
-<Warning>
-**Compliance Requirements**: All integrations must comply with applicable regulations including TCPA (US), GDPR (EU), CCPA (California), and industry-specific requirements. Always include proper consent mechanisms, opt-out procedures, and data handling policies.
-</Warning>
-
-## Next Steps
-
-After configuring your Actions & Tools, enhance your agent further with:
-
-- **[Input Parameters](/advanced-editor/input-parameters)**: Set up dynamic variables for personalized conversations
-- **[Output Settings](/advanced-editor/output-settings)**: Configure data extraction and delivery
-- **[Evaluations](/advanced-editor/evaluations)**: Define success metrics and quality measures
-- **[Knowledge Base](/advanced-editor/knowledge-base)**: Add contextual information for better responses
+- WhatsApp Business API integ

@@ -1,6 +1,6 @@
 ---
 title: 'Gestionar Agentes'
-description: 'Aprende a ver, editar, duplicar y gestionar tus agentes de voz en el dashboard de Meetzy'
+description: 'Aprende a ver, editar, duplicar, archivar y gestionar tus agentes de voz en el dashboard de Meetzy'
 icon: 'list'
 ---
 
@@ -71,10 +71,11 @@ Los agentes se pueden filtrar por su estado actual:
 - **Activos**: Agentes en producción
 - **En entrenamiento**: Agentes siendo configurados
 - **Pausados**: Agentes temporalmente desactivados
+- **Archivados**: Agentes retirados que ya no reciben llamadas
 - **Demo**: Agentes de ejemplo y plantillas
 
 <Info>
-  Usa el botón **Clear Filters** para restablecer todos los filtros y ver la lista completa.
+  Usa el botón **Clear Filters** para restablecer todos los filtros y ver la lista completa. Por defecto, los agentes archivados quedan ocultos de la vista principal para mantener la lista limpia.
 </Info>
 
 ## Vista Detallada del Agente
@@ -87,7 +88,7 @@ Al seleccionar cualquier agente, el panel derecho muestra información completa 
 |----------|-------------|---------------|
 | **Nombre del Agente** | Identificador personalizado | Editable desde configuración |
 | **ID del Agente** | Identificador único del sistema | Clic para copiar al portapapeles |
-| **Badges de Estado** | Indicadores visuales del estado | Training, Pause, Demo o producción |
+| **Badges de Estado** | Indicadores visuales del estado | Training, Pause, Archived, Demo o producción |
 | **Badge Advanced** | Editor avanzado habilitado | Acceso a funciones profesionales |
 | **Phone Health** | Salud de números telefónicos | Indicador de rendimiento en tiempo real |
 
@@ -149,13 +150,38 @@ Para agentes que muestran el badge **"Advanced"**:
   </Step>
 </Steps>
 
-### Selector de Agentes
+### Selector de Agentes en el Editor Avanzado
 
-En el editor avanzado, puedes cambiar rápidamente entre agentes:
+Dentro del Editor Avanzado (en escritorio, cuando editas un agente existente), la barra superior incluye un **selector de agentes** integrado que te permite saltar de un agente a otro sin salir del editor ni perder el contexto de trabajo.
 
 <Info>
-  El selector de agentes (disponible en escritorio) te permite cambiar entre agentes sin perder el contexto del editor.
+  El botón muestra el avatar (primera letra del nombre) y el nombre del agente que estás editando actualmente. Al hacer clic se despliega un panel con la lista completa de agentes disponibles.
 </Info>
+
+#### Cómo funciona
+
+<Steps>
+  <Step title="Abrir el selector">
+    Haz clic en el botón con el nombre del agente actual, ubicado junto al botón **Back to Agents** en la esquina superior izquierda del editor
+  </Step>
+  <Step title="Filtrar por compañía (solo administradores)">
+    Si eres administrador y tienes acceso a varias organizaciones, aparece un selector adicional de compañía en la parte superior del dropdown para acotar la lista
+  </Step>
+  <Step title="Buscar el agente">
+    Escribe parte del nombre en el campo de búsqueda del dropdown para localizar rápidamente el agente deseado
+  </Step>
+  <Step title="Cambiar de agente">
+    Selecciona el agente en la lista para cargar su configuración inmediatamente dentro del mismo editor
+  </Step>
+</Steps>
+
+<Warning>
+  Si tienes cambios sin guardar en el agente actual, el editor te advertirá antes de cambiar de agente para evitar la pérdida de configuración.
+</Warning>
+
+<Note>
+  El selector de agentes solo está disponible en modo edición (no al crear un agente nuevo) y en pantallas de escritorio. En dispositivos móviles, utiliza el botón **Back to Agents** para volver a la lista y seleccionar otro agente.
+</Note>
 
 ### Agentes Estándar
 
@@ -227,6 +253,66 @@ Meetzy ofrece una experiencia de creación guiada por IA:
 | **Departamentos** | Adaptar un agente exitoso para otra área | Escalabilidad organizacional |
 | **Respaldos** | Mantener versiones de seguridad | Recuperación ante fallos |
 | **Idiomas** | Versiones multiidioma del mismo agente | Expansión internacional |
+
+## Archivar Agentes
+
+Cuando un agente ya no está en uso pero quieres conservar su configuración e historial (en lugar de eliminarlo definitivamente), puedes **archivarlo**. Un agente archivado deja de recibir llamadas y desaparece de la lista principal, pero toda su configuración, historial de llamadas y métricas permanecen disponibles.
+
+<Info>
+  Archivar es una acción reversible pensada para "poner en pausa" un agente a largo plazo, a diferencia de la pausa temporal que solo desactiva el número telefónico.
+</Info>
+
+### Proceso de Archivado
+
+<Steps>
+  <Step title="Abrir el agente">
+    Selecciona el agente que deseas archivar desde la lista o ábrelo en el Editor Avanzado
+  </Step>
+  <Step title="Iniciar el archivado">
+    Haz clic en la opción **Archive Agent**. Se abrirá un modal de confirmación
+  </Step>
+  <Step title="Decidir sobre el número telefónico">
+    En el modal, activa la opción **Release phone number** si deseas liberar el número asociado para reutilizarlo en otro agente. Si la dejas desactivada, el número permanecerá reservado para este agente
+  </Step>
+  <Step title="Confirmar">
+    Confirma la acción. El proceso puede tardar unos segundos mientras se archiva el agente y, si corresponde, se libera el número
+  </Step>
+</Steps>
+
+<Warning>
+  Si liberas el número telefónico al archivar, cualquier llamada entrante a ese número dejará de ser respondida por este agente inmediatamente. Asegúrate de comunicar el cambio si el número era conocido por tus clientes.
+</Warning>
+
+### Qué sucede al archivar un agente
+
+| Aspecto | Efecto |
+|---------|--------|
+| **Recepción de llamadas** | El agente deja de responder llamadas entrantes y salientes |
+| **Visibilidad en la lista** | Se oculta de la vista principal de agentes (se puede acceder mediante el filtro de estado "Archivados") |
+| **Configuración** | Se conserva íntegramente: prompts, parámetros, integraciones y base de conocimiento |
+| **Historial de llamadas** | Permanece accesible para consulta y análisis |
+| **Número telefónico** | Se libera solo si seleccionaste explícitamente esa opción durante el archivado |
+| **Editor Avanzado** | Sigue siendo accesible en modo solo consulta o edición, según tus permisos |
+
+### Restaurar un Agente Archivado
+
+Un agente archivado puede reactivarse en cualquier momento:
+
+<Steps>
+  <Step title="Localizar el agente">
+    Usa el filtro de estado **"Archivados"** en el panel izquierdo para encontrar el agente
+  </Step>
+  <Step title="Restaurar">
+    Selecciona la opción **Unarchive** o **Restore Agent** en el panel de detalle
+  </Step>
+  <Step title="Reasignar número (si aplica)">
+    Si el número original fue liberado, deberás asignar un nuevo número telefónico antes de que el agente pueda volver a recibir llamadas
+  </Step>
+</Steps>
+
+<Tip>
+  Archivar en lugar de eliminar es la práctica recomendada cuando existe la posibilidad de reactivar un agente en el futuro, ya que preserva todo su historial y aprendizaje acumulado.
+</Tip>
 
 ## Sistema de Llamadas de Prueba
 
@@ -361,6 +447,7 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | **Copiar ID** | Clic en icono 📋 | Copia el identificador único al portapapeles |
 | **Refrescar llamadas** | Botón "Refresh" | Actualiza el historial de llamadas recientes |
 | **Ver todas las llamadas** | Botón "View All" | Abre la vista completa con filtros avanzados |
+| **Archivar agente** | Botón "Archive Agent" | Retira el agente de producción conservando su configuración |
 | **Cerrar panel** | Clic en ✕ o seleccionar otro agente | Cierra la vista detallada |
 
 ### Atajos de Teclado en el Editor Avanzado
@@ -379,6 +466,7 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 
 Para usuarios administradores, está disponible la gestión masiva:
 - **Pausar múltiples agentes**: Para mantenimiento programado
+- **Archivar múltiples agentes**: Para limpiar agentes descontinuados en bloque
 - **Cambiar compañía**: Transferir agentes entre organizaciones
 - **Exportar configuración**: Backup de configuraciones múltiples
 
@@ -428,11 +516,13 @@ Recibe alertas sobre:
     - Número telefónico pausado o desactivado
     - Configuración incorrecta del prompt
     - Problemas de conectividad del proveedor
+    - El agente fue archivado accidentalmente
     
     **Soluciones:**
     1. Verificar estado del número en Phone Health
-    2. Probar con llamada de prueba
-    3. Revisar logs de error en historial de llamadas
+    2. Confirmar que el agente no aparece como "Archived"
+    3. Probar con llamada de prueba
+    4. Revisar logs de error en historial de llamadas
   </Tab>
   <Tab title="Calidad de conversación baja">
     **Mejoras recomendadas:**
@@ -446,6 +536,12 @@ Recibe alertas sobre:
     - Usuario administrador o Editor Avanzado
     - Números telefónicos disponibles
     - Límites de plan no excedidos
+  </Tab>
+  <Tab title="No encuentro un agente archivado">
+    **Pasos para localizarlo:**
+    - Aplica el filtro de estado **"Archivados"** en el panel izquierdo
+    - Verifica que estás en la compañía correcta si administras varias organizaciones
+    - Usa la búsqueda por nombre o ID para confirmar su existencia
   </Tab>
   <Tab title="Conflictos de versiones">
     **Pasos para resolver:**

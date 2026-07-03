@@ -1,6 +1,6 @@
 ---
 title: 'Manage Agents'
-description: 'Learn how to view, edit, duplicate, and manage your voice agents in the Meetzy dashboard'
+description: 'Learn how to view, edit, duplicate, archive, and manage your voice agents in the Meetzy dashboard'
 icon: 'robot'
 ---
 
@@ -60,6 +60,40 @@ Click agent selector → Search "Sales" → Select "Sales Assistant"
 Auto-save current work → Load new agent → Preserve editor state
 ```
 
+### Quick Agent Selector: In-Depth Guide
+
+The agent name button in the Advanced Editor header is more than a label — it's a fully-featured quick switcher that lets you jump between agents without ever leaving the editor.
+
+<Steps>
+  <Step title="Open the Selector">
+    Click on the current agent's name and avatar in the top-left of the editor toolbar. A dropdown panel opens showing:
+    - A search field to filter agents by name
+    - A **company filter** (visible to admin users with access to multiple companies)
+    - A scrollable list of agents, each showing its name and a colored initial avatar
+  </Step>
+  
+  <Step title="Search and Filter">
+    - Type in the search field to instantly filter the agent list by name
+    - Admin users can narrow results further by selecting a specific company from the dropdown
+    - The list updates in real time as you type
+  </Step>
+  
+  <Step title="Switch Agents">
+    Click on any agent in the list to load it into the editor:
+    - If you have unsaved changes on the current agent, a confirmation prompt appears asking you to **save**, **discard**, or **cancel** the switch
+    - Once resolved, the selected agent loads immediately with its full configuration
+    - Your editor layout, open tabs, and view preferences (minimap, focus mode, etc.) are preserved across the switch
+  </Step>
+</Steps>
+
+<Info>
+  The quick agent selector is only available while editing an existing agent (**edit mode**) and only on desktop screens. It is not shown while creating a brand-new agent from scratch.
+</Info>
+
+<Tip>
+  Use **Cmd/Ctrl + Shift + A** as a keyboard shortcut to instantly open the agent selector without touching your mouse.
+</Tip>
+
 ## Enhanced Search and Filtering
 
 ### Global Agent Search
@@ -84,6 +118,7 @@ Use the powerful search field to find agents across all your organizations:
     - **Active**: Currently operational agents
     - **Training**: Agents being configured
     - **Paused**: Temporarily disabled agents
+    - **Archived**: Agents that have been retired but preserved for records
     - **Demo**: Template agents
   </Step>
   
@@ -150,6 +185,74 @@ Enhanced calls section with:
 <Note>
   Click **View All** to open the full calls analytics dashboard with advanced filtering and export options.
 </Note>
+
+## Archive Agents
+
+<Info>
+  Archiving is the recommended way to retire an agent you no longer need while keeping its configuration, call history, and analytics intact for future reference.
+</Info>
+
+Unlike deleting an agent, **archiving** deactivates it without permanently erasing its data. Archived agents stop receiving and making calls, but remain visible under the **Archived** filter for auditing or reactivation later.
+
+### Archive an Agent
+
+<Steps>
+  <Step title="Open the Archive Option">
+    From the Advanced Editor or the agent details panel, click the **Archive Agent** button. This is typically found in the header toolbar's overflow menu or the agent's quick actions.
+  </Step>
+  
+  <Step title="Confirm Archiving">
+    A confirmation modal appears summarizing the action:
+    - The agent will stop handling inbound and outbound calls
+    - All configuration, prompts, Knowledge Base, and call history are preserved
+    - The agent can be restored from the **Archived** filter at any time
+  </Step>
+  
+  <Step title="Choose Phone Number Handling">
+    If the agent has an assigned phone number, you'll see an additional option:
+    - **Release phone number**: Toggle this option to free up the associated phone number so it can be reassigned to another agent or released back to your number pool
+    - Leave it unchecked to keep the number reserved for this agent in case you reactivate it later
+  </Step>
+  
+  <Step title="Complete the Archive">
+    Click **Archive Agent** to confirm. The agent is immediately deactivated and moved to the archived list.
+  </Step>
+</Steps>
+
+<Warning>
+  Releasing the phone number is **irreversible** — once released, the number may be reassigned to a different agent or company. If you plan to reactivate this agent later with the same number, leave the release option disabled.
+</Warning>
+
+### What Happens When You Archive
+
+| Aspect | Behavior |
+|--------|----------|
+| **Call handling** | Immediately stops accepting inbound and outbound calls |
+| **Configuration** | Fully preserved (prompts, tools, Knowledge Base, versions) |
+| **Call history** | Retained and accessible in analytics |
+| **Phone number** | Released only if explicitly selected during archiving |
+| **Visibility** | Moved out of the active agents list; accessible via the **Archived** filter |
+| **Billing** | No further usage charges accrue for an archived agent |
+
+### Restoring an Archived Agent
+
+Archived agents can be reactivated at any time:
+
+<Steps>
+  <Step title="Locate the Agent">
+    Use the **Archived** status filter in the agents list to find the agent you want to restore.
+  </Step>
+  <Step title="Restore">
+    Click **Restore Agent** from the agent's details panel or quick actions menu.
+  </Step>
+  <Step title="Reassign a Phone Number (if needed)">
+    If the original phone number was released during archiving, you'll need to assign a new number from the [Phone Numbers](/agents/phone-numbers) section before the agent can resume handling calls.
+  </Step>
+</Steps>
+
+<Info>
+  Restoring an agent does not automatically restore a released phone number. Make sure to assign a new number if the previous one was freed.
+</Info>
 
 ## Advanced Agent Cloning
 
@@ -249,6 +352,10 @@ When switching agents, the editor automatically:
 - Preserves work state during transitions
 - Maintains editor layout and preferences
 
+#### Archiving from the Editor
+
+The **Archive Agent** action is also accessible directly from within the Advanced Editor toolbar, allowing you to retire an agent as soon as you're done reviewing or editing it — without navigating back to the main agents list.
+
 ### Standard Agents
 
 Non-advanced agents support basic configuration updates through the simplified editor interface.
@@ -343,6 +450,7 @@ Agent Version Selection:
 | Action | Description |
 |--------|-------------|
 | **Enable/Disable** | Batch status changes |
+| **Archive** | Retire multiple agents at once, with the option to release their phone numbers |
 | **Company Transfer** | Move agents between companies |
 | **Backup Creation** | Create bulk backups |
 | **Performance Export** | Export metrics for selected agents |
@@ -361,7 +469,7 @@ Search across all agents and team members:
 <Tabs>
   <Tab title="Admin Users">
     - Full agent management access
-    - Advanced cloning and bulk operations
+    - Advanced cloning, archiving, and bulk operations
     - Cross-company agent management
     - Agent selector with company filtering
     - System configuration access
@@ -371,6 +479,7 @@ Search across all agents and team members:
     - Create and edit advanced agents
     - Access to Knowledge Base and Tools
     - Version management and testing
+    - Archive agents and manage phone number release
     - Enhanced navigation within assigned agents
     - Performance analytics
   </Tab>
@@ -394,7 +503,7 @@ Control agent visibility and access across organizations:
 
 <CardGroup cols={2}>
   <Card title="Phone Numbers" icon="phone" href="/agents/phone-numbers">
-    Assign and manage phone numbers for your agents.
+    Assign, release, and manage phone numbers for your agents.
   </Card>
   <Card title="Advanced Editor" icon="code" href="/agents/advanced-editor">
     Learn to use the Advanced Editor with enhanced navigation features.
