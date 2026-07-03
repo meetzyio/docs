@@ -180,6 +180,17 @@ Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicaci
       "phone_sid": "PN123..."
     }
     ```
+
+    **Audio_Tags_Set**: Ajuste de tags de audio expresivos (Eleven v3)
+    ```json
+    {
+      "type": "audio_tags_set",
+      "tags": [
+        { "tag": "[warmly]", "description": "Tono cálido para el saludo" },
+        { "tag": "[pause]", "description": "Pausa breve antes de confirmar datos" }
+      ]
+    }
+    ```
   </Tab>
   <Tab title="Eventos Avanzados">
     **Test_Create**: Generación automática de tests
@@ -195,6 +206,18 @@ Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicaci
       "dynamic_variables": {"customer_name": "John Doe"}
     }
     ```
+
+    **Test_Update**: Actualización de un test ya existente
+    ```json
+    {
+      "type": "test_update",
+      "test_id": "test_8f21ac",
+      "success_condition": "Agent confirms email format before saving it",
+      "dynamic_variables": {"customer_name": "Jane Doe"}
+    }
+    ```
+    - Modifica un test previamente creado sin necesidad de recrearlo desde cero
+    - Solo se envían los campos que cambian; el resto del test se conserva intacto
     
     **Enrichment_Set**: Configuración de output enrichment
     ```json
@@ -403,6 +426,61 @@ Un mismo mensaje de Copilot puede combinar texto explicativo con uno o varios bl
 <Info>
 Todos los bloques enriquecidos son totalmente responsivos y se adaptan automáticamente al modo claro/oscuro del editor, manteniendo consistencia visual con el resto de la interfaz.
 </Info>
+
+## Edición Directa de Tags de Audio y Actualización de Tests
+
+Además de reescribir el system prompt, Copilot puede actuar directamente sobre dos elementos clave de la configuración del agente sin pedirte que los reconstruyas manualmente: los **tags de audio expresivos** y los **tests ya existentes**.
+
+<Tabs>
+  <Tab title="Modificación de Tags de Audio">
+    Los agentes de voz sobre motores como Eleven v3 admiten tags expresivos (por ejemplo `[warmly]`, `[pause]`, `[excited]`) que modulan cómo se pronuncia el texto. Copilot puede añadir, ajustar o eliminar estos tags directamente sobre la configuración del agente cuando detecta que mejorarían la naturalidad de la voz.
+
+    ```json
+    {
+      "type": "audio_tags_set",
+      "tags": [
+        { "tag": "[warmly]", "description": "Tono cálido para el saludo inicial" },
+        { "tag": "[pause]", "description": "Pausa breve antes de confirmar el email" }
+      ]
+    }
+    ```
+
+    **Cuándo lo hace Copilot**:
+    - Al diagnosticar que el agente suena demasiado plano o robótico en ciertas partes
+    - Cuando el prompt describe una emoción o énfasis que no está reflejado en tags reales
+    - Como parte de una mejora de "Mejorar y verificar" enfocada en tono de voz
+
+    <Info>
+    Los cambios de tags se muestran como un evento independiente en el chat, con un preview de los tags antes y después, para que puedas aceptarlos o descartarlos igual que una edición de prompt.
+    </Info>
+  </Tab>
+  <Tab title="Actualización de Tests Existentes">
+    Antes, Copilot solo podía **crear** tests nuevos a partir de llamadas reales. Ahora también puede **actualizar un test que ya existe**, sin duplicarlo ni perder su historial de ejecuciones.
+
+    ```json
+    {
+      "type": "test_update",
+      "test_id": "test_8f21ac",
+      "success_condition": "Agent confirms email format before saving it",
+      "dynamic_variables": { "customer_name": "Jane Doe" }
+    }
+    ```
+
+    **Comportamiento clave**:
+    - Solo se modifican los campos incluidos en el evento; el resto del test permanece igual
+    - El `test_id` identifica de forma inequívoca qué test se está actualizando
+    - Es ideal cuando un test dejó de reflejar el comportamiento esperado tras una mejora del prompt
+
+    **Ejemplo de flujo típico**:
+    1. Copilot detecta que un test de regresión ya no representa el escenario real (el bug cambió ligeramente)
+    2. En vez de crear un test duplicado, emite un evento `test_update` sobre el `test_id` original
+    3. El test conserva su nombre e historial, pero con la condición de éxito actualizada
+  </Tab>
+</Tabs>
+
+<Warning>
+Tanto los cambios de tags de audio como las actualizaciones de tests requieren tu confirmación antes de aplicarse de forma permanente, igual que cualquier otra edición propuesta por Copilot.
+</Warning>
 
 ## Operaciones de Edición Estructurada Avanzada
 
@@ -760,6 +838,11 @@ El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo q
     - Simulación de clientes difíciles basada en llamadas reales
     - Validation tests para nuevos campos de output
     - Regression tests automáticos para cambios de prompt
+
+    **Actualización sobre tests existentes**:
+    - Cuando un test ya cubre el escenario pero quedó desactualizado, Copilot lo actualiza en lugar de duplicarlo
+    - Conserva el `test_id`, el nombre y el historial de ejecuciones previas
+    - Solo modifica los campos necesarios (condición de éxito, variables dinámicas, historial de chat)
   </Tab>
   <Tab title="Sugerencias de Optimización de Performance">
     **Análisis Predictivo de Métricas**:
@@ -857,124 +940,4 @@ Copilot puede realizar cambios sofisticados en toda la configuración del agente
   </Tab>
   <Tab title="Configuración Predictiva">
     Copilot analiza el contexto del prompt y sugiere parámetros con:
-    - **Tipos de datos optimizados** según el uso esperado
-    - **Validaciones automáticas** basadas en patrones de entrada típicos
-    - **Valores por defecto inteligentes** derivados de mejores prácticas
-    - **Dependencias entre parámetros** para configuración coherente
-  </Tab>
-  <Tab title="Migración de Parámetros">
-    Cuando detecta referencias hard-coded en el prompt:
-    - Extrae valores constantes a parámetros configurables
-    - Mantiene funcionalidad existente durante transición
-    - Sugiere valores históricos como opciones
-    - Proporciona path de migración gradual
-  </Tab>
-</Tabs>
-
-### Sistema de Output Parameters Dinámico
-
-<Steps>
-  <Step title="Análisis de Información Capturada">
-    - **Mining de conversaciones**: Identificación de datos que el agente intenta capturar
-    - **Gap analysis**: Información mencionada pero no formalizada en outputs
-    - **Pattern recognition**: Datos consistentemente solicitados pero no estructurados
-    - **Validation detection**: Campos que requieren verificación automática
-  </Step>
-  <Step title="Generación de Schema Automático">
-    ```json
-    {
-      "auto_generated_outputs": {
-        "customer_budget_range": {
-          "type": "object",
-          "properties": {
-            "min": {"type": "number", "minimum": 0},
-            "max": {"type": "number", "minimum": 0},
-            "currency": {"type": "string", "default": "USD"},
-            "confidence": {"type": "string", "enum": ["high", "medium", "low"]}
-          },
-          "rationale": "Budget discussions in 89% of analyzed calls"
-        }
-      }
-    }
-    ```
-  </Step>
-  <Step title="Enriquecimiento Contextual">
-    - **Validation rules**: Reglas de validación específicas por tipo de campo
-    - **Formatting standards**: Normalización automática de formatos
-    - **Conditional fields**: Campos que aparecen según otros valores
-    - **Relationship mapping**: Conexiones entre diferentes outputs
-  </Step>
-</Steps>
-
-### Evaluations Engine Automatizado
-
-Copilot puede crear evaluaciones sofisticadas que se adaptan al dominio específico:
-
-```json
-{
-  "auto_generated_evaluation": {
-    "name": "Customer Discovery Quality",
-    "type": "composite_metric",
-    "components": [
-      {
-        "metric": "information_gathering",
-        "weight": 0.4,
-        "criteria": "Rate how well the agent discovered customer needs (1-5)",
-        "examples": {
-          "5": "Asked probing questions, uncovered multiple pain points",
-          "3": "Basic information gathered, some follow-up questions",
-          "1": "Minimal discovery, mostly talked about product features"
-        }
-      },
-      {
-        "metric": "qualification_accuracy", 
-        "weight": 0.35,
-        "criteria": "Rate accuracy of customer qualification (1-5)",
-        "validation": "Compare agent assessment vs actual customer fit"
-      },
-      {
-        "metric": "next_step_clarity",
-        "weight": 0.25,
-        "criteria": "Rate clarity of next steps communicated (1-5)",
-        "success_indicators": ["Specific timeline", "Clear deliverables", "Mutual commitment"]
-      }
-    ],
-    "overall_calculation": "weighted_average",
-    "auto_trigger": "post_call",
-    "benchmarks": {
-      "industry_average": 3.2,
-      "top_quartile": 4.1,
-      "improvement_target": 3.8
-    }
-  }
-}
-```
-
-### Flujo de Aceptación de Cambios Granular
-
-<Steps>
-  <Step title="Presentación de Cambios Estructurados">
-    Los cambios aparecen organizados por categoría con previews detallados:
-    ```
-    🔧 Configuration Changes Pending (4)
-    ├── Input Parameters (2 additions)
-    │   ├── customer_industry [enum] - Industry-specific customization
-    │   └── urgency_level [number] - Priority scoring for follow-up
-    ├── Output Settings (3 new fields)  
-    │   ├── budget_range [object] - Structured budget information
-    │   ├── decision_timeline [string] - Expected decision timeframe
-    │   └── stakeholders [array] - All decision makers identified
-    └── Evaluations (1 new metric)
-        └── discovery_quality [composite] - Multi-dimensional assessment
-    ```
-  </Step>
-  <Step title="Preview y Validación">
-    - **Schema preview**: Vista completa de la configuración resultante
-    - **Impact analysis**: Predicción del efecto en llamadas existentes
-    - **Backward compatibility**: Verificación de compatibilidad con datos históricos
-    - **Resource requirements**: Estimación de carga computacional adicional
-  </Step>
-  <Step title="Implementación Selectiva">
-    ```
-    Configuration Implementation Options:
-    ✅ Accept all changes (Recommended)
+    - **

@@ -6,10 +6,10 @@ icon: 'robot'
 
 ## What is Copilot?
 
-Copilot is an advanced AI-powered system engineer integrated into the Advanced Editor. It goes far beyond simple prompt editing - **Copilot can configure your entire agent system** including input parameters, output settings, evaluations, and core configurations. Using sophisticated structured editing and intelligent analysis, Copilot transforms your agent based on natural language instructions and real call data.
+Copilot is an advanced AI-powered system engineer integrated into the Advanced Editor. It goes far beyond simple prompt editing - **Copilot can configure your entire agent system** including input parameters, output settings, evaluations, audio expressiveness, and core configurations. Using sophisticated structured editing and intelligent analysis, Copilot transforms your agent based on natural language instructions and real call data.
 
 <Info>
-Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, create tests from call history, and even suggest improvements - all through natural conversation and targeted operations.
+Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, and even suggest improvements - all through natural conversation and targeted operations.
 </Info>
 
 ## Accessing Copilot
@@ -30,7 +30,7 @@ Copilot now has a face: a gradient orb avatar that represents Meetzy across the 
 </Tabs>
 
 <Info>
-The orb appears in three places: the welcome screen hero, the avatar next to each assistant message, and the typing/thinking indicator - giving Copilot a consistent, recognizable identity throughout the conversation.
+The orb appears in three places: the welcome screen hero, the avatar next to each assistant message, and the typing/thinking indicator - giving Copilot a consistent, recognizable identity throughout the conversation. Its state (idle or active) always reflects whether Copilot is waiting for you or actively working.
 </Info>
 
 ## Enhanced Welcome Experience
@@ -158,6 +158,7 @@ Copilot now operates as a comprehensive system engineer that can modify every as
     - **Customer Satisfaction**: Experience and satisfaction evaluation
     - **Process Adherence**: Compliance with required procedures
     - **Test Generation**: Creates automated tests from call scenarios and history
+    - **Test Updates**: Modifies existing tests in place - refining success conditions, chat history, or dynamic variables without creating duplicates
   </Tab>
   <Tab title="Basic Configuration">
     **Core Agent Settings** from natural language instructions
@@ -166,6 +167,14 @@ Copilot now operates as a comprehensive system engineer that can modify every as
     - Inbound/outbound greeting configuration for different scenarios
     - Phone number assignment and management
     - Voice and personality adjustments for optimal customer experience
+  </Tab>
+  <Tab title="Audio Expressiveness">
+    **Direct Control Over Voice Emotion Tags** (Eleven v3)
+    
+    - Adds, modifies, or removes expressive audio tags (e.g. `[excited]`, `[whispers]`, `[curious]`) directly in the prompt
+    - Suggests contextually appropriate tags based on the agent's role and tone
+    - Keeps tag usage consistent across the prompt to avoid overacting or flat delivery
+    - Applies changes through the same purple-highlight review flow as other edits
   </Tab>
 </Tabs>
 
@@ -183,7 +192,9 @@ Copilot uses a streamlined event system for real-time feedback across all system
 | **enrichment_set** | Output enrichment update | ⚡ Enrichment content preview | Output enrichment |
 | **evaluation_change** | Evaluation criteria update | 📊 Evaluation configuration | Evaluations |
 | **test_create** | Automated test generation | 🧪 Test scenario preview | Test creation |
+| **test_update** | Existing test modification | 🔁 Test diff preview | Test updates |
 | **agent_config** | Basic settings update | ⚙️ Configuration preview | Core settings |
+| **audio_tags_set** | Expressive audio tag update | 🎙️ Tag list preview | Audio expressiveness |
 | **rich_block** | Rich UI block (stat grid, table, chart, card) | 📊 Inline visual component | Diagnostics & analysis |
 | **complete** | Operation finished | ✅ Summary with next steps | All operations |
 | **error** | Operation failed | ❌ Error with suggested fixes | All operations |
@@ -307,11 +318,25 @@ Copilot intelligently suggests changes across all agent configuration areas:
     - Phone number assignment
     - Voice and personality settings
   </Tab>
+  <Tab title="Audio Expressiveness Tags">
+    **Direct Tag Editing** for more natural, emotionally-aware voice delivery:
+    
+    ```
+    Add expressive tags so the agent sounds more empathetic when 
+    handling complaints, and more upbeat during the closing.
+    ```
+    
+    Copilot can:
+    - Insert new expressiveness tags at the right points in the prompt
+    - Modify existing tags that feel overused, misplaced, or mismatched with tone
+    - Remove tags that conflict with the agent's intended personality
+    - Keep tag density balanced so delivery doesn't sound exaggerated
+  </Tab>
 </Tabs>
 
-## Advanced Test Creation from Call History
+## Advanced Test Creation & Updates from Call History
 
-One of Copilot's most powerful features is generating comprehensive test suites based on real call data:
+One of Copilot's most powerful features is generating - and maintaining - comprehensive test suites based on real call data:
 
 <Tabs>
   <Tab title="Test Generation from Calls">
@@ -328,6 +353,25 @@ One of Copilot's most powerful features is generating comprehensive test suites 
     - **Success Examples**: Specific agent responses that worked well
     - **Failure Examples**: Alternative responses to avoid
     - **Dynamic Variables**: Contextual information that can be varied in tests
+  </Tab>
+  <Tab title="Updating Existing Tests">
+    **Refine tests in place instead of duplicating them**:
+    
+    ```
+    Update the "Objection handling - pricing" test to include the 
+    new discount policy and tighten the success condition.
+    ```
+    
+    Copilot can modify an existing test's:
+    - **Name** and description
+    - **Chat history** to reflect updated conversation flows
+    - **Success condition** as your requirements evolve
+    - **Success/failure examples** to match current expectations
+    - **Dynamic variables** to cover new scenarios
+
+    <Info>
+    Test updates apply to the specific test referenced, so your test suite stays clean and versioned instead of accumulating near-duplicate tests over time.
+    </Info>
   </Tab>
   <Tab title="Test Types Generated">
     **Multiple Test Scenarios** from single calls:
@@ -396,7 +440,7 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     - Suggests missing input/output parameters
     - Updates prompts based on specific context
     - Creates relevant evaluation criteria
-    - **Generates tests based on call patterns**
+    - **Generates or updates tests based on call patterns**
     
     ### Comprehensive Call Analysis
     
@@ -405,7 +449,7 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     - **Process Gap Analysis**: Where the conversation broke down
     - **Parameter Suggestions**: Input/output fields based on actual needs
     - **Evaluation Criteria**: Performance metrics based on real outcomes
-    - **Test Creation**: Automated test scenarios from successful interactions
+    - **Test Creation & Updates**: New or refined automated test scenarios from actual interactions
   </Tab>
 </Tabs>
 
@@ -435,7 +479,8 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     - Output Settings reflect new capture requirements
     - Evaluations panel shows new measurement criteria
     - Basic Settings display updated configurations
-    - Tests panel includes newly generated test scenarios
+    - Tests panel includes newly generated or updated test scenarios
+    - Prompt reflects updated audio expressiveness tags
   </Step>
 </Steps>
 
@@ -519,6 +564,31 @@ tests to maintain this quality.
 - Sets up quality benchmarks based on the successful call
 - Includes dynamic variables for different customer personalities
 
+### Updating a Test After a Policy Change
+
+```
+Update the "Refund policy objection" test - the refund window changed 
+from 30 to 60 days, update the success condition and chat history accordingly.
+```
+
+**Copilot performs**:
+- Locates the existing test by name
+- Updates the success condition to reflect the new 60-day window
+- Adjusts chat history examples that reference the old policy
+- Leaves unrelated tests untouched
+
+### Adjusting Audio Expressiveness for a More Natural Voice
+
+```
+The agent sounds too flat during the apology section. Add expressive 
+tags there and remove the excessive excitement tags in the greeting.
+```
+
+**Copilot performs**:
+- Inserts empathetic expressiveness tags (e.g. `[softly]`, `[apologetic]`) around the apology section
+- Removes or tones down over-the-top tags in the greeting
+- Shows the change through the purple-highlight diff review before applying
+
 ### Diagnosing Performance with Rich Blocks
 
 ```
@@ -594,10 +664,11 @@ After completing comprehensive changes, Copilot provides intelligent system-wide
     **Cross-system optimization suggestions**:
     
     - Added input parameters → suggests matching output fields and evaluations
-    - Improved prompt handling → recommends relevant test creation
+    - Improved prompt handling → recommends relevant test creation or updates
     - Updated evaluations → suggests parameter adjustments for better measurement
     - Enhanced greetings → recommends matching closing procedures
-    - Created tests → suggests additional edge case scenarios
+    - Created or updated tests → suggests additional edge case scenarios
+    - Adjusted audio tags → recommends verifying delivery in Playground
   </Tab>
   <Tab title="Configuration Completeness">
     **System audit recommendations**:
@@ -615,7 +686,8 @@ After completing comprehensive changes, Copilot provides intelligent system-wide
     - "Create regression tests for updated conversation flows"
     - "Verify evaluation criteria with sample calls"
     - "Validate output enrichment with webhook testing"
-    - "Run generated tests to ensure quality maintenance"
+    - "Run generated or updated tests to ensure quality maintenance"
+    - "Listen to a Playground call to confirm the new audio tags sound natural"
   </Tab>
 </Tabs>
 
@@ -639,6 +711,10 @@ Copilot: [Adds scheduling params, webhook configs, and integration tests]
 User: @call:abc123 Create tests based on this successful call
 
 Copilot: [Generates comprehensive test scenarios from call history]
+
+User: Update the "Follow-up scheduling" test - we now offer same-day slots
+
+Copilot: [Updates the existing test's chat history and success condition in place]
 ```
 
 <Info>
@@ -679,11 +755,11 @@ conversion tracking evaluations, optimize output data capture,
 and generate tests to maintain improved performance.
 ```
 
-### Test Suite Creation from Call History
+### Test Suite Creation and Maintenance from Call History
 ```
 @call:perfect1 @call:perfect2 @call:perfect3 These are our best calls.
-Create a comprehensive test suite based on these successful patterns
-to ensure all agents maintain this quality level.
+Create a comprehensive test suite based on these successful patterns,
+and update any existing tests that no longer match current policies.
 ```
 
 ### Compliance and Quality Assurance Setup
@@ -692,6 +768,13 @@ Add comprehensive compliance checking for this financial services
 agent - include required disclosures in prompts, compliance tracking 
 parameters, regulatory evaluation criteria, audit trail outputs,
 and compliance verification tests.
+```
+
+### Voice Expressiveness Tuning
+```
+Review the current audio tags for this customer support agent and 
+adjust them so empathy comes through during complaints without 
+sounding exaggerated anywhere else.
 ```
 
 ## Keyboard Shortcuts for System Navigation
@@ -736,7 +819,7 @@ and compliance verification tests.
     - Use `@call:ID` syntax to provide specific examples of system gaps
     - Let Copilot analyze real conversation data across all configuration areas
     - Address actual problems with coordinated parameter, prompt, and evaluation updates
-    - **Generate tests from successful calls to maintain quality**
+    - **Generate tests from successful calls, and update existing ones as requirements change**
   </Step>
   <Step title="Read the Rich Blocks Before Acting">
     **Use stat grids, tables, and charts to validate assumptions**:
@@ -752,7 +835,8 @@ and compliance verification tests.
     - Output Settings for enhanced data capture
     - Evaluations for performance measurement
     - Basic Settings for core configuration updates
-    - **Tests panel for newly generated test scenarios**
+    - **Tests panel for newly generated or updated test scenarios**
+    - Prompt for updated audio expressiveness tags
     - Consider the impact across the entire agent system
   </Step>
   <Step title="Think in System Integration Terms">
@@ -771,19 +855,26 @@ and compliance verification tests.
     - "Based on these three problem calls, optimize the entire agent system with comprehensive testing"
     - Let conversational input guide holistic system improvements
   </Step>
-  <Step title="Create Tests from Successful Call Patterns">
-    **Transform your best calls into quality assurance systems**:
+  <Step title="Keep Tests Current Instead of Duplicating Them">
+    **Update existing tests as your agent evolves**:
     
-    - Reference successful calls to generate test scenarios
-    - Build comprehensive test suites from proven conversation patterns
-    - Use tests to maintain quality as you scale your agent deployment
+    - Reference an existing test by name to update its conditions instead of creating a near-duplicate
+    - Use test updates after prompt or policy changes to keep your suite accurate
+    - Reserve new test creation for genuinely new scenarios or call patterns
+  </Step>
+  <Step title="Fine-Tune Audio Expressiveness Deliberately">
+    **Treat audio tags as part of the prompt, not an afterthought**:
+    
+    - Ask Copilot to review tag usage periodically, not just when something sounds wrong
+    - Balance expressiveness so it enhances key moments without becoming distracting
+    - Verify changes by listening to a Playground call after tags are updated
   </Step>
   <Step title="Follow Cross-Panel Notification Cues">
     **Purple indicators guide you to all affected system areas**:
     
     - Check every panel with notification dots
     - Don't miss configuration changes in different areas
-    - **Review generated tests in the Tests panel**
+    - **Review generated or updated tests in the Tests panel**
     - Use seamless navigation to review comprehensively
   </Step>
   <Step title="Test System Changes Comprehensively">
@@ -792,7 +883,7 @@ and compliance verification tests.
     - Test new parameters with real data in Playground
     - Verify evaluation criteria work with actual conversations
     - Validate output configurations and webhook integrations
-    - **Run generated tests to ensure quality maintenance**
+    - **Run generated or updated tests to ensure quality maintenance**
     - Run regression tests across the entire conversation flow
   </Step>
   <Step title="Iterate on Complete System Understanding">
@@ -842,7 +933,7 @@ and compliance verification tests.
     icon="clipboard-check"
     href="/advanced-editor/tests"
   >
-    Create comprehensive automated tests for your entire agent system, including scenarios generated from call history
+    Create and maintain comprehensive automated tests for your entire agent system, including scenarios generated and updated from call history
   </Card>
   <Card
     title="Playground"
