@@ -1,6 +1,6 @@
 ---
 title: 'Copilot'
-description: 'AI-powered system engineer that transforms your agent with intelligent prompt editing, parameter configuration, and comprehensive setup'
+description: 'AI-powered system engineer that transforms your agent with intelligent prompt editing, parameter configuration, rich visual diagnostics, and comprehensive setup'
 icon: 'robot'
 ---
 
@@ -9,7 +9,7 @@ icon: 'robot'
 Copilot is an advanced AI-powered system engineer integrated into the Advanced Editor. It goes far beyond simple prompt editing - **Copilot can configure your entire agent system** including input parameters, output settings, evaluations, audio expressiveness, and core configurations. Using sophisticated structured editing and intelligent analysis, Copilot transforms your agent based on natural language instructions and real call data.
 
 <Info>
-Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, and even suggest improvements - all through natural conversation and targeted operations.
+Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, and even suggest improvements - all through natural conversation and targeted operations. Beyond plain text, Copilot can also reply with **rich visual blocks** - stat panels, tables, charts, and cards - to make diagnostics and analysis instantly scannable.
 </Info>
 
 ## Accessing Copilot
@@ -63,6 +63,26 @@ When you first open Copilot, you'll see a clean welcome screen led by the Copilo
 <Info>
 These quick actions are designed to close the loop: diagnose → find failures → fix with a regression test → improve and verify. Together they form a fast, guided workflow for continuously improving your agent.
 </Info>
+
+## Response Output Types
+
+Copilot's replies are no longer limited to plain text. Depending on what you ask, Copilot decides the most effective format for its answer and can mix multiple output types in a single response:
+
+<Tabs>
+  <Tab title="Plain Text">
+    **Conversational explanations** streamed in real time - used for reasoning, recommendations, step-by-step instructions, and any answer that reads best as natural language.
+  </Tab>
+  <Tab title="Rich Content Blocks">
+    **Structured visual components** rendered inline with the chat - used whenever data is easier to scan than to read:
+
+    - 📊 **Stat grids** for KPIs and metrics
+    - 📋 **Tables** for lists of calls, failures, or test results
+    - 📈 **Charts** for trends and comparisons
+    - 🗂️ **Cards** for summaries, recommendations, and warnings
+
+    Rich blocks always render alongside supporting text, so Copilot explains *what it found* in words and *shows the evidence* visually in the same message.
+  </Tab>
+</Tabs>
 
 ## Rich Response Blocks
 
@@ -198,6 +218,10 @@ Copilot uses a streamlined event system for real-time feedback across all system
 | **rich_block** | Rich UI block (stat grid, table, chart, card) | 📊 Inline visual component | Diagnostics & analysis |
 | **complete** | Operation finished | ✅ Summary with next steps | All operations |
 | **error** | Operation failed | ❌ Error with suggested fixes | All operations |
+
+<Info>
+The `rich_block` event carries a `blockType` (`stat_grid`, `table`, `chart`, or `card`) plus a structured `data` payload. The frontend renders it as a native component inline with the rest of the streamed conversation, right next to any `text` events in the same response.
+</Info>
 
 ## Visual Change Management System
 
@@ -612,6 +636,17 @@ Click "Find recurring failures" on the welcome screen
 - Each row includes the failure type, frequency, and a linked call example
 - A follow-up suggestion to turn the top failure into a regression test
 
+### Visualizing Trends with a Chart
+
+```
+Show me how our success rate has changed over the last 4 weeks.
+```
+
+**Copilot responds with**:
+- A short summary of the overall trend direction
+- A **line chart** plotting success rate by week
+- A closing note on whether the trend is improving, flat, or declining
+
 ## Quick Start with Predefined Actions
 
 The welcome interface provides four **instant setup options**:
@@ -827,6 +862,7 @@ sounding exaggerated anywhere else.
     - Check trend indicators in stat grids before deciding what to prioritize
     - Scan failure tables for patterns rather than reacting to a single call
     - Use the closing card's recommendations as your next prompt to Copilot
+    - Ask Copilot directly for a chart or table if a text answer feels hard to scan
   </Step>
   <Step title="Review All Affected Configuration Areas">
     **Check every panel with purple notification indicators**:

@@ -132,6 +132,89 @@ Cuando no tienes tokens configurados:
 - **Descripción**: Explica el propósito de los tokens
 - **CTA prominente**: "Create your first token"
 
+## Conectar por MCP
+
+Además de usarlos directamente contra la API REST, tus tokens API sirven para conectar Meetzy a cualquier cliente compatible con **MCP (Model Context Protocol)**, como **Claude**, **Cursor** o **ChatGPT**. Esto le da al asistente acceso directo a tus llamadas, conversaciones de WhatsApp, evaluaciones y analíticas, todo autenticado con el mismo token que ya generaste arriba.
+
+<Info>
+El servidor MCP de Meetzy usa transporte **Streamable HTTP**, por lo que no necesitas instalar nada localmente ni ejecutar un proceso intermedio: basta con apuntar tu cliente a la URL del servidor e incluir tu token como cabecera `Authorization`.
+</Info>
+
+### URL del servidor MCP
+
+En la sección **"Conectar por MCP"** del gestor de tokens encontrarás la URL de tu servidor MCP, lista para copiar con el botón dedicado.
+
+### Configurar tu cliente
+
+<Tabs>
+<Tab title="Cursor">
+<Steps>
+<Step title="Abrir la configuración de MCP">
+En Cursor, ve a **Settings → MCP** y selecciona **"Add new MCP server"**.
+</Step>
+<Step title="Pegar la configuración">
+Añade un bloque como el siguiente, reemplazando `YOUR_API_TOKEN` por el token que copiaste al crearlo:
+
+```json
+{
+  "mcpServers": {
+    "meetzy": {
+      "url": "https://api.meetzy.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
+</Step>
+<Step title="Guardar y verificar conexión">
+Guarda los cambios. Cursor debería mostrar el servidor **meetzy** como conectado, y sus herramientas quedarán disponibles en el chat.
+</Step>
+</Steps>
+</Tab>
+
+<Tab title="Claude">
+<Steps>
+<Step title="Abrir configuración de conectores">
+En Claude Desktop, ve a **Settings → Connectors → Add custom connector**.
+</Step>
+<Step title="Introducir la URL y el token">
+Ingresa la **URL del servidor MCP** (Streamable HTTP) y, en el campo de autenticación, añade la cabecera:
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+</Step>
+<Step title="Habilitar el conector">
+Activa el conector recién creado. Claude podrá entonces consultar tus llamadas, evaluaciones y analíticas de Meetzy directamente desde la conversación.
+</Step>
+</Steps>
+</Tab>
+
+<Tab title="ChatGPT">
+<Steps>
+<Step title="Ir a conectores de ChatGPT">
+En ChatGPT, ve a **Settings → Connectors → Add connector** (disponible en planes que soportan conectores personalizados).
+</Step>
+<Step title="Configurar el servidor MCP">
+Introduce la **URL del servidor MCP** de Meetzy y configura la autenticación con cabecera personalizada:
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+</Step>
+<Step title="Confirmar y usar">
+Guarda la conexión. Ya puedes pedirle a ChatGPT que consulte tus llamadas, mensajes de WhatsApp, evaluaciones y métricas de Meetzy usando este conector.
+</Step>
+</Steps>
+</Tab>
+</Tabs>
+
+<Warning>
+Cualquier cliente MCP que conectes con tu token tendrá el mismo nivel de acceso que ese token te otorga a ti. Usa tokens dedicados y con nombres descriptivos (ej: `mcp-cursor`, `mcp-claude`) para poder revocarlos individualmente sin afectar otras integraciones.
+</Warning>
+
 ## Mejores Prácticas
 
 <Info>
@@ -147,6 +230,7 @@ Cuando no tienes tokens configurados:
 - **Desarrollo**: `api-dev-enero` - 90 días  
 - **Testing**: `api-test-temp` - 30 días
 - **Webhooks**: `webhook-payments` - 1 año
+- **MCP**: `mcp-cursor`, `mcp-claude`, `mcp-chatgpt` - según necesidad de cada cliente
 
 ### Rotación de Tokens
 1. Crea un nuevo token antes de que expire el anterior

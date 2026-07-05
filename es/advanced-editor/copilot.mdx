@@ -940,4 +940,15 @@ Copilot puede realizar cambios sofisticados en toda la configuración del agente
   </Tab>
   <Tab title="Configuración Predictiva">
     Copilot analiza el contexto del prompt y sugiere parámetros con:
-    - **
+    - **Nombres semánticamente claros** basados en el dominio del agente
+    - **Tipos apropiados** (`string`, `enum`, `number`, `boolean`) según el uso detectado
+    - **Valores por defecto sensatos** que minimizan fricción para el usuario
+    - **Documentación automática** explicando el propósito de cada parámetro
+
+    Cada sugerencia incluye su nivel de confianza y la evidencia concreta (llamadas, secciones del prompt) que la respalda, para que puedas decidir con contexto completo antes de aceptarla.
+  </Tab>
+</Tabs>
+
+<Warning>
+Todas las modificaciones automáticas de configuración —parámetros de entrada, outputs, evaluaciones y tests— se presentan siempre como propuestas. Copilot nunca aplica cambios de forma silenciosa: necesitas confirmarlos explícitamente desde el chat.
+</Warning>

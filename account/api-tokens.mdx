@@ -201,6 +201,136 @@ Revoked tokens stop working immediately. Make sure to update any applications or
   </Step>
 </Steps>
 
+## Connecting via MCP
+
+Meetzy exposes a **Model Context Protocol (MCP)** server that gives AI assistants like Claude, Cursor, Windsurf, and ChatGPT direct, authenticated access to your calls, WhatsApp conversations, evaluations, and analytics — all using the same API tokens described above.
+
+<Info>
+All data exposed through the MCP server is scoped to the account that owns the token. A token from your account can only read and act on that account's assistants, calls, and conversations — there is no cross-account data access.
+</Info>
+
+### Getting the MCP Server URL
+
+<Steps>
+  <Step title="Open the MCP Section">
+    Scroll to the **"Connect via MCP"** section at the bottom of the API Tokens page
+  </Step>
+  <Step title="Copy the Server URL">
+    Click the copy icon next to the MCP server URL to copy it to your clipboard
+  </Step>
+  <Step title="Have a Token Ready">
+    Use an existing API token, or create a new one, to authenticate your MCP connection
+  </Step>
+</Steps>
+
+<Warning>
+The MCP server URL alone does not grant access. Every request must include a valid Bearer token in the `Authorization` header, exactly like any other Meetzy API call.
+</Warning>
+
+### Connecting Cursor, Claude, or Windsurf
+
+These clients (and most desktop MCP clients) are configured through a JSON snippet that defines the server URL and headers. Add the following to your client's MCP configuration file:
+
+```json
+{
+  "mcpServers": {
+    "meetzy": {
+      "url": "https://mcp.meetzy.ai",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    }
+  }
+}
+```
+
+<Tabs>
+  <Tab title="Cursor">
+    Open **Settings → MCP**, click **"Add new MCP server"**, and paste the JSON snippet above into the configuration editor. Replace `YOUR_API_TOKEN` with your actual token, then save and reload Cursor.
+  </Tab>
+  <Tab title="Claude Desktop">
+    Open your `claude_desktop_config.json` file and add the `meetzy` entry under `mcpServers`, using the snippet above. Restart Claude Desktop for the new server to appear in your tools list.
+  </Tab>
+  <Tab title="Windsurf">
+    Go to **Settings → Cascade → MCP Servers**, click **"Add Server"**, and paste the JSON configuration. Replace the placeholder token with your real API token and reload the window.
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Click Copy Configuration">
+    Use the "Copy" button next to the JSON snippet in the token manager to copy a ready-to-use configuration
+  </Step>
+  <Step title="Replace the Placeholder Token">
+    If you copied the snippet before creating a token, replace `YOUR_API_TOKEN` with your real token value
+  </Step>
+  <Step title="Paste into Your Client">
+    Add the snippet to your client's MCP configuration file as described above
+  </Step>
+  <Step title="Restart the Client">
+    Restart or reload the application so it picks up the new MCP server
+  </Step>
+</Steps>
+
+### Connecting ChatGPT as a Custom Connector
+
+ChatGPT supports MCP servers through **Custom Connectors**, authenticated with a Bearer token rather than a JSON config file.
+
+<Steps>
+  <Step title="Open Connector Settings">
+    In ChatGPT, go to **Settings → Connectors → Advanced → Custom Connectors**
+  </Step>
+  <Step title="Add a New Connector">
+    Click **"Add custom connector"** and give it a name, such as "Meetzy"
+  </Step>
+  <Step title="Enter the Server URL">
+    Paste the MCP server URL from the token manager into the connector's URL field
+  </Step>
+  <Step title="Set Authentication to Bearer Token">
+    Choose **Bearer Token** as the authentication method and paste your API token as the value
+  </Step>
+  <Step title="Save and Enable">
+    Save the connector, then enable it in your conversation to let ChatGPT call Meetzy tools
+  </Step>
+</Steps>
+
+<Info>
+ChatGPT sends the Bearer token in the `Authorization` header on every request, so you can reuse the same token you use for direct API calls or other MCP clients.
+</Info>
+
+### Generic Connection (Any MCP-Compatible Client)
+
+The Meetzy MCP server implements the **Streamable HTTP** transport, so any MCP-compatible client can connect to it directly without special integration work. All you need is:
+
+- **Server URL**: the MCP endpoint shown in the token manager
+- **Transport**: Streamable HTTP
+- **Authentication**: `Authorization: Bearer <your_api_token>` header on every request
+
+<CodeGroup>
+
+```bash cURL
+curl -X POST https://mcp.meetzy.ai \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","method":"tools/list","id":1}'
+```
+
+```json Generic client config
+{
+  "url": "https://mcp.meetzy.ai",
+  "transport": "streamable-http",
+  "headers": {
+    "Authorization": "Bearer YOUR_API_TOKEN"
+  }
+}
+```
+
+</CodeGroup>
+
+<Warning>
+Do not hardcode your API token inside shared or version-controlled MCP configuration files. Use environment variable substitution where your MCP client supports it.
+</Warning>
+
 ## Troubleshooting
 
 ### Authentication Errors
@@ -213,6 +343,11 @@ If you receive 401 Unauthorized errors:
 - Confirm you're using the complete token value
 - Verify the token hasn't been revoked
 - Check that your account has the necessary permissions for the API endpoint
+
+### MCP Connection Issues
+- Make sure your MCP client supports the **Streamable HTTP** transport
+- Confirm the `Authorization` header is being sent on every request, including the initial handshake
+- If a tool call returns no data, verify the token belongs to the account that owns the assistants or calls you're trying to access
 
 ### Rate Limiting
 API tokens are subject to rate limits:
