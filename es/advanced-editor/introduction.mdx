@@ -224,6 +224,46 @@ El selector se integra seamlessly en la experiencia del editor:
 **Gestión de Estado**: El selector mantiene automáticamente el estado de edición de cada agente, permitiendo alternar entre múltiples agentes sin perder progreso o configuraciones temporales.
 </Warning>
 
+## Panel Derecho: Copilot, Playground, Tests y Cambios
+
+El panel derecho del Editor Avanzado concentra las herramientas de asistencia e inteligencia del flujo de trabajo en cuatro pestañas dedicadas: **Meetzy** (Copilot AI), **Playground**, **Tests** y **Changes**. Cada una está optimizada para una tarea específica del ciclo de vida del agente, desde la generación asistida hasta la validación y el control de versiones.
+
+### Botón de Expansión del Panel
+
+Para facilitar el trabajo con conversaciones largas, diffs complejos o suites de tests extensas, el panel derecho incluye un **botón de expansión manual** que amplía su ancho de forma instantánea.
+
+<Steps>
+  <Step title="Activación con un Clic">
+    Un icono dedicado en la cabecera del panel permite alternar entre el ancho estándar y el ancho expandido en cualquier momento, sin perder el contexto de la pestaña activa.
+  </Step>
+  <Step title="Ancho Ampliado">
+    Al activarse, el panel crece hasta **720px** de ancho, ofreciendo mucho más espacio de lectura y edición para el chat con Meetzy, las respuestas del Playground, los resultados de Tests o el diff de Changes.
+  </Step>
+  <Step title="Reducción del Panel Central">
+    El editor central se ajusta automáticamente para ceder espacio al panel expandido, manteniendo una experiencia fluida sin solapamientos ni scroll horizontal innecesario.
+  </Step>
+  <Step title="Estado Persistente por Sesión">
+    La preferencia de expansión se mantiene mientras trabajas en el editor, permitiendo alternar entre pestañas sin tener que reconfigurar el ancho cada vez.
+  </Step>
+</Steps>
+
+<Info>
+**Cuándo usarlo**: Activa la expansión al revisar conversaciones largas con el Copilot, comparar versiones extensas en Changes, o analizar resultados detallados de Tests. Vuelve al ancho estándar cuando necesites más espacio visual para el editor central.
+</Info>
+
+### Las Cuatro Pestañas del Panel
+
+| Pestaña | Atajo | Propósito |
+|---------|-------|-----------|
+| **Meetzy** | `⌘J` | Copilot AI que actúa como constructor de agentes, sugiriendo mejoras y generando configuraciones |
+| **Playground** | `⇧⌘P` | Simulación y prueba de conversaciones en tiempo real |
+| **Tests** | `⇧⌘T` | Ejecución de tests de regresión para garantizar la calidad del agente |
+| **Changes** | `⌘G` | Revisión y gestión de cambios Git, incluyendo diffs y resolución de conflictos |
+
+<Warning>
+**Responsive Design**: En dispositivos móviles o pantallas reducidas, el botón de expansión se adapta automáticamente para no comprometer la usabilidad, priorizando siempre la legibilidad del contenido.
+</Warning>
+
 ## Flujo de Trabajo Prompt-First
 
 El proceso de desarrollo prompt-first optimiza la creación de agentes desde la conceptualización hasta el despliegue:
