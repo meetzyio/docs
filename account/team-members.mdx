@@ -1,11 +1,12 @@
 ---
 title: 'Team Members'
 description: 'Add team members to your Meetzy account and manage their access.'
+icon: 'users'
 ---
 
 ## Overview
 
-The **Members** section allows account administrators to invite team members, assign them to specific agents, and control their permissions within the platform.
+The **Members** section allows account administrators to invite team members, assign them to specific agents, promote trusted teammates to admin, and control their permissions within the platform.
 
 ## Access Team Members
 
@@ -19,10 +20,16 @@ The members list displays:
 
 | Column | Description |
 |--------|-------------|
-| 👤 **Avatar** | Profile picture or initial |
+| 👤 **Avatar** | Profile picture or initial, with a status dot (green = active, gray = invite pending) |
 | **Name** | Member's full name and job title |
+| **Role badge** | **Admin** or **Member**, shown next to the name |
+| **Invite pending badge** | Appears if the member hasn't signed in yet |
 | **Email** | Member's email address |
-| **Actions** | Edit agents, Change password, Remove |
+| **Actions** | Edit permissions, Change email, Change password, Resend invite, Promote/Demote, Remove |
+
+<Info>
+A gray status dot and an **Invite pending** badge next to a member's name mean they have not yet accepted their invitation or signed in for the first time. Once they log in, the dot turns green and the badge disappears.
+</Info>
 
 ## Invite a New Member
 
@@ -36,9 +43,22 @@ Click the **+ Invite** button to add a new team member.
 | 👤 **Name** | Full name of the team member (required) |
 | 💼 **Job Title** | Role or position (optional) |
 
+### Choose a Role
+
+Every invitation now includes a **role selector** with two options:
+
+| Role | Description |
+|------|-------------|
+| **Member** | Standard access, limited to the permissions and agents you assign below |
+| **Admin** | Full account administrator. Can manage team members, agents, and (if enabled) API tokens, just like the account owner |
+
+<Warning>
+Only grant the **Admin** role to people you fully trust. Admins can invite, edit, promote, and remove other team members, including other admins.
+</Warning>
+
 ### Permission Settings
 
-Configure what the new member can do:
+Configure what the new member can do (these settings are ignored if the role is **Admin**, since admins have full access):
 
 | Permission | Description |
 |------------|-------------|
@@ -57,23 +77,71 @@ Select which agents the member can view or edit:
 
 ### Send Invitation Email
 
-Toggle **Send invitation email** to:
-- **On**: Send a welcome email with login instructions
-- **Off**: Create the account without sending an email
+Toggle **Send invitation email** to control how the account is created:
 
-Click **Create & Send Invite** (or **Create Member**) to add the member.
+- **On** *(default)*: Sends a welcome email with a link to set a password and sign in
+- **Off**: Creates the account silently, without sending an email — useful when you plan to share credentials directly or set a password yourself
+
+<Info>
+The invite button label updates automatically based on this toggle: **Create & Send Invite** when the toggle is on, **Create Member** when it's off.
+</Info>
+
+Click the invite button to add the member. If the invitation email is enabled, the new teammate will show up with an **Invite pending** badge until they accept it.
 
 ## Edit Member Details
 
-Click **Edit agents** on any member to modify their settings:
+Click **Edit permissions** on any member to modify their settings:
 
 1. Update their **Name** or **Job Title**
-2. Adjust permission toggles
-3. Change agent assignments
-4. Click **Save changes**
+2. Change their **Role** (Member ↔ Admin)
+3. Adjust permission toggles
+4. Change agent assignments
+5. Click **Save changes**
+
+## Promote or Demote an Admin
+
+You can change a member's role directly from the actions menu, without opening the full edit modal:
+
+<Steps>
+  <Step title="Open the actions menu">
+    Click the **⋮** icon on the member's row.
+  </Step>
+  <Step title="Choose the action">
+    - Select **Promote to admin** to grant full account administrator access
+    - Select **Demote to member** to remove admin privileges and fall back to their configured permissions
+  </Step>
+  <Step title="Confirm">
+    The role badge next to the member's name updates immediately.
+  </Step>
+</Steps>
+
+<Warning>
+You cannot demote or remove yourself, and the account owner's role cannot be changed. This prevents accidentally locking yourself — or everyone else — out of the account.
+</Warning>
+
+## Resend a Pending Invitation
+
+If a teammate hasn't accepted their invite yet (indicated by the **Invite pending** badge), you can resend it:
+
+1. Open the **actions menu** (⋮) on the member's row
+2. Click **Resend invite**
+3. The button shows **Sending...** while the email is dispatched
+
+<Info>
+This option only appears for members whose account is still pending activation.
+</Info>
+
+## Change a Teammate's Email
+
+Administrators can update a team member's sign-in email directly from the member list:
+
+1. Open the **actions menu** (⋮) on the member's row
+2. Click **Change email**
+3. Enter the new email address
+4. Confirm the change
 
 <Note>
-Email addresses cannot be changed after creation. To change a member's email, remove them and create a new invitation.
+This updates where the member signs in and receives notifications. The member may need to use the new address the next time they log in.
 </Note>
 
 ## Change Member Password
@@ -105,7 +173,8 @@ Use the search bar to find members by name:
 
 ## Best Practices
 
-1. **Principle of least privilege**: Only grant permissions that members actually need
+1. **Principle of least privilege**: Only grant the **Admin** role or elevated permissions when a teammate truly needs them
 2. **Agent-specific access**: Assign members only to agents they work with
-3. **Regular audits**: Periodically review member access and remove inactive users
-4. **Secure passwords**: Use strong passwords when creating accounts without email invitations
+3. **Watch pending invites**: Follow up or resend invitations that stay pending for too long
+4. **Regular audits**: Periodically review member roles, permissions, and remove inactive users
+5. **Secure passwords**: Use strong passwords when creating accounts without email invitations

@@ -1,11 +1,16 @@
 ---
 title: 'Miembros del Equipo'
 description: 'Añade miembros a tu cuenta de Meetzy y gestiona su acceso.'
+icon: 'users'
 ---
 
 ## Descripción General
 
-La sección **Members** permite a los administradores de cuenta invitar miembros del equipo, asignarlos a agentes específicos y controlar sus permisos dentro de la plataforma.
+La sección **Members** permite a los administradores de cuenta invitar miembros del equipo, asignarles roles y agentes específicos, y controlar sus permisos dentro de la plataforma.
+
+<Info>
+Ahora puedes promover miembros a **Admin** para que ayuden a gestionar el equipo sin necesidad de compartir las credenciales del propietario de la cuenta.
+</Info>
 
 ## Acceder a Miembros del Equipo
 
@@ -19,10 +24,15 @@ La lista de miembros muestra:
 
 | Columna | Descripción |
 |---------|-------------|
-| 👤 **Avatar** | Foto de perfil o inicial |
-| **Nombre** | Nombre completo y cargo |
+| 👤 **Avatar** | Foto de perfil o inicial, con un indicador de estado (punto verde = activo, punto gris = invitación pendiente) |
+| **Nombre** | Nombre completo, cargo y etiqueta de rol (**Admin** o **Member**) |
 | **Email** | Dirección de correo electrónico |
-| **Acciones** | Edit agents, Change password, Remove |
+| **Estado** | Badge **Invite pending** cuando el miembro todavía no ha activado su cuenta |
+| **Acciones** | Menú con Edit permissions, Change email, Change password, Resend invite, Promote/Demote y Remove |
+
+<Info>
+Cuando un miembro aparece como **Invite pending**, significa que aún no ha iniciado sesión por primera vez. Puedes reenviarle el email de invitación en cualquier momento desde el menú de acciones.
+</Info>
 
 ## Invitar un Nuevo Miembro
 
@@ -36,6 +46,19 @@ Haz clic en el botón **+ Invite** para añadir un nuevo miembro del equipo.
 | 👤 **Name** | Nombre completo (requerido) |
 | 💼 **Job Title** | Cargo o posición (opcional) |
 
+### Selección de Rol
+
+Elige el rol de cuenta del nuevo miembro:
+
+| Rol | Descripción |
+|-----|-------------|
+| **Member** | Acceso estándar limitado según los permisos configurados abajo |
+| **Admin** | Acceso de administrador de cuenta: puede gestionar miembros del equipo y tokens, además de sus permisos habituales |
+
+<Warning>
+Solo el propietario de la cuenta (**owner**) y los administradores existentes pueden asignar el rol **Admin** a un nuevo miembro.
+</Warning>
+
 ### Configuración de Permisos
 
 Configura qué puede hacer el nuevo miembro:
@@ -47,6 +70,7 @@ Configura qué puede hacer el nuevo miembro:
 | **Can access CRM** | Acceso al módulo CRM (contactos, segmentos, campañas) |
 | **Can view billable minutes** | Ver información de facturación y estadísticas de uso |
 | **Can view recordings** | Escuchar grabaciones de llamadas |
+| **Can manage tokens** | Gestionar tokens de integración de la cuenta |
 
 ### Asignación de Agentes
 
@@ -65,22 +89,66 @@ Haz clic en **Create & Send Invite** (o **Create Member**) para añadir el miemb
 
 ## Editar Detalles del Miembro
 
-Haz clic en **Edit agents** en cualquier miembro para modificar sus ajustes:
+Haz clic en **Edit permissions** en el menú de acciones de cualquier miembro para modificar sus ajustes:
 
-1. Actualiza su **Name** o **Job Title**
-2. Ajusta los toggles de permisos
-3. Cambia las asignaciones de agentes
-4. Haz clic en **Save changes**
+<Steps>
+  <Step title="Actualiza la información básica">
+    Modifica su **Name** o **Job Title**.
+  </Step>
+  <Step title="Ajusta el rol">
+    Cambia entre **Member** y **Admin** según sea necesario.
+  </Step>
+  <Step title="Configura permisos">
+    Activa o desactiva los toggles de permisos correspondientes.
+  </Step>
+  <Step title="Actualiza agentes asignados">
+    Marca o desmarca los agentes a los que el miembro tendrá acceso.
+  </Step>
+  <Step title="Guarda los cambios">
+    Haz clic en **Save changes** para aplicar las modificaciones.
+  </Step>
+</Steps>
+
+## Promover o Degradar Administradores
+
+Desde el menú de acciones de cada miembro puedes cambiar su nivel de acceso rápidamente:
+
+- **Promote to Admin**: Otorga al miembro permisos de administrador de cuenta, incluyendo la gestión de miembros del equipo y tokens
+- **Demote to Member**: Retira los permisos de administrador y devuelve al usuario a un rol de miembro estándar
+
+<Warning>
+Al degradar a un administrador, perderá inmediatamente el acceso a la gestión de miembros y tokens, aunque conservará el resto de sus permisos configurados.
+</Warning>
+
+## Cambiar Email de un Miembro
+
+A diferencia de versiones anteriores, ya no es necesario eliminar y volver a invitar a un miembro para actualizar su dirección de correo:
+
+1. Haz clic en **Change email** en el menú de acciones del miembro
+2. Introduce la nueva dirección de correo electrónico
+3. Confirma el cambio
+
+<Info>
+El miembro deberá usar la nueva dirección de email para iniciar sesión a partir de este momento. Si tenía una invitación pendiente, el nuevo email recibirá la invitación en su lugar.
+</Info>
+
+## Reenviar Invitación
+
+Si un miembro no recibió o perdió su email de invitación, puedes reenviarlo fácilmente:
+
+1. Localiza al miembro con el estado **Invite pending**
+2. Abre el menú de acciones y selecciona **Resend invite**
+3. Espera la confirmación de envío
 
 <Note>
-Las direcciones de email no pueden cambiarse después de la creación. Para cambiar el email de un miembro, elimínalo y crea una nueva invitación.
+Esta opción solo está disponible para miembros que aún no han activado su cuenta.
 </Note>
 
 ## Cambiar Contraseña del Miembro
 
 Los administradores pueden restablecer la contraseña de un miembro:
 
-1. Haz clic en **Change Password** en el miembro
+1. Haz clic en **Change password** en el menú de acciones del miembro
 2. Ingresa la nueva contraseña (mínimo 6 caracteres)
 3. Haz clic en **Update Password**
 
@@ -90,7 +158,7 @@ El miembro deberá usar la nueva contraseña en su próximo inicio de sesión.
 
 Para eliminar un miembro del equipo:
 
-1. Haz clic en **Remove** en la fila del miembro
+1. Haz clic en **Remove** en el menú de acciones del miembro
 2. Confirma la eliminación en el diálogo
 
 <Warning>
@@ -106,6 +174,7 @@ Usa la barra de búsqueda para encontrar miembros por nombre:
 ## Mejores Prácticas
 
 1. **Principio de mínimo privilegio**: Solo otorga permisos que los miembros realmente necesiten
-2. **Acceso específico a agentes**: Asigna miembros solo a agentes con los que trabajen
-3. **Auditorías regulares**: Revisa periódicamente el acceso de miembros y elimina usuarios inactivos
-4. **Contraseñas seguras**: Usa contraseñas fuertes cuando crees cuentas sin invitación por email
+2. **Roles de administrador con cuidado**: Reserva el rol **Admin** para personas de confianza que necesiten gestionar el equipo
+3. **Acceso específico a agentes**: Asigna miembros solo a agentes con los que trabajen
+4. **Auditorías regulares**: Revisa periódicamente el acceso de miembros, invitaciones pendientes y elimina usuarios inactivos
+5. **Contraseñas seguras**: Usa contraseñas fuertes cuando crees cuentas sin invitación por email

@@ -1,11 +1,47 @@
 ---
 title: 'Permissions & Roles'
 description: 'Understanding user permissions and access control in Meetzy.'
+icon: 'user-shield'
 ---
 
 ## Overview
 
 Meetzy uses a permission-based system to control what each team member can do within the platform. Permissions are assigned individually when inviting or editing members.
+
+<Note>
+A member can now be promoted to **Account Admin**, a role with full access to the account equivalent to the owner's, with the only exception being billing management. This role change is managed from the **Team** screen.
+</Note>
+
+## Account Admin Role
+
+In addition to individual feature permissions, Meetzy supports an account-level role upgrade: **Account Admin**.
+
+| Role | Access Level |
+|------|--------------|
+| **Owner** | Full access to the account, including billing and subscription management |
+| **Account Admin** | Full access to the account, equivalent to the owner, **except for billing** |
+| **Member** | Access defined individually by the permissions below |
+
+### How to promote a member to Account Admin
+
+<Steps>
+  <Step title="Go to the Team screen">
+    Navigate to **Team** from the main menu.
+  </Step>
+  <Step title="Open the member's actions menu">
+    Find the member you want to promote and click the actions menu (⋮) next to their name.
+  </Step>
+  <Step title="Edit permissions">
+    Click **Edit permissions** to open the member's settings.
+  </Step>
+  <Step title="Set the role to Admin">
+    Change the member's role to **Admin** and save changes.
+  </Step>
+</Steps>
+
+<Warning>
+Account Admins can manage the team, invite or remove members, and access every area of the account (except billing). Only promote members you fully trust.
+</Warning>
 
 ## Available Permissions
 
@@ -120,6 +156,10 @@ In addition to feature permissions, you control which agents each member can acc
 3. CRM data is accessible across all assigned agents
 4. Reporting shows data from assigned agents only
 
+<Note>
+Account Admins bypass agent-level restrictions and can see and manage every agent in the account.
+</Note>
+
 ## Permission Combinations
 
 Here are common permission combinations for different roles:
@@ -171,6 +211,10 @@ Best for: Marketing or sales team members managing outbound campaigns.
 
 Best for: Account administrators and senior team members.
 
+<Info>
+This combination of individual permissions is different from the **Account Admin** role described above. A member with all permissions enabled still doesn't get access to the Team screen or account-wide management unless they are also promoted to Account Admin.
+</Info>
+
 ## Syncing Permissions
 
 If a member's permissions seem incorrect, administrators can sync their Firebase claims:
@@ -185,9 +229,17 @@ This updates the member's authentication tokens with the latest permissions from
 
 <AccordionGroup>
   <Accordion title="Can I create custom roles?">
-    Currently, Meetzy uses individual permissions rather than predefined roles. You can combine permissions to create any access level you need.
+    Currently, Meetzy uses individual permissions rather than predefined roles, with the exception of the Account Admin role. You can combine permissions to create any access level you need.
   </Accordion>
-  
+
+  <Accordion title="What's the difference between the owner and an Account Admin?">
+    An Account Admin has full access to the account, just like the owner, with one exception: they cannot manage billing or the subscription. Everything else, including team management, is available to them.
+  </Accordion>
+
+  <Accordion title="Where do I change a member's role to Account Admin?">
+    Role changes are managed from the **Team** screen. Open the member's actions menu, click **Edit permissions**, and set their role to **Admin**.
+  </Accordion>
+
   <Accordion title="Why can't I see the CRM permission toggle?">
     The CRM permission toggle is only visible if you (as the administrator) have CRM access enabled on your own account.
   </Accordion>

@@ -1,11 +1,26 @@
 ---
 title: 'Permisos y Roles'
 description: 'Entendiendo los permisos de usuario y control de acceso en Meetzy.'
+icon: 'user-lock'
 ---
 
 ## Descripción General
 
 Meetzy utiliza un sistema basado en permisos para controlar lo que cada miembro del equipo puede hacer dentro de la plataforma. Los permisos se asignan individualmente al invitar o editar miembros.
+
+## Rol de Administrador de Cuenta
+
+Además de los permisos individuales, un miembro puede ser promovido a **Administrador de cuenta**. Este rol le otorga acceso a las secciones de gestión del equipo y de tokens, exactamente igual que el propietario de la cuenta.
+
+<Info>
+Un miembro promovido a Administrador de cuenta puede acceder a **Team** (gestión de miembros) y a **Token Manager**, sin importar los permisos individuales que tenga activados en las secciones anteriores.
+</Info>
+
+Ten en cuenta que este rol amplía específicamente el acceso a esas dos áreas de gestión de cuenta. El resto de permisos (edición de agentes, Editor Avanzado, CRM, grabaciones, minutos facturables, campañas de WhatsApp y acceso a agentes) sigue funcionando de forma independiente y debe configurarse por separado según lo que ese miembro necesite hacer.
+
+<Warning>
+Otorga el rol de Administrador de cuenta con cuidado. Un Administrador de cuenta puede invitar, editar y eliminar a otros miembros del equipo, así como gestionar los tokens de la cuenta.
+</Warning>
 
 ## Permisos Disponibles
 
@@ -171,6 +186,10 @@ Ideal para: Miembros de marketing o ventas que gestionan campañas salientes.
 
 Ideal para: Administradores de cuenta y miembros senior del equipo.
 
+<Info>
+Recuerda que, además de estos permisos, un miembro puede tener adicionalmente el rol de **Administrador de cuenta**, lo cual le da acceso a Team y Token Manager sin necesidad de otro permiso específico.
+</Info>
+
 ## Sincronizar Permisos
 
 Si los permisos de un miembro parecen incorrectos, los administradores pueden sincronizar sus claims de Firebase:
@@ -187,7 +206,11 @@ Esto actualiza los tokens de autenticación del miembro con los permisos más re
   <Accordion title="¿Puedo crear roles personalizados?">
     Actualmente, Meetzy usa permisos individuales en lugar de roles predefinidos. Puedes combinar permisos para crear cualquier nivel de acceso que necesites.
   </Accordion>
-  
+
+  <Accordion title="¿Qué diferencia hay entre el rol de Administrador de cuenta y los permisos individuales?">
+    El rol de Administrador de cuenta es independiente de los permisos individuales (editar agentes, CRM, grabaciones, etc.). Solo determina si el miembro puede acceder a **Team** y **Token Manager** para gestionar al resto del equipo y los tokens de la cuenta. El resto de capacidades se sigue controlando con los toggles de permisos descritos arriba.
+  </Accordion>
+
   <Accordion title="¿Por qué no puedo ver el toggle de permiso CRM?">
     El toggle de permiso CRM solo es visible si tú (como administrador) tienes acceso CRM habilitado en tu propia cuenta.
   </Accordion>
