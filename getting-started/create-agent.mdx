@@ -19,57 +19,59 @@ Meetzy offers two ways to create your AI voice agent:
 
 ## Prompt-First Creation
 
-When creating a new agent, Meetzy presents an intuitive creation overlay — a full-screen screen with an animated wave background — where you can describe your agent in natural language and let **Meetzy Copilot** generate the initial configuration for you.
+As soon as you click **"New Agent"**, Meetzy no longer drops you directly into an empty editor. Instead, a full-screen creation overlay appears — a welcoming screen with an animated wave background — where you describe your agent in natural language and let it generate the initial configuration for you.
 
 <Info>
-  This is as fundamental as the second law of thermodynamics: describe what you want and Meetzy generates it automatically.
+  Describe what you want, press Enter, and Meetzy builds a working agent automatically. This is the recommended starting point for both new and experienced users.
 </Info>
 
 ### The Creation Screen
 
-As soon as you click "New Agent", instead of dropping you into an empty editor, Meetzy shows a dedicated creation screen:
+The overlay is intentionally minimal and distraction-free:
 
-- A centered heading, **"What should your agent do?"**, with a short subtitle inviting you to describe it.
-- A large textarea with a soft gradient border where you write your description.
-- A send button (arrow icon) that appears as soon as you start typing.
-- A subtle animated wave background that automatically adapts to your light/dark theme.
-- The Meetzy logo at the top center and a back button at the top left.
+- A centered heading, **"What should your agent do?"**, with the subtitle *"Describe it and let Meetzy build it for you."*
+- A large textarea with a soft gradient border, auto-focused so you can start typing immediately.
+- A send button (arrow icon) that fades in as soon as you type something.
+- A subtle animated wave background rendered on canvas, which automatically adapts to your light/dark theme.
+- The Meetzy logo centered at the top, and a back button in the top-left corner to return to the agents list.
 
 <Steps>
   <Step title="Describe Your Agent">
     In the text area, describe what you want your agent to do. Be specific about:
-    
+
     - **Purpose**: What is the agent's main function?
     - **Industry/Context**: What business or service does it support?
     - **Key Actions**: What should it be able to do?
     - **Escalation**: When should it transfer to humans?
-    
+
     Example descriptions:
     ```
     An agent that answers customer support calls for a dental clinic, 
     books appointments, and transfers urgent cases to the receptionist.
     ```
-    
+
     ```
     A sales qualification bot for a real estate company that qualifies 
     leads, schedules property viewings, and collects contact information.
     ```
-    
+
     ```
     Customer service agent for an e-commerce store that handles order 
     inquiries, processes returns, and provides shipping updates.
     ```
   </Step>
-  
+
   <Step title="Generate Your Agent">
-    Press **Enter** or click the send button (arrow icon) to launch Meetzy Copilot. It will automatically:
+    Press **Enter** or click the send button (arrow icon) to launch the generation. Meetzy will automatically:
     - Generate an appropriate system prompt
     - Configure basic settings and phone integration
     - Set up default greetings for inbound/outbound calls
     - Create relevant input/output parameters
     - Add suggested tools and actions
+
+    While your description is processed, the overlay animates out and the Advanced Editor fades in with your new configuration already applied.
   </Step>
-  
+
   <Step title="Review and Customize">
     Your agent opens in the Advanced Editor where you can:
     - Review the generated configuration
@@ -85,27 +87,28 @@ As soon as you click "New Agent", instead of dropping you into an empty editor, 
 If you'd rather build your agent manually, section by section, you don't have to write a description at all.
 
 <Info>
-  Click **"or start from scratch"** below the textarea (or press **Escape**) to dismiss the creation screen instantly and land directly in the Advanced Editor with a blank configuration.
+  Click **"or start from scratch"** below the textarea (or press **Escape**) to dismiss the creation overlay instantly and land directly in the Advanced Editor with a blank configuration.
 </Info>
 
-This shortcut is ideal for advanced users who already know exactly what they want to configure, or when you're duplicating patterns you've used before.
+This shortcut is ideal for advanced users who already know exactly what they want to configure, or when you're duplicating patterns you've used before. The back arrow in the top-left corner also skips the overlay and returns you to the agents list.
 
 ### Creation Screen Features
 
-- **Animated Background**: A beautiful WebGL wave animation that adapts to your theme
+- **Animated Background**: A lightweight canvas-based wave animation that adapts to your theme
 - **Keyboard Shortcuts**:
   - Press `Enter` to generate your agent from the description
   - Press `Escape` to skip straight to the Advanced Editor
 - **Theme Aware**: Automatically matches your light/dark theme preference
 - **Mobile Friendly**: Works perfectly on mobile devices
 - **Auto-focus**: The textarea is focused automatically so you can start typing right away
+- **Smooth Transition**: The overlay animates out gracefully once you submit your prompt, revealing the editor underneath
 
 ## Automatic Agent Creation from Onboarding
 
 When you complete the onboarding flow from our self-service landing page, Meetzy automatically creates your first agent to streamline your setup process.
 
 <Info>
-  If you came from our onboarding process, your agent configuration has been automatically preserved and you'll be redirected directly to the agent editor with your initial settings applied — the prompt-first creation screen is skipped in this case.
+  If you came from our onboarding process, your agent configuration has been automatically preserved and you'll be redirected directly to the agent editor with your initial settings applied — the prompt-first creation overlay is skipped in this case, since your description was already captured during onboarding.
 </Info>
 
 ### How It Works
@@ -297,7 +300,7 @@ Use variables to personalize greetings:
 The central editor contains the **System Prompt** - the core instructions that define your agent's behavior.
 
 <Info>
-  If you used prompt-first creation, Meetzy Copilot has already generated an optimized system prompt based on your description. You can review and customize it here.
+  If you used prompt-first creation, the system has already generated an optimized system prompt based on your description. You can review and customize it here.
 </Info>
 
 ### Structure

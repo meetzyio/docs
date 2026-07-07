@@ -109,13 +109,16 @@ El sistema detecta automáticamente cuando un usuario viene del proceso de onboa
 
 ### Pantalla de Creación Renovada
 
-Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente existente, Meetzy te recibe con una pantalla de creación completamente rediseñada, pensada para que empieces describiendo tu idea en lugar de rellenar formularios:
+Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente existente, Meetzy te recibe con una pantalla de creación a pantalla completa, pensada para que empieces describiendo tu idea en lugar de rellenar formularios:
 
-- **Fondo Animado WebGL**: Ondas fluidas renderizadas en un `<canvas>` que responden sutilmente al cursor, creando una experiencia inmersiva y moderna
-- **Campo de Texto Inteligente**: Un textarea central con bordes gradientes dinámicos que reaccionan al foco y al contenido introducido
-- **Logo Centrado**: El logo de Meetzy se posiciona en la parte superior y se adapta automáticamente a modo claro y oscuro
-- **Navegación Intuitiva**: Un botón de regreso (flecha) en la esquina superior izquierda te permite volver a la lista de agentes en cualquier momento
-- **Indicadores Visuales**: Un botón de envío aparece dinámicamente en cuanto empiezas a escribir, junto con un hint que indica el atajo `Enter` para generar
+- **Fondo Animado WebGL**: Un `<canvas>` en el fondo (`waveCanvas`) renderiza ondas fluidas animadas que dan vida a toda la superposición
+- **Título y Subtítulo Claros**: Un encabezado directo, *"What should your agent do?"*, acompañado del subtítulo *"Describe it and let Meetzy build it for you."*
+- **Campo de Texto con Borde Degradado**: Un `textarea` central de 4 filas, envuelto en un contenedor con borde en gradiente (`creation-overlay__border-wrap`) que se adapta a modo claro y oscuro
+- **Placeholder Orientativo**: El campo incluye un texto de ejemplo (*"An agent that answers customer support calls for a dental clinic, books appointments, and transfers urgent cases to the receptionist..."*) para guiarte al escribir
+- **Logo Centrado**: El logo de Meetzy se posiciona en la parte superior central y cambia automáticamente su versión (clara u oscura) según el tema activo
+- **Botón de Regreso**: Una flecha en la esquina superior izquierda te permite cerrar la pantalla de creación y volver a la lista de agentes en cualquier momento
+- **Botón de Envío Dinámico**: Un botón circular con icono de avión de papel aparece en la esquina inferior derecha del campo de texto únicamente cuando hay contenido escrito
+- **Hint de Atajo**: Debajo del campo, un indicador con la tecla `Enter` recuerda cómo generar la configuración, junto al enlace para empezar desde cero
 
 <Info>
   Esta pantalla se muestra únicamente al crear un **agente nuevo**. Si estás editando un agente existente, accederás directamente al Editor Avanzado con la configuración ya cargada.
@@ -125,24 +128,26 @@ Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente e
 
 <Steps>
   <Step title="Describe tu agente">
-    Escribe en el campo central una descripción de qué debe hacer tu agente. Por ejemplo:
+    Escribe en el `textarea` central una descripción de qué debe hacer tu agente. Por ejemplo:
     
     ```
     Un agente que responde llamadas de atención al cliente para una clínica dental, 
     agenda citas, verifica seguros, y transfiere casos urgentes a la recepcionista.
     ```
     
-    El campo se enfoca automáticamente al cargar la pantalla, así que puedes empezar a escribir de inmediato.
+    El campo se enfoca automáticamente (`autofocus`) al cargar la pantalla, así que puedes empezar a escribir de inmediato sin necesidad de hacer clic.
   </Step>
   
   <Step title="Genera la configuración">
-    Presiona **Enter** o haz clic en el botón de envío (icono de avión de papel) que aparece en la esquina inferior derecha del campo de texto en cuanto detecta contenido.
+    En cuanto detecta texto en el campo (`creationPrompt.trim()`), aparece el botón de envío en la esquina inferior derecha. Puedes:
+    - Presionar **Enter** para lanzar la generación
+    - Hacer clic directamente en el botón con el icono de avión de papel
     
     Meetzy procesará tu descripción y construirá automáticamente la configuración inicial del agente, incluyendo prompt de sistema, saludos y parámetros sugeridos.
   </Step>
   
   <Step title="Continúa en el Editor Avanzado">
-    Tras la generación, la pantalla se cierra con una animación de salida y aterrizas directamente en el Editor Avanzado con tu agente ya configurado, listo para refinar cualquier detalle.
+    Tras la generación, la pantalla de creación se cierra con una animación de salida (`creation-overlay--exiting`) y aterrizas directamente en el Editor Avanzado con tu agente ya configurado, listo para refinar cualquier detalle.
   </Step>
 </Steps>
 
@@ -239,11 +244,11 @@ Antes de crear un agente, asegúrate de tener:
 <Steps>
   <Step title="Accede al Editor Avanzado">
     Desde el dashboard, haz clic en "Create Agent" o navega directamente al Editor Avanzado. 
-    Se abrirá automáticamente la pantalla de creación prompt-first.
+    Se abrirá automáticamente la pantalla de creación prompt-first con el fondo animado.
   </Step>
   
   <Step title="Describe tu Agente en Detalle">
-    En la pantalla inicial con fondo animado, describe específicamente qué debe hacer tu agente:
+    En la pantalla inicial, escribe en el campo central específicamente qué debe hacer tu agente:
     
     ```
     Un agente especializado en atención al cliente para una clínica dental que:
@@ -261,7 +266,7 @@ Antes de crear un agente, asegúrate de tener:
   </Step>
   
   <Step title="Genera la Configuración Automática">
-    Presiona **Enter** o haz clic en el botón de envío. Meetzy generará automáticamente:
+    Presiona **Enter** o haz clic en el botón de envío que aparece en la esquina inferior derecha del campo de texto. Meetzy generará automáticamente:
     - Prompt de sistema optimizado con personalidad definida
     - Configuración básica recomendada para tu industria
     - Saludos personalizados para llamadas entrantes y salientes
@@ -1003,38 +1008,4 @@ Sistema avanzado de control de versiones similar a Git:
 | `⌘K` | Abrir Command Palette | Global |
 | `⌘J` | Abrir/enfocar Meetzy AI | Global |
 | `⇧⌘P` | Abrir/enfocar Playground | Global |
-| `⇧⌘T` | Abrir/enfocar Tests | Global |
-| `⌘G` | Ver Changes/Git panel | Global |
-| `⌘S` | Guardar cambios | Global |
-
-### Editor de Prompt Avanzado
-| Atajo | Acción | Descripción |
-|-------|--------|-------------|
-| `⌘/` | Comentar/descomentar línea | Toggle comentarios |
-| `⌘F` | Buscar en texto | Búsqueda local |
-| `⌘H` | Buscar y reemplazar | Reemplazo masivo |
-| `⌘Z` | Deshacer | Hasta 50 acciones |
-| `⌘Y` / `⇧⌘Z` | Rehacer | Revertir deshacer |
-| `⌘L` | Seleccionar línea completa | Selección rápida |
-| `⇧⌘K` | Eliminar línea | Borrado eficiente |
-
-### Acciones Rápidas de Producción
-| Atajo | Acción | Confirmación |
-|-------|--------|--------------|
-| `⌘⏎` | Publicar agente | Modal de confirmación |
-| `⇧⌘C` | Validar configuración | Reporte automático |
-| `⌘B` | Volver a lista de agentes | Sin confirmación |
-| `⇧⌘D` | Duplicar agente actual | Con nuevo nombre |
-
-### Debugging y Testing
-| Atajo | Acción | Ventana |
-|-------|--------|---------|
-| `⌘D` | Modo debug | Consola de desarrollo |
-| `⇧⌘I` | Inspector de agente | Panel lateral |
-| `⌘R` | Ejecutar test rápido | Playground automático |
-
-## Mejores Prácticas Avanzadas
-
-### Diseño de Prompts de Alto Rendimiento
-
-<Tabs
+| `⇧⌘T` | Abrir/enfocar Tests | Global

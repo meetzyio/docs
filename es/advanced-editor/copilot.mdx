@@ -9,12 +9,12 @@ icon: 'robot'
 Copilot es un editor de prompts impulsado por IA integrado en el Editor Avanzado. En lugar de solo darte sugerencias, **Copilot edita y mejora directamente el system prompt de tu agente** basándose en tus instrucciones. Analiza tu prompt actual, genera mejoras y aplica los cambios automáticamente.
 
 <Info>
-Copilot no solo sugiere - edita. Describe lo que quieres mejorar y observa cómo modifica tu system prompt en tiempo real usando un sistema de eventos avanzado SSE (Server-Sent Events).
+Copilot no solo sugiere: edita. Describe lo que quieres mejorar y observa cómo modifica tu system prompt en tiempo real usando un sistema de eventos avanzado SSE (Server-Sent Events).
 </Info>
 
 ## Accediendo a Copilot
 
-Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Copilot" para acceder usando el atajo de teclado `⌘J`.
+Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Copilot" para acceder, o usa el atajo de teclado `⌘J`.
 
 ## El Orbe de Copilot: la cara de Meetzy
 
@@ -31,9 +31,9 @@ Copilot tiene una identidad visual propia: un **orbe animado con degradado** que
     **Uso típico**: pantalla de bienvenida, avatares de mensajes ya completados.
   </Tab>
   <Tab title="Estado Active (activo)">
-    Mientras Copilot está "pensando" o transmitiendo una respuesta, el orbe acelera su pulso y despliega **anillos expansivos** (con un ligero delay entre ellos), evocando visualmente una llamada conectándose — un guiño directo a que Meetzy es un copiloto de agentes de voz, no un chatbot genérico.
+    Mientras Copilot está "pensando" o transmitiendo una respuesta, el orbe acelera su pulso y despliega **anillos expansivos** (con un ligero retraso entre ellos), evocando visualmente una llamada conectándose — un guiño directo a que Meetzy es un copiloto de agentes de voz, no un chatbot genérico.
 
-    **Uso típico**: mensajes con `isStreaming` activo, indicador de "Thinking".
+    **Uso típico**: mensajes con transmisión activa (`isStreaming`), indicador de "Pensando".
   </Tab>
 </Tabs>
 
@@ -45,28 +45,28 @@ El orbe no es solo decorativo: su estado (`idle` / `active`) está sincronizado 
 
 ## Pantalla de Bienvenida
 
-Cuando abres Copilot por primera vez, verás al orbe dando la bienvenida junto a un mensaje corto ("Let's tune this agent.") y **cuatro tarjetas de acción rápida** con bloques de color sólido, pensadas para cubrir el ciclo completo de mejora de un agente: diagnosticar, encontrar fallos, crear una salvaguarda y verificar la mejora.
+Cuando abres Copilot por primera vez, verás al orbe dando la bienvenida junto a un mensaje corto ("Vamos a afinar este agente") y **cuatro tarjetas de acción rápida** con bloques de color sólido, pensadas para cubrir el ciclo completo de mejora de un agente: diagnosticar, encontrar fallos, crear una salvaguarda y verificar la mejora.
 
 <Steps>
   <Step title="Diagnosticar rendimiento (violeta)">
     Un clic para que Copilot analice el rendimiento del agente usando métricas reales, evaluaciones fallidas y llamadas relevantes, mostrando los hallazgos clave de forma visual.
 
-    **Prompt enviado**: "Diagnose this agent performance using real metrics, failed evaluations and relevant calls. Show the key findings visually."
+    **Prompt enviado**: "Diagnostica el rendimiento de este agente usando métricas reales, evaluaciones fallidas y llamadas relevantes. Muestra los hallazgos clave de forma visual."
   </Step>
   <Step title="Encontrar fallos recurrentes (rosa)">
     Identifica patrones de fallo repetidos en el agente y los presenta en una tabla con ejemplos extraídos de llamadas reales.
 
-    **Prompt enviado**: "Find recurring failures in this agent and show them in a table with examples from real calls."
+    **Prompt enviado**: "Encuentra fallos recurrentes en este agente y muéstralos en una tabla con ejemplos de llamadas reales."
   </Step>
   <Step title="Crear un test de regresión (verde)">
     Convierte una llamada real que falló en un test automatizado, para que ese problema específico no vuelva a ocurrir.
 
-    **Prompt enviado**: "Create a regression test from a real failed call so this issue does not happen again."
+    **Prompt enviado**: "Crea un test de regresión a partir de una llamada real que falló, para que este problema no vuelva a ocurrir."
   </Step>
   <Step title="Mejorar y verificar (ámbar)">
     Mejora el system prompt del agente basándose en el diagnóstico actual y sugiere cómo verificar que el cambio realmente funcionó, cerrando el ciclo de mejora.
 
-    **Prompt enviado**: "Improve the agent prompt based on the current diagnosis, then suggest how to verify the change."
+    **Prompt enviado**: "Mejora el prompt del agente basándote en el diagnóstico actual y luego sugiere cómo verificar el cambio."
   </Step>
 </Steps>
 
@@ -101,7 +101,7 @@ Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicaci
     }
     ```
     - Explicaciones paso a paso del proceso
-    - Reasoning transparente de las decisiones
+    - Razonamiento transparente de las decisiones
     - Contexto para mejoras propuestas
   </Tab>
   <Tab title="Eventos de Edición">
@@ -259,7 +259,7 @@ Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicaci
     - Copilot establece conexión SSE bidireccional
     - Se configura contexto del prompt actual
     - Validación de permisos y recursos disponibles
-    - Preparación del AbortController para cancelación
+    - Preparación del controlador de cancelación (`AbortController`)
   </Step>
   <Step title="Análisis Cognitivo (Thinking)">
     - **Duración**: 2-8 segundos según complejidad
@@ -272,14 +272,14 @@ Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicaci
   </Step>
   <Step title="Generación de Contenido (Text)">
     - **Streaming**: Contenido transmitido en tiempo real
-    - **Transparencia**: Explicación del reasoning detrás de los cambios
+    - **Transparencia**: Explicación del razonamiento detrás de los cambios
     - **Contextualización**: Referencias específicas a problemas identificados
-    - **Preparación**: Setup de operaciones de edición estructurada
+    - **Preparación**: Configuración de operaciones de edición estructurada
   </Step>
   <Step title="Aplicación de Cambios (Edit)">
     - **Precisión**: Operaciones granulares sobre secciones específicas
     - **Atomicidad**: Cada operación es independiente y reversible
-    - **Tracking**: Métricas detalladas de líneas afectadas
+    - **Seguimiento**: Métricas detalladas de líneas afectadas
     - **Validación**: Verificación de integridad estructural
   </Step>
   <Step title="Finalización y Sugerencias (Complete)">
@@ -365,7 +365,7 @@ Un mismo mensaje de Copilot puede combinar texto explicativo con uno o varios bl
     - Valores como `"si"`, `"passed"`, `"success"` se resaltan automáticamente en verde
     - Valores como `"no"`, `"failed"`, `"error"` se resaltan en rojo
     - Valores como `"pending"`, `"still_running"` se resaltan en ámbar
-    - Soporta un `footnote` opcional al pie de la tabla
+    - Soporta una nota al pie (`footnote`) opcional
   </Tab>
   <Tab title="Chart (gráfico)">
     Genera visualizaciones con Chart.js directamente dentro del chat, útiles para mostrar tendencias a lo largo del tiempo.
@@ -451,7 +451,7 @@ Además de reescribir el system prompt, Copilot puede actuar directamente sobre 
     - Como parte de una mejora de "Mejorar y verificar" enfocada en tono de voz
 
     <Info>
-    Los cambios de tags se muestran como un evento independiente en el chat, con un preview de los tags antes y después, para que puedas aceptarlos o descartarlos igual que una edición de prompt.
+    Los cambios de tags se muestran como un evento independiente en el chat, con una vista previa de los tags antes y después, para que puedas aceptarlos o descartarlos igual que una edición de prompt.
     </Info>
   </Tab>
   <Tab title="Actualización de Tests Existentes">
@@ -538,7 +538,7 @@ Los marcadores son insertados automáticamente por Copilot y permiten operacione
 
 ## Sistema de Grabación de Voz Avanzado
 
-Copilot incluye capacidades de grabación de voz sofisticadas para interacción natural y hands-free.
+Copilot incluye capacidades de grabación de voz sofisticadas para interacción natural y sin usar las manos.
 
 ### Modos de Grabación Disponibles
 
@@ -558,14 +558,14 @@ Copilot incluye capacidades de grabación de voz sofisticadas para interacción 
     3. Clic en "Parar" → Procesamiento automático
     4. Transcripción y envío a Copilot
   </Tab>
-  <Tab title="Hold-to-Speak (Alt Key)">
-    **Activación**: Mantener presionada tecla Alt
+  <Tab title="Mantener presionado (tecla Alt)">
+    **Activación**: Mantener presionada la tecla Alt
     
     **Características**:
     - Estilo "walkie-talkie" para rapidez
     - Ideal para correcciones y ajustes rápidos
-    - Automático al soltar la tecla
-    - Feedback haptico en dispositivos compatibles
+    - Se detiene automáticamente al soltar la tecla
+    - Feedback háptico en dispositivos compatibles
     
     **Casos de uso**:
     - Refinamientos rápidos: "Hazlo menos formal"
@@ -578,7 +578,7 @@ Copilot incluye capacidades de grabación de voz sofisticadas para interacción 
     **Características**:
     - Detección de pausas naturales
     - Finalización automática tras silencio prolongado
-    - Algoritmos de noise gate para filtrado
+    - Algoritmos de puerta de ruido (noise gate) para filtrado
     - Adaptación a patrones de habla individuales
     
     **Configuración**:
@@ -600,19 +600,19 @@ Copilot incluye capacidades de grabación de voz sofisticadas para interacción 
     ```
     - Calidad optimizada para reconocimiento de voz
     - Compresión eficiente para transmisión rápida
-    - Compatibilidad multi-browser garantizada
+    - Compatibilidad multi-navegador garantizada
   </Step>
   <Step title="Procesamiento en Tiempo Real">
-    - **Chunking**: Audio dividido en segmentos de 1-2 segundos
+    - **Segmentación**: Audio dividido en fragmentos de 1-2 segundos
     - **Streaming**: Procesamiento progresivo durante grabación
-    - **Buffer management**: Optimización de memoria y latencia
-    - **Error handling**: Recuperación automática de fallos de red
+    - **Gestión de buffer**: Optimización de memoria y latencia
+    - **Manejo de errores**: Recuperación automática de fallos de red
   </Step>
-  <Step title="Transcripción via Web Speech API">
+  <Step title="Transcripción vía Web Speech API">
     - **Modelo**: Optimizado para terminología técnica de AI/ML
     - **Idiomas**: Soporte para español, inglés y variantes regionales
-    - **Confianza**: Scoring de precisión para validación automática
-    - **Fallback**: Servicios cloud para casos complejos
+    - **Confianza**: Puntuación de precisión para validación automática
+    - **Respaldo**: Servicios en la nube para casos complejos
   </Step>
   <Step title="Post-procesamiento Inteligente">
     - **Limpieza**: Filtrado de muletillas y repeticiones
@@ -622,7 +622,7 @@ Copilot incluye capacidades de grabación de voz sofisticadas para interacción 
   </Step>
 </Steps>
 
-### Permisos y Troubleshooting de Audio
+### Permisos y Solución de Problemas de Audio
 
 <Warning>
 La grabación de voz requiere permisos explícitos del navegador y conexión HTTPS para funcionamiento seguro.
@@ -632,7 +632,7 @@ La grabación de voz requiere permisos explícitos del navegador y conexión HTT
 |----------|----------------|----------|
 | "Micrófono no disponible" | Permisos denegados | Permitir en configuración del navegador |
 | "Audio distorsionado" | Micrófono de baja calidad | Usar headset o micrófono externo |
-| "Transcripción incorrecta" | Ruido de fondo excesivo | Ambiente silencioso o noise cancellation |
+| "Transcripción incorrecta" | Ruido de fondo excesivo | Ambiente silencioso o cancelación de ruido |
 | "Grabación se corta" | Límite de tiempo excedido | Dividir en solicitudes más cortas |
 
 ## Análisis de Contexto de Llamadas Profundo
@@ -657,23 +657,23 @@ Sintaxis por fecha: @call:today @call:yesterday @call:this_week
     - **Priorización**: Ordenamiento por relevancia y fecha
     - **Deduplicación**: Eliminación de referencias redundantes
   </Step>
-  <Step title="Retrieval de Transcripciones">
+  <Step title="Recuperación de Transcripciones">
     - **Carga paralela**: Múltiples llamadas procesadas simultáneamente
-    - **Caching inteligente**: Almacenamiento local de transcripciones frecuentes
+    - **Caché inteligente**: Almacenamiento local de transcripciones frecuentes
     - **Compresión**: Optimización de ancho de banda para transcripciones largas
-    - **Timeout handling**: Manejo robusto de llamadas indisponibles
+    - **Manejo de tiempos de espera**: Manejo robusto de llamadas indisponibles
   </Step>
   <Step title="Análisis Contextual Avanzado">
-    - **NLP Processing**: Análisis semántico de problemas identificados
-    - **Sentiment Analysis**: Detección de frustración o satisfacción
-    - **Entity Recognition**: Extracción de nombres, fechas, productos mencionados
-    - **Conversation Flow**: Mapeo de patrones de diálogo problemáticos
+    - **Procesamiento NLP**: Análisis semántico de problemas identificados
+    - **Análisis de sentimiento**: Detección de frustración o satisfacción
+    - **Reconocimiento de entidades**: Extracción de nombres, fechas, productos mencionados
+    - **Flujo de conversación**: Mapeo de patrones de diálogo problemáticos
   </Step>
   <Step title="Síntesis de Insights">
-    - **Pattern Recognition**: Identificación de problemas recurrentes
-    - **Root Cause Analysis**: Diagnóstico de causas fundamentales
-    - **Impact Assessment**: Evaluación de severidad e impacto
-    - **Solution Generation**: Propuestas específicas de mejora
+    - **Reconocimiento de patrones**: Identificación de problemas recurrentes
+    - **Análisis de causa raíz**: Diagnóstico de causas fundamentales
+    - **Evaluación de impacto**: Evaluación de severidad e impacto
+    - **Generación de soluciones**: Propuestas específicas de mejora
   </Step>
 </Steps>
 
@@ -685,7 +685,7 @@ Sintaxis por fecha: @call:today @call:yesterday @call:this_week
     - Interrupciones del agente vs cliente
     - Tiempos de respuesta y pausas
     - Cambios de tópico abruptos
-    - Loops conversacionales problemáticos
+    - Bucles conversacionales problemáticos
     
     **Mejoras típicas**:
     - Timing de interrupciones optimizado
@@ -698,7 +698,7 @@ Sintaxis por fecha: @call:today @call:yesterday @call:this_week
     - Información solicitada vs obtenida
     - Precisión de datos capturados
     - Validación en tiempo real
-    - Follow-up de información faltante
+    - Seguimiento de información faltante
     
     **Optimizaciones aplicadas**:
     - Prompts específicos de validación
@@ -716,7 +716,7 @@ Sintaxis por fecha: @call:today @call:yesterday @call:this_week
     **Mejoras implementadas**:
     - Scripts personalizados por tipo de objeción
     - Enfoque empático vs lógico según contexto
-    - Técnicas de reframe y redirección
+    - Técnicas de reformulación y redirección
     - Estrategias de cierre alternativas
   </Tab>
   <Tab title="Análisis de Satisfacción del Cliente">
@@ -729,7 +729,7 @@ Sintaxis por fecha: @call:today @call:yesterday @call:this_week
     **Ajustes resultantes**:
     - Personalización de tono según cliente
     - Detección temprana de descontento
-    - Estrategias de recovery proactivas
+    - Estrategias de recuperación proactivas
     - Optimización de expectativas iniciales
   </Tab>
 </Tabs>
@@ -739,17 +739,17 @@ Sintaxis por fecha: @call:today @call:yesterday @call:this_week
 Durante el procesamiento de contexto de llamadas, Copilot muestra indicadores detallados:
 
 ```
-📞 Loading call context: abc123
-   ├── Transcript: ✅ Loaded (2.3MB, 45min)
-   ├── Metadata: ✅ Customer satisfaction: 3/10
-   ├── Analysis: 🔄 Processing sentiment...
-   └── Issues identified: ❌ Email capture failed, interruption at 23min
+📞 Cargando contexto de llamada: abc123
+   ├── Transcripción: ✅ Cargada (2.3MB, 45min)
+   ├── Metadatos: ✅ Satisfacción del cliente: 3/10
+   ├── Análisis: 🔄 Procesando sentimiento...
+   └── Problemas identificados: ❌ Fallo en captura de email, interrupción en el min 23
 
-📞 Loading call context: xyz789
-   ├── Transcript: ✅ Loaded (1.8MB, 32min)
-   ├── Metadata: ✅ Customer satisfaction: 8/10
-   ├── Analysis: ✅ Complete
-   └── Issues identified: ⚠️  Minor: phone number format inconsistent
+📞 Cargando contexto de llamada: xyz789
+   ├── Transcripción: ✅ Cargada (1.8MB, 32min)
+   ├── Metadatos: ✅ Satisfacción del cliente: 8/10
+   ├── Análisis: ✅ Completo
+   └── Problemas identificados: ⚠️  Menor: formato de teléfono inconsistente
 ```
 
 ## Sugerencias Inteligentes de IA Expandidas
@@ -760,28 +760,28 @@ El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo q
 
 <Steps>
   <Step title="Análisis de Contexto Inmediato">
-    - **Cambio actual**: Tipo y scope de la modificación realizada
+    - **Cambio actual**: Tipo y alcance de la modificación realizada
     - **Áreas relacionadas**: Secciones del prompt que podrían beneficiarse
     - **Configuración existente**: Parámetros, outputs y evaluaciones actuales
     - **Historial de cambios**: Patrones de modificaciones previas
   </Step>
   <Step title="Machine Learning Predictivo">
     - **Modelos entrenados**: Análisis de millones de prompts y mejoras exitosas
-    - **Pattern Recognition**: Identificación de mejoras que típicamente van juntas
-    - **Success Correlation**: Relación entre cambios y métricas de éxito posteriores
-    - **Domain Knowledge**: Expertise específico en conversational AI
+    - **Reconocimiento de patrones**: Identificación de mejoras que típicamente van juntas
+    - **Correlación de éxito**: Relación entre cambios y métricas de éxito posteriores
+    - **Conocimiento de dominio**: Expertise específico en IA conversacional
   </Step>
   <Step title="Filtrado y Priorización">
-    - **Relevancia Score**: Puntuación de pertinencia al contexto actual
-    - **Impact Assessment**: Evaluación del impacto potencial en performance
-    - **Implementation Complexity**: Dificultad técnica de implementación
-    - **User Preference Learning**: Adaptación a patrones de aceptación del usuario
+    - **Puntuación de relevancia**: Puntuación de pertinencia al contexto actual
+    - **Evaluación de impacto**: Evaluación del impacto potencial en rendimiento
+    - **Complejidad de implementación**: Dificultad técnica de implementación
+    - **Aprendizaje de preferencias**: Adaptación a patrones de aceptación del usuario
   </Step>
   <Step title="Personalización Adaptativa">
-    - **Usage Patterns**: Aprendizaje de preferencias individuales de usuarios
-    - **Domain Specificity**: Adaptación a industria o caso de uso específico
-    - **Performance Feedback**: Incorporación de métricas de llamadas post-implementación
-    - **A/B Testing**: Experimentación continua con tipos de sugerencias
+    - **Patrones de uso**: Aprendizaje de preferencias individuales de usuarios
+    - **Especificidad de dominio**: Adaptación a industria o caso de uso específico
+    - **Feedback de rendimiento**: Incorporación de métricas de llamadas post-implementación
+    - **Pruebas A/B**: Experimentación continua con tipos de sugerencias
   </Step>
 </Steps>
 
@@ -789,7 +789,7 @@ El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo q
 
 <Tabs>
   <Tab title="Sugerencias de Configuración Avanzada">
-    **Input Parameters Inteligentes**:
+    **Parámetros de Entrada Inteligentes**:
     ```json
     {
       "type": "input_parameter",
@@ -802,20 +802,20 @@ El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo q
     }
     ```
     
-    **Output Fields Predictivos**:
+    **Campos de Salida Predictivos**:
     - Análisis de conversaciones para identificar información no capturada
     - Sugerencias de campos basadas en patrones de cierre exitoso
     - Validaciones automáticas según tipo de campo
-    - Enrichment suggestions para contexto adicional
+    - Sugerencias de enriquecimiento para contexto adicional
     
     **Evaluaciones Automáticas**:
     - Métricas derivadas de problemas identificados en llamadas
     - KPIs específicos por industria o caso de uso
-    - Criterios de éxito correlacionados con business outcomes
+    - Criterios de éxito correlacionados con resultados de negocio
     - Benchmarking automático contra estándares de la industria
   </Tab>
   <Tab title="Sugerencias de Testing Automatizado">
-    **Test Generation Inteligente**:
+    **Generación Inteligente de Tests**:
     ```javascript
     {
       testName: "Objection Handling - Price Sensitivity",
@@ -833,122 +833,24 @@ El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo q
     }
     ```
     
-    **Edge Cases Automáticos**:
+    **Casos Límite Automáticos**:
     - Generación de tests para casos límite identificados
     - Simulación de clientes difíciles basada en llamadas reales
-    - Validation tests para nuevos campos de output
-    - Regression tests automáticos para cambios de prompt
+    - Tests de validación para nuevos campos de output
+    - Tests de regresión automáticos para cambios de prompt
 
     **Actualización sobre tests existentes**:
     - Cuando un test ya cubre el escenario pero quedó desactualizado, Copilot lo actualiza en lugar de duplicarlo
     - Conserva el `test_id`, el nombre y el historial de ejecuciones previas
     - Solo modifica los campos necesarios (condición de éxito, variables dinámicas, historial de chat)
   </Tab>
-  <Tab title="Sugerencias de Optimización de Performance">
+  <Tab title="Sugerencias de Optimización de Rendimiento">
     **Análisis Predictivo de Métricas**:
-    - Predicción de impacto en call success rate
-    - Optimización de call duration vs satisfaction
-    - Mejoras específicas para conversion rate
-    - Personalización basada en customer segments
+    - Predicción de impacto en la tasa de éxito de llamadas
+    - Optimización de duración de llamada vs satisfacción
+    - Mejoras específicas para tasa de conversión
+    - Personalización basada en segmentos de clientes
     
-    **A/B Testing Automático**:
+    **Pruebas A/B Automáticas**:
     - Sugerencias de variantes para testing
-    - Configuración automática de experiments
-    - Statistical significance monitoring
-    - Auto-rollout de variantes ganadoras
-  </Tab>
-  <Tab title="Sugerencias de Flujo Conversacional">
-    **Optimización de Diálogo**:
-    - Mejoras en natural language flow
-    - Timing optimizado para información crítica
-    - Estrategias de re-engagement para calls perdidas
-    - Personalization hooks basados en customer data
-    
-    **Advanced Conversation Patterns**:
-    - Multi-turn conversation optimization
-    - Context carrying across topics
-    - Graceful error recovery strategies
-    - Proactive objection handling
-  </Tab>
-</Tabs>
-
-### Interfaz de Sugerencias Mejorada
-
-Las sugerencias aparecen como **cards interactivas enriquecidas**:
-
-```html
-<!-- Ejemplo de estructura de card de sugerencia -->
-<div class="suggestion-card">
-  <div class="suggestion-header">
-    <span class="badge">💡 Configuration</span>
-    <span class="confidence">95% confidence</span>
-  </div>
-  <h4>Add Customer Sentiment Tracking</h4>
-  <p>Based on analysis of 12 recent calls, adding sentiment monitoring 
-     could prevent 67% of escalations</p>
-  <div class="suggestion-details">
-    <div class="impact">Expected impact: +23% satisfaction</div>
-    <div class="effort">Implementation: 2 minutes</div>
-  </div>
-  <div class="actions">
-    <button class="implement-btn">Implement Now</button>
-    <button class="details-btn">View Details</button>
-    <button class="dismiss-btn">Not Now</button>
-  </div>
-</div>
-```
-
-### Métricas de Éxito de Sugerencias
-
-Copilot rastrea la efectividad de sus sugerencias:
-
-| Métrica | Descripción | Benchmark |
-|---------|-------------|-----------|
-| **Acceptance Rate** | % de sugerencias implementadas | 85%+ objetivo |
-| **Impact Score** | Mejora promedio en KPIs post-implementación | +15% típico |
-| **Time to Value** | Tiempo desde implementación hasta mejora medible | <48 horas |
-| **User Satisfaction** | Rating de utilidad percibida | 4.7/5.0 promedio |
-| **False Positive Rate** | % de sugerencias irrelevantes o contraproducentes | <3% objetivo |
-
-## Modificaciones Automáticas de Configuración Avanzada
-
-Copilot puede realizar cambios sofisticados en toda la configuración del agente, desde parámetros básicos hasta configuraciones avanzadas de evaluaciones y tests.
-
-### Gestión de Parámetros de Entrada Inteligente
-
-<Tabs>
-  <Tab title="Detección Automática de Necesidades">
-    ```json
-    {
-      "detected_need": {
-        "type": "input_parameter",
-        "name": "customer_industry",
-        "evidence": [
-          "Prompt mentions 'tailor approach based on industry'",
-          "3 calls reference healthcare vs retail differences",
-          "@call:abc123 shows confusion about compliance requirements"
-        ],
-        "suggested_config": {
-          "type": "enum",
-          "values": ["healthcare", "retail", "finance", "education"],
-          "required": false,
-          "default": "general"
-        }
-      }
-    }
-    ```
-  </Tab>
-  <Tab title="Configuración Predictiva">
-    Copilot analiza el contexto del prompt y sugiere parámetros con:
-    - **Nombres semánticamente claros** basados en el dominio del agente
-    - **Tipos apropiados** (`string`, `enum`, `number`, `boolean`) según el uso detectado
-    - **Valores por defecto sensatos** que minimizan fricción para el usuario
-    - **Documentación automática** explicando el propósito de cada parámetro
-
-    Cada sugerencia incluye su nivel de confianza y la evidencia concreta (llamadas, secciones del prompt) que la respalda, para que puedas decidir con contexto completo antes de aceptarla.
-  </Tab>
-</Tabs>
-
-<Warning>
-Todas las modificaciones automáticas de configuración —parámetros de entrada, outputs, evaluaciones y tests— se presentan siempre como propuestas. Copilot nunca aplica cambios de forma silenciosa: necesitas confirmarlos explícitamente desde el chat.
-</Warning>
+    - Configuración automática de
