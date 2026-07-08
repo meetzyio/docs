@@ -6,7 +6,7 @@ icon: 'wrench'
 
 ## Resumen
 
-La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, la nueva herramienta de Horario Comercial, integración de calendario y próximamente comunicación multicanal con Email, SMS y WhatsApp.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, el nuevo **Schedule Controller (Beta)** para horarios de atención, integración de calendario y próximamente comunicación multicanal con Email, SMS y WhatsApp.
 
 <Info>
 Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
@@ -17,7 +17,7 @@ Las funcionalidades configuradas aquí son clave para crear experiencias convers
 Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos con plantillas multiidioma optimizadas.
 
 <Info>
-Meetzy ofrece dos versiones del sistema de transferencia: la versión clásica (destino único) y la nueva **Transfer v2 (Beta)**, que permite definir múltiples reglas de transferencia con condiciones independientes. Puedes alternar entre ambas desde el interruptor "Transfer to multiple destinations (Beta)" en el panel de configuración.
+Meetzy ofrece dos versiones del sistema de transferencia: la versión clásica **v1** (destino único) y la nueva **Transfer v2 (Beta)**, que permite definir múltiples reglas de transferencia (`TransferRule`) con condiciones independientes. Puedes alternar entre ambas desde el interruptor "Transfer to multiple destinations (Beta)" en el panel de configuración; internamente esto se controla mediante la propiedad `transferConfigVersion` (`'v1' | 'v2'`), que por defecto es `'v1'` para no alterar el comportamiento de agentes ya existentes.
 </Info>
 
 ### Tipos de Transferencia Disponibles
@@ -60,7 +60,7 @@ Meetzy soporta dos métodos principales de transferencia con configuración flex
     Habilita la opción de transferencia de llamadas usando el interruptor en la interfaz de usuario.
   </Step>
   <Step title="Elegir Versión del Sistema de Transferencia">
-    Decide si usarás el modo clásico (un único destino) o **Transfer v2 (Beta)**, que permite configurar múltiples reglas con condiciones distintas.
+    Decide si usarás el modo clásico (`transferConfigVersion: 'v1'`, un único destino) o **Transfer v2 (Beta)** (`transferConfigVersion: 'v2'`), que permite configurar múltiples reglas con condiciones distintas.
   </Step>
   <Step title="Seleccionar Tipo de Transferencia">
     Elige entre "Número de Teléfono" o "SIP Trunk" según tu infraestructura de comunicaciones (esta elección se hace por cada regla en v2).
@@ -80,14 +80,14 @@ Meetzy soporta dos métodos principales de transferencia con configuración flex
 ### Transfer v2 (Beta): Reglas Múltiples de Transferencia
 
 <Info>
-**Transfer v2 (Beta)** es la evolución del sistema de transferencia clásico. En lugar de definir un único destino y una única plantilla de condiciones, permite crear **múltiples reglas independientes**, cada una con su propia condición de activación y su propio destino. Esto es ideal para agentes que deben enrutar llamadas a distintos departamentos, idiomas o niveles de prioridad según el motivo de la consulta.
+**Transfer v2 (Beta)** es la evolución del sistema de transferencia clásico. En lugar de definir un único destino y una única plantilla de condiciones, permite crear **múltiples reglas independientes** (representadas internamente por la interfaz `TransferRule`), cada una con su propia condición de activación y su propio destino. Esto es ideal para agentes que deben enrutar llamadas a distintos departamentos, idiomas o niveles de prioridad según el motivo de la consulta.
 </Info>
 
-Para activar esta funcionalidad, utiliza el interruptor **"Transfer to multiple destinations (Beta)"** que aparece al habilitar la transferencia de llamadas. Al activarlo, la interfaz cambia de un formulario de destino único a una lista dinámica de reglas.
+Para activar esta funcionalidad, utiliza el interruptor **"Transfer to multiple destinations (Beta)"** que aparece al habilitar la transferencia de llamadas. Al activarlo, la interfaz cambia de un formulario de destino único a una lista dinámica de reglas (`transferRules: TransferRule[]`).
 
 #### Cómo Funciona una Regla de Transferencia
 
-Cada regla se compone de dos partes:
+Cada regla (`TransferRule`) se compone de dos partes:
 
 | Componente | Descripción | Ejemplo |
 |-----------|-------------|---------|
@@ -96,10 +96,10 @@ Cada regla se compone de dos partes:
 
 <Steps>
   <Step title="Activar Transfer v2">
-    Activa el interruptor "Transfer to multiple destinations (Beta)" dentro de la sección de Call Transfer.
+    Activa el interruptor "Transfer to multiple destinations (Beta)" dentro de la sección de Call Transfer. Esto fija `transferConfigVersion` a `'v2'`.
   </Step>
   <Step title="Añadir Reglas">
-    Haz clic en "Añadir Regla" para crear una nueva regla de transferencia. Puedes crear tantas reglas como necesites.
+    Haz clic en "Añadir Regla" para crear un nuevo elemento en el array `transferRules`. Puedes crear tantas reglas como necesites.
   </Step>
   <Step title="Definir la Condición">
     Escribe en el campo "When should this be used?" una descripción clara de la situación que debe activar esta regla (ej. "el cliente solicita cancelar su suscripción").
@@ -111,7 +111,7 @@ Cada regla se compone de dos partes:
     Introduce el número en formato E.164 o la URI SIP completa según el tipo seleccionado.
   </Step>
   <Step title="Priorizar y Ordenar Reglas">
-    Ordena las reglas de mayor a menor prioridad; la IA evaluará las condiciones en el orden establecido y aplicará la primera que coincida.
+    Ordena las reglas de mayor a menor prioridad; la IA evaluará las condiciones en el orden establecido dentro del array `transferRules` y aplicará la primera que coincida.
   </Step>
   <Step title="Eliminar o Editar Reglas">
     Usa el botón "Remove" en cada tarjeta de regla para eliminarla, o edita directamente los campos para actualizarla.
@@ -122,9 +122,9 @@ Cada regla se compone de dos partes:
 
 ```json
 {
-  "transfer_version": "v2",
-  "transfer_enabled": true,
-  "rules": [
+  "transferConfigVersion": "v2",
+  "transferEnabled": true,
+  "transferRules": [
     {
       "condition": "El cliente pregunta por facturación, pagos o cargos duplicados",
       "destination": {
@@ -161,15 +161,15 @@ Cada regla se compone de dos partes:
 
 | Característica | Transfer Clásico (v1) | Transfer v2 (Beta) |
 |----------------|------------------------|---------------------|
-| **Número de destinos** | Uno único | Múltiples, sin límite práctico |
+| **Número de destinos** | Uno único | Múltiples, sin límite práctico (`TransferRule[]`) |
 | **Condiciones** | Una plantilla general multiidioma | Una condición independiente por regla |
 | **Enrutamiento por departamento** | No soportado nativamente | Soportado de forma nativa |
-| **Priorización de reglas** | No aplica | Sí, orden configurable |
+| **Priorización de reglas** | No aplica | Sí, orden configurable según posición en el array |
 | **Complejidad de configuración** | Baja | Media (requiere definir cada regla) |
 | **Casos de uso ideales** | Agentes con un único punto de escalado | Contact centers con múltiples departamentos o niveles de servicio |
 
 <Warning>
-Transfer v2 se encuentra en fase **Beta**. Es recomendable probar exhaustivamente cada regla con llamadas de test antes de desplegar en producción, especialmente cuando existen condiciones que podrían solaparse entre sí. En caso de solapamiento, la IA aplicará la primera regla que coincida según el orden configurado.
+Transfer v2 se encuentra en fase **Beta**. Es recomendable probar exhaustivamente cada regla con llamadas de test antes de desplegar en producción, especialmente cuando existen condiciones que podrían solaparse entre sí. En caso de solapamiento, la IA aplicará la primera regla que coincida según el orden configurado en `transferRules`.
 </Warning>
 
 #### Buenas Prácticas para Reglas de Transferencia
@@ -179,6 +179,7 @@ Transfer v2 se encuentra en fase **Beta**. Es recomendable probar exhaustivament
 - **Regla de respaldo (fallback)**: Considera añadir siempre una última regla genérica ("cualquier otra situación que requiera atención humana") apuntando a un destino general
 - **Nombres descriptivos en la condición**: Usa lenguaje natural claro y verbos de acción ("el cliente solicita...", "el cliente pregunta por...") para maximizar la precisión de detección de la IA
 - **Pruebas por regla**: Valida cada regla individualmente con llamadas de test simulando distintos escenarios de conversación
+- **No mezclar versiones**: Si migras de v1 a v2, revisa que la plantilla de condición clásica quede reflejada como una o varias reglas equivalentes en `transferRules` antes de desactivar el modo clásico
 
 ### Plantillas de Transferencia Multiidioma
 
@@ -466,15 +467,15 @@ El agente finalizará llamadas automáticamente en estas situaciones optimizadas
 - **Detección de Hostilidad**: Cuando se identifica agresividad sostenida o abuso verbal del interlocutor
 - **Compliance Violation**: Si se detecta solicitud de opt-out o violación de políticas de comunicación
 
-## Herramienta de Horario Comercial (Business Hours - Beta)
+## Schedule Controller (Beta)
 
 <Info>
-**Business Hours (Beta)** es una nueva herramienta del editor avanzado que permite que tu agente conozca en tiempo real si la llamada se está produciendo dentro o fuera del horario comercial configurado, y actúe en consecuencia (informar al usuario, ofrecer alternativas, activar un recall, o transferir a otro destino según el horario).
+**Schedule Controller (Beta)** es la nueva herramienta del editor avanzado (respaldada internamente por las interfaces `ScheduleController`, `ScheduleDayConfig` y `ScheduleHoliday`) que permite que tu agente conozca en tiempo real si la llamada se está produciendo dentro o fuera del horario comercial configurado, y actúe en consecuencia (informar al usuario, ofrecer alternativas, activar un recall, o transferir a otro destino según el horario).
 </Info>
 
 ### ¿Qué Resuelve Esta Herramienta?
 
-Antes de esta funcionalidad, gestionar el horario de atención requería lógica externa vía webhooks personalizados. Ahora, Business Hours se integra de forma nativa en el editor avanzado como una herramienta más que la IA puede consultar durante la conversación, sin necesidad de configurar infraestructura adicional.
+Antes de esta funcionalidad, gestionar el horario de atención requería lógica externa vía webhooks personalizados. Ahora, el Schedule Controller se integra de forma nativa en el editor avanzado como una herramienta más que la IA puede consultar durante la conversación, sin necesidad de configurar infraestructura adicional.
 
 **Casos de uso principales:**
 
@@ -484,26 +485,36 @@ Antes de esta funcionalidad, gestionar el horario de atención requería lógica
 - Ofrecer un mensaje diferenciado según sea horario laboral, fin de semana o festivo
 - Enrutar a un buzón de mensajes o a un flujo de auto-servicio fuera de horario
 
+### Modelo de Datos: `ScheduleController`
+
+El Schedule Controller se construye sobre tres piezas de configuración claramente separadas, igual que un experimento correctamente controlado necesita variables independientes bien definidas:
+
+| Interfaz | Responsabilidad | Ejemplo de Contenido |
+|----------|------------------|------------------------|
+| **`ScheduleController`** | Objeto raíz: activación, zona horaria y comportamiento fuera de horario | `enabled`, `timezone`, `outOfHoursBehavior` |
+| **`ScheduleDayConfig`** | Configura un día concreto de la semana (abierto/cerrado, hora de inicio y fin) | `{ open: "09:00", close: "18:00" }` o `{ closed: true }` |
+| **`ScheduleHoliday`** | Excepción puntual que sobrescribe el horario habitual en una fecha específica | `{ date: "2025-12-25", closed: true, reason: "Navidad" }` |
+
 ### Proceso de Configuración
 
 <Steps>
   <Step title="Activar la Herramienta">
-    Habilita "Business Hours" desde el interruptor correspondiente en la sección de Acciones y Herramientas.
+    Habilita "Schedule Controller" desde el interruptor correspondiente en la sección de Acciones y Herramientas (`enabled: true`).
   </Step>
   <Step title="Definir Horario Semanal">
-    Configura la hora de inicio y fin para cada día de la semana. Puedes marcar días completos como cerrados (ej. domingos).
+    Configura la hora de inicio y fin para cada día de la semana usando un objeto `ScheduleDayConfig` por día. Puedes marcar días completos como cerrados (ej. domingos) con `closed: true`.
   </Step>
   <Step title="Establecer Zona Horaria">
-    Selecciona la zona horaria de referencia para que los cálculos de horario sean precisos independientemente de dónde llame el cliente.
+    Selecciona la zona horaria de referencia (`timezone`) para que los cálculos de horario sean precisos independientemente de dónde llame el cliente.
   </Step>
   <Step title="Añadir Excepciones y Festivos">
-    Define fechas específicas (festivos nacionales, vacaciones de empresa, eventos especiales) que sobrescriban el horario habitual.
+    Define fechas específicas (festivos nacionales, vacaciones de empresa, eventos especiales) como entradas `ScheduleHoliday` que sobrescriban el horario habitual.
   </Step>
   <Step title="Configurar el Prompt de Uso">
     Describe cuándo y cómo la IA debe consultar esta herramienta durante la conversación (ej. al inicio de la llamada, o cuando el cliente solicite ser transferido).
   </Step>
   <Step title="Definir Comportamiento Fuera de Horario">
-    Establece la acción a ejecutar cuando la llamada ocurra fuera de horario: mensaje informativo, activación de Recall, o transferencia a un destino alternativo.
+    Establece la acción a ejecutar (`outOfHoursBehavior`) cuando la llamada ocurra fuera de horario: mensaje informativo, activación de Recall, o transferencia a un destino alternativo.
   </Step>
 </Steps>
 
@@ -511,7 +522,7 @@ Antes de esta funcionalidad, gestionar el horario de atención requería lógica
 
 ```json
 {
-  "business_hours": {
+  "scheduleController": {
     "enabled": true,
     "timezone": "Europe/Madrid",
     "schedule": {
@@ -523,16 +534,16 @@ Antes de esta funcionalidad, gestionar el horario de atención requería lógica
       "saturday": { "closed": true },
       "sunday": { "closed": true }
     },
-    "exceptions": [
+    "holidays": [
       { "date": "2025-12-25", "closed": true, "reason": "Navidad" },
       { "date": "2025-01-01", "closed": true, "reason": "Año Nuevo" },
       { "date": "2025-08-15", "open": "10:00", "close": "13:00", "reason": "Horario reducido de verano" }
     ],
-    "check_prompt": "Consultar el horario comercial al inicio de la llamada y siempre que el cliente solicite hablar con un agente humano o pregunte por horarios de atención",
-    "out_of_hours_behavior": {
+    "checkPrompt": "Consultar el horario comercial al inicio de la llamada y siempre que el cliente solicite hablar con un agente humano o pregunte por horarios de atención",
+    "outOfHoursBehavior": {
       "action": "inform_and_offer_recall",
-      "message_template": "En este momento estamos fuera de nuestro horario de atención. Nuestro horario es de lunes a jueves de 9:00 a 18:00 y viernes de 9:00 a 15:00. ¿Le gustaría que le llamemos en cuanto abramos?",
-      "fallback_transfer": null
+      "messageTemplate": "En este momento estamos fuera de nuestro horario de atención. Nuestro horario es de lunes a jueves de 9:00 a 18:00 y viernes de 9:00 a 15:00. ¿Le gustaría que le llamemos en cuanto abramos?",
+      "fallbackTransfer": null
     }
   }
 }
@@ -551,27 +562,27 @@ Antes de esta funcionalidad, gestionar el horario de atención requería lógica
 
 <Tabs>
   <Tab title="Con Transferencia">
-    Cuando Business Hours está activo, puedes condicionar las reglas de Transfer v2 (Beta) al horario comercial. Por ejemplo, definir una regla que transfiera a un número de guardia únicamente si la consulta es urgente **y** ocurre fuera de horario, evitando transferencias a un departamento cerrado.
+    Cuando el Schedule Controller está activo, puedes condicionar las reglas de Transfer v2 (Beta) al horario comercial. Por ejemplo, definir una `TransferRule` que transfiera a un número de guardia únicamente si la consulta es urgente **y** ocurre fuera de horario, evitando transferencias a un departamento cerrado.
   </Tab>
   <Tab title="Con Recall">
-    Business Hours se integra de forma nativa con el Protocolo de Rellamada: si la llamada ocurre fuera de horario y el objetivo no puede completarse, el sistema puede programar automáticamente un recall dentro de la próxima ventana de horario comercial disponible, respetando la configuración de `business_hours` del sistema de Recall.
+    El Schedule Controller se integra de forma nativa con el Protocolo de Rellamada: si la llamada ocurre fuera de horario y el objetivo no puede completarse, el sistema puede programar automáticamente un recall dentro de la próxima ventana de horario comercial disponible, respetando la configuración de `scheduleController` del sistema de Recall.
   </Tab>
   <Tab title="Con Webhooks">
-    Puedes usar el estado de Business Hours (abierto/cerrado) como parámetro estático o dinámico dentro de tus herramientas webhook personalizadas, permitiendo que sistemas externos reciban contexto sobre si la llamada se produjo dentro o fuera de horario.
+    Puedes usar el estado del Schedule Controller (abierto/cerrado) como parámetro estático o dinámico dentro de tus herramientas webhook personalizadas, permitiendo que sistemas externos reciban contexto sobre si la llamada se produjo dentro o fuera de horario.
   </Tab>
 </Tabs>
 
 <Warning>
-Business Hours se encuentra actualmente en fase **Beta**. Verifica siempre la zona horaria configurada y realiza pruebas en distintos horarios (dentro, fuera, y en el límite exacto de apertura/cierre) antes de desplegar en producción, especialmente si tu negocio opera en múltiples zonas horarias o países.
+El Schedule Controller se encuentra actualmente en fase **Beta**. Verifica siempre la zona horaria configurada (`timezone`) y realiza pruebas en distintos horarios (dentro, fuera, y en el límite exacto de apertura/cierre) antes de desplegar en producción, especialmente si tu negocio opera en múltiples zonas horarias o países.
 </Warning>
 
-### Buenas Prácticas para Business Hours
+### Buenas Prácticas para el Schedule Controller
 
-- **Zona horaria explícita**: Configura siempre la zona horaria de tu negocio, no asumas la zona horaria del cliente que llama
-- **Mensajes claros con horario completo**: Incluye el horario completo semanal en el mensaje fuera de horario para reducir llamadas repetidas
-- **Excepciones actualizadas**: Mantén actualizada la lista de festivos y fechas especiales, revisándola trimestralmente
-- **Combinar con Recall**: Para negocios orientados a ventas, combina Business Hours con Recall para no perder oportunidades comerciales fuera de horario
-- **Pruebas en bordes horarios**: Testea el comportamiento justo en los minutos de apertura y cierre para evitar falsos negativos
+- **Zona horaria explícita**: Configura siempre la zona horaria de tu negocio en `timezone`, no asumas la zona horaria del cliente que llama
+- **Mensajes claros con horario completo**: Incluye el horario completo semanal en el `messageTemplate` fuera de horario para reducir llamadas repetidas
+- **Excepciones actualizadas**: Mantén actualizada la lista `holidays` de festivos y fechas especiales, revisándola trimestralmente
+- **Combinar con Recall**: Para negocios orientados a ventas, combina el Schedule Controller con Recall para no perder oportunidades comerciales fuera de horario
+- **Pruebas en bordes horarios**: Testea el comportamiento justo en los minutos de apertura y cierre (`open`/`close`) para evitar falsos negativos, con el mismo rigor con el que se aíslan variables en un experimento controlado
 
 ## Herramientas Webhook Personalizadas
 
@@ -755,120 +766,4 @@ Controla si el usuario puede interrumpir al agente mientras espera la respuesta 
               "default": true,
               "description": "Incluir información de precios y descuentos activos"
             },
-            "check_alternatives": {
-              "type": "boolean",
-              "default": false,
-              "description": "Buscar productos alternativos similares si no hay stock"
-            }
-          },
-          "required": ["product_id"]
-        }
-      },
-      "disable_interruptions": false,
-      "execution_mode": "immediate",
-      "response_timeout_secs": 8,
-      "tool_call_sound": "typing",
-      "retry_config": {
-        "max_retries": 2,
-        "retry_delay_ms": 1000
-      }
-    }
-    ```
-  </Tab>
-  <Tab title="Programación de Citas Médicas">
-    **Caso de Uso**: Sistema completo de agendamiento médico con validaciones múltiples
-    
-    ```json
-    {
-      "name": "agendar_cita_medica_completa",
-      "description": "Programar cita médica cuando paciente solicita atención médica, necesita reprogramar cita existente, o requiere consulta especializada específica",
-      "api_schema": {
-        "url": "https://api.clinica.com/appointments/comprehensive",
-        "method": "POST",
-        "request_headers": {
-          "Authorization": "Bearer YOUR_CLINIC_TOKEN",
-          "Content-Type": "application/json",
-          "X-Source": "voice-assistant"
-        },
-        "request_body_schema": {
-          "type": "object",
-          "required": ["patient_name", "patient_phone", "preferred_date", "service_type"],
-          "properties": {
-            "patient_name": {
-              "type": "string",
-              "minLength": 2,
-              "description": "Nombre completo del paciente tal como aparece en documentos"
-            },
-            "patient_phone": {
-              "type": "string",
-              "pattern": "^\\+?[1-9]\\d{8,14}$",
-              "description": "Teléfono principal para confirmaciones (formato internacional)"
-            },
-            "patient_email": {
-              "type": "string",
-              "format": "email",
-              "description": "Email del paciente para envío de confirmaciones digitales"
-            },
-            "patient_dni": {
-              "type": "string",
-              "description": "Documento de identidad nacional del paciente"
-            },
-            "preferred_date": {
-              "type": "string",
-              "format": "date",
-              "description": "Fecha preferida en formato YYYY-MM-DD"
-            },
-            "preferred_time_slot": {
-              "type": "string",
-              "enum": ["morning", "afternoon", "evening", "any"],
-              "description": "Franja horaria preferida del paciente"
-            },
-            "preferred_time": {
-              "type": "string",
-              "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
-              "description": "Hora específica preferida en formato HH:MM"
-            },
-            "service_type": {
-              "type": "string",
-              "enum": ["Consulta General", "Cardiología", "Dermatología", "Traumatología", "Ginecología", "Pediatría", "Oftalmología", "Urgencia", "Revisión", "Telemedicina"],
-              "description": "Tipo de servicio médico requerido"
-            },
-            "doctor_preference": {
-              "type": "string",
-              "description": "Nombre del médico preferido si el paciente especifica"
-            },
-            "insurance_provider": {
-              "type": "string",
-              "description": "Nombre de la compañía de seguros médicos"
-            },
-            "insurance_number": {
-              "type": "string", 
-              "description": "Número de póliza o tarjeta del seguro médico"
-            },
-            "reason": {
-              "type": "string",
-              "maxLength": 500,
-              "description": "Motivo detallado de la consulta o síntomas principales"
-            },
-            "urgency_level": {
-              "type": "string",
-              "enum": ["baja", "media", "alta", "urgente"],
-              "default": "media",
-              "description": "Nivel de urgencia médica percibida"
-            },
-            "is_follow_up": {
-              "type": "boolean",
-              "default": false,
-              "description": "Indica si es una cita de seguimiento de tratamiento previo"
-            },
-            "previous_appointment_id": {
-              "type": "string",
-              "description": "ID de cita anterior si es seguimiento o reprogramación"
-            }
-          }
-        }
-      },
-      "response_timeout_secs": 25,
-      "tool_call_sound": "typing",
-      "force_pre_tool_speech": true,
-      "execution_mode": "immediate",
+            "check_

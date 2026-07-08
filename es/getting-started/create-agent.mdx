@@ -152,8 +152,12 @@ Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente e
 </Steps>
 
 <Warning>
-  Si prefieres control total desde el inicio, haz clic en el enlace **"or start from scratch"** debajo del campo de texto. Esto omite la generación automática y te lleva directamente al Editor Avanzado con una configuración en blanco.
+  Si prefieres control total desde el inicio, haz clic en el enlace **"or start from scratch"** debajo del campo de texto. Esto omite la generación automática y te lleva directamente al Editor Avanzado con una configuración en blanco, sin salir de la pantalla actual.
 </Warning>
+
+<Info>
+  **Diferencia clave**: el enlace *"or start from scratch"* solo cierra la superposición de creación (`skipCreationOverlay()`) y te deja en el Editor Avanzado con un agente en blanco. La flecha de retroceso, en cambio, cierra la superposición **y además** te devuelve a la lista de agentes (`goBack()`), abandonando por completo la creación.
+</Info>
 
 ### Atajos en la Pantalla de Creación
 
@@ -162,7 +166,7 @@ Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente e
 | Generar configuración | Escribe tu descripción y presiona `Enter` |
 | Enviar con el ratón | Haz clic en el botón de envío una vez que hay texto |
 | Empezar desde cero | Haz clic en **"or start from scratch"** |
-| Volver atrás | Haz clic en la flecha superior izquierda |
+| Volver a la lista de agentes | Haz clic en la flecha superior izquierda |
 
 ### Generación Automática Avanzada
 
@@ -906,106 +910,4 @@ Simulador avanzado de conversaciones para testing exhaustivo:
   <Tab title="Cliente con Objeciones">
     ```
     - Preocupación por precio
-    - Dudas sobre el producto/servicio
-    - Experiencias negativas previas
-    - Comparación con competencia
-    - Solicitud de descuentos
-    ```
-  </Tab>
-  
-  <Tab title="Cliente Difícil">
-    ```
-    - Impaciente o molesto
-    - Información incompleta
-    - Solicitudes fuera de scope
-    - Expectativas poco realistas
-    - Solicitud inmediata de supervisor
-    ```
-  </Tab>
-  
-  <Tab title="Casos Edge">
-    ```
-    - Emergencias médicas/técnicas
-    - Información confidencial
-    - Múltiples necesidades complejas
-    - Restricciones regulatorias
-    - Situaciones sin precedente
-    ```
-  </Tab>
-</Tabs>
-
-### Tests (✅)
-
-Sistema de pruebas automatizadas para garantizar calidad consistente:
-
-#### Tipos de Pruebas Disponibles
-
-<Tabs>
-  <Tab title="Pruebas Funcionales">
-    - **Validación de Configuración**: Verifica que todos los campos estén completos
-    - **Pruebas de Integración**: Confirma que webhooks y APIs funcionan
-    - **Tests de Transferencia**: Valida protocolos de escalación
-    - **Verificación de Acciones**: Prueba SMS, emails, agendamientos
-  </Tab>
-  
-  <Tab title="Pruebas de Calidad Conversacional">
-    - **Análisis de Coherencia**: Evalúa lógica en las respuestas
-    - **Tests de Personalidad**: Confirma consistencia de tono
-    - **Validación de Conocimiento**: Verifica acceso a information base
-    - **Pruebas de Manejo de Objeciones**: Evalúa respuestas a situaciones difíciles
-  </Tab>
-  
-  <Tab title="Pruebas de Rendimiento">
-    - **Latencia de Respuesta**: Mide tiempos de procesamiento
-    - **Throughput**: Capacidad de llamadas concurrentes
-    - **Estabilidad**: Tests de larga duración
-    - **Recuperación de Errores**: Manejo de fallos temporales
-  </Tab>
-  
-  <Tab title="Pruebas de Seguridad">
-    - **Validación de Guardrails**: Confirma que las protecciones funcionan
-    - **Tests de Bypass**: Intenta eludir restricciones de seguridad
-    - **Manejo de Datos Sensibles**: Verifica protección de información privada
-    - **Compliance**: Confirma adherencia a regulaciones aplicables
-  </Tab>
-</Tabs>
-
-### Changes (📝)
-
-Sistema avanzado de control de versiones similar a Git:
-
-#### Funcionalidades de Versioning
-
-<Tabs>
-  <Tab title="Tracking de Cambios">
-    - **Diff Visualization**: Compara versiones lado a lado
-    - **Change History**: Historial completo de modificaciones
-    - **Author Tracking**: Quién hizo qué cambio y cuándo
-    - **Change Descriptions**: Notas explicativas para cada modificación
-  </Tab>
-  
-  <Tab title="Colaboración">
-    - **Merge Conflicts**: Detecta y resuelve conflictos automáticamente
-    - **Branch Management**: Trabaja en versiones paralelas
-    - **Review Process**: Proceso de aprobación para cambios críticos
-    - **Team Notifications**: Alertas sobre modificaciones importantes
-  </Tab>
-  
-  <Tab title="Rollback y Recovery">
-    - **Instant Rollback**: Revertir a cualquier versión anterior
-    - **Selective Restore**: Restaurar solo partes específicas
-    - **Backup Automático**: Respaldos antes de cada cambio mayor
-    - **Change Validation**: Verificación antes de aplicar cambios
-  </Tab>
-</Tabs>
-
-## Atajos de Teclado Avanzados
-
-### Navegación General
-| Atajo | Acción | Contexto |
-|-------|--------|----------|
-| `⌘1` - `⌘7` | Navegar entre secciones del panel izquierdo | Cualquier momento |
-| `⌘K` | Abrir Command Palette | Global |
-| `⌘J` | Abrir/enfocar Meetzy AI | Global |
-| `⇧⌘P` | Abrir/enfocar Playground | Global |
-| `⇧⌘T` | Abrir/enfocar Tests | Global
+    - Dudas sobre el producto/serv

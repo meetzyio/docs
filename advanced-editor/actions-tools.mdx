@@ -86,12 +86,12 @@ Each rule includes:
 | **Condition** | A natural-language description of when this rule should trigger (e.g., "the customer asks to speak with sales", "the customer wants to cancel a subscription") |
 | **Destination Type** | `Phone` or `SIP`, matching the same formats used in standard Call Transfer |
 | **Destination Value** | The phone number (`+1234567890`) or SIP URI (`sip:extension@ip:port`) to route to |
-| **Transfer Type** | `Direct` or `Warm` — controls how the handoff is performed |
+| **Transfer Type** | `Blind` or `Conference` — controls how the handoff is performed |
 | **Custom Message** | An optional per-rule message the agent says right before transferring, overriding the default transfer phrase |
 
 <Tabs>
-  <Tab title="Direct Transfer">
-    **Direct (Cold) Transfer**
+  <Tab title="Blind Transfer">
+    **Blind (Cold) Transfer**
     
     The agent immediately connects the caller to the destination without staying on the line.
 
@@ -99,8 +99,8 @@ Each rule includes:
     - **Experience**: Fastest handoff, no context relay
     - **Use when**: The destination doesn't need a live briefing before speaking with the customer
   </Tab>
-  <Tab title="Warm Transfer">
-    **Warm Transfer**
+  <Tab title="Conference Transfer">
+    **Conference (Warm) Transfer**
     
     The agent stays connected momentarily to introduce the call and pass context before disconnecting.
 
@@ -121,7 +121,7 @@ Each rule includes:
     Choose Phone or SIP and enter the corresponding destination value.
   </Step>
   <Step title="Choose Transfer Type">
-    Select Direct for an immediate handoff or Warm to relay context before disconnecting.
+    Select Blind for an immediate handoff or Conference to relay context before disconnecting.
   </Step>
   <Step title="Add a Custom Message (Optional)">
     Write a message specific to this rule, such as "Let me connect you with our billing team" for a billing-related rule.
@@ -141,19 +141,19 @@ Rules are evaluated in the order they appear. Place more specific conditions abo
 Rule 1
 Condition: the customer wants to talk to sales or ask about pricing
 Destination: Phone → +1-555-200-1000
-Type: Warm
+Type: Conference
 Message: "I'll connect you with our sales team, one moment please."
 
 Rule 2
 Condition: the customer reports a technical issue or outage
 Destination: SIP → sip:support@pbx.company.com:5060
-Type: Direct
+Type: Blind
 Message: "Transferring you to technical support now."
 
 Rule 3
 Condition: the customer explicitly asks for a manager or wants to file a complaint
 Destination: Phone → +1-555-200-2000
-Type: Warm
+Type: Conference
 Message: (default transfer phrase)
 ```
 
@@ -561,37 +561,88 @@ Each webhook parameter supports sophisticated data mapping:
   </Tab>
 </Tabs>
 
-## Business Hours Tool (Beta)
+## Schedule Controller (Beta)
 
 <Info>
-**Business Hours** is a new built-in tool (Beta) that lets your agent automatically resolve whether the current call is happening within your configured business hours — no webhook or external calendar needed.
+**Schedule Controller** is a new built-in tool (Beta) that lets your agent automatically resolve whether the current call is happening within your configured business hours — no webhook or external calendar needed. It replaces manual date/time reasoning with a structured weekly schedule, holiday calendar, and time zone awareness.
 </Info>
 
-Instead of building custom logic or prompting the model to reason about dates and time zones, the Business Hours tool evaluates the call timestamp against your schedule and returns a simple `open` / `closed` result the agent can act on.
+Instead of prompting the model to reason about dates, weekdays, and time zones, the Schedule Controller evaluates the call timestamp against your configuration and returns whether the business is **open** or **closed** at that exact moment — including support for holiday exceptions and dedicated messaging for each state.
 
 ### What It Solves
 
 - Avoids transferring calls to a human team that isn't available
-- Lets the agent give accurate opening hours or "we're currently closed" messaging
-- Enables conditional logic such as "only offer callback scheduling outside business hours"
+- Lets the agent give accurate opening hours or a "we're currently closed" response automatically
+- Enables conditional logic such as "only offer live transfer during business hours, otherwise offer a callback"
+- Accounts for holidays and special closures without extra prompt engineering
 - Removes the need for manual date/time reasoning in the system prompt
 
 ### Configuration
 
 <Steps>
-  <Step title="Enable Business Hours">
-    Add the Business Hours tool from the Actions & Tools panel and toggle it on.
+  <Step title="Enable Schedule Controller">
+    Add the Schedule Controller tool from the Actions & Tools panel and toggle it on.
   </Step>
-  <Step title="Set Your Schedule">
-    Define opening and closing times for each day of the week. Mark days as fully closed when applicable (e.g., weekends or holidays).
+  <Step title="Set Your Weekly Schedule">
+    Configure opening and closing times independently for each day of the week (Monday through Sunday). Mark any day as fully closed when it doesn't apply — for example, weekends or days your business doesn't operate.
+  </Step>
+  <Step title="Add Holidays">
+    Define specific dates — national holidays, company closures, or one-off exceptions — that should always be treated as closed (or with custom hours) regardless of the regular weekly schedule.
   </Step>
   <Step title="Configure Time Zone">
     Select the time zone your business hours are defined in, so the tool correctly resolves the call time regardless of where the customer is calling from.
+  </Step>
+  <Step title="Set In-Hours and Out-of-Hours Messages">
+    Write a custom message the agent uses when the call falls within business hours, and a different message for when it falls outside business hours (including holidays).
   </Step>
   <Step title="Reference the Tool in Your Prompt or Rules">
     Use the tool's result in your system prompt logic, or combine it with a Transfer v2 rule condition (e.g., "only transfer to sales if within business hours").
   </Step>
 </Steps>
+
+### Weekly Schedule Fields
+
+Each day of the week supports its own independent configuration:
+
+| Field | Description |
+|-------|-------------|
+| **Day** | Monday through Sunday |
+| **Status** | Open or Closed for that day |
+| **Opening Time** | Start of business hours (e.g., `09:00`) |
+| **Closing Time** | End of business hours (e.g., `18:00`) |
+
+### Holidays
+
+Holidays override the regular weekly schedule for a specific date:
+
+| Field | Description |
+|-------|-------------|
+| **Date** | The specific calendar date the holiday applies to |
+| **Label** | A descriptive name (e.g., "New Year's Day", "Company Retreat") |
+| **Status** | Closed all day, or Open with custom hours for that date |
+
+### In-Hours vs Out-of-Hours Messages
+
+<Tabs>
+  <Tab title="In-Hours Message">
+    **Used while the business is open**
+
+    Optional message the agent can use to confirm availability, such as:
+
+    ```
+    "We're currently open — I can connect you with our team right away."
+    ```
+  </Tab>
+  <Tab title="Out-of-Hours Message">
+    **Used while the business is closed (including holidays)**
+
+    Message explaining unavailability and next steps, such as:
+
+    ```
+    "We're currently closed. Our business hours are Monday to Friday, 9 AM to 6 PM. Would you like me to schedule a callback for the next business day?"
+    ```
+  </Tab>
+</Tabs>
 
 ### Example Schedule
 
@@ -600,6 +651,14 @@ Monday - Friday: 09:00 - 18:00
 Saturday: 10:00 - 14:00
 Sunday: Closed
 Time Zone: Europe/Madrid
+
+Holidays:
+- Jan 1: New Year's Day (Closed)
+- Dec 25: Christmas Day (Closed)
+- Aug 15: Summer Break (Closed)
+
+In-Hours Message: "We're currently open — I can connect you with our team right away."
+Out-of-Hours Message: "We're currently closed. Our business hours are Monday to Friday, 9 AM to 6 PM. Would you like me to schedule a callback?"
 ```
 
 ### Example Usage
@@ -608,21 +667,21 @@ Time Zone: Europe/Madrid
 
 ```
 Rule 1
-Condition: the customer wants to talk to sales AND the call is within business hours
+Condition: the customer wants to talk to sales AND the schedule is currently open
 Destination: Phone → +1-555-200-1000
-Type: Warm
+Type: Conference
 
 Rule 2
-Condition: the customer wants to talk to sales AND the call is outside business hours
+Condition: the customer wants to talk to sales AND the schedule is currently closed
 Destination: (no transfer — offer to schedule a callback instead)
 ```
 
 **Combined with End Call Strategy or system prompt:**
 
-Instruct the agent to check the Business Hours result before offering live transfer, and fall back to taking a message or booking a callback when the result is `closed`.
+Instruct the agent to check the Schedule Controller result before offering a live transfer, and fall back to taking a message or booking a callback when the result is `closed`.
 
 <Warning>
-Business Hours is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and holiday exceptions, which may require manual configuration.
+Schedule Controller is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and newly added holidays.
 </Warning>
 
 ## End Call Strategy
@@ -996,107 +1055,4 @@ Set up sophisticated automatic callback systems for comprehensive customer follo
     - Human agent escalation for persistent cases
     - Automatic compliance monitoring
   </Step>
-</Steps>
-
-<Info>
-Pair the Recall Protocol with the **Business Hours Tool (Beta)** to automatically restrict callback attempts to your configured working hours instead of manually setting time windows.
-</Info>
-
-### Recall Timing Strategy
-
-| Attempt | Timing | Use Case | Success Rate |
-|---------|--------|----------|-------------|
-| **1st Recall** | 15-30 minutes | Busy signal, no answer | 35% |
-| **2nd Recall** | 2-4 hours | Same day follow-up | 25% |
-| **3rd Recall** | Next business day | Professional persistence | 20% |
-| **4th Recall** | 3-5 days later | Respectful follow-up | 15% |
-| **5th Recall** | 1-2 weeks later | Final attempt | 10% |
-
-### Success Detection Examples
-
-**Objective Achievement Scenarios:**
-- Customer provided required information (contact details, preferences, requirements)
-- Meeting or appointment successfully scheduled with confirmation
-- Purchase decision made (positive or negative with clear finality)
-- Information successfully delivered (pricing, product details, service options)
-- Support issue resolved or escalated to appropriate department
-
-**Customer-Directed Scenarios:**
-- Explicit request for no further contact ("Please don't call again")
-- Customer scheduled their own callback time ("Call me next Tuesday")
-- Successful transfer to human agent with context preservation
-- Customer requested different communication method (email, text, online)
-
-**Call Completion Scenarios:**
-- Full conversation completed with all objectives addressed
-- Customer showed clear disinterest with polite but firm decline
-- Answering machine message successfully delivered
-- Technical issues prevented meaningful conversation
-
-### Recall Configuration Options
-
-**Compliance and Timing:**
-- **Business Hours Only**: Restrict callbacks to defined business hours
-- **Time Zone Intelligence**: Respect customer's local time zone automatically
-- **Day Preferences**: Avoid weekends or specific days based on business type
-- **Holiday Exclusions**: Skip national holidays and company blackout dates
-- **DNC Integration**: Automatic Do Not Call list checking and compliance
-
-**Strategy Evolution:**
-- **Message Variation**: Change script or approach with each attempt
-- **Channel Diversification**: Transition to email or SMS after failed calls
-- **Human Escalation**: Transfer persistent cases to human agents
-- **Performance Analytics**: Track and optimize recall effectiveness
-
-## Communication Tools (Coming Soon)
-
-Expand your agent's communication capabilities beyond voice calls with integrated email, SMS, and messaging platforms.
-
-### Email Integration
-
-<Info>
-**Status**: Coming Soon - Advanced email integration with dynamic templating and conversation-based content generation.
-</Info>
-
-**Planned Features:**
-- Intelligent email trigger detection during conversations
-- Dynamic subject line and content generation from call context
-- Customer information extraction and personalization
-- Follow-up email automation with call summaries
-- Integration with popular email service providers
-- Template library for common business scenarios
-
-**Use Cases:**
-- Send detailed product information requested during calls
-- Deliver quotes, proposals, and pricing documents
-- Provide meeting confirmations and calendar invitations
-- Follow up with additional resources and next steps
-
-### SMS Integration
-
-<Info>
-**Status**: Coming Soon - Smart SMS messaging for immediate follow-up and confirmations.
-</Info>
-
-**Planned Features:**
-- Conversation-triggered SMS sending
-- Dynamic message content with call data
-- Appointment confirmations and reminders
-- Reference number and confirmation code delivery
-- Compliance with SMS marketing regulations
-- Integration with major SMS service providers
-
-**Use Cases:**
-- Immediate appointment confirmations
-- Quick follow-up after missed calls
-- Delivery of confirmation codes and reference numbers
-- Links to online resources, booking pages, or surveys
-
-### WhatsApp Integration
-
-<Info>
-**Status**: Coming Soon - WhatsApp Business API integration for rich media messaging.
-</Info>
-
-**Planned Features:**
-- WhatsApp Business API integ
+</
