@@ -44,7 +44,7 @@ The Advanced Editor now includes enhanced navigation capabilities to seamlessly 
     - Search within company-scoped agent lists
     - Quick company switching within the editor interface
   </Step>
-</Tabs>
+</Steps>
 
 <Info>
   The agent selector dropdown is optimized for desktop use. On mobile devices, use the "Back to Agents" button to return to the main agents list for navigation.
@@ -62,20 +62,20 @@ Auto-save current work → Load new agent → Preserve editor state
 
 ### Quick Agent Selector: In-Depth Guide
 
-The agent name button in the Advanced Editor header is more than a label — it's a fully-featured quick switcher that lets you jump between agents without ever leaving the editor.
+The agent name button in the top-left corner of the Advanced Editor's header toolbar is more than a label — it's a fully-featured quick switcher that lets you jump between agents without ever leaving the editor.
 
 <Steps>
   <Step title="Open the Selector">
-    Click on the current agent's name and avatar in the top-left of the editor toolbar. A dropdown panel opens showing:
+    Click on the current agent's name and colored initial avatar in the header toolbar. A dropdown panel opens directly below the button, showing:
     - A search field to filter agents by name
-    - A **company filter** (visible to admin users with access to multiple companies)
-    - A scrollable list of agents, each showing its name and a colored initial avatar
+    - A compact **company filter** dropdown (visible only to admin users with access to multiple companies)
+    - A scrollable list of agents, each displayed with its colored initial avatar and name
   </Step>
   
   <Step title="Search and Filter">
-    - Type in the search field to instantly filter the agent list by name
-    - Admin users can narrow results further by selecting a specific company from the dropdown
-    - The list updates in real time as you type
+    - Type in the search field to instantly filter the agent list by name — results update as you type, with no need to press Enter
+    - Admin users can narrow results further by selecting a specific company from the compact company dropdown at the top of the panel
+    - Combine both search and company filter for precise results when managing agents across multiple organizations
   </Step>
   
   <Step title="Switch Agents">
@@ -87,11 +87,11 @@ The agent name button in the Advanced Editor header is more than a label — it'
 </Steps>
 
 <Info>
-  The quick agent selector is only available while editing an existing agent (**edit mode**) and only on desktop screens. It is not shown while creating a brand-new agent from scratch.
+  The quick agent selector is only available while editing an existing agent (**edit mode**) and only on desktop screens. It is not shown while creating a brand-new agent from scratch, and on mobile you'll use the **Back to Agents** button instead.
 </Info>
 
 <Tip>
-  Use **Cmd/Ctrl + Shift + A** as a keyboard shortcut to instantly open the agent selector without touching your mouse.
+  Use **Cmd/Ctrl + Shift + A** as a keyboard shortcut to instantly open the agent selector without touching your mouse. Press it again, or click outside the dropdown, to close it.
 </Tip>
 
 ## Enhanced Search and Filtering
@@ -198,29 +198,31 @@ Unlike deleting an agent, **archiving** deactivates it without permanently erasi
 
 <Steps>
   <Step title="Open the Archive Option">
-    From the Advanced Editor or the agent details panel, click the **Archive Agent** button. This is typically found in the header toolbar's overflow menu or the agent's quick actions.
+    From the Advanced Editor header toolbar or the agent details panel, click **Archive Agent**. This opens the **Archive Agent** modal.
   </Step>
   
-  <Step title="Confirm Archiving">
-    A confirmation modal appears summarizing the action:
-    - The agent will stop handling inbound and outbound calls
+  <Step title="Review the Confirmation">
+    The modal summarizes exactly what will happen:
+    - The agent will stop handling inbound and outbound calls immediately
     - All configuration, prompts, Knowledge Base, and call history are preserved
     - The agent can be restored from the **Archived** filter at any time
   </Step>
   
   <Step title="Choose Phone Number Handling">
-    If the agent has an assigned phone number, you'll see an additional option:
-    - **Release phone number**: Toggle this option to free up the associated phone number so it can be reassigned to another agent or released back to your number pool
-    - Leave it unchecked to keep the number reserved for this agent in case you reactivate it later
+    If the agent has an assigned phone number, the modal displays a dedicated **Release phone number** checkbox:
+    - **Checked**: The associated phone number is immediately freed and returned to your available number pool, ready to be assigned to another agent
+    - **Unchecked (default)**: The number stays reserved for this agent so it's automatically available again if you restore it later
+    
+    If the agent has no phone number assigned, this option is not shown.
   </Step>
   
   <Step title="Complete the Archive">
-    Click **Archive Agent** to confirm. The agent is immediately deactivated and moved to the archived list.
+    Click the **Archive Agent** button to confirm. The button shows a loading state while the request is processed, and the agent is immediately deactivated and moved to the archived list once complete.
   </Step>
 </Steps>
 
 <Warning>
-  Releasing the phone number is **irreversible** — once released, the number may be reassigned to a different agent or company. If you plan to reactivate this agent later with the same number, leave the release option disabled.
+  Releasing the phone number is **irreversible** — once released, the number may be reassigned to a different agent or company. If you plan to reactivate this agent later with the same number, leave the **Release phone number** checkbox disabled.
 </Warning>
 
 ### What Happens When You Archive
@@ -230,7 +232,7 @@ Unlike deleting an agent, **archiving** deactivates it without permanently erasi
 | **Call handling** | Immediately stops accepting inbound and outbound calls |
 | **Configuration** | Fully preserved (prompts, tools, Knowledge Base, versions) |
 | **Call history** | Retained and accessible in analytics |
-| **Phone number** | Released only if explicitly selected during archiving |
+| **Phone number** | Released only if the **Release phone number** checkbox was selected during archiving |
 | **Visibility** | Moved out of the active agents list; accessible via the **Archived** filter |
 | **Billing** | No further usage charges accrue for an archived agent |
 
@@ -339,10 +341,10 @@ Agents with the **"Advanced"** badge support full configuration editing with enh
 
 #### Agent Selector Dropdown
 
-- **Quick Access**: Click agent name in header to open selector
-- **Search & Filter**: Find agents across companies with real-time search
+- **Quick Access**: Click the agent name and avatar in the header toolbar to open the selector
+- **Search & Filter**: Find agents across companies with real-time search and a company filter dropdown
 - **Context Aware**: Preserves editor state when switching between agents
-- **Company Scoping**: Filter agents by company for multi-org users
+- **Company Scoping**: Filter agents by company for multi-org admin users
 
 #### Unsaved Changes Protection
 
@@ -354,7 +356,7 @@ When switching agents, the editor automatically:
 
 #### Archiving from the Editor
 
-The **Archive Agent** action is also accessible directly from within the Advanced Editor toolbar, allowing you to retire an agent as soon as you're done reviewing or editing it — without navigating back to the main agents list.
+The **Archive Agent** action is also accessible directly from within the Advanced Editor toolbar, opening the same **Archive Agent** modal — including the **Release phone number** option — so you can retire an agent as soon as you're done reviewing or editing it, without navigating back to the main agents list.
 
 ### Standard Agents
 

@@ -155,7 +155,7 @@ Para agentes que muestran el badge **"Advanced"**:
 Dentro del Editor Avanzado (en escritorio, cuando editas un agente existente), la barra superior incluye un **selector de agentes** integrado que te permite saltar de un agente a otro sin salir del editor ni perder el contexto de trabajo.
 
 <Info>
-  El botón muestra el avatar (primera letra del nombre) y el nombre del agente que estás editando actualmente. Al hacer clic se despliega un panel con la lista completa de agentes disponibles.
+  El botón muestra el avatar (primera letra del nombre) y el nombre del agente que estás editando actualmente, justo al lado del botón **Back to Agents**. Al hacer clic se despliega un panel con la lista completa de agentes disponibles.
 </Info>
 
 #### Cómo funciona
@@ -279,9 +279,26 @@ Cuando un agente ya no está en uso pero quieres conservar su configuración e h
   </Step>
 </Steps>
 
+### El Modal de Archivado en Detalle
+
+Al hacer clic en **Archive Agent** se abre un modal de confirmación diseñado para evitar acciones accidentales, ya que archivar afecta directamente la disponibilidad del agente:
+
+<CardGroup cols={2}>
+  <Card title="Confirmación explícita" icon="circle-check">
+    El modal explica claramente que el agente dejará de recibir llamadas y requiere una acción deliberada para continuar
+  </Card>
+  <Card title="Opción de liberar número" icon="phone-slash">
+    Un interruptor **Release phone number** te permite decidir si el número telefónico asociado queda libre para asignarse a otro agente
+  </Card>
+</CardGroup>
+
 <Warning>
   Si liberas el número telefónico al archivar, cualquier llamada entrante a ese número dejará de ser respondida por este agente inmediatamente. Asegúrate de comunicar el cambio si el número era conocido por tus clientes.
 </Warning>
+
+<Note>
+  Mientras el proceso de archivado está en curso, el botón de confirmación muestra un estado de carga para indicar que la operación se está procesando (incluyendo, si corresponde, la liberación del número). Evita cerrar el modal o navegar fuera de la página hasta que finalice.
+</Note>
 
 ### Qué sucede al archivar un agente
 
@@ -447,6 +464,7 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | **Copiar ID** | Clic en icono 📋 | Copia el identificador único al portapapeles |
 | **Refrescar llamadas** | Botón "Refresh" | Actualiza el historial de llamadas recientes |
 | **Ver todas las llamadas** | Botón "View All" | Abre la vista completa con filtros avanzados |
+| **Cambiar de agente** | Selector de agentes (Editor Avanzado) | Salta a otro agente sin perder el contexto del editor |
 | **Archivar agente** | Botón "Archive Agent" | Retira el agente de producción conservando su configuración |
 | **Cerrar panel** | Clic en ✕ o seleccionar otro agente | Cierra la vista detallada |
 
@@ -542,6 +560,12 @@ Recibe alertas sobre:
     - Aplica el filtro de estado **"Archivados"** en el panel izquierdo
     - Verifica que estás en la compañía correcta si administras varias organizaciones
     - Usa la búsqueda por nombre o ID para confirmar su existencia
+  </Tab>
+  <Tab title="No encuentro el selector de agentes en el editor">
+    **Verifica lo siguiente:**
+    - El selector solo aparece en modo edición, no al crear un agente nuevo
+    - Solo está disponible en pantallas de escritorio; en móvil usa **Back to Agents**
+    - Debe existir al menos un agente adicional en la compañía activa para que la lista muestre opciones
   </Tab>
   <Tab title="Conflictos de versiones">
     **Pasos para resolver:**

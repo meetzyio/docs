@@ -109,16 +109,16 @@ El sistema detecta automáticamente cuando un usuario viene del proceso de onboa
 
 ### Pantalla de Creación Renovada
 
-Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente existente, Meetzy te recibe con una pantalla de creación a pantalla completa, pensada para que empieces describiendo tu idea en lugar de rellenar formularios:
+Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente existente, Meetzy te recibe con una pantalla de creación a pantalla completa (`creation-overlay`), pensada para que empieces describiendo tu idea en lugar de rellenar formularios:
 
-- **Fondo Animado WebGL**: Un `<canvas>` en el fondo (`waveCanvas`) renderiza ondas fluidas animadas que dan vida a toda la superposición
+- **Fondo Animado WebGL**: Un `<canvas>` de referencia `waveCanvas` renderiza ondas fluidas animadas mediante `requestAnimationFrame`, dando vida a toda la superposición desde el momento en que aparece
 - **Título y Subtítulo Claros**: Un encabezado directo, *"What should your agent do?"*, acompañado del subtítulo *"Describe it and let Meetzy build it for you."*
-- **Campo de Texto con Borde Degradado**: Un `textarea` central de 4 filas, envuelto en un contenedor con borde en gradiente (`creation-overlay__border-wrap`) que se adapta a modo claro y oscuro
+- **Campo de Texto con Borde Degradado**: Un `textarea` central de 4 filas, envuelto en un contenedor con borde en gradiente (`creation-overlay__border-wrap`) que se adapta automáticamente a modo claro (`--light`) y oscuro (`--dark`)
 - **Placeholder Orientativo**: El campo incluye un texto de ejemplo (*"An agent that answers customer support calls for a dental clinic, books appointments, and transfers urgent cases to the receptionist..."*) para guiarte al escribir
-- **Logo Centrado**: El logo de Meetzy se posiciona en la parte superior central y cambia automáticamente su versión (clara u oscura) según el tema activo
-- **Botón de Regreso**: Una flecha en la esquina superior izquierda te permite cerrar la pantalla de creación y volver a la lista de agentes en cualquier momento
-- **Botón de Envío Dinámico**: Un botón circular con icono de avión de papel aparece en la esquina inferior derecha del campo de texto únicamente cuando hay contenido escrito
-- **Hint de Atajo**: Debajo del campo, un indicador con la tecla `Enter` recuerda cómo generar la configuración, junto al enlace para empezar desde cero
+- **Logo Centrado**: El logo de Meetzy se posiciona en la parte superior central y cambia automáticamente entre su versión clara y oscura (`meetzy_logo_transparent.png` / `meetzy_white.png`) según el tema activo
+- **Botón de Regreso**: Una flecha (←) en la esquina superior izquierda te permite cerrar la pantalla de creación y volver a la lista de agentes en cualquier momento
+- **Botón de Envío Dinámico**: Un botón circular verde con icono de avión de papel aparece en la esquina inferior derecha del campo de texto únicamente cuando `creationPrompt.trim()` detecta contenido escrito
+- **Hint de Atajo**: Debajo del campo, un indicador con la tecla `Enter` recuerda cómo generar la configuración, junto al enlace **"or start from scratch"** para empezar en blanco
 
 <Info>
   Esta pantalla se muestra únicamente al crear un **agente nuevo**. Si estás editando un agente existente, accederás directamente al Editor Avanzado con la configuración ya cargada.
@@ -139,15 +139,15 @@ Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente e
   </Step>
   
   <Step title="Genera la configuración">
-    En cuanto detecta texto en el campo (`creationPrompt.trim()`), aparece el botón de envío en la esquina inferior derecha. Puedes:
-    - Presionar **Enter** para lanzar la generación
-    - Hacer clic directamente en el botón con el icono de avión de papel
+    En cuanto detecta texto en el campo, aparece el botón de envío en la esquina inferior derecha. Puedes:
+    - Presionar **Enter** para lanzar la generación (`onCreationPromptKeydown`)
+    - Hacer clic directamente en el botón con el icono de avión de papel (`launchFromCreationOverlay()`)
     
     Meetzy procesará tu descripción y construirá automáticamente la configuración inicial del agente, incluyendo prompt de sistema, saludos y parámetros sugeridos.
   </Step>
   
   <Step title="Continúa en el Editor Avanzado">
-    Tras la generación, la pantalla de creación se cierra con una animación de salida (`creation-overlay--exiting`) y aterrizas directamente en el Editor Avanzado con tu agente ya configurado, listo para refinar cualquier detalle.
+    Tras la generación, la pantalla de creación se cierra con una animación de salida (clase `creation-overlay--exiting`) y aterrizas directamente en el Editor Avanzado con tu agente ya configurado, listo para refinar cualquier detalle.
   </Step>
 </Steps>
 
@@ -156,7 +156,7 @@ Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente e
 </Warning>
 
 <Info>
-  **Diferencia clave**: el enlace *"or start from scratch"* solo cierra la superposición de creación (`skipCreationOverlay()`) y te deja en el Editor Avanzado con un agente en blanco. La flecha de retroceso, en cambio, cierra la superposición **y además** te devuelve a la lista de agentes (`goBack()`), abandonando por completo la creación.
+  **Diferencia clave**: el enlace *"or start from scratch"* solo cierra la superposición de creación (`skipCreationOverlay()`) y te deja en el Editor Avanzado con un agente en blanco. La flecha de retroceso, en cambio, ejecuta **ambas** acciones — `skipCreationOverlay()` y `goBack()` — cerrando la superposición y devolviéndote por completo a la lista de agentes.
 </Info>
 
 ### Atajos en la Pantalla de Creación
@@ -164,7 +164,7 @@ Al hacer clic en **"Create Agent"** o acceder al Editor Avanzado sin un agente e
 | Acción | Cómo hacerlo |
 |--------|--------------|
 | Generar configuración | Escribe tu descripción y presiona `Enter` |
-| Enviar con el ratón | Haz clic en el botón de envío una vez que hay texto |
+| Enviar con el ratón | Haz clic en el botón de envío (avión de papel) una vez que hay texto |
 | Empezar desde cero | Haz clic en **"or start from scratch"** |
 | Volver a la lista de agentes | Haz clic en la flecha superior izquierda |
 
@@ -600,7 +600,7 @@ Configura integraciones y acciones que el agente puede ejecutar automáticamente
 </Tabs>
 
 <Info>
-  Además del modo de destino único, Actions & Tools ofrece un modo **beta de transferencia con múltiples reglas**: en lugar de un solo número de destino, puedes definir varias condiciones (por ejemplo, "si el cliente pide hablar con ventas") cada una con su propio destino, ya sea un número de teléfono o una extensión SIP.
+  Además del modo de destino único, Actions & Tools ofrece un modo **beta de transferencia con múltiples reglas** (`transferConfigVersion: 'v2'`): en lugar de un solo número de destino, puedes definir varias condiciones (por ejemplo, "si el cliente pide hablar con ventas") cada una con su propio destino, ya sea un número de teléfono o una extensión SIP.
 </Info>
 
 ### 6. Evaluations (📊)
@@ -910,4 +910,24 @@ Simulador avanzado de conversaciones para testing exhaustivo:
   <Tab title="Cliente con Objeciones">
     ```
     - Preocupación por precio
-    - Dudas sobre el producto/serv
+    - Dudas sobre el producto/servicio
+    - Necesita más tiempo para decidir
+    - Compara con la competencia
+    - Requiere aprobación de terceros
+    ```
+  </Tab>
+  
+  <Tab title="Cliente Difícil">
+    ```
+    - Tono frustrado o impaciente
+    - Historial de problemas previos
+    - Solicita hablar con un humano
+    - Cuestiona la legitimidad del agente
+    - Requiere manejo empático de la situación
+    ```
+  </Tab>
+</Tabs>
+
+<Info>
+  Usa el Playground con frecuencia mientras ajustas el prompt de sistema: te permite validar cambios en segundos, sin necesidad de realizar una llamada real de prueba.
+</Info>

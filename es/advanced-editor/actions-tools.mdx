@@ -1,12 +1,12 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura transferencias, finalización de llamadas, webhooks, recall automático, horarios de atención y comunicación multicanal'
+description: 'Configura transferencias, finalización de llamadas, webhooks, recall automático, horarios de atención, comunicación multicanal y dominios de email propios'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, el nuevo **Schedule Controller (Beta)** para horarios de atención, integración de calendario y próximamente comunicación multicanal con Email, SMS y WhatsApp.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, el **Schedule Controller (Beta)** para horarios de atención, integración de calendario y comunicación multicanal con Email, SMS y WhatsApp, incluyendo la vinculación de tu propio dominio de email.
 
 <Info>
 Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
@@ -765,5 +765,20 @@ Controla si el usuario puede interrumpir al agente mientras espera la respuesta 
               "type": "boolean",
               "default": true,
               "description": "Incluir información de precios y descuentos activos"
-            },
-            "check_
+            }
+          }
+        }
+      },
+      "response_timeout_secs": 8,
+      "execution_mode": "immediate",
+      "tool_call_sound": "typing",
+      "disable_interruptions": false,
+      "force_pre_tool_speech": false
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Buenas Prácticas para Webhooks
+
+- **Timeouts razonables**: Configura `response_timeout_secs` acorde a la criticidad de la operación; evita esperas largas en operaciones que afectan
