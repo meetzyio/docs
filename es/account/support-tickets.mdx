@@ -1,0 +1,135 @@
+---
+title: "Tickets de soporte"
+description: "Consulta el estado de tus incidencias y peticiones, revisa las métricas de resolución y abre nuevos tickets desde tu cuenta."
+icon: "life-ring"
+---
+
+El portal de soporte (**Tickets**) te permite hacer seguimiento de todas las incidencias, peticiones y mejoras que has reportado a Meetzy, tanto las que abres tú directamente como las que registra nuestro equipo en tu nombre.
+
+<Info>
+  Sólo se muestran los tickets marcados como **públicos** para tu cuenta. Si un ticket es interno (por ejemplo, notas de seguimiento entre equipos), no aparecerá aquí.
+</Info>
+
+## Acceder al portal
+
+<Steps>
+  <Step title="Entra en la sección Tickets">
+    Desde el menú lateral de tu cuenta, selecciona **Tickets**.
+  </Step>
+  <Step title="Espera a que cargue tu histórico">
+    Verás un resumen con métricas, un gráfico de volumen mensual y el listado completo de tickets de tu cuenta.
+  </Step>
+  <Step title="Actualiza cuando lo necesites">
+    Usa el botón **Actualizar** para forzar una recarga de los datos más recientes, sin esperar a la caché.
+  </Step>
+</Steps>
+
+<Warning>
+  Si tu cuenta todavía no está vinculada a nuestro sistema de tickets, verás un aviso indicándolo. Puedes seguir abriendo tickets con normalidad: en cuanto vinculemos la cuenta, el histórico aparecerá aquí.
+</Warning>
+
+## Estados de un ticket
+
+Cada ticket pasa por uno de estos estados:
+
+| Estado | Significado |
+|---|---|
+| **Pendiente** | Registrado, todavía sin empezar. |
+| **En proceso** | Nuestro equipo está trabajando en ello. |
+| **En pruebas** | La solución está en validación antes de publicarse. |
+| **En backlog** | Aceptado como mejora futura, sin fecha inmediata. |
+| **Resuelto** | Cerrado con una solución aplicada. |
+| **Descartado** | Cerrado sin acción: duda ya aclarada, ticket duplicado o fuera de alcance. |
+
+<Info>
+  Los tickets **descartados** no se cuentan como fallos nuestros a la hora de calcular el porcentaje de resolución, ya que no implican un error a corregir.
+</Info>
+
+## Prioridad y tipo
+
+Cada ticket incluye una prioridad (**Crítica**, **Alta**, **Media**, **Baja**) y un tipo, que ayuda a clasificar de qué trata la petición:
+
+- Bug
+- Performance
+- Prompt / LLM
+- Mejora UX
+- Feature request
+- Nuevo agente
+- Integración
+- Datos / analítica
+- Otros
+
+## Métricas de tu cuenta
+
+En la parte superior del portal encontrarás cuatro indicadores clave:
+
+- **Total tickets**: todos los tickets registrados con los filtros actuales.
+- **% resuelto**: proporción de tickets resueltos sobre el total resoluble (excluye los descartados).
+- **Abiertos ahora**: tickets que no están en un estado cerrado (resuelto o descartado).
+- **Mediana a cierre**: número de días que, típicamente, tarda un ticket en cerrarse desde su apertura.
+
+<Info>
+  Usamos la **mediana** en lugar del promedio porque unos pocos tickets muy antiguos podrían distorsionar la media y dar una imagen poco representativa del tiempo real de resolución.
+</Info>
+
+Justo debajo verás el desglose exacto: cuántos tickets están resueltos, descartados, pendientes, en proceso, en pruebas o en backlog.
+
+### Volumen de tickets por mes
+
+Un gráfico de barras muestra cuántos tickets se abrieron cada mes.
+
+<Warning>
+  El mes en curso siempre aparece marcado como parcial (con un asterisco) porque todavía no ha terminado. No lo interpretes como una caída real de volumen.
+</Warning>
+
+### Temas más habituales
+
+Un desglose por tipo de ticket te permite ver qué categoría concentra más peticiones. Puedes hacer clic en cualquier tipo para filtrar el listado completo por esa categoría.
+
+## Filtrar tickets
+
+El listado admite varios filtros combinables:
+
+- **Búsqueda libre**: por título, descripción, número de ticket o nombre del agente asignado.
+- **Estado**
+- **Tipo**
+- **Prioridad**
+- **Rango de fechas** (desde / hasta, por fecha de creación)
+
+<Info>
+  Cuando hay filtros activos, las métricas y gráficos se recalculan automáticamente sobre el subconjunto filtrado, no sobre el total de la cuenta.
+</Info>
+
+## Crear un nuevo ticket
+
+<Steps>
+  <Step title="Pulsa 'Nuevo ticket'">
+    El botón está en la parte superior derecha del portal.
+  </Step>
+  <Step title="Completa el título y la descripción">
+    Sé lo más específico posible: contexto, pasos para reproducir el problema (si aplica) y qué esperabas que ocurriera.
+  </Step>
+  <Step title="Selecciona el tipo de ticket">
+    Elige la categoría que mejor describa tu petición. Si no encajas en ninguna, usa **Otros**.
+  </Step>
+  <Step title="Envía el ticket">
+    En cuanto se registre, aparecerá en tu listado con estado **Pendiente**.
+  </Step>
+</Steps>
+
+<Info>
+  Cada ticket que envías incluye un identificador único de solicitud para evitar duplicados si haces clic varias veces o se produce un reintento de red.
+</Info>
+
+## Ver el detalle de un ticket
+
+Selecciona cualquier ticket del listado para abrir su panel de detalle, donde encontrarás:
+
+- Descripción completa y notas de resolución (si el ticket ya está cerrado).
+- Subtareas asociadas, con su propio estado.
+- Archivos adjuntos y enlaces relacionados.
+- Agentes de nuestro equipo asignados al caso.
+
+<Warning>
+  Las notas de resolución sólo están disponibles una vez el ticket pasa a estado **Resuelto** o **Descartado**.
+</Warning>

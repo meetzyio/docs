@@ -93,7 +93,8 @@
                 "pages": [
                   "account/team-members",
                   "account/permissions",
-                  "account/api-tokens"
+                  "account/api-tokens",
+                  "account/support-tickets"
                 ]
               }
             ]
@@ -192,7 +193,8 @@
                 "pages": [
                   "es/account/team-members",
                   "es/account/permissions",
-                  "es/account/api-tokens"
+                  "es/account/api-tokens",
+                  "es/account/support-tickets"
                 ]
               }
             ]

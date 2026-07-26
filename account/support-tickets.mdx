@@ -1,0 +1,130 @@
+---
+title: "Support Tickets"
+description: "View, filter, and create support tickets for your Meetzy account from the Tickets portal."
+icon: "ticket"
+---
+
+The **Tickets** page (`/tickets`) is where you track every support request tied to your account — bugs, feature requests, integration issues, and anything else our team is helping you with. It shows a live status for each ticket, plus a set of summary metrics so you can see how support is trending over time.
+
+<Info>
+This page shows only tickets marked as **public** for your account. Internal notes and private follow-ups tracked by our team are not shown here, but nothing you need to act on is ever hidden from you.
+</Info>
+
+## Accessing the ticket list
+
+Go to **Tickets** in the main navigation. If your account isn't yet linked to our support system, you'll see a notice instead of a ticket list — this doesn't block you from opening new tickets, it just means historical data isn't available yet. Reach out to us and we'll get it connected.
+
+<Steps>
+  <Step title="Open the Tickets page">
+    Navigate to `/tickets`. The page loads your most recent ticket data automatically.
+  </Step>
+  <Step title="Wait for the initial load">
+    While data loads, you'll see placeholder cards in the metrics area and table. This is normal and usually takes a moment.
+  </Step>
+  <Step title="Refresh if needed">
+    Click **Actualizar** (Refresh) at any time to pull the latest ticket statuses. This is useful right after an agent replies or resolves something.
+  </Step>
+</Steps>
+
+## Understanding the metrics
+
+At the top of the page you'll find four key numbers that summarize your account's support activity:
+
+<Tabs>
+  <Tab title="Total tickets">
+    The total count of tickets matching your current filters. If no filters are active, this reflects your entire history.
+  </Tab>
+  <Tab title="% Resolved">
+    The share of tickets marked as **resolved** (`solventado`), calculated over resolvable tickets only.
+
+    <Info>
+    Discarded tickets — those closed because a doubt was clarified, the request was a duplicate, or it was out of scope — are excluded from this percentage. They aren't a support failure, so they don't count against the resolution rate.
+    </Info>
+  </Tab>
+  <Tab title="Open now">
+    Tickets that are not yet closed: pending, in progress, in testing, or in backlog.
+  </Tab>
+  <Tab title="Median days to close">
+    The median number of days between a ticket's creation and its resolution date, based on tickets that have actually been closed.
+
+    <Warning>
+    This is a **median**, not an average. A few very old or unusually complex tickets won't skew this number the way they would an average — that's intentional, since it better reflects the typical resolution time.
+    </Warning>
+  </Tab>
+</Tabs>
+
+Below the metric cards, a summary line breaks down the exact counts per status (resolved, discarded, pending, in progress, testing, backlog). If you have any filters applied, a note reminds you that the metrics reflect the filtered subset, not your full history.
+
+### Volume by month
+
+Further down, a simple bar chart shows how many tickets were opened per month. The current (incomplete) month is marked with an asterisk (`*`) and rendered with a different style — don't read a lower bar there as an actual drop in volume; it just hasn't finished yet.
+
+### Most common topics
+
+A horizontal bar list shows which ticket types are most frequent (e.g., Bug, Feature request, Integration). Clicking a bar toggles a filter for that type, letting you drill into just that category. Click it again to remove the filter.
+
+## Using the search and filters
+
+The ticket list supports several filters that can be combined:
+
+| Filter | What it does |
+|---|---|
+| **Search** | Matches against ticket title, description, ticket number, company name, and assigned agent names. |
+| **Status** | Filter by `pendiente`, `en_proceso`, `testing`, `solventado`, `backlog`, or `descartado`. |
+| **Type** | Filter by ticket type (Bug, Performance, Prompt/LLM, UX improvement, Feature request, New agent, Integration, Data/Analytics, Other). |
+| **Priority** | Filter by criticality: Critical, High, Medium, Low. |
+| **Company** | Only visible to Meetzy staff viewing tickets across multiple accounts. |
+| **Date range** | Filter by ticket creation date, using a "from" and "to" date. The "to" date is inclusive of the entire day. |
+
+<Info>
+All filters apply instantly and update the metrics, monthly chart, and topic breakdown to match. Use the clear filters option to reset everything back to your full ticket history.
+</Info>
+
+## Opening the ticket detail panel
+
+Click on any ticket row to open its detail panel. This shows:
+
+- Full title and description
+- Current status, priority, urgency, and impact
+- Creation, update, and (if applicable) resolution timestamps
+- Due date, if one was set
+- Resolution notes, once the ticket is closed
+- Assigned agents
+- Any subtasks tracked internally against the ticket
+- Attached files or reference URLs
+
+<Warning>
+The detail panel loads ticket data on demand — if you have a slow connection, allow a moment for it to populate after clicking a row.
+</Warning>
+
+## Creating a new ticket
+
+<Steps>
+  <Step title="Click 'Nuevo ticket'">
+    This button is always available at the top of the page, even if your account isn't yet linked to support history.
+  </Step>
+  <Step title="Fill in the details">
+    Provide a clear title and description. Choose a ticket type from the dropdown — this helps route your request to the right team faster.
+  </Step>
+  <Step title="Submit">
+    Once submitted, your ticket is created and immediately visible in your list. It will also sync with our internal tracking system automatically.
+  </Step>
+</Steps>
+
+<Info>
+If you submit a ticket while offline or the request times out, it's safe to retry — duplicate submissions are automatically prevented.
+</Info>
+
+## FAQ
+
+<Tabs>
+  <Tab title="Why don't I see all my tickets?">
+    Only tickets marked as public for your account appear here. If you believe something is missing, contact your Meetzy representative.
+  </Tab>
+  <Tab title="Why is the % resolved lower than I expected?">
+    Check whether you have status filters applied — the percentage is calculated only over the currently filtered ticket set.
+  </Tab>
+  <Tab title="Can I edit a ticket after creating it?">
+    Ticket details can't be edited from this portal after submission. To add information, reply through the ticket detail panel or contact support directly.
+  </Tab>
+</Tabs>
