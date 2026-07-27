@@ -217,7 +217,15 @@ Unlike deleting an agent, **archiving** deactivates it without permanently erasi
   </Step>
   
   <Step title="Complete the Archive">
-    Click the **Archive Agent** button to confirm. The button shows a loading state while the request is processed, and the agent is immediately deactivated and moved to the archived list once complete.
+    Click the **Archive Agent** button to confirm. While the request is processed, the button switches to a disabled loading state (e.g. **"Archiving..."**) to prevent duplicate submissions. You can still click **Cancel** to close the modal without making any changes at any point before confirming.
+  </Step>
+  
+  <Step title="Confirmation Message">
+    Once the archive request completes, a toast notification appears in the corner of the screen confirming the result:
+    - **Success**: A green success notification confirms the agent was archived, and — if applicable — mentions whether the phone number was released or kept reserved
+    - **Error**: If the request fails (e.g. network issue or permission error), a red error notification explains what went wrong and the agent remains active so you can safely retry
+    
+    The modal closes automatically on success, and the agent list / details panel refresh to reflect the new **Archived** status.
   </Step>
 </Steps>
 
@@ -235,6 +243,10 @@ Unlike deleting an agent, **archiving** deactivates it without permanently erasi
 | **Phone number** | Released only if the **Release phone number** checkbox was selected during archiving |
 | **Visibility** | Moved out of the active agents list; accessible via the **Archived** filter |
 | **Billing** | No further usage charges accrue for an archived agent |
+
+<Note>
+  The confirmation toast follows the same notification style used across the dashboard, so success, warning, and error states are visually consistent with other actions like saving, publishing, or deleting.
+</Note>
 
 ### Restoring an Archived Agent
 
@@ -356,7 +368,7 @@ When switching agents, the editor automatically:
 
 #### Archiving from the Editor
 
-The **Archive Agent** action is also accessible directly from within the Advanced Editor toolbar, opening the same **Archive Agent** modal — including the **Release phone number** option — so you can retire an agent as soon as you're done reviewing or editing it, without navigating back to the main agents list.
+The **Archive Agent** action is also accessible directly from within the Advanced Editor toolbar, opening the same **Archive Agent** modal — including the **Release phone number** checkbox and the post-action confirmation toast — so you can retire an agent as soon as you're done reviewing or editing it, without navigating back to the main agents list.
 
 ### Standard Agents
 

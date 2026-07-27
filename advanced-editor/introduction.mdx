@@ -222,6 +222,42 @@ The left panel contains all configuration sections accessible via an intuitive i
 | 📋 Tests | Create and run automated regression tests | ⇧⌘T |
 | 🔄 Changes | Track changes with Git-like version control | ⌘G |
 
+## Focus Mode - Distraction-Free Editing
+
+Sometimes you just need to concentrate on the **System Prompt** without the visual noise of configuration panels and testing tools around you. **Focus Mode** does exactly that: it hides the left configuration panel and the right panel (Meetzy Copilot, Playground, Tests, Changes), leaving only the Monaco editor centered on your screen.
+
+<Info>
+Toggle Focus Mode instantly with the keyboard shortcut **⌘\\** on macOS or **Ctrl+\\** on Windows/Linux. Press it again to bring the side panels back.
+</Info>
+
+### How Focus Mode Works
+
+<Steps>
+  <Step title="Trigger Focus Mode">
+    Press **Cmd+\\** (macOS) or **Ctrl+\\** (Windows/Linux) anywhere in the Advanced Editor.
+  </Step>
+  <Step title="Panels Disappear">
+    The left configuration panel and the right panel (Copilot, Playground, Tests, Changes) smoothly collapse out of view.
+  </Step>
+  <Step title="Editor Takes Center Stage">
+    The Monaco editor expands to use the freed-up space, giving you a clean, full-width writing surface for your system prompt.
+  </Step>
+  <Step title="Exit Anytime">
+    Press the same shortcut again to instantly restore the panels and return to the standard layout.
+  </Step>
+</Steps>
+
+### When to Use Focus Mode
+
+- **Writing or rewriting long system prompts** where every distraction counts
+- **Reviewing prompt structure** using the outline without side panel clutter
+- **Screen-sharing or recording demos** where a clean interface looks more professional
+- **Working on smaller screens** where side panels compete for space with the editor
+
+<Warning>
+Focus Mode only hides the panels visually, it does not disable your unsaved changes protection, Git status tracking, or auto-save behavior. All your work is preserved exactly as before.
+</Warning>
+
 #### Expand the Right Panel for a Better Reading Experience
 
 The right panel now includes an **expand button** that widens the panel so you can read Meetzy Copilot's messages, Playground results, Tests, and the Changes history much more comfortably.
@@ -250,6 +286,10 @@ It's a small addition, but once you toggle it on, you'll immediately notice how 
 <Warning>
 On smaller screens, expanding the right panel may temporarily reduce the visible space for the left configuration panel and the Monaco editor. Collapse it again once you've finished reading.
 </Warning>
+
+<Info>
+Focus Mode and the expandable right panel work great together: use Focus Mode when you need to write without distractions, and expand the right panel when you need to read long Copilot answers, Playground transcripts, or Changes diffs in detail.
+</Info>
 
 ## Advanced Version Control System
 
@@ -418,7 +458,7 @@ Skills are automatically suggested and configured based on your Creation Overlay
     Use "Check" and "Pull" buttons to synchronize with your team's latest changes before making modifications.
   </Step>
   <Step title="Fine-tune Foundation Configuration">
-    Adjust Foundation-powered settings, greetings, and system prompts generated from your initial description.
+    Adjust Foundation-powered settings, greetings, and system prompts generated from your initial description. Toggle Focus Mode (⌘\\ / Ctrl+\\) if you want to write without distractions.
   </Step>
   <Step title="Configure Skills">
     Review and configure the specialized skills that were automatically added based on your prompt.
@@ -483,6 +523,19 @@ The integrated agent selector revolutionizes workflow efficiency:
 - **Search functionality** to quickly locate specific agents
 - **Visual identification** with avatar-based agent indicators
 - **Context preservation** with comprehensive unsaved changes protection
+
+### Focus Mode for Deep Work
+
+Focus Mode is designed for the moments when you need to think clearly about your agent's behavior:
+
+- **One shortcut, instant results**: ⌘\\ (macOS) or Ctrl+\\ (Windows/Linux) toggles the layout immediately
+- **Zero configuration lost**: hiding panels never affects your unsaved changes, Git status, or auto-save
+- **Full-width editing**: the Monaco editor expands to use all the available space
+- **Toggle anytime**: press the shortcut again to bring back the left and right panels instantly
+
+<Info>
+Focus Mode is a purely visual toggle, think of it as closing the door to your office. Everything you were working on is still there when you open it again.
+</Info>
 
 ### A More Comfortable Right Panel
 

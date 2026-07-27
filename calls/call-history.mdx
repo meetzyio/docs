@@ -31,19 +31,33 @@ The calls interface consists of:
 Customize which filters are visible in your interface to streamline your workflow and focus on the most relevant filtering options.
 </Info>
 
-The filter system now includes configurable visibility controls:
+A dedicated **⚙️ settings button** is located at the end of the Filter Bar, next to the filter controls. It opens a configuration panel that lets you show or hide individual filters without affecting your applied filter values.
 
 <Steps>
-<Step title="Access Filter Settings">
-Click the settings icon next to the filter controls to open the filter visibility panel.
+<Step title="Open Filter Settings">
+Click the ⚙️ settings icon at the right end of the Filter Bar to open the filter visibility panel.
 </Step>
-<Step title="Toggle Filter Visibility">
-Use the checkboxes to show or hide specific filter types based on your needs.
+<Step title="Toggle Individual Filters">
+Use the checkboxes to show or hide each of the following filters independently:
+
+- **Goal** — filter calls by the agent's configured goal or objective
+- **Tags** — filter by dynamic or custom tags
+- **Evaluations** — filter by evaluation completion or outcome
+- **Call ID** — the direct database lookup search field
+
+Core filters such as Date Range, Agents, Status, Direction, and Success are always visible and cannot be hidden, since they are considered essential for everyday use.
 </Step>
-<Step title="Save Configuration">
-Your filter visibility preferences are automatically saved for future sessions.
+<Step title="Apply and Close">
+Close the panel by clicking outside of it or pressing the settings icon again. Hidden filters are immediately removed from the Filter Bar, freeing up space for the ones you actually use.
+</Step>
+<Step title="Automatic Persistence">
+Your filter visibility preferences are saved automatically per user and restored the next time you open Call History — no need to reconfigure them on every visit.
 </Step>
 </Steps>
+
+<Tip>
+If a filter is hidden but has an active value from a previous session, it will remain applied to your results even though it's not visible. Re-enable the filter from the settings panel to review or clear it.
+</Tip>
 
 ### Date Range Filter
 
@@ -98,28 +112,42 @@ Filter by call outcome with enhanced evaluation criteria:
 - **Unsuccessful** - Calls that didn't meet success criteria
 - **All** - All calls regardless of outcome
 
+### Goal Filter
+
+<Info>
+The Goal filter lets you narrow down calls by the objective configured on the agent, making it easier to review calls tied to a specific business intent (e.g., booking, qualification, support resolution).
+</Info>
+
+This filter can be shown or hidden from the filter visibility panel described above. When enabled, it appears in the Filter Bar alongside the other filter controls.
+
 ### Advanced Call ID Search
 
 <Warning>
 When using Call ID search, all other filters are temporarily disabled to ensure precise lookups.
 </Warning>
 
+The Call ID filter has **priority over every other filter** in the Filter Bar. As soon as you start typing a value into the Call ID field, all remaining filters (Date Range, Agents, Status, Direction, Success, Goal, Tags, and Evaluations) become visually disabled and are excluded from the query — the interface greys them out and blocks interaction with them to make it clear that only the Call ID lookup is active.
+
 Enhanced Call ID functionality with database search:
 
 <Steps>
 <Step title="Enter Call ID">
-Type the specific call ID in the dedicated search field
+Type the specific call ID in the dedicated search field. As soon as a value is present, the rest of the filters switch to a disabled visual state.
 </Step>
 <Step title="Database Query">
-The system performs a direct database lookup for the exact call ID
+The system performs a direct database lookup for the exact call ID, ignoring any values currently set in other filters.
 </Step>
 <Step title="Instant Results">
-The matching call is displayed immediately, bypassing all other filters
+The matching call is displayed immediately, bypassing all other filters.
 </Step>
 <Step title="Clear Search">
-Remove the call ID to restore normal filtering functionality
+Remove the call ID to restore normal filtering functionality. All previously configured filters are automatically re-enabled and reapplied.
 </Step>
 </Steps>
+
+<Tip>
+Like the Tags and Evaluations filters, the Call ID field itself can be hidden from the Filter Bar using the filter visibility settings if your workflow doesn't rely on manual ID lookups.
+</Tip>
 
 ### Dynamic Tags Filter
 
@@ -133,6 +161,22 @@ The tags filter provides:
 - **Multi-Select Capability** - Select multiple tags to find calls matching any or all criteria
 - **Real-time Updates** - Tag list updates as new calls are processed
 - **Custom Tag Support** - Manual tags can be added to calls for additional categorization
+
+This filter can be toggled on or off from the filter visibility settings panel, and — like all other filters — is temporarily disabled while a Call ID search is active.
+
+### Evaluations Filter
+
+<Info>
+Filter calls based on evaluation status, letting you quickly locate calls that are pending review, partially evaluated, or fully completed.
+</Info>
+
+Available options include:
+
+- **Completed** - Calls with all evaluations processed
+- **Pending** - Calls waiting for evaluation
+- **Partial** - Calls with some but not all evaluations completed
+
+This filter is hidden by default in a minimal setup and can be enabled from the filter visibility panel whenever you need deeper evaluation-based analysis. It is also disabled while a Call ID search is active, following the same priority behavior as the rest of the filters.
 
 ### Filter Presets
 
@@ -168,6 +212,8 @@ The interface now includes improved visual feedback:
 | 🟦 Blue Badge | Active filter with values selected |
 | 🔢 Count Badge | Number of items selected in multi-select filters |
 | 🚫 Disabled State | Filter temporarily disabled (e.g., during Call ID search) |
+| ⚙️ Settings Icon | Opens the filter visibility configuration panel |
+| 👁️ Hidden Filter | Filter is configured as not visible in the current view |
 | ✨ Preset Active | A saved preset is currently applied |
 
 ### Selection Status
@@ -303,10 +349,10 @@ Best practices for efficient searching:
     Stack filters like "Failed + Outbound + Last 24h + Specific Agent" for precise targeting.
   </Card>
   <Card title="Use Call ID for Debugging" icon="hashtag">
-    When investigating specific issues, use the exact call ID for instant lookup with database search.
+    When investigating specific issues, use the exact call ID for instant lookup with database search. Remember it temporarily overrides all other filters.
   </Card>
   <Card title="Customize Filter Visibility" icon="eye">
-    Hide filters you don't use regularly to streamline your interface and focus on relevant options.
+    Use the ⚙️ settings button to hide Goal, Tags, Evaluations, or Call ID filters you don't use regularly, keeping the Filter Bar focused on what matters to you.
   </Card>
   <Card title="Export Filtered Results" icon="download">
     Export your filtered results for offline analysis, reporting, or sharing with team members.
@@ -322,7 +368,7 @@ Best practices for efficient searching:
 Save a filter preset for "Failed + Last 7 Days" to quickly review problematic calls.
 </Step>
 <Step title="Tag Review Calls">
-Use dynamic tags to identify calls that need quality review.
+Use dynamic tags to identify calls that need quality review. Enable the Tags filter from the settings panel if it isn't already visible.
 </Step>
 <Step title="Bulk Analysis">
 Select multiple calls for bulk export and detailed analysis.
@@ -346,6 +392,23 @@ Access evaluation trends directly from agent filters for deep performance insigh
 </Step>
 <Step title="Regular Reviews">
 Set up filter presets for weekly/monthly performance reviews.
+</Step>
+</Steps>
+
+### Targeted Debugging with Call ID
+
+<Steps>
+<Step title="Locate the Call ID">
+Copy the call ID from a support ticket, log entry, or the Quick Actions "Copy ID" option.
+</Step>
+<Step title="Paste into Call ID Search">
+Enter the ID into the Call ID field. All other filters are immediately disabled to avoid conflicting results.
+</Step>
+<Step title="Review the Exact Match">
+The system performs a direct database lookup and returns the single matching call, regardless of any date range or agent filter previously applied.
+</Step>
+<Step title="Clear to Resume">
+Clear the Call ID field once you're done to automatically restore your previous filter configuration.
 </Step>
 </Steps>
 

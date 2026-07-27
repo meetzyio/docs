@@ -88,6 +88,30 @@ Filtra con precisión por diferentes criterios:
 - **Unsuccessful** - Llamadas que no alcanzaron los objetivos
 - **All** - Todas las llamadas independientemente del resultado
 
+### Configuración de Visibilidad de Filtros
+
+No todos los filtros necesitan estar visibles todo el tiempo. Para mantener la barra de filtros limpia y enfocada en lo que realmente usas, algunos filtros avanzados (como **Tags** y **Evaluations**) están ocultos por defecto y se activan mediante controles de visibilidad dedicados.
+
+<Steps>
+  <Step title="Mostrar Filtros Ocultos">
+    Junto a la barra de filtros encontrarás botones de alternancia (toggle) para revelar filtros adicionales:
+    - **Show Tags Filter** - Muestra el selector de etiquetas personalizadas
+    - **Show Evaluation Filter** - Muestra el filtro por resultado de evaluaciones
+  </Step>
+
+  <Step title="Estado Persistente">
+    Una vez que activas la visibilidad de un filtro, esta preferencia se guarda junto con el resto de tu configuración de filtros, por lo que no tendrás que volver a activarla en tu próxima visita.
+  </Step>
+
+  <Step title="Ocultar Cuando No se Usa">
+    Puedes volver a ocultar cualquier filtro avanzado con el mismo botón de alternancia. Esto no elimina el valor del filtro si ya tenía uno aplicado, simplemente lo saca de la vista.
+  </Step>
+</Steps>
+
+<Info>
+Ocultar un filtro **no lo desactiva**. Si un filtro de Tags o Evaluations tiene un valor aplicado y luego lo ocultas, ese filtro sigue afectando los resultados hasta que lo limpies explícitamente. Revisa el resumen de filtros activos si los resultados no coinciden con lo esperado.
+</Info>
+
 ### Búsqueda por Call ID con Modo Exclusivo
 
 <Warning>
@@ -100,6 +124,21 @@ Características de la búsqueda por ID:
 2. **Búsqueda Exacta** - Coincidencia precisa sin aproximaciones
 3. **Prioridad Absoluta** - Override de todos los demás filtros activos
 4. **Restauración Automática** - Los filtros se reactivan al limpiar el campo
+
+#### Comportamiento de Prioridad
+
+Es importante entender cómo interactúa la búsqueda por Call ID con el resto de filtros para no quedarte "filtrando a ciegas":
+
+| Situación | Comportamiento |
+|-----------|-----------------|
+| Escribes un Call ID con otros filtros ya aplicados | Los demás filtros se **deshabilitan visualmente** (aparecen atenuados) pero **no se pierden** |
+| La búsqueda por Call ID no encuentra resultados | Se muestra la tabla vacía; el resto de filtros permanece desactivado hasta que borres el ID |
+| Borras el campo de Call ID | Todos los filtros previos se **reactivan automáticamente** con los mismos valores que tenían antes |
+| Aplicas un preset mientras hay un Call ID activo | El preset se guarda en la configuración, pero solo se aplicará visualmente una vez que limpies el Call ID |
+
+<Info>
+Mientras el Call ID está activo, los controles de fecha, agentes, estado, tags y evaluaciones se muestran atenuados (opacos) y no responden a clics. Esto es intencional: te indica de un vistazo que esos filtros no están participando en la búsqueda actual.
+</Info>
 
 ## Configuración de Visibilidad de Columnas
 
@@ -305,6 +344,10 @@ Las evaluaciones se actualizan en tiempo real y se sincronizan automáticamente 
   </Tab>
 </Tabs>
 
+<Info>
+La generación de archivos Excel se procesa en segundo plano para no bloquear la interfaz. En exportaciones muy grandes (varios miles de llamadas), puede tardar unos segundos adicionales mientras el archivo se prepara; verás un indicador de progreso durante ese tiempo.
+</Info>
+
 ### Opciones de Exportación
 
 - **Datos Filtrados**: Solo las llamadas que cumplen criterios activos
@@ -333,6 +376,10 @@ Las evaluaciones se actualizan en tiempo real y se sincronizan automáticamente 
     Crea presets para búsquedas recurrentes como reportes semanales, análisis de problemas, o revisiones de calidad.
   </Card>
 </CardGroup>
+
+<Warning>
+Si activaste un filtro de Tags o Evaluations y luego lo ocultaste con el botón de visibilidad, recuerda que el filtro **sigue activo** aunque no lo veas. Si tus resultados parecen incompletos, revisa primero los filtros ocultos antes de asumir que hay un problema con los datos.
+</Warning>
 
 ### Atajos de Teclado
 
