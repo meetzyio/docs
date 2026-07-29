@@ -22,7 +22,7 @@ La interfaz renovada del historial de llamadas incluye:
 | 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets y configuración personalizable |
 | 📋 **Tabla de Llamadas** | Lista interactiva con información clave y controles de visibilidad |
 | 📄 **Modal de Detalles** | Vista detallada de llamadas individuales con transcripciones |
-| ⚙️ **Panel de Configuración** | Control de visibilidad de columnas y presets de filtros |
+| ⚙️ **Panel de Configuración** | Control de visibilidad de filtros, columnas y presets desde el icono de engranaje |
 
 ## Sistema de Filtrado Avanzado
 
@@ -88,28 +88,53 @@ Filtra con precisión por diferentes criterios:
 - **Unsuccessful** - Llamadas que no alcanzaron los objetivos
 - **All** - Todas las llamadas independientemente del resultado
 
-### Configuración de Visibilidad de Filtros
+### Visibilidad por Defecto del Filtro de Etiquetas (Tags)
 
-No todos los filtros necesitan estar visibles todo el tiempo. Para mantener la barra de filtros limpia y enfocada en lo que realmente usas, algunos filtros avanzados (como **Tags** y **Evaluations**) están ocultos por defecto y se activan mediante controles de visibilidad dedicados.
+<Info>
+Por defecto, el filtro de **Tags** ahora aparece **oculto** en la barra de filtros para mantener la interfaz más limpia y enfocada en los criterios de búsqueda más utilizados. Esto aplica tanto a cuentas nuevas como a cuentas existentes cuando no tienen una preferencia guardada previamente.
+</Info>
+
+Puntos clave sobre este comportamiento:
+
+| Aspecto | Detalle |
+|---------|---------|
+| **Estado inicial** | El filtro de Tags no se muestra al cargar la página por primera vez |
+| **Filtro de Evaluations** | También permanece oculto por defecto, siguiendo el mismo criterio |
+| **Activación manual** | Se muestra únicamente cuando el usuario lo activa desde el panel de configuración (icono de engranaje) |
+| **Preferencias existentes** | Si ya habías activado la visibilidad de Tags anteriormente, tu configuración guardada se respeta y no se sobreescribe |
+
+<Warning>
+Si tenías el filtro de Tags visible antes de esta actualización porque lo activaste manualmente, tu preferencia se mantiene. El cambio de "oculto por defecto" solo afecta a configuraciones nuevas o sin preferencia previa guardada.
+</Warning>
+
+### Panel de Configuración de Filtros (Icono de Engranaje ⚙️)
+
+Junto a la barra de filtros encontrarás un icono de engranaje (⚙️) que abre el **panel de configuración de filtros**. Desde aquí puedes controlar qué filtros avanzados aparecen visibles en la barra principal, sin necesidad de eliminarlos ni perder los valores que ya tengan aplicados.
 
 <Steps>
-  <Step title="Mostrar Filtros Ocultos">
-    Junto a la barra de filtros encontrarás botones de alternancia (toggle) para revelar filtros adicionales:
-    - **Show Tags Filter** - Muestra el selector de etiquetas personalizadas
-    - **Show Evaluation Filter** - Muestra el filtro por resultado de evaluaciones
+  <Step title="Abrir el Panel">
+    Haz clic en el icono de engranaje ubicado junto a los controles de filtrado para desplegar el panel de configuración.
   </Step>
 
-  <Step title="Estado Persistente">
-    Una vez que activas la visibilidad de un filtro, esta preferencia se guarda junto con el resto de tu configuración de filtros, por lo que no tendrás que volver a activarla en tu próxima visita.
+  <Step title="Activar u Ocultar Filtros">
+    Dentro del panel encontrarás interruptores (toggles) individuales para cada filtro opcional:
+    - **Tags Filter** - Muestra u oculta el selector de etiquetas personalizadas
+    - **Evaluation Filter** - Muestra u oculta el filtro por resultado de evaluaciones
+
+    Activa el interruptor correspondiente para que el filtro aparezca en la barra principal, o desactívalo para ocultarlo.
   </Step>
 
-  <Step title="Ocultar Cuando No se Usa">
-    Puedes volver a ocultar cualquier filtro avanzado con el mismo botón de alternancia. Esto no elimina el valor del filtro si ya tenía uno aplicado, simplemente lo saca de la vista.
+  <Step title="Guardado Automático">
+    Cada cambio que realices en el panel se guarda automáticamente junto con el resto de tu configuración de filtros. La próxima vez que accedas al Historial de Llamadas, verás la misma configuración de visibilidad que dejaste.
+  </Step>
+
+  <Step title="Cerrar el Panel">
+    Haz clic fuera del panel o vuelve a pulsar el icono de engranaje para cerrarlo. Los cambios se aplican de inmediato, no es necesario confirmar por separado.
   </Step>
 </Steps>
 
 <Info>
-Ocultar un filtro **no lo desactiva**. Si un filtro de Tags o Evaluations tiene un valor aplicado y luego lo ocultas, ese filtro sigue afectando los resultados hasta que lo limpies explícitamente. Revisa el resumen de filtros activos si los resultados no coinciden con lo esperado.
+Ocultar un filtro desde el panel de engranaje **no lo desactiva**. Si un filtro de Tags o Evaluations tiene un valor aplicado y luego lo ocultas, ese filtro sigue afectando los resultados hasta que lo limpies explícitamente. Revisa el resumen de filtros activos si los resultados no coinciden con lo esperado.
 </Info>
 
 ### Búsqueda por Call ID con Modo Exclusivo
@@ -144,7 +169,7 @@ Mientras el Call ID está activo, los controles de fecha, agentes, estado, tags 
 
 ### Panel de Personalización
 
-Accede al panel de configuración mediante el botón de configuración (⚙️) para:
+Accede al mismo panel de configuración mediante el botón de engranaje (⚙️) para:
 
 <Tabs>
   <Tab title="Visibilidad de Columnas">
@@ -172,6 +197,10 @@ Accede al panel de configuración mediante el botón de configuración (⚙️) 
     - **Espaciada**: Mayor claridad con más espacio vertical
   </Tab>
 </Tabs>
+
+<Info>
+El icono de engranaje concentra en un mismo lugar tanto la **visibilidad de filtros** (Tags, Evaluations) como la **visibilidad de columnas** y los **presets guardados**. Es el punto central para personalizar toda la experiencia de la tabla de llamadas.
+</Info>
 
 ## Tabla de Llamadas Interactiva
 
@@ -378,7 +407,7 @@ La generación de archivos Excel se procesa en segundo plano para no bloquear la
 </CardGroup>
 
 <Warning>
-Si activaste un filtro de Tags o Evaluations y luego lo ocultaste con el botón de visibilidad, recuerda que el filtro **sigue activo** aunque no lo veas. Si tus resultados parecen incompletos, revisa primero los filtros ocultos antes de asumir que hay un problema con los datos.
+Si activaste un filtro de Tags o Evaluations desde el panel de engranaje y luego lo ocultaste, recuerda que el filtro **sigue activo** aunque no lo veas. Si tus resultados parecen incompletos, revisa primero los filtros ocultos en el panel de configuración antes de asumir que hay un problema con los datos.
 </Warning>
 
 ### Atajos de Teclado
