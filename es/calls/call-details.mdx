@@ -70,6 +70,60 @@ El panel central muestra metadatos clave:
 | transferred | 🟣 Morado | Llamada transferida |
 | no-answer | ⚪ Gris | El destinatario no contestó |
 
+## Bloque LLM
+
+<Info>
+Este bloque solo aparece si la llamada tiene datos de uso de modelos LLM registrados. Las llamadas anteriores al 29 de julio de 2026 pueden mostrar un único modelo mediante un campo de compatibilidad.
+</Info>
+
+El panel central incluye una sección **LLM** que muestra qué modelo (o modelos) de lenguaje procesó la conversación. Meetzy utiliza un sistema de cascada de proveedores (por ejemplo, ElevenLabs) que puede degradar automáticamente a un modelo alternativo si el modelo principal no está disponible o presenta latencia elevada.
+
+### Qué muestra
+
+| Elemento | Descripción |
+|----------|-------------|
+| Modelos usados | Lista de los modelos distintos utilizados durante la llamada, en orden de aparición |
+| Indicador de degradación | Se activa cuando se detecta más de un modelo distinto en la misma llamada |
+| Detalle por turno | Desglose opcional que muestra qué modelo respondió en cada turno de la conversación |
+
+### Indicador de Degradación
+
+<Warning>
+Cuando una llamada usa más de un modelo LLM, se considera que hubo una **degradación del cascade**: el modelo principal no pudo atender la solicitud en algún punto y el sistema recurrió a un modelo alternativo para mantener la llamada en curso.
+</Warning>
+
+Este indicador te ayuda a identificar rápidamente llamadas que pudieron verse afectadas por cambios de modelo, útil para:
+
+- Detectar problemas de disponibilidad con un proveedor específico
+- Correlacionar degradaciones con caídas de calidad en la conversación
+- Priorizar la revisión manual de llamadas con cascade activo
+
+### Detalle por Turno
+
+Por defecto, el detalle por turno aparece **plegado**. Al expandirlo, verás una tabla con:
+
+| Campo | Descripción |
+|-------|-------------|
+| Turno | Marca de tiempo (en segundos) dentro de la llamada |
+| Modelo(s) | Modelo o combinación de modelos usados en ese turno |
+| Tokens de salida | Cantidad de tokens generados por el modelo en ese turno |
+
+<Steps>
+<Step title="Localiza el bloque LLM">
+En el panel central del modal de detalles, busca la sección **LLM** debajo de la información básica de la llamada.
+</Step>
+<Step title="Revisa los modelos usados">
+Verás la lista de modelos distintos detectados en la llamada. Si hay más de uno, aparecerá el indicador de degradación.
+</Step>
+<Step title="Expande el detalle por turno">
+Haz clic para desplegar la tabla de turnos y ver exactamente en qué momento ocurrió el cambio de modelo.
+</Step>
+</Steps>
+
+<Info>
+Esta información es especialmente útil junto con el botón **"Analyze with AI"**: puedes pedirle al Copilot que correlacione una degradación de modelo con caídas de sentimiento o errores en la conversación.
+</Info>
+
 ## Respuesta de Salida
 
 El panel derecho muestra el JSON de salida con todos los datos capturados:

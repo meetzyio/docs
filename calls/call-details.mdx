@@ -93,6 +93,59 @@ A new **Analyze with Copilot** button is available in the call information secti
 The Copilot analysis maintains full context of the call, including transcript, input parameters, and output data for comprehensive insights.
 </Info>
 
+## LLM Model Usage
+
+Meetzy runs on ElevenLabs' LLM cascade, which can automatically fall back to a different model mid-call if the primary model is slow or unavailable. The **LLM** block in the Call Information panel gives you visibility into exactly which models handled the conversation.
+
+### Models Used
+
+At the top of the block, you'll see a list of every distinct model that participated in the call, in the order they were first used:
+
+```
+gpt-4o-mini → gpt-4o → claude-3-5-sonnet
+```
+
+<Info>
+If only one model appears, the cascade never needed to fall back — the primary model handled the entire call. If more than one model appears, ElevenLabs degraded to a secondary model at some point during the conversation.
+</Info>
+
+<Warning>
+For calls made before **July 29, 2026**, this list falls back to the single `model_used` field, since per-turn tracking wasn't available yet. In that case, you'll only see one model, even though a cascade may still have been active behind the scenes.
+</Warning>
+
+### Per-Turn Breakdown (Cascade Detail)
+
+Below the model list, click **Show Detail** to expand a collapsible, second-by-second breakdown of the cascade. This detail is collapsed by default to keep the modal compact.
+
+Each row in the expanded view represents one conversational turn and shows:
+
+| Column | Description |
+|--------|-------------|
+| Time | Elapsed seconds (`t`) since the call started |
+| Model(s) | Which model(s) generated output for that turn |
+| Tokens | Output tokens produced by each model at that turn |
+
+If a turn used more than one model — for example, the primary model started responding but was interrupted by a fallback — both models are listed together, joined with `+`.
+
+<Steps>
+  <Step title="Locate the LLM block">
+    Open any completed call's details and find the **LLM** section in the center panel, below the core call metadata.
+  </Step>
+  <Step title="Review the models used">
+    Check the summary list to quickly spot whether the cascade degraded during the call.
+  </Step>
+  <Step title="Expand the detail">
+    Click **Show Detail** to reveal the per-turn table and identify exactly when the switch happened.
+  </Step>
+  <Step title="Collapse when done">
+    Click **Hide Detail** to collapse the breakdown again and keep the modal easy to scan.
+  </Step>
+</Steps>
+
+<Info>
+Cascade degradation is not necessarily an error — it means ElevenLabs automatically routed the conversation to keep latency low. Use this data to spot patterns (e.g., a model that degrades frequently) and adjust your agent configuration if needed.
+</Info>
+
 ## Output Response
 
 The right panel displays the output JSON containing all data captured during the call:

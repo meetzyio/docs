@@ -178,6 +178,7 @@ Accede al mismo panel de configuración mediante el botón de engranaje (⚙️)
     - **Datos de Contacto**: Direction, From, To  
     - **Métricas**: Duration, Cost, Quality Score
     - **Metadatos**: Date, Tags, Custom Fields
+    - **Modelo de IA**: LLM, LLM Detail
     
     Cada columna puede activarse/desactivarse independientemente.
   </Tab>
@@ -222,6 +223,37 @@ La tabla renovada incluye nuevas funcionalidades:
 | **Quality Score** | Puntuación de calidad (1-10) | Sí |
 | **Date** | Timestamp completo de la llamada | Sí |
 | **Tags** | Etiquetas personalizadas | Sí |
+| **LLM** | Modelo(s) de lenguaje usados en la llamada, con indicador de degradación del cascade | Sí |
+| **LLM Detail** | Detalle turno a turno de qué modelo respondió y cuántos tokens generó | Sí |
+
+### Columnas LLM y Cascada de Modelos
+
+Meetzy usa un sistema de **cascade de modelos** (proporcionado por ElevenLabs) para mantener la conversación activa incluso si el modelo principal falla o se satura: si el modelo preferido no responde a tiempo, la llamada continúa automáticamente con un modelo alternativo. Las columnas **LLM** y **LLM Detail** existen para que puedas ver, de un vistazo, si esto ocurrió durante una llamada.
+
+<Tabs>
+  <Tab title="Columna LLM">
+    Muestra el o los modelos usados durante toda la llamada:
+    - Si solo se usó **un modelo**, se muestra su nombre sin ninguna alerta adicional.
+    - Si se usó **más de un modelo distinto**, se considera que hubo una **degradación del cascade** y la columna lo señala visualmente, ya que el modelo principal no pudo sostener toda la conversación.
+    - Para llamadas anteriores al 29 de julio de 2026, donde no existía este registro detallado, se usa como respaldo el campo histórico `model_used` (llamadas anteriores a esa fecha solo muestran un único modelo, sin detalle de cascade).
+  </Tab>
+
+  <Tab title="Columna LLM Detail">
+    Expande la información anterior mostrando la línea de tiempo de modelos usados turno a turno:
+    - Cada entrada indica el **segundo** de la llamada (`t`) en el que ocurrió el turno.
+    - Junto al segundo, se listan el o los modelos que participaron en ese turno específico.
+    - Si en un mismo turno aparecen varios modelos combinados (por ejemplo, durante un cambio de modelo a mitad de respuesta), se muestran unidos con `+` (ej. `gpt-4o + gpt-4o-mini`).
+    - Esta vista es especialmente útil para depurar por qué una respuesta tardó más de lo esperado o sonó distinta a mitad de llamada.
+  </Tab>
+</Tabs>
+
+<Info>
+Un cascade con más de un modelo **no significa que la llamada haya fallado**: es el comportamiento esperado del sistema para garantizar continuidad. Sin embargo, si detectas degradaciones frecuentes en un agente específico, puede ser una señal de que conviene revisar su configuración de modelo principal o los tiempos de respuesta.
+</Info>
+
+<Warning>
+La columna **LLM Detail** solo tiene datos completos para llamadas registradas después del 29 de julio de 2026. Las llamadas anteriores mostrarán únicamente el modelo único disponible en `model_used`, sin desglose por turno.
+</Warning>
 
 ### Selección Masiva y Acciones en Lote
 

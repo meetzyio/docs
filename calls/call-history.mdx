@@ -280,6 +280,46 @@ The call table displays key information for each call with enhanced visual desig
 | Duration | Call length in minutes:seconds |
 | Date | When the call occurred with relative time |
 | Tags | Dynamic tags associated with the call |
+| LLM *(optional)* | Language model(s) that handled the call |
+| LLM detail *(optional)* | Turn-by-turn breakdown of model usage |
+
+<Info>
+The **LLM** and **LLM detail** columns are optional and hidden by default. Enable them from the column customizer to monitor which language models powered each call.
+</Info>
+
+### LLM and LLM Detail Columns
+
+<Info>
+These two columns surface the underlying language model activity for every call, which is especially useful for agents built on ElevenLabs' conversational stack, where a **model cascade** can automatically fall back to a secondary model mid-call if the primary one becomes unavailable or degrades.
+</Info>
+
+| Column | What it shows |
+|--------|---------------|
+| **LLM** | The distinct model(s) used during the call, listed in the order they were engaged (e.g. a single model like `gpt-4o`, or multiple models such as `gpt-4o + gpt-4o-mini` if a fallback occurred). |
+| **LLM detail** | An expandable, turn-by-turn breakdown showing exactly which model handled each conversational turn and at what point in the call the switch happened. |
+
+<Steps>
+<Step title="Enable the Columns">
+Open the column customizer above the Call Table and toggle on **LLM** and/or **LLM detail** to add them to your view.
+</Step>
+<Step title="Read the LLM Column">
+Each row shows the model(s) used for that call. A single model name means the call ran entirely on the primary model with no fallback.
+</Step>
+<Step title="Spot Degradations">
+When a call shows **more than one model** in the LLM column, it means the ElevenLabs cascade degraded at least once during the call — falling back from the primary model to a secondary one. This is the same detection logic used in the call details modal.
+</Step>
+<Step title="Drill Into LLM Detail">
+Expand the LLM detail column (or open the call in the Details Modal) to see the exact timestamp of each turn and which model produced it, helping you pinpoint when and why a degradation happened.
+</Step>
+</Steps>
+
+<Tip>
+Use the LLM column together with the Status and Success filters to quickly check whether cascade degradations correlate with lower success rates or specific agents, then dig deeper with LLM detail on the affected calls.
+</Tip>
+
+<Warning>
+For calls made before model cascade tracking was introduced, the LLM column falls back to the legacy single `model_used` value when no multi-model data is available. In that case, no degradation can be detected for those older calls.
+</Warning>
 
 ### Bulk Actions
 
@@ -397,6 +437,9 @@ Best practices for efficient searching:
   <Card title="Export Filtered Results" icon="download">
     Export your filtered results for offline analysis, reporting, or sharing with team members.
   </Card>
+  <Card title="Track LLM Cascade Health" icon="microchip">
+    Enable the LLM and LLM detail columns to spot ElevenLabs cascade degradations and understand which calls fell back to a secondary model.
+  </Card>
 </CardGroup>
 
 ## Advanced Use Cases
@@ -452,6 +495,23 @@ The system performs a direct database lookup and returns the single matching cal
 </Step>
 <Step title="Clear to Resume">
 Clear the Call ID field once you're done to automatically restore your previous filter configuration.
+</Step>
+</Steps>
+
+### Investigating LLM Cascade Degradations
+
+<Steps>
+<Step title="Enable the LLM Columns">
+Open the column customizer and turn on **LLM** and **LLM detail** for your Call Table view.
+</Step>
+<Step title="Scan for Multiple Models">
+Look for rows where the LLM column lists more than one model — this flags a cascade degradation during that call.
+</Step>
+<Step title="Open LLM Detail">
+Expand LLM detail (or open the Details Modal) to see the exact turn where the switch happened and which model took over.
+</Step>
+<Step title="Cross-Reference Outcomes">
+Combine this with the Success and Status filters to check whether degraded calls correlate with lower success rates.
 </Step>
 </Steps>
 
