@@ -1,0 +1,79 @@
+---
+title: 'Tools Library'
+description: 'Browse every custom tool configured across your agents from a single, searchable catalog.'
+icon: 'toolbox'
+---
+
+The **Tools Library** gives you a bird's-eye view of every custom tool (webhook) configured across all your agents. Instead of opening each agent individually to check which webhooks it uses, you can now see everything in one searchable catalog.
+
+<Info>
+  **Phase 1: Read-only.** The Tools Library is currently a visibility feature. You can browse, search, and see which agents use each tool, but you cannot create, edit, or delete tools from this page yet. To manage a tool, open the agent that uses it and go to its **Actions & Tools** or **Output Settings** section.
+</Info>
+
+## What you'll find here
+
+Every custom tool (webhook) that has been configured on at least one of your agents shows up in the library, along with:
+
+- **Name and description** of the tool, as defined in the agent configuration.
+- **Number of agents** currently using that tool.
+- **The full list of agents** using it, available on demand.
+
+This is especially useful when you manage many agents and want to answer questions like:
+
+- "Which agents call our CRM webhook?"
+- "Do I have duplicate tools with slightly different names?"
+- "If I change this webhook's behavior, which agents will be affected?"
+
+## Accessing the Tools Library
+
+<Steps>
+  <Step title="Open the Tools Library">
+    Navigate to **Tools Library** from the main menu. The page loads all tools associated with your account's agents automatically.
+  </Step>
+  <Step title="Search for a specific tool">
+    Use the search bar at the top of the page to filter results. The search matches against:
+    - Tool name
+    - Tool description
+    - Agent name
+
+    This means you can search by the tool's own metadata, or simply type an agent's name to see all the tools it uses.
+  </Step>
+  <Step title="Expand a tool to see its agents">
+    Click **"Show agents using this tool"** on any tool card to expand the full list of agents. Click again to collapse it.
+  </Step>
+</Steps>
+
+## Understanding the tool cards
+
+Each tool is displayed as a card with:
+
+| Element | Description |
+|---|---|
+| **Name** | The tool's identifier, as configured in the agent. |
+| **Description** | A short explanation of what the tool does, if one was provided. |
+| **Agent count badge** | Shows how many agents currently reference this tool (e.g. "3 agents"). |
+| **Show agents** toggle | Expands a chip list with the name of every agent using the tool. |
+
+<Info>
+  If the same webhook is configured independently on multiple agents with the exact same name and definition, it will appear as a single entry with all the associated agents grouped together.
+</Info>
+
+## Empty and error states
+
+- **No tools yet:** If none of your agents have custom tools configured, the library will show an empty state explaining that no tools have been found yet.
+- **No search results:** If your search term doesn't match any tool, name, or agent, you'll see a message indicating that nothing matched your query. Try a broader term or clear the search box.
+- **Loading issues:** If the library fails to load (for example, due to a temporary connectivity issue), an error message will be shown. Refresh the page to try again.
+
+<Warning>
+  Some tools might not load correctly if an agent's configuration is malformed or if a webhook reference is broken. In that case, you may see a warning banner at the top of the page listing the affected items. This doesn't prevent you from browsing the rest of your tools, but you may want to review the flagged agent's configuration.
+</Warning>
+
+## What's next
+
+This is the first phase of the Tools Library. Future updates will let you:
+
+- Create and manage tools directly from this page.
+- Reuse a single tool definition across multiple agents without duplicating configuration.
+- Version and track changes to shared tools over time.
+
+For now, use the Tools Library purely as a discovery and auditing tool — to understand what's out there before diving into a specific agent to make changes.

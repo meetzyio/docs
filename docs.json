@@ -1,238 +1,46 @@
-{
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Meetzy Docs",
-  "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373"
-  },
-  "favicon": "/favicon.svg",
-  "logo": {
-    "light": "/logo/light.png",
-    "dark": "/logo/dark.png"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@meetzy.io"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.meetzy.io"
-    }
-  },
-  "navigation": {
-    "languages": [
-      {
-        "language": "en",
-        "tabs": [
-          {
-            "tab": "Documentation",
-            "groups": [
-              {
-                "group": "Getting Started",
-                "pages": [
-                  "getting-started/introduction",
-                  "getting-started/create-agent"
-                ]
-              },
-              {
-                "group": "Agents",
-                "pages": [
-                  "agents/manage-agents",
-                  "agents/phone-numbers",
-                  "agents/phone-health"
-                ]
-              },
-              {
-                "group": "Advanced Editor",
-                "pages": [
-                  "advanced-editor/introduction",
-                  "advanced-editor/basic-settings",
-                  "advanced-editor/greetings",
-                  "advanced-editor/knowledge-base",
-                  "advanced-editor/actions-tools",
-                  "advanced-editor/input-params",
-                  "advanced-editor/output-settings",
-                  "advanced-editor/evaluations",
-                  "advanced-editor/playground",
-                  "advanced-editor/tests",
-                  "advanced-editor/copilot",
-                  "advanced-editor/version-history"
-                ]
-              },
-              {
-                "group": "Voice Library",
-                "pages": [
-                  "voices/choose-voice",
-                  "voices/voice-designer"
-                ]
-              },
-              {
-                "group": "Calls",
-                "pages": [
-                  "calls/call-history",
-                  "calls/call-details",
-                  "calls/reporting"
-                ]
-              },
-              {
-                "group": "CRM",
-                "pages": [
-                  "crm/import-contacts",
-                  "crm/segments",
-                  "crm/campaigns"
-                ]
-              },
-              {
-                "group": "Account",
-                "pages": [
-                  "account/team-members",
-                  "account/permissions",
-                  "account/api-tokens",
-                  "account/support-tickets"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "API Reference",
-            "groups": [
-              {
-                "group": "API Reference",
-                "pages": [
-                  "api-reference/introduction"
-                ]
-              },
-              {
-                "group": "Endpoints",
-                "pages": [
-                  "api-reference/endpoint/create",
-                  "api-reference/endpoint/campaign",
-                  "api-reference/endpoint/get",
-                  "api-reference/endpoint/list"
-                ]
-              },
-              {
-                "group": "Advanced Features",
-                "pages": [
-                  "api-reference/endpoint/versioning"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "language": "es",
-        "tabs": [
-          {
-            "tab": "Documentación",
-            "groups": [
-              {
-                "group": "Primeros Pasos",
-                "pages": [
-                  "es/getting-started/introduction",
-                  "es/getting-started/create-agent"
-                ]
-              },
-              {
-                "group": "Agentes",
-                "pages": [
-                  "es/agents/manage-agents",
-                  "es/agents/phone-numbers",
-                  "es/agents/phone-health"
-                ]
-              },
-              {
-                "group": "Editor Avanzado",
-                "pages": [
-                  "es/advanced-editor/introduction",
-                  "es/advanced-editor/basic-settings",
-                  "es/advanced-editor/greetings",
-                  "es/advanced-editor/knowledge-base",
-                  "es/advanced-editor/actions-tools",
-                  "es/advanced-editor/input-params",
-                  "es/advanced-editor/output-settings",
-                  "es/advanced-editor/evaluations",
-                  "es/advanced-editor/playground",
-                  "es/advanced-editor/tests",
-                  "es/advanced-editor/copilot",
-                  "es/advanced-editor/version-history"
-                ]
-              },
-              {
-                "group": "Biblioteca de Voces",
-                "pages": [
-                  "es/voices/choose-voice",
-                  "es/voices/voice-designer"
-                ]
-              },
-              {
-                "group": "Llamadas",
-                "pages": [
-                  "es/calls/call-history",
-                  "es/calls/call-details",
-                  "es/calls/reporting"
-                ]
-              },
-              {
-                "group": "CRM",
-                "pages": [
-                  "es/crm/import-contacts",
-                  "es/crm/segments",
-                  "es/crm/campaigns"
-                ]
-              },
-              {
-                "group": "Cuenta",
-                "pages": [
-                  "es/account/team-members",
-                  "es/account/permissions",
-                  "es/account/api-tokens",
-                  "es/account/support-tickets"
-                ]
-              }
-            ]
-          },
-          {
-            "tab": "API Reference",
-            "groups": [
-              {
-                "group": "API Reference",
-                "pages": [
-                  "es/api-reference/introduction"
-                ]
-              },
-              {
-                "group": "Endpoints",
-                "pages": [
-                  "es/api-reference/endpoint/create",
-                  "es/api-reference/endpoint/campaign",
-                  "es/api-reference/endpoint/get",
-                  "es/api-reference/endpoint/list"
-                ]
-              },
-              {
-                "group": "Características Avanzadas",
-                "pages": [
-                  "es/api-reference/endpoint/versioning"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "footer": {
-    "socials": {
-      "twitter": "https://twitter.com/meetzy_io",
-      "linkedin": "https://www.linkedin.com/company/meetzy"
-    }
-  }
-}
+---
+title: "Recent Calls"
+description: "View recent calls for an agent directly from the Advanced Editor, without leaving the editing context."
+icon: "phone-arrow-up-right"
+---
+
+The **Recent Calls** panel gives you a quick, contextual view of the latest calls handled by the agent you're currently editing. It's designed to help you validate changes and debug behavior without switching away from the Advanced Editor.
+
+<Info>
+This panel shows calls from the **last 30 days**, up to a maximum of 20 calls, ordered by most recent first.
+</Info>
+
+## Where to find it
+
+The Recent Calls panel lives in the right-side panel area of the Advanced Editor, alongside Copilot, Playground, Tests, and Version History.
+
+<Steps>
+  <Step title="Open an agent in the Advanced Editor">
+    Select any agent from your Agents list and open it in the Advanced Editor.
+  </Step>
+  <Step title="Switch to the Recent Calls tab">
+    In the right panel, click on the **Recent Calls** icon to load the latest activity for this specific agent.
+  </Step>
+  <Step title="Review call details">
+    Each entry shows the call status, direction (from → to), a short summary, relative time, and duration.
+  </Step>
+</Steps>
+
+## What you can do
+
+- **Refresh**: Click the refresh icon to reload the list on demand.
+- **Open a call**: Click any call entry to open its full details (recording, transcript, and evaluation) in a new tab.
+- **View all calls**: Use the **View all** button to jump to the full Call History, pre-filtered by this agent.
+
+<Tabs>
+  <Tab title="Success indicator">
+    Calls marked as successful display a green checkmark badge next to the status, based on your configured evaluation criteria.
+  </Tab>
+  <Tab title="Status badges">
+    Each call shows a colored status badge (e.g. Finished, No answer, Busy, Ringing, Voicemail) so you can scan activity at a glance.
+  </Tab>
+</Tabs>
+
+<Warning>
+If no calls have occurred in the last 30 days, the panel will display an empty state. This does not mean the agent is broken — it simply hasn't received calls recently.
+</Warning>

@@ -233,7 +233,7 @@ Para las sesiones de escritura y ajuste fino del prompt donde cada distracción 
     Pulsa **`Cmd + \`** en Mac o **`Ctrl + \`** en Windows/Linux para activar o desactivar el Modo Concentración en cualquier momento, sin salir del contexto de edición.
   </Step>
   <Step title="Ocultación de Paneles Laterales">
-    Al activarse, tanto el panel izquierdo (Basic Settings, Greetings, Actions & Tools, etc.) como el panel derecho (Meetzy, Playground, Tests, Changes) se ocultan por completo, dejando el editor de prompt como único protagonista de la pantalla.
+    Al activarse, tanto el panel izquierdo (Basic Settings, Greetings, Actions & Tools, etc.) como el panel derecho (Meetzy, Playground, Tests, Llamadas Recientes, Changes) se ocultan por completo, dejando el editor de prompt como único protagonista de la pantalla.
   </Step>
   <Step title="Editor a Pantalla Completa">
     El área de edición del prompt se expande para ocupar todo el ancho disponible, ideal para trabajar con prompts largos, revisar la estructura completa del outline o escribir sin interrupciones visuales.
@@ -251,9 +251,9 @@ Para las sesiones de escritura y ajuste fino del prompt donde cada distracción 
 **Compatibilidad con otras vistas**: El Modo Concentración es independiente del modo diff, el minimapa y la vista con sangría del editor Monaco; puedes combinarlo con estas funcionalidades para una experiencia de edición totalmente personalizada.
 </Warning>
 
-## Panel Derecho: Copilot, Playground, Tests y Cambios
+## Panel Derecho: Copilot, Playground, Tests, Llamadas Recientes y Cambios
 
-El panel derecho del Editor Avanzado concentra las herramientas de asistencia e inteligencia del flujo de trabajo en cuatro pestañas dedicadas: **Meetzy** (Copilot AI), **Playground**, **Tests** y **Changes**. Cada una está optimizada para una tarea específica del ciclo de vida del agente, desde la generación asistida hasta la validación y el control de versiones.
+El panel derecho del Editor Avanzado concentra las herramientas de asistencia e inteligencia del flujo de trabajo en cinco pestañas dedicadas: **Meetzy** (Copilot AI), **Playground**, **Tests**, **Llamadas Recientes** y **Changes**. Cada una está optimizada para una tarea específica del ciclo de vida del agente, desde la generación asistida hasta la validación, la supervisión de llamadas reales y el control de versiones.
 
 ### Botón de Expansión del Panel
 
@@ -264,7 +264,7 @@ Para facilitar el trabajo con conversaciones largas, diffs complejos o suites de
     Un icono dedicado en la cabecera del panel permite alternar entre el ancho estándar y el ancho expandido en cualquier momento, sin perder el contexto de la pestaña activa.
   </Step>
   <Step title="Ancho Ampliado">
-    Al activarse, el panel crece hasta **720px** de ancho, ofreciendo mucho más espacio de lectura y edición para el chat con Meetzy, las respuestas del Playground, los resultados de Tests o el diff de Changes.
+    Al activarse, el panel crece hasta **720px** de ancho, ofreciendo mucho más espacio de lectura y edición para el chat con Meetzy, las respuestas del Playground, los resultados de Tests, el listado de Llamadas Recientes o el diff de Changes.
   </Step>
   <Step title="Reducción del Panel Central">
     El editor central se ajusta automáticamente para ceder espacio al panel expandido, manteniendo una experiencia fluida sin solapamientos ni scroll horizontal innecesario.
@@ -275,17 +275,22 @@ Para facilitar el trabajo con conversaciones largas, diffs complejos o suites de
 </Steps>
 
 <Info>
-**Cuándo usarlo**: Activa la expansión al revisar conversaciones largas con el Copilot, comparar versiones extensas en Changes, o analizar resultados detallados de Tests. Vuelve al ancho estándar cuando necesites más espacio visual para el editor central.
+**Cuándo usarlo**: Activa la expansión al revisar conversaciones largas con el Copilot, comparar versiones extensas en Changes, analizar resultados detallados de Tests o revisar el detalle de las Llamadas Recientes. Vuelve al ancho estándar cuando necesites más espacio visual para el editor central.
 </Info>
 
-### Las Cuatro Pestañas del Panel
+### Las Cinco Pestañas del Panel
 
 | Pestaña | Atajo | Propósito |
 |---------|-------|-----------|
 | **Meetzy** | `⌘J` | Copilot AI que actúa como constructor de agentes, sugiriendo mejoras y generando configuraciones |
 | **Playground** | `⇧⌘P` | Simulación y prueba de conversaciones en tiempo real |
 | **Tests** | `⇧⌘T` | Ejecución de tests de regresión para garantizar la calidad del agente |
+| **Llamadas Recientes** | — | Visualización rápida de las últimas llamadas reales del agente (últimos 30 días), con estado, duración y acceso directo a la grabación |
 | **Changes** | `⌘G` | Revisión y gestión de cambios Git, incluyendo diffs y resolución de conflictos |
+
+<Info>
+**Llamadas Recientes en contexto**: Esta pestaña te permite comprobar cómo se está comportando tu agente en producción sin salir del editor. Desde ella puedes refrescar el listado, abrir una llamada concreta en una nueva pestaña o saltar directamente a la vista completa de llamadas filtrada por este agente.
+</Info>
 
 <Warning>
 **Responsive Design**: En dispositivos móviles o pantallas reducidas, el botón de expansión se adapta automáticamente para no comprometer la usabilidad, priorizando siempre la legibilidad del contenido.
@@ -494,7 +499,7 @@ El Editor Avanzado soporta múltiples paradigmas de desarrollo:
     Coordina deploys usando el sistema Git con feature flags y releases graduales para múltiples agentes simultáneamente.
   </Step>
   <Step title="Monitoring & Optimization">
-    Establece métricas de SLA para agentes en producción e implementa monitoreo continuo de performance y satisfacción del usuario.
+    Establece métricas de SLA para agentes en producción e implementa monitoreo continuo de performance y satisfacción del usuario, apoyándote en la pestaña de Llamadas Recientes para una supervisión rápida sin salir del editor.
   </Step>
 </Steps>
 

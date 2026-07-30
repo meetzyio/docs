@@ -1,0 +1,70 @@
+---
+title: "Llamadas Recientes"
+description: "Consulta y accede rápidamente a las últimas llamadas de tu agente sin salir del editor"
+icon: "clock-rotate-left"
+---
+
+El panel de **Llamadas Recientes** te permite ver de un vistazo las llamadas más recientes gestionadas por el agente que estás editando, directamente desde el Editor Avanzado. Es ideal para validar rápidamente que los cambios que acabas de hacer se reflejan correctamente en producción, sin tener que salir del editor e ir al panel de Llamadas.
+
+<Info>
+Este panel muestra las llamadas de los **últimos 30 días**, con un máximo de **20 resultados**, ordenadas de la más reciente a la más antigua.
+</Info>
+
+## ¿Dónde lo encuentro?
+
+El panel de Llamadas Recientes está disponible en el panel derecho del Editor Avanzado, junto a Meetzy (Copilot), Playground, Tests y Cambios.
+
+## ¿Qué información muestra?
+
+Cada llamada aparece como una tarjeta con la siguiente información:
+
+- **Estado de la llamada**: una etiqueta de color indica si la llamada terminó correctamente (`Finished`), está en curso (`On call`), sigue sonando (`Ringing`), falló (`Failed`), fue a buzón de voz (`Voicemail`), etc.
+- **Indicador de éxito**: si la evaluación de la llamada determinó que fue exitosa, verás una marca de verificación verde con el texto "Success".
+- **Números de teléfono**: origen y destino de la llamada.
+- **Resumen**: un breve resumen generado automáticamente sobre el contenido de la llamada (si está disponible).
+- **Tiempo relativo**: cuánto tiempo ha pasado desde que se realizó la llamada (por ejemplo, "hace 5 minutos"). Al pasar el cursor por encima, verás la fecha y hora exactas.
+- **Duración**: la duración total de la llamada en formato `mm:ss`.
+
+## Acciones disponibles
+
+<Steps>
+  <Step title="Actualizar la lista">
+    Haz clic en el icono de refrescar (🔄) en la esquina superior derecha del panel para volver a cargar las llamadas más recientes sin recargar toda la página.
+  </Step>
+  <Step title="Abrir una llamada">
+    Haz clic en cualquier tarjeta de llamada para abrirla en una nueva pestaña, directamente en el panel de Llamadas, donde podrás escuchar la grabación, ver la transcripción completa y revisar los detalles de evaluación.
+  </Step>
+  <Step title="Ver todas las llamadas">
+    Usa el botón **View all** para navegar al panel de Llamadas con un filtro ya aplicado por este agente, permitiéndote explorar el historial completo más allá de los últimos 30 días.
+  </Step>
+</Steps>
+
+## Estados posibles
+
+<Tabs>
+  <Tab title="Finalizadas">
+    - **Finished** (`closed`): la llamada terminó con normalidad.
+  </Tab>
+  <Tab title="En curso">
+    - **On call** (`open`): la llamada está activa en este momento.
+    - **Ringing** (`ringing`): el teléfono está sonando.
+    - **Scheduled** (`scheduled` / `recall-scheduled`): la llamada está programada o pendiente de un reintento.
+  </Tab>
+  <Tab title="No completadas">
+    - **No answer** (`no-answer`): nadie contestó.
+    - **Busy** (`busy`): la línea estaba ocupada.
+    - **Voicemail** (`voicemail`): la llamada terminó en buzón de voz.
+    - **Wrong phone** (`wrong-phone-format`): el número de teléfono tenía un formato incorrecto.
+    - **Failed** (`failed`): la llamada falló por algún error técnico.
+  </Tab>
+</Tabs>
+
+## Estados de carga y errores
+
+- **Carga inicial**: mientras se obtienen los datos por primera vez, verás un esqueleto de carga animado.
+- **Sin llamadas**: si el agente no ha recibido llamadas en los últimos 30 días, se muestra un mensaje indicándolo. En cuanto empiecen a llegar llamadas, aparecerán aquí automáticamente.
+- **Error al cargar**: si ocurre un problema al obtener las llamadas, se muestra un mensaje de error junto con un botón para **reintentar**.
+
+<Warning>
+El panel se recarga automáticamente cada vez que cambias de agente dentro del Editor Avanzado. Si acabas de crear el agente y aún no tiene llamadas asociadas, es normal ver el estado vacío.
+</Warning>

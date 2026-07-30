@@ -1,0 +1,95 @@
+---
+title: "Recent Calls"
+description: "Review the latest calls handled by your agent without leaving the Advanced Editor."
+icon: "phone-arrow-down-left"
+---
+
+The **Recent Calls** panel gives you a live snapshot of how your agent is performing, right inside the Advanced Editor. No need to jump to the Calls section to check if a change worked — just glance at the right panel.
+
+<Info>
+Recent Calls lives in the right panel of the Advanced Editor, alongside Meetzy, Playground, Tests, and Changes.
+</Info>
+
+## What it shows
+
+The panel displays up to **20 calls from the last 30 days** for the agent you currently have open. Each entry includes:
+
+- **Status badge** — the current state of the call (see below).
+- **Success indicator** — a green checkmark when the call was marked as `success`.
+- **From → To** — the phone numbers involved in the call.
+- **Summary** — a short description of what happened, when available.
+- **Relative time** — how long ago the call happened (e.g. "3 hours ago"). Hover over it to see the exact date and time.
+- **Duration** — formatted as `mm:ss`.
+
+<Info>
+Only the most recent 30 days of activity are loaded, capped at 20 calls, to keep the panel fast and focused on what matters right now.
+</Info>
+
+Click any call in the list to open its full detail — including the recording — in a new tab.
+
+## Call statuses
+
+| Status label | Meaning |
+|---|---|
+| **Finished** | The call completed normally. |
+| **On call** | The call is currently in progress. |
+| **Ringing** | The call is being dialed. |
+| **Scheduled** | The call is queued or a recall has been scheduled. |
+| **No answer** | The recipient didn't pick up. |
+| **Busy** | The line was busy. |
+| **Voicemail** | The call was routed to voicemail. |
+| **Wrong phone** | The phone number format was invalid. |
+| **Failed** | The call could not be completed due to an error. |
+
+<Info>
+Colors follow a simple convention: green for finished/successful calls, red for failures, amber for in-progress or scheduled calls, and gray for everything else.
+</Info>
+
+## Panel states
+
+<Tabs>
+  <Tab title="Loading">
+    On the very first load, the panel shows a skeleton placeholder while it fetches data. Subsequent refreshes update the list in place without blocking the UI.
+  </Tab>
+  <Tab title="Empty">
+    If the agent hasn't received any calls in the last 30 days, you'll see a friendly empty state letting you know calls will show up here once they start coming in.
+  </Tab>
+  <Tab title="Error">
+    If something goes wrong while fetching calls, an error message is shown along with a **Retry** button.
+  </Tab>
+  <Tab title="Populated">
+    Calls are listed newest first, each as a clickable card with status, participants, summary, time, and duration.
+  </Tab>
+</Tabs>
+
+## Refreshing the list
+
+<Steps>
+  <Step title="Locate the refresh button">
+    In the panel header, click the circular arrows icon next to the call count.
+  </Step>
+  <Step title="Wait for the spinner">
+    The icon spins while the latest calls are being fetched. The rest of the interface remains fully usable.
+  </Step>
+  <Step title="Review updated results">
+    The list refreshes in place — no page reload needed.
+  </Step>
+</Steps>
+
+<Info>
+You can also refresh with the keyboard shortcut <kbd>⇧</kbd><kbd>⌘</kbd><kbd>R</kbd> without moving your hands away from the editor.
+</Info>
+
+## Viewing all calls
+
+Sometimes 20 calls from the last month isn't enough. Click **View all** in the top-right corner of the panel to open the full Calls section, pre-filtered to show only calls handled by the current agent.
+
+<Warning>
+The **View all** button is disabled until an agent is loaded in the editor — for example, while creating a brand-new agent that hasn't been saved yet.
+</Warning>
+
+## Tips
+
+- Use Recent Calls right after publishing a change to quickly confirm the agent is behaving as expected on real calls.
+- Hover over the relative timestamp to see the exact date and time the call took place.
+- If a call has no summary, it usually means the summary hasn't been generated yet or evaluation wasn't configured for the agent.

@@ -221,10 +221,15 @@ The left panel contains all configuration sections accessible via an intuitive i
 | 🎮 Playground | Test your agent with Foundation components and skills | ⇧⌘P |
 | 📋 Tests | Create and run automated regression tests | ⇧⌘T |
 | 🔄 Changes | Track changes with Git-like version control | ⌘G |
+| 📞 Recent Calls | Browse the agent's most recent calls without leaving the editor | — |
+
+<Info>
+The **Recent Calls** tab shows the last 30 days of calls for the agent you're currently editing, including status, success outcome, duration, and a quick summary. Click any call to open its full recording and transcript in a new tab, or use "View all" to jump to the Calls page filtered for this agent.
+</Info>
 
 ## Focus Mode - Distraction-Free Editing
 
-Sometimes you just need to concentrate on the **System Prompt** without the visual noise of configuration panels and testing tools around you. **Focus Mode** does exactly that: it hides the left configuration panel and the right panel (Meetzy Copilot, Playground, Tests, Changes), leaving only the Monaco editor centered on your screen.
+Sometimes you just need to concentrate on the **System Prompt** without the visual noise of configuration panels and testing tools around you. **Focus Mode** does exactly that: it hides the left configuration panel and the right panel (Meetzy Copilot, Playground, Tests, Changes, Recent Calls), leaving only the Monaco editor centered on your screen.
 
 <Info>
 Toggle Focus Mode instantly with the keyboard shortcut **⌘\\** on macOS or **Ctrl+\\** on Windows/Linux. Press it again to bring the side panels back.
@@ -237,7 +242,7 @@ Toggle Focus Mode instantly with the keyboard shortcut **⌘\\** on macOS or **C
     Press **Cmd+\\** (macOS) or **Ctrl+\\** (Windows/Linux) anywhere in the Advanced Editor.
   </Step>
   <Step title="Panels Disappear">
-    The left configuration panel and the right panel (Copilot, Playground, Tests, Changes) smoothly collapse out of view.
+    The left configuration panel and the right panel (Copilot, Playground, Tests, Changes, Recent Calls) smoothly collapse out of view.
   </Step>
   <Step title="Editor Takes Center Stage">
     The Monaco editor expands to use the freed-up space, giving you a clean, full-width writing surface for your system prompt.
@@ -260,23 +265,23 @@ Focus Mode only hides the panels visually, it does not disable your unsaved chan
 
 #### Expand the Right Panel for a Better Reading Experience
 
-The right panel now includes an **expand button** that widens the panel so you can read Meetzy Copilot's messages, Playground results, Tests, and the Changes history much more comfortably.
+The right panel now includes an **expand button** that widens the panel so you can read Meetzy Copilot's messages, Playground results, Tests, Changes history, and Recent Calls much more comfortably.
 
 <Info>
 Look for the expand icon in the right panel's header, right next to the tab selector. Clicking it widens the panel to a more spacious layout, and clicking it again returns it to its original size.
 </Info>
 
-It's a small addition, but once you toggle it on, you'll immediately notice how much easier it is to follow long Copilot explanations, compare Playground conversation turns, or review detailed diffs in the Changes tab, no more squinting at cramped text in a narrow column.
+It's a small addition, but once you toggle it on, you'll immediately notice how much easier it is to follow long Copilot explanations, compare Playground conversation turns, review detailed diffs in the Changes tab, or scan through Recent Calls, no more squinting at cramped text in a narrow column.
 
 <Steps>
   <Step title="Open any right panel tab">
-    Select Meetzy, Playground, Tests, or Changes from the right panel tabs.
+    Select Meetzy, Playground, Tests, Changes, or Recent Calls from the right panel tabs.
   </Step>
   <Step title="Click the expand icon">
     Locate the expand button in the top-right area of the panel and click it to widen the panel.
   </Step>
   <Step title="Read comfortably">
-    Enjoy a wider, more readable layout for long messages, test results, or change diffs.
+    Enjoy a wider, more readable layout for long messages, test results, change diffs, or call summaries.
   </Step>
   <Step title="Collapse when done">
     Click the icon again to collapse the panel back to its default width and regain space for the editor.
@@ -288,7 +293,7 @@ On smaller screens, expanding the right panel may temporarily reduce the visible
 </Warning>
 
 <Info>
-Focus Mode and the expandable right panel work great together: use Focus Mode when you need to write without distractions, and expand the right panel when you need to read long Copilot answers, Playground transcripts, or Changes diffs in detail.
+Focus Mode and the expandable right panel work great together: use Focus Mode when you need to write without distractions, and expand the right panel when you need to read long Copilot answers, Playground transcripts, Changes diffs, or Recent Calls details.
 </Info>
 
 ## Advanced Version Control System
@@ -469,6 +474,9 @@ Skills are automatically suggested and configured based on your Creation Overlay
   <Step title="Run Foundation Testing">
     Use the enhanced testing system to validate Foundation components, skills, and overall behavior comprehensively. Expand the right panel if you need more room to review long test results.
   </Step>
+  <Step title="Check Recent Calls">
+    Once your agent is live, use the Recent Calls tab to quickly review real conversations without leaving the editor, spotting issues or opportunities to refine your prompt.
+  </Step>
   <Step title="Review & Commit Changes">
     Use the Git changes panel to review modifications and commit with descriptive messages for proper version control.
   </Step>
@@ -545,9 +553,24 @@ The new expand toggle for the right panel might look like a minor visual tweak, 
 - **Easier comparison** of Playground conversation turns side by side
 - **Clearer Tests review** when reading detailed pass/fail explanations
 - **More readable diffs** in the Changes tab when reviewing version history
+- **More scannable calls** when browsing Recent Calls entries and summaries
 
 <Info>
 Like Schrödinger's cat, this feature seems unremarkable until you actually open the box, once you try expanding the panel while reading a long Copilot response, you'll likely keep using it every day.
+</Info>
+
+### Recent Calls, Right Where You Need It
+
+Reviewing real conversations used to mean leaving the editor entirely and navigating to a separate Calls page. Now, the **Recent Calls** tab brings the last 30 days of activity for the agent you're editing directly into the right panel:
+
+- **At-a-glance status**: color-coded badges for finished, failed, busy, ringing, and other call outcomes
+- **Success indicators**: quickly spot calls marked as successful based on your evaluation criteria
+- **Relative and absolute timestamps**: see "2 hours ago" at a glance, with the exact date and time available on hover
+- **One-click access**: open any call's full recording and transcript in a new tab without losing your place in the editor
+- **View all**: jump straight to the Calls page pre-filtered for the current agent when you need the complete history
+
+<Info>
+Recent Calls refreshes on demand with a single click, so you can always check the very latest interactions while you're mid-edit on your system prompt.
 </Info>
 
 ### Advanced Collaboration

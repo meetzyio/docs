@@ -6,7 +6,7 @@ icon: 'wrench'
 
 ## Overview
 
-The Actions & Tools section is the powerhouse of your AI agent's operational capabilities. Here you configure what your agent can do during and after calls - from transferring conversations to human agents or SIP systems, to making intelligent API calls, and setting up sophisticated callback protocols.
+The Actions & Tools section is the powerhouse of your AI agent's operational capabilities. Here you configure what your agent can do during and after calls - from transferring conversations to human agents or SIP systems, to making intelligent API calls, checking business hours, and setting up sophisticated callback protocols.
 
 <Info>
 This section transforms your agent from a simple conversationalist into a fully integrated business automation tool that can take real actions and connect with your existing systems.
@@ -160,6 +160,10 @@ Message: (default transfer phrase)
 <Info>
 When Transfer v2 is disabled, your agent falls back to the classic single-destination Call Transfer configuration described above.
 </Info>
+
+<Warning>
+Transfer v2 is currently in **Beta**. Test each rule's condition thoroughly with realistic phrasing before relying on it in production, and keep an eye on how overlapping conditions are prioritized.
+</Warning>
 
 ### Multi-Language Transfer Prompt Templates
 
@@ -561,13 +565,13 @@ Each webhook parameter supports sophisticated data mapping:
   </Tab>
 </Tabs>
 
-## Schedule Controller (Beta)
+## Business Hours (Beta)
 
 <Info>
-**Schedule Controller** is a new built-in tool (Beta) that lets your agent automatically resolve whether the current call is happening within your configured business hours — no webhook or external calendar needed. It replaces manual date/time reasoning with a structured weekly schedule, holiday calendar, and time zone awareness.
+**Business Hours** is a new built-in tool (Beta) that lets your agent automatically resolve whether the current call is happening within your configured business hours — no webhook or external calendar needed. It replaces manual date/time reasoning with a structured weekly schedule, holiday calendar, and time zone awareness.
 </Info>
 
-Instead of prompting the model to reason about dates, weekdays, and time zones, the Schedule Controller evaluates the call timestamp against your configuration and returns whether the business is **open** or **closed** at that exact moment — including support for holiday exceptions and dedicated messaging for each state.
+Instead of prompting the model to reason about dates, weekdays, and time zones, the Business Hours tool evaluates the call timestamp against your configuration and returns whether the business is **open** or **closed** at that exact moment — including support for holiday exceptions and dedicated messaging for each state.
 
 ### What It Solves
 
@@ -575,13 +579,13 @@ Instead of prompting the model to reason about dates, weekdays, and time zones, 
 - Lets the agent give accurate opening hours or a "we're currently closed" response automatically
 - Enables conditional logic such as "only offer live transfer during business hours, otherwise offer a callback"
 - Accounts for holidays and special closures without extra prompt engineering
-- Removes the need for manual date/time reasoning in the system prompt
+- Removes the need for manual date/time arithmetic in the system prompt
 
 ### Configuration
 
 <Steps>
-  <Step title="Enable Schedule Controller">
-    Add the Schedule Controller tool from the Actions & Tools panel and toggle it on.
+  <Step title="Enable Business Hours">
+    Add the Business Hours tool from the Actions & Tools panel and toggle it on.
   </Step>
   <Step title="Set Your Weekly Schedule">
     Configure opening and closing times independently for each day of the week (Monday through Sunday). Mark any day as fully closed when it doesn't apply — for example, weekends or days your business doesn't operate.
@@ -667,21 +671,21 @@ Out-of-Hours Message: "We're currently closed. Our business hours are Monday to 
 
 ```
 Rule 1
-Condition: the customer wants to talk to sales AND the schedule is currently open
+Condition: the customer wants to talk to sales AND business hours are open
 Destination: Phone → +1-555-200-1000
 Type: Conference
 
 Rule 2
-Condition: the customer wants to talk to sales AND the schedule is currently closed
+Condition: the customer wants to talk to sales AND business hours are closed
 Destination: (no transfer — offer to schedule a callback instead)
 ```
 
 **Combined with End Call Strategy or system prompt:**
 
-Instruct the agent to check the Schedule Controller result before offering a live transfer, and fall back to taking a message or booking a callback when the result is `closed`.
+Instruct the agent to check the Business Hours result before offering a live transfer, and fall back to taking a message or booking a callback when the result is `closed`.
 
 <Warning>
-Schedule Controller is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and newly added holidays.
+Business Hours is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and newly added holidays.
 </Warning>
 
 ## End Call Strategy
@@ -995,4 +999,15 @@ Configure sophisticated calendar booking with comprehensive multi-provider suppo
     Set up OAuth 2.0 authentication:
     - Google Calendar: Configure Google Cloud Console project
     - Outlook: Set up Azure AD application registration
-    - Obtain necessary
+    - Obtain necessary API credentials and scopes
+  </Step>
+  <Step title="Calendar Selection">
+    Choose which calendars to check for availability and where to create new events.
+  </Step>
+  <Step title="Availability Rules">
+    Define working hours, buffer times, and blackout dates for appointment booking.
+  </Step>
+  <Step title="Booking Confirmation">
+    Configure confirmation messages, email notifications, and calendar invitations sent after a successful booking.
+  </Step>
+</Steps>
