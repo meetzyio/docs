@@ -4,7 +4,7 @@ description: "Rastrea cómo evolucionan las evaluaciones de tus agentes a lo lar
 icon: "chart-line"
 ---
 
-Las Tendencias de Evaluaciones te permiten monitorear el desempeño de tus agentes conversacionales a través del tiempo, identificando patrones de mejora y áreas que requieren atención.
+Las Tendencias de Evaluaciones te permiten monitorear el desempeño de tus agentes conversacionales a través del tiempo, identificando patrones de mejora, relacionando esos cambios con las versiones que has desplegado y descartando factores externos que no dependen de tu prompt.
 
 ## Accediendo a las Tendencias
 
@@ -42,11 +42,12 @@ La interfaz incluye un sistema de búsqueda inteligente que te permite:
 
 Selecciona entre varios períodos de análisis:
 
-- **Última semana**: Análisis de los últimos 7 días
-- **Último mes**: Tendencias del mes anterior
-- **Últimos 3 meses**: Vista trimestral
-- **Último año**: Análisis anual completo
-- **Rango personalizado**: Define fechas específicas
+- **Últimos 7 días**: Análisis semanal detallado
+- **Últimos 14 días**: Vista quincenal
+- **Últimos 30 días**: Tendencia mensual estándar
+- **Últimos 3 meses**: Vista trimestral con agrupación semanal
+- **Últimos 6 meses**: Análisis semestral con agrupación mensual
+- **Rango personalizado**: Define fechas específicas de inicio y fin
 
 ### Agrupación de Datos
 
@@ -64,16 +65,25 @@ Configura cómo se agrupan los datos en el tiempo:
   </Tab>
 </Tabs>
 
+<Info>
+  Al seleccionar un rango de tiempo predefinido, la agrupación se ajusta automáticamente al período más adecuado (por ejemplo, 6 meses agrupa por mes), aunque siempre puedes cambiarla manualmente.
+</Info>
+
 ## Interpretación de Gráficos
 
 ### Elementos Visuales
 
 Los gráficos de tendencias incluyen:
 
-- **Línea de tendencia**: Muestra la evolución temporal del puntaje
-- **Puntos de datos**: Cada evaluación individual
-- **Área sombreada**: Indica la confianza de la tendencia
+- **Línea de tendencia**: Muestra la evolución temporal del puntaje por cada evaluación configurada en el agente
+- **Puntos de datos**: Cada bucket de tiempo agregado según la agrupación seleccionada
+- **Área sombreada**: Indica el volumen relativo de datos detrás de cada punto
 - **Escala temporal**: Eje X configurable según el período seleccionado
+- **Marcadores de versión**: Líneas verticales que señalan cuándo se creó o desplegó una versión del agente
+
+<Info>
+  Puedes hacer zoom sobre cualquier tramo del gráfico con la rueda del ratón o seleccionando un área, y desplazarte (pan) manteniendo pulsado el clic. Esto es útil para inspeccionar de cerca el efecto de un despliegue puntual.
+</Info>
 
 ### Análisis de Patrones
 
@@ -87,6 +97,61 @@ Busca estos patrones importantes:
 - **Plateaus**: Períodos de estabilidad que pueden indicar optimización
 - **Caídas súbitas**: Posibles problemas que requieren investigación
 - **Variabilidad alta**: Inconsistencia que puede necesitar atención
+
+## Impacto de Versiones
+
+Cada vez que creas o despliegas una nueva versión de tu agente, Meetzy registra el evento y lo superpone en el gráfico de tendencias como un marcador. Esto te permite responder de forma directa a la pregunta: *¿esta versión mejoró o empeoró el desempeño?*
+
+### Cómo se calcula
+
+Para cada versión desplegada se compara:
+
+- **Antes**: la tasa de éxito promedio en la ventana previa al despliegue
+- **Después**: la tasa de éxito promedio en la ventana posterior al despliegue
+- **Delta**: la diferencia entre ambas, junto con el número de evaluaciones consideradas en cada lado (`nBefore` / `nAfter`)
+
+<Info>
+  Los mensajes de commit asociados a cada versión se muestran junto al marcador, lo que facilita identificar qué cambio provocó una mejora o una regresión.
+</Info>
+
+<Warning>
+  Si una versión tiene muy pocas evaluaciones antes o después del despliegue, el delta calculado puede no ser estadísticamente significativo. Da prioridad a comparaciones con volumen suficiente de datos a ambos lados.
+</Warning>
+
+## Insights Automáticos
+
+Además de los gráficos, la vista genera automáticamente una serie de **insights** en lenguaje natural que resumen los hallazgos más relevantes del período analizado.
+
+Cada insight tiene un tono asociado:
+
+- **Positivo**: mejoras claras en la tasa de éxito o en el volumen de evaluaciones
+- **Negativo**: caídas relevantes que conviene revisar
+- **Alerta**: variabilidad alta o datos insuficientes para una conclusión firme
+- **Neutral**: información contextual sin una tendencia clara
+
+<Info>
+  Los insights se recalculan cada vez que cambias el rango de tiempo, la agrupación o el agente seleccionado.
+</Info>
+
+## Contexto Externo
+
+Para evitar que factores ajenos al agente se interpreten como problemas de desempeño, puedes superponer capas de contexto externo sobre el gráfico de tendencias.
+
+<Tabs>
+  <Tab title="Clima">
+    Superpone temperatura y precipitación de una ciudad seleccionable (Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga o Zaragoza). Útil para explicar caídas de volumen en días de mal tiempo.
+  </Tab>
+  <Tab title="Festivos">
+    Marca los días festivos nacionales de España sobre la línea temporal, usando datos de Nager.Date con un conjunto de respaldo local en caso de que el servicio no responda.
+  </Tab>
+  <Tab title="Tipo de cambio">
+    Añade la evolución del tipo de cambio para contextualizar variaciones relacionadas con clientes o campañas internacionales.
+  </Tab>
+</Tabs>
+
+<Info>
+  Estas capas son opcionales y se activan de forma independiente. Puedes combinar varias a la vez para tener una visión más completa de lo que ocurría fuera del sistema durante un período determinado.
+</Info>
 
 ## Estados de la Interfaz
 
@@ -116,13 +181,14 @@ Para obtener insights valiosos:
 
 1. **Combina períodos**: Usa vistas semanales para detalles y mensuales para tendencias
 2. **Compara agentes**: Analiza múltiples agentes para identificar mejores prácticas
-3. **Documenta cambios**: Relaciona mejoras con actualizaciones específicas del agente
-4. **Monitoreo regular**: Establece revisiones periódicas de tendencias
+3. **Documenta cambios**: Relaciona mejoras con actualizaciones específicas del agente usando los marcadores de versión
+4. **Activa el contexto externo**: Antes de concluir que una caída se debe al agente, revisa si coincide con un festivo o un evento climático
+5. **Monitoreo regular**: Establece revisiones periódicas de tendencias
 
 ### Interpretación de Resultados
 
 <Warning>
-  Las tendencias deben interpretarse en contexto. Considera factores externos como cambios en el tráfico, actualizaciones del agente, o modificaciones en los criterios de evaluación.
+  Las tendencias deben interpretarse en contexto. Considera factores externos como cambios en el tráfico, actualizaciones del agente, festivos, clima o modificaciones en los criterios de evaluación.
 </Warning>
 
 Factores a considerar:
@@ -130,4 +196,5 @@ Factores a considerar:
 - **Volumen de llamadas**: Más datos proporcionan tendencias más confiables
 - **Estacionalidad**: Algunos patrones pueden ser cíclicos
 - **Cambios del sistema**: Actualizaciones pueden afectar las métricas temporalmente
+- **Despliegues de versiones**: Usa el análisis de impacto para validar si un cambio fue positivo o negativo
 - **Contexto del negocio**: Relaciona tendencias con eventos empresariales relevantes
