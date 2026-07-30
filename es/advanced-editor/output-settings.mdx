@@ -18,34 +18,47 @@ Los Parámetros de Salida son campos personalizados que tu agente extrae de la c
 
 ### Cambios Pendientes del Copilot
 
-Cuando el Copilot de IA analiza tu prompt del sistema, puede sugerir cambios automáticamente en los parámetros de salida.
+Cuando el Copilot de IA analiza tu prompt del sistema, puede sugerir cambios automáticamente en los parámetros de salida. Estos aparecen en un **banner morado con borde punteado**, justo encima de la lista de parámetros.
 
 <Warning>
-Las sugerencias del Copilot aparecen en un banner morado. Revisa cada cambio cuidadosamente antes de aceptarlo.
+Las sugerencias del Copilot aparecen resaltadas en morado. Revisa cada cambio cuidadosamente antes de aceptarlo, ya que se aplican en conjunto.
 </Warning>
 
-#### Gestión de Cambios Pendientes
+#### Anatomía del Banner de Cambios
 
-Los cambios pendientes se organizan por tipo de operación:
+El banner muestra un contador con el número total de cambios pendientes (por ejemplo, "3 parameter changes") junto a un icono de configuración, y dos botones de acción:
 
-| Operación | Descripción | Icono Visual |
+| Botón | Acción |
+|-------|--------|
+| **Accept** | Aplica todos los cambios sugeridos a la lista de parámetros |
+| **Reject** | Descarta todas las sugerencias sin modificar tus parámetros actuales |
+
+Debajo del encabezado, cada cambio propuesto se lista individualmente con una etiqueta de operación coloreada:
+
+| Operación | Descripción | Color de Etiqueta |
 |----------|-------------|--------------|
-| **Añadir** | Parámetros nuevos sugeridos | `+` verde |
-| **Modificar** | Cambios en parámetros existentes | `~` amarillo |
-| **Eliminar** | Parámetros marcados para eliminación | `-` rojo |
+| **Añadir** | Parámetros nuevos sugeridos | Verde |
+| **Modificar** | Cambios en parámetros existentes | Amarillo |
+| **Eliminar** | Parámetros marcados para eliminación | Rojo |
+
+Cada línea muestra el nombre del parámetro (en formato monoespaciado) y, cuando aplica, el tipo de dato sugerido (por ejemplo, `presupuesto: number`).
 
 <Steps>
   <Step title="Revisar Banner de Cambios">
-    Cuando aparezcan sugerencias, verás un banner morado con el número de cambios pendientes.
+    Cuando aparezcan sugerencias, verás el banner morado con el número de cambios pendientes en la parte superior de la sección de Parámetros de Salida.
   </Step>
   <Step title="Evaluar Cada Cambio">
-    Revisa el tipo de operación, nombre del parámetro y detalles de cada cambio propuesto.
+    Revisa el tipo de operación (etiqueta de color), el nombre del parámetro y, si corresponde, el tipo de dato de cada cambio propuesto.
   </Step>
   <Step title="Aceptar o Rechazar">
-    - **Aceptar**: Aplica todos los cambios sugeridos
-    - **Rechazar**: Descarta todas las sugerencias
+    - **Accept**: Aplica todos los cambios sugeridos de una sola vez
+    - **Reject**: Descarta todas las sugerencias y conserva tu configuración actual
   </Step>
 </Steps>
+
+<Info>
+Los cambios se aceptan o rechazan como un conjunto completo. Si solo quieres aplicar algunos, edítalos manualmente después de aceptar todos.
+</Info>
 
 ### Plantillas de Parámetros
 
@@ -74,13 +87,13 @@ Las plantillas predefinidas te permiten añadir rápidamente parámetros comunes
     En modo UX, haz clic en el botón "Templates" junto a "Add Parameter".
   </Step>
   <Step title="Explorar Panel de Plantillas">
-    Se abre un panel flotante con todas las plantillas categorizadas.
+    Se abre un panel flotante con scroll que muestra todas las plantillas categorizadas.
   </Step>
   <Step title="Añadir Plantillas">
     Haz clic en "Add" junto a cada plantilla que desees incluir.
   </Step>
   <Step title="Gestionar Plantillas Añadidas">
-    Los parámetros ya añadidos muestran "Added" y opción para eliminarlos.
+    Los parámetros ya añadidos muestran la etiqueta "Added" en verde y un icono para eliminarlos.
   </Step>
 </Steps>
 
@@ -203,7 +216,7 @@ El enriquecimiento permite incluir campos predefinidos adicionales en tu salida:
 |-------|-------------|----------|
 | 📝 **Transcripción** | Texto completo de la conversación | Análisis detallado, compliance |
 | 📋 **Resumen** | Resumen generado por IA | Vista rápida del contenido |
-| ✅ **Estado de Éxito** | Si la llamada logró su objetivo | KPIs y métricas de conversión |
+| ✅ **Estado de Éxito** | Si la llamada logró su objetivo, evaluado según criterios personalizados | KPIs y métricas de conversión |
 | 🆔 **ID de Llamada** | Identificador único de llamada | Referencia y trazabilidad |
 | 🤖 **ID de Agente** | Identificador del agente/playbook | Análisis por agente |
 | ⏱️ **Duración** | Duración en segundos | Métricas operativas |
@@ -212,23 +225,56 @@ El enriquecimiento permite incluir campos predefinidos adicionales en tu salida:
 | ✅ **Evaluaciones** | Resultados de tests de calidad | Control de calidad |
 | 📱 **Tipo** | Inbound/Outbound | Segmentación de llamadas |
 
-### Gestión de Cambios en Enriquecimiento
+### Estado de Éxito con Criterios Personalizados
 
-El sistema ahora maneja cambios pendientes en el enriquecimiento por separado:
+El toggle de **Success** (Estado de Éxito) ahora incluye un campo de criterios donde puedes definir, en lenguaje natural, qué condiciones debe cumplir la llamada para considerarse exitosa.
+
+<Steps>
+  <Step title="Activar el Toggle de Success">
+    En la sección de Enriquecimiento, activa el toggle **Success** para habilitar este campo en tu salida.
+  </Step>
+  <Step title="Definir los Criterios">
+    Al activarlo, se despliega un campo de texto donde describes las condiciones de éxito. Por ejemplo: "La llamada es exitosa si el cliente programó una cita o solicitó ser contactado nuevamente".
+  </Step>
+  <Step title="Guardar Configuración">
+    El agente evaluará automáticamente cada conversación contra estos criterios y devolverá `true` o `false` en el campo `success`.
+  </Step>
+</Steps>
+
+<Info>
+Cuanto más específicos sean tus criterios, más precisa será la evaluación. Evita ambigüedades y describe escenarios concretos de éxito.
+</Info>
+
+**Ejemplos de criterios de éxito:**
+
+- `"Exitosa si se agendó una cita o se confirmó un presupuesto"`
+- `"Exitosa únicamente si el cliente aceptó la propuesta comercial"`
+- `"Exitosa si se recopiló el email y el teléfono de contacto"`
 
 <Warning>
-Los cambios en el enriquecimiento aparecen en banners separados de los parámetros de salida.
+Si no defines criterios, el campo `success` usará una evaluación genérica basada en si se cumplió el objetivo general del agente, lo cual puede ser menos preciso.
+</Warning>
+
+### Gestión de Cambios Pendientes en Enriquecimiento
+
+Al igual que con los parámetros de salida, el Copilot puede sugerir cambios en la configuración de Enriquecimiento (incluyendo el toggle de Success y sus criterios). Estos cambios aparecen en su **propio banner morado**, independiente del banner de parámetros.
+
+<Warning>
+Los cambios en el enriquecimiento se muestran en un banner separado, justo encima de la sección de campos de Enriquecimiento. No se mezclan con los cambios de Parámetros de Salida.
 </Warning>
 
 <Steps>
-  <Step title="Cambios Automáticos">
-    El Copilot puede sugerir modificaciones basadas en tu prompt.
+  <Step title="Detección Automática">
+    El Copilot analiza tu prompt del sistema y puede sugerir activar/desactivar campos de enriquecimiento o modificar los criterios de éxito.
+  </Step>
+  <Step title="Revisión del Banner">
+    El banner muestra el contador de cambios pendientes junto con los botones **Accept** y **Reject**, igual que en la sección de Parámetros.
   </Step>
   <Step title="Revisión Independiente">
-    Puedes aceptar o rechazar cambios de enriquecimiento sin afectar los parámetros.
+    Puedes aceptar o rechazar los cambios de enriquecimiento sin que esto afecte los cambios pendientes en Parámetros de Salida, y viceversa.
   </Step>
   <Step title="Aplicación Selectiva">
-    Cada tipo de cambio se puede gestionar por separado.
+    Cada categoría de cambios (Parámetros vs. Enriquecimiento) se gestiona de forma totalmente independiente.
   </Step>
 </Steps>
 
@@ -286,25 +332,29 @@ Envía resultados de llamadas a tus sistemas externos automáticamente.
 }
 ```
 
+<Info>
+El campo `success` en el payload refleja el resultado de evaluar los criterios que definiste en el toggle de Success. Si no configuraste criterios personalizados, se usará la evaluación genérica del objetivo del agente.
+</Info>
+
 ## Flujo de Trabajo con Copilot
 
-El Copilot ofrece asistencia inteligente mejorada para configurar parámetros de salida:
+El Copilot ofrece asistencia inteligente mejorada para configurar parámetros de salida y enriquecimiento:
 
 <Steps>
   <Step title="Análisis Automático">
     Al escribir o modificar tu prompt del sistema, el Copilot analiza automáticamente el contenido.
   </Step>
   <Step title="Detección de Cambios">
-    Identifica qué parámetros necesitan añadirse, modificarse o eliminarse.
+    Identifica qué parámetros necesitan añadirse, modificarse o eliminarse, y qué campos de enriquecimiento (incluyendo Success) deberían activarse o ajustarse.
   </Step>
   <Step title="Sugerencias Contextuales">
-    Propone cambios basados en el contexto y objetivos de tu agente.
+    Propone cambios basados en el contexto y objetivos de tu agente, incluyendo posibles criterios de éxito.
   </Step>
   <Step title="Revisión Granular">
-    Presenta cada cambio con operación específica y detalles.
+    Presenta cada cambio con operación específica y detalles, separando siempre Parámetros de Enriquecimiento en banners distintos.
   </Step>
   <Step title="Aplicación Selectiva">
-    Permite aceptar o rechazar cambios por categoría (parámetros vs enriquecimiento).
+    Permite aceptar o rechazar cambios por categoría (parámetros vs. enriquecimiento) de forma completamente independiente.
   </Step>
 </Steps>
 
@@ -324,6 +374,11 @@ El Copilot ofrece asistencia inteligente mejorada para configurar parámetros de
 - Parámetros que ya no son relevantes
 - Campos duplicados o similares
 - Parámetros incompatibles con el nuevo prompt
+
+**Ajustes en Enriquecimiento**
+- Activación o desactivación de campos como Transcripción, Resumen o Success
+- Propuestas de criterios de éxito basados en el objetivo detectado en el prompt
+- Refinamiento de criterios existentes para mayor precisión
 
 ## Mejores Prácticas Avanzadas
 
@@ -347,6 +402,7 @@ Una configuración de salida mal diseñada puede resultar en datos incompletos o
    - Utiliza las sugerencias como base
    - Refina las propuestas según tu contexto
    - Itera basándote en resultados reales
+   - Revisa cuidadosamente los criterios de éxito sugeridos antes de aceptarlos
 
 ### Optimización de Descripciones
 
@@ -357,6 +413,13 @@ Las descripciones de parámetros son críticas para la extracción correcta:
 
 **❌ Malo**: `"interesado"`
 **✅ Bueno**: `"Si el cliente mostró interés genuino en proceder con el siguiente paso del proceso de venta"`
+
+### Optimización de Criterios de Éxito
+
+Al igual que las descripciones de parámetros, los criterios de éxito deben ser específicos:
+
+**❌ Malo**: `"La llamada fue buena"`
+**✅ Bueno**: `"Exitosa si el cliente confirmó una cita o solicitó una propuesta formal por email"`
 
 ### Gestión de Datos Sensibles
 
@@ -439,7 +502,7 @@ Siempre usa autenticación segura para webhooks que manejan datos sensibles.
     Busca campos frecuentemente vacíos o inconsistentes.
   </Step>
   <Step title="Refinar Descripciones">
-    Mejora las descripciones de parámetros problemáticos.
+    Mejora las descripciones de parámetros problemáticos y ajusta los criterios de éxito si el campo `success` no refleja la realidad.
   </Step>
   <Step title="Iterar y Mejorar">
     Ajusta la configuración basándote en resultados reales.
@@ -453,6 +516,7 @@ Siempre usa autenticación segura para webhooks que manejan datos sensibles.
 | **Completitud** | >85% campos llenos | Revisar descripciones |
 | **Consistencia** | >90% valores válidos | Mejorar validación |
 | **Precisión** | >95% datos correctos | Refinar prompts |
+| **Precisión de Success** | >90% coincidencia con revisión manual | Refinar criterios de éxito |
 
 ## Integración con Sistemas Externos
 
@@ -480,7 +544,7 @@ Siempre usa autenticación segura para webhooks que manejan datos sensibles.
 
 - **Email Marketing**: Segmenta listas basándote en parámetros extraídos
 - **Analytics**: Envía eventos a Google Analytics o similares  
-- **Automatización**: Dispara workflows basados en datos de llamadas
+- **Automatización**: Dispara workflows basados en datos de llamadas y el campo `success`
 
 ## Troubleshooting Común
 
@@ -497,6 +561,12 @@ Siempre usa autenticación segura para webhooks que manejan datos sensibles.
 - Estandariza formatos esperados en las descripciones
 - Usa validaciones en tu sistema receptor
 - Proporciona ejemplos en las descripciones
+
+**Problema**: El campo `success` no refleja el resultado real de la llamada
+**Solución**:
+- Revisa y reescribe los criterios de éxito con condiciones más concretas
+- Evita términos subjetivos como "buena" o "positiva"
+- Incluye ejemplos de escenarios de éxito y fracaso en los criterios
 
 **Problema**: Webhooks fallando
 **Solución**:

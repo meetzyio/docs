@@ -427,6 +427,51 @@ Un mismo mensaje de Copilot puede combinar texto explicativo con uno o varios bl
 Todos los bloques enriquecidos son totalmente responsivos y se adaptan automáticamente al modo claro/oscuro del editor, manteniendo consistencia visual con el resto de la interfaz.
 </Info>
 
+## Cambios Propuestos en Parámetros de Salida y Enriquecimiento
+
+Copilot también puede proponer cambios directamente sobre los **Parámetros de Salida** (Output Parameters) y sobre el **Enriquecimiento de Salida** (Output Enrichment) de tu agente. En lugar de aplicar estos cambios de inmediato, aparecen como una propuesta pendiente que debes revisar y confirmar desde el propio panel de configuración, no solo desde el chat.
+
+<Info>
+Esto le da a Copilot la misma capacidad de "proponer y confirmar" que ya tenía sobre el system prompt, pero extendida a la configuración de salida del agente: parámetros que el agente debe capturar y el contexto de enriquecimiento que procesa esa salida.
+</Info>
+
+### Cómo se ven los cambios pendientes
+
+Cuando Copilot detecta que conviene añadir, modificar o eliminar un parámetro de salida (por ejemplo, a partir de un evento `output_change` durante el diagnóstico de una llamada), no lo aplica directamente: lo deja en estado **pendiente** y muestra un banner destacado en la parte superior de la sección "Output Parameters" dentro del panel izquierdo del Editor Avanzado.
+
+Este banner incluye:
+
+- Un contador con el número de cambios pendientes (por ejemplo, "2 parameter changes")
+- Una lista con cada cambio propuesto, mostrando la **operación** (añadir, modificar o eliminar) y el **nombre** y **tipo** del parámetro afectado
+- Dos botones de acción: **Accept** (aceptar) y **Reject** (rechazar)
+
+<Steps>
+  <Step title="Copilot propone el cambio">
+    Durante una conversación, Copilot detecta que falta un campo de salida relevante o que uno existente debería ajustarse, y emite el evento correspondiente en segundo plano.
+  </Step>
+  <Step title="Aparece el banner de revisión">
+    En la sección de Output Parameters se muestra un banner con borde punteado indicando cuántos cambios están esperando tu revisión, junto con el detalle de cada uno.
+  </Step>
+  <Step title="Revisas y decides">
+    Puedes leer exactamente qué parámetro se va a crear, modificar o eliminar antes de tomar una decisión, sin sorpresas.
+  </Step>
+  <Step title="Aceptas o rechazas">
+    Al hacer clic en **Accept**, el cambio se aplica de inmediato a la configuración del agente. Al hacer clic en **Reject**, la propuesta se descarta y el parámetro queda exactamente como estaba.
+  </Step>
+</Steps>
+
+<Warning>
+Los cambios pendientes no modifican tu configuración hasta que los aceptas explícitamente. Puedes seguir trabajando con normalidad en el resto del editor mientras decides.
+</Warning>
+
+### Enriquecimiento de Salida
+
+El mismo mecanismo de propuesta y confirmación aplica cuando Copilot sugiere ajustes al **Output Enrichment**: el contexto adicional que se utiliza para procesar o interpretar los datos de salida capturados por el agente. En vez de sobrescribir este contenido directamente, Copilot lo presenta como una propuesta editable que puedes aceptar o rechazar desde la misma sección de configuración.
+
+<Info>
+Este flujo de aceptar/rechazar mantiene siempre el control final en tus manos: Copilot analiza, sugiere y explica el motivo del cambio, pero eres tú quien decide si esa modificación se incorpora a la configuración real del agente.
+</Info>
+
 ## Edición Directa de Tags de Audio y Actualización de Tests
 
 Además de reescribir el system prompt, Copilot puede actuar directamente sobre dos elementos clave de la configuración del agente sin pedirte que los reconstruyas manualmente: los **tags de audio expresivos** y los **tests ya existentes**.
@@ -853,4 +898,12 @@ El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo q
     
     **Pruebas A/B Automáticas**:
     - Sugerencias de variantes para testing
-    - Configuración automática de
+    - Configuración automática de experimentos comparativos
+    - Métricas de significancia estadística
+    - Recomendaciones de duración de prueba según volumen de llamadas
+  </Tab>
+</Tabs>
+
+<Info>
+Ya sea que Copilot modifique el system prompt, los tags de audio, un test existente o los parámetros y el enriquecimiento de salida, el principio es siempre el mismo: **proponer primero, aplicar después**. Tú mantienes siempre la última palabra sobre qué cambios entran en producción.
+</Info>

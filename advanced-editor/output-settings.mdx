@@ -12,6 +12,50 @@ Output Settings define what information your agent should extract and capture fr
 Well-configured output settings turn every call into structured, actionable data.
 </Info>
 
+## Success Evaluation
+
+Beyond extracting custom data points, you can configure your agent to automatically evaluate whether each call achieved its intended goal. This is done through the **Success** toggle and its associated **Success Criteria** field.
+
+### The Success Toggle
+
+<Info>
+When enabled, the AI evaluates every completed call against your defined criteria and returns a `success` boolean (`true`/`false`) alongside your other output data.
+</Info>
+
+<Steps>
+  <Step title="Enable Success Tracking">
+    Toggle on **Success** in the Output Settings panel to activate call outcome evaluation.
+  </Step>
+  <Step title="Define Success Criteria">
+    Once enabled, a **Success Criteria** text field appears. Describe in natural language what makes a call successful for your specific use case.
+  </Step>
+  <Step title="AI Evaluates Automatically">
+    After each call, the AI reads the full conversation and determines whether the criteria were met.
+  </Step>
+  <Step title="Access the Result">
+    The resulting `success` field is included in your webhook payload and API responses, ready for reporting or automation.
+  </Step>
+</Steps>
+
+### Writing Effective Success Criteria
+
+The **Success Criteria** field accepts free-form natural language, so you can be as specific as your use case requires. The clearer the description, the more accurate the AI's evaluation will be.
+
+| Agent Type | Example Success Criteria |
+|------------|---------------------------|
+| **Sales Agent** | "The call is successful if the customer agrees to schedule a demo or provides a budget range." |
+| **Support Agent** | "The call is successful if the customer's issue was resolved during the conversation without needing escalation." |
+| **Booking Agent** | "The call is successful if an appointment date and time were confirmed with the customer." |
+| **Survey Agent** | "The call is successful if the customer completed all survey questions." |
+
+<Tip>
+Write success criteria the same way you would explain it to a new team member — describe the specific outcome you're looking for, not just the topic of the call.
+</Tip>
+
+<Warning>
+Vague success criteria (e.g. "the call went well") produce inconsistent evaluations. Always tie success to a concrete, observable outcome in the conversation.
+</Warning>
+
 ## AI Copilot Smart Suggestions
 
 The AI Copilot provides intelligent assistance for configuring output settings with advanced change management capabilities. It analyzes your agent's purpose and conversation goals to recommend optimal data extraction fields.
@@ -48,13 +92,35 @@ AI suggestions adapt to different agent types - sales agents get lead qualificat
 
 ## Copilot Change Management
 
-The AI Copilot features an advanced change management system that allows you to review and control all modifications before they're applied.
+The AI Copilot features an advanced change management system that allows you to review and control all modifications before they're applied. Pending changes are surfaced through dedicated banners so you always know what's about to change before it happens.
 
-### Pending Changes System
+### Pending Changes Banners
 
 <Info>
-When the Copilot suggests changes to your output parameters or enrichment settings, you'll see a pending changes banner that lets you review each modification individually.
+There are two independent pending changes banners: one for **Output Parameters** and one for **Output Enrichment**. Each tracks its own set of suggestions, so you can review and act on them separately.
 </Info>
+
+<Tabs>
+  <Tab title="Output Parameters Banner">
+    Appears above the Output Parameters section whenever the Copilot proposes adding, removing, or modifying custom parameters.
+
+    - Shows a count badge (e.g. "3 parameter changes")
+    - Lists each pending change with an **Add**, **Remove**, or **Modify** label
+    - Displays the parameter name and data type for quick scanning
+    - Includes **Accept** and **Reject** buttons to apply or dismiss all changes in the batch
+  </Tab>
+  <Tab title="Output Enrichment Banner">
+    Appears above the Output Enrichment section whenever the Copilot proposes enabling or disabling enrichment fields (transcription, summary, evaluations, etc.).
+
+    - Shows a count badge for pending enrichment changes
+    - Lists each affected field with its recommended state
+    - Includes **Accept** and **Reject** buttons scoped only to enrichment suggestions
+  </Tab>
+</Tabs>
+
+<Tip>
+Because the two banners are independent, you can accept the AI's Output Parameters suggestions while still reviewing the Output Enrichment recommendations at your own pace (or vice versa).
+</Tip>
 
 ### Managing Pending Changes
 
@@ -68,8 +134,8 @@ When the Copilot suggests changes to your output parameters or enrichment settin
   </Tab>
   <Tab title="Granular Control">
     You can:
-    - Accept all changes at once
-    - Reject all changes
+    - Accept all changes at once via the banner's **Accept** button
+    - Reject all changes via the banner's **Reject** button
     - Accept/reject individual parameters
     - Modify suggestions before accepting
   </Tab>
@@ -90,7 +156,7 @@ When the Copilot suggests changes to your output parameters or enrichment settin
 | **Modify** | Blue | Changes to existing parameter |
 
 <Warning>
-Review all pending changes carefully before accepting. Once applied, changes will update your agent's output configuration immediately.
+Review all pending changes carefully before accepting. Once applied via the **Accept** button, changes will update your agent's output configuration immediately. Use **Reject** to discard the suggestions without modifying your current setup.
 </Warning>
 
 ## Output Parameters with Templates
@@ -229,11 +295,11 @@ The AI analyzes your agent's purpose, industry, and conversation goals to recomm
 
 ### Enrichment Change Management
 
-Just like output parameters, enrichment changes are managed through the pending changes system:
+Just like output parameters, enrichment changes are managed through their own dedicated pending changes banner:
 
 - Review suggested enrichment configurations
 - See which fields the AI recommends enabling/disabling
-- Accept or reject enrichment suggestions separately from parameter changes
+- Accept or reject enrichment suggestions with the banner's **Accept**/**Reject** buttons, independently from parameter changes
 
 ### Available Enrichment Fields
 
@@ -241,7 +307,7 @@ Just like output parameters, enrichment changes are managed through the pending 
 |-------|-------------|-----------------|
 | 📝 **Transcription** | Full conversation transcript | Quality assurance, compliance, training agents |
 | 📋 **Summary** | AI-generated call summary | Management reporting, CRM integration, executive dashboards |
-| ✅ **Success Status** | Whether call achieved its goal | Performance tracking, conversion optimization |
+| ✅ **Success Status** | Whether call achieved its goal (based on your Success Criteria) | Performance tracking, conversion optimization |
 | 🆔 **Call ID** | Unique call identifier | System integration, debugging, support tickets |
 | 🤖 **Agent ID** | Playbook/agent identifier | Multi-agent tracking, performance analytics |
 | ⏱️ **Duration** | Call length in seconds | Performance metrics, billing, efficiency analysis |
@@ -249,6 +315,10 @@ Just like output parameters, enrichment changes are managed through the pending 
 | 📊 **Call Status** | Final call status (completed, failed, etc.) | Operational monitoring, success rate tracking |
 | ✅ **Evaluations** | Results of evaluation tests | Quality assurance, agent training, compliance |
 | 🏷️ **Call Type** | Inbound/outbound classification | Campaign analysis, channel performance |
+
+<Info>
+The **Success Status** enrichment field only returns meaningful data once you've enabled the **Success** toggle and defined your **Success Criteria**. Without it, this field will remain empty.
+</Info>
 
 ### AI Enrichment Recommendations by Use Case
 
@@ -342,23 +412,28 @@ Send call results to your external systems automatically with enhanced security 
 }
 ```
 
+<Info>
+The `success` field in the payload above reflects the result of the AI's evaluation against your configured **Success Criteria**. It will be `null` or omitted if the **Success** toggle is disabled.
+</Info>
+
 ## Best Practices for AI-Enhanced Output Configuration
 
 <Warning>
-Write clear, specific descriptions for output parameters. The AI uses these descriptions to understand what to extract. Clear descriptions lead to more accurate data extraction and better AI suggestions.
+Write clear, specific descriptions for output parameters and success criteria. The AI uses these descriptions to understand what to extract and how to judge outcomes. Clear descriptions lead to more accurate data extraction and better AI suggestions.
 </Warning>
 
 ### Optimization Guidelines
 
 1. **Leverage AI Suggestions** - Start with AI-generated parameters for your agent type
 2. **Use Template Library** - Quickly add common parameters from the template system
-3. **Review Pending Changes** - Always review AI suggestions before accepting
-4. **Be Specific in Descriptions** - "Customer's budget range in USD" vs "budget"
-5. **Choose Appropriate Types** - Boolean for yes/no, number for quantities, string for text
-6. **Optimize Enrichment** - Enable only necessary enrichment fields based on AI recommendations
-7. **Test in Playground** - Verify parameter extraction accuracy before deploying
-8. **Secure Webhooks** - Use authentication for sensitive data transmission
-9. **Monitor Performance** - Review extraction accuracy and adjust descriptions as needed
+3. **Define Success Criteria Early** - Enable Success tracking and describe your desired outcome clearly from the start
+4. **Review Pending Changes** - Always review AI suggestions in both the Parameters and Enrichment banners before accepting
+5. **Be Specific in Descriptions** - "Customer's budget range in USD" vs "budget"
+6. **Choose Appropriate Types** - Boolean for yes/no, number for quantities, string for text
+7. **Optimize Enrichment** - Enable only necessary enrichment fields based on AI recommendations
+8. **Test in Playground** - Verify parameter extraction and success evaluation accuracy before deploying
+9. **Secure Webhooks** - Use authentication for sensitive data transmission
+10. **Monitor Performance** - Review extraction accuracy and adjust descriptions as needed
 
 ### AI Suggestion Acceptance Strategy
 
@@ -446,8 +521,8 @@ When the AI Copilot suggests output parameters, you'll see:
 
 <Tabs>
   <Tab title="Batch Operations">
-    - **Accept All** - Apply all suggestions simultaneously
-    - **Reject All** - Dismiss all pending changes
+    - **Accept All** - Apply all suggestions in the relevant banner (Parameters or Enrichment) simultaneously
+    - **Reject All** - Dismiss all pending changes in that banner
     - **Preview Impact** - See how changes affect your configuration
   </Tab>
   <Tab title="Individual Review">
@@ -477,6 +552,7 @@ For organizations running multiple specialized agents:
 1. **Consistent Naming** - Use AI suggestions to maintain parameter naming consistency
 2. **Cross-Agent Fields** - Implement common fields across different agent types
 3. **Enrichment Alignment** - Standardize enrichment settings for unified reporting
+4. **Unified Success Criteria** - Define consistent success language across similar agent types for comparable reporting
 
 ### CRM Integration Optimization
 

@@ -169,6 +169,10 @@ Copilot now operates as a comprehensive system engineer that can modify every as
         Comprehensive data processing instructions for captured information
       </Step>
     </Steps>
+
+    <Info>
+    Copilot can now propose changes **directly to Output Parameters and Output Enrichment**, not just Input Parameters. These suggestions appear as a dedicated pending-changes panel inside the Output Settings screen, listing every proposed addition, modification, or removal with clear **Accept** and **Reject** controls - so nothing is applied to your agent until you explicitly approve it.
+    </Info>
   </Tab>
   <Tab title="Evaluation & Testing">
     **Performance Measurement & Quality Assurance**
@@ -208,7 +212,7 @@ Copilot uses a streamlined event system for real-time feedback across all system
 | **text** | Streaming explanation content | 📝 Real-time text appearing | All operations |
 | **edit** | Structured prompt modification | ✏️ Diff preview with operation details | Prompt changes |
 | **input_change** | Input parameter modification | 🔧 Parameter change card | Input parameters |
-| **output_change** | Output setting update | 📤 Output configuration card | Output settings |
+| **output_change** | Output setting update | 📤 Output configuration card | Output parameters |
 | **enrichment_set** | Output enrichment update | ⚡ Enrichment content preview | Output enrichment |
 | **evaluation_change** | Evaluation criteria update | 📊 Evaluation configuration | Evaluations |
 | **test_create** | Automated test generation | 🧪 Test scenario preview | Test creation |
@@ -221,6 +225,10 @@ Copilot uses a streamlined event system for real-time feedback across all system
 
 <Info>
 The `rich_block` event carries a `blockType` (`stat_grid`, `table`, `chart`, or `card`) plus a structured `data` payload. The frontend renders it as a native component inline with the rest of the streamed conversation, right next to any `text` events in the same response.
+</Info>
+
+<Info>
+Both `output_change` and `enrichment_set` events now render inside the **Output Settings panel** as pending-change cards rather than only as inline chat previews. Each card shows the operation (Add / Modify / Remove), the field name, and its type, with individual and bulk **Accept**/**Reject** buttons - giving you the same granular control over Output Parameters and Output Enrichment that you already have for Input Parameters and prompt edits.
 </Info>
 
 ## Visual Change Management System
@@ -237,6 +245,8 @@ When Copilot generates configuration changes, distinctive visual indicators guid
     - **Change summary**: "3 new parameters, 1 evaluation"
     - **Bulk controls**: Accept All/Reject All buttons
     - **Panel navigation**: Direct links to affected configuration areas
+
+    This same banner style now appears in the **Output Settings panel**, listing every pending Output Parameter and Output Enrichment change proposed by Copilot before it touches your agent.
     
     <Warning>
     Purple notification dots appear on affected panel tabs to ensure you don't miss suggestions.
@@ -249,6 +259,8 @@ When Copilot generates configuration changes, distinctive visual indicators guid
     - **Parameter details**: Name, type, description, and requirements
     - **Impact preview**: Shows how the change affects your agent
     - **Individual controls**: Accept/reject buttons for granular control
+
+    Output Parameter and Output Enrichment suggestions follow this exact same card format, so reviewing them feels identical to reviewing Input Parameter or prompt changes.
   </Tab>
   <Tab title="Cross-Panel Integration">
     **Seamless navigation** between Copilot and configuration panels:
@@ -313,6 +325,10 @@ Copilot intelligently suggests changes across all agent configuration areas:
     - Data enrichment instructions for processing captured information
     - Webhook configuration recommendations
     - Output validation and formatting rules
+
+    <Info>
+    These Output Parameter and Output Enrichment suggestions are no longer just described in the chat - they're rendered directly inside the **Output Settings panel** as a pending-changes list, each entry showing the operation type (Add/Modify/Remove) and field details, with **Accept** and **Reject** buttons per change (plus bulk Accept All / Reject All). Nothing is written to your agent's configuration until you approve it.
+    </Info>
   </Tab>
   <Tab title="Evaluation Criteria Setup">
     **Performance Measurement Configuration** based on agent goals:
@@ -500,7 +516,7 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     **See comprehensive results instantly**:
     
     - Input Parameters panel updates with new fields
-    - Output Settings reflect new capture requirements
+    - Output Settings reflect new capture requirements **and any accepted Output Parameter or Output Enrichment changes proposed by Copilot**
     - Evaluations panel shows new measurement criteria
     - Basic Settings display updated configurations
     - Tests panel includes newly generated or updated test scenarios
@@ -612,6 +628,19 @@ tags there and remove the excessive excitement tags in the greeting.
 - Inserts empathetic expressiveness tags (e.g. `[softly]`, `[apologetic]`) around the apology section
 - Removes or tones down over-the-top tags in the greeting
 - Shows the change through the purple-highlight diff review before applying
+
+### Proposing Output Parameter and Enrichment Changes
+
+```
+The agent captures the customer's email but we never process it into 
+a normalized format, and we're missing a lead-source output field.
+```
+
+**Copilot performs**:
+- Proposes a new `lead_source` output parameter
+- Proposes an enrichment instruction to normalize the captured email format
+- Renders both proposals inside the **Output Settings panel** as pending change cards
+- Waits for you to **Accept** or **Reject** each one - or use Accept All / Reject All - before anything is applied to the agent
 
 ### Diagnosing Performance with Rich Blocks
 
@@ -868,7 +897,7 @@ sounding exaggerated anywhere else.
     **Check every panel with purple notification indicators**:
     
     - Input Parameters for new data collection fields
-    - Output Settings for enhanced data capture
+    - Output Settings for enhanced data capture **and any proposed Output Parameter or Output Enrichment changes**
     - Evaluations for performance measurement
     - Basic Settings for core configuration updates
     - **Tests panel for newly generated or updated test scenarios**
@@ -904,6 +933,14 @@ sounding exaggerated anywhere else.
     - Ask Copilot to review tag usage periodically, not just when something sounds wrong
     - Balance expressiveness so it enhances key moments without becoming distracting
     - Verify changes by listening to a Playground call after tags are updated
+  </Step>
+  <Step title="Review Output Changes Before Accepting Them">
+    **Treat Output Parameter and Enrichment suggestions like any other change**:
+    
+    - Open the Output Settings panel whenever Copilot proposes output-related changes
+    - Read each pending card's operation (Add/Modify/Remove) and field details before deciding
+    - Use individual Accept/Reject for surgical control, or bulk actions when you trust the full batch
+    - Nothing is applied to your agent until you explicitly accept it
   </Step>
   <Step title="Follow Cross-Panel Notification Cues">
     **Purple indicators guide you to all affected system areas**:
@@ -948,7 +985,7 @@ sounding exaggerated anywhere else.
     icon="arrow-up-tray"
     href="/advanced-editor/panels/output-settings"  
   >
-    Set up output fields, enrichment, and webhooks with intelligent recommendations
+    Set up output fields, enrichment, and webhooks with intelligent recommendations - now including Copilot's own accept/reject pending-changes panel
   </Card>
   <Card
     title="Evaluations"
@@ -978,4 +1015,4 @@ sounding exaggerated anywhere else.
   >
     Test your complete system configuration with real data and validate generated test scenarios
   </Card>
-</CardGroup>
+</C
