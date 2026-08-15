@@ -12,6 +12,10 @@ La sección de Historial de Llamadas proporciona una vista completa y detallada 
 
 Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas con la nueva interfaz mejorada.
 
+<Info>
+Esta página se mantiene sincronizada con la versión en inglés de la documentación. Si notas que un filtro se comporta distinto a como está descrito aquí, revisa primero el **panel de configuración de filtros** (icono de engranaje ⚙️) antes de reportarlo como un error: es muy probable que el filtro simplemente esté oculto, no desactivado.
+</Info>
+
 ## Vista General de la Interfaz
 
 La interfaz renovada del historial de llamadas incluye:
@@ -20,6 +24,7 @@ La interfaz renovada del historial de llamadas incluye:
 |---------|-------------|
 | 📊 **Cabecera Expandida** | Título, descripción detallada y estado de selección con acciones |
 | 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets y configuración personalizable |
+| 🆔 **Búsqueda por Call ID** | Campo dedicado para localizar una llamada exacta por su identificador |
 | 📋 **Tabla de Llamadas** | Lista interactiva con información clave y controles de visibilidad |
 | 📄 **Modal de Detalles** | Vista detallada de llamadas individuales con transcripciones |
 | ⚙️ **Panel de Configuración** | Control de visibilidad de filtros, columnas y presets desde el icono de engranaje |
@@ -51,7 +56,7 @@ El nuevo selector de fechas ofrece mayor flexibilidad y precisión:
 </Steps>
 
 <Info>
-El selector de fechas se desactiva automáticamente cuando usas la búsqueda por Call ID para evitar conflictos de filtros.
+El selector de fechas se desactiva automáticamente cuando usas la búsqueda por Call ID para evitar conflictos de filtros. Esto es intencional y no significa que hayas perdido tu configuración: en cuanto borres el Call ID, tu rango de fechas vuelve a aparecer tal cual lo dejaste.
 </Info>
 
 ### Filtro de Agentes con Multi-selección
@@ -111,6 +116,10 @@ Si tenías el filtro de Tags visible antes de esta actualización porque lo acti
 
 Junto a la barra de filtros encontrarás un icono de engranaje (⚙️) que abre el **panel de configuración de filtros**. Desde aquí puedes controlar qué filtros avanzados aparecen visibles en la barra principal, sin necesidad de eliminarlos ni perder los valores que ya tengan aplicados.
 
+<Info>
+Este panel es la respuesta a la pregunta más común de nuestros usuarios: *"¿a dónde se fue mi filtro de fecha / tags / evaluaciones?"*. En la gran mayoría de los casos, el filtro no desapareció: simplemente su visibilidad fue desactivada (por defecto o manualmente) y sigue disponible con un clic en el engranaje.
+</Info>
+
 <Steps>
   <Step title="Abrir el Panel">
     Haz clic en el icono de engranaje ubicado junto a los controles de filtrado para desplegar el panel de configuración.
@@ -118,6 +127,7 @@ Junto a la barra de filtros encontrarás un icono de engranaje (⚙️) que abre
 
   <Step title="Activar u Ocultar Filtros">
     Dentro del panel encontrarás interruptores (toggles) individuales para cada filtro opcional:
+    - **Date Range Filter** - Muestra u oculta el selector de rango de fechas
     - **Tags Filter** - Muestra u oculta el selector de etiquetas personalizadas
     - **Evaluation Filter** - Muestra u oculta el filtro por resultado de evaluaciones
 
@@ -134,14 +144,16 @@ Junto a la barra de filtros encontrarás un icono de engranaje (⚙️) que abre
 </Steps>
 
 <Info>
-Ocultar un filtro desde el panel de engranaje **no lo desactiva**. Si un filtro de Tags o Evaluations tiene un valor aplicado y luego lo ocultas, ese filtro sigue afectando los resultados hasta que lo limpies explícitamente. Revisa el resumen de filtros activos si los resultados no coinciden con lo esperado.
-</Info>
+Ocultar un filtro desde el panel de engranaje **no lo desactiva**. Si un filtro de Tags, Evaluations o Date Range tiene un valor aplicado y luego lo ocultas, ese filtro sigue afectando los resultados hasta que lo limpies explícitamente. Revisa el resumen de filtros activos si los resultados no coinciden con lo esperado.
+</Warning>
 
 ### Búsqueda por Call ID con Modo Exclusivo
 
 <Warning>
 Cuando introduces un Call ID específico, todos los demás filtros se desactivan temporalmente para mostrar únicamente la llamada exacta correspondiente a ese identificador.
 </Warning>
+
+El campo de **búsqueda por Call ID** está ubicado junto al resto de los controles de filtrado, normalmente al inicio de la barra de filtros. Es útil pensarlo como un "modo de búsqueda exacta" que se activa apenas empiezas a escribir un identificador.
 
 Características de la búsqueda por ID:
 
@@ -158,12 +170,26 @@ Es importante entender cómo interactúa la búsqueda por Call ID con el resto d
 |-----------|-----------------|
 | Escribes un Call ID con otros filtros ya aplicados | Los demás filtros se **deshabilitan visualmente** (aparecen atenuados) pero **no se pierden** |
 | La búsqueda por Call ID no encuentra resultados | Se muestra la tabla vacía; el resto de filtros permanece desactivado hasta que borres el ID |
-| Borras el campo de Call ID | Todos los filtros previos se **reactivan automáticamente** con los mismos valores que tenían antes |
+| Borras el campo de Call ID | Todos los filtros previos se **reactivan automáticamente** con los mismos valores que tenían antes, incluido el rango de fechas |
 | Aplicas un preset mientras hay un Call ID activo | El preset se guarda en la configuración, pero solo se aplicará visualmente una vez que limpies el Call ID |
 
 <Info>
-Mientras el Call ID está activo, los controles de fecha, agentes, estado, tags y evaluaciones se muestran atenuados (opacos) y no responden a clics. Esto es intencional: te indica de un vistazo que esos filtros no están participando en la búsqueda actual.
+Mientras el Call ID está activo, los controles de fecha, agentes, estado, tags y evaluaciones se muestran atenuados (opacos) y no responden a clics. Esto es intencional: te indica de un vistazo que esos filtros no están participando en la búsqueda actual. Ninguno de esos valores se borra; simplemente quedan "en pausa".
 </Info>
+
+### Preguntas Frecuentes: ¿Por qué desapareció mi filtro de fecha?
+
+<Steps>
+  <Step title="¿Escribiste un Call ID?">
+    Si el campo de búsqueda por Call ID tiene algún valor, el filtro de fecha (y el resto) se atenúa automáticamente. Borra el Call ID y el filtro de fecha volverá a estar activo con el mismo valor que tenías antes.
+  </Step>
+  <Step title="¿Se ocultó desde el panel de engranaje?">
+    Abre el panel de configuración (⚙️) y verifica que el interruptor de **Date Range Filter** esté activado. Si estaba apagado, el filtro seguía aplicado internamente, solo no era visible en la barra.
+  </Step>
+  <Step title="¿Aplicaste un preset guardado?">
+    Algunos presets personalizados pueden incluir su propia configuración de visibilidad de filtros. Si el preset que aplicaste no tenía el filtro de fecha visible, ajústalo desde el panel de engranaje y vuelve a guardar el preset si quieres que quede así de forma permanente.
+  </Step>
+</Steps>
 
 ## Configuración de Visibilidad de Columnas
 
@@ -200,7 +226,7 @@ Accede al mismo panel de configuración mediante el botón de engranaje (⚙️)
 </Tabs>
 
 <Info>
-El icono de engranaje concentra en un mismo lugar tanto la **visibilidad de filtros** (Tags, Evaluations) como la **visibilidad de columnas** y los **presets guardados**. Es el punto central para personalizar toda la experiencia de la tabla de llamadas.
+El icono de engranaje concentra en un mismo lugar tanto la **visibilidad de filtros** (Date Range, Tags, Evaluations) como la **visibilidad de columnas** y los **presets guardados**. Es el punto central para personalizar toda la experiencia de la tabla de llamadas.
 </Info>
 
 ## Tabla de Llamadas Interactiva
@@ -311,6 +337,10 @@ Cada llamada incluye un menú de acciones:
 | 🏷️ **Add Tags** | Agregar etiquetas personalizadas | Etiqueta |
 | 📊 **View Analytics** | Ver métricas específicas de la llamada | Gráfico |
 | 🔄 **Retry Call** | Reintentar llamada (si aplica) | Flecha circular |
+
+<Info>
+El botón **Copy Call ID** es la forma más rápida de obtener el identificador exacto que luego puedes pegar en el campo de búsqueda por Call ID descrito más arriba.
+</Info>
 
 ## Presets de Filtros Guardados
 
@@ -430,7 +460,7 @@ La generación de archivos Excel se procesa en segundo plano para no bloquear la
   </Card>
   
   <Card title="Aprovecha la Búsqueda por ID" icon="hashtag">
-    Para debugging o soporte, usa directamente el Call ID exacto. Es la forma más rápida de encontrar llamadas específicas.
+    Para debugging o soporte, usa directamente el Call ID exacto. Es la forma más rápida de encontrar llamadas específicas, aunque recuerda que temporalmente atenúa el resto de tus filtros.
   </Card>
   
   <Card title="Guarda Configuraciones Útiles" icon="save">
@@ -439,7 +469,7 @@ La generación de archivos Excel se procesa en segundo plano para no bloquear la
 </CardGroup>
 
 <Warning>
-Si activaste un filtro de Tags o Evaluations desde el panel de engranaje y luego lo ocultaste, recuerda que el filtro **sigue activo** aunque no lo veas. Si tus resultados parecen incompletos, revisa primero los filtros ocultos en el panel de configuración antes de asumir que hay un problema con los datos.
+Si activaste un filtro de Tags, Evaluations o Date Range desde el panel de engranaje y luego lo ocultaste, recuerda que el filtro **sigue activo** aunque no lo veas. Si tus resultados parecen incompletos, revisa primero los filtros ocultos en el panel de configuración antes de asumir que hay un problema con los datos.
 </Warning>
 
 ### Atajos de Teclado
