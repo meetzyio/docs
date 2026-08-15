@@ -74,7 +74,7 @@ Configure how your agent intelligently transfers calls to human agents, departme
 ### Transfer v2 (Beta): Multiple Transfer Rules
 
 <Info>
-**Transfer v2** is a Beta upgrade to Call Transfer that replaces the single destination model with a flexible list of **transfer rules**. Instead of sending every transfer to the same number, your agent evaluates each rule's condition in real time and routes the call to the matching destination.
+**Transfer v2** is a Beta upgrade to Call Transfer that replaces the single destination model with a flexible list of **transfer rules**. Instead of sending every transfer to the same number, your agent evaluates each rule's condition in real time and routes the call to the matching destination — with its own type, customer message, and optional briefing for the receiving human agent.
 </Info>
 
 Enable Transfer v2 with the **"Transfer to multiple destinations (Beta)"** toggle inside the Call Transfer panel. Once active, you can define as many rules as you need.
@@ -86,27 +86,30 @@ Each rule includes:
 | **Condition** | A natural-language description of when this rule should trigger (e.g., "the customer asks to speak with sales", "the customer wants to cancel a subscription") |
 | **Destination Type** | `Phone` or `SIP`, matching the same formats used in standard Call Transfer |
 | **Destination Value** | The phone number (`+1234567890`) or SIP URI (`sip:extension@ip:port`) to route to |
-| **Transfer Type** | `Blind` or `Conference` — controls how the handoff is performed |
-| **Custom Message** | An optional per-rule message the agent says right before transferring, overriding the default transfer phrase |
+| **Transfer Type** | `Direct` or `Warm` — controls how the handoff is performed |
+| **Customer Message** | An optional per-rule message the agent says to the caller right before transferring, overriding the default transfer phrase |
+| **Agent Briefing** | An optional message relayed to the receiving human agent — a short summary of who is calling and why — used only on `Warm` transfers |
 
 <Tabs>
-  <Tab title="Blind Transfer">
-    **Blind (Cold) Transfer**
+  <Tab title="Direct Transfer">
+    **Direct (Blind / Cold) Transfer**
     
     The agent immediately connects the caller to the destination without staying on the line.
 
     - **Best for**: Simple routing to a known extension or department
     - **Experience**: Fastest handoff, no context relay
     - **Use when**: The destination doesn't need a live briefing before speaking with the customer
+    - **Agent Briefing**: Not applicable — since the agent disconnects immediately, there's no opportunity to relay context
   </Tab>
-  <Tab title="Conference Transfer">
-    **Conference (Warm) Transfer**
+  <Tab title="Warm Transfer">
+    **Warm (Conference) Transfer**
     
     The agent stays connected momentarily to introduce the call and pass context before disconnecting.
 
     - **Best for**: Complex cases, VIP customers, or situations requiring a smooth handoff
-    - **Experience**: The receiving agent gets a short summary before taking over
+    - **Experience**: The receiving human agent hears the Agent Briefing before taking over the conversation
     - **Use when**: Context preservation is critical to avoid the customer repeating themselves
+    - **Agent Briefing**: Recommended — write a short, factual summary such as "Caller is asking about invoice #4521, already confirmed their identity"
   </Tab>
 </Tabs>
 
@@ -121,10 +124,13 @@ Each rule includes:
     Choose Phone or SIP and enter the corresponding destination value.
   </Step>
   <Step title="Choose Transfer Type">
-    Select Blind for an immediate handoff or Conference to relay context before disconnecting.
+    Select Direct for an immediate handoff or Warm to relay context before disconnecting.
   </Step>
-  <Step title="Add a Custom Message (Optional)">
+  <Step title="Add a Customer Message (Optional)">
     Write a message specific to this rule, such as "Let me connect you with our billing team" for a billing-related rule.
+  </Step>
+  <Step title="Add an Agent Briefing (Optional, Warm only)">
+    For Warm transfers, write a short internal summary the receiving human agent will hear before taking the call — for example, the customer's issue, sentiment, or anything already resolved.
   </Step>
   <Step title="Repeat for Additional Rules">
     Add as many rules as needed to cover all the transfer scenarios for your agent.
@@ -141,20 +147,23 @@ Rules are evaluated in the order they appear. Place more specific conditions abo
 Rule 1
 Condition: the customer wants to talk to sales or ask about pricing
 Destination: Phone → +1-555-200-1000
-Type: Conference
-Message: "I'll connect you with our sales team, one moment please."
+Type: Warm
+Customer Message: "I'll connect you with our sales team, one moment please."
+Agent Briefing: "Inbound caller interested in the Pro plan, already asked about annual pricing."
 
 Rule 2
 Condition: the customer reports a technical issue or outage
 Destination: SIP → sip:support@pbx.company.com:5060
-Type: Blind
-Message: "Transferring you to technical support now."
+Type: Direct
+Customer Message: "Transferring you to technical support now."
+Agent Briefing: (not applicable — Direct transfer)
 
 Rule 3
 Condition: the customer explicitly asks for a manager or wants to file a complaint
 Destination: Phone → +1-555-200-2000
-Type: Conference
-Message: (default transfer phrase)
+Type: Warm
+Customer Message: (default transfer phrase)
+Agent Briefing: "Caller is upset about a delayed refund, already apologized and confirmed order #8823."
 ```
 
 <Info>
@@ -673,7 +682,7 @@ Out-of-Hours Message: "We're currently closed. Our business hours are Monday to 
 Rule 1
 Condition: the customer wants to talk to sales AND business hours are open
 Destination: Phone → +1-555-200-1000
-Type: Conference
+Type: Warm
 
 Rule 2
 Condition: the customer wants to talk to sales AND business hours are closed
@@ -686,6 +695,87 @@ Instruct the agent to check the Business Hours result before offering a live tra
 
 <Warning>
 Business Hours is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and newly added holidays.
+</Warning>
+
+## Early Voicemail Detection
+
+<Info>
+**Early Voicemail Detection** adds a telephony-aware layer of Answering Machine Detection (AMD) that works alongside — and independently from — the phrase-based detection configured in **End Call Strategy** below. Instead of relying only on the agent recognizing a voicemail greeting mid-conversation, this feature can flag an answering machine earlier, using either the agent's own reasoning or signals from the carrier.
+</Info>
+
+Enable this tool to choose **how early** and **at what level** voicemail detection happens, trading off a small amount of latency for a higher confidence detection, or vice versa.
+
+### Detection Levels
+
+<Tabs>
+  <Tab title="Agent">
+    **Agent-Level Detection (Native)**
+
+    The AI agent listens to the call audio itself and recognizes voicemail or answering machine greetings using its own conversational reasoning — the same underlying mechanism used by the End Call Strategy phrase templates.
+
+    - **How it works**: The agent starts speaking normally and identifies typical voicemail phrasing as the conversation unfolds ("please leave a message after the tone", etc.)
+    - **Best for**: Simple setups where a natural conversation start matters more than shaving off detection time
+    - **Default**: This is the default level the first time Early Voicemail Detection is enabled
+  </Tab>
+  <Tab title="Carrier">
+    **Carrier-Level Detection**
+
+    Detection is delegated to the telephony carrier's native Answering Machine Detection signal, which analyzes call setup characteristics — ringing pattern, greeting cadence, energy levels — independently of what the agent says.
+
+    - **How it works**: The carrier analyzes the call in real time and reports whether it believes a human or a machine answered
+    - **Best for**: Faster, more consistent detection, especially useful for outbound calling at scale
+    - **Requires**: Choosing one of the two Carrier submodes below (Gate or Live)
+  </Tab>
+</Tabs>
+
+### Carrier Submodes: Gate vs Live
+
+When the Carrier level is selected, choose how the agent should act on the carrier's AMD signal:
+
+<Tabs>
+  <Tab title="Gate">
+    **Gate Mode**
+
+    The system waits for the carrier's AMD analysis to finish **before** letting the agent start speaking.
+
+    - **Behavior**: A brief pause occurs at the very start of the call while the carrier determines human vs. machine
+    - **Trade-off**: A slightly slower start, but the agent never delivers the wrong opening line to a machine
+    - **Best for**: Outbound calling where avoiding a wasted greeting to voicemail outweighs a one-to-two second delay
+  </Tab>
+  <Tab title="Live">
+    **Live Mode**
+
+    The call connects immediately and the carrier's AMD analysis runs live, in parallel with the conversation.
+
+    - **Behavior**: The agent can start speaking right away; if the carrier reports a machine mid-stream, the system reacts on the fly (e.g., handing off to End Call Strategy or leaving a pre-recorded message)
+    - **Trade-off**: A faster, more natural-feeling start, with a small chance the agent speaks a line or two before the machine is confirmed
+    - **Best for**: Scenarios where a fast, natural call start is the priority
+  </Tab>
+</Tabs>
+
+<Info>
+The system remembers which Carrier submode (Gate or Live) you last used. Switching back to Carrier after temporarily trying Agent level automatically restores your previous submode.
+</Info>
+
+### Configuration
+
+<Steps>
+  <Step title="Enable Early Voicemail Detection">
+    Toggle on Early Voicemail Detection in the Actions & Tools panel.
+  </Step>
+  <Step title="Choose a Detection Level">
+    Select **Agent** for native recognition by the AI, or **Carrier** for telephony-level AMD.
+  </Step>
+  <Step title="Select a Submode (Carrier only)">
+    If you chose Carrier, pick **Gate** for a safer, slightly delayed start, or **Live** for an immediate start with parallel analysis.
+  </Step>
+  <Step title="Keep End Call Strategy Active as a Fallback">
+    Leave your End Call Strategy phrase templates configured — Early Voicemail Detection catches most cases sooner, while phrase detection remains a reliable safety net for anything it misses.
+  </Step>
+</Steps>
+
+<Warning>
+Carrier-level AMD accuracy can vary depending on your telephony provider and the destination country. Test both Gate and Live submodes with real call patterns before relying on them for high-volume outbound campaigns.
 </Warning>
 
 ## End Call Strategy
@@ -706,308 +796,5 @@ Configure intelligent call termination with sophisticated answering machine dete
   </Step>
   <Step title="Handle Edge Cases">
     Configure responses for unexpected scenarios like long silences or system errors.
-  </Step>
-</Steps>
-
-### Multi-Language End Call Strategy Templates
-
-Professional call termination templates with comprehensive answering machine detection:
-
-<Info>
-**Detection Accuracy**: 97%+ accuracy in identifying automated systems across all supported languages
-**Response Time**: Detection typically occurs within 2-4 seconds
-**False Positive Rate**: Less than 2% with enhanced phrase recognition
-</Info>
-
-<Tabs>
-  <Tab title="Spanish">
-    ```markdown
-    ## Finalización de llamada por Detección de Contestador Automático
-
-    Si se detecta que el usuario es un contestador automático, finaliza la llamada de inmediato. Aquí tienes ejemplos de mensajes que suelen decir los contestadores automáticos:
-
-    **Frases comunes de contestadores:**
-    - En este momento no podemos atenderle
-    - Deje su mensaje después de la señal
-    - El número al que llama...
-    - Ha llamado al...
-    - Este es el contestador de...
-    - Puedes dejar tu mensaje al oir la señal
-    - Deje su mensaje después de oir la señal
-    - Gracias por llamar, en estos momentos...
-    - Por favor, deje su mensaje después del tono
-    - Lo sentimos, pero en estos momentos...
-    - Bienvenido al buzón de voz de...
-    - No podemos atender su llamada ahora mismo
-    - Por favor, inténtelo de nuevo más tarde
-    - Ha contactado con el servicio de atención al cliente
-    - Bienvenido al contestador automático de...
-    - Su llamada es muy importante para nosotros
-    - Todos nuestros operadores están ocupados
-    - Manténgase en línea por favor
-
-    ## Finalización de Llamada por otros motivos: 
-
-    También debes colgar las llamadas cuando:
-    - El usuario se despida de forma clara
-    - Te despidas tú mismo
-    - La conversación haya alcanzado su objetivo completamente
-    - El usuario indique claramente que no está interesado
-    - Se detecten largos períodos de silencio (más de 10 segundos)
-    ```
-  </Tab>
-  <Tab title="English">
-    ```markdown
-    ## Call Termination by Answering Machine Detection
-
-    If it is detected that the user is an answering machine, terminate the call immediately. Here are examples of messages that answering machines typically say:
-
-    **Common answering machine phrases:**
-    - We cannot attend you at this time
-    - Leave your message after the signal
-    - The number you called...
-    - You have called...
-    - This is the answering machine of...
-    - You can leave your message when you hear the signal
-    - Leave your message after hearing the signal
-    - Thank you for calling, at this time...
-    - Please leave your message after the tone
-    - We're sorry, but at this time...
-    - Welcome to the voicemail of...
-    - We cannot take your call right now
-    - Please try again later
-    - You have contacted customer service
-    - Welcome to the answering machine of...
-    - Your call is very important to us
-    - All our operators are busy
-    - Please hold the line
-
-    ## Call Termination for other reasons:
-
-    You should also hang up calls when:
-    - The user clearly says goodbye
-    - You say goodbye yourself
-    - The conversation has completely achieved its objective
-    - The user clearly indicates they are not interested
-    - Long periods of silence are detected (more than 10 seconds)
-    ```
-  </Tab>
-  <Tab title="French">
-    ```markdown
-    ## Finalisation d'appel par Détection de Répondeur Automatique
-
-    Si il est détecté que l'utilisateur est un répondeur automatique, finalisez l'appel immédiatement. Voici des exemples de messages que les répondeurs disent généralement :
-
-    **Phrases communes de répondeurs:**
-    - En ce moment nous ne pouvons pas vous répondre
-    - Laissez votre message après le signal
-    - Le numéro que vous avez appelé...
-    - Vous avez appelé le...
-    - Ceci est le répondeur de...
-    - Vous pouvez laisser votre message en entendant le signal
-    - Laissez votre message après avoir entendu le signal
-    - Merci d'avoir appelé, en ce moment...
-    - Veuillez laisser votre message après le ton
-    - Nous sommes désolés, mais en ce moment...
-    - Bienvenue sur la messagerie vocale de...
-    - Nous ne pouvons pas prendre votre appel maintenant
-    - Veuillez réessayer plus tard
-    - Vous avez contacté le service client
-    - Bienvenue sur le répondeur automatique de...
-    - Votre appel est très important pour nous
-    - Tous nos opérateurs sont occupés
-
-    ## Finalisation d'Appel pour d'autres raisons :
-
-    Vous devez également raccrocher les appels quand :
-    - L'utilisateur dit clairement au revoir
-    - Vous dites au revoir vous-même
-    - La conversation a complètement atteint son objectif
-    - L'utilisateur indique clairement qu'il n'est pas intéressé
-    - De longues périodes de silence sont détectées (plus de 10 secondes)
-    ```
-  </Tab>
-  <Tab title="German">
-    ```markdown
-    ## Anrufbeendigung durch Anrufbeantworter-Erkennung
-
-    Wenn erkannt wird, dass der Benutzer ein Anrufbeantworter ist, beenden Sie den Anruf sofort. Hier sind Beispiele für Nachrichten, die Anrufbeantworter normalerweise sagen:
-
-    **Häufige Anrufbeantworter-Phrasen:**
-    - Wir können Sie derzeit nicht erreichen
-    - Hinterlassen Sie Ihre Nachricht nach dem Signal
-    - Die Nummer, die Sie angerufen haben...
-    - Sie haben angerufen...
-    - Dies ist der Anrufbeantworter von...
-    - Sie können Ihre Nachricht hinterlassen, wenn Sie das Signal hören
-    - Hinterlassen Sie Ihre Nachricht nach dem Hören des Signals
-    - Vielen Dank für Ihren Anruf, derzeit...
-    - Bitte hinterlassen Sie Ihre Nachricht nach dem Ton
-    - Es tut uns leid, aber derzeit...
-    - Willkommen in der Mailbox von...
-    - Wir können Ihren Anruf jetzt nicht entgegennehmen
-    - Alle unsere Mitarbeiter sind beschäftigt
-    - Bitte versuchen Sie es später erneut
-
-    ## Anrufbeendigung aus anderen Gründen:
-
-    Sie sollten auch Anrufe beenden, wenn:
-    - Der Benutzer sich klar verabschiedet
-    - Sie sich selbst verabschieden
-    - Das Gespräch sein Ziel vollständig erreicht hat
-    - Der Benutzer klar angibt, dass er nicht interessiert ist
-    - Lange Stillstandsperioden erkannt werden (mehr als 10 Sekunden)
-    ```
-  </Tab>
-  <Tab title="Italian">
-    ```markdown
-    ## Terminazione Chiamata per Rilevamento Segreteria Telefonica
-
-    Se viene rilevato che l'utente è una segreteria telefonica, termina la chiamata immediatamente. Ecco esempi di messaggi che le segreterie telefoniche dicono solitamente:
-
-    **Frasi comuni delle segreterie:**
-    - Al momento non possiamo rispondere
-    - Lasci il suo messaggio dopo il segnale
-    - Il numero che ha chiamato...
-    - Ha chiamato il...
-    - Questa è la segreteria di...
-    - Può lasciare il suo messaggio quando sente il segnale
-    - Lasci il suo messaggio dopo aver sentito il segnale
-    - Grazie per aver chiamato, al momento...
-    - Per favore, lasci il suo messaggio dopo il tono
-    - Ci dispiace, ma al momento...
-    - Benvenuto nella segreteria di...
-    - Non possiamo rispondere alla sua chiamata ora
-    - La sua chiamata è molto importante per noi
-    - Tutti i nostri operatori sono occupati
-
-    ## Terminazione Chiamata per altri motivi:
-
-    Dovrebbe anche terminare le chiamate quando:
-    - L'utente si congeda chiaramente
-    - Si congeda lei stessa
-    - La conversazione ha completamente raggiunto il suo obiettivo
-    - L'utente indica chiaramente che non è interessato
-    - Vengono rilevati lunghi periodi di silenzio (più di 10 secondi)
-    ```
-  </Tab>
-  <Tab title="Portuguese">
-    ```markdown
-    ## Finalização de chamada por Detecção de Secretária Eletrônica
-
-    Se for detectado que o usuário é uma secretária eletrônica, finalize a chamada imediatamente. Aqui estão exemplos de mensagens que as secretárias eletrônicas normalmente dizem:
-
-    **Frases comuns de secretárias eletrônicas:**
-    - No momento não podemos atendê-lo
-    - Deixe sua mensagem após o sinal
-    - O número que você ligou...
-    - Você ligou para...
-    - Esta é a secretária eletrônica de...
-    - Você pode deixar sua mensagem quando ouvir o sinal
-    - Deixe sua mensagem após ouvir o sinal
-    - Obrigado por ligar, neste momento...
-    - Por favor, deixe sua mensagem após o tom
-    - Lamentamos, mas neste momento...
-    - Bem-vindo à caixa postal de...
-    - Não podemos atender sua chamada agora
-    - Sua ligação é muito importante para nós
-    - Todos os nossos operadores estão ocupados
-
-    ## Finalização de Chamada por outros motivos:
-
-    Você também deve encerrar chamadas quando:
-    - O usuário se despede claramente
-    - Você se despede
-    - A conversa atingiu completamente seu objetivo
-    - O usuário indica claramente que não está interessado
-    - Longos períodos de silêncio são detectados (mais de 10 segundos)
-    ```
-  </Tab>
-</Tabs>
-
-## Calendar Integration
-
-Configure sophisticated calendar booking with comprehensive multi-provider support for seamless appointment scheduling.
-
-### Supported Calendar Providers
-
-<Info>
-**Multi-Provider Support**: Full integration with both Google Calendar and Microsoft Outlook/Exchange Online for maximum compatibility and business flexibility.
-</Info>
-
-<Tabs>
-  <Tab title="Google Calendar">
-    **Google Calendar Integration**
-    
-    Complete integration with Google Calendar ecosystem:
-
-    **Features:**
-    - Real-time availability checking across multiple calendars
-    - Automatic event creation with intelligent conflict detection
-    - Meeting invitations and automated reminder systems
-    - Comprehensive timezone handling and conversion
-    - Integration with Google Meet for virtual meetings
-
-    **Configuration Requirements:**
-    - Google Calendar API access with OAuth 2.0
-    - Calendar ID for availability checking
-    - Dedicated booking calendar ID for new events
-    - Working hours and timezone preferences
-    - Default meeting duration and buffer settings
-  </Tab>
-  <Tab title="Outlook Calendar">
-    **Microsoft Outlook Integration**
-    
-    Enterprise-grade integration with Microsoft ecosystem:
-
-    **Features:**
-    - Exchange Online and Office 365 compatibility
-    - Meeting room booking and resource management
-    - Microsoft Teams meeting integration
-    - Corporate calendar policies and compliance
-    - Multi-tenant support for enterprise environments
-
-    **Configuration Requirements:**
-    - Microsoft Graph API permissions
-    - Exchange server configuration
-    - Azure AD authentication credentials
-    - Corporate policy compliance settings
-    - Teams integration for virtual meetings
-  </Tab>
-</Tabs>
-
-### Calendar Configuration Options
-
-**Availability Management:**
-- **Multi-Calendar Support**: Check availability across personal and shared calendars
-- **Working Hours Definition**: Set business hours for appointment availability
-- **Timezone Intelligence**: Automatic timezone detection and conversion
-- **Buffer Time Management**: Configure buffer periods between appointments
-- **Blackout Dates**: Exclude holidays and special dates from booking
-
-**Booking Preferences:**
-- **Duration Templates**: Standard meeting lengths (15, 30, 60 minutes)
-- **Advance Notice**: Minimum time required before booking (e.g., 2 hours)
-- **Booking Window**: Maximum advance booking period (e.g., 30 days)
-- **Conflict Resolution**: Automatic handling of scheduling conflicts
-- **Confirmation Settings**: Email confirmations and calendar invitations
-
-### Calendar Integration Workflow
-
-<Steps>
-  <Step title="Provider Authentication">
-    Set up OAuth 2.0 authentication:
-    - Google Calendar: Configure Google Cloud Console project
-    - Outlook: Set up Azure AD application registration
-    - Obtain necessary API credentials and scopes
-  </Step>
-  <Step title="Calendar Selection">
-    Choose which calendars to check for availability and where to create new events.
-  </Step>
-  <Step title="Availability Rules">
-    Define working hours, buffer times, and blackout dates for appointment booking.
-  </Step>
-  <Step title="Booking Confirmation">
-    Configure confirmation messages, email notifications, and calendar invitations sent after a successful booking.
   </Step>
 </Steps>

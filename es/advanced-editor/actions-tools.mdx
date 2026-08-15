@@ -1,12 +1,12 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura transferencias, finalización de llamadas, webhooks, recall automático, horarios de atención, comunicación multicanal y dominios de email propios'
+description: 'Configura transferencias con reglas múltiples, detección temprana de buzón de voz, finalización de llamadas, webhooks, recall automático, horarios de atención, comunicación multicanal y dominios de email propios'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples, detección automática de contestadores, webhooks personalizados, protocolos de rellamada, el **Schedule Controller (Beta)** para horarios de atención, integración de calendario y comunicación multicanal con Email, SMS y WhatsApp, incluyendo la vinculación de tu propio dominio de email.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples (Transfer v2 Beta), detección temprana y automática de contestadores, webhooks personalizados, protocolos de rellamada, el **Schedule Controller (Beta)** para horarios de atención, integración de calendario y comunicación multicanal con Email, SMS y WhatsApp, incluyendo la vinculación de tu propio dominio de email.
 
 <Info>
 Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
@@ -396,6 +396,88 @@ El sistema AI reconoce patrones específicos en cada idioma con alta precisión:
   </Tab>
 </Tabs>
 
+### Detección Temprana de Buzón de Voz (Early Voicemail Detection)
+
+<Info>
+Además de la detección conversacional realizada por la IA (descrita arriba), Meetzy incorpora una capa de **Detección Temprana de Buzón de Voz** que opera a nivel de operador telefónico (carrier), permitiendo identificar contestadores automáticos *antes* de que el agente empiece a hablar, o en paralelo mientras lo hace. Esta funcionalidad se controla mediante la propiedad `amd_mode` (`'' | 'off' | 'live' | 'gate'`) y se expone en la interfaz como un interruptor **"Voicemail Detection"** junto a un selector de modo.
+</Info>
+
+#### Dos Niveles de Detección Complementarios
+
+| Nivel | Cómo Funciona | Cuándo Actúa | Configuración |
+|-------|---------------|--------------|----------------|
+| **Nativo (Agente/IA)** | La IA analiza el contenido semántico de lo que escucha y reconoce frases típicas de contestadores | Durante la conversación, una vez que el agente ya ha empezado a interactuar | `voicemailDetectionMode: 'native'` (comportamiento por defecto) |
+| **Operador (Carrier)** | El propio operador de telefonía analiza señales técnicas de la llamada (tonos, patrones de silencio, señal de "beep") para determinar si es un contestador | Al inicio de la llamada, antes o en paralelo al primer mensaje del agente | `voicemailDetectionMode: 'gate'` o `'live'` |
+
+#### Modos de Detección a Nivel de Operador
+
+Cuando seleccionas la detección a nivel de "Carrier", puedes elegir entre dos submodos, cada uno con un compromiso distinto entre velocidad de respuesta y precisión:
+
+<Tabs>
+  <Tab title="Gate (Puerta de Espera)">
+    En modo **Gate**, el sistema **retiene la voz del agente** hasta que el operador telefónico confirma si la llamada fue contestada por una persona o por un contestador automático. Solo cuando se confirma que hay una persona al otro lado, el agente comienza a hablar.
+
+    **Ventajas**:
+    - Máxima precisión: el agente nunca "malgasta" su primer mensaje hablándole a un contestador
+    - Ideal para mensajes de apertura largos o con información sensible
+
+    **Consideraciones**:
+    - Introduce una pequeña latencia inicial mientras se espera la confirmación del operador
+    - Recomendado para campañas salientes de alto volumen donde el coste de "desperdiciar" aperturas es alto
+  </Tab>
+  <Tab title="Live (Habla en Vivo)">
+    En modo **Live**, el agente **comienza a hablar de inmediato** al descolgarse la llamada, sin esperar confirmación del operador. En paralelo, el sistema monitoriza la llamada y, si detecta que se trata de un contestador automático, puede finalizar la llamada automáticamente.
+
+    **Ventajas**:
+    - Sin latencia inicial: la conversación se siente más natural y humana desde el primer segundo
+    - Ideal para llamadas entrantes donde la inmediatez es crítica para la experiencia del usuario
+
+    **Consideraciones**:
+    - Existe una pequeña ventana de tiempo donde el agente podría empezar a hablar antes de que se confirme que es un contestador
+    - Se recomienda combinar con la detección nativa (IA) como capa de respaldo
+  </Tab>
+</Tabs>
+
+#### Proceso de Configuración
+
+<Steps>
+  <Step title="Activar Voicemail Detection">
+    Habilita el interruptor "Voicemail Detection" en la sección de Acciones y Herramientas (`voicemailDetectionEnabled: true`).
+  </Step>
+  <Step title="Elegir el Nivel de Detección">
+    Selecciona entre "Agent" (detección nativa realizada por la IA durante la conversación) o "Carrier" (detección técnica a nivel de operador telefónico).
+  </Step>
+  <Step title="Configurar Submodo de Carrier (si aplica)">
+    Si eliges "Carrier", selecciona entre "Gate" (esperar confirmación antes de hablar) o "Live" (hablar de inmediato y monitorizar en paralelo).
+  </Step>
+  <Step title="Validar con Llamadas de Prueba">
+    Realiza llamadas de test tanto a números que sean contestados por personas como a números con contestador automático para verificar el comportamiento esperado en cada escenario.
+  </Step>
+</Steps>
+
+<Info>
+El sistema recuerda automáticamente el último submodo de Carrier utilizado (`lastCarrierVoicemailMode: 'gate' | 'live'`). Así, si cambias temporalmente a detección "Agent" y luego regresas a "Carrier", la interfaz restaura el submodo que tenías configurado previamente, evitando que tengas que reconfigurarlo cada vez.
+</Info>
+
+#### Comparativa de Modos de Detección
+
+| Modo | Momento de Detección | Latencia Inicial | Precisión | Recomendado Para |
+|------|----------------------|-------------------|-----------|-------------------|
+| **Native (Agent)** | Durante la conversación, vía análisis semántico de la IA | Ninguna | Alta, pero requiere que el contestador haya reproducido su mensaje | Llamadas entrantes y salientes con mensajes de apertura cortos |
+| **Carrier - Gate** | Antes de que el agente hable, vía señal técnica del operador | Baja a moderada | Muy alta | Campañas salientes masivas con mensajes de apertura largos o sensibles |
+| **Carrier - Live** | En paralelo al primer mensaje del agente | Ninguna | Alta, con posible margen de error mínimo al inicio | Llamadas entrantes donde la inmediatez es prioritaria |
+
+<Warning>
+La disponibilidad de los modos "Gate" y "Live" depende de las capacidades de detección de contestadores (AMD) ofrecidas por tu proveedor de telefonía/carrier. Verifica con tu proveedor qué modos están soportados en tu configuración de troncal SIP antes de activarlos en producción.
+</Warning>
+
+#### Buenas Prácticas
+
+- **Combina niveles**: Usa la detección "Carrier" como primera línea de defensa y mantén la detección "Native" activa como respaldo semántico
+- **Elige el submodo según el caso de uso**: "Gate" para campañas salientes masivas; "Live" para llamadas entrantes donde la naturalidad es crítica
+- **Prueba con distintos operadores**: Si trabajas con múltiples troncales SIP, valida el comportamiento de AMD con cada proveedor, ya que la precisión puede variar
+- **Monitorea la tasa de falsos positivos**: Revisa periódicamente las llamadas finalizadas automáticamente por detección de contestador para asegurarte de que no se estén cortando conversaciones con personas reales
+
 ### Plantillas de Finalización por Idioma
 
 Configura respuestas inteligentes de finalización según el idioma detectado:
@@ -493,290 +575,4 @@ El Schedule Controller se construye sobre tres piezas de configuración claramen
 |----------|------------------|------------------------|
 | **`ScheduleController`** | Objeto raíz: activación, zona horaria y comportamiento fuera de horario | `enabled`, `timezone`, `outOfHoursBehavior` |
 | **`ScheduleDayConfig`** | Configura un día concreto de la semana (abierto/cerrado, hora de inicio y fin) | `{ open: "09:00", close: "18:00" }` o `{ closed: true }` |
-| **`ScheduleHoliday`** | Excepción puntual que sobrescribe el horario habitual en una fecha específica | `{ date: "2025-12-25", closed: true, reason: "Navidad" }` |
-
-### Proceso de Configuración
-
-<Steps>
-  <Step title="Activar la Herramienta">
-    Habilita "Schedule Controller" desde el interruptor correspondiente en la sección de Acciones y Herramientas (`enabled: true`).
-  </Step>
-  <Step title="Definir Horario Semanal">
-    Configura la hora de inicio y fin para cada día de la semana usando un objeto `ScheduleDayConfig` por día. Puedes marcar días completos como cerrados (ej. domingos) con `closed: true`.
-  </Step>
-  <Step title="Establecer Zona Horaria">
-    Selecciona la zona horaria de referencia (`timezone`) para que los cálculos de horario sean precisos independientemente de dónde llame el cliente.
-  </Step>
-  <Step title="Añadir Excepciones y Festivos">
-    Define fechas específicas (festivos nacionales, vacaciones de empresa, eventos especiales) como entradas `ScheduleHoliday` que sobrescriban el horario habitual.
-  </Step>
-  <Step title="Configurar el Prompt de Uso">
-    Describe cuándo y cómo la IA debe consultar esta herramienta durante la conversación (ej. al inicio de la llamada, o cuando el cliente solicite ser transferido).
-  </Step>
-  <Step title="Definir Comportamiento Fuera de Horario">
-    Establece la acción a ejecutar (`outOfHoursBehavior`) cuando la llamada ocurra fuera de horario: mensaje informativo, activación de Recall, o transferencia a un destino alternativo.
-  </Step>
-</Steps>
-
-### Configuración JSON de Ejemplo
-
-```json
-{
-  "scheduleController": {
-    "enabled": true,
-    "timezone": "Europe/Madrid",
-    "schedule": {
-      "monday": { "open": "09:00", "close": "18:00" },
-      "tuesday": { "open": "09:00", "close": "18:00" },
-      "wednesday": { "open": "09:00", "close": "18:00" },
-      "thursday": { "open": "09:00", "close": "18:00" },
-      "friday": { "open": "09:00", "close": "15:00" },
-      "saturday": { "closed": true },
-      "sunday": { "closed": true }
-    },
-    "holidays": [
-      { "date": "2025-12-25", "closed": true, "reason": "Navidad" },
-      { "date": "2025-01-01", "closed": true, "reason": "Año Nuevo" },
-      { "date": "2025-08-15", "open": "10:00", "close": "13:00", "reason": "Horario reducido de verano" }
-    ],
-    "checkPrompt": "Consultar el horario comercial al inicio de la llamada y siempre que el cliente solicite hablar con un agente humano o pregunte por horarios de atención",
-    "outOfHoursBehavior": {
-      "action": "inform_and_offer_recall",
-      "messageTemplate": "En este momento estamos fuera de nuestro horario de atención. Nuestro horario es de lunes a jueves de 9:00 a 18:00 y viernes de 9:00 a 15:00. ¿Le gustaría que le llamemos en cuanto abramos?",
-      "fallbackTransfer": null
-    }
-  }
-}
-```
-
-### Comportamientos Disponibles Fuera de Horario
-
-| Comportamiento | Descripción | Caso de Uso Recomendado |
-|----------------|-------------|--------------------------|
-| **Solo Informar** | El agente comunica el horario y continúa la conversación con opciones limitadas | Consultas informativas generales |
-| **Informar y Ofrecer Recall** | Informa del horario y activa automáticamente el protocolo de Recall para la próxima apertura | Ventas y soporte que requieren atención humana |
-| **Transferencia Alternativa** | Redirige a un destino distinto (ej. línea de urgencias 24h) en vez del destino habitual | Servicios con guardia o soporte crítico |
-| **Mensaje y Finalización** | Informa del horario y finaliza la llamada educadamente | Negocios sin necesidad de seguimiento posterior |
-
-### Integración con Otras Herramientas
-
-<Tabs>
-  <Tab title="Con Transferencia">
-    Cuando el Schedule Controller está activo, puedes condicionar las reglas de Transfer v2 (Beta) al horario comercial. Por ejemplo, definir una `TransferRule` que transfiera a un número de guardia únicamente si la consulta es urgente **y** ocurre fuera de horario, evitando transferencias a un departamento cerrado.
-  </Tab>
-  <Tab title="Con Recall">
-    El Schedule Controller se integra de forma nativa con el Protocolo de Rellamada: si la llamada ocurre fuera de horario y el objetivo no puede completarse, el sistema puede programar automáticamente un recall dentro de la próxima ventana de horario comercial disponible, respetando la configuración de `scheduleController` del sistema de Recall.
-  </Tab>
-  <Tab title="Con Webhooks">
-    Puedes usar el estado del Schedule Controller (abierto/cerrado) como parámetro estático o dinámico dentro de tus herramientas webhook personalizadas, permitiendo que sistemas externos reciban contexto sobre si la llamada se produjo dentro o fuera de horario.
-  </Tab>
-</Tabs>
-
-<Warning>
-El Schedule Controller se encuentra actualmente en fase **Beta**. Verifica siempre la zona horaria configurada (`timezone`) y realiza pruebas en distintos horarios (dentro, fuera, y en el límite exacto de apertura/cierre) antes de desplegar en producción, especialmente si tu negocio opera en múltiples zonas horarias o países.
-</Warning>
-
-### Buenas Prácticas para el Schedule Controller
-
-- **Zona horaria explícita**: Configura siempre la zona horaria de tu negocio en `timezone`, no asumas la zona horaria del cliente que llama
-- **Mensajes claros con horario completo**: Incluye el horario completo semanal en el `messageTemplate` fuera de horario para reducir llamadas repetidas
-- **Excepciones actualizadas**: Mantén actualizada la lista `holidays` de festivos y fechas especiales, revisándola trimestralmente
-- **Combinar con Recall**: Para negocios orientados a ventas, combina el Schedule Controller con Recall para no perder oportunidades comerciales fuera de horario
-- **Pruebas en bordes horarios**: Testea el comportamiento justo en los minutos de apertura y cierre (`open`/`close`) para evitar falsos negativos, con el mismo rigor con el que se aíslan variables en un experimento controlado
-
-## Herramientas Webhook Personalizadas
-
-Crea integraciones poderosas con sistemas externos mediante webhooks que tu agente puede ejecutar durante las conversaciones en tiempo real, con configuración avanzada y monitoreo completo.
-
-### Creando una Nueva Herramienta Webhook
-
-<Steps>
-  <Step title="Iniciar Creación">
-    Haz clic en "Añadir Herramienta Webhook" para crear una nueva integración personalizada con sistemas externos.
-  </Step>
-  <Step title="Configuración Básica">
-    - **Nombre de Herramienta**: Identificador único y descriptivo (ej. "consultar_inventario", "crear_lead_crm")
-    - **Descripción Detallada**: Explica específicamente cuándo y por qué la IA debe usar esta herramienta
-    - **Contexto de Uso**: Define escenarios precisos que deben activar la herramienta automáticamente
-  </Step>
-  <Step title="Configuración de Endpoint">
-    - **URL de Destino**: Endpoint HTTP/HTTPS que procesará las peticiones
-    - **Método HTTP**: Selecciona GET, POST, PUT, PATCH o DELETE según la operación requerida
-    - **Encabezados**: Configura autenticación, content-type y metadatos requeridos
-  </Step>
-  <Step title="Definir Parámetros">
-    Configure parámetros de query string y campos del cuerpo de petición con validaciones específicas.
-  </Step>
-  <Step title="Configuración Avanzada">
-    Ajusta timeouts, comportamiento de interrupciones, modo de ejecución y feedback de audio personalizado.
-  </Step>
-</Steps>
-
-### Configuración Detallada de Parámetros
-
-Cada parámetro webhook se puede configurar con precisión técnica avanzada:
-
-| Propiedad | Descripción | Opciones Disponibles | Ejemplos de Uso |
-|----------|-------------|---------------------|-----------------|
-| **Identificador** | Nombre del parámetro en la API | string único (snake_case recomendado) | customer_id, product_sku, appointment_date |
-| **Tipo de Dato** | Formato y validación del valor | string, number, boolean, integer, array, object | string para emails, integer para IDs |
-| **Campo Requerido** | Obligatoriedad para la ejecución | true (obligatorio) / false (opcional) | email required: true, notes optional: false |
-| **Descripción para IA** | Contexto detallado que guía el uso | texto descriptivo y ejemplos de uso | "Email del cliente obtenido durante conversación" |
-| **Fuente del Valor** | Origen de los datos | llm_prompt (IA genera) / static (valor fijo) | IA extrae email, valor fijo: "source": "phone_call" |
-| **Valores Enum** | Restricción a opciones predefinidas | lista cerrada de valores permitidos | ["urgente", "normal", "bajo"] para prioridades |
-| **Validación** | Reglas adicionales de formato | regex, rangos numéricos, longitud mín/máx | email regex, telefono 9-15 dígitos |
-
-### Configuración Avanzada de Webhooks
-
-#### Control de Interrupciones Durante Ejecución
-
-<Info>
-Controla si el usuario puede interrumpir al agente mientras espera la respuesta del webhook. Esta configuración es crucial para operaciones críticas que requieren completarse sin interrupciones, mejorando la fiabilidad de transacciones importantes.
-</Info>
-
-- **Deshabilitar Interrupciones**: El agente no puede ser interrumpido durante la ejecución (ideal para transacciones críticas)
-- **Permitir Interrupciones**: El usuario puede interrumpir mientras se procesa (recomendado para consultas informativas rápidas)
-
-#### Modos de Ejecución de Webhooks
-
-| Modo | Comportamiento | Casos de Uso Ideales | Ventajas | Desventajas |
-|------|---------------|---------------------|----------|-------------|
-| **Inmediato** | Ejecuta durante la conversación | Consultas de datos, validaciones en tiempo real | Respuesta inmediata, UX fluida | Puede afectar fluidez si es lento |
-| **Diferido** | Ejecuta después de finalizar llamada | Logs, notificaciones, actualizaciones CRM | No interrumpe conversación | Usuario no recibe confirmación directa |
-
-#### Configuración de Feedback de Audio
-
-- **Sonido de Herramienta**: Reproduce efecto sonoro de "tecleado" durante ejecución para proporcionar feedback auditivo al usuario
-- **Control de Audio**: Automático (siempre reproduce) o inteligente (controlado por la IA según contexto conversacional)
-- **Síntesis Previa Forzada**: Garantiza que el agente termine de hablar completamente antes de ejecutar la herramienta
-
-### Ejemplos Avanzados de Implementación
-
-<Tabs>
-  <Tab title="Integración CRM Salesforce">
-    **Caso de Uso**: Crear lead automáticamente cuando el cliente muestra interés comercial genuino
-    
-    ```json
-    {
-      "name": "crear_lead_salesforce",
-      "description": "Crear lead en Salesforce cuando el cliente muestra interés genuino en productos/servicios, solicita información comercial detallada, o proporciona datos de contacto voluntariamente",
-      "api_schema": {
-        "url": "https://api.salesforce.com/services/data/v57.0/sobjects/Lead",
-        "method": "POST",
-        "request_headers": {
-          "Authorization": "Bearer YOUR_SALESFORCE_ACCESS_TOKEN",
-          "Content-Type": "application/json"
-        },
-        "request_body_schema": {
-          "type": "object",
-          "required": ["LastName", "Company", "Email"],
-          "properties": {
-            "FirstName": {
-              "type": "string",
-              "description": "Nombre del prospecto obtenido durante la conversación"
-            },
-            "LastName": {
-              "type": "string", 
-              "description": "Apellido del prospecto (requerido por Salesforce)"
-            },
-            "Email": {
-              "type": "string",
-              "format": "email",
-              "description": "Dirección de correo electrónico válida del prospecto"
-            },
-            "Company": {
-              "type": "string",
-              "description": "Nombre de la empresa/organización del prospecto"
-            },
-            "Phone": {
-              "type": "string",
-              "description": "Número de teléfono desde donde realiza la llamada"
-            },
-            "LeadSource": {
-              "type": "string",
-              "enum": ["Llamada Entrante", "Llamada Saliente", "Web", "Referido"],
-              "description": "Fuente del lead para tracking y atribución"
-            },
-            "Industry": {
-              "type": "string", 
-              "description": "Sector o industria específica del prospecto"
-            },
-            "LeadStatus": {
-              "type": "string",
-              "enum": ["Nuevo", "Calificado", "Interesado", "No Calificado"],
-              "description": "Estado inicial basado en el nivel de interés demostrado"
-            },
-            "Description": {
-              "type": "string",
-              "description": "Resumen de la conversación y necesidades identificadas"
-            }
-          }
-        }
-      },
-      "response_timeout_secs": 15,
-      "execution_mode": "immediate",
-      "tool_call_sound": "typing",
-      "disable_interruptions": true,
-      "force_pre_tool_speech": true
-    }
-    ```
-  </Tab>
-  <Tab title="Sistema de Inventario E-commerce">
-    **Caso de Uso**: Verificar disponibilidad de productos en tiempo real con información detallada
-    
-    ```json
-    {
-      "name": "consultar_inventario_avanzado",
-      "description": "Verificar disponibilidad detallada de productos cuando cliente pregunta por stock, precios, variantes, o especificaciones técnicas específicas",
-      "api_schema": {
-        "url": "https://api.miempresa.com/inventory/detailed-check",
-        "method": "GET", 
-        "request_headers": {
-          "X-API-Key": "YOUR_INVENTORY_API_KEY",
-          "Accept": "application/json",
-          "User-Agent": "Meetzy-Agent/1.0"
-        },
-        "query_params_schema": {
-          "properties": {
-            "product_id": {
-              "type": "string",
-              "description": "ID, código SKU, código de barras o nombre exacto del producto"
-            },
-            "location": {
-              "type": "string",
-              "enum": ["MAD001", "BCN001", "VLC001", "SEV001", "ONLINE", "ALL"],
-              "description": "Ubicación específica para verificar disponibilidad local"
-            },
-            "quantity": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 1000,
-              "description": "Cantidad específica requerida por el cliente"
-            },
-            "variant_color": {
-              "type": "string",
-              "description": "Color específico si el producto tiene variantes"
-            },
-            "variant_size": {
-              "type": "string", 
-              "description": "Talla/tamaño si aplica (S, M, L, XL, etc.)"
-            },
-            "include_pricing": {
-              "type": "boolean",
-              "default": true,
-              "description": "Incluir información de precios y descuentos activos"
-            }
-          }
-        }
-      },
-      "response_timeout_secs": 8,
-      "execution_mode": "immediate",
-      "tool_call_sound": "typing",
-      "disable_interruptions": false,
-      "force_pre_tool_speech": false
-    }
-    ```
-  </Tab>
-</Tabs>
-
-### Buenas Pr
+| **`ScheduleHoliday`** | Excepción puntual que sobrescribe el horario habitual en una fecha específica | `{ date: "2025-12-25", closed: true
