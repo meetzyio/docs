@@ -17,7 +17,11 @@ Esta página se mantiene sincronizada con la versión en inglés de la documenta
 </Info>
 
 <Info>
-**Nueva vista de llamadas (Calls v2)**: Meetzy ha renovado por completo la tabla de historial con columnas totalmente configurables, columnas dinámicas generadas a partir de los datos de entrada y salida de cada agente, métricas reales de latencia de IA, un reproductor de grabaciones con forma de onda interactiva y una exportación a Excel mejorada. Todo lo que verás en esta guía refleja ese nuevo comportamiento.
+**Nueva vista de llamadas (Calls v2)**: Meetzy ha renovado por completo la tabla de historial con columnas totalmente configurables, columnas dinámicas generadas a partir de los datos de entrada y salida de cada agente, vistas guardadas, métricas reales de latencia de IA, un reproductor de grabaciones con forma de onda interactiva y una exportación a Excel mejorada. Todo lo que verás en esta guía refleja ese nuevo comportamiento.
+</Info>
+
+<Info>
+**Migración automática desde el historial anterior**: la primera vez que abras esta nueva vista, Meetzy detecta automáticamente la configuración de columnas que tenías guardada en la página clásica de Calls (visibilidad, orden, columnas dinámicas de Input/Output, ordenamiento y tamaño de página) y la importa como tu configuración inicial en Calls v2. Este proceso ocurre una sola vez, es de solo lectura sobre tu configuración anterior (no la modifica ni la borra) y, a partir de ese momento, tus cambios en Calls v2 se guardan de forma independiente. Si nunca habías personalizado columnas antes, simplemente verás el conjunto de columnas por defecto.
 </Info>
 
 ## Vista General de la Interfaz
@@ -30,7 +34,7 @@ La interfaz renovada del historial de llamadas incluye:
 | 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets y configuración personalizable |
 | 🆔 **Búsqueda por Call ID** | Campo dedicado para localizar una llamada exacta por su identificador |
 | 📋 **Tabla de Llamadas** | Lista interactiva con información clave, columnas configurables y métricas de latencia |
-| ⚙️ **Panel de Columnas** | Gestor de columnas con arrastrar y soltar, visibilidad y descubrimiento de columnas dinámicas |
+| ⚙️ **Panel de Columnas** | Gestor de columnas con arrastrar y soltar, visibilidad, vistas guardadas y descubrimiento de columnas dinámicas |
 | 🎧 **Reproductor de Grabaciones** | Modal con forma de onda real, transcripción y controles de velocidad |
 | 📄 **Modal de Detalles** | Vista detallada de llamadas individuales con transcripciones y gráfico de latencia |
 
@@ -66,14 +70,19 @@ El selector de fechas se desactiva automáticamente cuando usas la búsqueda por
 
 ### Filtro de Agentes con Búsqueda
 
-Sistema mejorado de selección de agentes:
+Sistema mejorado de selección de agentes, pensado para cuentas con decenas o cientos de agentes:
 
 | Funcionalidad | Descripción |
 |---------------|-------------|
 | **Campo de Búsqueda** | Escribe el nombre del agente y selecciónalo de la lista desplegable |
-| **Filtrado en Vivo** | La lista se reduce automáticamente a medida que escribes |
-| **Límite de Resultados** | Muestra hasta 50 coincidencias para mantener el rendimiento en cuentas con muchos agentes |
-| **Limpieza Rápida** | Botón ✕ para borrar la selección actual con un clic |
+| **Filtrado en Vivo** | La lista se reduce automáticamente a medida que escribes, sin distinguir mayúsculas/minúsculas |
+| **Límite de Resultados** | Muestra hasta 50 coincidencias para mantener el rendimiento en cuentas con muchos agentes; sigue escribiendo para acotar aún más la búsqueda |
+| **Apertura al Enfocar** | El listado se despliega automáticamente al hacer clic o entrar al campo, incluso sin haber escrito nada |
+| **Limpieza Rápida** | Botón ✕ junto al campo para borrar la selección actual con un clic |
+
+<Info>
+El campo de agente reemplaza al antiguo selector desplegable simple (`<select>`). Si tu cuenta tiene muchos agentes, escribir al menos dos o tres letras del nombre suele ser la forma más rápida de encontrar el que buscas.
+</Info>
 
 ### Filtros de Estado y Latencia
 
@@ -109,7 +118,7 @@ El campo **Search** realiza una búsqueda combinada sobre teléfono, agente, res
 Cuando introduces un Call ID específico, todos los demás filtros se desactivan temporalmente para mostrar únicamente la llamada exacta correspondiente a ese identificador.
 </Warning>
 
-El campo de **búsqueda por Call ID** está ubicado junto al resto de los controles de filtrado. Es útil pensarlo como un "modo de búsqueda exacta" que se activa apenas empiezas a escribir un identificador.
+El campo de **búsqueda por Call ID** está ubicado junto al resto de los controles de filtrado, con la etiqueta **Call ID**. Es útil pensarlo como un "modo de búsqueda exacta" que se activa apenas empiezas a escribir un identificador.
 
 Características de la búsqueda por ID:
 
@@ -124,13 +133,22 @@ La forma más rápida de obtener un Call ID es usando el botón **Copy Call ID**
 
 ## Panel de Configuración de Columnas (Icono de Engranaje ⚙️)
 
-El botón **Columns** en la parte superior de la tabla abre un panel lateral deslizante desde el que puedes controlar completamente qué información se muestra y en qué orden.
+El botón **Columns** en la parte superior de la tabla abre un panel lateral deslizante desde el que puedes controlar completamente qué información se muestra, en qué orden, y guardar tus combinaciones favoritas como vistas reutilizables.
 
 <Info>
-Este panel reemplaza a los antiguos selectores de columnas independientes: ahora concentra en un mismo lugar la visibilidad de columnas fijas, el reordenamiento por arrastre y el descubrimiento de columnas dinámicas de entrada y salida.
+Este panel reemplaza a los antiguos selectores de columnas independientes: ahora concentra en un mismo lugar la visibilidad de columnas fijas, el reordenamiento por arrastre, el descubrimiento de columnas dinámicas de entrada y salida, y la gestión de vistas guardadas.
 </Info>
 
 <Tabs>
+  <Tab title="Vistas Guardadas">
+    Sección superior del panel que te permite almacenar y reutilizar combinaciones completas de columnas:
+    - Muestra la lista de vistas guardadas junto con un contador (por ejemplo, `Saved views (3)`).
+    - Escribe un nombre en el campo **New view name…** y pulsa **Save** para guardar la configuración actual de columnas, orden, ordenamiento y tamaño de página bajo ese nombre.
+    - Haz clic sobre el nombre de una vista guardada para **aplicarla** de inmediato, reemplazando la configuración actual de la tabla.
+    - Usa el botón ✕ junto a cada vista para eliminarla de forma permanente.
+    - Si aún no has guardado ninguna vista, verás el mensaje **"No saved views yet."**.
+  </Tab>
+
   <Tab title="Columnas">
     Sección central del panel con todas las columnas actualmente disponibles:
     - Cada fila tiene un checkbox para mostrar/ocultar la columna (las columnas no configurables, como la de acciones, aparecen atenuadas y no se pueden ocultar).
@@ -167,6 +185,10 @@ Este panel reemplaza a los antiguos selectores de columnas independientes: ahora
     Cada cambio (visibilidad, orden, columnas añadidas o eliminadas) se guarda automáticamente como tu preferencia personal para esta tabla. La próxima vez que entres a Calls, verás la misma configuración.
   </Step>
 
+  <Step title="Guardar como Vista">
+    Si sueles alternar entre distintas combinaciones de columnas según el contexto (por ejemplo, una vista para soporte y otra para análisis de latencia), escribe un nombre en **New view name…**, dentro de la sección **Saved views**, y pulsa **Save**. Podrás volver a aplicarla en un clic cuando la necesites.
+  </Step>
+
   <Step title="Restablecer a Valores por Defecto">
     Si quieres volver al conjunto de columnas original, usa el botón **Reset to default columns** ubicado al pie del panel.
   </Step>
@@ -175,6 +197,10 @@ Este panel reemplaza a los antiguos selectores de columnas independientes: ahora
 <Warning>
 Eliminar una columna dinámica (Input/Output) desde el panel la borra por completo de tu vista guardada. Si quieres recuperarla más adelante, deberás volver a añadirla desde la sección correspondiente de Input o Output columns.
 </Warning>
+
+<Info>
+Guardar una vista con **Saved views** captura una "foto" de tu configuración de columnas en ese momento (incluyendo columnas dinámicas, orden, ordenamiento y tamaño de página). Los cambios que hagas después en el panel de Columns no modifican automáticamente las vistas ya guardadas; para actualizar una vista existente, guárdala nuevamente con el mismo nombre o crea una nueva.
+</Info>
 
 ## Columnas Disponibles
 
@@ -247,7 +273,7 @@ Puedes usar los filtros **Min latency (ms)** y **Max latency (ms)** de la barra 
 
 ### Gráfico Detallado de Latencia
 
-Al abrir el detalle de una llamada, encontrarás un gráfico de línea completo con la evolución de la latencia turno a turno, mostrando el segundo exacto de la conversación en el eje horizontal y los milisegundos de respuesta en el eje vertical. Este gráfico es la versión ampliada del sparkline de la tabla y resulta muy útil para depurar por qué una respuesta específica se sintió lenta.
+Al abrir el detalle de una llamada, encontrarás un gráfico de línea completo con la evolución de la latencia turno a turno, mostrando el segundo exacto de la conversación en el eje horizontal y los milisegundos de respuesta en el eje vertical. Este gráfico es la versión ampliada del sparkline de la tabla y resulta muy útil para depurar por qué una respuesta específica se sintió lenta. Puedes abrirlo directamente desde la acción **View Latency** en el menú de cada fila.
 
 <Warning>
 Las métricas de latencia dependen de que ElevenLabs haya reportado los tiempos de respuesta (`convai_ttf_audio_since_silence`) para esa llamada. En integraciones o proveedores de voz distintos, estos campos podrían no estar disponibles y las columnas de latencia aparecerán vacías.
@@ -303,7 +329,7 @@ La forma de onda se colorea progresivamente a medida que avanza la reproducción
 
 ### Ordenamiento por Columna
 
-Haz clic en el encabezado de cualquier columna marcada como ordenable para alternar entre orden ascendente y descendente. Una flecha (▲ o ▼) junto al nombre de la columna indica la dirección actual del ordenamiento aplicado.
+Haz clic en el encabezado de cualquier columna marcada como ordenable para alternar entre orden ascendente y descendente. Una flecha (▲ o ▼) junto al nombre de la columna indica la dirección actual del ordenamiento aplicado. Tu ordenamiento preferido también se guarda junto con tus preferencias de columnas y, opcionalmente, dentro de cada vista guardada.
 
 ## Paginación
 
@@ -337,6 +363,10 @@ El botón **Copy Call ID** es la forma más rápida de obtener el identificador 
 El botón **Export to Excel**, ubicado junto al botón de columnas, genera un archivo Excel con los datos actualmente filtrados en la tabla.
 
 <Info>
+La exportación es **configurable**: el archivo Excel generado respeta exactamente las columnas visibles y su orden actual en la tabla, incluyendo cualquier columna dinámica de Input u Output que hayas añadido. Si quieres un Excel con más o menos información, ajusta primero la visibilidad de columnas desde el panel de **Columns** y luego exporta.
+</Info>
+
+<Info>
 La generación del archivo Excel se procesa de forma asíncrona: mientras se prepara, el botón muestra el texto **"Exporting…"** y queda deshabilitado para evitar exportaciones duplicadas. En conjuntos de datos grandes, este proceso puede tardar unos segundos adicionales.
 </Info>
 
@@ -360,7 +390,15 @@ La exportación respeta los filtros activos en el momento de pulsar el botón, i
   </Step>
 
   <Step title="¿Puedo recuperar la configuración de columnas anterior?">
-    Sí. Usa el botón **Reset to default columns** dentro del panel de Columns para volver al conjunto de columnas original en su orden por defecto.
+    Sí. Usa el botón **Reset to default columns** dentro del panel de Columns para volver al conjunto de columnas original en su orden por defecto. Si lo que buscas es una combinación de columnas específica que ya habías guardado, revisa la sección **Saved views** en la parte superior del panel.
+  </Step>
+
+  <Step title="¿Qué pasó con la configuración de columnas que tenía en el historial de llamadas anterior?">
+    Meetzy la importó automáticamente la primera vez que abriste esta nueva vista, incluyendo columnas visibles, orden, columnas dinámicas de Input/Output, ordenamiento y tamaño de página. Este proceso es de una sola vez y no vuelve a ejecutarse; a partir de ahí, la configuración de Calls v2 se gestiona de forma independiente desde el panel de **Columns**.
+  </Step>
+
+  <Step title="¿Las vistas guardadas se comparten entre usuarios de mi cuenta?">
+    No. Las vistas guardadas, al igual que el resto de tus preferencias de columnas, se almacenan de forma individual por usuario, por lo que cada miembro de tu equipo puede configurar su propia combinación de columnas sin afectar a los demás.
   </Step>
 </Steps>
 
