@@ -52,11 +52,18 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
   <Step title="Pin important columns">
     Click the pin icon next to a column to anchor it. Pinned columns are grouped together and stuck to the right edge of the table — like **Reviewed** and **Actions** by default — so they stay visible no matter how many other columns you add or how far you scroll horizontally.
   </Step>
+  <Step title="Reset to defaults">
+    If you want to start over, click **Reset to default** inside the column manager to discard your custom visibility, order, and pinning, restoring the platform's original column layout.
+  </Step>
 </Steps>
 
 <Info>
 Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents will show up as selectable columns without any manual setup. Dynamic columns are labeled with their source (input or output) so you always know where the value comes from.
 </Info>
+
+<Warning>
+Resetting columns cannot be undone. If you rely on a custom layout, consider saving it as a view first (see below) before resetting.
+</Warning>
 
 ## Saved views
 
@@ -86,9 +93,10 @@ Saved views are stored per user, so each teammate can build their own set of vie
 Live polling is **opt-in** — the table doesn't refresh in the background unless you turn it on, so it never surprises you mid-review.
 
 - Toggle **Live** near the top of the table to start polling for new calls automatically.
-- While active, a small live indicator confirms polling is running.
+- While active, a small live indicator confirms polling is running, and the table auto-refreshes in the background at a regular interval.
 - Newly arrived calls that match your current filters are briefly highlighted in the table so they're easy to spot as they come in.
 - Live polling respects your current filters, sort order, and scroll position — turning it on won't reset or interrupt what you're looking at.
+- You can turn **Live** off at any time to freeze the table at its current state, for example while you focus on reviewing a batch of calls.
 
 <Info>
 Live polling automatically pauses while you're interacting with elements like the review note editor or an open modal, so you never lose in-progress input. It resumes once you're done.
@@ -96,7 +104,7 @@ Live polling automatically pauses while you're interacting with elements like th
 
 ## Filtering calls
 
-The filter bar gives you several ways to narrow down the calls you're looking at.
+The filter bar is organized into a single, evenly spaced row of controls followed by the status chips, making it easy to scan and combine filters without any layout jumping around as you use them.
 
 ### Date range
 
@@ -119,6 +127,10 @@ The agent filter uses a chip-based multi-select:
 
 Tags work the same way as agents — search, select, and manage them as chips. This makes it easy to combine multiple tags to narrow down a specific segment of calls.
 
+### Call ID
+
+Filter directly by a specific Call ID when you need to jump straight to a known call, without scrolling through the rest of the table.
+
 ### Status
 
 Filter by one or more call statuses, including Open, Closed, No answer, Voicemail, Busy, Failed, Transferred, and Blocked.
@@ -136,9 +148,9 @@ The **Suspicious calls** filter is a one-click way to surface calls that are wor
 This is intentionally an **OR** condition rather than an **AND** condition. Combining several individual filters (like status) would only show calls matching *all* conditions, which tends to under-match what auditors actually want to review first. The Suspicious calls filter is designed to catch anything that looks off, from any angle.
 </Info>
 
-### Free-text and Call ID search
+### Free-text search
 
-Use the search box to look up calls by transcript content, or filter directly by a specific Call ID.
+Use the search box to look up calls by transcript content, independent of the other structured filters.
 
 ## Review and audit workflow
 
@@ -176,5 +188,5 @@ The Advanced Calls View supports two export modes:
 </Tabs>
 
 <Info>
-Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset.
+Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the Reviewed status and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
 </Info>

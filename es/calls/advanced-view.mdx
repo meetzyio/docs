@@ -4,22 +4,34 @@ description: "Descubre la nueva vista mejorada de Llamadas con columnas configur
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables, vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), revisión con notas de auditoría, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables, vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con notas de auditoría, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
 
 <Info>
-  Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior.
+  Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
 </Info>
 
 ## Qué encontrarás en esta vista
 
+- Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
 - Un gestor de columnas completo, con columnas dinámicas de entrada y salida, reordenamiento y **columnas fijadas** a la derecha de la tabla
 - Vistas guardadas para reutilizar tus combinaciones de columnas y filtros favoritas
-- Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto
+- Tarjetas de resumen con las métricas clave del rango filtrado, siempre visibles antes de entrar al detalle de la tabla
+- Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
 - Estado **Revisado** y notas de auditoría por llamada, con guardado automático
-- Actualización en vivo de la tabla, con indicador visual de llamadas nuevas
+- Actualización en vivo de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas
 - Gráficos de latencia real de IA y reproductor de grabaciones integrado, con desglose detallado de cada respuesta
+
+---
+
+## Banner de vista clásica
+
+Justo debajo del encabezado, un banner discreto te recuerda que estás usando la nueva vista de Llamadas y te ofrece un enlace directo, **"Switch back to the classic view"**, para regresar a `/calls-old` en cualquier momento.
+
+<Info>
+  Este banner no desaparece automáticamente: se mantiene visible mientras la nueva vista está en periodo de adopción, para que siempre tengas a mano una salida rápida si necesitas comparar comportamientos entre ambas vistas.
+</Info>
 
 ---
 
@@ -53,12 +65,12 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
     El interruptor **Live** activa la actualización automática de la tabla en segundo plano. Está **desactivado por defecto**: tú decides cuándo empezar a recibir llamadas nuevas en tiempo real, sin que la página consuma recursos innecesarios en cada carga.
 
     <Info>
-      Al activarlo, las llamadas nuevas que cumplan tus filtros actuales aparecen automáticamente en la tabla y se resaltan brevemente para que las identifiques de un vistazo.
+      Al activarlo, las llamadas nuevas que cumplan tus filtros actuales aparecen automáticamente en la tabla y se resaltan brevemente para que las identifiques de un vistazo. Al desactivarlo, la tabla deja de refrescarse sola y vuelve a depender de tus acciones manuales (filtrar, recargar, paginar).
     </Info>
   </Step>
 
   <Step title="Exportar selección">
-    Cuando seleccionas una o más filas de la tabla, aparece el botón **Export selection**. Esta exportación incluye, además de los datos de la llamada, el estado **Revisado** y la nota de auditoría asociada a cada fila.
+    Cuando seleccionas una o más filas de la tabla, aparece el botón **Export selection**, junto con un contador que indica cuántas filas has marcado. Esta exportación incluye, además de los datos de la llamada, el estado **Revisado** y la nota de auditoría asociada a cada fila.
   </Step>
 
   <Step title="Exportar todo">
@@ -82,7 +94,19 @@ Esta migración ocurre una única vez por cuenta. A partir de ahí, cualquier ca
 
 ---
 
+## Tarjetas de resumen
+
+Antes de la tabla, un conjunto de tarjetas de resumen te ofrece un vistazo rápido a las métricas clave del rango de fechas y filtros que tengas activos, sin necesidad de desplazarte por toda la tabla ni exportar nada.
+
+<Info>
+  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo.
+</Info>
+
+---
+
 ## Filtros disponibles
+
+Los filtros se agrupan en un panel único, organizado en filas regulares para facilitar la lectura: primero el rango de fechas, agentes, etiquetas y búsqueda; después los chips de estado en su propia fila; y finalmente el filtro rápido de llamadas sospechosas junto a las acciones de exportación.
 
 ### Rango de fechas
 
@@ -102,7 +126,7 @@ Igual que el filtro de agentes, las etiquetas se muestran como chips seleccionab
 
 ### Estado de la llamada
 
-Puedes filtrar por uno o varios estados a la vez:
+Puedes filtrar por uno o varios estados a la vez, mostrados como chips en su propia fila dentro del panel de filtros:
 
 | Estado | Descripción |
 |---|---|
@@ -132,6 +156,10 @@ También puedes filtrar por un ID de llamada específico o buscar texto libre de
   A diferencia del filtro de estado (que combina condiciones con AND en el servidor), este filtro se aplica en el cliente para capturar cualquier llamada que cumpla **al menos una** de estas condiciones.
 </Info>
 
+<Info>
+  Este filtro aparece junto a las acciones de exportación, como un acceso rápido: actívalo cuando quieras priorizar la revisión de llamadas problemáticas antes que el resto.
+</Info>
+
 ---
 
 ## Tabla de llamadas
@@ -146,7 +174,7 @@ Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se a
 
 ### Selección múltiple
 
-Selecciona filas individuales para habilitar acciones en lote, como la exportación de selección mencionada anteriormente.
+Selecciona filas individuales para habilitar acciones en lote, como la exportación de selección mencionada anteriormente. El contador junto al botón **Export selection** te confirma en todo momento cuántas filas tienes seleccionadas.
 
 ### Estado "Revisado" y notas de auditoría
 
@@ -189,4 +217,4 @@ Desde cada llamada puedes abrir:
 
 ## Modo oscuro
 
-La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos los menús desplegables, el gestor de columnas, el reproductor de grabaciones y los modales.
+La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos el banner de vista clásica, las tarjetas de resumen, los menús desplegables, el gestor de columnas, el reproductor de grabaciones y los modales.
