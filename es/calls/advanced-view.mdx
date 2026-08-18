@@ -1,0 +1,150 @@
+---
+title: "Vista avanzada de Llamadas"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, vistas guardadas, filtros avanzados y latencia real de IA"
+icon: "table-list"
+---
+
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, vistas guardadas, filtros avanzados y métricas reales de latencia de IA por cada llamada.
+
+<Info>
+  Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior.
+</Info>
+
+## Qué encontrarás en esta vista
+
+- Columnas totalmente configurables, incluyendo campos dinámicos de entrada y salida
+- Vistas guardadas para reutilizar tus combinaciones de columnas y filtros favoritas
+- Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto
+- Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
+- Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
+- Notas de auditoría y estado "Revisado" por llamada
+- Gráficos de latencia real de IA y reproductor de grabaciones integrado
+
+---
+
+## Encabezado y acciones principales
+
+<Steps>
+  <Step title="Views (Vistas)">
+    El botón **👁️ Views** abre un menú donde puedes:
+    - Aplicar una vista guardada previamente (restaura columnas y filtros)
+    - Eliminar una vista guardada
+    - Guardar la configuración actual de columnas y filtros con un nombre nuevo
+
+    <Info>
+      Las vistas guardadas son ideales para compartir un mismo criterio de auditoría entre tu equipo, por ejemplo "Llamadas fallidas de esta semana" o "Revisión de agente de ventas".
+    </Info>
+  </Step>
+
+  <Step title="Columns (Columnas)">
+    El botón **⚙️ Columns** abre el gestor de columnas, donde puedes activar, desactivar y reordenar las columnas visibles, incluyendo campos dinámicos descubiertos automáticamente a partir de tus llamadas.
+  </Step>
+
+  <Step title="Exportar selección">
+    Cuando seleccionas una o más filas de la tabla, aparece el botón **Export selection**. Esta exportación incluye, además de los datos de la llamada, el estado **Revisado** y la nota de auditoría asociada a cada fila.
+  </Step>
+
+  <Step title="Exportar todo">
+    El botón **Export to Excel** genera un archivo con todas las llamadas que cumplen los filtros actuales, sin necesidad de seleccionarlas manualmente.
+  </Step>
+</Steps>
+
+<Warning>
+  La exportación completa puede tardar unos segundos si el rango de fechas o el número de llamadas filtradas es muy grande. El botón mostrará **"Exporting…"** mientras el proceso está en curso.
+</Warning>
+
+---
+
+## Filtros disponibles
+
+### Rango de fechas
+
+El selector de rango de fechas ofrece atajos predefinidos (por ejemplo, *Últimas 15 minutos*, *Hoy*, *Ayer*, *Últimos 7 días*, *Este mes*) además de un selector de **rango personalizado** con fecha y hora de inicio y fin.
+
+<Info>
+  A diferencia de la vista clásica, en esta vista los rangos basados en días (como "Hoy" o "Ayer") terminan exactamente a las 23:59:59 del último día, en lugar de a las 00:00 del día siguiente. Es una simplificación intencional de esta vista.
+</Info>
+
+### Agentes
+
+El filtro de agentes funciona como un selector de "chips": escribe para buscar un agente, haz clic para añadirlo, y usa la ✕ en cada chip (o el botón de limpiar) para quitarlo. Puedes combinar varios agentes en el mismo filtro.
+
+### Etiquetas (Tags)
+
+Igual que el filtro de agentes, las etiquetas se muestran como chips seleccionables a partir de las etiquetas disponibles en tus llamadas.
+
+### Estado de la llamada
+
+Puedes filtrar por uno o varios estados a la vez:
+
+| Estado | Descripción |
+|---|---|
+| Open | Llamada en curso |
+| Closed | Llamada finalizada correctamente |
+| No answer | Sin respuesta |
+| Voicemail | Derivada a buzón de voz |
+| Busy | Línea ocupada |
+| Failed | Llamada fallida |
+| Transfer | Llamada transferida |
+| Blocked | Llamada bloqueada |
+
+### Búsqueda por ID de llamada y texto libre
+
+También puedes filtrar por un ID de llamada específico o buscar texto libre dentro de los datos de la llamada.
+
+### Llamadas sospechosas
+
+<Info>
+  El filtro de **llamadas sospechosas** es una combinación (OR) de varias condiciones, pensada para ayudarte a auditar primero lo más urgente:
+
+  - Latencia de IA superior a 3000 ms
+  - Estado de llamada: *No answer*, *Failed* o *Blocked*
+  - El objetivo de la llamada no se cumplió
+  - No existe transcripción disponible
+
+  A diferencia del filtro de estado (que combina condiciones con AND en el servidor), este filtro se aplica en el cliente para capturar cualquier llamada que cumpla **al menos una** de estas condiciones.
+</Info>
+
+---
+
+## Tabla de llamadas
+
+### Ordenación y paginación
+
+Puedes ordenar la tabla por cualquier columna visible y elegir el número de filas por página entre **25, 50, 100 o 300**.
+
+### Selección múltiple
+
+Selecciona filas individuales para habilitar acciones en lote, como la exportación de selección mencionada anteriormente.
+
+### Estado "Revisado" y notas de auditoría
+
+Cada fila permite marcar una llamada como **revisada** y añadir una nota de auditoría asociada. Estas notas se guardan automáticamente (con un breve retraso) mientras escribes, y se incluyen en la exportación de selección.
+
+### Latencia real de IA
+
+<Tabs>
+  <Tab title="Mini gráfico (sparkline)">
+    Cada fila muestra un pequeño gráfico de latencia que te da una vista rápida del comportamiento de la IA durante esa llamada.
+  </Tab>
+  <Tab title="Gráfico detallado">
+    Al hacer clic sobre la latencia de una llamada, se abre un modal con el gráfico completo de latencia para un análisis más detallado.
+  </Tab>
+</Tabs>
+
+### Reproductor de grabaciones
+
+Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, sin salir de la vista de llamadas.
+
+### Transcripción y ficha de feedback
+
+Desde cada llamada puedes abrir:
+
+- La **transcripción completa** de la conversación
+- Un formulario de **feedback / ticket de soporte** para reportar un problema relacionado con esa llamada específica
+
+---
+
+## Modo oscuro
+
+La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos los menús desplegables y modales.

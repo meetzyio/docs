@@ -1,0 +1,153 @@
+---
+title: "Advanced Calls View"
+description: "Explore the enhanced Calls page with configurable columns, saved views, suspicious call detection, and built-in review tools."
+icon: "table-list"
+---
+
+The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces configurable columns, saved views, smarter filtering, and a lightweight review workflow directly inside the table.
+
+<Info>
+The Advanced Calls View is currently rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
+</Info>
+
+## Switching between views
+
+When you open the Advanced Calls View for the first time, you'll see a banner at the top of the page confirming you're on the new experience.
+
+- Click **Switch back to the classic view** to return to the original Calls page at any time.
+- Your filters and column preferences on the Advanced Calls View are saved independently, so switching back and forth won't affect either page.
+
+<Warning>
+The Advanced Calls View is under active development. If something doesn't behave as expected, use the classic view as a fallback while we continue improving it.
+</Warning>
+
+## Configurable columns
+
+Unlike the classic Calls page, the Advanced Calls View lets you fully customize which columns appear in the table, in what order, and how they're pinned.
+
+<Steps>
+  <Step title="Open the Columns panel">
+    Click the **⚙️ Columns** button in the top-right corner of the page to open the column manager.
+  </Step>
+  <Step title="Show or hide columns">
+    Toggle any column on or off. This includes standard fields (status, duration, agent, tags) as well as dynamic fields discovered automatically from your call inputs and outputs.
+  </Step>
+  <Step title="Reorder columns">
+    Drag columns into the order that makes the most sense for your workflow.
+  </Step>
+  <Step title="Pin important columns">
+    Pin columns you always want visible (like Call ID or Status) so they stay in place while scrolling horizontally through the rest of the table.
+  </Step>
+</Steps>
+
+<Info>
+Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents will show up as selectable columns without any manual setup.
+</Info>
+
+## Saved views
+
+Once you've configured your columns and filters the way you like, you can save that configuration as a **view** and switch back to it whenever you need.
+
+<Steps>
+  <Step title="Configure your table">
+    Set up your columns, filters, and sorting exactly how you want them.
+  </Step>
+  <Step title="Open the Views menu">
+    Click **👁️ Views** in the top-right corner.
+  </Step>
+  <Step title="Save the current configuration">
+    Type a name for your view in the input field and click **Save current**.
+  </Step>
+  <Step title="Apply a saved view">
+    Open the Views menu at any time and click a saved view's name to instantly apply it. Use the **✕** icon next to a view to delete it.
+  </Step>
+</Steps>
+
+<Info>
+If you were already using column customization on the classic Calls page, your existing preferences are automatically migrated into the Advanced Calls View the first time you visit it.
+</Info>
+
+## Filtering calls
+
+The filter bar gives you several ways to narrow down the calls you're looking at.
+
+### Date range
+
+Choose from common presets (Today, Yesterday, Last 7 days, This month, etc.) or define a fully custom start and end date and time.
+
+<Info>
+Unlike the classic Calls page, day-based presets here (such as "Today" or "Last 7 days") end at 23:59:59 of the last day, instead of rolling into 00:00 of the following day.
+</Info>
+
+### Agents
+
+The agent filter uses a chip-based multi-select:
+
+- Start typing an agent's name to search.
+- Click an agent from the dropdown to add it as a chip.
+- Remove a chip by clicking the **✕** on it, or clear all selected agents at once.
+- Leaving the filter empty shows calls from all agents.
+
+### Tags
+
+Tags work the same way as agents — search, select, and manage them as chips. This makes it easy to combine multiple tags to narrow down a specific segment of calls.
+
+### Status
+
+Filter by one or more call statuses, including Open, Closed, No answer, Voicemail, Busy, Failed, Transferred, and Blocked.
+
+### Suspicious calls
+
+The **Suspicious calls** filter is a one-click way to surface calls that are worth a closer look. It's a client-side filter that flags a call as suspicious if **any** of the following are true:
+
+- The AI response latency was unusually high.
+- The call ended with a problematic status (`no-answer`, `failed`, or `blocked`).
+- The call's goal was not met.
+- The call has no transcript at all.
+
+<Info>
+This is intentionally an **OR** condition rather than an **AND** condition. Combining several individual filters (like status) would only show calls matching *all* conditions, which tends to under-match what auditors actually want to review first. The Suspicious calls filter is designed to catch anything that looks off, from any angle.
+</Info>
+
+### Free-text and Call ID search
+
+Use the search box to look up calls by transcript content, or filter directly by a specific Call ID.
+
+## Review and audit workflow
+
+Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, along with an optional note.
+
+<Steps>
+  <Step title="Mark a call as reviewed">
+    Click the review indicator on a call's row to toggle its reviewed status.
+  </Step>
+  <Step title="Add an audit note">
+    Click the note icon to open a small inline editor and write context about why the call was flagged, resolved, or worth revisiting.
+  </Step>
+  <Step title="Save automatically">
+    Notes are saved automatically a moment after you stop typing — no need to click a separate save button.
+  </Step>
+</Steps>
+
+<Info>
+Only one review note editor can be open at a time. Clicking outside the editor, or opening a note on another row, will close the current one.
+</Info>
+
+This review workflow is especially useful when combined with the **Suspicious calls** filter: flag the suspicious calls, review them one by one, leave a note explaining the outcome, and mark them as reviewed once resolved.
+
+## Exporting to Excel
+
+The Advanced Calls View supports two export modes:
+
+<Tabs>
+  <Tab title="Export all filtered calls">
+    Click **Export to Excel** to export every call currently matching your active filters, respecting your selected columns.
+  </Tab>
+  <Tab title="Export selected rows only">
+    Select one or more rows using the row checkboxes, then click **Export selection (N)**. This exports only the calls you've selected, and always includes the **Reviewed** status and the **audit note**, regardless of whether those columns are currently visible in the table.
+  </Tab>
+</Tabs>
+
+<Info>
+Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset.
+</Info>

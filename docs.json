@@ -77,7 +77,8 @@
                 "pages": [
                   "calls/call-history",
                   "calls/call-details",
-                  "calls/reporting"
+                  "calls/reporting",
+                  "calls/advanced-view"
                 ]
               },
               {
@@ -177,7 +178,8 @@
                 "pages": [
                   "es/calls/call-history",
                   "es/calls/call-details",
-                  "es/calls/reporting"
+                  "es/calls/reporting",
+                  "es/calls/advanced-view"
                 ]
               },
               {
