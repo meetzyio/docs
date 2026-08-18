@@ -17,7 +17,7 @@ Esta página se mantiene sincronizada con la versión en inglés de la documenta
 </Info>
 
 <Info>
-**Nueva vista de llamadas (Calls v2)**: Meetzy ha renovado por completo la tabla de historial con columnas totalmente configurables, columnas dinámicas generadas a partir de los datos de entrada y salida de cada agente, vistas guardadas, métricas reales de latencia de IA, un reproductor de grabaciones con forma de onda interactiva y una exportación a Excel mejorada. Todo lo que verás en esta guía refleja ese nuevo comportamiento.
+**Nueva vista de llamadas (Calls v2)**: Meetzy ha renovado por completo la tabla de historial con columnas totalmente configurables, columnas dinámicas generadas a partir de los datos de entrada y salida de cada agente, vistas guardadas, métricas reales de latencia de IA, un reproductor de grabaciones con forma de onda interactiva, una columna de **Revisión/Auditoría** para marcar llamadas como revisadas, detección de **llamadas sospechosas** y una exportación a Excel mejorada (incluyendo exportación selectiva). Todo lo que verás en esta guía refleja ese nuevo comportamiento.
 </Info>
 
 <Info>
@@ -30,12 +30,14 @@ La interfaz renovada del historial de llamadas incluye:
 
 | Sección | Descripción |
 |---------|-------------|
-| 📊 **Cabecera Expandida** | Título, descripción detallada y estado de selección con acciones |
-| 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets y configuración personalizable |
+| 📊 **Cabecera Expandida** | Título, descripción detallada, menú de **Views**, gestor de columnas y acciones de exportación |
+| 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets, tags, estado, latencia y llamadas sospechosas |
 | 🆔 **Búsqueda por Call ID** | Campo dedicado para localizar una llamada exacta por su identificador |
-| 📋 **Tabla de Llamadas** | Lista interactiva con información clave, columnas configurables y métricas de latencia |
+| 📋 **Tabla de Llamadas** | Lista interactiva con información clave, columnas configurables, columnas ancladas y métricas de latencia |
 | ⚙️ **Panel de Columnas** | Gestor de columnas con arrastrar y soltar, visibilidad, vistas guardadas y descubrimiento de columnas dinámicas |
-| 🎧 **Reproductor de Grabaciones** | Modal con forma de onda real, transcripción y controles de velocidad |
+| 👁️ **Menú de Views** | Guarda, aplica y elimina combinaciones completas de columnas como vistas reutilizables |
+| ✅ **Columna de Revisión/Auditoría** | Marca llamadas como revisadas y añade notas de auditoría, con la columna siempre visible a la derecha |
+| 🎧 **Reproductor de Grabaciones** | Modal con forma de onda real, transcripción enriquecida turno a turno y controles de velocidad |
 | 📄 **Modal de Detalles** | Vista detallada de llamadas individuales con transcripciones y gráfico de latencia |
 
 ## Sistema de Filtrado Avanzado
@@ -46,15 +48,16 @@ El nuevo selector de fechas ofrece mayor flexibilidad y precisión:
 
 <Steps>
   <Step title="Presets Rápidos">
-    Accede a rangos predefinidos optimizados:
+    Accede a rangos predefinidos optimizados, desde ventanas muy cortas hasta meses completos:
+    - **Last 15/30 minutes**, **Last 1/2/4/8 hours** - Ideal para monitoreo casi en tiempo real
     - **Today** - Llamadas del día actual
-    - **Yesterday** - Llamadas del día anterior  
+    - **Yesterday** - Llamadas del día anterior
     - **Last 7 Days** - Llamadas de la última semana
     - **Last 30 Days** - Llamadas del último mes
     - **This Month** - Mes actual completo
     - **Last Month** - Mes anterior completo
   </Step>
-  
+
   <Step title="Rango Personalizado">
     Define períodos específicos con precisión horaria:
     - Selector de fecha y hora inicial
@@ -65,23 +68,41 @@ El nuevo selector de fechas ofrece mayor flexibilidad y precisión:
 </Steps>
 
 <Info>
+Los presets basados en días (Today, Yesterday, Last 7 Days, etc.) terminan a las 23:59:59 del último día del rango, en lugar de extenderse hasta la medianoche del día siguiente. Esto evita incluir accidentalmente llamadas del día posterior al filtrar por "ayer" o "esta semana".
+</Info>
+
+<Info>
 El selector de fechas se desactiva automáticamente cuando usas la búsqueda por Call ID para evitar conflictos de filtros. Esto es intencional y no significa que hayas perdido tu configuración: en cuanto borres el Call ID, tu rango de fechas vuelve a aparecer tal cual lo dejaste.
 </Info>
 
 ### Filtro de Agentes con Búsqueda
 
-Sistema mejorado de selección de agentes, pensado para cuentas con decenas o cientos de agentes:
+Sistema mejorado de selección de agentes, pensado para cuentas con decenas o cientos de agentes, y ahora con **selección múltiple** mediante chips:
 
 | Funcionalidad | Descripción |
 |---------------|-------------|
 | **Campo de Búsqueda** | Escribe el nombre del agente y selecciónalo de la lista desplegable |
+| **Selección Múltiple** | Cada agente elegido se añade como un chip dentro del mismo campo; puedes combinar varios agentes en un solo filtro |
 | **Filtrado en Vivo** | La lista se reduce automáticamente a medida que escribes, sin distinguir mayúsculas/minúsculas |
 | **Límite de Resultados** | Muestra hasta 50 coincidencias para mantener el rendimiento en cuentas con muchos agentes; sigue escribiendo para acotar aún más la búsqueda |
 | **Apertura al Enfocar** | El listado se despliega automáticamente al hacer clic o entrar al campo, incluso sin haber escrito nada |
-| **Limpieza Rápida** | Botón ✕ junto al campo para borrar la selección actual con un clic |
+| **Quitar un Agente** | Botón ✕ dentro de cada chip para eliminar ese agente específico de la selección |
+| **Limpieza Rápida** | Botón ✕ general junto al campo para borrar toda la selección de agentes de un clic |
 
 <Info>
 El campo de agente reemplaza al antiguo selector desplegable simple (`<select>`). Si tu cuenta tiene muchos agentes, escribir al menos dos o tres letras del nombre suele ser la forma más rápida de encontrar el que buscas.
+</Info>
+
+### Filtro de Tags
+
+Al igual que el filtro de agentes, el filtro de **Tags** funciona con chips y búsqueda en vivo:
+
+- Escribe para buscar entre las etiquetas ya utilizadas en tus llamadas.
+- Selecciona una o varias etiquetas; cada una se añade como un chip independiente.
+- Usa el botón ✕ de cada chip, o el botón general de limpieza, para quitar etiquetas del filtro.
+
+<Info>
+Las etiquetas disponibles para buscar se generan a partir de las llamadas ya cargadas, por lo que si acabas de crear una etiqueta completamente nueva, es posible que debas ajustar primero el rango de fechas para que aparezca en el listado de sugerencias.
 </Info>
 
 ### Filtros de Estado y Latencia
@@ -112,6 +133,20 @@ Los campos **Min latency (ms)** y **Max latency (ms)** te permiten acotar la bú
 
 El campo **Search** realiza una búsqueda combinada sobre teléfono, agente, resumen y etiquetas, con un pequeño retraso (debounce) para no disparar peticiones en cada tecla.
 
+### Llamadas Sospechosas
+
+<Info>
+El interruptor **Suspicious calls** activa un filtro especial que combina varias condiciones con lógica **OR** (no todas a la vez, sino cualquiera de ellas), pensado para ayudarte a priorizar qué llamadas revisar primero en una auditoría:
+- Latencia promedio de IA superior a 3000 ms
+- Estado de la llamada en `no-answer`, `failed` o `blocked`
+- Objetivo (Goal) no cumplido
+- Llamada sin transcripción disponible
+</Info>
+
+<Warning>
+A diferencia del resto de filtros de la barra (fecha, agente, estado, latencia), que el backend combina siempre con lógica **AND**, el filtro de llamadas sospechosas se calcula **en el cliente** sobre las llamadas ya cargadas, precisamente porque necesita una lógica OR que el resto de filtros no soporta. Si activas "Suspicious calls" junto con otros filtros muy restrictivos, es posible que veas menos resultados de los esperados: prueba a ampliar el rango de fechas o relajar el resto de filtros.
+</Warning>
+
 ### Búsqueda por Call ID con Modo Exclusivo
 
 <Warning>
@@ -128,7 +163,33 @@ Características de la búsqueda por ID:
 4. **Restauración Automática** - Los filtros se reactivan al limpiar el campo
 
 <Info>
-La forma más rápida de obtener un Call ID es usando el botón **Copy Call ID** disponible en las acciones de cada fila, y luego pegarlo directamente en este campo.
+La forma más rápida de obtener un Call ID es usando el botón de copiar disponible junto al identificador en la tabla (ver la sección de columnas **Agent ID** y **Call ID** más abajo), o desde el menú de acciones de cada fila con **Copy Call ID**, y luego pegarlo directamente en este campo.
+</Info>
+
+## Menú de Views (Vistas Guardadas)
+
+Junto al botón de **Columns**, el botón **Views** (👁️) abre un menú desplegable independiente para gestionar tus combinaciones favoritas de columnas sin necesidad de abrir el panel completo de configuración.
+
+<Steps>
+  <Step title="Ver Vistas Existentes">
+    El menú lista todas tus vistas guardadas por nombre. Haz clic sobre cualquiera para aplicarla de inmediato, reemplazando la configuración actual de columnas, orden, ordenamiento y tamaño de página.
+  </Step>
+
+  <Step title="Guardar la Configuración Actual">
+    Escribe un nombre en el campo **New view name…**, en la parte inferior del menú, y pulsa **Save current** para almacenar tu configuración de columnas tal como está en ese momento.
+  </Step>
+
+  <Step title="Eliminar una Vista">
+    Usa el botón ✕ junto al nombre de cualquier vista guardada para eliminarla de forma permanente.
+  </Step>
+
+  <Step title="Sin Vistas Guardadas">
+    Si todavía no has guardado ninguna, el menú mostrará el mensaje **"No saved views yet."**.
+  </Step>
+</Steps>
+
+<Info>
+Esta misma funcionalidad de vistas guardadas también está disponible dentro del panel de **Columns** (⚙️), en su sección superior. El menú **Views** es simplemente un acceso más rápido para aplicar o guardar vistas sin necesidad de abrir el panel completo de gestión de columnas.
 </Info>
 
 ## Panel de Configuración de Columnas (Icono de Engranaje ⚙️)
@@ -160,17 +221,18 @@ Este panel reemplaza a los antiguos selectores de columnas independientes: ahora
     Sección desplegable que descubre automáticamente los campos disponibles en los datos de entrada (`call.data`) de las llamadas cargadas, agrupados por agente:
     - Cada campo muestra su etiqueta y la ruta exacta del dato (por ejemplo `contact.email`).
     - Pulsa **Add** para agregarlo como nueva columna; el botón cambia a **Added** una vez incluido.
+    - Cada grupo de agente puede expandirse o contraerse de forma independiente, útil cuando manejas cuentas con muchos agentes y decenas de campos.
     - Si no hay campos detectados, es porque las llamadas cargadas actualmente no incluyen datos de entrada personalizados.
   </Tab>
 
   <Tab title="Columnas de Salida (Output)">
-    Igual que la sección de entrada, pero para los datos devueltos por el agente en `call.output` (por ejemplo, campos extraídos por la IA durante la conversación). También se agrupan por agente y se agregan con el mismo botón **Add**.
+    Igual que la sección de entrada, pero para los datos devueltos por el agente en `call.output` (por ejemplo, campos extraídos por la IA durante la conversación). También se agrupan por agente, con expansión/contracción independiente, y se agregan con el mismo botón **Add**.
   </Tab>
 </Tabs>
 
 <Steps>
   <Step title="Abrir el Panel">
-    Haz clic en el botón **Columns** (⚙️) ubicado en la esquina superior derecha, junto al botón de exportar a Excel.
+    Haz clic en el botón **Columns** (⚙️) ubicado en la esquina superior derecha, junto al botón de **Views** y al de exportar a Excel.
   </Step>
 
   <Step title="Elegir Columnas Fijas o Dinámicas">
@@ -186,7 +248,7 @@ Este panel reemplaza a los antiguos selectores de columnas independientes: ahora
   </Step>
 
   <Step title="Guardar como Vista">
-    Si sueles alternar entre distintas combinaciones de columnas según el contexto (por ejemplo, una vista para soporte y otra para análisis de latencia), escribe un nombre en **New view name…**, dentro de la sección **Saved views**, y pulsa **Save**. Podrás volver a aplicarla en un clic cuando la necesites.
+    Si sueles alternar entre distintas combinaciones de columnas según el contexto (por ejemplo, una vista para soporte y otra para análisis de latencia), escribe un nombre en **New view name…**, dentro de la sección **Saved views** (o desde el menú **Views** en la cabecera), y pulsa **Save**. Podrás volver a aplicarla en un clic cuando la necesites.
   </Step>
 
   <Step title="Restablecer a Valores por Defecto">
@@ -211,6 +273,8 @@ Guardar una vista con **Saved views** captura una "foto" de tu configuración de
 | **Selección** | Checkbox para seleccionar llamadas | No |
 | **Date** | Fecha y hora de la llamada | Sí |
 | **Agent** | Nombre del agente que manejó la llamada | Sí |
+| **Agent ID** | Identificador único del agente, mostrado en formato compacto con botón de copia | Sí |
+| **Call ID** | Identificador único de la llamada, mostrado en formato compacto con botón de copia | Sí |
 | **From** | Número de teléfono origen | Sí |
 | **To** | Número de teléfono destino (oculta por defecto) | Sí |
 | **Status** | Badge visual del estado de la llamada | Sí |
@@ -228,10 +292,21 @@ Guardar una vista con **Saved views** captura una "foto" de tu configuración de
 | **Transferred** | Indicador de transferencia a humano (oculta por defecto) | Sí |
 | **Agent duration** | Duración específica de la parte del agente (oculta por defecto) | Sí |
 | **Recording** | Acceso al reproductor de la grabación | Sí |
-| **Actions** | Menú de acciones rápidas por fila | No |
+| **Reviewed** | Estado de revisión/auditoría de la llamada, con nota opcional. Anclada a la derecha | Sí |
+| **Actions** | Menú de acciones rápidas por fila. Anclada a la derecha | No |
 
 <Info>
 Las columnas marcadas como "oculta por defecto" no aparecen la primera vez que usas la tabla, pero pueden activarse en cualquier momento desde el panel de **Columns**.
+</Info>
+
+<Info>
+Las columnas **Agent ID** y **Call ID** muestran únicamente los últimos 10 caracteres del identificador (por ejemplo, `…a1b2c3d4e5`) para no ocupar demasiado espacio horizontal con un UUID completo. Pasa el cursor sobre el valor para ver el identificador completo en un tooltip, o pulsa el icono de portapapeles junto a él para copiarlo al instante; el botón mostrará brevemente **"Copied"** como confirmación.
+</Info>
+
+### Columnas Ancladas (Pinned)
+
+<Info>
+Las columnas **Reviewed** y **Actions** están **ancladas** al borde derecho de la tabla: permanecen visibles y agrupadas visualmente incluso cuando desplazas la tabla horizontalmente para ver columnas dinámicas u otras columnas menos frecuentes. Esto garantiza que siempre tengas acceso inmediato al estado de auditoría y a las acciones rápidas de cada llamada, sin importar cuántas columnas hayas añadido.
 </Info>
 
 ### Columnas Dinámicas de Entrada y Salida
@@ -247,7 +322,37 @@ Además de las columnas fijas, puedes agregar **columnas dinámicas** basadas en
 Estas columnas se descubren automáticamente analizando las llamadas ya cargadas en la tabla. Si tu agente usa un campo nuevo que aún no aparece en el panel, carga o filtra hasta que una llamada con ese campo esté visible y luego vuelve a abrir el panel de Columns.
 </Info>
 
-Las columnas dinámicas se identifican con el prefijo `[Input]` en el caso de las columnas de entrada, y se agregan automáticamente junto a las demás columnas configurables, justo antes de la columna de **Actions**.
+Las columnas dinámicas se identifican con el prefijo `[Input]` en el caso de las columnas de entrada, y se agregan automáticamente junto a las demás columnas configurables, justo antes de las columnas ancladas de **Reviewed** y **Actions**.
+
+<Info>
+Si un valor dinámico tiene aspecto de identificador largo (UUID o hash), se muestra automáticamente con el mismo formato compacto y botón de copia que usan las columnas **Agent ID** y **Call ID**, en lugar de mostrar el texto completo sin recortar.
+</Info>
+
+## Revisión y Auditoría de Llamadas
+
+La columna **Reviewed** convierte el historial de llamadas en una herramienta de auditoría de calidad, permitiendo marcar qué llamadas ya han sido revisadas por un humano y dejar constancia de esa revisión.
+
+<Steps>
+  <Step title="Marcar como Revisada">
+    Haz clic sobre el indicador de estado en la columna **Reviewed** de cualquier fila para alternar entre revisada y no revisada.
+  </Step>
+
+  <Step title="Añadir una Nota de Auditoría">
+    Abre el popover de la columna para escribir una nota breve sobre por qué la llamada fue marcada (por ejemplo, "Respuesta correcta, tono adecuado" o "Escalar a soporte: la IA no entendió la consulta"). La nota se guarda automáticamente con un pequeño retraso mientras escribes, sin necesidad de un botón de guardar explícito.
+  </Step>
+
+  <Step title="Ver Quién Revisó y Cuándo">
+    Cada registro de revisión conserva quién marcó la llamada y la fecha de la última actualización, para mantener trazabilidad en procesos de auditoría de equipo.
+  </Step>
+</Steps>
+
+<Info>
+El estado de revisión (`reviewed`, la nota y quién la registró) se guarda de forma independiente al resto de los datos de la llamada y se combina automáticamente con cada fila al cargar la tabla. Esto significa que auditar llamadas no modifica ni sobrescribe ningún dato original de la llamada en sí.
+</Info>
+
+<Info>
+Solo puede haber un popover de nota abierto a la vez: si haces clic en la nota de otra fila, el anterior se cierra automáticamente.
+</Info>
 
 ## Métricas de Latencia de IA
 
@@ -268,7 +373,7 @@ Una de las incorporaciones más importantes de la nueva vista es la medición re
 </Tabs>
 
 <Info>
-Puedes usar los filtros **Min latency (ms)** y **Max latency (ms)** de la barra de filtros para acotar la búsqueda únicamente a llamadas cuya latencia promedio caiga dentro (o fuera) de un rango específico, sin necesidad de revisar llamada por llamada.
+Puedes usar los filtros **Min latency (ms)** y **Max latency (ms)** de la barra de filtros para acotar la búsqueda únicamente a llamadas cuya latencia promedio caiga dentro (o fuera) de un rango específico, sin necesidad de revisar llamada por llamada. Además, el interruptor **Suspicious calls** incluye automáticamente las llamadas con latencia superior a 3000 ms dentro de sus criterios de detección.
 </Info>
 
 ### Gráfico Detallado de Latencia
@@ -279,7 +384,7 @@ Al abrir el detalle de una llamada, encontrarás un gráfico de línea completo 
 Las métricas de latencia dependen de que ElevenLabs haya reportado los tiempos de respuesta (`convai_ttf_audio_since_silence`) para esa llamada. En integraciones o proveedores de voz distintos, estos campos podrían no estar disponibles y las columnas de latencia aparecerán vacías.
 </Warning>
 
-## Reproductor de Grabaciones con Forma de Onda
+## Reproductor de Grabaciones con Forma de Onda y Transcripción Enriquecida
 
 La columna **Recording** abre un reproductor de audio avanzado en un modal, mucho más completo que un simple `<audio>` embebido.
 
@@ -298,8 +403,17 @@ La columna **Recording** abre un reproductor de audio avanzado en un modal, much
     Elige entre las velocidades 0.5x, 0.75x, 1x, 1.25x, 1.5x y 2x para escuchar la llamada más rápido o más despacio según lo necesites.
   </Step>
 
-  <Step title="Transcripción en Paralelo">
-    A la derecha del reproductor se muestra la transcripción completa de la conversación, con los mensajes del agente y del usuario diferenciados visualmente, para seguir el audio mientras lees.
+  <Step title="Transcripción Enriquecida Turno a Turno">
+    A la derecha del reproductor se muestra la transcripción completa de la conversación, con los mensajes del agente y del usuario diferenciados visualmente. Cada turno incluye, cuando está disponible:
+    - El segundo exacto de la conversación en el que ocurrió.
+    - Latencia de **ASR** (reconocimiento de voz) en los turnos del usuario.
+    - Latencia de **TTS** (síntesis de voz) en los turnos del agente.
+    - Un badge expandible de **LLM** con el modelo utilizado y sus métricas de tiempo de respuesta.
+    - Badges de **🔧 herramientas (tool calls)** cuando el agente invocó una función durante ese turno, expandibles para ver los parámetros enviados y la respuesta recibida.
+  </Step>
+
+  <Step title="Transcripción de Respaldo">
+    Si el detalle enriquecido turno a turno ya no está disponible en ElevenLabs (por ejemplo, en conversaciones muy antiguas), el modal recurre automáticamente a una transcripción de texto plano, indicando claramente que las métricas detalladas no están disponibles para esa llamada.
   </Step>
 
   <Step title="Descarga">
@@ -309,6 +423,10 @@ La columna **Recording** abre un reproductor de audio avanzado en un modal, much
 
 <Info>
 La forma de onda se colorea progresivamente a medida que avanza la reproducción: la parte ya reproducida se muestra en color (violeta) y la parte pendiente en gris, dándote una referencia visual instantánea del punto exacto en el que te encuentras.
+</Info>
+
+<Info>
+Los badges de **LLM** y **🔧 herramientas** son expandibles: haz clic sobre cualquiera de ellos para ver el detalle completo (modelo usado, métricas de tiempo, parámetros enviados a la herramienta y su respuesta) sin salir del reproductor. Solo un detalle puede estar expandido a la vez.
 </Info>
 
 ## Selección Masiva y Ordenamiento
@@ -323,7 +441,7 @@ La forma de onda se colorea progresivamente a medida que avanza la reproducción
   </Step>
 
   <Step title="Acciones Disponibles">
-    Con llamadas seleccionadas puedes exportar, etiquetar en lote o generar reportes específicos sobre ese subconjunto.
+    Con llamadas seleccionadas, aparece el botón **Export selection (N)** junto al botón de exportación general, que te permite generar un Excel únicamente con las filas marcadas, además de otras acciones en lote como etiquetar o generar reportes específicos sobre ese subconjunto.
   </Step>
 </Steps>
 
@@ -349,21 +467,31 @@ Cada llamada incluye un menú de acciones en la columna **Actions**:
 |--------|-------------|
 | 👁️ **View Details** | Abrir modal con información completa de la llamada |
 | 📋 **Copy Call ID** | Copiar el identificador al portapapeles |
-| 🎧 **Play Recording** | Abrir el reproductor de grabación con forma de onda |
+| 🎧 **Play Recording** | Abrir el reproductor de grabación con forma de onda y transcripción enriquecida |
 | 📊 **View Latency** | Ver el gráfico detallado de latencia turno a turno |
 | 💬 **View Transcript** | Ver la transcripción completa de la conversación |
 | 📝 **Feedback** | Dejar retroalimentación o crear un ticket de soporte sobre la llamada |
 
 <Info>
-El botón **Copy Call ID** es la forma más rápida de obtener el identificador exacto que luego puedes pegar en el campo de búsqueda por Call ID descrito más arriba.
+El botón **Copy Call ID** es la forma más rápida de obtener el identificador exacto que luego puedes pegar en el campo de búsqueda por Call ID descrito más arriba. También puedes copiarlo directamente desde la columna **Call ID** en la tabla, si la tienes visible.
 </Info>
 
 ## Exportación de Datos Avanzada
 
-El botón **Export to Excel**, ubicado junto al botón de columnas, genera un archivo Excel con los datos actualmente filtrados en la tabla.
+Junto al botón de columnas encontrarás dos formas de exportar tus datos a Excel: exportación completa según los filtros activos, y exportación selectiva sobre las filas marcadas.
+
+<Tabs>
+  <Tab title="Exportación Completa">
+    El botón **Export to Excel** genera un archivo con todos los datos actualmente filtrados en la tabla, respetando el rango de fechas, agentes, tags, estado y latencia activos en ese momento.
+  </Tab>
+
+  <Tab title="Exportación Selectiva">
+    Cuando tienes una o más filas seleccionadas mediante los checkboxes, aparece el botón **Export selection (N)**, donde N es el número de llamadas marcadas. Este botón genera un Excel que incluye **únicamente** esas filas, junto con su estado de **Reviewed** y la nota de auditoría asociada — ideal para compartir con un supervisor el resultado puntual de una sesión de revisión de calidad.
+  </Tab>
+</Tabs>
 
 <Info>
-La exportación es **configurable**: el archivo Excel generado respeta exactamente las columnas visibles y su orden actual en la tabla, incluyendo cualquier columna dinámica de Input u Output que hayas añadido. Si quieres un Excel con más o menos información, ajusta primero la visibilidad de columnas desde el panel de **Columns** y luego exporta.
+En ambos casos, la exportación es **configurable**: el archivo Excel generado respeta exactamente las columnas visibles y su orden actual en la tabla, incluyendo cualquier columna dinámica de Input u Output que hayas añadido. Si quieres un Excel con más o menos información, ajusta primero la visibilidad de columnas desde el panel de **Columns** y luego exporta.
 </Info>
 
 <Info>
@@ -371,7 +499,7 @@ La generación del archivo Excel se procesa de forma asíncrona: mientras se pre
 </Info>
 
 <Warning>
-La exportación respeta los filtros activos en el momento de pulsar el botón, incluyendo el rango de fechas, agente, estado y latencia. Si necesitas exportar todo el histórico sin restricciones, limpia los filtros antes de exportar.
+La exportación completa respeta los filtros activos en el momento de pulsar el botón, incluyendo el rango de fechas, agente, tags, estado y latencia. Si necesitas exportar todo el histórico sin restricciones, limpia los filtros antes de exportar. La exportación selectiva, en cambio, ignora los filtros y exporta exactamente las filas que hayas marcado manualmente.
 </Warning>
 
 ## Preguntas Frecuentes
@@ -389,8 +517,20 @@ La exportación respeta los filtros activos en el momento de pulsar el botón, i
     Las métricas de latencia dependen de que el proveedor de voz haya reportado los tiempos de respuesta para esa llamada específica. Si esos datos no están disponibles, las columnas de latencia se muestran vacías para esa fila en particular.
   </Step>
 
+  <Step title="¿Por qué el filtro de llamadas sospechosas muestra menos resultados de los que esperaba?">
+    "Suspicious calls" se calcula sobre las llamadas ya cargadas según el resto de tus filtros activos (fecha, agente, tags, estado, latencia), que sí se combinan con lógica AND en el servidor. Si tienes filtros muy restrictivos además de "Suspicious calls" activado, prueba a ampliar el rango de fechas o relajar otros filtros para ver el universo completo de llamadas sospechosas.
+  </Step>
+
+  <Step title="¿La nota de auditoría se guarda automáticamente?">
+    Sí. Al escribir en el popover de la columna **Reviewed**, la nota se guarda de forma automática tras un breve retraso, sin necesidad de pulsar ningún botón de guardado.
+  </Step>
+
+  <Step title="¿Puedo exportar solo las llamadas que ya revisé?">
+    Sí. Marca las llamadas deseadas con el checkbox de selección de cada fila y usa el botón **Export selection (N)** que aparece junto al botón de exportación general. Ese Excel incluirá el estado de **Reviewed** y la nota de auditoría de cada llamada seleccionada.
+  </Step>
+
   <Step title="¿Puedo recuperar la configuración de columnas anterior?">
-    Sí. Usa el botón **Reset to default columns** dentro del panel de Columns para volver al conjunto de columnas original en su orden por defecto. Si lo que buscas es una combinación de columnas específica que ya habías guardado, revisa la sección **Saved views** en la parte superior del panel.
+    Sí. Usa el botón **Reset to default columns** dentro del panel de Columns para volver al conjunto de columnas original en su orden por defecto. Si lo que buscas es una combinación de columnas específica que ya habías guardado, revisa la sección **Saved views** en la parte superior del panel, o el menú **Views** en la cabecera.
   </Step>
 
   <Step title="¿Qué pasó con la configuración de columnas que tenía en el historial de llamadas anterior?">
@@ -399,6 +539,10 @@ La exportación respeta los filtros activos en el momento de pulsar el botón, i
 
   <Step title="¿Las vistas guardadas se comparten entre usuarios de mi cuenta?">
     No. Las vistas guardadas, al igual que el resto de tus preferencias de columnas, se almacenan de forma individual por usuario, por lo que cada miembro de tu equipo puede configurar su propia combinación de columnas sin afectar a los demás.
+  </Step>
+
+  <Step title="¿Por qué las columnas Reviewed y Actions siempre aparecen a la derecha, aunque las reordene?">
+    Ambas columnas están **ancladas (pinned)** al borde derecho de la tabla de forma intencional, para que el estado de auditoría y las acciones rápidas estén siempre accesibles sin importar cuánto desplaces la tabla horizontalmente o cuántas columnas dinámicas hayas añadido.
   </Step>
 </Steps>
 

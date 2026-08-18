@@ -1,20 +1,40 @@
 ---
 title: 'Call History'
-description: 'Search, filter, and review all your AI agent calls with advanced filtering and customization'
+description: 'Search, filter, and review all your AI agent calls with advanced filtering, auditing, and customization'
 icon: 'phone'
 ---
 
 # Call History
 
-The Call History section provides a comprehensive view of all calls made by your AI agents. You can search, filter, and analyze call data to monitor performance and identify insights with powerful filtering capabilities and customizable views.
+The Call History section provides a comprehensive view of all calls made by your AI agents. You can search, filter, and analyze call data to monitor performance and identify insights with powerful filtering capabilities, an audit/review workflow, and customizable views.
 
 ## Accessing Call History
 
-Navigate to **Calls** in the main menu to access your complete call history.
+Navigate to **Calls** in the main menu to access your complete call history. This now opens the improved calls view (**Calls v2**) by default.
 
 <Info>
-There is now an improved calls view (**Calls v2**) with **fully configurable, drag-and-drop columns**, **dynamic input/output field discovery grouped by agent**, **saved views**, **real AI latency metrics with a per-turn detail chart**, a **searchable agent combobox**, an **exact-match Call ID filter**, and an **Excel export that mirrors your visible columns**. It's available alongside the classic Call History table and shares the same underlying data — use it whenever you need deeper performance visibility or a more tailored column layout.
+Calls v2 brings **fully configurable, drag-and-drop columns** (including dynamic input/output fields grouped by agent, with key columns pinned to the right edge), **saved views**, **real AI latency metrics with a per-turn detail chart**, an **expanded filter bar** (date presets, multi-agent selection, tag autocomplete, exact Call ID, latency range, and a one-click "suspicious calls" filter), a built-in **review/audit workflow** with per-call notes, and an **Excel export** that can target either all filtered calls or just your current selection.
 </Info>
+
+### Switching Between Views
+
+A notice banner sits at the very top of the page reminding you that you're on the new Calls view.
+
+<Steps>
+<Step title="Notice the Banner">
+At the top of the page, a highlighted banner reads "You're viewing the new Calls page."
+</Step>
+<Step title="Switch Back if Needed">
+Click **Switch back to the classic view** in the banner to be taken to `/calls-old`, the original Call History table, if you run into something that doesn't yet behave as expected in the new view.
+</Step>
+<Step title="Return Anytime">
+Both views read from the same underlying call data, so you can move back and forth between them without losing information — only view-specific preferences like column layout or saved views live separately per view.
+</Step>
+</Steps>
+
+<Tip>
+The banner is a safety net during the transition to the new view, not a permanent fixture — treat the classic view as a fallback rather than your primary workflow going forward.
+</Tip>
 
 ## Interface Overview
 
@@ -22,10 +42,11 @@ The calls interface consists of:
 
 | Section | Description |
 |---------|-------------|
-| 📊 Header | Title, description, and selection status |
+| 🟡 Notice Banner | Reminder that you're on the new view, with a link back to the classic table |
+| 📊 Header | Title, description, Views menu, Columns manager, and export actions |
 | 🔍 Filter Bar | Advanced filtering controls with visibility management |
-| ⚙️ Columns | Configurable, draggable columns including dynamic agent fields, plus saved views |
-| 📋 Call Table | List of all calls with key information |
+| ⚙️ Columns | Configurable, draggable columns including dynamic agent fields, pinned columns, and saved views |
+| 📋 Call Table | List of all calls with key information, including review status |
 | 📄 Details Modal | Detailed view of individual calls, including a full AI latency chart |
 
 ## Configurable Columns
@@ -34,14 +55,15 @@ The calls interface consists of:
 The improved calls view lets you fully control which columns appear, in what order, and even add columns sourced directly from each agent's input parameters or structured output — no need to open a call individually to see a specific data point.
 </Info>
 
-Click the **⚙️ Columns** button above the table to open the column manager panel. It's organized into four sections:
+Click the **⚙️ Columns** button above the table to open the column manager panel. It's organized into three areas:
 
 | Section | Purpose |
 |---------|---------|
-| **Saved views** | Save your current column configuration under a name and reapply it later with one click |
 | **Input columns** | Discover fields from each agent's input parameters (`call.data`) and add them as columns, grouped by agent |
 | **Columns** | Manage visibility and order of all currently active columns — fixed and dynamic — via drag and drop |
 | **Output columns** | Discover fields from each agent's structured output (`call.output`) and add them as columns, grouped by agent |
+
+Saved column layouts live in the separate **👁️ Views** menu next to the Columns button — see [Saved Views](#saved-views) below.
 
 <Steps>
 <Step title="Open the Column Manager">
@@ -54,7 +76,7 @@ In the **Columns** section, drag any row using the ⠿ handle to reorder it. The
 Use the checkbox next to each column name to toggle its visibility. Columns marked as non-toggleable (such as **Actions**) always remain visible.
 </Step>
 <Step title="Add a Dynamic Column from Input or Output">
-Expand **Input columns** or **Output columns**, find the field you need under the relevant agent group, and click **Add**. The field appears immediately as a new column, placed just before the Actions column, and is tagged with an **input**/**output** badge in the Columns list.
+Click **Input columns** or **Output columns**, find the field you need under the relevant agent group (grouped and collapsible per agent), and click **Add**. The field appears immediately as a new column, placed just before the pinned columns, and is tagged with an **input**/**output** badge in the Columns list.
 </Step>
 <Step title="Remove a Dynamic Column">
 Dynamic columns display a small ✕ button next to their badge in the Columns list. Click ✕ to remove them from your view entirely.
@@ -72,20 +94,33 @@ Your column configuration — order, visibility, and any dynamic columns you've 
 Dynamic columns are tied to the agent and field path they were created from. If an agent stops sending a particular input or output field, that column will simply show empty values for calls where the data is missing, rather than being removed automatically.
 </Warning>
 
+### Pinned Columns
+
+<Info>
+A small number of columns are **pinned to the right edge** of the table so they stay visible regardless of how many columns you add or how far you scroll horizontally.
+</Info>
+
+By default, **Reviewed** and **Actions** are pinned. This keeps your audit status and row-level actions within reach even when you've added several dynamic input/output columns that push the table wide.
+
+<Tip>
+Pinned columns are visually grouped together at the right edge — if you rely heavily on the review workflow, keep the **Reviewed** column pinned rather than hiding it, so you always know which calls in view still need attention.
+</Tip>
+
 ### Saved Views
 
 <Info>
-Beyond your single auto-saved layout, the column manager lets you keep multiple **named views** — for example, one focused on latency troubleshooting and another focused on evaluation outcomes — and switch between them instantly.
+Beyond your single auto-saved layout, the **👁️ Views** menu (next to the Columns button in the header) lets you keep multiple **named views** — for example, one focused on latency troubleshooting and another focused on audit review — and switch between them instantly.
 </Info>
-
-The **Saved views** section sits at the top of the column manager panel:
 
 <Steps>
 <Step title="Configure a Layout">
 Show, hide, reorder, and add dynamic columns until the table matches the view you want to save.
 </Step>
+<Step title="Open the Views Menu">
+Click **👁️ Views** in the header to open the saved views panel.
+</Step>
 <Step title="Name and Save">
-Type a name into the **New view name…** field and click **Save**. The current column configuration is stored as a new saved view.
+Type a name into the **New view name…** field and click **Save current**. The current column configuration is stored as a new saved view.
 </Step>
 <Step title="Apply a Saved View">
 Click on any saved view's name in the list to instantly replace your current column configuration with that view's layout.
@@ -127,6 +162,8 @@ Out of the box, the improved view includes:
 |--------|-------------|
 | Date | When the call occurred |
 | Agent | Name of the agent that handled the call |
+| Agent ID | The agent's unique identifier, shown as a compact copyable badge |
+| Call ID | The call's unique identifier, shown as a compact copyable badge |
 | From | Caller phone number |
 | Status | Call status badge |
 | Goal | Success indicator based on evaluations |
@@ -135,9 +172,54 @@ Out of the box, the improved view includes:
 | Latency (turns) | Compact sparkline of latency across the call's turns |
 | Tags | Dynamic tags associated with the call |
 | Recording | Access to the call recording player |
-| Actions | Row-level quick actions |
+| Reviewed *(pinned)* | Audit/review status for the call, with an inline note editor |
+| Actions *(pinned)* | Row-level quick actions |
 
-Additional columns such as **To**, **Max latency**, **Company**, **Email**, **Summary**, **Type**, **Hung up by**, **Transferred**, and **Agent duration** are available but hidden by default — enable them from the column manager as needed.
+Additional columns such as **To**, **Max latency**, **Company**, **Email**, **Summary**, **Type**, **Hung up by**, and **Agent duration** are available but hidden by default — enable them from the column manager as needed.
+
+<Tip>
+The **Agent ID** and **Call ID** columns render as compact badges showing only the last 10 characters with a one-click copy button — handy for grabbing an exact ID to paste into the Call ID filter without cluttering the row with a full UUID.
+</Tip>
+
+## Review & Audit Workflow
+
+<Info>
+Every call can now be marked as reviewed and annotated with a free-text note directly from the table — no need to leave Call History to track your QA process.
+</Info>
+
+The **Reviewed** column (pinned to the right by default) is the entry point for the audit workflow:
+
+| Element | Description |
+|---------|-------------|
+| **Reviewed toggle** | Marks the call as reviewed or not yet reviewed, visually distinguished in the column |
+| **Note popover** | An inline editor attached to the Reviewed column where you can write a free-text audit note for that specific call |
+| **Auto-save** | Notes are saved automatically shortly after you stop typing, without a separate save button |
+
+<Steps>
+<Step title="Open the Review Popover">
+Click the **Reviewed** cell for any call to open its inline note editor.
+</Step>
+<Step title="Mark as Reviewed">
+Toggle the call's reviewed status to indicate it has been audited.
+</Step>
+<Step title="Write an Audit Note">
+Type your observations, findings, or QA comments directly into the note field. Your input is debounced and saved automatically a moment after you stop typing.
+</Step>
+<Step title="Close the Popover">
+Click anywhere outside the popover to close it. Only one review popover can be open at a time, so opening a new one automatically closes any other that was active.
+</Step>
+<Step title="Revisit Later">
+Reopen the Reviewed cell for any call at any time to read or edit the existing note — your review history for that call is preserved.
+</Step>
+</Steps>
+
+<Tip>
+Combine the Reviewed column with a saved filter preset (for example "Failed + Last 7 Days") and a saved column view that keeps **Reviewed** and **Tags** visible, to build a repeatable QA sweep: filter down to the calls you need to audit, review each one, leave a note, and move to the next.
+</Tip>
+
+<Warning>
+Review status and notes are stored per call and are visible to anyone with access to Call History — treat audit notes as shared team documentation rather than private scratch notes.
+</Warning>
 
 ## AI Latency Metrics
 
@@ -192,7 +274,7 @@ Latency data depends on the underlying voice provider reporting response timing 
 ## Recording Player with Waveform
 
 <Info>
-The recording player has been upgraded from a simple audio control to a full waveform-based player, built from the actual decoded audio of the call — not a generic placeholder animation.
+The recording player has been upgraded from a simple audio control to a full waveform-based player, built from the actual decoded audio of the call — not a generic placeholder animation. It also includes a rich, per-turn conversational view when detailed provider data is available.
 </Info>
 
 Click the **Recording** column on any call to open the player modal, which includes:
@@ -204,7 +286,8 @@ Click the **Recording** column on any call to open the player modal, which inclu
 | **Playback progress** | The waveform visually fills in as the recording plays, distinguishing played from unplayed audio |
 | **Skip controls** | Jump backward or forward 10 seconds with dedicated buttons |
 | **Playback speed** | Choose from 0.5x, 0.75x, 1x, 1.25x, 1.5x, or 2x speed |
-| **Synced transcript** | The call transcript loads alongside the player for side-by-side review |
+| **Rich synced transcript** | Per-turn transcript with latency badges (ASR, TTS, LLM), the LLM model used, and expandable tool call/result details, when available |
+| **Fallback transcript** | Falls back to a plain text transcript automatically if detailed per-turn provider data isn't available for that call |
 | **Download** | Download the recording file directly from the modal |
 
 <Steps>
@@ -218,7 +301,7 @@ Wait for the audio to load and decode — the waveform renders automatically onc
 Click on any part of the waveform to jump there instantly, or use the speed buttons to review a section more quickly or more carefully.
 </Step>
 <Step title="Cross-Reference with the Transcript">
-Use the transcript panel next to the player to follow along with what's being said as you scrub through the recording.
+Use the transcript panel next to the player to follow along with what's being said as you scrub through the recording. Expand latency or tool badges on any turn for a deeper technical breakdown of that moment in the call.
 </Step>
 </Steps>
 
@@ -226,29 +309,43 @@ Use the transcript panel next to the player to follow along with what's being sa
 Because the waveform is built from decoded audio rather than a static image, longer recordings may take a moment to render on first open. Once decoded, seeking and speed changes are instant.
 </Tip>
 
-## Excel Export Matching Your Columns
+## Excel Export
 
 <Info>
-Exporting to Excel now respects exactly what you see: only the columns currently visible in your table — in the order you've arranged them — are included in the exported file, including any dynamic input/output columns you've added.
+Exporting to Excel respects exactly what you see: only the columns currently visible in your table — in the order you've arranged them — are included in the exported file, including any dynamic input/output columns you've added and the current review status/notes.
 </Info>
+
+Two export options are available side by side in the header:
+
+| Button | Scope |
+|--------|-------|
+| **Export to Excel** | Exports every call matching your current filters, across all pages |
+| **Export selection (N)** | Appears only once you've checked one or more rows; exports only those selected calls |
 
 <Steps>
 <Step title="Configure Your View">
 Use the column manager to show, hide, and reorder columns until the table reflects exactly the data you want to export. Apply a saved view first if you have one ready for this purpose.
 </Step>
 <Step title="Apply Your Filters">
-Narrow down the calls you want using the filter bar, since the export follows the currently filtered result set.
+Narrow down the calls you want using the filter bar, since the full export follows the currently filtered result set.
 </Step>
-<Step title="Click Export to Excel">
-Use the **Export to Excel** button above the table. The button shows an "Exporting…" state while the file is being generated.
+<Step title="Choose Full or Selective Export">
+Click **Export to Excel** to export every filtered call, or select specific rows with the checkboxes and click **Export selection (N)** to export only those calls — useful when you've hand-picked a set of calls during a review session.
+</Step>
+<Step title="Watch the Export State">
+The button shows an "Exporting…" state while the file is being generated.
 </Step>
 <Step title="Open the File">
-The downloaded spreadsheet mirrors your visible columns and their order, including any dynamic agent input/output fields you've added, making it easy to share exactly the view you were working with.
+The downloaded spreadsheet mirrors your visible columns and their order, including any dynamic agent input/output fields you've added and the Reviewed status/notes, making it easy to share exactly the view you were working with.
 </Step>
 </Steps>
 
+<Tip>
+"Export selection" is a natural companion to the review workflow: mark and annotate the calls you've audited, select them, and export just that batch as a record of your QA pass — without pulling in every other call matching your filters.
+</Tip>
+
 <Warning>
-If you hide a column after exporting, previously downloaded files aren't affected retroactively — each export is a snapshot of your column configuration and filters at that moment.
+If you hide a column after exporting, previously downloaded files aren't affected retroactively — each export is a snapshot of your column configuration, filters, and (for selective exports) selection at that moment.
 </Warning>
 
 ## Advanced Filter System
@@ -273,7 +370,7 @@ Use the checkboxes to show or hide each of the following filters independently:
 - **Evaluations** — filter by evaluation completion or outcome
 - **Call ID** — the direct database lookup search field, matched on the exact ID
 
-Core filters such as Date Range, Agents, Status, Direction, and Success are always visible and cannot be hidden, since they are considered essential for everyday use.
+Core filters such as Date Range, Agents, Status, Direction, Success, Latency range, and Suspicious calls are always visible and cannot be hidden, since they are considered essential for everyday use.
 </Step>
 <Step title="Apply and Close">
 Close the panel by clicking outside of it or pressing the settings icon again. Hidden filters are immediately removed from the Filter Bar, freeing up space for the ones you actually use.
@@ -284,69 +381,64 @@ Your filter visibility preferences are saved automatically per user and restored
 </Steps>
 
 <Info>
-By default, the **Tags** filter is now visible in the Filter Bar out of the box, so you don't need to open the settings panel to start filtering calls by tags. Goal, Evaluations, and Call ID remain part of the same visibility configuration and follow their own default state, which you can adjust at any time.
+By default, the **Tags** filter is visible in the Filter Bar out of the box, so you don't need to open the settings panel to start filtering calls by tags. Goal, Evaluations, and Call ID remain part of the same visibility configuration and follow their own default state, which you can adjust at any time.
 </Info>
 
 <Tip>
 If a filter is hidden but has an active value from a previous session, it will remain applied to your results even though it's not visible. Re-enable the filter from the settings panel to review or clear it. Look for the 👁️ **Hidden Filter** indicator near the settings icon — it appears whenever a hidden filter still holds an active value, so you always know your results are being narrowed by something you can't currently see.
 </Tip>
 
-### Filter Settings Panel (⚙️)
-
-<Info>
-The filter settings panel is the central place to control which optional filters appear in the Filter Bar. It's accessed through the gear icon located at the end of the filter controls row.
-</Info>
-
-The panel includes an individual toggle for each of the following filters:
-
-| Filter | Default Visibility | Description |
-|--------|--------------------|--------------|
-| Goal | Hidden | Filter calls by the agent's configured objective |
-| Tags | **Visible** | Filter by dynamic or custom tags applied to calls |
-| Evaluations | Hidden | Filter by evaluation completion status (Completed, Pending, Partial) |
-| Call ID | Hidden | Direct, exact-match database lookup field for a specific call |
-
-<Steps>
-<Step title="Click the Settings Icon">
-Locate the ⚙️ gear icon at the end of the Filter Bar and click it to open the visibility panel.
-</Step>
-<Step title="Review Current State">
-Each filter listed (Goal, Tags, Evaluations, Call ID) shows a checkbox reflecting whether it's currently shown or hidden in your Filter Bar.
-</Step>
-<Step title="Show or Hide a Filter">
-Check a box to add that filter to the Filter Bar, or uncheck it to remove it from view. Changes apply instantly — there's no need to save or confirm.
-</Step>
-<Step title="Close the Panel">
-Click anywhere outside the panel or click the gear icon again to close it. Your selections are preserved automatically for future sessions.
-</Step>
-</Steps>
-
-<Tip>
-Since the Tags filter now ships visible by default, most users will only need the settings panel to enable Goal, Evaluations, or Call ID when their workflow requires deeper filtering or precise lookups.
-</Tip>
-
-<Warning>
-Hiding a filter never clears its value. If you hide Goal, Evaluations, or Call ID while they hold an active selection, that selection keeps affecting your query in the background. Reopen the ⚙️ panel and re-enable the filter if your results look unexpectedly narrow.
-</Warning>
-
 ### Date Range Filter
 
-Filter calls by predefined time periods or custom date ranges:
+<Info>
+The date range filter now offers a much wider set of quick presets, from short rolling windows measured in minutes to full calendar months, alongside a fully custom range with time precision.
+</Info>
 
-- **Today** - Calls from the current day
-- **Yesterday** - Calls from the previous day
-- **Last 7 Days** - Calls from the past week
-- **Last 30 Days** - Calls from the past month
-- **Custom Range** - Select specific start and end dates with time
+Click the date range field to open the preset picker:
+
+| Preset | Range covered |
+|--------|----------------|
+| Last 15 minutes | Rolling 15-minute window ending now |
+| Last 30 minutes | Rolling 30-minute window ending now |
+| Last 1 hour | Rolling 1-hour window ending now |
+| Last 2 hours | Rolling 2-hour window ending now |
+| Last 4 hours | Rolling 4-hour window ending now |
+| Last 8 hours | Rolling 8-hour window ending now |
+| Today | Start of today through end of today |
+| Yesterday | Start of yesterday through end of yesterday |
+| Last 7 days | 7 days ago through end of today |
+| Last 30 days | 30 days ago through end of today |
+| This month | Start of the current calendar month through its end |
+| Last month | The entire previous calendar month |
+| Custom range | Manually chosen start and end date/time |
+
+<Steps>
+<Step title="Open the Picker">
+Click the date range field in the Filter Bar to reveal the list of presets.
+</Step>
+<Step title="Pick a Preset">
+Click any preset to apply it instantly — the field updates to reflect your selection and the table refreshes.
+</Step>
+<Step title="Or Set a Custom Range">
+Scroll to the **Custom range** section at the bottom of the picker and set an exact **From** and **To** date and time using the datetime inputs.
+</Step>
+<Step title="Confirm">
+Click **Done** to close the picker once your custom range is set.
+</Step>
+</Steps>
 
 <Info>
 Use the datetime picker to set precise time ranges for your searches. The filter automatically adjusts to your local timezone.
 </Info>
 
-### Agent Filter with Searchable Combobox
+<Tip>
+The short rolling-window presets (15 minutes up to 8 hours) are especially useful right after a batch of outbound calls finishes, letting you review the very latest results without having to construct a custom range.
+</Tip>
+
+### Multi-Select Agent Filter with Searchable Combobox
 
 <Info>
-The Agent filter is a typeahead combobox rather than a plain dropdown, so it stays fast and usable even when your account has hundreds of agents.
+The Agent filter is a typeahead combobox that supports selecting **multiple agents at once**, so it stays fast and usable even when your account has hundreds of agents and you need to compare a handful of them together.
 </Info>
 
 <Steps>
@@ -354,18 +446,21 @@ The Agent filter is a typeahead combobox rather than a plain dropdown, so it sta
 Click into the Agent field and type any part of the agent's name. As soon as the field is focused, a dropdown of matching agents appears.
 </Step>
 <Step title="Filter as You Type">
-The list narrows in real time to agents whose name contains what you've typed, capped to the closest 50 matches so the dropdown stays responsive.
+The list narrows in real time to agents whose name contains what you've typed, capped to the closest matches so the dropdown stays responsive.
 </Step>
-<Step title="Select an Agent">
-Click an agent from the list to apply the filter. The input then displays the selected agent's name, and a ✕ button appears to clear the selection.
+<Step title="Select One or More Agents">
+Click an agent from the list to add it as a chip inside the field. Keep typing and selecting to add additional agents — each selected agent appears as its own removable chip.
 </Step>
-<Step title="Clear the Selection">
-Click the ✕ next to the field to remove the agent filter and return to viewing calls from all agents.
+<Step title="Remove a Single Agent">
+Click the ✕ on any chip to remove just that agent from the selection, keeping the rest of your filter intact.
+</Step>
+<Step title="Clear All Agents">
+Click the ✕ at the end of the field to remove every selected agent at once and return to viewing calls from all agents.
 </Step>
 </Steps>
 
 <Tip>
-When filtering by a single agent, the **"View Evaluation Trends"** button appears next to the agent name for quick access to performance analytics.
+When filtering by a single agent, the **"View Evaluation Trends"** button appears next to the agent chip for quick access to performance analytics.
 </Tip>
 
 ### Status Filter
@@ -404,23 +499,91 @@ This filter can be shown or hidden from the filter visibility panel described ab
 
 Like every optional filter, Goal is temporarily disabled the moment you start a Call ID search — see below for why.
 
+### Latency Range Filter
+
+<Info>
+Filter calls by their average AI response latency to isolate calls that were noticeably fast or slow, without needing to open the latency detail modal one call at a time.
+</Info>
+
+| Field | Description |
+|-------|--------------|
+| **Min latency** | Only show calls whose average AI latency is at or above this value (in milliseconds) |
+| **Max latency** | Only show calls whose average AI latency is at or below this value (in milliseconds) |
+
+<Steps>
+<Step title="Set a Minimum">
+Enter a value in **Min latency** to exclude calls that responded faster than that threshold.
+</Step>
+<Step title="Set a Maximum">
+Enter a value in **Max latency** to exclude calls that responded slower than that threshold.
+</Step>
+<Step title="Combine Both">
+Use both fields together to isolate a specific latency band, for example calls between 1500 ms and 3000 ms, to investigate a particular tier of responsiveness.
+</Step>
+<Step title="Clear the Range">
+Empty either field to remove that bound and widen the results again.
+</Step>
+</Steps>
+
+<Tip>
+Pair the latency range filter with the **Avg AI latency** and **Latency (turns)** columns so you can immediately see, row by row, why each call matched your threshold.
+</Tip>
+
+### Suspicious Calls Filter
+
+<Info>
+The "Suspicious calls" filter is a one-click way to surface calls that are more likely to need a closer look, without manually combining several filters yourself.
+</Info>
+
+Enabling this filter highlights calls that match **any** of the following conditions:
+
+| Condition | Why it's flagged |
+|-----------|-------------------|
+| High average latency | The call's average AI response latency exceeds a built-in threshold (3000 ms) |
+| Problematic status | The call ended as **no-answer**, **failed**, or **blocked** |
+| Goal not met | The call's evaluations indicate its configured goal wasn't achieved |
+| Missing transcript | No transcript was captured for the call at all |
+
+<Steps>
+<Step title="Enable the Filter">
+Toggle **Suspicious calls** on in the Filter Bar.
+</Step>
+<Step title="Review the Narrowed Results">
+The table updates to show only calls matching at least one of the suspicious conditions above.
+</Step>
+<Step title="Investigate Each Call">
+Open each flagged call's details, recording, or latency chart to determine whether it needs a review note, a tag, or escalation.
+</Step>
+<Step title="Mark as Reviewed">
+Use the **Reviewed** column to mark calls you've checked and leave an audit note, so the next pass through your suspicious calls doesn't re-cover the same ground.
+</Step>
+</Steps>
+
+<Info>
+Unlike Min/Max latency or Status, which apply a strict AND to your other filters, "Suspicious calls" applies an **OR** across its own internal conditions — a call needs to match only one of them to show up, since each condition on its own is a reasonable independent signal of a problematic call.
+</Info>
+
+<Tip>
+Combine "Suspicious calls" with a date range like **Today** or **Last 24 hours** to build a quick daily triage habit: check what's suspicious since yesterday, review it, and clear the queue.
+</Tip>
+
 ### Exact Call ID Search
 
 <Warning>
 When using Call ID search, all other filters are temporarily disabled to ensure precise lookups.
 </Warning>
 
-The Call ID filter performs a **direct, exact-match** database lookup and has **exclusive priority over every other filter** in the Filter Bar. As soon as you start typing a value into the Call ID field, all remaining filters (Date Range, Agents, Status, Direction, Success, Goal, Tags, and Evaluations) become visually disabled and are excluded from the query — the interface greys them out and blocks interaction with them to make it clear that only the Call ID lookup is active.
+The Call ID filter performs a **direct, exact-match** database lookup and has **exclusive priority over every other filter** in the Filter Bar. As soon as you start typing a value into the Call ID field, all remaining filters (Date Range, Agents, Status, Direction, Success, Goal, Tags, Evaluations, Latency range, and Suspicious calls) become visually disabled and are excluded from the query — the interface greys them out and blocks interaction with them to make it clear that only the Call ID lookup is active.
 
 <Info>
-Think of it as a small measurement problem: the moment you observe the system through a Call ID, every other possible filter state "collapses" — much like a quantum measurement collapsing a wave function into a single outcome. Before you type an ID, the Filter Bar exists in a superposition of Date Range, Agents, Status, Direction, Success, Goal, Tags, and Evaluations, all potentially active at once. The instant a Call ID value is present, that superposition resolves into a single, deterministic state: exactly one call, found by its exact ID, with no other filter contributing to the result.
+Think of it as a small measurement problem: the moment you observe the system through a Call ID, every other possible filter state "collapses" — much like a quantum measurement collapsing a wave function into a single outcome. Before you type an ID, the Filter Bar exists in a superposition of Date Range, Agents, Status, Direction, Success, Goal, Tags, Evaluations, Latency range, and Suspicious calls, all potentially active at once. The instant a Call ID value is present, that superposition resolves into a single, deterministic state: exactly one call, found by its exact ID, with no other filter contributing to the result.
 </Info>
 
 Enhanced Call ID functionality with database search:
 
 <Steps>
 <Step title="Enter Call ID">
-Type the specific call ID in the dedicated search field. As soon as a value is present, the rest of the filters switch to a disabled visual state.
+Type the specific call ID in the dedicated search field. You can also copy an ID directly from the **Call ID** column's compact badge (or the row's Copy ID quick action) and paste it here. As soon as a value is present, the rest of the filters switch to a disabled visual state.
 </Step>
 <Step title="Database Query">
 The system performs a direct database lookup for the exact call ID, ignoring any values currently set in other filters. Partial or fuzzy matches are not returned — the ID must match exactly.
@@ -438,24 +601,37 @@ Like the Goal and Evaluations filters, the Call ID field is hidden from the Filt
 </Tip>
 
 <Warning>
-This priority behavior is exclusive and non-negotiable: while a Call ID value is present, there is no way to combine it with Date Range, Agents, Status, Direction, Success, Goal, Tags, or Evaluations. If you need a combined search, clear the Call ID field first and use the other filters instead.
+This priority behavior is exclusive and non-negotiable: while a Call ID value is present, there is no way to combine it with Date Range, Agents, Status, Direction, Success, Goal, Tags, Evaluations, Latency range, or Suspicious calls. If you need a combined search, clear the Call ID field first and use the other filters instead.
 </Warning>
 
-### Dynamic Tags Filter
+### Dynamic Tags Filter with Autocomplete
 
 <Info>
-Filter calls by dynamic tags that are automatically generated based on call content, outcomes, and agent behaviors.
+Filter calls by dynamic tags that are automatically generated based on call content, outcomes, and agent behaviors, using a chip-based multi-select field with live autocomplete.
 </Info>
+
+<Steps>
+<Step title="Start Typing a Tag">
+Click into the Tags field and start typing. A dropdown appears listing existing tags that match what you've typed.
+</Step>
+<Step title="Select a Suggested Tag">
+Click a suggestion to add it as a chip in the field. You can add multiple tags this way to filter for calls matching any of them.
+</Step>
+<Step title="Remove a Tag">
+Click the ✕ on any tag chip to remove just that tag, or clear the field entirely to remove all tag filters at once.
+</Step>
+</Steps>
 
 The tags filter provides:
 
 - **Dynamic Tag Generation** - Tags are automatically created based on call analysis
+- **Autocomplete Suggestions** - Existing tags are suggested as you type, so you don't need to remember exact spelling
 - **Multi-Select Capability** - Select multiple tags to find calls matching any or all criteria
 - **Real-time Updates** - Tag list updates as new calls are processed
 - **Custom Tag Support** - Manual tags can be added to calls for additional categorization
 
 <Info>
-The Tags filter is now **visible by default** in the Filter Bar, so it's ready to use as soon as you open Call History. You can still hide it from the ⚙️ filter settings panel if you prefer a more minimal filter set. Like all other filters, it is temporarily disabled while a Call ID search is active.
+The Tags filter is **visible by default** in the Filter Bar, so it's ready to use as soon as you open Call History. You can still hide it from the ⚙️ filter settings panel if you prefer a more minimal filter set. Like all other filters, it is temporarily disabled while a Call ID search is active.
 </Info>
 
 ### Evaluations Filter
@@ -482,7 +658,7 @@ Create and manage filter presets:
 
 <Steps>
 <Step title="Configure Filters">
-Set up your desired combination of filters (date range, agents, status, etc.)
+Set up your desired combination of filters (date range, agents, status, latency range, suspicious calls, etc.)
 </Step>
 <Step title="Save as Preset">
 Click "Save Preset" and give it a descriptive name
@@ -496,7 +672,7 @@ Edit or delete presets as your filtering needs evolve
 </Steps>
 
 <Tip>
-Filter presets and column saved views are independent: a filter preset remembers *which calls* you're looking at, while a saved view remembers *which columns* you see. Pair a specific preset with a specific saved view for a fully repeatable workflow — for example, "Failed + Last 7 Days" alongside a "Latency debugging" column layout.
+Filter presets and column saved views are independent: a filter preset remembers *which calls* you're looking at, while a saved view remembers *which columns* you see. Pair a specific preset with a specific saved view for a fully repeatable workflow — for example, "Suspicious + Last 7 Days" alongside a "Review & audit" column layout that keeps Reviewed pinned and visible.
 </Tip>
 
 ## Enhanced Visual Indicators
@@ -508,7 +684,7 @@ The interface now includes improved visual feedback:
 | Indicator | Meaning |
 |-----------|---------|
 | 🟦 Blue Badge | Active filter with values selected |
-| 🔢 Count Badge | Number of items selected in multi-select filters |
+| 🔢 Count Badge | Number of items selected in multi-select filters (agents, tags) |
 | 🚫 Disabled State | Filter temporarily disabled (e.g., during Call ID search) |
 | ⚙️ Settings Icon | Opens the filter visibility configuration panel (controls Goal, Tags, Evaluations, and Call ID) |
 | 👁️ Hidden Filter | Filter is configured as not visible in the current view, but may still hold an active value affecting your results |
@@ -522,7 +698,7 @@ The 👁️ Hidden Filter indicator is especially useful right after enabling th
 
 When calls are selected:
 
-- **Selection Counter** - Shows "X selected" in an emerald-colored badge
+- **Selection Counter** - Shows "Export selection (N)" in the header once at least one call is checked
 - **Bulk Action Bar** - Appears with available actions for selected calls
 - **Clear Selection** - One-click option to deselect all calls
 
@@ -536,6 +712,8 @@ The call table displays key information for each call with enhanced visual desig
 | Status | Call status badge with color coding |
 | Success | ✓ or ✗ indicator with evaluation context |
 | Agent | Name of the agent that handled the call |
+| Agent ID *(optional)* | The agent's ID, shown as a compact copyable badge |
+| Call ID *(optional)* | The call's ID, shown as a compact copyable badge |
 | Direction | 📞 Inbound or 📲 Outbound with clear icons |
 | From | Caller phone number with formatting |
 | To | Recipient phone number with formatting |
@@ -547,6 +725,7 @@ The call table displays key information for each call with enhanced visual desig
 | Avg AI latency *(optional)* | Mean AI response latency for the call |
 | Max latency *(optional)* | Highest AI response latency recorded in the call |
 | Latency (turns) *(optional)* | Sparkline of latency per turn |
+| Reviewed *(pinned)* | Audit/review status with an inline note editor |
 | *(any input/output field you've added)* | Dynamic column sourced from an agent's input parameters or structured output |
 
 <Info>
@@ -592,18 +771,18 @@ For calls made before model cascade tracking was introduced, the LLM column fall
 <Tabs>
 <Tab title="Selection">
 When you select multiple calls:
-1. A selection indicator appears showing "X selected"
-2. Click **Clear Selection** to deselect all
-3. Bulk export options become available
-4. Additional bulk actions appear in the action bar
+1. The **"Export selection (N)"** button appears in the header, next to the general **Export to Excel** button
+2. Bulk export options become available immediately, no separate confirmation step required
+3. Additional bulk actions appear in the action bar
+4. Deselect individual rows or clear the whole selection to hide the selective export button again
 </Tab>
 <Tab title="Export">
 Export filtered results:
-- CSV format for spreadsheet analysis
-- JSON format for technical analysis
-- PDF reports for presentations
-- Excel export that follows your currently visible columns and their order
-- Include/exclude specific columns
+- Excel export that follows your currently visible columns, their order, and review status
+- CSV format for spreadsheet analysis (classic view)
+- JSON format for technical analysis (classic view)
+- PDF reports for presentations (classic view)
+- Include/exclude specific columns via the column manager before exporting
 </Tab>
 </Tabs>
 
@@ -620,7 +799,7 @@ Click column headers to sort with improved indicators:
 
 Enhanced pagination controls:
 
-- **Smart Page Sizes** - 10, 25, 50, 100, 250 calls per page
+- **Smart Page Sizes** - 25, 50, 100, 300 calls per page
 - **Jump to Page** - Direct page number input
 - **Results Counter** - "Showing X to Y of Z calls" with total count
 - **Performance Optimization** - Efficient loading for large datasets
@@ -632,10 +811,11 @@ For each call row with improved accessibility:
 | Action | Description | Shortcut |
 |--------|-------------|----------|
 | 👁️ View | Open call details modal | Click row |
-| 📋 Copy ID | Copy call ID to clipboard | Right-click menu |
+| 📋 Copy ID | Copy call ID to clipboard | Copy button on the Call ID badge |
 | 🏷️ Add Tags | Add custom tags to the call | Tag icon |
 | 📊 Analytics | Quick performance insights | Chart icon |
 | ▶️ Play Recording | Open the waveform recording player | Recording column |
+| ✅ Mark Reviewed | Toggle review status and add an audit note | Reviewed column |
 
 <Tip>
 The **Copy ID** action pairs naturally with the exact-match Call ID filter: copy the ID from any row, enable the Call ID filter from the ⚙️ settings panel if needed, and paste it in to jump straight to that exact call later.
@@ -652,190 +832,5 @@ Access comprehensive evaluation trends analysis directly from the call history i
 From the agent combobox in your call filters:
 
 1. Select the agent you want to analyze
-2. Look for the **"View Evaluation Trends"** button next to the agent name
-3. Click to open the evaluation trends dashboard for that specific agent
-
-### What You'll Find
-
-The evaluation trends analysis provides:
-
-- **Long-term Performance Tracking** - Monitor how your agent's success rates evolve over weeks and months
-- **Success Rate Patterns** - Identify trends, improvements, or areas needing attention
-- **Historical Context** - Compare current performance with past periods
-- **Actionable Insights** - Understand which evaluations are performing well and which need optimization
-
-## Performance and Optimization
-
-### Smart Loading
-
-The system includes several performance optimizations:
-
-- **Lazy Loading** - Calls load as you scroll through the table
-- **Filter Debouncing** - Prevents excessive API calls while typing
-- **Caching** - Frequently accessed data is cached for faster loading
-- **Background Refresh** - New calls appear automatically without manual refresh
-
-### Search Optimization
-
-<Tip>
-Use specific search criteria to improve performance when working with large datasets.
-</Tip>
-
-Best practices for efficient searching:
-
-1. **Start with Date Range** - Narrow down the time period first
-2. **Use Specific Agents** - Filter by particular agents using the searchable combobox when possible
-3. **Combine Filters Strategically** - Use multiple filters to reduce result sets
-4. **Save Common Searches** - Use presets for frequently used filter combinations
-5. **Reach for Call ID Last** - Only use the exact-match Call ID search when you need one specific call; remember it overrides every other filter combination you've built up
-
-## Tips for Efficient Searching
-
-<CardGroup cols={2}>
-  <Card title="Use Filter Presets" icon="bookmark">
-    Save your most common filter combinations as presets for instant access to frequently needed views.
-  </Card>
-  <Card title="Leverage Dynamic Tags" icon="tags">
-    Use the Tags filter — visible by default in the Filter Bar — to quickly find calls with specific characteristics or outcomes.
-  </Card>
-  <Card title="Combine Multiple Filters" icon="filter">
-    Stack filters like "Failed + Outbound + Last 24h + Specific Agent" for precise targeting.
-  </Card>
-  <Card title="Use Call ID for Debugging" icon="hashtag">
-    When investigating specific issues, enable the Call ID filter from settings and use the exact call ID for instant lookup with database search. Remember it temporarily overrides all other filters.
-  </Card>
-  <Card title="Customize Filter Visibility" icon="eye">
-    Use the ⚙️ settings button to show or hide Goal, Tags, Evaluations, and Call ID filters, keeping the Filter Bar focused on what matters to you.
-  </Card>
-  <Card title="Customize Your Columns" icon="table-columns">
-    Drag, hide, and add columns — including agent input/output fields — from the ⚙️ Columns manager to build the exact view you need.
-  </Card>
-  <Card title="Save Views for Recurring Tasks" icon="bookmark-square">
-    Save a named column view for each recurring workflow — latency review, evaluation QA, agent debugging — and switch between them instantly.
-  </Card>
-  <Card title="Watch AI Latency" icon="gauge">
-    Use the Avg AI latency, Max latency, per-turn sparkline, and the full latency detail modal to spot slow-responding agents before they affect call quality.
-  </Card>
-  <Card title="Export Filtered Results" icon="download">
-    Export your filtered results — following your visible columns — for offline analysis, reporting, or sharing with team members.
-  </Card>
-  <Card title="Track LLM Cascade Health" icon="microchip">
-    Enable the LLM and LLM detail columns to spot ElevenLabs cascade degradations and understand which calls fell back to a secondary model.
-  </Card>
-  <Card title="Use the Waveform Player" icon="waveform">
-    Open the Recording column to seek instantly on the real waveform, adjust playback speed, and follow the synced transcript.
-  </Card>
-</CardGroup>
-
-## Advanced Use Cases
-
-### Quality Assurance Workflow
-
-<Steps>
-<Step title="Create QA Preset">
-Save a filter preset for "Failed + Last 7 Days" to quickly review problematic calls.
-</Step>
-<Step title="Tag Review Calls">
-Use the Tags filter — already visible in the Filter Bar by default — to identify calls that need quality review.
-</Step>
-<Step title="Bulk Analysis">
-Select multiple calls for bulk export and detailed analysis.
-</Step>
-<Step title="Track Improvements">
-Use evaluation trends to monitor quality improvements over time.
-</Step>
-</Steps>
-
-### Performance Monitoring
-
-<Steps>
-<Step title="Agent Comparison">
-Use the agent combobox to compare performance across different agents.
-</Step>
-<Step title="Success Tracking">
-Filter by success/failure to identify patterns in call outcomes.
-</Step>
-<Step title="Trend Analysis">
-Access evaluation trends directly from agent filters for deep performance insights.
-</Step>
-<Step title="Regular Reviews">
-Set up filter presets for weekly/monthly performance reviews.
-</Step>
-</Steps>
-
-### Targeted Debugging with Call ID
-
-<Steps>
-<Step title="Enable the Call ID Filter">
-Open the ⚙️ filter settings panel and enable the Call ID filter if it isn't already visible in your Filter Bar.
-</Step>
-<Step title="Locate the Call ID">
-Copy the call ID from a support ticket, log entry, or the Quick Actions "Copy ID" option.
-</Step>
-<Step title="Paste into Call ID Search">
-Enter the ID into the Call ID field. All other filters are immediately disabled to avoid conflicting results — the Filter Bar's superposition of possible states collapses into this single, deterministic, exact-match lookup.
-</Step>
-<Step title="Review the Exact Match">
-The system performs a direct database lookup and returns the single matching call, regardless of any date range or agent filter previously applied.
-</Step>
-<Step title="Clear to Resume">
-Clear the Call ID field once you're done to automatically restore your previous filter configuration.
-</Step>
-</Steps>
-
-### Investigating LLM Cascade Degradations
-
-<Steps>
-<Step title="Enable the LLM Columns">
-Open the column manager and turn on **LLM** and **LLM detail** for your Call Table view.
-</Step>
-<Step title="Scan for Multiple Models">
-Look for rows where the LLM column lists more than one model — this flags a cascade degradation during that call.
-</Step>
-<Step title="Open LLM Detail">
-Expand LLM detail (or open the Details Modal) to see the exact turn where the switch happened and which model took over.
-</Step>
-<Step title="Cross-Reference Outcomes">
-Combine this with the Success and Status filters to check whether degraded calls correlate with lower success rates.
-</Step>
-</Steps>
-
-### Diagnosing a Slow Agent with Latency Metrics
-
-<Steps>
-<Step title="Sort by Avg AI Latency">
-In the improved calls view, click the **Avg AI latency** column header to sort calls from slowest to fastest.
-</Step>
-<Step title="Enable Max Latency">
-Open the column manager and enable **Max latency** to see whether the slowdown is consistent or driven by a few extreme turns.
-</Step>
-<Step title="Check the Sparkline Pattern">
-Look at the **Latency (turns)** sparkline for affected calls — a steadily rising line suggests the agent degraded as the call progressed.
-</Step>
-<Step title="Open the Latency Detail Modal">
-Click into the call to open the full latency detail modal and identify exactly which turn, and at what timestamp, caused the spike.
-</Step>
-<Step title="Correlate with LLM Detail">
-Check the LLM detail column for the same call to see if a model cascade fallback happened around the same turn.
-</Step>
-<Step title="Save the View">
-If this is a recurring investigation, save your current column layout (Avg AI latency, Max latency, Latency (turns), LLM, LLM detail) as a named view for quick reuse next time.
-</Step>
-</Steps>
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="Call Details" icon="info-circle" href="/calls/call-details">
-    Learn about the detailed information available for each call including transcripts and analysis.
-  </Card>
-  <Card title="Evaluation Trends" icon="chart-line" href="/calls/evaluation-trends">
-    Analyze agent performance patterns over time with comprehensive trend analysis.
-  </Card>
-  <Card title="Reporting" icon="chart-bar" href="/calls/reporting">
-    Generate comprehensive reports from your call data with advanced analytics.
-  </Card>
-  <Card title="Filter Management" icon="settings" href="/calls/filter-management">
-    Advanced filter configuration and preset management options.
-  </Card>
-</CardGroup>
+2. Look for the **"View Evaluation Trends"** button next to the agent chip
+3. Click to open the evaluation trends dashboard for that

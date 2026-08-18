@@ -27,6 +27,10 @@ Only the most recent 30 days of activity are loaded, capped at 20 calls, to keep
 
 Click any call in the list to open its full detail — including the recording — in a new tab.
 
+<Info>
+This deep link always opens the **classic Calls view** (`/calls-old`), not the new Calls page. The new Calls page doesn't support automatically opening a specific recording via a URL parameter, so linking directly to a call only works reliably through the classic view for now.
+</Info>
+
 ## Call statuses
 
 | Status label | Meaning |
@@ -80,6 +84,14 @@ Colors follow a simple convention: green for finished/successful calls, red for 
 You can also refresh with the keyboard shortcut <kbd>⇧</kbd><kbd>⌘</kbd><kbd>R</kbd> without moving your hands away from the editor.
 </Info>
 
+## Opening a call recording
+
+When you click a call card, Meetzy opens a new tab pointing at the classic Calls page with that call's recording pre-selected (`/calls-old?recording=<call_id>`).
+
+<Warning>
+This is intentional, not a bug: the new Calls page doesn't yet know how to read a `recording` query parameter and open the corresponding recording automatically. Until that capability is added to the new page, Recent Calls will keep deep-linking into the classic view so the recording actually opens instead of landing you on an unfiltered call list.
+</Warning>
+
 ## Viewing all calls
 
 Sometimes 20 calls from the last month isn't enough. Click **View all** in the top-right corner of the panel to open the full Calls section, pre-filtered to show only calls handled by the current agent.
@@ -88,8 +100,13 @@ Sometimes 20 calls from the last month isn't enough. Click **View all** in the t
 The **View all** button is disabled until an agent is loaded in the editor — for example, while creating a brand-new agent that hasn't been saved yet.
 </Warning>
 
+<Info>
+Unlike opening a single recording, **View all** navigates to the new Calls page, since it only needs an agent filter — not a recording deep link.
+</Info>
+
 ## Tips
 
 - Use Recent Calls right after publishing a change to quickly confirm the agent is behaving as expected on real calls.
 - Hover over the relative timestamp to see the exact date and time the call took place.
 - If a call has no summary, it usually means the summary hasn't been generated yet or evaluation wasn't configured for the agent.
+- If you were expecting the new Calls page when clicking a call, don't worry — you'll be able to jump straight back to it using the banner shown at the top of the classic view.

@@ -227,17 +227,87 @@ Si tu agente tiene un webhook configurado, la parte inferior del panel derecho m
 La sección de webhook solo aparece si se configuró y ejecutó un webhook para esta llamada.
 </Info>
 
-## Reproducción de Grabación
+## Reproductor de Grabación y Transcripción Enriquecida
 
-Si la grabación de llamadas está habilitada:
+Si la grabación de llamadas está habilitada, desde la columna **Recording** de la tabla de llamadas (o desde el botón correspondiente en los Detalles de Llamada) puedes abrir un reproductor avanzado con la grabación y, junto a ella, una vista enriquecida de la transcripción turno por turno.
 
-1. Aparece un reproductor de audio en la parte superior del modal
-2. Controles incluyen play/pause, seek y volumen
-3. Opción de descarga disponible para acceso offline
+El modal se divide en dos zonas:
+
+| Zona | Contenido |
+|------|-----------|
+| 🎧 Izquierda | Reproductor de audio con forma de onda |
+| 💬 Derecha | Transcripción turno por turno con métricas de latencia, modelo LLM y tool calls |
+
+### Reproductor de Audio
+
+El reproductor dibuja la **forma de onda real** del audio (decodificada con Web Audio API), no una animación genérica, lo que te permite ubicar visualmente silencios, picos de voz y pausas.
+
+<Steps>
+<Step title="Reproduce o pausa">
+Usa el botón central de play/pause, o haz clic directamente sobre la forma de onda para saltar a ese punto exacto de la llamada.
+</Step>
+<Step title="Salta 10 segundos">
+Los botones ⏪ y ⏩ retroceden o avanzan 10 segundos, útiles para revisar rápidamente un momento específico.
+</Step>
+<Step title="Ajusta la velocidad">
+Elige entre 0.5x, 0.75x, 1x, 1.25x, 1.5x o 2x para escuchar la llamada más rápido o más despacio.
+</Step>
+<Step title="Descarga la grabación">
+Usa el enlace **"Download recording"** para guardar el archivo de audio localmente.
+</Step>
+</Steps>
 
 <Warning>
 Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Descarga grabaciones importantes para almacenamiento permanente.
 </Warning>
+
+### Transcripción Enriquecida por Turno
+
+Junto al reproductor, cada turno de la conversación (agente o usuario) se muestra como una burbuja de chat, con badges debajo que resumen lo que ocurrió técnicamente en ese turno:
+
+| Badge | Aparece en | Descripción |
+|-------|------------|--------------|
+| Marca de tiempo | Todos los turnos | Minuto:segundo dentro de la llamada |
+| `ASR` | Turnos del usuario | Latencia del reconocimiento de voz (speech-to-text) |
+| `TTS` | Turnos del agente | Latencia del servicio de texto a voz |
+| `LLM` | Turnos del agente | Latencia del modelo de lenguaje, expandible |
+| 🔧 Nombre de herramienta | Turnos del agente con tool calls | Una por cada herramienta invocada en ese turno, expandible |
+
+<Info>
+Estos datos provienen directamente de la conversación original en ElevenLabs (`conversation_turn_metrics`, `llm_usage`, `tool_calls` y `tool_results`), replicando el nivel de detalle que verías en la consola del proveedor, ya que Meetzy no persiste esta granularidad turno por turno en su propia base de datos.
+</Info>
+
+#### Detalle del LLM por turno
+
+Al hacer clic en el badge `LLM` de un turno del agente, se despliega un panel con:
+
+- **Modelo** - el modelo de lenguaje que generó la respuesta en ese turno específico
+- **Métricas** - tiempos relacionados con el LLM, como el tiempo hasta el primer byte, hasta la primera frase y hasta la última frase generada
+
+#### Detalle de Tool Calls por turno
+
+Al hacer clic en el badge 🔧 de una herramienta, se despliega un panel con:
+
+- **Parámetros** - el JSON enviado a la herramienta en el momento de la invocación
+- **Respuesta** - el JSON devuelto por la herramienta, marcado como error si corresponde
+
+<Steps>
+<Step title="Abre el reproductor">
+Haz clic en el ícono de reproducción en la columna **Recording**, o desde el botón de grabación dentro de los Detalles de Llamada.
+</Step>
+<Step title="Ubica el turno de interés">
+Desplázate por la transcripción a la derecha mientras escuchas el audio a la izquierda.
+</Step>
+<Step title="Expande las métricas">
+Haz clic en cualquier badge de latencia, modelo LLM o tool call para ver el detalle completo de ese turno.
+</Step>
+</Steps>
+
+### Transcripción de Respaldo
+
+<Info>
+Si la conversación original en ElevenLabs ya no está disponible (por ejemplo, llamadas muy antiguas), el modal muestra automáticamente una **transcripción de texto plano**, sin los badges de latencia ni detalle por turno, indicando que las métricas detalladas ya no pueden recuperarse.
+</Info>
 
 ## Copiar Datos
 

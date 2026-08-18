@@ -203,11 +203,61 @@ The webhook section only appears if a webhook was configured and triggered for t
 
 ## Recording Playback
 
-If call recording is enabled:
+If call recording is enabled, clicking the recording icon opens a dedicated **Call Recording** modal with a full-featured player on one side and a rich, per-turn transcript on the other.
 
-1. An audio player appears at the top of the modal
-2. Controls include play/pause, seek, and volume
-3. Download option available for offline access
+### Waveform Player
+
+Unlike a plain `<audio>` progress bar, the player renders a **real waveform** generated directly from the decoded audio — not a placeholder animation. When the recording loads, the audio is decoded via the Web Audio API and sampled into 100 amplitude bars, so the shape you see actually reflects the call's audio (silences, loud segments, etc.).
+
+<CardGroup cols={2}>
+  <Card title="Click-to-seek" icon="hand-pointer">
+    Click anywhere on the waveform to jump to that point in the call. The played portion is highlighted in a different color as the call progresses.
+  </Card>
+  <Card title="+/-10s skip" icon="rotate">
+    Use the back/forward buttons to jump exactly 10 seconds, ideal for re-listening to a specific exchange without scrubbing manually.
+  </Card>
+  <Card title="Playback speed" icon="gauge">
+    Choose between 0.5x, 0.75x, 1x, 1.25x, 1.5x, and 2x to review calls faster or slow down a hard-to-understand segment.
+  </Card>
+  <Card title="Download" icon="arrow-down-to-line">
+    Download the original recording file for offline access, sharing, or permanent storage.
+  </Card>
+</CardGroup>
+
+<Info>
+The waveform is computed once per call and cached for the session — reopening the same recording doesn't require re-decoding the audio.
+</Info>
+
+### Enriched Transcript
+
+Next to the player, the transcript is rendered turn-by-turn (not as a single wall of text), and each turn can carry extra detail sourced directly from the underlying ElevenLabs conversation:
+
+| Badge | Shown on | Meaning |
+|-------|----------|---------|
+| ASR | User turns | Speech-to-text latency for that turn |
+| TTS | Agent turns | Text-to-speech latency for that turn |
+| LLM | Agent turns | Time-to-first-byte from the language model, expandable to show the exact model used and detailed LLM metrics |
+| 🔧 Tool name | Agent turns | A tool/function call made during that turn, expandable to show its parameters and result |
+
+<Steps>
+  <Step title="Scan the badges">
+    Each message bubble shows its elapsed time in the call, plus any latency badges relevant to that turn.
+  </Step>
+  <Step title="Expand LLM detail">
+    Click the **LLM** badge to reveal which model generated that response and a breakdown of LLM-related metrics (time to first byte, time to first/last sentence, etc.).
+  </Step>
+  <Step title="Expand tool calls">
+    Click a **🔧 tool name** badge to reveal the parameters sent to the tool and the result it returned (or the error, if the call failed).
+  </Step>
+</Steps>
+
+<Info>
+This view mirrors what ElevenLabs' own conversation view shows, since this per-turn detail (latency metrics, model attribution, tool payloads) isn't persisted in Meetzy's database — it's fetched live from ElevenLabs when you open the recording.
+</Info>
+
+<Warning>
+If the underlying ElevenLabs conversation is no longer available (for example, an old or purged call), the modal automatically falls back to a **plain transcript** view — the message bubbles are still shown, but without latency badges, model detail, or tool call/result cards. A short notice appears above the transcript in this case.
+</Warning>
 
 <Warning>
 Call recordings are stored for a limited time based on your plan. Download important recordings for permanent storage.
