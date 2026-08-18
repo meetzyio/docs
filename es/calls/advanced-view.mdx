@@ -19,7 +19,7 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
 - Estado **Revisado** y notas de auditoría por llamada, con guardado automático
 - Actualización en vivo de la tabla, con indicador visual de llamadas nuevas
-- Gráficos de latencia real de IA y reproductor de grabaciones integrado
+- Gráficos de latencia real de IA y reproductor de grabaciones integrado, con desglose detallado de cada respuesta
 
 ---
 
@@ -49,6 +49,14 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
     </Info>
   </Step>
 
+  <Step title="Live (Modo en vivo)">
+    El interruptor **Live** activa la actualización automática de la tabla en segundo plano. Está **desactivado por defecto**: tú decides cuándo empezar a recibir llamadas nuevas en tiempo real, sin que la página consuma recursos innecesarios en cada carga.
+
+    <Info>
+      Al activarlo, las llamadas nuevas que cumplan tus filtros actuales aparecen automáticamente en la tabla y se resaltan brevemente para que las identifiques de un vistazo.
+    </Info>
+  </Step>
+
   <Step title="Exportar selección">
     Cuando seleccionas una o más filas de la tabla, aparece el botón **Export selection**. Esta exportación incluye, además de los datos de la llamada, el estado **Revisado** y la nota de auditoría asociada a cada fila.
   </Step>
@@ -61,6 +69,16 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 <Warning>
   La exportación completa puede tardar unos segundos si el rango de fechas o el número de llamadas filtradas es muy grande. El botón mostrará **"Exporting…"** mientras el proceso está en curso.
 </Warning>
+
+---
+
+## Migración desde la vista clásica
+
+<Info>
+  Si ya tenías configuraciones guardadas en la vista clásica de llamadas, Meetzy las migra automáticamente la primera vez que abres `/calls-v2`: tus columnas visibles y su orden se conservan como punto de partida, para que no tengas que reconstruir tu configuración desde cero.
+</Info>
+
+Esta migración ocurre una única vez por cuenta. A partir de ahí, cualquier cambio que hagas en el gestor de columnas o en las vistas guardadas se administra exclusivamente desde la nueva vista.
 
 ---
 
@@ -136,7 +154,7 @@ Cada fila permite marcar una llamada como **revisada** y añadir una nota de aud
 
 ### Actualización en vivo
 
-La tabla se actualiza automáticamente en segundo plano para reflejar llamadas nuevas o cambios de estado, sin necesidad de recargar la página. Las llamadas recién llegadas se resaltan brevemente para que puedas identificarlas de un vistazo.
+Con el interruptor **Live** activado, la tabla se actualiza automáticamente en segundo plano para reflejar llamadas nuevas o cambios de estado, sin necesidad de recargar la página. Las llamadas recién llegadas se resaltan brevemente para que puedas identificarlas de un vistazo.
 
 <Info>
   La actualización en vivo respeta los filtros y la ordenación que tengas activos: solo se incorporan a la tabla las llamadas que cumplen tus criterios actuales.
@@ -151,21 +169,24 @@ La tabla se actualiza automáticamente en segundo plano para reflejar llamadas n
   <Tab title="Gráfico detallado">
     Al hacer clic sobre la latencia de una llamada, se abre un modal con el gráfico completo de latencia para un análisis más detallado.
   </Tab>
+  <Tab title="Desglose por turno">
+    Dentro del reproductor de grabación, cada respuesta del agente incluye un desglose visual de a dónde fue el tiempo de respuesta: comprensión del habla (ASR), procesamiento del modelo (LLM), generación de voz (TTS) y, si corresponde, una espera deliberada del agente antes de hablar. Este último tramo no cuenta como lentitud, sino como una pausa intencional (por ejemplo, antes de preguntar "¿sigues ahí?").
+  </Tab>
 </Tabs>
 
 ### Reproductor de grabaciones
 
-Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, sin salir de la vista de llamadas.
+Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, con forma de onda real (generada a partir del audio decodificado), salto de ±10 segundos, control de velocidad de reproducción y descarga del archivo, sin salir de la vista de llamadas.
 
 ### Transcripción y ficha de feedback
 
 Desde cada llamada puedes abrir:
 
-- La **transcripción completa** de la conversación
+- La **transcripción completa** de la conversación, con turnos individuales, latencias por etapa y detalle de llamadas a herramientas (tool calls) cuando el agente las utiliza
 - Un formulario de **feedback / ticket de soporte** para reportar un problema relacionado con esa llamada específica
 
 ---
 
 ## Modo oscuro
 
-La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos los menús desplegables, el gestor de columnas y los modales.
+La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos los menús desplegables, el gestor de columnas, el reproductor de grabaciones y los modales.

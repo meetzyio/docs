@@ -236,11 +236,11 @@ El modal se divide en dos zonas:
 | Zona | Contenido |
 |------|-----------|
 | 🎧 Izquierda | Reproductor de audio con forma de onda |
-| 💬 Derecha | Transcripción turno por turno con métricas de latencia, modelo LLM y tool calls |
+| 💬 Derecha | Transcripción turno por turno con desglose de latencia, modelo LLM y tool calls |
 
 ### Reproductor de Audio
 
-El reproductor dibuja la **forma de onda real** del audio (decodificada con Web Audio API), no una animación genérica, lo que te permite ubicar visualmente silencios, picos de voz y pausas.
+El reproductor dibuja la **forma de onda real** del audio (decodificada con la Web Audio API a partir del archivo descargado, no una animación genérica), lo que te permite ubicar visualmente silencios, picos de voz y pausas. A medida que la llamada avanza, la parte ya reproducida de la forma de onda se resalta en color para indicar el progreso.
 
 <Steps>
 <Step title="Reproduce o pausa">
@@ -263,30 +263,43 @@ Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Des
 
 ### Transcripción Enriquecida por Turno
 
-Junto al reproductor, cada turno de la conversación (agente o usuario) se muestra como una burbuja de chat, con badges debajo que resumen lo que ocurrió técnicamente en ese turno:
+Junto al reproductor, cada turno de la conversación (agente o usuario) se muestra como una burbuja de chat, con indicadores debajo que resumen lo que ocurrió técnicamente en ese turno:
 
-| Badge | Aparece en | Descripción |
-|-------|------------|--------------|
+| Indicador | Aparece en | Descripción |
+|-----------|------------|--------------|
 | Marca de tiempo | Todos los turnos | Minuto:segundo dentro de la llamada |
-| `ASR` | Turnos del usuario | Latencia del reconocimiento de voz (speech-to-text) |
-| `TTS` | Turnos del agente | Latencia del servicio de texto a voz |
-| `LLM` | Turnos del agente | Latencia del modelo de lenguaje, expandible |
+| `Transcribed in Xms` | Turnos del usuario | Latencia del reconocimiento de voz (ASR / speech-to-text) |
+| `Replied in Xs` | Turnos del agente | Tiempo total de respuesta del agente, expandible en un desglose de latencia |
 | 🔧 Nombre de herramienta | Turnos del agente con tool calls | Una por cada herramienta invocada en ese turno, expandible |
 
 <Info>
 Estos datos provienen directamente de la conversación original en ElevenLabs (`conversation_turn_metrics`, `llm_usage`, `tool_calls` y `tool_results`), replicando el nivel de detalle que verías en la consola del proveedor, ya que Meetzy no persiste esta granularidad turno por turno en su propia base de datos.
 </Info>
 
-#### Detalle del LLM por turno
+#### Desglose de latencia por turno ("Replied in")
 
-Al hacer clic en el badge `LLM` de un turno del agente, se despliega un panel con:
+Al hacer clic en el indicador **"Replied in Xs"** de un turno del agente, se despliega un panel visual que responde a la pregunta "¿en qué se fue ese tiempo?" en lugar de mostrar métricas crudas sin contexto:
 
-- **Modelo** - el modelo de lenguaje que generó la respuesta en ese turno específico
-- **Métricas** - tiempos relacionados con el LLM, como el tiempo hasta el primer byte, hasta la primera frase y hasta la última frase generada
+- **Tiempo de respuesta total** - el número principal, destacado en grande
+- **Modelo** - el modelo de lenguaje que generó la respuesta en ese turno
+- **Barra apilada de composición** - una barra de progreso dividida en segmentos de color, cada uno proporcional al tiempo que ocupó dentro del total
+- **Lista de segmentos** - el detalle de cada etapa, con su duración exacta y su porcentaje sobre el total:
+
+| Segmento | Color | Descripción |
+|----------|-------|--------------|
+| Understanding speech (ASR) | 🔵 Azul | Tiempo del motor de reconocimiento de voz en transcribir lo que dijo el usuario |
+| Model thinking (LLM) | 🟣 Morado | Tiempo hasta el primer byte generado por el modelo de lenguaje |
+| Generating voice (TTS) | 🟢 Verde | Tiempo del servicio de texto a voz en producir el audio de la respuesta |
+| Other overhead | ⚪ Gris | Diferencia residual entre la suma de etapas y el tiempo total medido |
+| Waiting on purpose | ⚫ Gris oscuro | Tiempo que el agente esperó deliberadamente antes de hablar (por ejemplo, antes de preguntar "¿sigues ahí?") |
+
+<Info>
+El segmento **"Waiting on purpose"** no representa lentitud del sistema: es una pausa intencional del agente. Por eso se muestra por separado, en una nota debajo del desglose, en lugar de sumarse al tiempo de respuesta destacado. Esto evita que una espera deliberada de varios segundos haga parecer que la latencia real del pipeline es mucho peor de lo que es.
+</Info>
 
 #### Detalle de Tool Calls por turno
 
-Al hacer clic en el badge 🔧 de una herramienta, se despliega un panel con:
+Al hacer clic en el indicador 🔧 de una herramienta, se despliega un panel con:
 
 - **Parámetros** - el JSON enviado a la herramienta en el momento de la invocación
 - **Respuesta** - el JSON devuelto por la herramienta, marcado como error si corresponde
@@ -298,15 +311,15 @@ Haz clic en el ícono de reproducción en la columna **Recording**, o desde el b
 <Step title="Ubica el turno de interés">
 Desplázate por la transcripción a la derecha mientras escuchas el audio a la izquierda.
 </Step>
-<Step title="Expande las métricas">
-Haz clic en cualquier badge de latencia, modelo LLM o tool call para ver el detalle completo de ese turno.
+<Step title="Expande el desglose">
+Haz clic en **"Replied in Xs"** o en cualquier tool call para ver el detalle completo de ese turno.
 </Step>
 </Steps>
 
 ### Transcripción de Respaldo
 
 <Info>
-Si la conversación original en ElevenLabs ya no está disponible (por ejemplo, llamadas muy antiguas), el modal muestra automáticamente una **transcripción de texto plano**, sin los badges de latencia ni detalle por turno, indicando que las métricas detalladas ya no pueden recuperarse.
+Si la conversación original en ElevenLabs ya no está disponible (por ejemplo, llamadas muy antiguas), el modal muestra automáticamente una **transcripción de texto plano**, sin los indicadores de latencia ni el desglose por turno, indicando que las métricas detalladas ya no pueden recuperarse.
 </Info>
 
 ## Copiar Datos

@@ -207,7 +207,7 @@ If call recording is enabled, clicking the recording icon opens a dedicated **Ca
 
 ### Waveform Player
 
-Unlike a plain `<audio>` progress bar, the player renders a **real waveform** generated directly from the decoded audio — not a placeholder animation. When the recording loads, the audio is decoded via the Web Audio API and sampled into 100 amplitude bars, so the shape you see actually reflects the call's audio (silences, loud segments, etc.).
+Unlike a plain `<audio>` progress bar, the player renders a **real, interactive waveform** generated directly from the decoded audio — not a placeholder animation. When the recording loads, the audio is decoded via the Web Audio API and sampled into 100 amplitude bars, so the shape you see actually reflects the call's audio (silences, loud segments, etc.).
 
 <CardGroup cols={2}>
   <Card title="Click-to-seek" icon="hand-pointer">
@@ -230,33 +230,54 @@ The waveform is computed once per call and cached for the session — reopening 
 
 ### Enriched Transcript
 
-Next to the player, the transcript is rendered turn-by-turn (not as a single wall of text), and each turn can carry extra detail sourced directly from the underlying ElevenLabs conversation:
+Next to the player, the transcript is rendered turn-by-turn (not as a single wall of text). Each turn shows its elapsed time in the call, and agent turns carry two kinds of expandable detail sourced directly from the underlying ElevenLabs conversation: a **response time breakdown** and, when applicable, **tool call details**.
 
-| Badge | Shown on | Meaning |
-|-------|----------|---------|
-| ASR | User turns | Speech-to-text latency for that turn |
-| TTS | Agent turns | Text-to-speech latency for that turn |
-| LLM | Agent turns | Time-to-first-byte from the language model, expandable to show the exact model used and detailed LLM metrics |
-| 🔧 Tool name | Agent turns | A tool/function call made during that turn, expandable to show its parameters and result |
+#### Turn Latency Breakdown
+
+Every agent turn shows a **"Replied in Xs"** summary next to its message. Clicking it expands a per-turn latency breakdown that answers the question auditors actually care about: *the agent took this long to answer — where did that time go?*
+
+The breakdown splits the response time into a stacked bar with the following stages, shown in the order they occur in the pipeline:
+
+| Stage | Meaning |
+|-------|---------|
+| Understanding speech | Speech-to-text (ASR) latency — how long it took to transcribe what the caller said |
+| Model thinking | Time to first byte from the LLM — how long the language model took to start generating a response |
+| Generating voice | Text-to-speech (TTS) latency — how long it took to synthesize the agent's audio |
+| Other overhead | Any small residual not accounted for by the stages above, rather than being silently dropped |
+
+<Info>
+A separate **"Waiting on purpose"** segment may also appear. This is not slowness — it's the agent deliberately holding back before speaking (for example, waiting a few seconds before asking "are you still there?"). It's called out separately, with a note below the chart, so a deliberate pause isn't mistaken for a performance problem. The "Replied in" headline itself always excludes this wait time.
+</Info>
+
+Each stage in the breakdown shows its duration and percentage of the total, along with the LLM model that generated the response for that turn.
 
 <Steps>
-  <Step title="Scan the badges">
-    Each message bubble shows its elapsed time in the call, plus any latency badges relevant to that turn.
+  <Step title="Scan the turn">
+    Each message bubble shows its elapsed time in the call, plus a "Replied in Xs" summary on agent turns.
   </Step>
-  <Step title="Expand LLM detail">
-    Click the **LLM** badge to reveal which model generated that response and a breakdown of LLM-related metrics (time to first byte, time to first/last sentence, etc.).
+  <Step title="Expand the latency breakdown">
+    Click **Replied in Xs** to reveal the stacked bar showing how the response time splits across understanding speech, model thinking, generating voice, and any deliberate wait.
   </Step>
   <Step title="Expand tool calls">
-    Click a **🔧 tool name** badge to reveal the parameters sent to the tool and the result it returned (or the error, if the call failed).
+    Click a **🔧 tool name** badge to reveal the exact parameters sent to the tool and the result (or error) it returned.
   </Step>
 </Steps>
+
+#### Tool Call Details
+
+If the agent invoked a tool or function during a turn, a **🔧 tool name** badge appears next to that turn. Expanding it shows:
+
+- **Parameters** — the exact JSON payload sent to the tool for that call
+- **Result** — the value the tool returned, or the error details if the call failed
+
+This lets you verify not just *that* a tool was called, but exactly *what* was sent and *what* came back, without leaving the recording view.
 
 <Info>
 This view mirrors what ElevenLabs' own conversation view shows, since this per-turn detail (latency metrics, model attribution, tool payloads) isn't persisted in Meetzy's database — it's fetched live from ElevenLabs when you open the recording.
 </Info>
 
 <Warning>
-If the underlying ElevenLabs conversation is no longer available (for example, an old or purged call), the modal automatically falls back to a **plain transcript** view — the message bubbles are still shown, but without latency badges, model detail, or tool call/result cards. A short notice appears above the transcript in this case.
+If the underlying ElevenLabs conversation is no longer available (for example, an old or purged call), the modal automatically falls back to a **plain transcript** view — the message bubbles are still shown, but without latency breakdowns, model detail, or tool call/result cards. A short notice appears above the transcript in this case.
 </Warning>
 
 <Warning>
