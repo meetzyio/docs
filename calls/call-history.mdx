@@ -12,6 +12,10 @@ The Call History section provides a comprehensive view of all calls made by your
 
 Navigate to **Calls** in the main menu to access your complete call history.
 
+<Info>
+There is now an improved calls view with **fully configurable columns**, **real AI latency metrics**, and a **waveform-based recording player**. It's available alongside the classic Call History table and shares the same underlying data — use it whenever you need deeper performance visibility or a more tailored column layout.
+</Info>
+
 ## Interface Overview
 
 The calls interface consists of:
@@ -20,8 +24,171 @@ The calls interface consists of:
 |---------|-------------|
 | 📊 Header | Title, description, and selection status |
 | 🔍 Filter Bar | Advanced filtering controls with visibility management |
+| ⚙️ Columns | Configurable, draggable columns including dynamic agent fields |
 | 📋 Call Table | List of all calls with key information |
 | 📄 Details Modal | Detailed view of individual calls |
+
+## Configurable Columns
+
+<Info>
+The improved calls view lets you fully control which columns appear, in what order, and even add columns sourced directly from each agent's input parameters or structured output — no need to open a call individually to see a specific data point.
+</Info>
+
+Click the **⚙️ Columns** button above the table to open the column manager panel. It's organized into three sections:
+
+| Section | Purpose |
+|---------|---------|
+| **Input columns** | Discover fields from each agent's input parameters (`call.data`) and add them as columns, grouped by agent |
+| **Columns** | Manage visibility and order of all currently active columns — fixed and dynamic |
+| **Output columns** | Discover fields from each agent's structured output (`call.output`) and add them as columns, grouped by agent |
+
+<Steps>
+<Step title="Open the Column Manager">
+Click the **⚙️ Columns** button next to the Export to Excel button to open the column configuration drawer.
+</Step>
+<Step title="Reorder Columns">
+In the **Columns** section, drag any row using the ⠿ handle to reorder it. The table updates its column order live as you drag.
+</Step>
+<Step title="Show or Hide Columns">
+Use the checkbox next to each column name to toggle its visibility. Columns marked as non-toggleable (such as **Actions**) always remain visible.
+</Step>
+<Step title="Add a Dynamic Column from Input or Output">
+Expand **Input columns** or **Output columns**, find the field you need under the relevant agent group, and click **Add**. The field appears immediately as a new column, placed just before the Actions column.
+</Step>
+<Step title="Remove a Dynamic Column">
+Dynamic columns display a small ✕ button and an **input**/**output** badge in the Columns list. Click ✕ to remove them from your view entirely.
+</Step>
+<Step title="Reset to Defaults">
+Click **Reset to default columns** at the bottom of the panel to discard all customizations and restore the original column set.
+</Step>
+</Steps>
+
+<Tip>
+Your column configuration — order, visibility, and any dynamic columns you've added — is saved automatically per user and restored the next time you open the view. There's no manual save step.
+</Tip>
+
+<Warning>
+Dynamic columns are tied to the agent and field path they were created from. If an agent stops sending a particular input or output field, that column will simply show empty values for calls where the data is missing, rather than being removed automatically.
+</Warning>
+
+### Default Column Set
+
+Out of the box, the improved view includes:
+
+| Column | Description |
+|--------|-------------|
+| Date | When the call occurred |
+| Agent | Name of the agent that handled the call |
+| From | Caller phone number |
+| Status | Call status badge |
+| Goal | Success indicator based on evaluations |
+| Duration | Call length |
+| Avg AI latency | Average AI response latency for the call |
+| Latency (turns) | Compact sparkline of latency across the call's turns |
+| Tags | Dynamic tags associated with the call |
+| Recording | Access to the call recording player |
+| Actions | Row-level quick actions |
+
+Additional columns such as **To**, **Max latency**, **Company**, **Email**, **Summary**, **Type**, **Hung up by**, **Transferred**, and **Agent duration** are available but hidden by default — enable them from the column manager as needed.
+
+## AI Latency Metrics
+
+<Info>
+Every call now tracks how quickly your AI agent responded throughout the conversation, giving you a direct signal of conversational responsiveness independent of call outcome or duration.
+</Info>
+
+The improved view surfaces AI latency at three levels of detail:
+
+| Metric | Column | Description |
+|--------|--------|-------------|
+| **Average latency** | Avg AI latency | The mean AI response latency (in milliseconds) across all turns in the call |
+| **Maximum latency** | Max latency | The single highest response latency recorded during the call — useful for spotting worst-case delays |
+| **Per-turn sparkline** | Latency (turns) | A compact inline chart showing how latency evolved turn by turn, without leaving the table |
+
+<Steps>
+<Step title="Scan Averages at a Glance">
+Sort the table by **Avg AI latency** to quickly identify calls or agents with consistently slow responses.
+</Step>
+<Step title="Spot Outliers with Max Latency">
+Enable the **Max latency** column (hidden by default) to catch calls with an isolated but severe delay that the average might hide.
+</Step>
+<Step title="Read the Sparkline">
+The **Latency (turns)** column renders a lightweight line for each call, plotting latency per turn. A rising line toward the end of a call can indicate the agent slowing down as the conversation got more complex.
+</Step>
+<Step title="Open the Full Latency Chart">
+Click into a call's details to see a full, interactive chart of latency per turn, with exact millisecond values and the timestamp of each turn plotted on the X axis.
+</Step>
+</Steps>
+
+<Tip>
+Combine latency metrics with the LLM and LLM detail columns to check whether latency spikes correlate with a model cascade fallback — a secondary model taking over mid-call can sometimes explain a sudden increase in response time.
+</Tip>
+
+<Warning>
+Latency data depends on the underlying voice provider reporting response timing for each turn. Calls made before latency tracking was enabled, or through integrations that don't report this data, will show empty values for these columns.
+</Warning>
+
+## Recording Player with Waveform
+
+<Info>
+The recording player has been upgraded from a simple audio control to a full waveform-based player, built from the actual decoded audio of the call — not a generic placeholder animation.
+</Info>
+
+Click the **Recording** column on any call to open the player modal, which includes:
+
+| Feature | Description |
+|---------|-------------|
+| **Real waveform** | Rendered directly from the decoded audio, showing actual amplitude across the call |
+| **Click-to-seek** | Click anywhere on the waveform to jump to that point in the recording |
+| **Playback progress** | The waveform visually fills in as the recording plays, distinguishing played from unplayed audio |
+| **Skip controls** | Jump backward or forward 10 seconds with dedicated buttons |
+| **Playback speed** | Choose from 0.5x, 0.75x, 1x, 1.25x, 1.5x, or 2x speed |
+| **Synced transcript** | The call transcript loads alongside the player for side-by-side review |
+| **Download** | Download the recording file directly from the modal |
+
+<Steps>
+<Step title="Open the Player">
+Click the Recording column for any call with an available recording.
+</Step>
+<Step title="Review the Waveform">
+Wait for the audio to load and decode — the waveform renders automatically once ready, reflecting the real amplitude of the call.
+</Step>
+<Step title="Seek and Adjust Speed">
+Click on any part of the waveform to jump there instantly, or use the speed buttons to review a section more quickly or more carefully.
+</Step>
+<Step title="Cross-Reference with the Transcript">
+Use the transcript panel next to the player to follow along with what's being said as you scrub through the recording.
+</Step>
+</Steps>
+
+<Tip>
+Because the waveform is built from decoded audio rather than a static image, longer recordings may take a moment to render on first open. Once decoded, seeking and speed changes are instant.
+</Tip>
+
+## Excel Export Matching Your Columns
+
+<Info>
+Exporting to Excel now respects exactly what you see: only the columns currently visible in your table — in the order you've arranged them — are included in the exported file, including any dynamic input/output columns you've added.
+</Info>
+
+<Steps>
+<Step title="Configure Your View">
+Use the column manager to show, hide, and reorder columns until the table reflects exactly the data you want to export.
+</Step>
+<Step title="Apply Your Filters">
+Narrow down the calls you want using the filter bar, since the export follows the currently filtered result set.
+</Step>
+<Step title="Click Export to Excel">
+Use the **Export to Excel** button above the table. The button shows an "Exporting…" state while the file is being generated.
+</Step>
+<Step title="Open the File">
+The downloaded spreadsheet mirrors your visible columns and their order, including any dynamic agent input/output fields you've added, making it easy to share exactly the view you were working with.
+</Step>
+</Steps>
+
+<Warning>
+If you hide a column after exporting, previously downloaded files aren't affected retroactively — each export is a snapshot of your column configuration and filters at that moment.
+</Warning>
 
 ## Advanced Filter System
 
@@ -300,9 +467,12 @@ The call table displays key information for each call with enhanced visual desig
 | Tags | Dynamic tags associated with the call |
 | LLM *(optional)* | Language model(s) that handled the call |
 | LLM detail *(optional)* | Turn-by-turn breakdown of model usage |
+| Avg AI latency *(optional)* | Mean AI response latency for the call |
+| Max latency *(optional)* | Highest AI response latency recorded in the call |
+| Latency (turns) *(optional)* | Sparkline of latency per turn |
 
 <Info>
-The **LLM** and **LLM detail** columns are optional and hidden by default. Enable them from the column customizer to monitor which language models powered each call.
+The **LLM**, **LLM detail**, **Avg AI latency**, **Max latency**, and **Latency (turns)** columns are optional. In the classic Call History table they're hidden by default and can be enabled from the column customizer; in the improved calls view, **Avg AI latency** and **Latency (turns)** are visible out of the box.
 </Info>
 
 ### LLM and LLM Detail Columns
@@ -354,6 +524,7 @@ Export filtered results:
 - CSV format for spreadsheet analysis
 - JSON format for technical analysis
 - PDF reports for presentations
+- Excel export that follows your currently visible columns and their order
 - Include/exclude specific columns
 </Tab>
 </Tabs>
@@ -386,6 +557,7 @@ For each call row with improved accessibility:
 | 📋 Copy ID | Copy call ID to clipboard | Right-click menu |
 | 🏷️ Add Tags | Add custom tags to the call | Tag icon |
 | 📊 Analytics | Quick performance insights | Chart icon |
+| ▶️ Play Recording | Open the waveform recording player | Recording column |
 
 <Tip>
 The **Copy ID** action pairs naturally with the Call ID filter: copy the ID from any row, enable the Call ID filter from the ⚙️ settings panel if needed, and paste it in to jump straight to that exact call later.
@@ -457,11 +629,20 @@ Best practices for efficient searching:
   <Card title="Customize Filter Visibility" icon="eye">
     Use the ⚙️ settings button to show or hide Goal, Tags, Evaluations, and Call ID filters, keeping the Filter Bar focused on what matters to you.
   </Card>
+  <Card title="Customize Your Columns" icon="table-columns">
+    Drag, hide, and add columns — including agent input/output fields — from the ⚙️ Columns manager to build the exact view you need.
+  </Card>
+  <Card title="Watch AI Latency" icon="gauge">
+    Use the Avg AI latency, Max latency, and per-turn sparkline to spot slow-responding agents before they affect call quality.
+  </Card>
   <Card title="Export Filtered Results" icon="download">
-    Export your filtered results for offline analysis, reporting, or sharing with team members.
+    Export your filtered results — following your visible columns — for offline analysis, reporting, or sharing with team members.
   </Card>
   <Card title="Track LLM Cascade Health" icon="microchip">
     Enable the LLM and LLM detail columns to spot ElevenLabs cascade degradations and understand which calls fell back to a secondary model.
+  </Card>
+  <Card title="Use the Waveform Player" icon="waveform">
+    Open the Recording column to seek instantly on the real waveform, adjust playback speed, and follow the synced transcript.
   </Card>
 </CardGroup>
 
@@ -535,6 +716,26 @@ Expand LLM detail (or open the Details Modal) to see the exact turn where the sw
 </Step>
 <Step title="Cross-Reference Outcomes">
 Combine this with the Success and Status filters to check whether degraded calls correlate with lower success rates.
+</Step>
+</Steps>
+
+### Diagnosing a Slow Agent with Latency Metrics
+
+<Steps>
+<Step title="Sort by Avg AI Latency">
+In the improved calls view, click the **Avg AI latency** column header to sort calls from slowest to fastest.
+</Step>
+<Step title="Enable Max Latency">
+Open the column manager and enable **Max latency** to see whether the slowdown is consistent or driven by a few extreme turns.
+</Step>
+<Step title="Check the Sparkline Pattern">
+Look at the **Latency (turns)** sparkline for affected calls — a steadily rising line suggests the agent degraded as the call progressed.
+</Step>
+<Step title="Open the Full Latency Chart">
+Click into the call to view the detailed, interactive latency chart and identify exactly which turn caused the spike.
+</Step>
+<Step title="Correlate with LLM Detail">
+Check the LLM detail column for the same call to see if a model cascade fallback happened around the same turn.
 </Step>
 </Steps>
 

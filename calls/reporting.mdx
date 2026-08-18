@@ -99,6 +99,25 @@ Each report provides comprehensive metrics for selected agents:
 </Tab>
 </Tabs>
 
+### AI Response Latency
+
+<Info>
+Response latency measures how long the AI agent takes to start speaking after the caller stops talking. Lower latency generally means a more natural, human-like conversation.
+</Info>
+
+In the calls table view, two latency metrics are available as **columns** for every call:
+
+- **Avg AI latency**: The average response latency (in milliseconds) across all agent turns in that call.
+- **Max latency**: The highest single response latency (in milliseconds) recorded during that call.
+
+A compact **Latency (turns)** sparkline column is also available, giving you a quick visual trend of how latency evolved turn-by-turn throughout the call. Clicking into a call's details opens a full latency chart with the exact value for each turn.
+
+<Info>
+Both metrics can also be used as **filters** in the calls view (`Min latency (ms)` / `Max latency (ms)`) to quickly surface calls where the AI took unusually long to respond — useful for troubleshooting perceived sluggishness or validating performance after an infrastructure change.
+</Info>
+
+By default, **Avg AI latency** and **Latency (turns)** are shown as visible columns, while **Max latency** is available but hidden — you can enable it anytime from the column manager (⚙️ Columns).
+
 ### Customer Satisfaction
 
 <Info>
@@ -260,6 +279,7 @@ Use reporting data to:
 - Optimize agent scripts based on conversion analysis
 - Improve lead quality based on contact rate insights
 - Enhance customer experience using NPS feedback
+- Spot outlier calls with high AI response latency and investigate potential causes (network conditions, model load, prompt complexity)
 
 ## API Integration
 

@@ -12,6 +12,10 @@ El sistema de reportes de Meetzy proporciona análisis completos y detallados de
 El sistema de reportes está disponible para usuarios con permisos administrativos y editores avanzados
 </Info>
 
+<Info>
+Las métricas de latencia de respuesta de la IA (media y máxima, en milisegundos) están disponibles como columna en la tabla de llamadas y también como filtro, permitiéndote identificar rápidamente llamadas con tiempos de respuesta elevados. Además, puedes visualizar la evolución de la latencia turno a turno mediante un mini-gráfico en la propia fila y un gráfico detallado en el modal de la llamada.
+</Info>
+
 ### Métricas Disponibles
 
 - **Llamadas totales** y tasas de finalización
@@ -19,6 +23,7 @@ El sistema de reportes está disponible para usuarios con permisos administrativ
 - **Tiempo de conversación** promedio y desviación estándar
 - **Minutos facturables** por agente y llamada
 - **Puntuaciones NPS** cuando está activado
+- **Latencia de respuesta de la IA** (media y máxima, en ms), disponible como columna y como filtro
 - **Análisis temporal** por días y horas
 - **Distribución de estados** de llamadas
 
@@ -95,6 +100,21 @@ filters: {
 }
 ```
 
+### Filtros de Latencia de Respuesta de la IA
+
+Filtra las llamadas por la latencia (en milisegundos) que tardó la IA en responder:
+
+```typescript
+filters: {
+  min_latency_ms: 0,
+  max_latency_ms: 2000
+}
+```
+
+<Info>
+Este filtro utiliza la latencia media de respuesta de la IA por llamada (`avg_response_latency_ms`). También puedes añadir la latencia máxima (`max_response_latency_ms`) como columna adicional en la tabla para detectar picos puntuales dentro de una misma conversación.
+</Info>
+
 ### Filtros de NPS
 Para agentes con NPS activado:
 
@@ -124,6 +144,16 @@ filters: {
 <Warning>
 Los minutos facturables pueden diferir del tiempo total de conversación debido a redondeos y configuraciones de facturación
 </Warning>
+
+### Métricas de Latencia de la IA
+
+- **Latencia media de respuesta**: Tiempo promedio (en ms) que tarda la IA en responder tras el silencio del usuario, disponible como columna configurable
+- **Latencia máxima de respuesta**: Pico de latencia (en ms) registrado durante la llamada
+- **Latencia por turno**: Visualización turno a turno mediante un sparkline en la tabla y un gráfico detallado en el modal de la llamada, útil para detectar degradaciones puntuales de rendimiento
+
+<Info>
+Estas métricas de latencia están disponibles tanto como columna visible en la tabla de llamadas como filtro de búsqueda, lo que facilita auditar la calidad de la experiencia conversacional y detectar agentes o momentos con tiempos de respuesta anómalos.
+</Info>
 
 ### Análisis de Leads
 
@@ -237,6 +267,7 @@ Los datos de intentos múltiples ayudan a optimizar las estrategias de follow-up
 - **Tasa de conversión**: Varía por industria (5-25%)
 - **Duración promedio**: 2-5 minutos para calls efectivas
 - **NPS promedio**: >7 indica satisfacción alta
+- **Latencia media de respuesta de la IA**: valores más bajos indican una experiencia conversacional más fluida; latencias elevadas de forma sostenida suelen señalar problemas de configuración o de proveedor de voz/modelo
 
 ### Identificación de Problemas
 
@@ -246,5 +277,6 @@ Señales de alerta en los reportes:
 - **Alta desviación estándar**: Inconsistencia en el rendimiento
 - **Muchas llamadas fallidas**: Issues técnicos o de configuración
 - **NPS bajo**: Problemas de calidad o experiencia del usuario
+- **Latencia de la IA elevada**: Filtra por latencia mínima/máxima y revisa el gráfico de latencia por turno para identificar en qué momento de la llamada se producen los retrasos
 
 El sistema de reportes es una herramienta fundamental para optimizar el rendimiento de tus agentes conversacionales y maximizar el retorno de inversión en automatización de llamadas.
