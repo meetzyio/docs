@@ -14,11 +14,13 @@ The Billy panel automatically appears when you have billing rules configured for
 
 The enhanced Billy consumption panel displays:
 
+- **Minutes package progress bar** for accounts with a contracted monthly allowance
 - **Real-time consumption data** with intelligent period detection
-- **Advanced filtering system** with predefined periods and custom date ranges
+- **Advanced filtering system** with a dropdown period selector and custom date ranges
 - **Cost breakdown by assistant** with detailed unit metrics
 - **Administrative historical charts** for trend analysis
 - **Billing adjustments** including minimums and corrections
+- **Rotating message ticker** while the panel is collapsed
 - **Flexible view modes** for different user types
 
 ## Panel Interface
@@ -50,6 +52,27 @@ Click the collapse button (up arrow) to minimize the panel. Your preference is a
 The panel automatically saves your collapsed/expanded preference, restoring it when you return to the dashboard.
 </Info>
 
+## Minutes Package Progress Bar
+
+For client accounts whose Billy billing profile has a contracted monthly minutes allowance configured, the expanded panel displays a dedicated progress bar above the filters and consumption breakdown.
+
+The minutes package card shows:
+
+- **Consumed vs. contracted minutes**, formatted as `X / Y min` in the card header
+- **A proportional progress bar** that fills according to usage percentage
+- **Color-coded status**: emerald green while consumption stays within the contracted allowance, red once the allowance has been exceeded
+- **A contextual footer message**:
+  - When within allowance: the remaining minutes available for the rest of the billing period
+  - When over allowance: the exact number of minutes exceeded beyond the contracted package
+
+<Info>
+This progress bar only appears when the account's Billy profile has a minutes package configured. Accounts billed purely on a per-unit basis without a contracted allowance will not display this card.
+</Info>
+
+<Warning>
+When the allowance is exceeded, the progress bar switches to red to draw attention, but consumption tracking and cost calculations continue normally below. Exceeding the package does not stop call processing by itself; it simply reflects that usage has surpassed the contracted minutes.
+</Warning>
+
 ## Advanced Filtering System
 
 ### Predefined Period Filters
@@ -60,15 +83,32 @@ The panel automatically generates billing periods based on your account configur
 - **Previous billing periods** (up to 8 historical periods)
 - **Automatically calculated periods** based on your billing cycle start day
 
+### Period Selector Dropdown
+
+Instead of a simple inline list, period selection is handled through a compact dropdown control that keeps the filter panel tidy while still surfacing all available billing periods.
+
 <Steps>
 <Step title="Open Filter Section">
 Click "Filter" to expand the filtering controls
 </Step>
 
-<Step title="Select Predefined Period">
-Choose from the dropdown of automatically generated billing periods
+<Step title="Open the Period Dropdown">
+Click the period selector button, which displays the currently selected period label and a chevron icon. Clicking it opens a scrollable list of all available periods
 </Step>
 
+<Step title="Choose a Period">
+Select any period from the list. The chosen option is marked with a checkmark, the dropdown closes automatically, and consumption data refreshes for that period
+</Step>
+</Steps>
+
+The dropdown behaves consistently across the panel:
+
+- **Current selection highlighting**: The active period is visually highlighted with an emerald accent and checkmark
+- **Click-outside to close**: Clicking anywhere outside the dropdown automatically closes it without changing the selection
+- **Disabled while loading**: The dropdown button is disabled during data refresh to prevent conflicting requests
+- **Re-selecting the current period**: Clicking the already-selected period does not trigger an unnecessary reload
+
+<Steps>
 <Step title="View Updated Data">
 Data automatically refreshes when a new period is selected
 </Step>
@@ -96,6 +136,8 @@ Click "Apply" to load consumption data for your custom date range
 Custom date ranges must have a start date before or equal to the end date. The panel will show validation errors for invalid date combinations.
 </Warning>
 
+Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type.
+
 ### Filter Collapse and Expansion
 
 The filter section can be collapsed to save space while still providing quick access to filtering options:
@@ -110,9 +152,13 @@ When collapsed, the section still shows the current filter status
 </Step>
 
 <Step title="Expand for Full Control">
-Open the section to access all filtering options including period selection and custom dates
+Open the section to access all filtering options including the period dropdown and custom dates
 </Step>
 </Steps>
+
+<Info>
+Collapsing the filter section also automatically closes the period dropdown if it was open, keeping the interface predictable.
+</Info>
 
 ### Filter States and Error Handling
 
@@ -121,7 +167,7 @@ The filtering system includes comprehensive validation:
 - **Date validation**: Prevents invalid date combinations
 - **Loading states**: Shows "Recalculating consumption..." during data refresh
 - **Error recovery**: Displays helpful error messages and retry options
-- **Auto-synchronization**: Keeps filter state in sync with consumption data
+- **Auto-synchronization**: Keeps filter state, dropdown selection, and consumption data in sync
 
 ## Administrative Features
 
@@ -148,10 +194,23 @@ Review the interactive chart showing billing trends across multiple months
 </Steps>
 
 The historical chart provides:
-- **Monthly billing totals** over time
-- **Visual trend analysis** for budget planning
-- **Interactive data points** with detailed monthly breakdowns
-- **Smart loading**: Chart data is only loaded when first requested
+- **Monthly billing totals** over time, rendered as a bar chart across the returned months
+- **Visual trend analysis** for budget planning, making it easy to spot spikes or dips in spend
+- **Interactive data points** with detailed monthly breakdowns available on hover
+- **Smart loading**: Chart data is only fetched from the server the first time the chart is expanded, and cached in-memory afterward
+- **Loading and error feedback**: A "Loading billing history..." message appears while data is being fetched, and a dedicated error state is shown if the request fails
+
+<Steps>
+<Step title="First Expansion">
+The very first time you expand the chart, the panel fetches billing history data from the server and shows a loading indicator
+</Step>
+<Step title="Subsequent Toggles">
+Once loaded, collapsing and re-expanding the chart reuses the cached data instead of making a new request, keeping the interaction fast
+</Step>
+<Step title="Filter Changes">
+If the selected consumption period or view mode changes in a way that affects the underlying account, the ticker and chart state are refreshed accordingly
+</Step>
+</Steps>
 
 ### Enhanced Chart Controls
 
@@ -160,14 +219,50 @@ The historical chart section includes improved controls:
 - **Collapsible interface**: Toggle chart visibility to save space
 - **Loading states**: Clear feedback during data loading
 - **Error handling**: Graceful failure recovery with retry options
-- **Memory efficient**: Charts are destroyed when collapsed
+- **Memory efficient**: Charts are destroyed when collapsed, and re-rendered from cached data when reopened, avoiding duplicate chart instances or memory leaks
 
 ### View Modes
 
 The panel adapts its display based on user permissions:
 
 - **Client View** (`client_agents`): Shows consumption for your assistants
-- **Admin View** (`admin_clients`): Shows consumption across clients with additional controls
+- **Admin View** (`admin_clients`): Shows consumption across clients with additional controls, including the historical chart section
+
+## Collapsed Mode: Rotating Message Ticker
+
+When the panel is collapsed, instead of showing a static indicator, Billy displays a rotating ticker of short, contextual messages. This keeps key information visible even when you don't have the panel expanded.
+
+<Info>
+The ticker only runs while the panel is collapsed. Expanding the panel automatically stops the rotation, and collapsing it again resets the ticker to its first message before resuming.
+</Info>
+
+What the ticker can surface:
+
+- **Current consumption summary**: A quick snapshot of your usage for the active period
+- **Minutes package status**: A reminder of remaining minutes or an over-allowance warning, when a package is configured
+- **Billing period context**: Which period is currently being tracked
+- **Historical highlights**: Once historical data has been loaded for admin views, relevant trend messages may also rotate through the ticker
+
+### How the Ticker Works
+
+<Steps>
+<Step title="Panel Collapses">
+As soon as you collapse the panel, the ticker starts from its first available message
+</Step>
+<Step title="Automatic Rotation">
+Messages rotate automatically at a fixed interval, with a brief fade transition between each message for a smooth visual effect
+</Step>
+<Step title="Data-Aware Content">
+The set of available messages is rebuilt whenever consumption data is refreshed or historical data is loaded, so the ticker always reflects your latest data
+</Step>
+<Step title="Panel Expands">
+Expanding the panel stops the rotation immediately; the ticker resumes from the beginning the next time you collapse the panel
+</Step>
+</Steps>
+
+<Warning>
+If consumption data fails to load or the panel cannot render (for example, no billing profile is configured), the ticker has no messages to display and remains empty until data loads successfully.
+</Warning>
 
 ## Understanding Consumption Data
 
@@ -205,15 +300,21 @@ Subtotal (all assistant usage)
 <Step title="Trigger Refresh">
 Click the circular arrow refresh icon in the panel header
 </Step>
-
 <Step title="Monitor Progress">
 The icon shows a spinning animation during data loading
 </Step>
-
 <Step title="Handle Errors">
 If refresh fails, the status indicator changes to amber and error messages appear
 </Step>
 </Steps>
+
+The refresh button intelligently reapplies whichever filter is currently active:
+
+- If a **custom date range** is active and both dates are set, the refresh re-applies that exact range
+- If a **predefined period** is selected, the refresh reloads data for that same period
+- If neither is set, it falls back to loading the default current-period consumption
+
+This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing.
 
 ### Smart Refresh Logic
 
@@ -222,7 +323,7 @@ The refresh system intelligently handles different scenarios:
 - **Period filters**: Refreshes data for the currently selected period
 - **Custom ranges**: Re-applies custom date filters
 - **Default mode**: Falls back to standard consumption loading
-- **State preservation**: Maintains current filter selections
+- **State preservation**: Maintains current filter selections, dropdown state, and (when applicable) the historical chart's expanded/collapsed state
 
 ### Loading States
 
@@ -230,7 +331,7 @@ The panel provides clear feedback during operations:
 
 - **"Recalculating consumption..."**: Data is being refreshed
 - **"Loading billing history..."**: Historical chart data is loading
-- **Disabled controls**: Prevent multiple simultaneous requests
+- **Disabled controls**: Prevent multiple simultaneous requests, including the period dropdown button
 
 ### Error Recovery
 
@@ -272,6 +373,18 @@ When errors occur, the panel:
 - Check if billing rules exist for your assistants
 </Tab>
 
+<Tab title="Minutes Package Not Showing">
+**Possible causes:**
+- No contracted monthly minutes allowance configured on the Billy profile
+- Account is billed on a pure per-unit basis without a package
+- Consumption data has not finished loading
+
+**Solutions:**
+- Ask your administrator to confirm whether a minutes package is configured for your billing profile
+- Wait for the initial consumption load to complete, then check again
+- Refresh the panel manually to force a fresh data fetch
+</Tab>
+
 <Tab title="Filters Not Working">
 **Possible causes:**
 - Invalid date range selections
@@ -280,7 +393,7 @@ When errors occur, the panel:
 
 **Solutions:**
 - Verify start date is before or equal to end date
-- Try using predefined periods instead of custom ranges
+- Try using the predefined period dropdown instead of custom ranges
 - Check your internet connection and retry
 </Tab>
 
@@ -294,6 +407,18 @@ When errors occur, the panel:
 - Verify you have administrative permissions
 - Contact support if you should have admin access
 - Try refreshing the panel to reload chart data
+</Tab>
+
+<Tab title="Ticker Not Rotating">
+**Possible causes:**
+- Panel is expanded (ticker only runs while collapsed)
+- No consumption data has loaded yet, so there are no messages to show
+- An error state has cleared the available messages
+
+**Solutions:**
+- Collapse the panel to activate the ticker
+- Wait for consumption data to load successfully, or trigger a manual refresh
+- Resolve any underlying data error shown in the expanded view first
 </Tab>
 
 <Tab title="Incorrect Consumption Data">
@@ -313,11 +438,12 @@ When errors occur, the panel:
 
 ### Regular Monitoring
 - **Check consumption frequently** to stay within budget limits
+- **Watch the minutes package bar** to anticipate reaching your contracted allowance before it turns red
 - **Use period comparisons** to identify usage trends
 - **Monitor assistant performance** to optimize resource allocation
 
 ### Effective Filtering
-- **Start with predefined periods** for standard analysis
+- **Start with the period dropdown** for standard analysis
 - **Use custom ranges** for specific investigation periods
 - **Collapse filters** when not actively adjusting to save space
 - **Combine filters** with manual refresh for most current data
@@ -326,7 +452,12 @@ When errors occur, the panel:
 - **Review historical charts** for long-term planning
 - **Monitor client consumption patterns** for resource allocation
 - **Use trend analysis** for budget forecasting
-- **Toggle chart visibility** to optimize screen space
+- **Toggle chart visibility** to optimize screen space, relying on cached data for quick re-opening
+
+### Collapsed Mode Usage
+- **Keep the panel collapsed** during regular work to let the ticker surface key updates passively
+- **Glance at rotating messages** for a quick pulse on consumption and package status without expanding the panel
+- **Expand only when you need details**, such as adjusting filters or reviewing historical charts
 
 ### Performance Optimization
 - **Keep the panel collapsed** when not actively monitoring
