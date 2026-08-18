@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the enhanced Calls page with configurable columns, saved views, suspicious call detection, and built-in review tools."
+description: "Explore the enhanced Calls page with configurable columns, saved views, suspicious call detection, live updates, and built-in review tools."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces configurable columns, saved views, smarter filtering, and a lightweight review workflow directly inside the table.
+The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces configurable columns, saved views, smarter filtering, a live-refreshing table, and a lightweight review workflow directly inside the table.
 
 <Info>
 The Advanced Calls View is currently rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -36,12 +36,12 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
     Drag columns into the order that makes the most sense for your workflow.
   </Step>
   <Step title="Pin important columns">
-    Pin columns you always want visible (like Call ID or Status) so they stay in place while scrolling horizontally through the rest of the table.
+    Pin columns you always want visible (like **Reviewed** or **Actions**) so they stay grouped together and stuck to the right edge of the table while the rest of the columns scroll horizontally underneath them.
   </Step>
 </Steps>
 
 <Info>
-Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents will show up as selectable columns without any manual setup.
+Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents will show up as selectable columns without any manual setup. Dynamic columns are labeled with their source (input or output) so you always know where the value comes from.
 </Info>
 
 ## Saved views
@@ -65,6 +65,18 @@ Once you've configured your columns and filters the way you like, you can save t
 
 <Info>
 If you were already using column customization on the classic Calls page, your existing preferences are automatically migrated into the Advanced Calls View the first time you visit it.
+</Info>
+
+## Live updates
+
+The Advanced Calls View keeps itself up to date automatically, so you don't have to keep refreshing the page while monitoring active call activity.
+
+- A small **live indicator** near the top of the table shows when the view is actively polling for new data.
+- Newly arrived calls that match your current filters are highlighted briefly in the table so they're easy to spot as they come in.
+- Live polling respects your current filters and sort order — it won't interrupt what you're looking at or reset your scroll position.
+
+<Info>
+Live polling pauses automatically while you're interacting with elements like the review note editor or a modal, so you never lose in-progress input.
 </Info>
 
 ## Filtering calls
@@ -115,7 +127,7 @@ Use the search box to look up calls by transcript content, or filter directly by
 
 ## Review and audit workflow
 
-Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, along with an optional note.
+Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, along with an optional note. This column is pinned to the right edge of the table by default, so it stays visible no matter how many columns you've added.
 
 <Steps>
   <Step title="Mark a call as reviewed">
@@ -151,3 +163,492 @@ The Advanced Calls View supports two export modes:
 <Info>
 Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset.
 </Info>
+
+## Relevant code changes
+
+### src/app/calls-v2/calls-v2-columns.ts
+```
+import { ColumnDefinition } from '../interfaces/table-state';
+
+export type CallsV2ColumnType =
+  | 'text'
+  | 'date'
+  | 'duration'
+  | 'status'
+  | 'boolean'
+  | 'tags'
+  | 'latency'
+  | 'latency_spark'
+  | 'recording'
+  | 'review'
+  | 'actions';
+
+export interface CallsV2ColumnDefinition extends ColumnDefinition {
+  type: CallsV2ColumnType;
+  width?: string;
+  // Present only on user-added dynamic columns (from an agent's input
+  // parameters or output). `source` distinguishes call.data (input) from
+  // call.output (output) when resolving the value for each row.
+  path?: string;
+  source?: 'input' | 'output';
+  // Pinned columns are visually grouped and kept stuck to the right edge of
+  // the table while the rest scrolls horizontally underneath them.
+  pinned?: boolean;
+}
+
+// Default column set for /calls-v2. Users can hide, reorder, and (for
+// dynamic columns) add more from each agent's input/output fields — see
+// column-manager.component.ts.
+export const DEFAULT_CALLS_V2_COLUMNS: CallsV2ColumnDefinition[] = [
+  { key: 'created_time', label: 'Date', type: 'date', sortable: true, visible: true, toggleable: true, width: '160px' },
+  { key: 'playbook_name', label: 'Agent', type: 'text', sortable: true, visible: true, toggleable: true, width: '160px' },
+  // Native fields already on every Call row (call.playbook_id/call.id), so
+  // unlike the dynamic "Agent Id"/"Call Id" columns discovered from an
+  // agent's OUTPUT, these are always populated regardless of call status.
+  { key: 'playbook_id', label: 'Agent ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
+  { key: 'id', label: 'Call ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
+  { key: 'from', label: 'From', type: 'text', sortable: false, visible: true, toggleable: true, width: '130px' },
+  { key: 'to', label: 'To', type: 'text', sortable: false, visible: false, toggleable: true, width: '130px' },
+  { key: 'status', label: 'Status', type: 'status', sortable: true, visible: true, toggleable: true, width: '130px' },
+  { key: 'success', label: 'Goal', type: 'boolean', sortable: true, visible: false, toggleable: true, width: '90px' },
+  { key: 'duration', label: 'Duration', type: 'duration', sortable: true, visible: true, toggleable: true, width: '100px' },
+  { key: 'avg_response_latency_ms', label: 'Avg AI latency', type: 'latency', sortable: true, visible: true, toggleable: true, width: '130px' },
+  { key: 'latency_spark', label: 'Latency (turns)', type: 'latency_spark', sortable: false, visible: true, toggleable: true, width: '100px' },
+  { key: 'max_response_latency_ms', label: 'Max latency', type: 'latency', sortable: true, visible: false, toggleable: true, width: '130px' },
+  { key: 'tags', label: 'Tags', type: 'tags', sortable: false, visible: true, toggleable: true, width: '160px' },
+  { key: 'playbook_company', label: 'Company', type: 'text', sortable: false, visible: false, toggleable: true, width: '140px' },
+  { key: 'email', label: 'Email', type: 'text', sortable: false, visible: false, toggleable: true, width: '180px' },
+  { key: 'summary', label: 'Summary', type: 'text', sortable: false, visible: false, toggleable: true, width: '260px' },
+  { key: 'type', label: 'Type', type: 'text', sortable: false, visible: false, toggleable: true, width: '100px' },
+  { key: 'end_call', label: 'Hung up by', type: 'text', sortable: false, visible: false, toggleable: true, width: '110px' },
+  { key: 'transferred', label: 'Transferred', type: 'boolean', sortable: false, visible: false, toggleable: true, width: '100px' },
+  { key: 'duration_agent', label: 'Agent duration', type: 'duration', sortable: false, visible: false, toggleable: true, width: '110px' },
+  { key: 'recording', label: 'Recording', type: 'recording', sortable: false, visible: true, toggleable: true, width: '110px' },
+  { key: 'review', label: 'Reviewed', type: 'review', sortable: false, visible: true, toggleable: true, width: '150px', pinned: true },
+  { key: 'actions', label: 'Actions', type: 'actions', sortable: false, visible: true, toggleable: false, width: '270px', pinned: true },
+];
+
+```
+
+### src/app/calls-v2/calls-v2.component.html
+```
+<div class="min-h-screen" [ngClass]="isDarkMode() ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'">
+
+  <!-- New-page banner: this replaces the classic /calls page — offer an
+       easy way back in case something here doesn't work as expected yet. -->
+  <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-sm text-center"
+    [ngClass]="isDarkMode() ? 'bg-amber-900/30 text-amber-200 border-b border-amber-800' : 'bg-amber-50 text-amber-800 border-b border-amber-200'">
+    <span>You're viewing the new Calls page.</span>
+    <a routerLink="/calls-old" class="font-medium underline hover:no-underline">Switch back to the classic view</a>
+  </div>
+
+  <div class="px-6 py-8 md:px-10 md:py-10">
+
+  <!-- Header -->
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Calls</h1>
+      <p class="text-sm mt-1" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-500'">
+        Improved view with configurable columns and real AI latency
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="relative" #viewsMenuWrapper>
+        <button
+          type="button"
+          (click)="showViewsMenu = !showViewsMenu; showColumnManager = false"
+          class="inline-flex items-center gap-2 px-3.5 py-2 border rounded-md text-sm font-medium shadow-sm"
+          [ngClass]="isDarkMode() ? 'border-gray-600 hover:bg-gray-800' : 'border-gray-300 hover:bg-gray-50'">
+          <ng-icon name="heroEye" size="16"></ng-icon> Views
+        </button>
+        <div *ngIf="showViewsMenu" class="absolute right-0 z-20 mt-1 w-72 rounded-md border shadow-lg"
+          [ngClass]="isDarkMode() ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'">
+          <div class="max-h-64 overflow-y-auto py-1">
+            <div *ngFor="let view of savedViews" class="flex items-center justify-between gap-2 px-3 py-2">
+              <button type="button" (click)="applySavedView(view.id); showViewsMenu = false" class="flex-1 text-left text-sm truncate">
+                {{ view.name }}
+              </button>
+              <button type="button" (click)="deleteSavedView(view.id)" class="text-xs text-gray-400 hover:text-red-500" title="Delete view">✕</button>
+            </div>
+            <p *ngIf="savedViews.length === 0" class="text-xs px-3 py-2" [ngClass]="isDarkMode() ? 'text-gray-500' : 'text-gray-400'">
+              No saved views yet.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 px-3 py-3 border-t" [ngClass]="isDarkMode() ? 'border-gray-700' : 'border-gray-200'">
+            <input
+              type="text"
+              [(ngModel)]="newViewName"
+              placeholder="New view name…"
+              class="flex-1 min-w-0 rounded-md border-gray-300 text-sm px-2 py-1.5"
+              [ngClass]="isDarkMode() ? 'bg-gray-900 border-gray-600 text-gray-100' : ''" />
+            <button type="button" (click)="saveCurrentAsView(newViewName); newViewName = ''" [disabled]="!newViewName.trim()"
+              class="text-xs font-medium px-2.5 py-1.5 rounded border disabled:opacity-40"
+              [ngClass]="isDarkMode() ? 'border-gray-600 hover:bg-gray-700' : 'border-gray-300 hover:bg-gray-50'">
+              Save current
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        (click)="showColumnManager = true; showViewsMenu = false"
+        class="inline-flex items-center gap-2 px-3.5 py-2 border rounded-md text-sm font-medium shadow-sm"
+        [ngClass]="isDarkMode() ? 'border-gray-600 hover:bg-gray-800' : 'border-gray-300 hover:bg-gray-50'">
+        <ng-icon name="heroViewColumns" size="16"></ng-icon> Columns
+      </button>
+      <button
+        *ngIf="hasSelection"
+        type="button"
+        (click)="exportSelectedToExcel()"
+        title="Export only the selected rows, including the Reviewed status and audit note"
+        class="inline-flex items-center gap-2 px-3.5 py-2 rounded-md text-sm font-medium border shadow-sm"
+        [ngClass]="isDarkMode() ? 'border-gray-600 hover:bg-gray-800' : 'border-gray-300 hover:bg-gray-50'">
+        Export selection ({{ selectedRows.size }})
+      </button>
+      <button
+        type="button"
+        (click)="exportToExcel()"
+        [disabled]="exporting"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-400 shadow-sm disabled:opacity-50">
+        {{ exporting ? 'Exporting…' : 'Export to Excel' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="rounded-xl border shadow-sm p-6 mb-8" [ngClass]="isDarkMode() ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <div class="relative">
+        <label class="block text-xs font-medium mb-1.5" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-500'">Date range</label>
+        <button type="button" (click)="toggleDateRangePicker()"
+          class="w-full flex items-center justify-between rounded-md border text-sm px-3 py-2 text-left"
+          [ngClass]="isDarkMode() ? 'bg-gray-900 border-gray-600 text-gray-100' : 'border-gray-300'">
+          <span class="truncate">{{ dateRangeDisplayText }}</span>
+          <span class="text-xs opacity-60">▾</span>
+        </button>
+
+        <div *ngIf="showDateRangePicker" class="absolute z-20 mt-1 w-full max-w-md rounded-md border shadow-lg"
+          [ngClass]="isDarkMode() ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'">
+          <div class="max-h-56 overflow-y-auto py-1">
+            <button *ngFor="let preset of dateFilterPresets" type="button" (click)="selectDatePreset(preset)"
+              class="w-full text-left px-3 py-1.5 text-sm"
+              [ngClass]="selectedDatePreset === preset.value
+                ? 'bg-emerald-500 text-white'
+                : (isDarkMode() ? 'hover:bg-gray-700' : 'hover:bg-gray-50')">
+              {{ preset.label }}
+            </button>
+          </div>
+          <div class="border-t px-3 py-3 space-y-2" [ngClass]="isDarkMode() ? 'border-gray-700' : 'border-gray-200'">
+            <p class="text-xs font-medium" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-500'">Custom range</p>
+            <div>
+              <label class="block text-xs mb-1" [ngClass]="isDarkMode() ? 'text-gray-500' : 'text-gray-400'">From</label>
+              <input type="datetime-local" [value]="formatDateTimeLocal(customRangeStart)" (change)="onCustomStartChange($event)"
+                class="w-full rounded-md border-gray-300 text-sm px-2 py-1.5"
+                [ngClass]="isDarkMode() ? 'bg-gray-900 border-gray-600 text-gray-100' : ''" />
+            </div>
+            <div>
+              <label class="block text-xs mb-1" [ngClass]="isDarkMode() ? 'text-gray-500' : 'text-gray-400'">To</label>
+              <input type="datetime-local" [value]="formatDateTimeLocal(customRangeEnd)" (change)="onCustomEndChange($event)"
+                class="w-full rounded-md border-gray-300 text-sm px-2 py-1.5"
+                [ngClass]="isDarkMode() ? 'bg-gray-900 border-gray-600 text-gray-100' : ''" />
+            </div>
+            <button type="button" (click)="showDateRangePicker = false"
+              class="w-full text-sm font-medium px-3 py-1.5 rounded-md text-white bg-emerald-500 hover:bg-emerald-400">
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative" #agentDropdownWrapper>
+        <label class="block text-xs font-medium mb-1.5" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-500'">Agents</label>
+        <div (click)="onAgentSearchFocus()"
+          class="w-full flex flex-wrap items-center gap-1 rounded-md border text-sm px-2 py-1.5 min-h-[38px] cursor-text"
+          [ngClass]="isDarkMode() ? 'bg-gray-900 border-gray-600' : 'border-gray-300'">
+          <span *ngFor="let chip of selectedAgentChips" class="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 rounded-full text-xs"
+            [ngClass]="isDarkMode() ? 'bg-gray-700 text-gray-200' : 'bg-gray-100 text-gray-700'">
+            {{ chip.name }}
+            <button type="button" (click)="removeAgentChip(chip.id); $event.stopPropagation()" title="Remove agent"
+              class="rounded-full p-0.5" [ngClass]="isDarkMode() ? 'hover:bg-gray-600' : 'hover:bg-gray-200'">✕</button>
+          </span>
+          <input
+            type="text"
+            [(ngModel)]="agentSearchText"
+            (focus)="onAgentSearchFocus()"
+            (keydown)="onAgentSearchKeydown($event)"
+            [placeholder]="agentIds.length === 0 ? 'All agents' : ''"
+            class="flex-1 min-w-[80px] border-0 p-0 text-sm focus:ring-0"
+            [ngClass]="isDarkMode() ? 'bg-gray-900 text-gray-100' : ''" />
+          <button *ngIf="agentIds.length > 0" type="button" (click)="clearAgentSelection()" title="Clear agents"
+            class="text-xs" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-400'">✕</button>
+        </div>
+        <div *ngIf="showAgentDropdown && filteredPlaybooks.length > 0"
+          class="absolute z-20 mt-1 w-full max-h-64 overflow-y-auto rounded-md border shadow-lg"
+          [ngClass]="isDarkMode() ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'">
+          <button
+            type="button"
+            *ngFor="let p of filteredPlaybooks"
+            (click)="toggleAgentSelection(p)"
+            class="w-full flex items-center gap-2 text-left px-3 py-2 text-sm truncate"
+            [ngClass]="isDarkMode() ? 'hover:bg-gray-700' : 'hover:bg-gray-50'">
+            <input type="checkbox" [checked]="isAgentSelected(p.id)" class="rounded border-gray-300 text-emerald-500 pointer-events-none" />
+            {{ p.name }}
+          </button>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label class="block text-xs font-med
+```
+
+### src/app/calls-v2/calls-v2.component.ts
+```
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  heroMagnifyingGlass,
+  heroChatBubbleLeftRight,
+  heroCog6Tooth,
+  heroPlay,
+  heroArrowDownTray,
+  heroInformationCircle,
+  heroPhone,
+  heroBolt,
+  heroClock,
+  heroClipboardDocumentCheck,
+  heroEye,
+  heroViewColumns,
+} from '@ng-icons/heroicons/outline';
+import { heroPlaySolid } from '@ng-icons/heroicons/solid';
+import { lucidePin, lucideEdit } from '@ng-icons/lucide';
+import * as moment from 'moment';
+import 'moment-timezone';
+import * as XLSX from 'xlsx';
+
+import { ApiService } from '../services/api.service';
+import { AuthService } from '../auth/auth.service';
+import { Call } from '../interfaces/call';
+import { Ticket } from '../interfaces/Ticket';
+import { DurationPipe } from '../pipes/duration.pipe';
+import { UtcDatePipe } from '../pipes/utc-date.pipe';
+import { CallDetailsModalComponent } from '../calls/call-details-modal/call-details-modal.component';
+import { ColumnManagerComponent } from './column-manager.component';
+import { LatencySparklineComponent } from './latency-sparkline.component';
+import { LatencyChartComponent } from './latency-chart.component';
+import { RecordingPlayerModalComponent } from './recording-player-modal.component';
+import { IdBadgeComponent } from './id-badge.component';
+import { CallsV2ColumnDefinition, DEFAULT_CALLS_V2_COLUMNS } from './calls-v2-columns';
+import { DynamicFieldDefinition, discoverDynamicFields, resolveDynamicValue } from './calls-v2-dynamic-fields.util';
+import { SavedView, migrateLegacyCallsTableConfig } from './calls-v2-saved-views.util';
+
+const TABLE_KEY = 'calls-v2';
+
+interface Playbook {
+  id: string;
+  name: string;
+  company?: string;
+}
+
+interface DateFilterPreset {
+  label: string;
+  value: string;
+  startDate: () => Date;
+  endDate: () => Date;
+}
+
+// Mirrors /calls' dateFilterPresets (calls.component.ts), except every
+// day-based preset here ends at 23:59:59 of its last day instead of the
+// next day's 00:00 — an explicit simplification requested for /calls-v2.
+const DATE_FILTER_PRESETS: DateFilterPreset[] = [
+  { label: 'Last 15 minutes', value: 'last15min', startDate: () => moment().subtract(15, 'minutes').toDate(), endDate: () => moment().toDate() },
+  { label: 'Last 30 minutes', value: 'last30min', startDate: () => moment().subtract(30, 'minutes').toDate(), endDate: () => moment().toDate() },
+  { label: 'Last 1 hour', value: 'last1hour', startDate: () => moment().subtract(1, 'hour').toDate(), endDate: () => moment().toDate() },
+  { label: 'Last 2 hours', value: 'last2hours', startDate: () => moment().subtract(2, 'hours').toDate(), endDate: () => moment().toDate() },
+  { label: 'Last 4 hours', value: 'last4hours', startDate: () => moment().subtract(4, 'hours').toDate(), endDate: () => moment().toDate() },
+  { label: 'Last 8 hours', value: 'last8hours', startDate: () => moment().subtract(8, 'hours').toDate(), endDate: () => moment().toDate() },
+  { label: 'Today', value: 'today', startDate: () => moment().startOf('day').toDate(), endDate: () => moment().endOf('day').toDate() },
+  { label: 'Yesterday', value: 'yesterday', startDate: () => moment().subtract(1, 'day').startOf('day').toDate(), endDate: () => moment().subtract(1, 'day').endOf('day').toDate() },
+  { label: 'Last 7 days', value: 'last7days', startDate: () => moment().subtract(7, 'days').startOf('day').toDate(), endDate: () => moment().endOf('day').toDate() },
+  { label: 'Last 30 days', value: 'last30days', startDate: () => moment().subtract(30, 'days').startOf('day').toDate(), endDate: () => moment().endOf('day').toDate() },
+  { label: 'This month', value: 'thismonth', startDate: () => moment().startOf('month').toDate(), endDate: () => moment().endOf('month').toDate() },
+  { label: 'Last month', value: 'lastmonth', startDate: () => moment().subtract(1, 'month').startOf('month').toDate(), endDate: () => moment().subtract(1, 'month').endOf('month').toDate() },
+];
+
+const STATUS_OPTIONS = [
+  { value: 'open', label: 'Open' },
+  { value: 'closed', label: 'Closed' },
+  { value: 'no-answer', label: 'No answer' },
+  { value: 'voicemail', label: 'Voicemail' },
+  { value: 'busy', label: 'Busy' },
+  { value: 'failed', label: 'Failed' },
+  { value: 'transfer', label: 'Transferred' },
+  { value: 'blocked', label: 'Blocked' },
+];
+
+const PAGE_SIZE_OPTIONS = [25, 50, 100, 300];
+
+@Component({
+  selector: 'app-calls-v2',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    DurationPipe,
+    UtcDatePipe,
+    CallDetailsModalComponent,
+    ColumnManagerComponent,
+    LatencySparklineComponent,
+    LatencyChartComponent,
+    RecordingPlayerModalComponent,
+    IdBadgeComponent,
+    NgIcon,
+  ],
+  providers: [
+    provideIcons({ heroMagnifyingGlass, heroChatBubbleLeftRight, heroCog6Tooth, heroPlay, heroPlaySolid, heroArrowDownTray, heroInformationCircle, heroPhone, heroBolt, heroClock, heroClipboardDocumentCheck, heroEye, heroViewColumns, lucidePin, lucideEdit }),
+  ],
+  templateUrl: './calls-v2.component.html',
+  styleUrls: ['./calls-v2.component.css'],
+})
+export class CallsV2Component implements OnInit, OnDestroy {
+  readonly statusOptions = STATUS_OPTIONS;
+  readonly pageSizeOptions = PAGE_SIZE_OPTIONS;
+
+  loading = false;
+  error: string | null = null;
+
+  calls: Call[] = [];
+  filteredCalls: Call[] = [];
+  playbooks: Playbook[] = [];
+
+  columns: CallsV2ColumnDefinition[] = DEFAULT_CALLS_V2_COLUMNS.map((c) => ({ ...c }));
+  showColumnManager = false;
+
+  availableInputFields: DynamicFieldDefinition[] = [];
+  availableOutputFields: DynamicFieldDefinition[] = [];
+  savedViews: SavedView[] = [];
+  showViewsMenu = false;
+  newViewName = '';
+  @ViewChild('viewsMenuWrapper') viewsMenuWrapper?: ElementRef<HTMLElement>;
+
+  // Backdrop-based outside-click (like column-manager's drawer) would sit
+  // above the header buttons and swallow clicks meant for them (e.g.
+  // opening Columns while Views is open) — a plain document listener lets
+  // clicks pass through to whatever they actually hit.
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (this.showViewsMenu) {
+      const target = event.target as Node;
+      if (this.viewsMenuWrapper && !this.viewsMenuWrapper.nativeElement.contains(target)) {
+        this.showViewsMenu = false;
+      }
+    }
+    if (this.reviewNoteOpenFor) {
+      const target = event.target as HTMLElement;
+      if (!target.closest?.('[data-review-note]')) {
+        this.reviewNoteOpenFor = null;
+      }
+    }
+    if (this.showAgentDropdown) {
+      const target = event.target as Node;
+      if (this.agentDropdownWrapper && !this.agentDropdownWrapper.nativeElement.contains(target)) {
+        this.showAgentDropdown = false;
+      }
+    }
+    if (this.showTagDropdown) {
+      const target = event.target as Node;
+      if (this.tagDropdownWrapper && !this.tagDropdownWrapper.nativeElement.contains(target)) {
+        this.showTagDropdown = false;
+      }
+    }
+  }
+
+  // Filters
+  readonly dateFilterPresets = DATE_FILTER_PRESETS;
+  selectedDatePreset = 'today';
+  customRangeStart: Date = DATE_FILTER_PRESETS.find((p) => p.value === 'today')!.startDate();
+  customRangeEnd: Date = DATE_FILTER_PRESETS.find((p) => p.value === 'today')!.endDate();
+  showDateRangePicker = false;
+
+  agentIds: string[] = [];
+  agentSearchText = '';
+  showAgentDropdown = false;
+
+  // Tags filter: chips like the agent select, but tags have no id/name split
+  // (the string IS the value), so tagsFilter can be bound to *ngFor directly
+  // without the "getter returns a new array every CD cycle" anti-pattern —
+  // it only changes identity when we explicitly reassign it.
+  tagsFilter: string[] = [];
+  tagSearchText = '';
+  showTagDropdown = false;
+  availableTags: string[] = [];
+  @ViewChild('tagDropdownWrapper') tagDropdownWrapper?: ElementRef<HTMLElement>;
+
+  statusFilter: string[] = [];
+  callIdFilter = '';
+  searchText = '';
+  private searchDebounceHandle: any = null;
+
+  // "Suspicious calls" is a client-side OR filter (high latency OR a bad
+  // status OR goal not met OR no transcript at all) — the backend's
+  // status filter is AND'd server-side, which would under-match what an
+  // auditor actually wants to triage first.
+  suspiciousActive = false;
+  private static readonly SUSPICIOUS_LATENCY_MS = 3000;
+  private static readonly SUSPICIOUS_STATUSES = ['no-answer', 'failed', 'blocked'];
+
+  // Table
+  sortColumn = 'created_time';
+  sortDirection: 'asc' | 'desc' = 'desc';
+  currentPage = 1;
+  itemsPerPage = 50;
+
+  selectedRows = new Set<string>();
+
+  // Inline "note" editor popover for the Reviewed column: only one open at a time.
+  reviewNoteOpenFor: string | null = null;
+  reviewNoteDraft = '';
+  private reviewSaveDebounceHandle: any = null;
+
+  selectedCallForDetails: Call | null = null;
+  showCallDetailsModal = false;
+
+  selectedCallForLatency: Call | null = null;
+  showLatencyModal = false;
+
+  selectedCallForRecording: Call | null = null;
+  showRecordingModal = false;
+
+  // Feedback / support ticket modal
+  selectedCallForFeedback: Call | null = null;
+  showFeedbackModal = false;
+  feedbackContent = '';
+  isSubmittingFeedback = false;
+  feedbackMessage = '';
+  feedbackMessageType: 'success' | 'error' = 'success';
+
+  exporting = false;
+
+  private _isDarkMode = false;
+  private _darkModeChecked = false;
+
+  constructor(
+    private apiService: ApiService,
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
+
+  async ngOnInit(): Promise<void> {
+    await Promise.all([this.loadPlaybooks(), this.loadColumnPreferences()]);
+    await this.loadCalls();
+    this.startLivePolling();
+  }
+
+  ngOnDestroy(): void {
+    this.clearPollTimer();
+    this.newlyArrivedTimers.forEach((t) => clearTimeo
+```

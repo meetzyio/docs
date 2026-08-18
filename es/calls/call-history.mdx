@@ -8,6 +8,10 @@ icon: 'phone'
 
 La sección de Historial de Llamadas proporciona una vista completa y detallada de todas las llamadas realizadas por tus agentes de IA. Con herramientas avanzadas de filtrado, búsqueda y análisis, puedes monitorear el rendimiento e identificar insights valiosos para optimizar tus operaciones telefónicas.
 
+<Info>
+**Disponibilidad de la nueva vista mejorada de llamadas**: la vista renovada del historial de llamadas ya está disponible para todas las cuentas en la ruta `/calls-v2`, accesible directamente desde **Calls** en el menú principal. Esta misma página documenta en detalle esa vista avanzada actualizada; consulta especialmente la sección [Vista General de la Interfaz](#vista-general-de-la-interfaz) para un resumen visual de todas sus funcionalidades: columnas configurables, columnas dinámicas, vistas guardadas, métricas reales de latencia, reproductor de grabaciones con forma de onda, revisión/auditoría, detección de llamadas sospechosas y exportación mejorada a Excel.
+</Info>
+
 ## Acceder al Historial
 
 Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas con la nueva interfaz mejorada.
@@ -495,77 +499,4 @@ Junto al botón de columnas encontrarás dos formas de exportar tus datos a Exce
 </Tabs>
 
 <Info>
-En ambos casos, la exportación es **configurable**: el archivo Excel generado respeta exactamente las columnas visibles y su orden actual en la tabla, incluyendo cualquier columna dinámica de Input u Output que hayas añadido. Si quieres un Excel con más o menos información, ajusta primero la visibilidad de columnas desde el panel de **Columns** y luego exporta.
-</Info>
-
-<Info>
-La generación del archivo Excel se procesa de forma asíncrona: mientras se prepara, el botón muestra el texto **"Exporting…"** y queda deshabilitado para evitar exportaciones duplicadas. En conjuntos de datos grandes, este proceso puede tardar unos segundos adicionales.
-</Info>
-
-<Warning>
-La exportación completa respeta los filtros activos en el momento de pulsar el botón, incluyendo el rango de fechas, agente, tags, estado y latencia. Si necesitas exportar todo el histórico sin restricciones, limpia los filtros antes de exportar. La exportación selectiva, en cambio, ignora los filtros y exporta exactamente las filas que hayas marcado manualmente.
-</Warning>
-
-## Preguntas Frecuentes
-
-<Steps>
-  <Step title="¿Qué es ese banner ámbar que aparece encima de la tabla?">
-    Es simplemente un aviso informativo que confirma que estás en la nueva vista de Calls (Calls v2) y te ofrece un enlace directo para **volver a la vista clásica** en cualquier momento. No indica ningún problema con tus datos ni con tu cuenta: es, ante todo, una red de seguridad conceptual mientras te familiarizas con la nueva interfaz. Puedes ignorarlo con total tranquilidad si ya te sientes cómodo aquí.
-  </Step>
-
-  <Step title="¿Por qué no veo una columna que antes tenía activada?">
-    Abre el panel de **Columns** (⚙️) y revisa la sección **Columns**: es posible que el checkbox de visibilidad se haya desactivado. Si se trataba de una columna dinámica de Input u Output, verifica que no haya sido eliminada; en ese caso deberás volver a añadirla desde la sección correspondiente.
-  </Step>
-
-  <Step title="¿Por qué desapareció mi filtro de fecha?">
-    Si el campo de búsqueda por Call ID tiene algún valor, el resto de los filtros —incluido el rango de fechas— se desactiva temporalmente. Borra el Call ID y todos tus filtros previos volverán a aplicarse automáticamente.
-  </Step>
-
-  <Step title="¿Por qué la columna de latencia aparece vacía en algunas llamadas?">
-    Las métricas de latencia dependen de que el proveedor de voz haya reportado los tiempos de respuesta para esa llamada específica. Si esos datos no están disponibles, las columnas de latencia se muestran vacías para esa fila en particular.
-  </Step>
-
-  <Step title="¿Por qué el filtro de llamadas sospechosas muestra menos resultados de los que esperaba?">
-    "Suspicious calls" se calcula sobre las llamadas ya cargadas según el resto de tus filtros activos (fecha, agente, tags, estado, latencia), que sí se combinan con lógica AND en el servidor. Si tienes filtros muy restrictivos además de "Suspicious calls" activado, prueba a ampliar el rango de fechas o relajar otros filtros para ver el universo completo de llamadas sospechosas.
-  </Step>
-
-  <Step title="¿La nota de auditoría se guarda automáticamente?">
-    Sí. Al escribir en el popover de la columna **Reviewed**, la nota se guarda de forma automática tras un breve retraso, sin necesidad de pulsar ningún botón de guardado.
-  </Step>
-
-  <Step title="¿Puedo exportar solo las llamadas que ya revisé?">
-    Sí. Marca las llamadas deseadas con el checkbox de selección de cada fila y usa el botón **Export selection (N)** que aparece junto al botón de exportación general. Ese Excel incluirá el estado de **Reviewed** y la nota de auditoría de cada llamada seleccionada.
-  </Step>
-
-  <Step title="¿Puedo recuperar la configuración de columnas anterior?">
-    Sí. Usa el botón **Reset to default columns** dentro del panel de Columns para volver al conjunto de columnas original en su orden por defecto. Si lo que buscas es una combinación de columnas específica que ya habías guardado, revisa la sección **Saved views** en la parte superior del panel, o el menú **Views** en la cabecera.
-  </Step>
-
-  <Step title="¿Qué pasó con la configuración de columnas que tenía en el historial de llamadas anterior?">
-    Meetzy la importó automáticamente la primera vez que abriste esta nueva vista, incluyendo columnas visibles, orden, columnas dinámicas de Input/Output, ordenamiento y tamaño de página. Este proceso es de una sola vez y no vuelve a ejecutarse; a partir de ahí, la configuración de Calls v2 se gestiona de forma independiente desde el panel de **Columns**.
-  </Step>
-
-  <Step title="¿Las vistas guardadas se comparten entre usuarios de mi cuenta?">
-    No. Las vistas guardadas, al igual que el resto de tus preferencias de columnas, se almacenan de forma individual por usuario, por lo que cada miembro de tu equipo puede configurar su propia combinación de columnas sin afectar a los demás.
-  </Step>
-
-  <Step title="¿Por qué las columnas Reviewed y Actions siempre aparecen a la derecha, aunque las reordene?">
-    Ambas columnas están **ancladas (pinned)** al borde derecho de la tabla de forma intencional, para que el estado de auditoría y las acciones rápidas estén siempre accesibles sin importar cuánto desplaces la tabla horizontalmente o cuántas columnas dinámicas hayas añadido.
-  </Step>
-</Steps>
-
-## Siguientes Pasos
-
-<CardGroup cols={3}>
-  <Card title="Detalles de Llamada" icon="info-circle" href="/es/calls/call-details">
-    Explora la información detallada disponible para cada llamada, incluyendo transcripciones y análisis.
-  </Card>
-  
-  <Card title="Reportes Avanzados" icon="chart-line" href="/es/calls/reporting">
-    Genera reportes completos y personalizados de tus datos de llamadas con visualizaciones.
-  </Card>
-  
-  <Card title="Tendencias de Evaluaciones" icon="trending-up" href="/es/calls/evaluation-trends">
-    Analiza el rendimiento de tus agentes a lo largo del tiempo con métricas avanzadas.
-  </Card>
-</CardGroup>
+En ambos casos, la exportación es **configurable**: el archivo Excel generado respeta exactamente las columnas visibles y su orden actual en la tabla, incluyendo cualquier columna dinámica de Input u Output que

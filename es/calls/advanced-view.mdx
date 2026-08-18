@@ -1,10 +1,10 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, vistas guardadas, filtros avanzados y latencia real de IA"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas guardadas, filtros avanzados, revisión con notas de auditoría y actualización en vivo"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, vistas guardadas, filtros avanzados y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables, vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), revisión con notas de auditoría, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior.
@@ -12,12 +12,13 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 
 ## Qué encontrarás en esta vista
 
-- Columnas totalmente configurables, incluyendo campos dinámicos de entrada y salida
+- Un gestor de columnas completo, con columnas dinámicas de entrada y salida, reordenamiento y **columnas fijadas** a la derecha de la tabla
 - Vistas guardadas para reutilizar tus combinaciones de columnas y filtros favoritas
 - Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
-- Notas de auditoría y estado "Revisado" por llamada
+- Estado **Revisado** y notas de auditoría por llamada, con guardado automático
+- Actualización en vivo de la tabla, con indicador visual de llamadas nuevas
 - Gráficos de latencia real de IA y reproductor de grabaciones integrado
 
 ---
@@ -37,7 +38,15 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
   </Step>
 
   <Step title="Columns (Columnas)">
-    El botón **⚙️ Columns** abre el gestor de columnas, donde puedes activar, desactivar y reordenar las columnas visibles, incluyendo campos dinámicos descubiertos automáticamente a partir de tus llamadas.
+    El botón **⚙️ Columns** abre el gestor de columnas, un panel lateral donde puedes:
+    - Activar o desactivar columnas visibles
+    - Reordenar las columnas mediante arrastrar y soltar
+    - Añadir columnas dinámicas descubiertas automáticamente a partir de los campos de **entrada** (input) y **salida** (output) de tus agentes
+    - **Fijar** columnas para que queden siempre visibles a la derecha de la tabla mientras el resto se desplaza horizontalmente por debajo
+
+    <Info>
+      Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla.
+    </Info>
   </Step>
 
   <Step title="Exportar selección">
@@ -113,13 +122,25 @@ También puedes filtrar por un ID de llamada específico o buscar texto libre de
 
 Puedes ordenar la tabla por cualquier columna visible y elegir el número de filas por página entre **25, 50, 100 o 300**.
 
+### Columnas fijadas
+
+Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed** o **Actions**, sin perderlas de vista al revisar campos dinámicos o columnas adicionales.
+
 ### Selección múltiple
 
 Selecciona filas individuales para habilitar acciones en lote, como la exportación de selección mencionada anteriormente.
 
 ### Estado "Revisado" y notas de auditoría
 
-Cada fila permite marcar una llamada como **revisada** y añadir una nota de auditoría asociada. Estas notas se guardan automáticamente (con un breve retraso) mientras escribes, y se incluyen en la exportación de selección.
+Cada fila permite marcar una llamada como **revisada** y añadir una nota de auditoría asociada mediante un pequeño editor emergente. Estas notas se guardan automáticamente (con un breve retraso tras dejar de escribir) y se incluyen en la exportación de selección, lo que facilita compartir el resultado de una auditoría con el resto del equipo.
+
+### Actualización en vivo
+
+La tabla se actualiza automáticamente en segundo plano para reflejar llamadas nuevas o cambios de estado, sin necesidad de recargar la página. Las llamadas recién llegadas se resaltan brevemente para que puedas identificarlas de un vistazo.
+
+<Info>
+  La actualización en vivo respeta los filtros y la ordenación que tengas activos: solo se incorporan a la tabla las llamadas que cumplen tus criterios actuales.
+</Info>
 
 ### Latencia real de IA
 
@@ -147,4 +168,4 @@ Desde cada llamada puedes abrir:
 
 ## Modo oscuro
 
-La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos los menús desplegables y modales.
+La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos los menús desplegables, el gestor de columnas y los modales.
