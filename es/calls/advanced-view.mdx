@@ -1,10 +1,10 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas guardadas, filtros avanzados, revisión con notas de auditoría y actualización en vivo"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas guardadas, filtros avanzados, revisión con notas de auditoría, edición de tags en línea y actualización en vivo"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables, vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con notas de auditoría, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
@@ -14,12 +14,14 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 
 - Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
 - Un gestor de columnas completo, con columnas dinámicas de entrada y salida, reordenamiento y **columnas fijadas** a la derecha de la tabla
+- Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
 - Vistas guardadas para reutilizar tus combinaciones de columnas y filtros favoritas
 - Tarjetas de resumen con las métricas clave del rango filtrado, siempre visibles antes de entrar al detalle de la tabla
 - Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
 - Estado **Revisado** y notas de auditoría por llamada, con guardado automático
+- **Edición de etiquetas en línea**, para añadir o quitar tags sin salir de la vista de llamadas
 - Actualización en vivo de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas
 - Gráficos de latencia real de IA y reproductor de grabaciones integrado, con desglose detallado de cada respuesta
 
@@ -57,7 +59,7 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
     - **Fijar** columnas para que queden siempre visibles a la derecha de la tabla mientras el resto se desplaza horizontalmente por debajo
 
     <Info>
-      Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla.
+      Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla. Si tu usuario es administrador, la columna **Links** también aparece fijada junto a ellas.
     </Info>
   </Step>
 
@@ -170,7 +172,15 @@ Puedes ordenar la tabla por cualquier columna visible y elegir el número de fil
 
 ### Columnas fijadas
 
-Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed** o **Actions**, sin perderlas de vista al revisar campos dinámicos o columnas adicionales.
+Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed**, **Links** (si eres administrador) o **Actions**, sin perderlas de vista al revisar campos dinámicos o columnas adicionales.
+
+### Columna de enlaces (solo administradores)
+
+<Info>
+  Si tu usuario tiene permisos de administrador, verás una columna adicional llamada **Links**, colocada junto a **Reviewed** y **Actions**. Esta columna te ofrece accesos directos equivalentes a los "puntos" de acceso rápido de la vista clásica (por ejemplo, hacia Twilio o ElevenLabs), pensados para depuración interna.
+
+  Esta columna nunca aparece para usuarios que no son administradores, ni siquiera momentáneamente mientras se confirma el estado de administrador: solo se añade a la tabla una vez que Meetzy verifica que tu cuenta tiene ese permiso.
+</Info>
 
 ### Selección múltiple
 
@@ -179,6 +189,17 @@ Selecciona filas individuales para habilitar acciones en lote, como la exportaci
 ### Estado "Revisado" y notas de auditoría
 
 Cada fila permite marcar una llamada como **revisada** y añadir una nota de auditoría asociada mediante un pequeño editor emergente. Estas notas se guardan automáticamente (con un breve retraso tras dejar de escribir) y se incluyen en la exportación de selección, lo que facilita compartir el resultado de una auditoría con el resto del equipo.
+
+### Edición de etiquetas en línea
+
+Además de usarlas como filtro, las etiquetas (**tags**) de cada llamada se pueden editar directamente desde la vista de detalle de la grabación, sin necesidad de salir de `/calls-v2` ni abrir un formulario aparte:
+
+- Escribe el nombre de una etiqueta nueva y pulsa **Enter** (o el botón correspondiente) para añadirla a la llamada
+- Haz clic en la ✕ de cualquier etiqueta existente para quitarla
+
+<Info>
+  Los cambios de etiquetas se guardan al instante contra esa llamada específica y se reflejan de inmediato en la fila correspondiente de la tabla, sin recargar la página.
+</Info>
 
 ### Actualización en vivo
 
@@ -205,6 +226,10 @@ Con el interruptor **Live** activado, la tabla se actualiza automáticamente en 
 ### Reproductor de grabaciones
 
 Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, con forma de onda real (generada a partir del audio decodificado), salto de ±10 segundos, control de velocidad de reproducción y descarga del archivo, sin salir de la vista de llamadas.
+
+<Info>
+  El reproductor también incluye navegación rápida entre llamadas (anterior/siguiente, incluso con las flechas del teclado) y, en su pie, los mismos controles de estado **Revisado**, nota de auditoría y edición de etiquetas disponibles en la tabla, para que puedas auditar una llamada de principio a fin sin cerrar el modal.
+</Info>
 
 ### Transcripción y ficha de feedback
 

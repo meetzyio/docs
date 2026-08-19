@@ -261,6 +261,37 @@ Usa el enlace **"Download recording"** para guardar el archivo de audio localmen
 Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Descarga grabaciones importantes para almacenamiento permanente.
 </Warning>
 
+### Navegación entre Llamadas
+
+<Info>
+El reproductor de grabación no es una ventana aislada por llamada: puedes moverte a la llamada anterior o siguiente de la lista filtrada sin cerrar el modal ni perder tu posición en la tabla.
+</Info>
+
+En la cabecera del modal, junto al botón de cerrar, aparecen dos flechas de navegación:
+
+| Control | Acción |
+|---------|--------|
+| ⬅️ Flecha izquierda | Abre la grabación y transcripción de la **llamada anterior** en la lista actual |
+| ➡️ Flecha derecha | Abre la grabación y transcripción de la **siguiente llamada** en la lista actual |
+
+<Steps>
+<Step title="Navega con los botones de cabecera">
+Haz clic en ⬅️ o ➡️ para cargar la llamada anterior o siguiente respecto a la que tenías abierta, respetando el orden y los filtros aplicados en la tabla.
+</Step>
+<Step title="O usa las flechas del teclado">
+Con el modal abierto, presiona `←` o `→` para navegar sin soltar el mouse. Esto no funciona mientras estás escribiendo dentro de un campo de texto, como la nota de revisión o el input de etiquetas.
+</Step>
+<Step title="Observa la transición">
+Al cambiar de llamada, el contenido se desliza suavemente en la dirección correspondiente, confirmando visualmente que se cargó una llamada distinta.
+</Step>
+</Steps>
+
+<Info>
+Las flechas se deshabilitan automáticamente cuando no hay una llamada anterior o siguiente disponible (por ejemplo, en el primer o último registro de la página actual).
+</Info>
+
+Esta navegación es especialmente útil para sesiones de **control de calidad**: puedes revisar de forma continua un lote de llamadas —escuchando audio, leyendo la transcripción, marcando como revisada y agregando notas o etiquetas— sin volver constantemente a la tabla principal.
+
 ### Transcripción Enriquecida por Turno
 
 Junto al reproductor, cada turno de la conversación (agente o usuario) se muestra como una burbuja de chat, con indicadores debajo que resumen lo que ocurrió técnicamente en ese turno:
@@ -296,6 +327,18 @@ Al hacer clic en el indicador **"Replied in Xs"** de un turno del agente, se des
 <Info>
 El segmento **"Waiting on purpose"** no representa lentitud del sistema: es una pausa intencional del agente. Por eso se muestra por separado, en una nota debajo del desglose, en lugar de sumarse al tiempo de respuesta destacado. Esto evita que una espera deliberada de varios segundos haga parecer que la latencia real del pipeline es mucho peor de lo que es.
 </Info>
+
+<Steps>
+<Step title="Ubica el turno del agente">
+En la transcripción, busca el indicador **"Replied in Xs"** debajo del mensaje del agente que quieres analizar.
+</Step>
+<Step title="Expande el desglose">
+Haz clic en el indicador para desplegar el panel con la barra apilada y la lista de segmentos.
+</Step>
+<Step title="Identifica el cuello de botella">
+Compara los porcentajes de cada segmento (ASR, LLM, TTS, overhead) para saber en qué etapa se concentró la mayor parte del tiempo de respuesta.
+</Step>
+</Steps>
 
 #### Detalle de Tool Calls por turno
 
@@ -355,10 +398,24 @@ Cuando copias datos:
 
 ## Atajos de Teclado
 
+### Modal de Detalles
+
 | Atajo | Acción |
 |-------|--------|
 | `Esc` | Cerrar el modal |
 | Clic fuera | Cerrar el modal |
+
+### Modal de Grabación
+
+| Atajo | Acción |
+|-------|--------|
+| `←` | Ir a la llamada anterior de la lista |
+| `→` | Ir a la siguiente llamada de la lista |
+| `Esc` | Cerrar el modal |
+
+<Info>
+Los atajos de flecha izquierda/derecha no se activan mientras el foco está en un campo de texto (por ejemplo, al escribir una nota de revisión o una etiqueta).
+</Info>
 
 ## Siguientes Pasos
 

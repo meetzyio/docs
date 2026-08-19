@@ -205,6 +205,29 @@ The webhook section only appears if a webhook was configured and triggered for t
 
 If call recording is enabled, clicking the recording icon opens a dedicated **Call Recording** modal with a full-featured player on one side and a rich, per-turn transcript on the other.
 
+### Navigating Between Calls
+
+The recording modal no longer traps you on a single call. When you open a recording from a filtered list (for example, from Call History), the modal knows about the calls immediately before and after the one you're viewing, and lets you move between them without closing the modal and reopening a different row.
+
+<CardGroup cols={2}>
+  <Card title="Previous / Next buttons" icon="arrow-right-arrow-left">
+    Two chevron buttons sit in the modal header, next to the close button. Click them to load the adjacent call's recording and transcript in place.
+  </Card>
+  <Card title="Keyboard shortcuts" icon="keyboard">
+    Press **←** to go to the previous call and **→** to go to the next call, without touching the mouse.
+  </Card>
+</CardGroup>
+
+<Info>
+The previous/next buttons are automatically disabled at either end of the list — for example, if you're already viewing the first call, the "previous" button (and the ← shortcut) has no effect.
+</Info>
+
+<Info>
+Arrow key navigation is automatically disabled while you're typing in the review note or tag input fields inside the modal, so pressing ← or → to move the cursor in a text field never accidentally jumps to another call.
+</Info>
+
+Switching calls triggers a short slide transition so it's clear a new recording has loaded, and reloads the waveform, audio, and transcript for the newly selected call.
+
 ### Waveform Player
 
 Unlike a plain `<audio>` progress bar, the player renders a **real, interactive waveform** generated directly from the decoded audio — not a placeholder animation. When the recording loads, the audio is decoded via the Web Audio API and sampled into 100 amplitude bars, so the shape you see actually reflects the call's audio (silences, loud segments, etc.).
@@ -249,7 +272,11 @@ The breakdown splits the response time into a stacked bar with the following sta
 A separate **"Waiting on purpose"** segment may also appear. This is not slowness — it's the agent deliberately holding back before speaking (for example, waiting a few seconds before asking "are you still there?"). It's called out separately, with a note below the chart, so a deliberate pause isn't mistaken for a performance problem. The "Replied in" headline itself always excludes this wait time.
 </Info>
 
-Each stage in the breakdown shows its duration and percentage of the total, along with the LLM model that generated the response for that turn.
+Each stage in the breakdown shows its duration and percentage of the total, along with the LLM model that generated the response for that turn. This turns a single opaque latency number into an actionable diagnosis:
+
+- A response dominated by **Understanding speech** may point to background noise or a caller who talks quickly.
+- A response dominated by **Model thinking** may point to a slow or overloaded LLM — worth checking against the [LLM Model Usage](#llm-model-usage) section above to see if a cascade fallback happened on that same turn.
+- A response dominated by **Generating voice** may point to a longer-than-usual agent reply that takes more time to synthesize.
 
 <Steps>
   <Step title="Scan the turn">
@@ -340,6 +367,12 @@ When you copy data:
 |----------|--------|
 | `Esc` | Close the modal |
 | Click outside | Close the modal |
+| `←` | In the recording modal: jump to the previous call |
+| `→` | In the recording modal: jump to the next call |
+
+<Info>
+The ← and → shortcuts only apply while the Call Recording modal is open, and are automatically ignored while typing in a text field (such as the review note or tag input).
+</Info>
 
 ## Next Steps
 
