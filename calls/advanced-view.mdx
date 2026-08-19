@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the enhanced Calls page with configurable and pinnable columns, named saved views, summary cards, adaptive live updates, suspicious call detection, OK/KO review verdicts, inline tag editing, Excel exports, and a full waveform recording player with per-turn latency breakdown."
+description: "Explore the enhanced Calls page with configurable and pinnable columns, predefined and custom saved views, summary cards, adaptive live updates, suspicious call detection, OK/KO review verdicts, inline tag editing, Excel exports, and a full waveform recording player with per-turn latency breakdown."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), named saved views, at-a-glance summary cards, a streamlined single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full and selective Excel exports, and a redesigned recording player with a waveform, adjustable playback speed, and a per-turn latency breakdown in the transcript.
+The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, at-a-glance summary cards, a streamlined single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full and selective Excel exports, and a redesigned recording player with a waveform, adjustable playback speed, and a per-turn latency breakdown in the transcript.
 
 <Info>
 The Advanced Calls View is currently rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -17,6 +17,10 @@ When you open the Advanced Calls View for the first time, you'll see a migration
 - The banner reads **"You're viewing the new Calls page"** with a **Switch back to the classic view** link — click it to return to the original Calls page (`/calls-old`) at any time.
 - Your filters, column layout, and saved views on the Advanced Calls View are stored independently, so switching back and forth won't affect either page.
 - If you had previously customized columns on the classic Calls page, that configuration is **automatically migrated** into the Advanced Calls View the first time you visit it, so you don't lose your existing setup.
+
+<Info>
+The migration is one-time and read-only: it reads your old column visibility, sort order, page size, and any dynamic input/output columns you had defined on the classic Calls page, and reconstructs the closest equivalent layout in the Advanced Calls View. Only fixed columns that still exist in both column sets are carried over — the two sets aren't identical — while your custom dynamic fields are rebuilt as-is, since their shape matches directly. From that point on, the two pages keep fully independent configurations.
+</Info>
 
 <Warning>
 The Advanced Calls View is under active development. If something doesn't behave as expected, use the classic view as a fallback while we continue improving it.
@@ -77,13 +81,32 @@ Admin users get an additional pinned column called **Links**, which gives one-cl
 Because this column depends on confirming your admin status, it may appear a moment after the rest of the table loads. This is expected and ensures non-admins never see it, even transiently.
 </Info>
 
-## Saved views
+## Views
+
+The **👁️ Views** menu in the top-right corner is where you switch between different column-and-filter layouts. It's split into two sections: a set of **predefined views** maintained by Meetzy, and **My views** — the layouts you save yourself.
+
+### Predefined views
+
+Predefined views are ready-made layouts covering common review tasks, so you don't have to build a configuration from scratch for everyday use cases:
+
+- **Call audit** — a review-focused layout showing the call date, agent, caller, status, duration, tags, and recording, sorted by most recent first. Ideal for day-to-day quality checks.
+- **Latency monitoring** — surfaces the average and maximum AI response latency alongside a latency sparkline, sorted by average latency descending, so the slowest calls float to the top.
+- **Compact overview** — a stripped-down layout with just the date, agent, caller, status, and duration, for quickly scanning volume without the extra detail.
+- **Transfers & escalations** — highlights transferred and ended calls together with tags and the call summary, useful for reviewing how escalations were handled.
+
+Click any predefined view's name to apply it instantly. Applying a predefined view only changes your columns, sorting, and page size — exactly like applying one of your own saved views — so it's just as easy to switch away from afterward.
+
+<Info>
+Predefined views can be applied as many times as you like, but they can't be renamed or deleted — they're shared starting points, not personal views. If you want to tweak one, apply it first and then save your adjusted version under a new name in **My views**.
+</Info>
+
+### Custom saved views
 
 Once you've configured your columns, pins, and filters the way you like, you can save that configuration as a **named view** and switch back to it whenever you need.
 
 <Steps>
   <Step title="Configure your table">
-    Set up your columns, pinning, filters, and sorting exactly how you want them.
+    Set up your columns, pinning, filters, and sorting exactly how you want them — starting from scratch or from a predefined view.
   </Step>
   <Step title="Open the Views menu">
     Click **👁️ Views** in the top-right corner.
@@ -92,12 +115,12 @@ Once you've configured your columns, pins, and filters the way you like, you can
     Type a name for your view in the input field and click **Save current**. Give it something memorable, like "Suspicious calls this week" or "My agent's calls".
   </Step>
   <Step title="Apply a saved view">
-    Open the Views menu at any time and click a saved view's name to instantly apply it. The active view is highlighted with a checkmark. Use the **✕** icon next to a view to delete it.
+    Open the Views menu at any time and click a view's name — predefined or your own — to instantly apply it. The active view is highlighted with a checkmark and its name appears next to the Views button. Use the **✕** icon next to one of your own views to delete it.
   </Step>
 </Steps>
 
 <Info>
-Saved views are stored per user, so each teammate can build their own set of named views without affecting anyone else's setup.
+Saved views are stored per user, so each teammate can build their own set of named views — on top of the same shared predefined views — without affecting anyone else's setup.
 </Info>
 
 ## Live updates
@@ -188,7 +211,7 @@ Each row in the table includes a **Reviewed** control that lets your team track 
 Only one review note editor can be open at a time. Clicking outside the editor, or opening a note on another row, will close the current one.
 </Info>
 
-This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved.
+This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** so your team can jump straight back into it later.
 
 <Info>
 The same OK/KO verdict, reviewed toggle, and note editor are also available inside the recording player modal, so you can complete your review right after listening to a call without going back to the table.
@@ -205,6 +228,9 @@ The **Tags** column lets you manage a call's tags directly from the table, witho
   <Step title="Add a tag">
     Start typing to search existing tags — an autocomplete dropdown suggests matching tags already used across your calls, so you can stay consistent instead of creating near-duplicate tags. Press **Enter** or select a suggestion to add it.
   </Step>
+  <Step title="Rename a tag">
+    Renaming isn't a separate action — remove the old tag chip and add the new one in its place. Since tag suggestions are shared across calls, the new name immediately becomes available as a suggestion for every other call going forward.
+  </Step>
   <Step title="Remove a tag">
     Click the **✕** on any tag chip to remove it from the call.
   </Step>
@@ -214,7 +240,7 @@ The **Tags** column lets you manage a call's tags directly from the table, witho
 </Steps>
 
 <Info>
-Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created tags become searchable right away. Tags can also be added or removed from inside the recording player modal, staying in sync with the table row.
+Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away. Tags can also be added or removed from inside the recording player modal, staying in sync with the table row.
 </Info>
 
 ## Exporting to Excel

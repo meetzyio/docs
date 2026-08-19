@@ -1,10 +1,10 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas guardadas, filtros avanzados, revisión con veredicto de auditoría y notas, edición de tags en línea y actualización en vivo"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas predefinidas y guardadas, filtros avanzados, revisión con veredicto de auditoría y notas, edición de tags en línea y actualización en vivo"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas predefinidas y guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla mediante el modo **Live** y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
@@ -15,7 +15,7 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 - Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
 - Un gestor de columnas completo, con columnas dinámicas de entrada y salida, reordenamiento y **columnas fijadas** a la derecha de la tabla
 - Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
-- Vistas guardadas para reutilizar tus combinaciones de columnas y filtros favoritas
+- **Vistas predefinidas**, listas para usar, además de vistas guardadas propias para reutilizar tus combinaciones favoritas de columnas y orden
 - Tarjetas de resumen con las métricas clave del rango filtrado, siempre visibles antes de entrar al detalle de la tabla
 - Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
@@ -41,13 +41,33 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
 
 <Steps>
   <Step title="Views (Vistas)">
-    El botón **👁️ Views** abre un menú donde puedes:
-    - Aplicar una vista guardada previamente (restaura columnas y filtros)
-    - Eliminar una vista guardada
+    El botón **👁️ Views** abre un menú dividido en dos grupos claramente diferenciados:
+
+    - **Predefined**: un conjunto de vistas listas para usar, pensadas para tareas habituales de auditoría. Puedes aplicarlas en un clic, pero no se pueden eliminar ni renombrar, ya que forman parte de la configuración base de Meetzy.
+    - **My views**: tus propias vistas guardadas, creadas a partir de tu configuración actual de columnas y orden.
+
+    Junto al botón **Views**, el nombre de la vista activa se muestra en todo momento, para que sepas de un vistazo qué combinación de columnas estás usando sin tener que reabrir el menú.
+
+    Desde este mismo menú puedes:
+    - Aplicar cualquier vista predefinida o guardada (restaura columnas, orden de columnas fijadas, ordenación y paginación)
+    - Eliminar una de tus vistas guardadas (las predefinidas no tienen esta opción)
     - Guardar la configuración actual de columnas y filtros con un nombre nuevo
 
     <Info>
-      Las vistas guardadas son ideales para compartir un mismo criterio de auditoría entre tu equipo, por ejemplo "Llamadas fallidas de esta semana" o "Revisión de agente de ventas".
+      Las vistas predefinidas incluidas de fábrica son:
+
+      | Vista | Pensada para |
+      |---|---|
+      | **Call audit** | Revisión general de llamadas: fecha, agente, origen, estado, duración, etiquetas y grabación, con el estado Revisado siempre a mano |
+      | **Latency monitoring** | Seguimiento del rendimiento de la IA: duración, latencia media, mini gráfico de latencia y latencia máxima, ordenado por latencia |
+      | **Compact overview** | Un vistazo mínimo y rápido: fecha, agente, origen, estado y duración, sin columnas adicionales |
+      | **Transfers & escalations** | Auditoría de llamadas transferidas o escaladas: estado de transferencia, motivo de fin de llamada, etiquetas, resumen y grabación |
+
+      Aplicar cualquiera de estas vistas es completamente reversible: solo cambia tu configuración de columnas, orden y paginación, exactamente igual que al aplicar una vista guardada propia.
+    </Info>
+
+    <Info>
+      Las vistas guardadas propias son ideales para compartir un mismo criterio de auditoría entre tu equipo, por ejemplo "Llamadas fallidas de esta semana" o "Revisión de agente de ventas".
     </Info>
   </Step>
 
@@ -60,6 +80,10 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
 
     <Info>
       Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla. Si tu usuario es administrador, la columna **Links** también aparece fijada junto a ellas.
+    </Info>
+
+    <Info>
+      Las columnas fijadas se agrupan siempre al final de la tabla, independientemente de la posición en la que las coloques dentro del gestor de columnas. Esto garantiza que el orden visual de las columnas fijadas sea siempre predecible, tanto en las vistas predefinidas como en las guardadas.
     </Info>
   </Step>
 
@@ -92,7 +116,15 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
   Si ya tenías configuraciones guardadas en la vista clásica de llamadas, Meetzy las migra automáticamente la primera vez que abres `/calls-v2`: tus columnas visibles y su orden se conservan como punto de partida, para que no tengas que reconstruir tu configuración desde cero.
 </Info>
 
-Esta migración ocurre una única vez por cuenta. A partir de ahí, cualquier cambio que hagas en el gestor de columnas o en las vistas guardadas se administra exclusivamente desde la nueva vista.
+Esta migración lee, de forma exclusivamente local y de solo lectura, la configuración que la vista clásica guardaba en tu navegador (columnas visibles, campos dinámicos de entrada y salida, ordenación y tamaño de página). A partir de ahí:
+
+- Solo se conservan las **columnas fijas** que existen en ambos conjuntos de columnas, ya que la vista nueva no es idéntica a la clásica
+- Los **campos dinámicos** de entrada y salida que ya tenías configurados se reconstruyen tal cual, respetando su clave, etiqueta y ruta original
+- El orden de columnas de la propia vista nueva se conserva como base; la migración solo ajusta qué columnas están visibles, no reordena las columnas fijas existentes
+
+<Info>
+  Esta migración ocurre una única vez por cuenta, la primera vez que se carga `/calls-v2` sin ninguna configuración previa de la vista nueva. A partir de ahí, cualquier cambio que hagas en el gestor de columnas o en las vistas guardadas se administra exclusivamente desde la nueva vista, sin volver a consultar la configuración heredada.
+</Info>
 
 ---
 
@@ -174,6 +206,10 @@ Puedes ordenar la tabla por cualquier columna visible y elegir el número de fil
 
 Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed**, **Links** (si eres administrador) o **Actions**, sin perderlas de vista al revisar campos dinámicos o columnas adicionales.
 
+<Info>
+  Independientemente del orden en que arrastres las columnas dentro del gestor de columnas, las columnas fijadas siempre se agrupan al final de la tabla. Esto se aplica tanto si defines tu propia combinación de columnas fijadas como si aplicas una vista predefinida o guardada que ya incluya columnas fijadas.
+</Info>
+
 ### Columna de enlaces (solo administradores)
 
 <Info>
@@ -193,7 +229,11 @@ Cada fila permite marcar una llamada como **revisada**, asignarle un **veredicto
 - El checkbox **Reviewed** marca (o desmarca) la llamada como revisada.
 - Junto a él, dos botones de veredicto te permiten clasificar la llamada como **OK** o **KO**. Al asignar cualquiera de los dos, la llamada se marca automáticamente como revisada. Haz clic de nuevo sobre el mismo veredicto para quitarlo sin necesidad de desmarcar la revisión.
 - Al desmarcar el checkbox **Reviewed**, el veredicto asociado también se limpia automáticamente, para evitar que quede un veredicto "huérfano" sobre una llamada que ya no está marcada como revisada.
-- La nota de auditoría se guarda automáticamente (con un breve retraso tras dejar de escribir).
+- La nota de auditoría se guarda automáticamente (con un breve retraso tras dejar de escribir), en un editor emergente que solo permite tener uno abierto a la vez, para mantener la tabla ordenada mientras auditas varias llamadas seguidas.
+
+<Info>
+  El veredicto **OK / KO** está pensado como una clasificación binaria y rápida de auditoría, complementaria a la nota de texto libre: úsalo para marcar de un vistazo si una llamada cumplió (OK) o no cumplió (KO) el criterio que estás auditando, y reserva la nota para explicar el motivo o añadir contexto adicional.
+</Info>
 
 Tanto el estado revisado como el veredicto y la nota se incluyen en la exportación de selección, lo que facilita compartir el resultado de una auditoría con el resto del equipo.
 
