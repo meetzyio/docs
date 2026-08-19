@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the enhanced Calls page with pinnable columns, named saved views, adaptive live updates, suspicious call detection, admin shortcut links, and inline review, notes, and tag editing."
+description: "Explore the enhanced Calls page with configurable and pinnable columns, named saved views, summary cards, adaptive live updates, suspicious call detection, OK/KO review verdicts, inline tag editing, Excel exports, and a full waveform recording player with per-turn latency breakdown."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces pinnable columns, named saved views, an opt-in live-refreshing table with adaptive polling, smarter suspicious-call filtering, at-a-glance summary metrics, an admin-only shortcuts column, and fully inline review, note, and tag editing directly inside the table.
+The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), named saved views, at-a-glance summary cards, a streamlined single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full and selective Excel exports, and a redesigned recording player with a waveform, adjustable playback speed, and a per-turn latency breakdown in the transcript.
 
 <Info>
 The Advanced Calls View is currently rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -44,7 +44,7 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
     Click the **⚙️ Columns** button in the top-right corner of the page to open the column manager.
   </Step>
   <Step title="Show or hide columns">
-    Toggle any column on or off. This includes standard fields (status, duration, agent, tags) as well as dynamic fields discovered automatically from your call inputs and outputs.
+    Toggle any column on or off. This includes standard fields (status, duration, agent, tags) as well as **dynamic columns** discovered automatically from your call inputs and outputs.
   </Step>
   <Step title="Reorder columns">
     Drag columns into the order that makes the most sense for your workflow.
@@ -58,7 +58,7 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
 </Steps>
 
 <Info>
-Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents will show up as selectable columns without any manual setup. Dynamic columns are labeled with their source (input or output) so you always know where the value comes from.
+Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents show up as selectable columns without any manual setup. Each dynamic column is clearly labeled with its source — **input** or **output** — so you always know where the value comes from.
 </Info>
 
 <Warning>
@@ -167,17 +167,20 @@ Use the search box to look up calls by transcript content, independent of the ot
 
 ## Review and audit workflow
 
-Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, along with an optional audit note — all editable directly inline, without opening a separate modal. This column is pinned to the right edge of the table by default, so it stays visible no matter how many columns you've added.
+Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, an **OK/KO verdict**, and an optional audit note — all editable directly inline, without opening a separate modal. This column is pinned to the right edge of the table by default, so it stays visible no matter how many columns you've added.
 
 <Steps>
   <Step title="Mark a call as reviewed">
     Click the review indicator on a call's row to toggle its reviewed status inline. The **Reviewed** summary card at the top of the page updates immediately to reflect the new count.
   </Step>
+  <Step title="Set an OK/KO verdict">
+    Once you've listened to or read through a call, click **OK** or **KO** to record your audit verdict. Clicking the same verdict again clears it. Setting a verdict automatically marks the call as reviewed; clearing the reviewed toggle also clears the verdict.
+  </Step>
   <Step title="Add an audit note">
-    Click the note icon to open a small inline editor and write context about why the call was flagged, resolved, or worth revisiting.
+    Click the note icon to open a small inline editor and write context about why the call was flagged, resolved, or worth revisiting — for example, explaining why a call was marked KO.
   </Step>
   <Step title="Save automatically">
-    Both the reviewed toggle and the note text are saved automatically a moment after you stop interacting — no need to click a separate save button.
+    The reviewed toggle, the verdict, and the note text are all saved automatically a moment after you stop interacting — no need to click a separate save button.
   </Step>
 </Steps>
 
@@ -185,7 +188,11 @@ Each row in the table includes a **Reviewed** control that lets your team track 
 Only one review note editor can be open at a time. Clicking outside the editor, or opening a note on another row, will close the current one.
 </Info>
 
-This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, leave a note explaining the outcome, and mark them as reviewed once resolved.
+This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved.
+
+<Info>
+The same OK/KO verdict, reviewed toggle, and note editor are also available inside the recording player modal, so you can complete your review right after listening to a call without going back to the table.
+</Info>
 
 ## Inline tag editing
 
@@ -207,7 +214,7 @@ The **Tags** column lets you manage a call's tags directly from the table, witho
 </Steps>
 
 <Info>
-Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created tags become searchable right away.
+Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created tags become searchable right away. Tags can also be added or removed from inside the recording player modal, staying in sync with the table row.
 </Info>
 
 ## Exporting to Excel
@@ -219,10 +226,34 @@ The Advanced Calls View supports two export modes:
     Click **Export to Excel** to export every call currently matching your active filters, respecting your selected columns.
   </Tab>
   <Tab title="Export selected rows only">
-    Select one or more rows using the row checkboxes, then click **Export selection (N)**. This exports only the calls you've selected, and always includes the **Reviewed** status and the **audit note**, regardless of whether those columns are currently visible in the table.
+    Select one or more rows using the row checkboxes, then click **Export selection (N)**. This exports only the calls you've selected, and always includes the **Reviewed** status, the **OK/KO verdict**, and the **audit note**, regardless of whether those columns are currently visible in the table.
   </Tab>
 </Tabs>
 
 <Info>
-Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the Reviewed status and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
+Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the review status, verdict, and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
+</Info>
+
+## Recording player
+
+Clicking a call's recording opens a redesigned player modal that puts the audio, the review controls, and the transcript side by side.
+
+### Waveform, speed, and navigation
+
+- The recording is rendered as a real **waveform** built from the decoded audio, not a generic progress bar — click anywhere on the waveform to seek instantly to that point.
+- Use the **±10s** buttons to skip forward or backward, or the play/pause button to start and stop playback.
+- Choose a **playback speed** from the available presets (0.5x up to 2x) to review calls faster or listen more carefully to a tricky section.
+- Download the original recording at any time with **Download recording**.
+- If you opened the player from the table, **previous/next** arrows in the header (and the ← / → arrow keys) let you move to the adjacent call in your current filtered list without closing and reopening the modal.
+
+### Transcript with per-turn latency breakdown
+
+The transcript panel shows the conversation turn by turn, with each agent reply annotated with **"Replied in Xs"**:
+
+- Click on a reply's latency badge to expand a **response-time breakdown**, showing a stacked bar of exactly where that time went — for example, time spent transcribing the caller's speech, generating the LLM response, and synthesizing the reply — along with the model used for that turn.
+- User turns show how long the **transcription** took, when available.
+- Tool calls made by the agent during a turn appear as their own expandable badges, so you can inspect what was called and what was returned without leaving the transcript.
+
+<Info>
+This breakdown is what powers the **Avg. latency** summary card and the Suspicious calls filter's high-latency check — the same underlying per-turn data is just made visible here so you can see exactly why a particular reply was slow.
 </Info>

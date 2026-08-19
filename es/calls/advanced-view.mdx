@@ -1,10 +1,10 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas guardadas, filtros avanzados, revisión con notas de auditoría, edición de tags en línea y actualización en vivo"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas guardadas, filtros avanzados, revisión con veredicto de auditoría y notas, edición de tags en línea y actualización en vivo"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
@@ -20,7 +20,7 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 - Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
-- Estado **Revisado** y notas de auditoría por llamada, con guardado automático
+- Estado **Revisado**, **veredicto de auditoría (OK / KO)** y notas por llamada, con guardado automático
 - **Edición de etiquetas en línea**, para añadir o quitar tags sin salir de la vista de llamadas
 - Actualización en vivo de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas
 - Gráficos de latencia real de IA y reproductor de grabaciones integrado, con desglose detallado de cada respuesta
@@ -72,7 +72,7 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
   </Step>
 
   <Step title="Exportar selección">
-    Cuando seleccionas una o más filas de la tabla, aparece el botón **Export selection**, junto con un contador que indica cuántas filas has marcado. Esta exportación incluye, además de los datos de la llamada, el estado **Revisado** y la nota de auditoría asociada a cada fila.
+    Cuando seleccionas una o más filas de la tabla, aparece el botón **Export selection**, junto con un contador que indica cuántas filas has marcado. Esta exportación incluye, además de los datos de la llamada, el estado **Revisado**, el **veredicto** (OK / KO) y la nota de auditoría asociada a cada fila.
   </Step>
 
   <Step title="Exportar todo">
@@ -186,9 +186,16 @@ Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se a
 
 Selecciona filas individuales para habilitar acciones en lote, como la exportación de selección mencionada anteriormente. El contador junto al botón **Export selection** te confirma en todo momento cuántas filas tienes seleccionadas.
 
-### Estado "Revisado" y notas de auditoría
+### Estado "Revisado", veredicto de auditoría y notas
 
-Cada fila permite marcar una llamada como **revisada** y añadir una nota de auditoría asociada mediante un pequeño editor emergente. Estas notas se guardan automáticamente (con un breve retraso tras dejar de escribir) y se incluyen en la exportación de selección, lo que facilita compartir el resultado de una auditoría con el resto del equipo.
+Cada fila permite marcar una llamada como **revisada**, asignarle un **veredicto de auditoría** y añadir una nota asociada mediante un pequeño editor emergente.
+
+- El checkbox **Reviewed** marca (o desmarca) la llamada como revisada.
+- Junto a él, dos botones de veredicto te permiten clasificar la llamada como **OK** o **KO**. Al asignar cualquiera de los dos, la llamada se marca automáticamente como revisada. Haz clic de nuevo sobre el mismo veredicto para quitarlo sin necesidad de desmarcar la revisión.
+- Al desmarcar el checkbox **Reviewed**, el veredicto asociado también se limpia automáticamente, para evitar que quede un veredicto "huérfano" sobre una llamada que ya no está marcada como revisada.
+- La nota de auditoría se guarda automáticamente (con un breve retraso tras dejar de escribir).
+
+Tanto el estado revisado como el veredicto y la nota se incluyen en la exportación de selección, lo que facilita compartir el resultado de una auditoría con el resto del equipo.
 
 ### Edición de etiquetas en línea
 
@@ -228,7 +235,7 @@ Con el interruptor **Live** activado, la tabla se actualiza automáticamente en 
 Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, con forma de onda real (generada a partir del audio decodificado), salto de ±10 segundos, control de velocidad de reproducción y descarga del archivo, sin salir de la vista de llamadas.
 
 <Info>
-  El reproductor también incluye navegación rápida entre llamadas (anterior/siguiente, incluso con las flechas del teclado) y, en su pie, los mismos controles de estado **Revisado**, nota de auditoría y edición de etiquetas disponibles en la tabla, para que puedas auditar una llamada de principio a fin sin cerrar el modal.
+  El reproductor también incluye navegación rápida entre llamadas (anterior/siguiente, incluso con las flechas del teclado) y, en su pie, los mismos controles de estado **Revisado**, **veredicto de auditoría (OK / KO)**, nota de auditoría y edición de etiquetas disponibles en la tabla, para que puedas auditar una llamada de principio a fin sin cerrar el modal.
 </Info>
 
 ### Transcripción y ficha de feedback
