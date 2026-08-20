@@ -94,6 +94,43 @@ The agent name button in the top-left corner of the Advanced Editor's header too
   Use **Cmd/Ctrl + Shift + A** as a keyboard shortcut to instantly open the agent selector without touching your mouse. Press it again, or click outside the dropdown, to close it.
 </Tip>
 
+### Anatomy of the Agent Selector Button
+
+The selector lives directly in the top toolbar of the Advanced Editor, right next to the **Back to Agents** button, so it's always within reach while you work:
+
+| Element | Description |
+|---------|-------------|
+| **Colored avatar** | A small square badge showing the first letter of the current agent's name, used for quick visual recognition |
+| **Agent name** | The current agent's display name, truncated with an ellipsis if it's too long |
+| **Chevron icon** | Rotates 180° when the dropdown is open, giving a clear visual cue of the panel's state |
+| **Active ring highlight** | The button gets a colored ring/border while the dropdown is open, distinguishing it from the rest of the toolbar |
+
+Clicking the button toggles a dropdown panel anchored below it, containing the search field, the optional company filter, and the scrollable agent list.
+
+### Company Filter (Admin Only)
+
+<Info>
+  The company filter dropdown is only rendered for **admin users** who have access to more than one company. Standard and single-company users will only see the search field and the agent list.
+</Info>
+
+At the top of the dropdown panel, admins see a compact `<select>` control listing every company they have access to, plus an **"All companies"** option selected by default. Choosing a specific company immediately narrows the agent list below to only that company's agents — helpful when managing large multi-tenant portfolios where dozens of agents might otherwise be mixed together.
+
+<Steps>
+  <Step title="Open the dropdown">
+    Click the agent selector button to reveal the panel with the search field and, for admins, the company filter select at the top.
+  </Step>
+  <Step title="Pick a company">
+    Select a company from the dropdown to instantly filter the agent list to that organization only.
+  </Step>
+  <Step title="Refine with search">
+    Type in the search box to further narrow results within the selected company, or leave the company filter on **"All companies"** to search globally.
+  </Step>
+</Steps>
+
+<Tip>
+  Combining the company filter with the search box is the fastest way to locate a specific agent when you manage many organizations — filter first by company, then type a few letters of the agent's name.
+</Tip>
+
 ## Enhanced Search and Filtering
 
 ### Global Agent Search
@@ -357,6 +394,14 @@ Agents with the **"Advanced"** badge support full configuration editing with enh
 - **Search & Filter**: Find agents across companies with real-time search and a company filter dropdown
 - **Context Aware**: Preserves editor state when switching between agents
 - **Company Scoping**: Filter agents by company for multi-org admin users
+
+The selector button sits in the top toolbar, immediately to the right of **Back to Agents**, and is only rendered when you're editing an existing agent on a desktop screen. Opening it reveals a dropdown with:
+
+- A **search input** at the top for filtering by agent name in real time
+- A **compact company filter** `<select>`, shown only to admin users with access to multiple companies, defaulting to **"All companies"**
+- A scrollable list of matching agents, each row showing its colored initial avatar and name for quick recognition
+
+This makes it possible to jump from one agent to another — even across different companies — without ever leaving the Advanced Editor.
 
 #### Unsaved Changes Protection
 
