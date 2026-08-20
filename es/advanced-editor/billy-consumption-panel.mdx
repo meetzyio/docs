@@ -14,6 +14,7 @@ El panel de consumo Billy es un componente flotante anclado a la parte inferior 
 
 - **Seguimiento en tiempo real** del consumo de minutos
 - **Barra de progreso del paquete de minutos** contratado (cuando aplica)
+- **Balance de consumo rules-v2**, con tier comprometido o bolsa prepago
 - **Desglose detallado** por asistente
 - **Filtros flexibles** por período, con selector desplegable
 - **Ticker de mensajes** informativos cuando el panel está colapsado
@@ -95,6 +96,92 @@ interface MinutesPackage {
 
 <Warning>
 Cuando `over_allowance` es `true`, la barra cambia a color rojo para alertar visualmente al usuario de que se ha superado el paquete contratado, incluso si el porcentaje visual de la barra permanece al máximo.
+</Warning>
+
+## Balance de Consumo (Rules-v2)
+
+<Info>
+Este bloque es independiente de la barra de paquete de minutos clásica y se muestra únicamente cuando el perfil Billy del cliente opera bajo el motor de reglas de facturación **rules-v2**, expuesto en el campo `consumption.balance` de la respuesta de la API.
+</Info>
+
+A diferencia del paquete de minutos tradicional, el modelo rules-v2 puede representar dos tipos de balance distintos según el contrato activo del cliente: un **tier de volumen comprometido** o una **bolsa prepago**. El componente detecta el tipo mediante la propiedad `kind` y renderiza la variante correspondiente.
+
+<Warning>
+En el modelo de tier comprometido, superar el volumen contratado **no es un error ni una alerta**: es consumo adicional facturable al mismo precio del tier vigente, que se cobrará en el siguiente período. Por eso el excedente nunca se muestra en rojo ni con iconografía de advertencia.
+</Warning>
+
+### Tipo 1: Tier de Volumen Comprometido
+
+Cuando el contrato del cliente incluye un compromiso mensual de volumen (`kind: 'committed_tier'`), el panel muestra:
+
+- **Etiqueta de sección**: "Volumen contratado", acompañada del nombre del tier si está disponible (por ejemplo, "Volumen contratado · Tier Pro")
+- **Contador numérico**: Unidades consumidas frente a las unidades contratadas, formateadas según el tipo de unidad (`seconds`, `minutes` o `calls`)
+- **Barra de progreso**: Siempre en color verde esmeralda, ya que representa consumo dentro de un compromiso contractual, no un límite estricto
+- **Mensaje contextual** debajo de la barra:
+  - Si aún queda margen: "X min restantes del compromiso mensual"
+  - Si hay excedente: "Excedente: X min al mismo precio del tier (importe, se factura el próximo período)"
+
+### Tipo 2: Bolsa Prepago
+
+Cuando el cliente opera con saldo prepago (`kind: 'prepaid_bag'`), el panel muestra en su lugar:
+
+- **Etiqueta de sección**: "Saldo prepago"
+- **Contador numérico**: Unidades disponibles actualmente (`available_units`)
+- **Mensaje contextual**: Unidades consumidas durante el período actual (`consumed_period_units`)
+
+<Info>
+La bolsa prepago no incluye barra de progreso animada, ya que representa un saldo decreciente sin un objetivo de "consumo total" contra el cual comparar visualmente.
+</Info>
+
+### Estructura de Datos
+
+```typescript
+export type BillyBalanceInfo =
+  | {
+      kind: 'committed_tier';
+      unit: 'seconds' | 'minutes' | 'calls';
+      tier_name: string | null;
+      contracted_units: number;
+      consumed_units: number;
+      remaining_units: number;
+      overage_units: number;
+      overage_amount: number;
+      price_per_unit: number;
+      usage_percent: number;
+    }
+  | {
+      kind: 'prepaid_bag';
+      unit: string;
+      available_units: number;
+      consumed_period_units: number;
+      payment_modality: string;
+      discount_percent: number;
+    };
+```
+
+### Formateo de Unidades del Balance
+
+<Info>
+Las unidades del balance se muestran siempre en un formato legible para el usuario final, independientemente de la unidad canónica interna usada por el motor de reglas.
+</Info>
+
+```typescript
+// Seconds-based balances read better as minutes with the exact seconds as
+// context; other units render as-is.
+formatBalanceUnits(value: number | null | undefined, unit: string): string {
+  const units = Number(value || 0);
+  if (unit === 'seconds') {
+    return `${this.formatNumber(Math.round(units / 60))} min`;
+  }
+  if (unit === 'calls') {
+    return `${this.formatNumber(units)} calls`;
+  }
+  return `${this.formatNumber(units)} min`;
+}
+```
+
+<Warning>
+Si `consumption.balance` no está presente en la respuesta de la API (por ejemplo, perfiles que aún usan el motor de facturación clásico), este bloque completo se omite del renderizado, sin afectar al resto del panel ni a la barra de paquete de minutos.
 </Warning>
 
 ## Sistema de Filtros Avanzados
@@ -209,6 +296,7 @@ La lista de períodos solo se reconstruye a partir de una respuesta de "período
 Para usuarios normales, el panel muestra:
 
 - **Barra de progreso del paquete de minutos** contratado, si está configurado
+- **Balance de consumo rules-v2** (tier comprometido o bolsa prepago), si el perfil opera bajo este motor
 - **Consumo por asistente** del cliente actual
 - **Totales del período** seleccionado
 - **Desglose de costos** detallado
@@ -238,7 +326,7 @@ Para administradores, se incluyen características extra:
 </Tabs>
 
 <Warning>
-La barra de progreso del paquete de minutos no se muestra en la vista de administrador, ya que dicha vista agrega el consumo de múltiples clientes y no representa un único paquete contratado.
+Ni la barra de progreso del paquete de minutos ni el bloque de balance rules-v2 se muestran en la vista de administrador, ya que dicha vista agrega el consumo de múltiples clientes y no representa un único paquete o contrato individual.
 </Warning>
 
 ### Gráfico Histórico de Facturación
@@ -300,7 +388,7 @@ Al cargar correctamente el historial de facturación, sus datos también se inco
 El ticker de mensajes es una funcionalidad exclusiva del estado colapsado del panel: muestra información relevante de forma rotativa sin necesidad de expandir el panel completo.
 </Info>
 
-Cuando el usuario colapsa el panel, en lugar de ocultar toda la información, se activa un ticker que va mostrando mensajes breves de forma secuencial:
+Cuando el usuario colapsa el panel, en lugar de ocultar toda la información, se activa un ticker que va mostrando mensajes breves de forma secuencial. Esta rotación permite condensar en un espacio mínimo datos que normalmente requerirían el panel expandido, como el estado del paquete de minutos, el balance rules-v2 vigente o hitos del historial de facturación.
 
 ### Comportamiento del Ticker
 
@@ -326,10 +414,10 @@ Cuando el usuario colapsa el panel, en lugar de ocultar toda la información, se
 
 Los mensajes del ticker se recalculan (`refreshTicker()`) cada vez que:
 
-- Se carga con éxito el consumo actual del período
+- Se carga con éxito el consumo actual del período, incluyendo el estado del paquete de minutos y del balance rules-v2 (tier comprometido o bolsa prepago), cuando están disponibles
 - Se carga con éxito el historial de facturación (solo administradores)
 
-Esto permite que, incluso con el panel colapsado, el usuario reciba información actualizada sobre su consumo, su paquete de minutos o hitos relevantes de facturación sin necesidad de expandir el panel.
+Esto permite que, incluso con el panel colapsado, el usuario reciba información actualizada sobre su consumo, su paquete de minutos, su balance rules-v2 o hitos relevantes de facturación sin necesidad de expandir el panel.
 
 ### Implementación
 
@@ -392,6 +480,9 @@ interface BillyConsumptionBreakdownItem {
   unit_label: string;
   subtotal: number;
   detail?: Record<string, any>;
+  // Las reglas v2 incluyen además un código de unidad canónico y el nombre de la regla.
+  unit?: 'seconds' | 'minutes' | 'calls';
+  rule_name?: string | null;
 }
 ```
 
@@ -544,7 +635,7 @@ El componente maneja tres estados principales:
 
 1. **Sin permisos**: El panel no se renderiza en absoluto
 2. **Con permisos, sin datos**: Se muestra el panel con mensaje de error
-3. **Con permisos y datos**: Se muestra el panel completo con información, incluyendo la barra de paquete de minutos si aplica
+3. **Con permisos y datos**: Se muestra el panel completo con información, incluyendo la barra de paquete de minutos y/o el bloque de balance rules-v2 si aplica
 
 ## Persistencia de Estado
 
@@ -623,7 +714,7 @@ En contextos de navegación privada o con restricciones de almacenamiento, el pa
 
 ### Endpoints Utilizados
 
-1. **getCurrentBillyConsumption**: Obtiene el consumo actual con filtros opcionales, incluyendo la información del paquete de minutos cuando aplica
+1. **getCurrentBillyConsumption**: Obtiene el consumo actual con filtros opcionales, incluyendo la información del paquete de minutos y del balance rules-v2 cuando aplica
 2. **getBillyBillingHistory**: Obtiene el historial de facturación mensual para administradores
 
 ### Filtros de Consulta
@@ -653,9 +744,14 @@ export type BillyConsumptionData =
         usage_percent: number;
         over_allowance: boolean;
       };
+      balance?: BillyBalanceInfo | null;
       // ... datos completos de consumo
     };
 ```
+
+<Info>
+El campo `balance` sigue el modelo de reglas-v2 descrito en la sección [Balance de Consumo (Rules-v2)](#balance-de-consumo-rules-v2), y coexiste de forma independiente con `minutes_package`. Un perfil Billy determinado expondrá como máximo uno de los dos bloques según el motor de facturación configurado.
+</Info>
 
 ## Funcionalidades de Filtrado
 

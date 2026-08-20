@@ -15,6 +15,7 @@ The Billy panel automatically appears when you have billing rules configured for
 The enhanced Billy consumption panel displays:
 
 - **Minutes package progress bar** for accounts with a contracted monthly allowance
+- **Rules-v2 balance block** for accounts on the newer billing engine, showing either a committed tier's progress or a prepaid bag's available units
 - **Real-time consumption data** with intelligent period detection
 - **Advanced filtering system** with a dropdown period selector and custom date ranges
 - **Cost breakdown by assistant** with detailed unit metrics
@@ -108,6 +109,61 @@ The red indicator is purely visual. Exceeding the contracted minutes package doe
 The over-allowance state is re-evaluated every time consumption data refreshes, whether triggered manually, by a period change, or by a custom date range. There is no separate "reset" action — the color and footer message always reflect the live comparison between consumed and contracted minutes for the currently selected period.
 </Info>
 
+## Balance Block for Rules-v2 Profiles
+
+Accounts running on the newer **rules-v2** billing engine display a dedicated **balance block** instead of (or alongside) the minutes package card. This block adapts its layout depending on the type of contract configured on the account's Billy profile: a **committed volume tier** or a **prepaid bag**.
+
+<Info>
+The balance block only renders when the consumption response includes a `balance` object. Accounts on legacy per-unit rules without a rules-v2 contract will not see this block.
+</Info>
+
+### Committed Tier Variant
+
+For accounts with a **committed volume tier** (a monthly contracted volume of minutes, seconds, or calls, billed at a specific tier price), the block shows:
+
+- **Tier name**: The contracted tier's name, displayed next to the "Contracted volume" label whenever one is configured
+- **Consumed vs. contracted units**: Formatted according to the unit type (for example, seconds are shown as minutes for readability)
+- **Progress bar**: Fills proportionally to usage, always rendered in emerald — this variant does not use a red "over-allowance" color, since exceeding the tier is an expected, billable outcome rather than an error state
+- **Footer message**: Shows one of two states depending on consumption:
+  - **Within commitment**: the remaining units left in the monthly commitment
+  - **Overage**: the exact overage in units, its equivalent monetary amount at the tier's price, and a note that it will be **billed next period**
+
+<Warning>
+Unlike the minutes package card, overage on a committed tier is **not** an alert. It represents genuine billable consumption charged at the same per-unit tier price, invoiced in the following billing cycle. The progress bar intentionally stays emerald in this state to avoid implying a problem.
+</Warning>
+
+### Prepaid Bag Variant
+
+For accounts consuming from a **prepaid bag** (a pool of pre-purchased units), the block instead shows:
+
+- **Available units**: The remaining balance of units left in the prepaid bag, labeled "Prepaid balance"
+- **Consumed this period**: The number of units drawn from the bag during the current billing period
+
+<Info>
+The prepaid bag variant does not display a progress bar, since prepaid balances aren't tied to a fixed monthly allowance the way committed tiers are — the available units simply decrease as they're consumed, potentially across multiple billing periods.
+</Info>
+
+### How the Two Variants Differ
+
+| | Committed Tier | Prepaid Bag |
+|---|---|---|
+| **Progress bar** | Yes, always emerald | Not shown |
+| **Over-allowance handling** | Billable overage at tier price, applied next period | Not applicable — consumption simply reduces available balance |
+| **Key figures** | Consumed / contracted units for the period | Available units and units consumed this period |
+| **Tier or plan name** | Shown when configured | Not applicable |
+
+<Steps>
+<Step title="Balance Data Loads">
+When consumption data is refreshed, the panel checks whether the response includes a `balance` object and, if so, which `kind` it reports
+</Step>
+<Step title="Correct Variant Renders">
+The panel automatically renders the committed tier layout or the prepaid bag layout based on the `kind` field — no manual switching is needed
+</Step>
+<Step title="Figures Stay in Sync">
+Both variants refresh alongside the rest of the consumption data whenever you change periods, apply a custom range, or trigger a manual refresh
+</Step>
+</Steps>
+
 ## Advanced Filtering System
 
 ### Predefined Period Filters
@@ -145,7 +201,7 @@ The dropdown behaves consistently across the panel:
 
 <Steps>
 <Step title="View Updated Data">
-Data automatically refreshes when a new period is selected, including the minutes package card if configured
+Data automatically refreshes when a new period is selected, including the minutes package card and balance block, when applicable
 </Step>
 </Steps>
 
@@ -171,7 +227,7 @@ Click "Apply" to load consumption data for your custom date range
 Custom date ranges must have a start date before or equal to the end date. The panel will show validation errors for invalid date combinations.
 </Warning>
 
-Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type. The minutes package card, when applicable, recalculates against whatever range is currently active.
+Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type. The minutes package card and balance block, when applicable, recalculate against whatever range is currently active.
 
 ### Filter Collapse and Expansion
 
@@ -260,7 +316,7 @@ The historical chart section includes improved controls:
 
 The panel adapts its display based on user permissions:
 
-- **Client View** (`client_agents`): Shows consumption for your assistants, including the minutes package card if a contracted allowance is configured
+- **Client View** (`client_agents`): Shows consumption for your assistants, including the minutes package card and rules-v2 balance block, when configured
 - **Admin View** (`admin_clients`): Shows consumption across clients with additional controls, including the historical chart section
 
 ## Collapsed Mode: Rotating Message Ticker
@@ -273,10 +329,16 @@ The ticker only runs while the panel is collapsed. Expanding the panel automatic
 
 What the ticker can surface:
 
-- **Current consumption summary**: A quick snapshot of your usage for the active period
-- **Minutes package status**: A reminder of remaining minutes, or an over-allowance warning, whenever a package is configured on the account's billing profile
+- **Total for the period**: The current total cost for the active billing period, giving an at-a-glance summary without opening the panel
+- **Minutes package status**: A reminder of remaining minutes, or an over-allowance warning, whenever a legacy minutes package is configured on the account's billing profile
+- **Balance status**: For rules-v2 accounts, a message reflecting either the committed tier's remaining/overage status or the prepaid bag's available units
+- **Top consuming assistant**: The assistant responsible for the highest consumption in the current period, helping surface which assistant is driving costs at a glance
 - **Billing period context**: Which period is currently being tracked
 - **Historical highlights**: Once historical data has been loaded for admin views, relevant trend messages may also rotate through the ticker
+
+<Info>
+Not every message type appears for every account. The ticker only includes messages relevant to the account's configuration — for example, an account without a minutes package or a balance block simply skips those messages and rotates through the ones that do apply.
+</Info>
 
 ### How the Ticker Works
 
@@ -288,7 +350,7 @@ As soon as you collapse the panel, the ticker starts from its first available me
 Messages rotate automatically at a fixed interval, with a brief fade transition between each message for a smooth visual effect
 </Step>
 <Step title="Data-Aware Content">
-The set of available messages is rebuilt whenever consumption data is refreshed or historical data is loaded, so the ticker always reflects your latest data — including the current minutes package status when applicable
+The set of available messages is rebuilt whenever consumption data is refreshed or historical data is loaded, so the ticker always reflects your latest data — including the current period total, minutes package status, balance status, and top consuming assistant when applicable
 </Step>
 <Step title="Panel Expands">
 Expanding the panel stops the rotation immediately; the ticker resumes from the beginning the next time you collapse the panel
@@ -322,14 +384,15 @@ Subtotal (all assistant usage)
 ```
 
 <Info>
-The minutes package card is independent of this cost breakdown. It reflects contracted minutes usage only and does not itself alter the subtotal, minimums, or corrections shown below it.
+The minutes package card and the rules-v2 balance block are independent of this cost breakdown. They reflect contracted or prepaid unit usage only and do not themselves alter the subtotal, minimums, or corrections shown below them — except for committed tier overage, which is billed separately at the tier price in the following period.
 </Info>
 
 ### Unit Display and Formatting
 
 - **Automatic pluralization**: Units display correctly for singular/plural amounts
 - **Localized formatting**: Numbers and currency display according to your locale
-- **Consistent precision**: Monetary values show appropriate decimal places, and minutes package figures use the same locale-aware number formatting
+- **Consistent precision**: Monetary values show appropriate decimal places, and minutes package and balance figures use the same locale-aware number formatting
+- **Unit-aware conversion**: Balance figures stored in seconds are automatically displayed as minutes for readability, while call-based balances display their raw call counts
 
 ## Data Refresh and States
 
@@ -353,7 +416,7 @@ The refresh button intelligently reapplies whichever filter is currently active:
 - If a **predefined period** is selected, the refresh reloads data for that same period
 - If neither is set, it falls back to loading the default current-period consumption
 
-This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing, and the minutes package card (when applicable) updates its consumed/contracted/remaining figures accordingly.
+This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing, and the minutes package card and balance block (when applicable) update their figures accordingly.
 
 ### Smart Refresh Logic
 
@@ -381,7 +444,7 @@ When errors occur, the panel:
 - Maintains last successful data when possible
 
 <Warning>
-If consumption data fails to load, the minutes package card is not rendered at all — it does not display a stale or partial state. It reappears automatically once a successful refresh returns package data again.
+If consumption data fails to load, neither the minutes package card nor the rules-v2 balance block are rendered — they do not display a stale or partial state. They reappear automatically once a successful refresh returns their respective data again.
 </Warning>
 
 ## Panel States and Indicators
@@ -389,7 +452,7 @@ If consumption data fails to load, the minutes package card is not rendered at a
 ### Normal Operation
 - **Green pulsing indicator**: Active monitoring with successful data loading
 - **Smooth transitions**: All controls respond normally
-- **Current data display**: Shows up-to-date consumption information, including an accurate minutes package status when configured
+- **Current data display**: Shows up-to-date consumption information, including an accurate minutes package or balance status when configured
 
 ### Error States
 - **Amber indicator**: Data loading failures or connectivity issues
@@ -438,6 +501,40 @@ If consumption data fails to load, the minutes package card is not rendered at a
 - Confirm the contracted minutes value configured on the account's Billy profile
 - Compare consumption across previous periods using the period dropdown to check if this is an isolated spike
 - Remember the red indicator is informational only — it does not block calls or billing calculations
+</Tab>
+
+<Tab title="Balance Block Not Showing">
+**Possible causes:**
+- The account is not on a rules-v2 billing contract
+- The consumption response has not finished loading
+- The account is billed under legacy per-unit rules only
+
+**Solutions:**
+- Confirm with your administrator whether the account has been migrated to a rules-v2 contract
+- Wait for the initial consumption load to complete, then check again
+- Refresh the panel manually to force a fresh data fetch
+</Tab>
+
+<Tab title="Committed Tier Shows Overage Amount">
+**Possible causes:**
+- Genuine usage above the contracted volume for the current period — this is expected, billable behavior, not an error
+- The committed tier's contracted volume was recently reduced
+
+**Solutions:**
+- Review the overage amount and unit count shown in the footer message; this will be billed at the same tier price next period
+- Confirm the contracted volume configured on the active committed tier if the figure looks unexpected
+- No action is required if the overage reflects genuine, expected consumption
+</Tab>
+
+<Tab title="Prepaid Bag Available Units Look Incorrect">
+**Possible causes:**
+- Recent top-ups or purchases not yet reflected in the cached response
+- Consumption from a previous period not yet reconciled
+
+**Solutions:**
+- Trigger a manual refresh to fetch the latest prepaid balance
+- Verify the most recent top-up transaction with your administrator
+- Compare "consumed this period" against your own call activity to sanity-check the figure
 </Tab>
 
 <Tab title="Filters Not Working">
@@ -494,6 +591,7 @@ If consumption data fails to load, the minutes package card is not rendered at a
 ### Regular Monitoring
 - **Check consumption frequently** to stay within budget limits
 - **Watch the minutes package bar** to anticipate reaching your contracted allowance before it turns red
+- **Watch the balance block** for rules-v2 accounts to track committed tier usage or prepaid bag depletion
 - **Use period comparisons** to identify usage trends
 - **Monitor assistant performance** to optimize resource allocation
 
@@ -511,13 +609,18 @@ If consumption data fails to load, the minutes package card is not rendered at a
 
 ### Collapsed Mode Usage
 - **Keep the panel collapsed** during regular work to let the ticker surface key updates passively
-- **Glance at rotating messages** for a quick pulse on consumption and package status without expanding the panel
+- **Glance at rotating messages** for a quick pulse on the period total, minutes package or balance status, and top consuming assistant without expanding the panel
 - **Expand only when you need details**, such as adjusting filters or reviewing historical charts
 
 ### Managing a Minutes Package
 - **Treat the emerald bar as a planning tool**: use the remaining-minutes footer message to anticipate when the allowance will run out
 - **Treat red as an alert, not a block**: when the bar turns red, review usage drivers (which assistants, which periods) rather than assuming calls have stopped
 - **Cross-check with your Billy profile**: if the contracted figure looks wrong, verify the configured allowance directly on the billing profile rather than only in the panel
+
+### Managing a Rules-v2 Balance
+- **Treat committed tier overage as billable, not urgent**: it will simply be invoiced at the tier price next period, so no immediate action is required unless the volume looks unexpected
+- **Monitor prepaid bag depletion proactively**: since there's no automatic renewal, keep an eye on available units to plan the next top-up before the balance runs out
+- **Use the tier name to confirm the active contract**: if you expect a different tier price or volume, verify the tier name shown against what's configured on the account
 
 ### Performance Optimization
 - **Keep the panel collapsed** when not actively monitoring
