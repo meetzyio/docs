@@ -6,25 +6,29 @@ icon: 'list'
 
 ## Vista General de Agentes
 
-La sección **Agents** presenta una interfaz moderna de panel dividido que te permite gestionar eficientemente todos tus agentes de voz:
+La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que te permite gestionar eficientemente todos tus agentes de voz:
 
 <CardGroup cols={2}>
-  <Card title="Panel Izquierdo" icon="list">
-    Lista completa de agentes con búsqueda avanzada, filtros por compañía y herramientas de organización
+  <Card title="Panel Izquierdo (Lista)" icon="list">
+    Lista completa de agentes con búsqueda, filtro por compañía e interruptor para mostrar u ocultar agentes archivados
   </Card>
-  <Card title="Panel Derecho" icon="eye">
-    Vista detallada del agente seleccionado con métricas, historial de llamadas y acciones rápidas
+  <Card title="Panel Derecho (Detalle)" icon="eye">
+    Vista detallada del agente seleccionado organizada en tres pestañas: Overview, Calls y Settings
   </Card>
 </CardGroup>
+
+<Info>
+  Esta es la nueva página de Agentes. Si necesitas volver temporalmente a la vista clásica, verás un aviso en la parte superior con un enlace **"Switch back to the classic view"**.
+</Info>
 
 ## Navegación Rápida
 
 <Tabs>
   <Tab title="Panel de Agentes">
-    Explora la lista completa de agentes con herramientas de búsqueda y filtrado avanzado
+    Explora la lista completa de agentes con búsqueda, filtro por compañía y control de visibilidad de archivados
   </Tab>
-  <Tab title="Vista Detallada">
-    Analiza métricas de rendimiento, historial de llamadas y configuración específica de cada agente
+  <Tab title="Panel de Detalle">
+    Analiza métricas de rendimiento, historial de llamadas y configuración específica en las pestañas Overview, Calls y Settings
   </Tab>
   <Tab title="Editor Avanzado">
     Accede a funciones de configuración profesional para agentes con el badge "Advanced"
@@ -38,85 +42,130 @@ La sección **Agents** presenta una interfaz moderna de panel dividido que te pe
 
 ### Búsqueda Inteligente
 
-El campo de búsqueda en la parte superior del panel izquierdo soporta múltiples criterios:
+El campo de búsqueda en la parte superior del panel de filtros soporta múltiples criterios:
 
 - **Por nombre**: Escribe el nombre del agente
-- **Por ID**: Busca usando el identificador único
-- **Por función**: Encuentra agentes por su propósito (ventas, soporte, etc.)
+- **Por compañía**: Encuentra agentes asociados a una organización específica
+- **Por ID**: Busca usando el identificador único del agente
 
 <Tip>
   La búsqueda es en tiempo real y no distingue entre mayúsculas y minúsculas.
 </Tip>
 
-### Filtros Avanzados
+### Filtros Disponibles
 
 #### Filtrar por Compañía
-Si tienes acceso a múltiples organizaciones:
+Si tienes acceso a múltiples organizaciones, el selector **Company** aparece junto al buscador:
 
 <Steps>
   <Step title="Acceder al filtro">
     Haz clic en el dropdown **"All companies"**
   </Step>
-  <Step title="Seleccionar organización">
-    Busca o selecciona la compañía deseada de la lista
+  <Step title="Buscar o seleccionar">
+    Usa el campo de filtrado dentro del desplegable o selecciona directamente la compañía deseada de la lista
   </Step>
   <Step title="Ver resultados">
     La lista se actualiza mostrando solo agentes de esa compañía
   </Step>
 </Steps>
 
-#### Filtrar por Estado
+#### Mostrar u Ocultar Agentes Archivados
 
-Los agentes se pueden filtrar por su estado actual:
-- **Activos**: Agentes en producción
-- **En entrenamiento**: Agentes siendo configurados
-- **Pausados**: Agentes temporalmente desactivados
-- **Archivados**: Agentes retirados que ya no reciben llamadas
-- **Demo**: Agentes de ejemplo y plantillas
+El interruptor **Archived agents** controla la visibilidad de los agentes archivados directamente en la lista principal:
+
+- **Hidden** (por defecto): Los agentes archivados quedan ocultos para mantener la lista limpia
+- **Shown**: Los agentes archivados aparecen junto al resto, identificados con un badge **Archived**
 
 <Info>
-  Usa el botón **Clear Filters** para restablecer todos los filtros y ver la lista completa. Por defecto, los agentes archivados quedan ocultos de la vista principal para mantener la lista limpia.
+  Usa el botón **Clear filters** para restablecer la búsqueda, el filtro de compañía y la visibilidad de archivados con un solo clic. Este botón solo aparece cuando hay algún filtro activo.
 </Info>
 
 ## Vista Detallada del Agente
 
-Al seleccionar cualquier agente, el panel derecho muestra información completa y actualizada:
+Al seleccionar cualquier agente en la lista, el panel derecho carga su información en tres pestañas: **Overview**, **Calls** y **Settings**.
 
-### Información Principal
+### Encabezado del Panel
+
+En la parte superior del panel de detalle encontrarás:
 
 | Elemento | Descripción | Funcionalidad |
 |----------|-------------|---------------|
-| **Nombre del Agente** | Identificador personalizado | Editable desde configuración |
+| **Nombre del Agente** | Identificador personalizado | Se muestra como título del panel |
 | **ID del Agente** | Identificador único del sistema | Clic para copiar al portapapeles |
-| **Badges de Estado** | Indicadores visuales del estado | Training, Pause, Archived, Demo o producción |
-| **Badge Advanced** | Editor avanzado habilitado | Acceso a funciones profesionales |
-| **Phone Health** | Salud de números telefónicos | Indicador de rendimiento en tiempo real |
-
-### Métricas de Rendimiento
-
-El panel superior muestra estadísticas clave:
-
-- **Llamadas totales**: Número acumulado de interacciones
-- **Duración promedio**: Tiempo medio de conversación
-- **Tasa de éxito**: Porcentaje de llamadas completadas exitosamente
-- **Última actividad**: Timestamp de la llamada más reciente
-
-### Historial de Llamadas Recientes
-
-La tabla muestra las últimas 200 llamadas con información detallada:
-
-| Columna | Información | Acciones |
-|---------|-------------|----------|
-| **ID** | Identificador único de la llamada | Clic para ver detalles |
-| **Fecha y Hora** | Timestamp completo de la llamada | Ordenable por fecha |
-| **Duración** | Tiempo total de conversación | Formato mm:ss |
-| **Estado** | Resultado final (completada, fallida, etc.) | Badge con código de colores |
-| **Destino** | Número telefónico contactado | Formato internacional |
-| **Evaluación** | Puntuación automática (si disponible) | Escala de calidad |
+| **Badge Archived** | Indicador de estado archivado | Visible únicamente si el agente está archivado |
+| **Compañía** | Organización propietaria del agente | Solo visible si el agente tiene compañía asociada |
+| **Botón cerrar (✕)** | Cierra el panel de detalle | Vuelve a la vista de solo lista |
 
 <Note>
-  Haz clic en **View All** para acceder a la página completa de llamadas con filtros avanzados, exportación de datos y análisis detallado.
+  Los agentes con **Editor Avanzado** habilitado no muestran la pestaña **Settings**, ya que su configuración se gestiona íntegramente desde el Advanced Editor.
 </Note>
+
+### Pestaña Overview
+
+Es la pestaña que se abre por defecto al seleccionar un agente. Ofrece un panel completo de rendimiento:
+
+#### Tarjetas de Resumen
+
+- **Total calls**: Número acumulado de llamadas
+- **Success rate**: Porcentaje de llamadas cerradas con éxito
+- **Avg duration**: Duración media de las conversaciones
+- **Avg AI latency**: Latencia media de respuesta de la IA, con un indicador de tendencia (▲/▼) que compara la primera y la segunda mitad del periodo analizado
+
+#### Gráficos Históricos
+
+<CardGroup cols={2}>
+  <Card title="Latency history (14 days)" icon="chart-line">
+    Evolución diaria de la latencia media de IA durante las últimas dos semanas
+  </Card>
+  <Card title="Call volume (30 days)" icon="chart-column">
+    Volumen diario de llamadas registradas durante el último mes
+  </Card>
+</CardGroup>
+
+<Note>
+  Si el agente aún no tiene datos suficientes, cada gráfico muestra un mensaje indicando que todavía no hay información disponible.
+</Note>
+
+#### Tarjeta de Phone Health
+
+Un bloque destacado dentro de Overview te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability), sin salir del panel de detalle.
+
+#### Acciones Rápidas
+
+En la parte inferior de Overview encontrarás, según tus permisos y el tipo de agente:
+
+| Acción | Disponibilidad | Descripción |
+|--------|-----------------|-------------|
+| **Editor** | Agentes con Editor Avanzado | Abre el Advanced Editor en una nueva pestaña |
+| **Trends** | Agentes con Editor Avanzado | Abre la vista de tendencias de evaluación filtrada por este agente |
+| **Clone** | Administradores y usuarios con rol adecuado | Inicia el flujo de clonación en dos pasos |
+| **Archive** | Usuarios con permiso de creación/edición de agentes | Abre el modal de confirmación de archivado |
+
+### Pestaña Calls
+
+Muestra el historial de llamadas del agente correspondiente a los últimos 90 días (a diferencia de otras vistas de llamadas, que por defecto muestran solo 7 días):
+
+| Columna | Información |
+|---------|-------------|
+| **Date** | Fecha y hora de la llamada, ordenable |
+| **From** | Número de origen de la llamada |
+| **Status** | Estado final de la llamada |
+| **Duration** | Duración total, ordenable |
+| **Latency** | Latencia media de IA registrada durante la llamada |
+| **Links** | Solo visible para administradores |
+| **Actions** | Acceso a la grabación y otros detalles de la llamada |
+
+<Tip>
+  Puedes reproducir la grabación de cualquier llamada directamente desde esta pestaña sin salir del panel de detalle, gracias al mismo reproductor utilizado en la sección de Calls.
+</Tip>
+
+### Pestaña Settings
+
+Disponible únicamente para agentes **sin** Editor Avanzado. Contiene el formulario completo de configuración básica del agente: nombre, prompt, campos personalizados, integraciones y opciones de zona de peligro (Danger Zone), incluyendo el intercambio de número telefónico.
+
+<Warning>
+  Los cambios en agentes en producción afectan inmediatamente a las llamadas entrantes. Considera probar en un ambiente de desarrollo primero.
+</Warning>
 
 ## Editar Configuración del Agente
 
@@ -126,7 +175,7 @@ Para agentes que muestran el badge **"Advanced"**:
 
 <Steps>
   <Step title="Acceder al editor">
-    Haz clic en el botón **Advanced Editor**
+    Haz clic en el botón **Editor** dentro de la pestaña Overview del panel de detalle
   </Step>
   <Step title="Navegar por secciones">
     Utiliza el navegador lateral izquierdo para acceder a cada sección:
@@ -185,10 +234,42 @@ Dentro del Editor Avanzado (en escritorio, cuando editas un agente existente), l
 
 ### Agentes Estándar
 
-Para agentes sin el badge "Advanced", las opciones se limitan al panel de configuración básica con funcionalidades esenciales.
+Para agentes sin el badge "Advanced", la configuración se gestiona desde la pestaña **Settings** del panel de detalle, con funcionalidades esenciales: datos básicos, campos personalizados del formulario de llamada e intercambio de número telefónico.
 
 <Warning>
   Los cambios en agentes en producción afectan inmediatamente a las llamadas entrantes. Considera probar en un ambiente de desarrollo primero.
+</Warning>
+
+## Editar Campos Personalizados del Formulario de Llamada
+
+Cada agente puede tener campos personalizados que aparecen en el formulario de llamada saliente (por ejemplo, nombre del cliente, empresa o motivo de la llamada). Estos campos se gestionan desde el modal **Configure Form Fields**.
+
+<Steps>
+  <Step title="Abrir el editor de campos">
+    Haz clic en el botón **Edit Form** dentro del panel de "Llamar" de la fila del agente, o desde la pestaña Settings si el agente no es avanzado
+  </Step>
+  <Step title="Añadir o editar un campo">
+    Para cada campo puedes definir:
+    - **Field Label**: Nombre visible del campo
+    - **Field Type**: Texto, email, número, teléfono o desplegable
+    - **Parameter ID**: Identificador usado en el prompt como `{{id}}` (se genera automáticamente a partir del label, pero puedes personalizarlo)
+    - **Placeholder Text**: Texto de ejemplo mostrado en el campo vacío
+    - **Required field**: Marca si el campo es obligatorio antes de iniciar la llamada
+  </Step>
+  <Step title="Eliminar un campo">
+    Haz clic en el icono de papelera junto al campo; se pedirá confirmación antes de eliminarlo definitivamente
+  </Step>
+  <Step title="Guardar cambios">
+    Confirma para actualizar el formulario de llamada del agente inmediatamente
+  </Step>
+</Steps>
+
+<Info>
+  Los campos del sistema (teléfono, voz, idioma) son obligatorios y no pueden modificarse desde este editor, ya que son necesarios para el funcionamiento básico del agente.
+</Info>
+
+<Warning>
+  El **Parameter ID** debe ser único dentro del agente y no puede coincidir con los identificadores de los campos del sistema. Si introduces un ID duplicado o en conflicto, el sistema mostrará un error explicativo antes de guardar.
 </Warning>
 
 ## Creación de Agentes con IA
@@ -223,27 +304,40 @@ Meetzy ofrece una experiencia de creación guiada por IA:
 ### Requisitos de Permisos
 
 <Info>
-  La funcionalidad de clonado está disponible solo para usuarios administradores y agentes con Editor Avanzado habilitado.
+  La funcionalidad de clonado está disponible para usuarios administradores y usuarios con rol adecuado (`user` o `member`), independientemente de si el agente tiene o no Editor Avanzado habilitado.
 </Info>
 
-### Proceso de Clonación
+### Proceso de Clonación en Dos Pasos
+
+El clonado se realiza a través de un modal de **dos pasos**: primero configuras los detalles de la copia y después revisas un resumen antes de confirmar.
 
 <Steps>
   <Step title="Seleccionar agente">
-    Escoge el agente que deseas duplicar de la lista
+    Escoge el agente que deseas duplicar y haz clic en el botón **Clone** dentro de su panel de detalle
   </Step>
-  <Step title="Iniciar clonación">
-    Haz clic en el botón **Clone Agent**
+  <Step title="Paso 1: Configurar el duplicado">
+    En el primer paso del modal define:
+    - **Agent Name**: Se propone automáticamente como "[Nombre Original] (Copy)"
+    - **Target Company**: Solo visible para administradores en el dominio de Meetzy; selecciona la compañía destino
+    - **Phone Number**: Elige un número disponible en la misma cuenta de Twilio que el agente original
+    - **Number Usage**: Decide si el número se usará para *Outbound & Inbound*, solo *Outbound* o solo *Inbound*
+    - **Agent Tools**: Elige entre **Duplicate tools** (copias independientes) o **Reuse existing tools** (comparten las mismas tools que el original)
   </Step>
-  <Step title="Configurar duplicado">
-    - Se crea automáticamente con el nombre "[Nombre Original] (Copy)"
-    - Hereda toda la configuración del agente original
-    - Requiere asignación de nuevo número telefónico
+  <Step title="Paso 2: Revisar y confirmar">
+    El modal muestra un resumen con la compañía destino, el número seleccionado, su uso y el modo de tools elegido antes de ejecutar la clonación
   </Step>
   <Step title="Personalizar">
-    Edita el nuevo agente según tus necesidades específicas
+    Una vez creado, edita el nuevo agente según tus necesidades específicas
   </Step>
 </Steps>
+
+<Warning>
+  Si no hay números disponibles en la cuenta de Twilio del agente original, el modal te lo indicará: deberás liberar un número existente o comprar uno nuevo antes de poder completar la clonación.
+</Warning>
+
+<Info>
+  Al elegir **Reuse existing tools**, cualquier cambio futuro en una tool compartida afectará a ambos agentes (el original y el clon). Si prefieres que evolucionen de forma independiente, selecciona **Duplicate tools**.
+</Info>
 
 ### Casos de Uso para Duplicación
 
@@ -256,7 +350,7 @@ Meetzy ofrece una experiencia de creación guiada por IA:
 
 ## Archivar Agentes
 
-Cuando un agente ya no está en uso pero quieres conservar su configuración e historial (en lugar de eliminarlo definitivamente), puedes **archivarlo**. Un agente archivado deja de recibir llamadas y desaparece de la lista principal, pero toda su configuración, historial de llamadas y métricas permanecen disponibles.
+Cuando un agente ya no está en uso pero quieres conservar su configuración e historial (en lugar de eliminarlo definitivamente), puedes **archivarlo**. Un agente archivado deja de recibir llamadas y desaparece de la lista principal por defecto, pero toda su configuración, historial de llamadas y métricas permanecen disponibles.
 
 <Info>
   Archivar es una acción reversible pensada para "poner en pausa" un agente a largo plazo, a diferencia de la pausa temporal que solo desactiva el número telefónico.
@@ -266,29 +360,29 @@ Cuando un agente ya no está en uso pero quieres conservar su configuración e h
 
 <Steps>
   <Step title="Abrir el agente">
-    Selecciona el agente que deseas archivar desde la lista o ábrelo en el Editor Avanzado
+    Selecciona el agente que deseas archivar desde la lista para abrir su panel de detalle
   </Step>
   <Step title="Iniciar el archivado">
-    Haz clic en la opción **Archive Agent**. Se abrirá un modal de confirmación
+    Haz clic en el botón **Archive** dentro de la pestaña Overview. Se abrirá un modal de confirmación
   </Step>
   <Step title="Decidir sobre el número telefónico">
-    En el modal, activa la opción **Release phone number** si deseas liberar el número asociado para reutilizarlo en otro agente. Si la dejas desactivada, el número permanecerá reservado para este agente
+    En el modal, activa la opción **Release its phone number for other agents** si deseas liberar el número asociado para reutilizarlo en otro agente. Si la dejas desactivada, el número permanecerá reservado para este agente
   </Step>
   <Step title="Confirmar">
-    Confirma la acción. El proceso puede tardar unos segundos mientras se archiva el agente y, si corresponde, se libera el número
+    Haz clic en **Archive** para confirmar. El botón mostrará el estado "Archiving..." mientras se procesa la solicitud, incluyendo la liberación del número si corresponde
   </Step>
 </Steps>
 
 ### El Modal de Archivado en Detalle
 
-Al hacer clic en **Archive Agent** se abre un modal de confirmación diseñado para evitar acciones accidentales, ya que archivar afecta directamente la disponibilidad del agente:
+Al hacer clic en **Archive** se abre un modal de confirmación diseñado para evitar acciones accidentales, ya que archivar afecta directamente la disponibilidad del agente:
 
 <CardGroup cols={2}>
   <Card title="Confirmación explícita" icon="circle-check">
-    El modal explica claramente que el agente dejará de recibir llamadas y requiere una acción deliberada para continuar
+    El modal indica claramente que la acción ocultará el agente de la lista de agentes, aclarando que no elimina sus datos
   </Card>
   <Card title="Opción de liberar número" icon="phone-slash">
-    Un interruptor **Release phone number** te permite decidir si el número telefónico asociado queda libre para asignarse a otro agente
+    Un checkbox **Release its phone number for other agents** te permite decidir si el número telefónico asociado queda libre para asignarse a otro agente, reseteando su configuración en Twilio
   </Card>
 </CardGroup>
 
@@ -297,7 +391,7 @@ Al hacer clic en **Archive Agent** se abre un modal de confirmación diseñado p
 </Warning>
 
 <Note>
-  Mientras el proceso de archivado está en curso, el botón de confirmación muestra un estado de carga para indicar que la operación se está procesando (incluyendo, si corresponde, la liberación del número). Evita cerrar el modal o navegar fuera de la página hasta que finalice.
+  Mientras el proceso de archivado está en curso, tanto el botón de confirmación como el de cancelar quedan deshabilitados para evitar cerrar el modal o repetir la acción antes de que finalice. Si ocurre un error durante el proceso, el modal lo mostrará para que puedas intentarlo de nuevo.
 </Note>
 
 ### Qué sucede al archivar un agente
@@ -305,7 +399,7 @@ Al hacer clic en **Archive Agent** se abre un modal de confirmación diseñado p
 | Aspecto | Efecto |
 |---------|--------|
 | **Recepción de llamadas** | El agente deja de responder llamadas entrantes y salientes |
-| **Visibilidad en la lista** | Se oculta de la vista principal de agentes (se puede acceder mediante el filtro de estado "Archivados") |
+| **Visibilidad en la lista** | Se oculta de la vista principal por defecto (actívalo con el interruptor **Archived agents: Shown** para verlo) |
 | **Configuración** | Se conserva íntegramente: prompts, parámetros, integraciones y base de conocimiento |
 | **Historial de llamadas** | Permanece accesible para consulta y análisis |
 | **Número telefónico** | Se libera solo si seleccionaste explícitamente esa opción durante el archivado |
@@ -316,11 +410,14 @@ Al hacer clic en **Archive Agent** se abre un modal de confirmación diseñado p
 Un agente archivado puede reactivarse en cualquier momento:
 
 <Steps>
+  <Step title="Mostrar agentes archivados">
+    Activa el interruptor **Archived agents** en el panel de filtros para que aparezcan en la lista principal, identificados con el badge **Archived**
+  </Step>
   <Step title="Localizar el agente">
-    Usa el filtro de estado **"Archivados"** en el panel izquierdo para encontrar el agente
+    Usa la búsqueda o el filtro de compañía para encontrar rápidamente el agente deseado
   </Step>
   <Step title="Restaurar">
-    Selecciona la opción **Unarchive** o **Restore Agent** en el panel de detalle
+    Selecciona la opción de restauración disponible en la lista o en el panel de detalle del agente
   </Step>
   <Step title="Reasignar número (si aplica)">
     Si el número original fue liberado, deberás asignar un nuevo número telefónico antes de que el agente pueda volver a recibir llamadas
@@ -331,24 +428,72 @@ Un agente archivado puede reactivarse en cualquier momento:
   Archivar en lugar de eliminar es la práctica recomendada cuando existe la posibilidad de reactivar un agente en el futuro, ya que preserva todo su historial y aprendizaje acumulado.
 </Tip>
 
+## Intercambiar Número de Teléfono (Swap)
+
+Meetzy permite intercambiar el número telefónico asignado a un agente por otro número disponible en la misma cuenta de Twilio, sin necesidad de reconfigurar el agente desde cero.
+
+### Cuándo usar el Swap
+
+- El número actual presenta problemas de reputación o ha sido marcado como spam
+- Necesitas reorganizar la asignación de números entre varios agentes
+- Quieres liberar un número específico para otro propósito manteniendo el agente operativo
+
+### Proceso de Intercambio
+
+<Steps>
+  <Step title="Iniciar el swap">
+    Haz clic en el icono de intercambio (⇄) junto al número telefónico que deseas cambiar, disponible en el panel de "Llamar" de la fila del agente o en la pestaña Settings
+  </Step>
+  <Step title="Revisar el número actual">
+    El modal muestra el **número actual** que será liberado, resaltado en rojo
+  </Step>
+  <Step title="Confirmar el nuevo número">
+    El sistema selecciona automáticamente el primer número disponible en la misma cuenta de Twilio y lo muestra resaltado en verde. Si no hay números disponibles, se mostrará un mensaje de error indicando la cuenta afectada
+  </Step>
+  <Step title="Confirmar el intercambio">
+    Haz clic en **Confirm Swap**. La operación actualiza tanto la base de datos como la configuración en Twilio, y el número anterior queda marcado para su liberación
+  </Step>
+</Steps>
+
+<Warning>
+  El número anterior queda marcado para liberación tan pronto se confirma el swap. Si necesitas conservarlo para otro uso, asegúrate de gestionarlo antes de confirmar la operación.
+</Warning>
+
+<Info>
+  El swap solo permite elegir números disponibles dentro de la **misma cuenta de Twilio** del agente. Si necesitas un número de otra cuenta o proveedor, contacta a soporte.
+</Info>
+
+### Permisos para Intercambiar Números
+
+La disponibilidad del swap depende de tu rol:
+
+| Rol | ¿Puede hacer swap? |
+|-----|---------------------|
+| **Administrador** | Sí, siempre |
+| **Usuario con permiso de creación/edición de agentes** | Sí |
+| **Rol "user" propietario del agente** | Sí, solo en sus propios agentes |
+| **Rol "member"** | Sí |
+| **Agentes demo (no administrador)** | No |
+
 ## Sistema de Llamadas de Prueba
 
-Cada agente incluye herramientas integradas para realizar pruebas exhaustivas:
+Cada agente incluye herramientas integradas para realizar pruebas exhaustivas desde su panel de "Llamar" por fila:
 
 ### Llamadas Entrantes de Prueba
 
 <Tabs>
   <Tab title="Configuración">
-    El sistema proporciona un número telefónico dedicado:
+    El sistema muestra los números telefónicos dedicados del agente:
     ```
     Phone to test inbound call:
-    +34 612 345 678 [📋 Copiar]
+    +34 612 345 678 [📋 Copiar sin prefijo]
     ```
+    Si el agente solo usa caller IDs verificados para llamadas salientes (sin recibir entrantes), se muestra un aviso indicándolo en lugar de un número.
   </Tab>
   <Tab title="Proceso de prueba">
     <Steps>
       <Step title="Obtener número">
-        Copia el número o usa click-to-call
+        Copia el número (con o sin código de país) o úsalo directamente como enlace de llamada
       </Step>
       <Step title="Realizar llamada">
         Llama desde tu teléfono personal
@@ -357,7 +502,7 @@ Cada agente incluye herramientas integradas para realizar pruebas exhaustivas:
         El agente responde según su configuración actual
       </Step>
       <Step title="Evaluar">
-        Analiza la conversación y el comportamiento
+        Analiza la conversación desde la pestaña Calls del panel de detalle
       </Step>
     </Steps>
   </Tab>
@@ -368,15 +513,15 @@ Cada agente incluye herramientas integradas para realizar pruebas exhaustivas:
 El formulario de llamadas salientes se genera dinámicamente basado en los campos configurados del agente:
 
 #### Campos Comunes
-- **Número de destino**: Teléfono que recibirá la llamada
-- **Campos personalizados**: Según la configuración del agente (nombre, empresa, propósito, etc.)
+- **Número de destino**: Con selector de prefijo de país (se recuerda tu última selección)
+- **Campos personalizados**: Según la configuración del agente (nombre, empresa, propósito, etc.), editables mediante el botón **Edit Form**
 - **Selector de voz**: Opcional, para probar diferentes voces
-- **Versión del agente**: Solo para agentes avanzados
+- **Selector de versión**: Solo para agentes con Editor Avanzado
 
 #### Funcionalidades Avanzadas
-- **Validación en tiempo real**: Los campos se validan antes del envío
-- **Formato internacional**: Soporte automático para códigos de país
-- **Historial de pruebas**: Se registran todas las llamadas de test
+- **Validación en tiempo real**: Se avisa de los campos obligatorios que falten antes de iniciar la llamada
+- **Formato internacional**: Amplio catálogo de prefijos de país disponibles en el selector
+- **Intercambio rápido de número**: Icono de swap (⇄) disponible junto a cada número entrante, si tienes permisos
 
 <Warning>
   Las llamadas de prueba consumen minutos de tu plan igual que las llamadas normales. Usa esta función con moderación durante el desarrollo.
@@ -461,12 +606,15 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 
 | Acción | Método | Descripción |
 |--------|---------|-------------|
-| **Copiar ID** | Clic en icono 📋 | Copia el identificador único al portapapeles |
-| **Refrescar llamadas** | Botón "Refresh" | Actualiza el historial de llamadas recientes |
-| **Ver todas las llamadas** | Botón "View All" | Abre la vista completa con filtros avanzados |
-| **Cambiar de agente** | Selector de agentes (Editor Avanzado) | Salta a otro agente sin perder el contexto del editor |
-| **Archivar agente** | Botón "Archive Agent" | Retira el agente de producción conservando su configuración |
-| **Cerrar panel** | Clic en ✕ o seleccionar otro agente | Cierra la vista detallada |
+| **Copiar ID** | Clic en el badge de ID | Copia el identificador único al portapapeles |
+| **Editor** | Botón "Editor" (pestaña Overview) | Abre el Advanced Editor en una nueva pestaña |
+| **Trends** | Botón "Trends" (pestaña Overview) | Abre la vista de tendencias de evaluación del agente |
+| **Clone** | Botón "Clone" (pestaña Overview) | Inicia el flujo de clonación en dos pasos |
+| **Archive** | Botón "Archive" (pestaña Overview) | Abre el modal de confirmación de archivado |
+| **Swap número** | Icono ⇄ junto al número | Abre el modal de intercambio de número telefónico |
+| **Edit Form** | Botón "Edit Form" en el panel de llamar | Abre el editor de campos personalizados |
+| **Cambiar de agente (Editor Avanzado)** | Selector de agentes | Salta a otro agente sin perder el contexto del editor |
+| **Cerrar panel** | Clic en ✕ | Cierra la vista detallada y vuelve a la vista de solo lista |
 
 ### Atajos de Teclado en el Editor Avanzado
 
@@ -494,10 +642,10 @@ Para usuarios administradores, está disponible la gestión masiva:
 
 El sistema monitorea continuamente la salud de tus agentes:
 
-- **Phone Health**: Estado de números telefónicos asignados
-- **Response Time**: Tiempo de respuesta del agente
-- **Error Rate**: Tasa de fallos en llamadas
-- **Availability**: Disponibilidad del servicio
+- **Phone Health**: Estado de números telefónicos asignados, accesible directamente desde la pestaña Overview
+- **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días y tendencia comparativa
+- **Success Rate**: Tasa de llamadas cerradas con éxito
+- **Call Volume**: Volumen diario de llamadas con histórico de 30 días
 
 ### Notificaciones Automáticas
 
@@ -537,10 +685,10 @@ Recibe alertas sobre:
     - El agente fue archivado accidentalmente
     
     **Soluciones:**
-    1. Verificar estado del número en Phone Health
-    2. Confirmar que el agente no aparece como "Archived"
-    3. Probar con llamada de prueba
-    4. Revisar logs de error en historial de llamadas
+    1. Verificar estado del número desde la tarjeta de Phone Health en la pestaña Overview
+    2. Confirmar que el agente no muestra el badge "Archived" en el encabezado del panel
+    3. Probar con una llamada de prueba desde el panel de "Llamar"
+    4. Revisar la pestaña Calls para identificar errores recientes
   </Tab>
   <Tab title="Calidad de conversación baja">
     **Mejoras recomendadas:**
@@ -550,16 +698,23 @@ Recibe alertas sobre:
     - Revisar configuración de voz y velocidad
   </Tab>
   <Tab title="Error en clonación">
-    **Verificar permisos:**
-    - Usuario administrador o Editor Avanzado
-    - Números telefónicos disponibles
+    **Verificar lo siguiente:**
+    - Usuario administrador o con rol "user"/"member"
+    - Números telefónicos disponibles en la cuenta de Twilio del agente original
     - Límites de plan no excedidos
+    - Si eliges "Reuse existing tools", confirma que realmente quieres compartir las tools entre ambos agentes
   </Tab>
   <Tab title="No encuentro un agente archivado">
     **Pasos para localizarlo:**
-    - Aplica el filtro de estado **"Archivados"** en el panel izquierdo
+    - Activa el interruptor **Archived agents** en el panel de filtros para mostrarlos
     - Verifica que estás en la compañía correcta si administras varias organizaciones
     - Usa la búsqueda por nombre o ID para confirmar su existencia
+  </Tab>
+  <Tab title="No puedo hacer swap de un número">
+    **Verifica lo siguiente:**
+    - Confirma que tienes el rol o permiso adecuado para este agente (ver tabla de permisos de swap)
+    - Si el agente es demo, solo un administrador puede realizar el intercambio
+    - Asegúrate de que existan números disponibles en la misma cuenta de Twilio; si no los hay, el modal mostrará un mensaje de error
   </Tab>
   <Tab title="No encuentro el selector de agentes en el editor">
     **Verifica lo siguiente:**

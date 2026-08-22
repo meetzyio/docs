@@ -1,226 +1,99 @@
 ---
 title: 'Manage Agents'
-description: 'Learn how to view, edit, duplicate, archive, and manage your voice agents in the Meetzy dashboard'
+description: 'Learn how to view, edit, clone, archive, and manage your voice agents in the redesigned Meetzy Agents dashboard'
 icon: 'robot'
 ---
 
 ## Overview
 
-The **Agents** section provides comprehensive management tools for your voice agents with an enhanced split-panel interface:
+The **Agents** page has been fully redesigned around a **master-detail layout**: a compact agent list on the left and a rich detail panel on the right, so you can browse, inspect, and act on any agent without leaving the page.
+
+<Info>
+  This redesign replaces the classic Agents page. A **"Switch back to the classic view"** banner remains available at the top of the screen while both experiences coexist.
+</Info>
 
 <Tabs>
-  <Tab title="Agents Panel">
-    **Left Panel**: Agent list with advanced search, filters, and bulk actions
+  <Tab title="Agents List (left)">
+    A scrollable list of agents with search, company filter, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload.
   </Tab>
-  <Tab title="Details Panel">
-    **Right Panel**: Detailed agent information, calls history, and quick actions
+  <Tab title="Detail Panel (right)">
+    A tabbed panel — **Overview**, **Calls**, and **Settings** — showing everything about the selected agent: performance metrics, latency history, call log, and configuration.
   </Tab>
 </Tabs>
 
-## Enhanced Navigation and Switching
+## Agent List and Filters
 
-### Advanced Editor Agent Navigation
+### Search and Company Filter
 
-The Advanced Editor now includes enhanced navigation capabilities to seamlessly switch between agents:
+The filters bar above the list lets admins and multi-company users narrow down the agent list quickly:
 
-<Steps>
-  <Step title="Agent Selector in Advanced Editor">
-    When editing an advanced agent, access the agent selector dropdown in the header toolbar (desktop only):
-    - Click the agent name button to reveal the dropdown
-    - Browse through all available agents with search and filter capabilities
-    - Switch between agents without losing your current work
-  </Step>
-  
-  <Step title="Smart Context Preservation">
-    Advanced Editor maintains your working context:
-    - **Unsaved changes protection**: Prompts to save or discard changes before switching
-    - **Tab state preservation**: Editor tabs remain open when switching agents
-    - **View preferences**: Minimap, focus mode, and layout settings persist
-  </Step>
-  
-  <Step title="Company-Based Filtering">
-    For admin users with multi-company access:
-    - Filter agents by specific companies
-    - Search within company-scoped agent lists
-    - Quick company switching within the editor interface
-  </Step>
-</Steps>
-
-<Info>
-  The agent selector dropdown is optimized for desktop use. On mobile devices, use the "Back to Agents" button to return to the main agents list for navigation.
-</Info>
-
-### Quick Agent Switching Workflow
-
-```
-Current Agent: Customer Support Bot
-↓
-Click agent selector → Search "Sales" → Select "Sales Assistant"
-↓
-Auto-save current work → Load new agent → Preserve editor state
-```
-
-### Quick Agent Selector: In-Depth Guide
-
-The agent name button in the top-left corner of the Advanced Editor's header toolbar is more than a label — it's a fully-featured quick switcher that lets you jump between agents without ever leaving the editor.
-
-<Steps>
-  <Step title="Open the Selector">
-    Click on the current agent's name and colored initial avatar in the header toolbar. A dropdown panel opens directly below the button, showing:
-    - A search field to filter agents by name
-    - A compact **company filter** dropdown (visible only to admin users with access to multiple companies)
-    - A scrollable list of agents, each displayed with its colored initial avatar and name
-  </Step>
-  
-  <Step title="Search and Filter">
-    - Type in the search field to instantly filter the agent list by name — results update as you type, with no need to press Enter
-    - Admin users can narrow results further by selecting a specific company from the compact company dropdown at the top of the panel
-    - Combine both search and company filter for precise results when managing agents across multiple organizations
-  </Step>
-  
-  <Step title="Switch Agents">
-    Click on any agent in the list to load it into the editor:
-    - If you have unsaved changes on the current agent, a confirmation prompt appears asking you to **save**, **discard**, or **cancel** the switch
-    - Once resolved, the selected agent loads immediately with its full configuration
-    - Your editor layout, open tabs, and view preferences (minimap, focus mode, etc.) are preserved across the switch
-  </Step>
-</Steps>
-
-<Info>
-  The quick agent selector is only available while editing an existing agent (**edit mode**) and only on desktop screens. It is not shown while creating a brand-new agent from scratch, and on mobile you'll use the **Back to Agents** button instead.
-</Info>
+| Filter | Description |
+|--------|-------------|
+| **Search** | Matches agent name, company, or agent ID in real time |
+| **Company** | Dropdown with a built-in search box to filter agents by organization; defaults to **"All companies"** |
+| **Archived agents** | Toggle switch to show or hide archived agents in the list (hidden by default) |
+| **Clear filters** | Appears only when at least one filter is active, resetting search, company, and archived visibility |
 
 <Tip>
-  Use **Cmd/Ctrl + Shift + A** as a keyboard shortcut to instantly open the agent selector without touching your mouse. Press it again, or click outside the dropdown, to close it.
+  The company filter dropdown includes its own search box, making it easy to jump straight to a specific organization when you manage dozens of companies.
 </Tip>
 
-### Anatomy of the Agent Selector Button
+### Selecting an Agent
 
-The selector lives directly in the top toolbar of the Advanced Editor, right next to the **Back to Agents** button, so it's always within reach while you work:
+Click any row in the list to open it in the detail panel. The selected row is highlighted with a colored left border, and archived agents display a small **Archived** badge next to their name.
 
-| Element | Description |
-|---------|-------------|
-| **Colored avatar** | A small square badge showing the first letter of the current agent's name, used for quick visual recognition |
-| **Agent name** | The current agent's display name, truncated with an ellipsis if it's too long |
-| **Chevron icon** | Rotates 180° when the dropdown is open, giving a clear visual cue of the panel's state |
-| **Active ring highlight** | The button gets a colored ring/border while the dropdown is open, distinguishing it from the rest of the toolbar |
+## Agent Detail Panel
 
-Clicking the button toggles a dropdown panel anchored below it, containing the search field, the optional company filter, and the scrollable agent list.
-
-### Company Filter (Admin Only)
-
-<Info>
-  The company filter dropdown is only rendered for **admin users** who have access to more than one company. Standard and single-company users will only see the search field and the agent list.
-</Info>
-
-At the top of the dropdown panel, admins see a compact `<select>` control listing every company they have access to, plus an **"All companies"** option selected by default. Choosing a specific company immediately narrows the agent list below to only that company's agents — helpful when managing large multi-tenant portfolios where dozens of agents might otherwise be mixed together.
-
-<Steps>
-  <Step title="Open the dropdown">
-    Click the agent selector button to reveal the panel with the search field and, for admins, the company filter select at the top.
-  </Step>
-  <Step title="Pick a company">
-    Select a company from the dropdown to instantly filter the agent list to that organization only.
-  </Step>
-  <Step title="Refine with search">
-    Type in the search box to further narrow results within the selected company, or leave the company filter on **"All companies"** to search globally.
-  </Step>
-</Steps>
-
-<Tip>
-  Combining the company filter with the search box is the fastest way to locate a specific agent when you manage many organizations — filter first by company, then type a few letters of the agent's name.
-</Tip>
-
-## Enhanced Search and Filtering
-
-### Global Agent Search
-
-Use the powerful search field to find agents across all your organizations:
-- Search by agent name, ID, or phone number
-- Real-time search results with highlighting
-- Search history and suggestions
-
-### Advanced Filter System
-
-<Steps>
-  <Step title="Filter by Company">
-    Click **"All companies"** dropdown to filter by organization:
-    - Search companies by name
-    - Select single or multiple companies
-    - See agent count per company
-  </Step>
-  
-  <Step title="Filter by Status">
-    Use status filters to find specific agent types:
-    - **Active**: Currently operational agents
-    - **Training**: Agents being configured
-    - **Paused**: Temporarily disabled agents
-    - **Archived**: Agents that have been retired but preserved for records
-    - **Demo**: Template agents
-  </Step>
-  
-  <Step title="Filter by Features">
-    Filter agents by capabilities:
-    - **Advanced Editor**: Agents with advanced configuration
-    - **Phone Health**: Agents with verified phone numbers
-    - **CRM Integration**: Agents with CRM connections
-  </Step>
-</Steps>
-
-<Info>
-  Use **Clear Filters** to reset all active filters and view all agents.
-</Info>
-
-## View Modes
-
-### Cards View (Default)
-- Visual cards with agent thumbnails and key metrics
-- Status indicators and health badges
-- Quick action buttons for each agent
-
-### Compact Table View
-- Condensed table format for viewing many agents
-- Sortable columns (name, company, status, last call)
-- Bulk selection and actions
-
-### Toggle View Modes
-Use **Cmd/Ctrl + Shift + E** or the view toggle button to switch between modes.
-
-## Agent Details Panel
-
-Select any agent to view comprehensive details:
-
-### Information Displayed
-
-| Element | Description |
-|---------|-------------|
-| **Agent Name** | Display name with edit capability |
-| **Agent ID** | Unique identifier (click to copy) |
-| **Status Badges** | Real-time status indicators |
-| **Advanced Badge** | Advanced Editor capability indicator |
-| **Phone Health** | Number health and spam score |
-| **Performance Metrics** | Call success rate, average duration |
-
-### Recent Calls Analytics
-
-Enhanced calls section with:
+Once an agent is selected, the detail panel on the right organizes all information into three tabs:
 
 <Tabs>
-  <Tab title="Call List">
-    - Last 200 calls with detailed information
-    - Status, duration, destination, and timestamp
-    - Expandable call details with transcripts
+  <Tab title="Overview">
+    **Performance dashboard** for the agent, including:
+    - **Summary cards**: total calls, success rate, average call duration, and average AI latency (with a trend indicator comparing recent vs. previous performance)
+    - **Latency history chart**: a 14-day time series of average AI response latency, helping you spot regressions or improvements over time
+    - **Call volume chart**: a 30-day time series of daily call counts
+    - **Phone health**: a shortcut card linking to the spam/deliverability report for the agent's assigned numbers
+    - **Quick actions**: Editor (for Advanced agents), Trends, Clone, and Archive
   </Tab>
-  
-  <Tab title="Analytics">
-    - Call success rates and trends
-    - Average call duration metrics
-    - Peak usage times and patterns
+  <Tab title="Calls">
+    A sortable table of the agent's calls from the last 90 days, including date, origin number, status, duration, and latency. Admin users additionally see quick links per call. Recordings can be played directly from this tab using the same player used across the Calls section.
+  </Tab>
+  <Tab title="Settings">
+    The full configuration form for standard (non-Advanced) agents — the same settings previously available on the classic page, including save/discard change detection and an editing timeout safeguard. Advanced agents don't show this tab since their configuration is managed from the [Advanced Editor](/agents/advanced-editor).
   </Tab>
 </Tabs>
+
+<Info>
+  The **Avg AI latency** trend arrow compares the average of the most recent half of the visible days against the earlier half — an upward red arrow means latency is increasing, a downward green arrow means it's improving.
+</Info>
+
+## Clone Agents
+
+Agent cloning now uses a guided **two-step assistant** instead of a single form, making it clear exactly what will be duplicated before anything is created.
+
+<Steps>
+  <Step title="Step 1 — Configure the Clone">
+    Open **Clone** from the agent's Overview tab (or from the row's quick actions) to fill in the base configuration:
+    - **Agent Name**: defaults to `<Original Name> (Copy)`, fully editable
+    - **Target Company**: shown only to admin users on the Meetzy domain with access to multiple companies; regular users automatically clone into their own company
+    - **Phone Number**: select an available number from the same Twilio account as the original agent — the list loads automatically once a company is chosen
+    - **Number Usage**: choose whether the assigned number is used for **Outbound & Inbound**, **Outbound only**, or **Inbound only**
+    - **Agent Tools**: choose between **Duplicate tools** (independent copies, safe to edit separately) or **Reuse existing tools** (both agents share the same tools, and edits to one affect the other)
+  </Step>
+  <Step title="Step 2 — Review and Confirm">
+    Clicking **Continue** moves to a summary screen listing the target company, the phone number and its usage mode, and the tools strategy in plain language before you confirm. Use **Back** to return and adjust any setting.
+  </Step>
+  <Step title="Cloning in Progress">
+    Confirming triggers the clone request; the button switches to a disabled **"Cloning..."** state to prevent duplicate submissions. On success, the new agent appears in the list; on failure, an inline error message explains what went wrong so you can retry without losing your inputs.
+  </Step>
+</Steps>
+
+<Warning>
+  If the original agent's Twilio account has no available numbers, the modal shows a warning explaining that a free number from the **same account as the original agent** is required — release a number or purchase a new one before cloning.
+</Warning>
 
 <Note>
-  Click **View All** to open the full calls analytics dashboard with advanced filtering and export options.
+  The list of tools on the original agent is loaded and shown in the modal so you know exactly what will be duplicated or shared before confirming.
 </Note>
 
 ## Archive Agents
@@ -229,334 +102,121 @@ Enhanced calls section with:
   Archiving is the recommended way to retire an agent you no longer need while keeping its configuration, call history, and analytics intact for future reference.
 </Info>
 
-Unlike deleting an agent, **archiving** deactivates it without permanently erasing its data. Archived agents stop receiving and making calls, but remain visible under the **Archived** filter for auditing or reactivation later.
-
-### Archive an Agent
+Archiving deactivates an agent without deleting its data. The **Archive Agent** modal, available from the Overview tab's quick actions, guides you through the process:
 
 <Steps>
-  <Step title="Open the Archive Option">
-    From the Advanced Editor header toolbar or the agent details panel, click **Archive Agent**. This opens the **Archive Agent** modal.
-  </Step>
-  
   <Step title="Review the Confirmation">
-    The modal summarizes exactly what will happen:
-    - The agent will stop handling inbound and outbound calls immediately
-    - All configuration, prompts, Knowledge Base, and call history are preserved
-    - The agent can be restored from the **Archived** filter at any time
+    The modal explains that this will hide the agent from the agents list without deleting any of its data.
   </Step>
-  
   <Step title="Choose Phone Number Handling">
-    If the agent has an assigned phone number, the modal displays a dedicated **Release phone number** checkbox:
-    - **Checked**: The associated phone number is immediately freed and returned to your available number pool, ready to be assigned to another agent
-    - **Unchecked (default)**: The number stays reserved for this agent so it's automatically available again if you restore it later
-    
-    If the agent has no phone number assigned, this option is not shown.
+    A dedicated checkbox lets you **"Release its phone number for other agents"**:
+    - **Checked**: resets the Twilio configuration and frees the number so it can be assigned to another agent
+    - **Unchecked (default)**: the number stays reserved with this agent
   </Step>
-  
-  <Step title="Complete the Archive">
-    Click the **Archive Agent** button to confirm. While the request is processed, the button switches to a disabled loading state (e.g. **"Archiving..."**) to prevent duplicate submissions. You can still click **Cancel** to close the modal without making any changes at any point before confirming.
-  </Step>
-  
-  <Step title="Confirmation Message">
-    Once the archive request completes, a toast notification appears in the corner of the screen confirming the result:
-    - **Success**: A green success notification confirms the agent was archived, and — if applicable — mentions whether the phone number was released or kept reserved
-    - **Error**: If the request fails (e.g. network issue or permission error), a red error notification explains what went wrong and the agent remains active so you can safely retry
-    
-    The modal closes automatically on success, and the agent list / details panel refresh to reflect the new **Archived** status.
+  <Step title="Confirm">
+    Click **Archive** to proceed. The button shows an **"Archiving..."** loading state while the request completes. Any error is displayed inline in the modal so you can retry safely.
   </Step>
 </Steps>
 
 <Warning>
-  Releasing the phone number is **irreversible** — once released, the number may be reassigned to a different agent or company. If you plan to reactivate this agent later with the same number, leave the **Release phone number** checkbox disabled.
+  Releasing the phone number is **irreversible** — once released, the number may be reassigned to a different agent or company. Leave the checkbox disabled if you plan to reactivate this agent later with the same number.
 </Warning>
-
-### What Happens When You Archive
-
-| Aspect | Behavior |
-|--------|----------|
-| **Call handling** | Immediately stops accepting inbound and outbound calls |
-| **Configuration** | Fully preserved (prompts, tools, Knowledge Base, versions) |
-| **Call history** | Retained and accessible in analytics |
-| **Phone number** | Released only if the **Release phone number** checkbox was selected during archiving |
-| **Visibility** | Moved out of the active agents list; accessible via the **Archived** filter |
-| **Billing** | No further usage charges accrue for an archived agent |
-
-<Note>
-  The confirmation toast follows the same notification style used across the dashboard, so success, warning, and error states are visually consistent with other actions like saving, publishing, or deleting.
-</Note>
 
 ### Restoring an Archived Agent
 
-Archived agents can be reactivated at any time:
+Toggle **Archived agents** to **Shown** in the filters bar to locate an archived agent, select it, and restore it from its detail panel. If its phone number was released during archiving, assign a new one from the [Phone Numbers](/agents/phone-numbers) section before it can resume handling calls.
+
+## Swap Phone Number
+
+The **Swap Phone Number** modal lets you replace an agent's current number with a new one from the same Twilio account — useful when a number develops deliverability issues or needs to be freed up.
 
 <Steps>
-  <Step title="Locate the Agent">
-    Use the **Archived** status filter in the agents list to find the agent you want to restore.
+  <Step title="Open the Swap Modal">
+    From the "Call" side panel next to any phone number, or from the agent's Settings, click the swap icon next to the number you want to replace.
   </Step>
-  <Step title="Restore">
-    Click **Restore Agent** from the agent's details panel or quick actions menu.
+  <Step title="Review the Swap">
+    The modal displays the **current number** (marked for release) and automatically loads the **next available number** from the same Twilio account to assign in its place.
   </Step>
-  <Step title="Reassign a Phone Number (if needed)">
-    If the original phone number was released during archiving, you'll need to assign a new number from the [Phone Numbers](/agents/phone-numbers) section before the agent can resume handling calls.
+  <Step title="Confirm">
+    Click **Confirm Swap** to apply the change. The button enters a **"Swapping..."** state while the request is processed against both the database and Twilio. If no available numbers are found, an inline message tells you so, including the Twilio account label.
   </Step>
 </Steps>
-
-<Info>
-  Restoring an agent does not automatically restore a released phone number. Make sure to assign a new number if the previous one was freed.
-</Info>
-
-## Advanced Agent Cloning
 
 <Warning>
-  Advanced cloning is available for admin users and agents with Advanced Editor enabled.
+  A swap updates both your database and Twilio configuration immediately, and the old number is marked for release. This action cannot be undone from the modal.
 </Warning>
 
-### Clone Agent with Enhanced Options
+## Custom Call Form Fields
 
-<Steps>
-  <Step title="Select Agent">
-    Choose the agent you want to clone from the agent list
-  </Step>
-  
-  <Step title="Configure Clone">
-    In the clone modal, specify:
-    - **New agent name**
-    - **Target company** (if you have access to multiple)
-    - **Phone number assignment**
-    - **Configuration mode**:
-      - **Exact Copy**: Duplicate all settings
-      - **Template Mode**: Copy structure, clear data
-      - **Cross-Company**: Adapt for different organization
-  </Step>
-  
-  <Step title="Advanced Settings">
-    Choose what to clone:
-    - ✅ Basic configuration and greetings
-    - ✅ System prompts and instructions  
-    - ✅ Knowledge Base documents
-    - ✅ Actions & Tools configuration
-    - ✅ Output parameters and formatting
-    - ⚠️ Call history (optional)
-    - ⚠️ Performance metrics (optional)
-  </Step>
-</Steps>
-
-### Clone Use Cases
-
-| Scenario | Benefits |
-|----------|----------|
-| **A/B Testing** | Create variants with different prompts |
-| **Department Adaptation** | Modify existing agent for new team |
-| **Backup Creation** | Maintain working versions during updates |
-| **Template Distribution** | Share proven configurations across companies |
-
-## Edit Agents
-
-### Advanced Editor Agents
-
-Agents with the **"Advanced"** badge support full configuration editing with enhanced navigation:
-
-<Tabs>
-  <Tab title="Configuration">
-    - Basic settings and metadata
-    - Voice selection and speech parameters
-    - Language and localization settings
-  </Tab>
-  
-  <Tab title="Conversation">
-    - System prompts and instructions
-    - Greeting messages and variations
-    - Conversation flow and branching logic
-  </Tab>
-  
-  <Tab title="Knowledge">
-    - Knowledge Base document management
-    - Context and retrieval settings
-    - Information sources and priorities
-  </Tab>
-  
-  <Tab title="Tools">
-    - Actions and API integrations
-    - Function calls and webhooks
-    - Output formatting and validation
-  </Tab>
-</Tabs>
-
-### Advanced Editor Navigation Features
+Every agent that accepts outbound test/init calls has a configurable form. The **Configure Form Fields** editor lets you manage the custom fields shown in that form, beyond the built-in system fields.
 
 <Info>
-  **New Navigation Capabilities**: The Advanced Editor now includes intelligent agent switching, context preservation, and multi-company filtering for seamless agent management workflows.
+  System fields — **phone**, **voice**, and **language** — are always required and cannot be edited or removed from this editor.
 </Info>
 
-#### Agent Selector Dropdown
-
-- **Quick Access**: Click the agent name and avatar in the header toolbar to open the selector
-- **Search & Filter**: Find agents across companies with real-time search and a company filter dropdown
-- **Context Aware**: Preserves editor state when switching between agents
-- **Company Scoping**: Filter agents by company for multi-org admin users
-
-The selector button sits in the top toolbar, immediately to the right of **Back to Agents**, and is only rendered when you're editing an existing agent on a desktop screen. Opening it reveals a dropdown with:
-
-- A **search input** at the top for filtering by agent name in real time
-- A **compact company filter** `<select>`, shown only to admin users with access to multiple companies, defaulting to **"All companies"**
-- A scrollable list of matching agents, each row showing its colored initial avatar and name for quick recognition
-
-This makes it possible to jump from one agent to another — even across different companies — without ever leaving the Advanced Editor.
-
-#### Unsaved Changes Protection
-
-When switching agents, the editor automatically:
-- Detects unsaved modifications
-- Prompts to save or discard changes
-- Preserves work state during transitions
-- Maintains editor layout and preferences
-
-#### Archiving from the Editor
-
-The **Archive Agent** action is also accessible directly from within the Advanced Editor toolbar, opening the same **Archive Agent** modal — including the **Release phone number** checkbox and the post-action confirmation toast — so you can retire an agent as soon as you're done reviewing or editing it, without navigating back to the main agents list.
-
-### Standard Agents
-
-Non-advanced agents support basic configuration updates through the simplified editor interface.
-
-## Testing and Quality Assurance
-
-### Enhanced Test Calling
-
 <Steps>
-  <Step title="Access Test Options">
-    Click **Init Call** on any agent to reveal testing interface
+  <Step title="Open the Field Editor">
+    Click **Edit Form** in the "Call" panel of any agent to open the **Configure Form Fields** modal.
   </Step>
-  
-  <Step title="Inbound Testing">
-    Test how your agent handles incoming calls:
-    ```
-    Phone to test inbound call:
-    +1 555 123 4567 [Copy] [Call Now]
-    ```
-    - Direct dial testing
-    - One-click calling from dashboard
-    - Automatic call logging
+  <Step title="Add or Edit Fields">
+    For each custom field, configure:
+    - **Field Label**: the text shown to users filling out the form
+    - **Field Type**: Text, Email, Number, Phone, or Dropdown
+    - **Parameter ID**: the identifier referenced in your agent's prompt as `{{id}}` — auto-generated from the label but fully editable
+    - **Placeholder Text**: optional hint text shown inside the input
+    - **Required field**: whether the field must be filled before a call can be started
   </Step>
-  
-  <Step title="Outbound Testing">
-    Configure and initiate outbound test calls:
-    - Fill required form fields
-    - Select voice and language options
-    - Choose test phone number
-    - Monitor call progress in real-time
+  <Step title="Remove Fields">
+    Click the trash icon on any field card to delete it (with a confirmation prompt).
+  </Step>
+  <Step title="Save">
+    Click **Save** to persist the field configuration. Parameter IDs are validated for uniqueness and checked against system field names before saving; any conflict is reported inline so you can fix it without losing your changes.
   </Step>
 </Steps>
 
-### Version Testing (Advanced Agents)
+<Tip>
+  Custom Parameter IDs are automatically slugified from the field label (lowercase, no accents, underscores instead of spaces) unless you manually override them.
+</Tip>
 
-Advanced agents support testing specific versions:
+## Test Calling from the "Call" Panel
 
-```
-Agent Version Selection:
-• Production version (default)
-• v.1 - Initial configuration
-• v.2 - Greeting improvements  
-• v.3 - Enhanced conversation flow
-• v.4 - Latest updates (draft)
-```
+Each agent row includes a **Call** side panel with everything needed to place a quick test call — inbound or outbound — without leaving the Agents page.
+
+<Tabs>
+  <Tab title="Inbound Testing">
+    The panel lists the agent's assigned phone number(s) as clickable `tel:` links, plus a one-click **copy without country code** button for each number. If the agent only has verified caller IDs (no inbound number), a note clarifies it only supports outbound calls.
+  </Tab>
+  <Tab title="Outbound Testing">
+    A dynamic form built from the agent's configured fields (including any custom fields added via the field editor), plus:
+    - **Country prefix selector**: choose from a long list of country codes (with flags) next to the phone input — your last choice is remembered for next time via local storage
+    - **Agent Version selector**: for Advanced agents only, choose a specific saved version to test against, or leave it blank to use the production version
+    - **Edit Form** shortcut to open the custom fields editor directly from the panel
+  </Tab>
+</Tabs>
 
 <Warning>
   Test calls consume billable minutes from your plan. Monitor usage in the billing dashboard.
 </Warning>
 
-## Advanced Editor Keyboard Shortcuts
-
-### Navigation Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| **Cmd/Ctrl + K** | Open command palette |
-| **Cmd/Ctrl + Shift + E** | Toggle view mode |
-| **Cmd/Ctrl + F** | Focus search field |
-| **Cmd/Ctrl + G** | Open git changes panel |
-| **Escape** | Close active modal or dropdown |
-
-### Agent Switching Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| **Cmd/Ctrl + Shift + A** | Open agent selector |
-| **Cmd/Ctrl + S** | Save current agent |
-| **Cmd/Ctrl + Shift + S** | Save and switch agent |
-| **Cmd/Ctrl + ←** | Previous agent in list |
-| **Cmd/Ctrl + →** | Next agent in list |
-
-### Editor Tab Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| **Cmd/Ctrl + 1-7** | Switch to left panel tabs (1=Settings, 2=Greetings, etc.) |
-| **Cmd/Ctrl + J** | Open Meetzy AI panel |
-| **Shift + Cmd/Ctrl + P** | Open Playground |
-| **Shift + Cmd/Ctrl + T** | Open Tests panel |
-
-## Bulk Operations and Management
-
-### Bulk Selection
-
-- **Select Multiple**: Use checkboxes to select agents
-- **Select All**: Choose all visible agents
-- **Select by Filter**: Bulk select based on current filters
-
-### Bulk Actions
-
-| Action | Description |
-|--------|-------------|
-| **Enable/Disable** | Batch status changes |
-| **Archive** | Retire multiple agents at once, with the option to release their phone numbers |
-| **Company Transfer** | Move agents between companies |
-| **Backup Creation** | Create bulk backups |
-| **Performance Export** | Export metrics for selected agents |
-
-### Global Member Search
-
-Search across all agents and team members:
-- **Cmd/Ctrl + K**: Open command palette
-- Search agents, members, and companies
-- Quick navigation and actions
-
 ## Permissions and Access Control
-
-### User Roles and Capabilities
 
 <Tabs>
   <Tab title="Admin Users">
-    - Full agent management access
-    - Advanced cloning, archiving, and bulk operations
+    - Full access to clone, archive, restore, and swap phone numbers on any agent
+    - Company filter available in both the agent list and the clone modal's target company selector
     - Cross-company agent management
-    - Agent selector with company filtering
-    - System configuration access
   </Tab>
-  
   <Tab title="Advanced Editor Users">
-    - Create and edit advanced agents
-    - Access to Knowledge Base and Tools
-    - Version management and testing
-    - Archive agents and manage phone number release
-    - Enhanced navigation within assigned agents
-    - Performance analytics
+    - Create and edit Advanced agents via the [Advanced Editor](/agents/advanced-editor)
+    - Clone, archive, and manage phone numbers for their own agents
+    - Access to Settings tab for standard agents
   </Tab>
-  
   <Tab title="Standard Users">
-    - View assigned agents
-    - Basic testing capabilities
-    - Call history access
-    - Limited configuration changes
+    - View assigned agents and their Overview/Calls tabs
+    - Place test calls using the Call panel
+    - Limited or no access to Archive, Clone, and Settings depending on role
   </Tab>
 </Tabs>
-
-### Company Access Management
-
-Control agent visibility and access across organizations:
-- **Multi-company Users**: Filter and manage agents across companies with enhanced selector
-- **Single Company Users**: Restricted to assigned organization
-- **Guest Access**: View-only permissions with limited functionality
 
 ## Next Steps
 
@@ -565,12 +225,12 @@ Control agent visibility and access across organizations:
     Assign, release, and manage phone numbers for your agents.
   </Card>
   <Card title="Advanced Editor" icon="code" href="/agents/advanced-editor">
-    Learn to use the Advanced Editor with enhanced navigation features.
+    Learn to use the Advanced Editor for full agent configuration.
   </Card>
   <Card title="Knowledge Base" icon="book-open" href="/agents/knowledge-base">
     Manage agent knowledge and information sources.
   </Card>
   <Card title="Analytics" icon="chart-line" href="/agents/analytics">
-    Monitor agent performance and call metrics.
+    Monitor agent performance and call metrics in depth.
   </Card>
 </CardGroup>

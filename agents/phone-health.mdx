@@ -1,6 +1,7 @@
 ---
 title: 'Phone Health'
 description: 'Monitor your phone numbers health and avoid being marked as spam'
+icon: 'signal'
 ---
 
 ## What is Phone Health?
@@ -9,6 +10,10 @@ description: 'Monitor your phone numbers health and avoid being marked as spam'
 
 <Info>
 Numbers marked as spam have significantly lower answer rates. Keeping numbers "healthy" is crucial for campaign success.
+</Info>
+
+<Info>
+The Phone Health report can now be accessed from two places in the new agents view: directly from the **agents list** via the status icon with the spam counter, and from the **Overview** tab of the new agent detail panel. Both entry points open the same report described below.
 </Info>
 
 ## Understanding Number Types
@@ -48,19 +53,40 @@ The number on the badge indicates how many numbers have spam issues.
 
 ## View Phone Health Report
 
-To view the detailed report:
+You can now open the detailed report from two different places, whichever is more convenient in your workflow:
 
-<Steps>
-  <Step title="Locate the agent">
-    Find the agent in the list
-  </Step>
-  <Step title="Click health indicator">
-    Click the **signal/antenna icon** next to the agent name
-  </Step>
-  <Step title="Review report">
-    The **Phone Health Report** modal opens with detailed analysis
-  </Step>
-</Steps>
+<Tabs>
+  <Tab title="From the agents list">
+    <Steps>
+      <Step title="Locate the agent">
+        Find the agent in the list
+      </Step>
+      <Step title="Click health indicator">
+        Click the **signal/antenna icon** with the spam counter, shown next to the agent name
+      </Step>
+      <Step title="Review report">
+        The **Phone Health Report** modal opens with detailed analysis
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="From the agent detail panel">
+    <Steps>
+      <Step title="Select the agent">
+        Click an agent in the list to open its detail panel
+      </Step>
+      <Step title="Go to Overview">
+        The **Overview** tab is selected by default and shows a **Phone health** card
+      </Step>
+      <Step title="Open the report">
+        Click the **Phone health** card to open the same **Phone Health Report** modal
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Info>
+Both entry points show the exact same data — pick whichever is faster depending on whether you're scanning the whole list or already reviewing a single agent's details.
+</Info>
 
 ## Report Content
 
@@ -269,6 +295,10 @@ This number has the best completion history and should be prioritized for import
   
   <Accordion title="Why does my new Caller ID already have spam history?">
     Verified numbers may inherit reputation from previous usage. Monitor new Caller IDs closely and disconnect if problematic.
+  </Accordion>
+
+  <Accordion title="Why do I see the Phone Health report in two places now?">
+    The report is now reachable both from the status icon in the agents list and from the Overview tab of the agent detail panel, so you can check it whether you're browsing the full list or already inspecting a specific agent. It's the same report in both cases.
   </Accordion>
 </AccordionGroup>
 
