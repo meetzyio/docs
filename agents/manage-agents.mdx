@@ -14,7 +14,7 @@ The **Agents** page has been fully redesigned around a **master-detail layout**:
 
 <Tabs>
   <Tab title="Agents List (left)">
-    A scrollable list of agents with search, company filter, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload.
+    A scrollable list of agents with search, company filter, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload. Each row also surfaces a phone health indicator and a latency mini-chart at a glance.
   </Tab>
   <Tab title="Detail Panel (right)">
     A tabbed panel — **Overview**, **Calls**, and **Settings** — showing everything about the selected agent: performance metrics, latency history, call log, and configuration.
@@ -32,7 +32,8 @@ The filters bar above the list lets admins and multi-company users narrow down t
 | **Search** | Matches agent name, company, or agent ID in real time |
 | **Company** | Dropdown with a built-in search box to filter agents by organization; defaults to **"All companies"** |
 | **Archived agents** | Toggle switch to show or hide archived agents in the list (hidden by default) |
-| **Clear filters** | Appears only when at least one filter is active, resetting search, company, and archived visibility |
+| **Phone health** | Toggle switch to show only agents whose numbers currently have spam/deliverability issues |
+| **Clear filters** | Appears only when at least one filter is active, resetting search, company, archived visibility, and the phone health filter |
 
 <Tip>
   The company filter dropdown includes its own search box, making it easy to jump straight to a specific organization when you manage dozens of companies.
@@ -42,6 +43,17 @@ The filters bar above the list lets admins and multi-company users narrow down t
 
 Click any row in the list to open it in the detail panel. The selected row is highlighted with a colored left border, and archived agents display a small **Archived** badge next to their name.
 
+### Phone Health Indicator and Latency Mini-Chart
+
+Every row in the agent list now includes two at-a-glance signals, so you no longer need to open an agent to spot a problem:
+
+- **Phone health beacon**: a small colored dot next to the agent's phone number reflecting the spam/deliverability status of its assigned numbers (green = healthy, red = spam issues detected, gray = status unknown or still loading). Click it to jump straight into the [Phone Health](/agents/phone-numbers) report for that agent.
+- **Latency sparkline**: a compact 14-day mini-chart of average AI response latency, rendered inline in the row. It uses the same underlying data as the Overview tab's latency history chart, letting you compare agents' recent performance without opening each one individually.
+
+<Info>
+  Latency history and phone health data for all visible agents are fetched in the background right after the list loads, so the initial render stays fast and the sparklines/beacons populate a moment later.
+</Info>
+
 ## Agent Detail Panel
 
 Once an agent is selected, the detail panel on the right organizes all information into three tabs:
@@ -49,11 +61,11 @@ Once an agent is selected, the detail panel on the right organizes all informati
 <Tabs>
   <Tab title="Overview">
     **Performance dashboard** for the agent, including:
-    - **Summary cards**: total calls, success rate, average call duration, and average AI latency (with a trend indicator comparing recent vs. previous performance)
+    - **Summary cards**: total calls, average call duration, and average AI latency (with a trend arrow comparing recent vs. previous performance, plus a P90 latency reading)
     - **Latency history chart**: a 14-day time series of average AI response latency, helping you spot regressions or improvements over time
     - **Call volume chart**: a 30-day time series of daily call counts
-    - **Phone health**: a shortcut card linking to the spam/deliverability report for the agent's assigned numbers
-    - **Quick actions**: Editor (for Advanced agents), Trends, Clone, and Archive
+    - **Phone health**: a clickable card linking to the spam/deliverability report for the agent's assigned numbers
+    - **Quick actions**: **Editor** (Advanced agents only), **Trends** (Advanced agents only), **Clone**, and **Archive**
   </Tab>
   <Tab title="Calls">
     A sortable table of the agent's calls from the last 90 days, including date, origin number, status, duration, and latency. Admin users additionally see quick links per call. Recordings can be played directly from this tab using the same player used across the Calls section.
@@ -64,8 +76,40 @@ Once an agent is selected, the detail panel on the right organizes all informati
 </Tabs>
 
 <Info>
-  The **Avg AI latency** trend arrow compares the average of the most recent half of the visible days against the earlier half — an upward red arrow means latency is increasing, a downward green arrow means it's improving.
+  The **Avg AI latency** trend arrow compares the average of the most recent half of the visible days against the earlier half — an upward red arrow means latency is increasing, a downward green arrow means it's improving. It only appears once enough daily data points are available.
 </Info>
+
+### Summary Cards
+
+The three cards at the top of the Overview tab give you an instant read on agent health:
+
+| Card | What it shows |
+|------|---------------|
+| **Total calls** | Total number of calls handled by the agent |
+| **Avg duration** | Average call length, formatted as minutes:seconds |
+| **Avg AI latency** | Average AI response latency in milliseconds, its trend arrow, and the P90 latency value underneath |
+
+### Latency History and Call Volume Charts
+
+Below the summary cards, two charts plot the agent's daily behavior over time:
+
+- **Latency history (14 days)**: average AI latency per day, plotted chronologically to make regressions easy to spot.
+- **Call volume (30 days)**: number of calls handled per day, useful for spotting usage spikes or drop-offs.
+
+Both charts share the same rendering component and gracefully show an empty state message when there isn't enough data yet.
+
+### Phone Health Shortcut
+
+The **Phone health** card sits below the charts and links directly to the spam/deliverability report for the numbers assigned to the selected agent — the same report reachable from the row-level beacon in the agent list.
+
+### Quick Actions
+
+At the bottom of the Overview tab, a row of quick action buttons lets you jump straight into common workflows without leaving the detail panel:
+
+- **Editor** — opens the [Advanced Editor](/agents/advanced-editor) in a new tab (Advanced agents only)
+- **Trends** — opens the evaluation trends view for this agent in a new tab (Advanced agents only)
+- **Clone** — launches the clone assistant described below
+- **Archive** — launches the archive confirmation flow described below
 
 ## Clone Agents
 

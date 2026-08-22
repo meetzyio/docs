@@ -10,7 +10,7 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 
 <CardGroup cols={2}>
   <Card title="Panel Izquierdo (Lista)" icon="list">
-    Lista completa de agentes con búsqueda, filtro por compañía e interruptor para mostrar u ocultar agentes archivados
+    Lista completa de agentes con búsqueda, filtro por compañía, indicador de salud telefónica con sparkline por fila e interruptor para mostrar u ocultar agentes archivados
   </Card>
   <Card title="Panel Derecho (Detalle)" icon="eye">
     Vista detallada del agente seleccionado organizada en tres pestañas: Overview, Calls y Settings
@@ -25,10 +25,10 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 
 <Tabs>
   <Tab title="Panel de Agentes">
-    Explora la lista completa de agentes con búsqueda, filtro por compañía y control de visibilidad de archivados
+    Explora la lista completa de agentes con búsqueda, filtro por compañía, indicador de salud telefónica y control de visibilidad de archivados
   </Tab>
   <Tab title="Panel de Detalle">
-    Analiza métricas de rendimiento, historial de llamadas y configuración específica en las pestañas Overview, Calls y Settings
+    Analiza métricas de rendimiento, gráficos de latencia y volumen, historial de llamadas y configuración específica en las pestañas Overview, Calls y Settings
   </Tab>
   <Tab title="Editor Avanzado">
     Accede a funciones de configuración profesional para agentes con el badge "Advanced"
@@ -76,9 +76,54 @@ El interruptor **Archived agents** controla la visibilidad de los agentes archiv
 - **Hidden** (por defecto): Los agentes archivados quedan ocultos para mantener la lista limpia
 - **Shown**: Los agentes archivados aparecen junto al resto, identificados con un badge **Archived**
 
+#### Filtrar por Salud Telefónica
+
+El interruptor **Phone health** te permite acotar la lista a los agentes cuyos números presentan problemas de reputación:
+
+- **All** (por defecto): Muestra todos los agentes, sin filtrar por estado de salud del número
+- **Spam issues only**: Muestra únicamente los agentes cuyo número telefónico tiene alguna incidencia de spam o deliverability detectada
+
+<Tip>
+  Este filtro es especialmente útil para hacer una revisión periódica y detectar rápidamente qué agentes necesitan un intercambio de número o una atención prioritaria.
+</Tip>
+
 <Info>
-  Usa el botón **Clear filters** para restablecer la búsqueda, el filtro de compañía y la visibilidad de archivados con un solo clic. Este botón solo aparece cuando hay algún filtro activo.
+  Usa el botón **Clear filters** para restablecer la búsqueda, el filtro de compañía, el filtro de salud telefónica y la visibilidad de archivados con un solo clic. Este botón solo aparece cuando hay algún filtro activo.
 </Info>
+
+## Indicadores en la Lista de Agentes
+
+Cada fila de la lista incorpora información visual pensada para detectar de un vistazo el estado de un agente sin necesidad de abrir su panel de detalle.
+
+### Sparkline de Latencia
+
+Junto al nombre de cada agente se muestra un pequeño gráfico de líneas (**sparkline**) con la evolución de su latencia media de IA durante los últimos 14 días. Este histórico se calcula una sola vez tras cargar la lista completa (no en cada fila por separado), por lo que aparece de forma progresiva justo después de que la lista termine de renderizarse.
+
+<Note>
+  Si un agente todavía no tiene suficientes llamadas registradas en ese periodo, el sparkline simplemente no se muestra para esa fila.
+</Note>
+
+### Indicador de Salud Telefónica (Beacon)
+
+Cada fila también incluye un pequeño indicador circular de color que resume el estado de salud del número telefónico asociado al agente:
+
+| Color | Significado |
+|-------|-------------|
+| **Verde** | Sin incidencias detectadas de spam o deliverability |
+| **Rojo / Ámbar** | Se detectaron problemas de reputación en el número |
+| **Gris** | Estado aún desconocido o en proceso de comprobación |
+
+<Tip>
+  Haz clic sobre el indicador o usa el botón de Phone Health dentro del panel de detalle para acceder al reporte completo de spam y deliverability del número.
+</Tip>
+
+### Ordenar la Lista
+
+La barra superior de la lista incluye un selector de orden que se combina con los filtros activos:
+
+- **Newest first** (por defecto): Agentes creados más recientemente primero
+- **Most calls**: Ordena por volumen de llamadas registrado en los últimos 14 días
+- **Name (A-Z)** / **Name (Z-A)**: Orden alfabético ascendente o descendente
 
 ## Vista Detallada del Agente
 
@@ -109,7 +154,7 @@ Es la pestaña que se abre por defecto al seleccionar un agente. Ofrece un panel
 - **Total calls**: Número acumulado de llamadas
 - **Success rate**: Porcentaje de llamadas cerradas con éxito
 - **Avg duration**: Duración media de las conversaciones
-- **Avg AI latency**: Latencia media de respuesta de la IA, con un indicador de tendencia (▲/▼) que compara la primera y la segunda mitad del periodo analizado
+- **Avg AI latency**: Latencia media de respuesta de la IA, con un indicador de tendencia (▲/▼) que compara la primera y la segunda mitad del periodo analizado, además del percentil **P90** de latencia cuando hay datos disponibles
 
 #### Gráficos Históricos
 
@@ -128,7 +173,7 @@ Es la pestaña que se abre por defecto al seleccionar un agente. Ofrece un panel
 
 #### Tarjeta de Phone Health
 
-Un bloque destacado dentro de Overview te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability), sin salir del panel de detalle.
+Un bloque destacado dentro de Overview te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability), sin salir del panel de detalle. Es el mismo acceso directo que representa el beacon de color visible en la lista de agentes.
 
 #### Acciones Rápidas
 
@@ -642,8 +687,9 @@ Para usuarios administradores, está disponible la gestión masiva:
 
 El sistema monitorea continuamente la salud de tus agentes:
 
-- **Phone Health**: Estado de números telefónicos asignados, accesible directamente desde la pestaña Overview
-- **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días y tendencia comparativa
+- **Phone Health**: Estado de números telefónicos asignados, visible como un beacon de color en cada fila de la lista y accesible en detalle desde la pestaña Overview
+- **Latency sparkline**: Mini-gráfico de 14 días con la evolución de la latencia media, visible directamente en la lista sin necesidad de abrir el panel de detalle
+- **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días, percentil P90 y tendencia comparativa
 - **Success Rate**: Tasa de llamadas cerradas con éxito
 - **Call Volume**: Volumen diario de llamadas con histórico de 30 días
 
@@ -685,7 +731,7 @@ Recibe alertas sobre:
     - El agente fue archivado accidentalmente
     
     **Soluciones:**
-    1. Verificar estado del número desde la tarjeta de Phone Health en la pestaña Overview
+    1. Verificar estado del número desde el beacon en la lista o la tarjeta de Phone Health en la pestaña Overview
     2. Confirmar que el agente no muestra el badge "Archived" en el encabezado del panel
     3. Probar con una llamada de prueba desde el panel de "Llamar"
     4. Revisar la pestaña Calls para identificar errores recientes
@@ -715,6 +761,12 @@ Recibe alertas sobre:
     - Confirma que tienes el rol o permiso adecuado para este agente (ver tabla de permisos de swap)
     - Si el agente es demo, solo un administrador puede realizar el intercambio
     - Asegúrate de que existan números disponibles en la misma cuenta de Twilio; si no los hay, el modal mostrará un mensaje de error
+  </Tab>
+  <Tab title="No veo el sparkline de latencia en una fila">
+    **Verifica lo siguiente:**
+    - El agente necesita tener llamadas registradas en los últimos 14 días para que exista histórico que graficar
+    - El histórico se carga en segundo plano tras mostrar la lista, así que puede tardar unos segundos en aparecer
+    - Si el filtro de compañía o búsqueda está muy acotado, confirma que el agente en cuestión realmente está en el listado visible
   </Tab>
   <Tab title="No encuentro el selector de agentes en el editor">
     **Verifica lo siguiente:**
