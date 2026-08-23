@@ -12,6 +12,19 @@ The **Agents** page has been fully redesigned around a **master-detail layout**:
   This redesign replaces the classic Agents page. A **"Switch back to the classic view"** banner remains available at the top of the screen while both experiences coexist.
 </Info>
 
+## What's New in the Agents Page (Agents v2)
+
+The new Agents page (internally called **Agents v2**) bundles several improvements that were previously scattered across different views or unavailable altogether:
+
+- **Latency history per agent** — every agent row shows a compact latency sparkline, and the detail panel's Overview tab includes a full 14-day latency history chart, so you can spot regressions at a glance or dive deeper without leaving the page.
+- **Phone Health status chips** — a colored beacon next to each agent's number reflects its spam/deliverability status (green, red, or gray), with a direct link into the full [Phone Health](/agents/phone-numbers) report.
+- **Richer filters** — search, company, archived visibility, and a dedicated spam-only toggle now live together in a single filters bar, with a one-click **Clear filters** action.
+- **New "Call" modal** — placing a test call (inbound or outbound) now happens from a redesigned panel with country prefix selection, agent version selection for Advanced agents, and a shortcut to edit custom form fields, all without leaving the Agents page.
+
+<Tip>
+  Missing the old page already? The **"Switch back to the classic view"** link at the top of the screen is still there for you — no judgment if you, like Wolverine pining for 1980s Canada, occasionally long for the way things used to be.
+</Tip>
+
 <Tabs>
   <Tab title="Agents List (left)">
     A scrollable list of agents with search, company filter, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload. Each row also surfaces a phone health indicator and a latency mini-chart at a glance.
@@ -222,19 +235,19 @@ Every agent that accepts outbound test/init calls has a configurable form. The *
   Custom Parameter IDs are automatically slugified from the field label (lowercase, no accents, underscores instead of spaces) unless you manually override them.
 </Tip>
 
-## Test Calling from the "Call" Panel
+## Test Calling from the "Call" Modal
 
-Each agent row includes a **Call** side panel with everything needed to place a quick test call — inbound or outbound — without leaving the Agents page.
+Each agent row includes a **Call** modal with everything needed to place a quick test call — inbound or outbound — without leaving the Agents page.
 
 <Tabs>
   <Tab title="Inbound Testing">
-    The panel lists the agent's assigned phone number(s) as clickable `tel:` links, plus a one-click **copy without country code** button for each number. If the agent only has verified caller IDs (no inbound number), a note clarifies it only supports outbound calls.
+    The modal lists the agent's assigned phone number(s) as clickable `tel:` links, plus a one-click **copy without country code** button for each number. If the agent only has verified caller IDs (no inbound number), a note clarifies it only supports outbound calls.
   </Tab>
   <Tab title="Outbound Testing">
     A dynamic form built from the agent's configured fields (including any custom fields added via the field editor), plus:
     - **Country prefix selector**: choose from a long list of country codes (with flags) next to the phone input — your last choice is remembered for next time via local storage
     - **Agent Version selector**: for Advanced agents only, choose a specific saved version to test against, or leave it blank to use the production version
-    - **Edit Form** shortcut to open the custom fields editor directly from the panel
+    - **Edit Form** shortcut to open the custom fields editor directly from the modal
   </Tab>
 </Tabs>
 
@@ -257,7 +270,7 @@ Each agent row includes a **Call** side panel with everything needed to place a 
   </Tab>
   <Tab title="Standard Users">
     - View assigned agents and their Overview/Calls tabs
-    - Place test calls using the Call panel
+    - Place test calls using the Call modal
     - Limited or no access to Archive, Clone, and Settings depending on role
   </Tab>
 </Tabs>

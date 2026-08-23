@@ -575,4 +575,171 @@ El Schedule Controller se construye sobre tres piezas de configuración claramen
 |----------|------------------|------------------------|
 | **`ScheduleController`** | Objeto raíz: activación, zona horaria y comportamiento fuera de horario | `enabled`, `timezone`, `outOfHoursBehavior` |
 | **`ScheduleDayConfig`** | Configura un día concreto de la semana (abierto/cerrado, hora de inicio y fin) | `{ open: "09:00", close: "18:00" }` o `{ closed: true }` |
-| **`ScheduleHoliday`** | Excepción puntual que sobrescribe el horario habitual en una fecha específica | `{ date: "2025-12-25", closed: true
+| **`ScheduleHoliday`** | Excepción puntual que sobrescribe el horario habitual en una fecha específica | `{ date: "2025-12-25", closed: true }` |
+
+```json
+{
+  "scheduleController": {
+    "enabled": true,
+    "timezone": "Europe/Madrid",
+    "outOfHoursBehavior": "inform_and_offer_recall",
+    "weeklySchedule": {
+      "monday": { "open": "09:00", "close": "18:00" },
+      "tuesday": { "open": "09:00", "close": "18:00" },
+      "wednesday": { "open": "09:00", "close": "18:00" },
+      "thursday": { "open": "09:00", "close": "18:00" },
+      "friday": { "open": "09:00", "close": "15:00" },
+      "saturday": { "closed": true },
+      "sunday": { "closed": true }
+    },
+    "holidays": [
+      { "date": "2025-12-25", "closed": true },
+      { "date": "2025-01-06", "closed": true }
+    ]
+  }
+}
+```
+
+### Proceso de Configuración
+
+<Steps>
+  <Step title="Activar el Schedule Controller">
+    Habilita el interruptor correspondiente en la sección de Acciones y Herramientas (`scheduleController.enabled: true`).
+  </Step>
+  <Step title="Definir la Zona Horaria">
+    Selecciona la zona horaria (`timezone`) que se usará como referencia para todos los cálculos de horario, por ejemplo `Europe/Madrid` o `America/Mexico_City`.
+  </Step>
+  <Step title="Configurar el Horario Semanal">
+    Establece la hora de apertura y cierre para cada día de la semana mediante `ScheduleDayConfig`, o marca el día como cerrado (`closed: true`) si no hay atención ese día.
+  </Step>
+  <Step title="Añadir Festivos (Opcional)">
+    Registra fechas puntuales de excepción con `ScheduleHoliday`, útiles para festivos nacionales o cierres extraordinarios.
+  </Step>
+  <Step title="Elegir el Comportamiento Fuera de Horario">
+    Define qué debe hacer el agente cuando la llamada ocurre fuera de horario: informar y despedirse, ofrecer un recall automático, o transferir a un destino alternativo (`outOfHoursBehavior`).
+  </Step>
+  <Step title="Probar con Llamadas Simuladas">
+    Verifica el comportamiento del agente dentro y fuera de horario, incluyendo el manejo correcto de festivos configurados.
+  </Step>
+</Steps>
+
+<Warning>
+Schedule Controller se encuentra en fase **Beta**. Revisa que la zona horaria configurada sea correcta antes de desplegar en producción: un desfase horario puede provocar que el agente informe incorrectamente que está "cerrado" cuando en realidad está dentro del horario de atención.
+</Warning>
+
+## Webhooks Personalizados
+
+Los webhooks permiten que Meetzy notifique a tus sistemas externos en tiempo real sobre eventos relevantes de la llamada, habilitando automatizaciones con tu CRM, helpdesk o cualquier plataforma que consuma HTTP.
+
+### Eventos Disponibles
+
+- **Inicio de llamada**: Se dispara al establecerse la conexión con el destinatario
+- **Fin de llamada**: Incluye duración, transcripción y resultado de la conversación
+- **Transferencia realizada**: Notifica el destino y la regla de transferencia aplicada (relevante en Transfer v2)
+- **Detección de contestador**: Se envía cuando se identifica un buzón de voz, ya sea por detección nativa o por Carrier
+- **Objetivo alcanzado**: Se dispara cuando el agente marca como completado un objetivo específico de la conversación
+
+<Steps>
+  <Step title="Activar Webhooks">
+    Habilita la opción de webhooks en la sección de Acciones y Herramientas.
+  </Step>
+  <Step title="Configurar la URL de Destino">
+    Introduce la URL HTTPS de tu endpoint receptor, que debe responder con un código `2xx` para confirmar la recepción.
+  </Step>
+  <Step title="Seleccionar Eventos">
+    Marca los eventos que deseas recibir para evitar tráfico innecesario hacia tu sistema.
+  </Step>
+  <Step title="Validar la Firma (Opcional)">
+    Si tu integración lo requiere, configura la verificación de firma para asegurar que las peticiones provienen realmente de Meetzy.
+  </Step>
+</Steps>
+
+## Recall Automático
+
+El protocolo de rellamada (recall) permite reintentar automáticamente una llamada que no fue contestada, que terminó en buzón de voz, o que ocurrió fuera del horario configurado en el Schedule Controller.
+
+### Configuración de Reintentos
+
+- **Número máximo de intentos**: Define cuántas veces se reintentará la llamada antes de marcarla como fallida
+- **Intervalo entre intentos**: Tiempo de espera entre cada reintento (por ejemplo, 30 minutos, 2 horas, o al día siguiente)
+- **Condiciones de activación**: Llamada no contestada, buzón de voz detectado, o llamada realizada fuera de horario
+- **Ventana horaria de reintento**: Restringe los reintentos a un rango horario específico, evitando llamadas en horas inconvenientes
+
+<Info>
+Cuando el Schedule Controller detecta que una llamada saliente se realizaría fuera de horario, puede activar automáticamente el protocolo de Recall para reprogramarla dentro del siguiente horario de atención disponible.
+</Info>
+
+## Integración de Calendario
+
+Permite que tu agente consulte disponibilidad y agende citas directamente durante la conversación, sincronizando con tu calendario externo.
+
+<Steps>
+  <Step title="Conectar tu Calendario">
+    Vincula tu cuenta de calendario compatible desde la sección de integraciones.
+  </Step>
+  <Step title="Definir Disponibilidad">
+    Configura los horarios disponibles para agendar citas, que pueden coincidir con el horario definido en el Schedule Controller.
+  </Step>
+  <Step title="Habilitar la Herramienta en el Agente">
+    Activa la herramienta de agendamiento para que la IA pueda ofrecer horarios disponibles y confirmar citas durante la llamada.
+  </Step>
+  <Step title="Configurar Confirmaciones">
+    Define si se enviará una confirmación automática por Email, SMS o WhatsApp tras agendar la cita.
+  </Step>
+</Steps>
+
+## Comunicación Multicanal
+
+Además de la voz, Meetzy permite que tu agente se comunique con los usuarios a través de Email, SMS y WhatsApp, ampliando el alcance de la conversación más allá de la llamada telefónica.
+
+<Tabs>
+  <Tab title="Email">
+    Envía correos automáticos de seguimiento, confirmaciones o resúmenes de la conversación.
+
+    **Casos de uso comunes**:
+    - Enviar un resumen de la llamada con los puntos acordados
+    - Confirmar una cita agendada durante la conversación
+    - Adjuntar documentación solicitada por el cliente
+  </Tab>
+  <Tab title="SMS">
+    Envía mensajes cortos de texto para confirmaciones rápidas o recordatorios.
+
+    **Casos de uso comunes**:
+    - Confirmar la recepción de una solicitud
+    - Enviar un enlace de pago o formulario
+    - Recordar una cita próxima
+  </Tab>
+  <Tab title="WhatsApp">
+    Continúa la conversación por WhatsApp cuando el usuario lo prefiera, manteniendo el contexto de la llamada.
+
+    **Casos de uso comunes**:
+    - Enviar catálogos o material multimedia
+    - Continuar una negociación iniciada por teléfono
+    - Enviar confirmaciones con botones interactivos
+  </Tab>
+</Tabs>
+
+### Dominio de Email Propio
+
+<Info>
+Para maximizar la entregabilidad y reforzar tu marca, puedes vincular tu propio dominio de email en lugar de usar el dominio genérico de Meetzy por defecto.
+</Info>
+
+<Steps>
+  <Step title="Añadir tu Dominio">
+    Introduce el dominio que deseas usar para el envío de correos (por ejemplo, `notificaciones.tuempresa.com`).
+  </Step>
+  <Step title="Configurar Registros DNS">
+    Añade los registros SPF, DKIM y DMARC proporcionados por Meetzy en el panel de DNS de tu proveedor de dominio.
+  </Step>
+  <Step title="Verificar el Dominio">
+    Confirma la verificación desde el panel de configuración una vez propagados los registros DNS.
+  </Step>
+  <Step title="Seleccionar el Dominio como Predeterminado">
+    Una vez verificado, elige tu dominio propio como remitente predeterminado para las comunicaciones por Email de tus agentes.
+  </Step>
+</Steps>
+
+<Warning>
+La propagación de los registros DNS puede tardar hasta 48 horas dependiendo de tu proveedor. Evita eliminar o modificar los registros SPF/DKIM una vez verificados, ya que esto podría afectar la entregabilidad de tus correos.
+</Warning>

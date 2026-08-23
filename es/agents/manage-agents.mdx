@@ -10,7 +10,7 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 
 <CardGroup cols={2}>
   <Card title="Panel Izquierdo (Lista)" icon="list">
-    Lista completa de agentes con búsqueda, filtro por compañía, indicador de salud telefónica con sparkline por fila e interruptor para mostrar u ocultar agentes archivados
+    Lista completa de agentes con búsqueda, filtro por compañía, indicador de salud telefónica con sparkline por fila, filtro de salud telefónica e interruptor para mostrar u ocultar agentes archivados
   </Card>
   <Card title="Panel Derecho (Detalle)" icon="eye">
     Vista detallada del agente seleccionado organizada en tres pestañas: Overview, Calls y Settings
@@ -18,14 +18,14 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 </CardGroup>
 
 <Info>
-  Esta es la nueva página de Agentes. Si necesitas volver temporalmente a la vista clásica, verás un aviso en la parte superior con un enlace **"Switch back to the classic view"**.
+  Esta es la nueva página de Agentes, identificada bajo el subtítulo **"Improved view with agent latency history"**. Si necesitas volver temporalmente a la vista clásica, verás un aviso en la parte superior con un enlace **"Switch back to the classic view"**.
 </Info>
 
 ## Navegación Rápida
 
 <Tabs>
   <Tab title="Panel de Agentes">
-    Explora la lista completa de agentes con búsqueda, filtro por compañía, indicador de salud telefónica y control de visibilidad de archivados
+    Explora la lista completa de agentes con búsqueda, filtro por compañía, filtro de salud telefónica y control de visibilidad de archivados
   </Tab>
   <Tab title="Panel de Detalle">
     Analiza métricas de rendimiento, gráficos de latencia y volumen, historial de llamadas y configuración específica en las pestañas Overview, Calls y Settings
@@ -62,7 +62,7 @@ Si tienes acceso a múltiples organizaciones, el selector **Company** aparece ju
     Haz clic en el dropdown **"All companies"**
   </Step>
   <Step title="Buscar o seleccionar">
-    Usa el campo de filtrado dentro del desplegable o selecciona directamente la compañía deseada de la lista
+    Usa el campo **"Filter companies…"** dentro del desplegable o selecciona directamente la compañía deseada de la lista
   </Step>
   <Step title="Ver resultados">
     La lista se actualiza mostrando solo agentes de esa compañía
@@ -95,6 +95,18 @@ El interruptor **Phone health** te permite acotar la lista a los agentes cuyos n
 
 Cada fila de la lista incorpora información visual pensada para detectar de un vistazo el estado de un agente sin necesidad de abrir su panel de detalle.
 
+### Barra de Orden y Conteo
+
+Justo encima de la lista de agentes, una barra superior muestra el número total de agentes que cumplen los filtros activos (por ejemplo, **"12 agents"**) junto al selector de orden:
+
+- **Newest first** (por defecto): Agentes creados más recientemente primero
+- **Most calls**: Ordena por volumen de llamadas registrado en los últimos 14 días
+- **Name (A-Z)** / **Name (Z-A)**: Orden alfabético ascendente o descendente
+
+<Tip>
+  Este contador se actualiza automáticamente al aplicar cualquier filtro, por lo que es una forma rápida de confirmar cuántos agentes coinciden con tu búsqueda actual.
+</Tip>
+
 ### Sparkline de Latencia
 
 Junto al nombre de cada agente se muestra un pequeño gráfico de líneas (**sparkline**) con la evolución de su latencia media de IA durante los últimos 14 días. Este histórico se calcula una sola vez tras cargar la lista completa (no en cada fila por separado), por lo que aparece de forma progresiva justo después de que la lista termine de renderizarse.
@@ -117,17 +129,13 @@ Cada fila también incluye un pequeño indicador circular de color que resume el
   Haz clic sobre el indicador o usa el botón de Phone Health dentro del panel de detalle para acceder al reporte completo de spam y deliverability del número.
 </Tip>
 
-### Ordenar la Lista
-
-La barra superior de la lista incluye un selector de orden que se combina con los filtros activos:
-
-- **Newest first** (por defecto): Agentes creados más recientemente primero
-- **Most calls**: Ordena por volumen de llamadas registrado en los últimos 14 días
-- **Name (A-Z)** / **Name (Z-A)**: Orden alfabético ascendente o descendente
-
 ## Vista Detallada del Agente
 
 Al seleccionar cualquier agente en la lista, el panel derecho carga su información en tres pestañas: **Overview**, **Calls** y **Settings**.
+
+<Note>
+  En pantallas móviles, la lista se oculta automáticamente mientras el panel de detalle está abierto, dejando toda la pantalla disponible para revisar la información del agente. Usa el botón cerrar (✕) para volver a la vista de lista.
+</Note>
 
 ### Encabezado del Panel
 
@@ -243,6 +251,10 @@ Para agentes que muestran el badge **"Advanced"**:
     Los cambios se aplican inmediatamente o se pueden gestionar mediante commits según el nivel de control requerido
   </Step>
 </Steps>
+
+<Tip>
+  Dentro de la sección **Actions & Tools**, la tool `transfer_call` incluye ahora la opción **"Transfer to multiple destinations (Beta)"**, que permite definir varias reglas de transferencia (por ejemplo, "si el cliente pregunta por X → transferir a Y") en lugar de un único número de destino fijo. El **Transfer Prompt** que describe cuándo debe activarse la herramienta se comparte entre el modo clásico y el modo Beta de múltiples destinos.
+</Tip>
 
 ### Selector de Agentes en el Editor Avanzado
 
@@ -687,7 +699,7 @@ Para usuarios administradores, está disponible la gestión masiva:
 
 El sistema monitorea continuamente la salud de tus agentes:
 
-- **Phone Health**: Estado de números telefónicos asignados, visible como un beacon de color en cada fila de la lista y accesible en detalle desde la pestaña Overview
+- **Phone Health**: Estado de números telefónicos asignados, visible como un beacon de color en cada fila de la lista, filtrable mediante el interruptor **Phone health** y accesible en detalle desde la pestaña Overview
 - **Latency sparkline**: Mini-gráfico de 14 días con la evolución de la latencia media, visible directamente en la lista sin necesidad de abrir el panel de detalle
 - **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días, percentil P90 y tendencia comparativa
 - **Success Rate**: Tasa de llamadas cerradas con éxito
@@ -766,24 +778,17 @@ Recibe alertas sobre:
     **Verifica lo siguiente:**
     - El agente necesita tener llamadas registradas en los últimos 14 días para que exista histórico que graficar
     - El histórico se carga en segundo plano tras mostrar la lista, así que puede tardar unos segundos en aparecer
-    - Si el filtro de compañía o búsqueda está muy acotado, confirma que el agente en cuestión realmente está en el listado visible
+    - Si el filtro de compañía, búsqueda o el filtro de **Phone health** está muy acotado, confirma que el agente en cuestión realmente está en el listado visible
+  </Tab>
+  <Tab title="El filtro de Phone health no muestra ningún agente">
+    **Verifica lo siguiente:**
+    - Es posible que ninguno de tus agentes tenga actualmente incidencias de spam o deliverability registradas
+    - Confirma que no tienes también un filtro de compañía o búsqueda muy restrictivo combinado
+    - Usa **Clear filters** para restablecer todos los filtros y confirmar el resultado sin combinaciones
   </Tab>
   <Tab title="No encuentro el selector de agentes en el editor">
     **Verifica lo siguiente:**
     - El selector solo aparece en modo edición, no al crear un agente nuevo
     - Solo está disponible en pantallas de escritorio; en móvil usa **Back to Agents**
     - Debe existir al menos un agente adicional en la compañía activa para que la lista muestre opciones
-    - Si eres administrador, comprueba que el filtro de compañía dentro del dropdown no esté acotando la lista a una organización sin agentes adicionales
-  </Tab>
-  <Tab title="Conflictos de versiones">
-    **Pasos para resolver:**
-    - Usar el panel de Changes para ver diferencias
-    - Resolver conflictos manualmente
-    - Hacer commit con mensaje descriptivo
-    - Sincronizar con el servidor
-  </Tab>
-</Tabs>
-
-<Warning>
-  Si persisten los problemas, contacta al soporte técnico con el ID del agente afectado para un diagnóstico detallado.
-</Warning>
+    - Si eres administrador, comprueba que el fil
