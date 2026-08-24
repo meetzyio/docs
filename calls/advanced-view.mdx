@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the enhanced Calls page with configurable and pinnable columns, predefined and custom saved views, summary cards, adaptive live updates, suspicious call detection, OK/KO review verdicts, inline tag editing, Excel exports, and a full waveform recording player with per-turn latency breakdown."
+description: "Explore the enhanced Calls page with configurable and pinnable columns, predefined and custom saved views, summary cards, adaptive live updates, suspicious call detection, OK/KO review verdicts, inline tag editing, Excel exports, and a full waveform recording player with per-turn latency breakdown and cross-call navigation."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, at-a-glance summary cards, a streamlined single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full and selective Excel exports, and a redesigned recording player with a waveform, adjustable playback speed, and a per-turn latency breakdown in the transcript.
+The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, at-a-glance summary cards, a streamlined single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full and selective Excel exports, and a redesigned recording player with a waveform, adjustable playback speed, cross-call navigation, and a per-turn latency breakdown in the transcript.
 
 <Info>
 The Advanced Calls View is currently rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -275,6 +275,26 @@ Clicking a call's recording opens a redesigned player modal that puts the audio,
 - Download the original recording at any time with **Download recording**.
 - If you opened the player from the table, **previous/next** arrows in the header (and the ← / → arrow keys) let you move to the adjacent call in your current filtered list without closing and reopening the modal.
 
+<Info>
+The previous/next navigation controls live in the modal's header, right next to the close button, rather than floating over the waveform or transcript — so they're always within reach without ever covering the content you're reviewing.
+</Info>
+
+<Steps>
+  <Step title="Open a recording">
+    Click any call's recording icon from the table to open the player modal. The arrows appear automatically in the header whenever there's an adjacent call to move to.
+  </Step>
+  <Step title="Move to the next or previous call">
+    Click the **←** / **→** arrows next to the close button, or simply press the **arrow keys** on your keyboard, to jump to the previous or next call in your current filtered and sorted list — without closing the modal.
+  </Step>
+  <Step title="Keep your place">
+    The player automatically loads the new call's waveform, transcript, and review controls in place, so you can move through a whole batch of calls — listening, tagging, and setting OK/KO verdicts — without ever returning to the table in between.
+  </Step>
+</Steps>
+
+<Info>
+Navigation follows the exact same order as the table beneath it, respecting your active filters and sort order. The **←** arrow is disabled on the first call of the list and the **→** arrow is disabled on the last one, so you always know when you've reached either end.
+</Info>
+
 ### Transcript with per-turn latency breakdown
 
 The transcript panel shows the conversation turn by turn, with each agent reply annotated with **"Replied in Xs"**:
@@ -286,3 +306,179 @@ The transcript panel shows the conversation turn by turn, with each agent reply 
 <Info>
 This breakdown is what powers the **Avg. latency** summary card and the Suspicious calls filter's high-latency check — the same underlying per-turn data is just made visible here so you can see exactly why a particular reply was slow.
 </Info>
+
+## Relevant code changes
+
+### src/app/calls-v2/recording-player-modal.component.html
+```
+<div *ngIf="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" (click)="closeModal()">
+  <div
+    class="w-full max-w-6xl max-h-[88vh] rounded-xl shadow-2xl flex flex-col"
+    [ngClass]="isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'"
+    (click)="$event.stopPropagation()">
+
+    <div class="flex items-start justify-between px-6 py-5 border-b" [ngClass]="isDarkMode ? 'border-gray-700' : 'border-gray-200'">
+      <div>
+        <h3 class="text-base font-semibold">Call recording</h3>
+        <p class="text-sm mt-1" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
+          {{ call?.from }} → {{ call?.to }}
+        </p>
+      </div>
+
+      <div class="flex items-center gap-1">
+        <!-- Prev/next call navigation: lives in the header, not floating
+             over the content, so it never covers the waveform/transcript. -->
+        <ng-container *ngIf="hasPrevious || hasNext">
+          <button type="button" (click)="goPrevious()" [disabled]="!hasPrevious" title="Previous call (←)"
+            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
+            <ng-icon name="heroChevronLeft" size="18"></ng-icon>
+          </button>
+          <button type="button" (click)="goNext()" [disabled]="!hasNext" title="Next call (→)"
+            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
+            <ng-icon name="heroChevronRight" size="18"></ng-icon>
+          </button>
+          <div class="w-px h-5 mx-1" [ngClass]="isDarkMode ? 'bg-gray-700' : 'bg-gray-200'"></div>
+        </ng-container>
+
+        <button type="button" (click)="closeModal()" class="p-1.5 rounded-md" [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
+          <ng-icon name="heroXMark" size="18"></ng-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-5"
+      [class.nav-slide-next]="navDirection === 'next'"
+      [class.nav-slide-prev]="navDirection === 'prev'">
+
+      <!-- Player -->
+      <div class="md:col-span-2 p-8 border-b md:border-b-0 md:border-r" [ngClass]="isDarkMode ? 'border-gray-700' : 'border-gray-200'">
+        <div *ngIf="loading" class="py-10 text-center text-sm" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
+          Loading recording…
+        </div>
+
+        <div *ngIf="!loading && error" class="py-10 text-center text-sm text-red-500">{{ error }}</div>
+
+        <div *ngIf="!loading && !error">
+          <canvas #waveformCanvas width="600" height="90" class="w-full h-[90px] cursor-pointer" (click)="onWaveformClick($event)"></canvas>
+
+          <div class="flex items-center justify-between text-xs mt-3 mb-8" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
+            <span>{{ formatTime(currentTime) }}</span>
+            <span>{{ formatTime(duration) }}</span>
+          </div>
+
+          <div class="flex items-center justify-center gap-6 mb-8">
+            <button type="button" (click)="skip(-10)" title="Back 10s"
+              class="flex flex-col items-center gap-0.5 w-12 h-12 justify-center rounded-full border"
+              [ngClass]="isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : 'border-gray-300 text-gray-600 hover:bg-gray-50'">
+              <ng-icon name="heroBackward" size="16"></ng-icon>
+              <span class="text-[10px] leading-none">10s</span>
+            </button>
+            <button type="button" (click)="togglePlay()" class="w-14 h-14 flex items-center justify-center rounded-full text-white bg-emerald-500 hover:bg-emerald-400 shadow-sm">
+              <ng-icon [name]="isPlaying ? 'heroPauseSolid' : 'heroPlaySolid'" size="22"></ng-icon>
+            </button>
+            <button type="button" (click)="skip(10)" title="Forward 10s"
+              class="flex flex-col items-center gap-0.5 w-12 h-12 justify-center rounded-full border"
+              [ngClass]="isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : 'border-gray-300 text-gray-600 hover:bg-gray-50'">
+              <ng-icon name="heroForward" size="16"></ng-icon>
+              <span class="text-[10px] leading-none">10s</span>
+            </button>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <p class="text-xs font-medium mb-1.5" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">Speed</p>
+              <div class="flex items-center gap-1.5">
+                <button
+                  *ngFor="let speed of speedOptions"
+                  type="button"
+                  (click)="setSpeed(speed)"
+                  class="px-2.5 py-1 rounded-md text-xs font-medium border"
+                  [ngClass]="playbackRate === speed
+                    ? 'bg-emerald-500 border-emerald-500 text-white'
+                    : (isDarkMode ? 'border-gray-600 text-gray-300' : 'border-gray-300 text-gray-600')">
+                  {{ speed }}x
+                </button>
+              </div>
+            </div>
+
+            <button type="button" (click)="download()"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-500 hover:underline pt-1">
+              <ng-icon name="heroArrowDownTray" size="15"></ng-icon> Download recording
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transcript -->
+      <div class="md:col-span-3 p-8 overflow-y-auto">
+        <h4 class="text-sm font-semibold mb-3">Transcript</h4>
+
+        <div *ngIf="isLoadingTranscript" class="text-center text-sm py-8" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">Loading…</div>
+
+        <div *ngIf="!isLoadingTranscript && transcriptError" class="text-center text-sm py-8 text-red-500">{{ transcriptError }}</div>
+
+        <!-- Rich per-turn view (ElevenLabs conversation_turn_metrics/llm_usage/tool_calls) -->
+        <div *ngIf="!isLoadingTranscript && transcriptEntries.length > 0" class="space-y-3">
+          <div *ngFor="let entry of transcriptEntries; let i = index" class="flex" [ngClass]="entry.role === 'agent' ? 'justify-start' : 'justify-end'">
+            <div class="max-w-[92%] w-full sm:w-auto">
+              <div *ngIf="entry.message" class="px-3.5 py-2.5 rounded-2xl text-sm"
+                [ngClass]="entry.role === 'agent'
+                  ? (isDarkMode ? 'bg-gray-700 text-gray-100' : 'bg-gray-100 text-gray-900')
+                  : 'bg-emerald-600 text-white'">
+                {{ entry.message }}
+              </div>
+              <p *ngIf="!entry.message" class="text-xs italic" [ngClass]="isDarkMode ? 'text-gray-500' : 'text-gray-400'">
+                (no speech detected)
+              </p>
+
+              <!-- Badges: time + latency metrics + LLM model + tool markers -->
+              <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-xs" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
+                <span>{{ formatTurnTime(entry.time_in_call_secs) }}</span>
+
+                <span *ngIf="entry.role === 'user' && asrLatency(entry) as latency">
+                  Transcribed in {{ formatElapsed(latency) }}
+                </span>
+
+                <ng-container *ngIf="entry.role === 'agent'">
+                  <!-- One clear headline instead of raw TTS/LLM jargon: how long
+                       the agent took to answer, expandable into where it went. -->
+                  <button *ngIf="breakdownByEntry[i] as bd" type="button" (click)="toggleDetail('llm-' + i)"
+                    class="inline-flex items-center gap-1 font-medium hover:underline">
+                    Replied in {{ formatElapsed(bd.responseSeconds) }}
+                    <span class="opacity-60">{{ expandedDetail === ('llm-' + i) ? '▾' : '▸' }}</span>
+                  </button>
+
+                  <button *ngFor="let t of toolPairsByEntry[i]" type="button" (click)="toggleDetail('tool-' + i + '-' + t.call.request_id)" class="hover:underline font-medium">
+                    🔧 {{ t.call.tool_name }} <span>{{ expandedDetail === ('tool-' + i + '-' + t.call.request_id) ? '▾' : '▸' }}</span>
+                  </button>
+                </ng-container>
+              </div>
+
+              <!-- Response-time breakdown: where the latency actually went -->
+              <div *ngIf="expandedDetail === ('llm-' + i) && breakdownByEntry[i] as bd"
+                class="mt-2.5 p-4 rounded-xl border" [ngClass]="isDarkMode ? 'border-gray-700 bg-gray-900/40' : 'border-gray-200 bg-gray-50'">
+
+                <div class="flex items-start justify-between gap-6 mb-4">
+                  <div>
+                    <p class="text-[10px] uppercase tracking-wide" [ngClass]="isDarkMode ? 'text-gray-500' : 'text-gray-400'">Replied in</p>
+                    <p class="text-2xl font-semibold tabular-nums leading-tight">{{ formatElapsed(bd.responseSeconds) }}</p>
+                  </div>
+                  <div class="text-right min-w-0">
+                    <p class="text-[10px] uppercase tracking-wide" [ngClass]="isDarkMode ? 'text-gray-500' : 'text-gray-400'">Model</p>
+                    <p class="text-xs font-medium truncate">{{ bd.model || 'Unknown' }}</p>
+                  </div>
+                </div>
+
+                <!-- Stacked composition of the total -->
+                <div class="flex w-full h-2.5 rounded-full overflow-hidden gap-px mb-3"
+                  [ngClass]="isDarkMode ? 'bg-gray-800' : 'bg-gray-200'">
+                  <div *ngFor="let seg of bd.segments" [ngClass]="seg.colorClass"
+                    [style.width.%]="seg.pct" [style.min-width.px]="2"
+                    [title]="seg.label + ': ' + formatElapsed(seg.seconds)"></div>
+                </div>
+
+                <div class="space-y-2">
+                  <div *ngFor="let seg of bd.segments" class="flex items-center gap-2.
+```

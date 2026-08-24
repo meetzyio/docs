@@ -264,7 +264,7 @@ Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Des
 ### Navegación entre Llamadas
 
 <Info>
-El reproductor de grabación no es una ventana aislada por llamada: puedes moverte a la llamada anterior o siguiente de la lista filtrada sin cerrar el modal ni perder tu posición en la tabla.
+El reproductor de grabación no es una ventana aislada por llamada: puedes moverte a la llamada anterior o siguiente de la lista filtrada sin cerrar el modal ni perder tu posición en la tabla. Los controles de navegación viven en la cabecera del modal, no flotan sobre el contenido, así que nunca tapan la forma de onda ni la transcripción.
 </Info>
 
 En la cabecera del modal, junto al botón de cerrar, aparecen dos flechas de navegación:
@@ -310,7 +310,7 @@ En la cabecera del modal, junto a las flechas de navegación, encontrarás dos b
 Reproduce el audio y repasa la transcripción enriquecida para formarte un criterio sobre el resultado de la llamada.
 </Step>
 <Step title="Emite tu veredicto">
-Haz clic en ✅ **OK** o ❌ **KO** según tu evaluación. El veredicto queda asociado a la llamada de inmediato.
+Haz clic en ✅ **OK** o ❌ **KO** según tu evaluación. El botón seleccionado queda resaltado y el veredicto se asocia a la llamada de inmediato.
 </Step>
 <Step title="Avanza automáticamente">
 Tras marcar un veredicto, el modal salta automáticamente a la siguiente llamada de la lista, permitiéndote enlazar una revisión tras otra sin interrupciones.
@@ -318,7 +318,11 @@ Tras marcar un veredicto, el modal salta automáticamente a la siguiente llamada
 </Steps>
 
 <Info>
-El veredicto OK/KO queda disponible como filtro en la tabla de llamadas, lo que te permite, por ejemplo, listar únicamente las llamadas marcadas como KO para priorizar su revisión o escalarlas al equipo correspondiente.
+El veredicto es **deseleccionable**: si haces clic de nuevo sobre el botón ya activo (por ejemplo, vuelves a pulsar ✅ OK cuando ya estaba marcado), el veredicto se elimina y la llamada regresa al estado sin revisar. Esto es útil para corregir un clic accidental sin tener que buscar otra forma de "deshacer" la calificación.
+</Info>
+
+<Info>
+El veredicto OK/KO queda disponible como filtro en la tabla de llamadas, lo que te permite, por ejemplo, listar únicamente las llamadas marcadas como KO para priorizar su revisión o escalarlas al equipo correspondiente, o las llamadas sin veredicto para saber qué falta por revisar.
 </Info>
 
 ### Transcripción Enriquecida por Turno
@@ -338,7 +342,7 @@ Estos datos provienen directamente de la conversación original en ElevenLabs (`
 
 #### Desglose de latencia por turno ("Replied in")
 
-Al hacer clic en el indicador **"Replied in Xs"** de un turno del agente, se despliega un panel visual que responde a la pregunta "¿en qué se fue ese tiempo?" en lugar de mostrar métricas crudas sin contexto:
+Al hacer clic en el indicador **"Replied in Xs"** de un turno del agente, se despliega un panel visual que responde a la pregunta "¿en qué se fue ese tiempo?" en lugar de mostrar métricas crudas sin contexto. En lugar de exponer jerga cruda de TTS/LLM, el modal resume el resultado en un único titular claro —cuánto tardó el agente en responder— y lo deja expandible hacia el detalle:
 
 - **Tiempo de respuesta total** - el número principal, destacado en grande
 - **Modelo** - el modelo de lenguaje que generó la respuesta en ese turno
@@ -362,10 +366,10 @@ El segmento **"Waiting on purpose"** no representa lentitud del sistema: es una 
 En la transcripción, busca el indicador **"Replied in Xs"** debajo del mensaje del agente que quieres analizar.
 </Step>
 <Step title="Expande el desglose">
-Haz clic en el indicador para desplegar el panel con la barra apilada y la lista de segmentos.
+Haz clic en el indicador para desplegar el panel con el titular del tiempo de respuesta, el modelo usado, la barra apilada y la lista de segmentos.
 </Step>
 <Step title="Identifica el cuello de botella">
-Compara los porcentajes de cada segmento (ASR, LLM, TTS, overhead) para saber en qué etapa se concentró la mayor parte del tiempo de respuesta.
+Compara los porcentajes de cada segmento (ASR, LLM, TTS, overhead) para saber en qué etapa se concentró la mayor parte del tiempo de respuesta, sin dejar que una espera intencional distorsione la lectura.
 </Step>
 </Steps>
 
@@ -415,7 +419,7 @@ Cuando copias datos:
     Revisa params de entrada y salida para diagnosticar problemas.
   </Card>
   <Card title="Control de Calidad" icon="check-double">
-    Escucha grabaciones y verifica transcripciones para asegurar calidad.
+    Escucha grabaciones, verifica transcripciones y marca cada llamada con un veredicto OK/KO para asegurar calidad.
   </Card>
   <Card title="Verificación de Integración" icon="plug">
     Verifica que los datos del webhook se enviaron correctamente.

@@ -211,7 +211,7 @@ The recording modal no longer traps you on a single call. When you open a record
 
 <CardGroup cols={2}>
   <Card title="Previous / Next buttons" icon="arrow-right-arrow-left">
-    Two chevron buttons sit in the modal header, right next to the close button. Click **‹** to load the previous call's recording and transcript, or **›** to load the next one, all without leaving the modal.
+    Two chevron buttons sit in the modal header, right next to the close button, so they're always visible and never overlap the waveform or transcript below. Click **‹** to load the previous call's recording and transcript, or **›** to load the next one, all without leaving the modal.
   </Card>
   <Card title="Keyboard shortcuts" icon="keyboard">
     Press **←** to go to the previous call and **→** to go to the next call, without touching the mouse. Hovering the header buttons also shows these shortcuts as tooltips ("Previous call (←)" / "Next call (→)").
@@ -228,28 +228,36 @@ Arrow key navigation is automatically disabled while you're typing in the review
 
 Switching calls triggers a short slide transition (the content pane animates left or right depending on the direction you navigated) so it's clear a new recording has loaded, and reloads the waveform, audio, and transcript for the newly selected call.
 
-### Quick Verdict (OK / KO)
+### Quick Verdict (Pending / OK / KO)
 
 Reviewing a batch of recordings usually ends with the same decision for each call: was this a good call or not? Instead of closing the modal and marking the call from the table, you can now record that verdict right from the recording player.
 
+The verdict control is **tri-state**, not a simple on/off toggle:
+
+| State | Meaning |
+|-------|---------|
+| Pending | Default state — the call has not been reviewed yet, or the verdict was cleared |
+| OK | The call was handled correctly by the agent |
+| KO | The call needs attention (bad handling, missed data, wrong tone, etc.) |
+
 <CardGroup cols={2}>
   <Card title="OK / KO control" icon="thumbs-up">
-    A two-option toggle in the modal lets you mark the call currently loaded as **OK** (call handled correctly) or **KO** (call needs attention), with the active option visually highlighted.
+    A three-way control in the modal lets you mark the call currently loaded as **OK** or **KO**, with the active option visually highlighted. Clicking the currently active option again clears it, returning the call to **Pending**.
   </Card>
   <Card title="Stays with the call" icon="link">
-    The verdict is saved against the call you're viewing and travels with it — navigating to the previous/next call loads that call's own verdict state, it never carries over from the call you just left.
+    The verdict is saved against the call you're viewing and travels with it — navigating to the previous/next call loads that call's own verdict state (Pending, OK, or KO), it never carries over from the call you just left.
   </Card>
 </CardGroup>
 
 <Steps>
   <Step title="Open a recording">
-    Open any call's recording from Call History or another filtered list.
+    Open any call's recording from Call History or another filtered list. Its verdict starts at whatever state was last saved for it — commonly **Pending** if it hasn't been reviewed yet.
   </Step>
   <Step title="Review the call">
     Listen to the audio and read the transcript to judge whether the agent handled the call well.
   </Step>
   <Step title="Set the verdict">
-    Click **OK** or **KO** in the modal to record your judgment for this call.
+    Click **OK** or **KO** in the modal to record your judgment for this call. Click the same button again to reset the verdict back to **Pending** if you change your mind.
   </Step>
   <Step title="Move to the next call">
     Use the **›** button or the **→** key to jump straight to the next call in the list and repeat the process — no need to reopen the modal.
@@ -257,11 +265,11 @@ Reviewing a batch of recordings usually ends with the same decision for each cal
 </Steps>
 
 <Info>
-Combining the OK/KO control with previous/next navigation and the arrow-key shortcuts turns batch call review into a fast, keyboard-friendly workflow: listen, judge, move on.
+Combining the tri-state verdict with previous/next navigation and the arrow-key shortcuts turns batch call review into a fast, keyboard-friendly workflow: listen, judge, move on. The **Pending** state also makes it easy to filter for calls that still need a human decision.
 </Info>
 
 <Warning>
-Setting a verdict updates the call's review status immediately. If you need to also leave a written explanation, use the review note field alongside the OK/KO control — the two are independent and both persist with the call.
+Setting a verdict updates the call's review status immediately. If you need to also leave a written explanation, use the review note field alongside the verdict control — the two are independent and both persist with the call.
 </Warning>
 
 ### Waveform Player
@@ -305,7 +313,7 @@ The breakdown splits the response time into a stacked bar with the following sta
 | Other overhead | Any small residual not accounted for by the stages above, rather than being silently dropped |
 
 <Info>
-A separate **"Waiting on purpose"** segment may also appear. This is not slowness — it's the agent deliberately holding back before speaking (for example, waiting a few seconds before asking "are you still there?"). It's called out separately, with a note below the chart, so a deliberate pause isn't mistaken for a performance problem. The "Replied in" headline itself always excludes this wait time.
+A separate **"Waiting on purpose"** segment may also appear below the stacked bar. This is not slowness — it's the agent deliberately holding back before speaking (for example, waiting a few seconds before asking "are you still there?" or pausing to let the caller finish a thought). It's called out separately, with an explanatory note, so a deliberate pause isn't mistaken for a performance problem. The headline **"Replied in Xs"** always excludes this deliberate wait time, so it reflects only actual processing latency.
 </Info>
 
 Each stage in the breakdown shows its duration and percentage of the total, along with the LLM model that generated the response for that turn. This turns a single opaque latency number into an actionable diagnosis:
@@ -313,6 +321,7 @@ Each stage in the breakdown shows its duration and percentage of the total, alon
 - A response dominated by **Understanding speech** may point to background noise or a caller who talks quickly.
 - A response dominated by **Model thinking** may point to a slow or overloaded LLM — worth checking against the [LLM Model Usage](#llm-model-usage) section above to see if a cascade fallback happened on that same turn.
 - A response dominated by **Generating voice** may point to a longer-than-usual agent reply that takes more time to synthesize.
+- A visible **Waiting on purpose** segment simply confirms the agent chose to pause — no action needed.
 
 <Steps>
   <Step title="Scan the turn">
@@ -320,6 +329,9 @@ Each stage in the breakdown shows its duration and percentage of the total, alon
   </Step>
   <Step title="Expand the latency breakdown">
     Click **Replied in Xs** to reveal the stacked bar showing how the response time splits across understanding speech, model thinking, generating voice, and any deliberate wait.
+  </Step>
+  <Step title="Check for deliberate waits">
+    If a **Waiting on purpose** segment is shown, treat it as intentional agent behavior rather than latency to fix.
   </Step>
   <Step title="Expand tool calls">
     Click a **🔧 tool name** badge to reveal the exact parameters sent to the tool and the result (or error) it returned.
@@ -387,7 +399,7 @@ When you copy data:
     Review input params and output to diagnose why a call didn't perform as expected.
   </Card>
   <Card title="Quality Assurance" icon="check-double">
-    Listen to recordings, check transcriptions, and mark each call OK/KO to build a fast, keyboard-driven QA workflow.
+    Listen to recordings, check transcriptions, and mark each call Pending/OK/KO to build a fast, keyboard-driven QA workflow.
   </Card>
   <Card title="Integration Verification" icon="plug">
     Verify that webhook data was sent correctly and contains expected values.
@@ -411,7 +423,7 @@ The ← and → shortcuts only apply while the Call Recording modal is open, and
 </Info>
 
 <Info>
-There is no dedicated shortcut for the OK/KO verdict — use the on-screen control in the modal. This keeps the verdict a deliberate click rather than something that could be triggered accidentally while navigating between calls.
+There is no dedicated shortcut for the verdict control — use the on-screen Pending/OK/KO buttons in the modal. This keeps the verdict a deliberate click rather than something that could be triggered accidentally while navigating between calls.
 </Info>
 
 ## Next Steps
