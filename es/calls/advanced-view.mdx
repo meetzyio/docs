@@ -1,6 +1,6 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas predefinidas y guardadas, filtros avanzados, revisión con veredicto de auditoría y notas, edición de tags en línea y actualización en vivo"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas predefinidas y guardadas, modo en vivo, filtros avanzados, revisión con veredicto de auditoría y notas, edición de tags en línea y reproductor con navegación entre llamadas"
 icon: "table-list"
 ---
 
@@ -23,7 +23,7 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 - Estado **Revisado**, **veredicto de auditoría (OK / KO)** y notas por llamada, con guardado automático
 - **Edición de etiquetas en línea**, para añadir o quitar tags sin salir de la vista de llamadas
 - Actualización en vivo de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas
-- Gráficos de latencia real de IA y reproductor de grabaciones integrado, con desglose detallado de cada respuesta
+- Gráficos de latencia real de IA y reproductor de grabaciones integrado, con navegación anterior/siguiente y desglose detallado de cada respuesta
 
 ---
 
@@ -275,7 +275,11 @@ Con el interruptor **Live** activado, la tabla se actualiza automáticamente en 
 Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, con forma de onda real (generada a partir del audio decodificado), salto de ±10 segundos, control de velocidad de reproducción y descarga del archivo, sin salir de la vista de llamadas.
 
 <Info>
-  El reproductor también incluye navegación rápida entre llamadas (anterior/siguiente, incluso con las flechas del teclado) y, en su pie, los mismos controles de estado **Revisado**, **veredicto de auditoría (OK / KO)**, nota de auditoría y edición de etiquetas disponibles en la tabla, para que puedas auditar una llamada de principio a fin sin cerrar el modal.
+  El reproductor incluye botones de navegación **anterior** y **siguiente** en la cabecera del modal, para pasar de una llamada a otra dentro del mismo conjunto filtrado sin cerrar la ventana. También puedes usar las flechas **←** y **→** del teclado como atajo. Los botones se desactivan automáticamente cuando ya no hay una llamada anterior o siguiente disponible.
+</Info>
+
+<Info>
+  En el pie del reproductor encontrarás los mismos controles de estado **Revisado**, **veredicto de auditoría (OK / KO)**, nota de auditoría y edición de etiquetas disponibles en la tabla, para que puedas auditar una llamada de principio a fin —y pasar directamente a la siguiente— sin cerrar el modal.
 </Info>
 
 ### Transcripción y ficha de feedback

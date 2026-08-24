@@ -211,22 +211,58 @@ The recording modal no longer traps you on a single call. When you open a record
 
 <CardGroup cols={2}>
   <Card title="Previous / Next buttons" icon="arrow-right-arrow-left">
-    Two chevron buttons sit in the modal header, next to the close button. Click them to load the adjacent call's recording and transcript in place.
+    Two chevron buttons sit in the modal header, right next to the close button. Click **‹** to load the previous call's recording and transcript, or **›** to load the next one, all without leaving the modal.
   </Card>
   <Card title="Keyboard shortcuts" icon="keyboard">
-    Press **←** to go to the previous call and **→** to go to the next call, without touching the mouse.
+    Press **←** to go to the previous call and **→** to go to the next call, without touching the mouse. Hovering the header buttons also shows these shortcuts as tooltips ("Previous call (←)" / "Next call (→)").
   </Card>
 </CardGroup>
 
 <Info>
-The previous/next buttons are automatically disabled at either end of the list — for example, if you're already viewing the first call, the "previous" button (and the ← shortcut) has no effect.
+The previous/next buttons are automatically disabled (dimmed, non-clickable) at either end of the list — for example, if you're already viewing the first call, the "previous" button (and the ← shortcut) has no effect. The buttons only render at all when at least one adjacent call is available.
 </Info>
 
 <Info>
 Arrow key navigation is automatically disabled while you're typing in the review note or tag input fields inside the modal, so pressing ← or → to move the cursor in a text field never accidentally jumps to another call.
 </Info>
 
-Switching calls triggers a short slide transition so it's clear a new recording has loaded, and reloads the waveform, audio, and transcript for the newly selected call.
+Switching calls triggers a short slide transition (the content pane animates left or right depending on the direction you navigated) so it's clear a new recording has loaded, and reloads the waveform, audio, and transcript for the newly selected call.
+
+### Quick Verdict (OK / KO)
+
+Reviewing a batch of recordings usually ends with the same decision for each call: was this a good call or not? Instead of closing the modal and marking the call from the table, you can now record that verdict right from the recording player.
+
+<CardGroup cols={2}>
+  <Card title="OK / KO control" icon="thumbs-up">
+    A two-option toggle in the modal lets you mark the call currently loaded as **OK** (call handled correctly) or **KO** (call needs attention), with the active option visually highlighted.
+  </Card>
+  <Card title="Stays with the call" icon="link">
+    The verdict is saved against the call you're viewing and travels with it — navigating to the previous/next call loads that call's own verdict state, it never carries over from the call you just left.
+  </Card>
+</CardGroup>
+
+<Steps>
+  <Step title="Open a recording">
+    Open any call's recording from Call History or another filtered list.
+  </Step>
+  <Step title="Review the call">
+    Listen to the audio and read the transcript to judge whether the agent handled the call well.
+  </Step>
+  <Step title="Set the verdict">
+    Click **OK** or **KO** in the modal to record your judgment for this call.
+  </Step>
+  <Step title="Move to the next call">
+    Use the **›** button or the **→** key to jump straight to the next call in the list and repeat the process — no need to reopen the modal.
+  </Step>
+</Steps>
+
+<Info>
+Combining the OK/KO control with previous/next navigation and the arrow-key shortcuts turns batch call review into a fast, keyboard-friendly workflow: listen, judge, move on.
+</Info>
+
+<Warning>
+Setting a verdict updates the call's review status immediately. If you need to also leave a written explanation, use the review note field alongside the OK/KO control — the two are independent and both persist with the call.
+</Warning>
 
 ### Waveform Player
 
@@ -351,7 +387,7 @@ When you copy data:
     Review input params and output to diagnose why a call didn't perform as expected.
   </Card>
   <Card title="Quality Assurance" icon="check-double">
-    Listen to recordings and check transcriptions to ensure agent quality.
+    Listen to recordings, check transcriptions, and mark each call OK/KO to build a fast, keyboard-driven QA workflow.
   </Card>
   <Card title="Integration Verification" icon="plug">
     Verify that webhook data was sent correctly and contains expected values.
@@ -372,6 +408,10 @@ When you copy data:
 
 <Info>
 The ← and → shortcuts only apply while the Call Recording modal is open, and are automatically ignored while typing in a text field (such as the review note or tag input).
+</Info>
+
+<Info>
+There is no dedicated shortcut for the OK/KO verdict — use the on-screen control in the modal. This keeps the verdict a deliberate click rather than something that could be triggered accidentally while navigating between calls.
 </Info>
 
 ## Next Steps

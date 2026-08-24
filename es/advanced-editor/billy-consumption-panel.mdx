@@ -166,8 +166,8 @@ Las unidades del balance se muestran siempre en un formato legible para el usuar
 </Info>
 
 ```typescript
-// Seconds-based balances read better as minutes with the exact seconds as
-// context; other units render as-is.
+// Los balances basados en segundos se muestran como minutos, ya que
+// resultan más legibles; el resto de unidades se muestran tal cual.
 formatBalanceUnits(value: number | null | undefined, unit: string): string {
   const units = Number(value || 0);
   if (unit === 'seconds') {
@@ -436,7 +436,7 @@ toggleCollapsed(): void {
   try {
     localStorage.setItem(this.COLLAPSED_KEY, String(this.collapsed));
   } catch {
-    // Ignore storage failures in private browsing or restricted contexts.
+    // Se ignoran fallos de almacenamiento en navegación privada o contextos restringidos.
   }
 
   if (this.collapsed) {
@@ -622,7 +622,7 @@ async ngOnInit(): Promise<void> {
 
   const canView = await this.permissionsService.canViewBillableMinutes();
   if (!canView) {
-    return; // Panel no se renderiza
+    return; // El panel no se renderiza
   }
 
   await this.loadConsumption();
@@ -646,7 +646,7 @@ El panel mantiene su estado de expansión usando localStorage:
 - **Clave**: `meetzy_billy_consumption_panel_collapsed`
 - **Valor**: String boolean ('true'/'false')
 - **Recuperación**: Automática al inicializar el componente
-- **Manejo de errores**: Graceful fallback si localStorage no está disponible
+- **Manejo de errores**: Fallback silencioso si localStorage no está disponible
 
 ```typescript
 private restoreCollapsedState(): void {
@@ -662,7 +662,7 @@ toggleCollapsed(): void {
   try {
     localStorage.setItem(this.COLLAPSED_KEY, String(this.collapsed));
   } catch {
-    // Ignore storage failures in private browsing or restricted contexts.
+    // Se ignoran fallos de almacenamiento en navegación privada o contextos restringidos.
   }
 
   if (this.collapsed) {

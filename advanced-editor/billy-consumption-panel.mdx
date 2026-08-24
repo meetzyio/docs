@@ -18,8 +18,8 @@ The enhanced Billy consumption panel displays:
 - **Rules-v2 balance block** for accounts on the newer billing engine, showing either a committed tier's progress or a prepaid bag's available units
 - **Real-time consumption data** with intelligent period detection
 - **Advanced filtering system** with a dropdown period selector and custom date ranges
-- **Cost breakdown by assistant** with detailed unit metrics
-- **Administrative historical charts** for trend analysis
+- **Cost breakdown grouped by agent** with an expandable accordion for detailed unit metrics
+- **Administrative historical charts** for trend analysis, collapsible and available only in admin view
 - **Billing adjustments** including minimums and corrections
 - **Rotating message ticker** while the panel is collapsed
 - **Flexible view modes** for different user types
@@ -201,7 +201,7 @@ The dropdown behaves consistently across the panel:
 
 <Steps>
 <Step title="View Updated Data">
-Data automatically refreshes when a new period is selected, including the minutes package card and balance block, when applicable
+Data automatically refreshes when a new period is selected, including the minutes package card, balance block, and the agent-grouped breakdown, when applicable
 </Step>
 </Steps>
 
@@ -227,7 +227,7 @@ Click "Apply" to load consumption data for your custom date range
 Custom date ranges must have a start date before or equal to the end date. The panel will show validation errors for invalid date combinations.
 </Warning>
 
-Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type. The minutes package card and balance block, when applicable, recalculate against whatever range is currently active.
+Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type. The minutes package card, balance block, and agent-grouped breakdown, when applicable, all recalculate against whatever range is currently active.
 
 ### Filter Collapse and Expansion
 
@@ -260,6 +260,61 @@ The filtering system includes comprehensive validation:
 - **Error recovery**: Displays helpful error messages and retry options
 - **Auto-synchronization**: Keeps filter state, dropdown selection, and consumption data in sync
 
+## Consumption Breakdown by Agent
+
+The core of the consumption panel is a detailed breakdown of usage, now **grouped by agent** and presented as an **expandable accordion** instead of a flat list. This makes it much easier to scan totals per agent first, then drill into the underlying detail only when needed.
+
+### How Grouping Works
+
+Rather than listing every billed line item individually, the panel first aggregates consumption **by assistant/agent**, showing a compact summary row for each one:
+
+- **Agent name** and identification
+- **Aggregated usage** for the selected period (total units consumed across all that agent's activity)
+- **Aggregated subtotal** in the account's currency
+- **Expand indicator** (chevron) showing whether the group is currently open
+
+<Info>
+Grouping happens entirely client-side over the consumption response for the selected period. Switching periods, applying a custom range, or refreshing manually all rebuild the groups automatically from the fresh data.
+</Info>
+
+### Expanding an Agent's Details
+
+<Steps>
+<Step title="Locate the Agent Row">
+In the consumption breakdown section, find the collapsed row for the agent you want to inspect
+</Step>
+<Step title="Click to Expand">
+Click anywhere on the agent's summary row to expand its accordion panel
+</Step>
+<Step title="Review Line-Item Detail">
+The expanded panel reveals the individual usage lines that make up that agent's total, including unit type, unit pricing, and per-line subtotal
+</Step>
+<Step title="Collapse When Done">
+Click the row again to collapse it and keep the overview compact
+</Step>
+</Steps>
+
+Each expanded line item shows the same level of detail previously shown per row in the flat list:
+
+- **Usage metrics** with proper unit labels (minutes, calls, etc.)
+- **Unit pricing** and subtotal calculations
+- **Billing type** information
+
+<Info>
+Multiple agent accordions can be expanded at the same time — expanding one agent does not automatically collapse another. This makes it easy to compare two or three agents side by side without losing context.
+</Info>
+
+### Why Grouping by Agent Helps
+
+- **Faster scanning**: Totals per agent are visible immediately, without needing to mentally sum multiple rows
+- **Focused drill-down**: You only load visual detail for the agents you actually care about in a given review
+- **Easier cost attribution**: Quickly spot which agent is driving the bulk of the period's cost before digging into line-item pricing
+- **Consistent with the ticker**: The "top consuming assistant" message shown in collapsed mode corresponds directly to the highest-totaled group in this breakdown
+
+<Warning>
+Collapsing an agent's accordion does not discard its data — all figures remain part of the overall subtotal and total cost calculations regardless of whether the group is expanded or collapsed on screen.
+</Warning>
+
 ## Administrative Features
 
 ### Historical Chart View
@@ -268,7 +323,7 @@ The filtering system includes comprehensive validation:
 Historical charts are only available for administrators with appropriate permissions.
 </Info>
 
-For admin users, the panel includes an additional historical analysis section:
+For admin users, the panel includes an additional historical analysis section, itself **collapsible** to keep the panel compact when not in active use:
 
 <Steps>
 <Step title="Access Historical View">
@@ -303,6 +358,10 @@ If the selected consumption period or view mode changes in a way that affects th
 </Step>
 </Steps>
 
+<Info>
+The historical chart section is exclusive to admin view (`admin_clients`). Switching back to a client-scoped view automatically hides and resets the chart's expanded state.
+</Info>
+
 ### Enhanced Chart Controls
 
 The historical chart section includes improved controls:
@@ -316,8 +375,8 @@ The historical chart section includes improved controls:
 
 The panel adapts its display based on user permissions:
 
-- **Client View** (`client_agents`): Shows consumption for your assistants, including the minutes package card and rules-v2 balance block, when configured
-- **Admin View** (`admin_clients`): Shows consumption across clients with additional controls, including the historical chart section
+- **Client View** (`client_agents`): Shows consumption for your assistants, including the minutes package card, rules-v2 balance block, and the agent-grouped breakdown, when configured
+- **Admin View** (`admin_clients`): Shows consumption across clients with additional controls, including the collapsible historical chart section
 
 ## Collapsed Mode: Rotating Message Ticker
 
@@ -332,7 +391,7 @@ What the ticker can surface:
 - **Total for the period**: The current total cost for the active billing period, giving an at-a-glance summary without opening the panel
 - **Minutes package status**: A reminder of remaining minutes, or an over-allowance warning, whenever a legacy minutes package is configured on the account's billing profile
 - **Balance status**: For rules-v2 accounts, a message reflecting either the committed tier's remaining/overage status or the prepaid bag's available units
-- **Top consuming assistant**: The assistant responsible for the highest consumption in the current period, helping surface which assistant is driving costs at a glance
+- **Top consuming assistant**: The agent group with the highest aggregated consumption in the current period, matching the top row in the grouped breakdown, helping surface which assistant is driving costs at a glance
 - **Billing period context**: Which period is currently being tracked
 - **Historical highlights**: Once historical data has been loaded for admin views, relevant trend messages may also rotate through the ticker
 
@@ -363,21 +422,12 @@ If consumption data fails to load or the panel cannot render (for example, no bi
 
 ## Understanding Consumption Data
 
-### Breakdown by Assistant
-
-Each assistant entry shows:
-
-- **Assistant name** and identification
-- **Usage metrics** with proper unit labels (minutes, calls, etc.)
-- **Unit pricing** and subtotal calculations
-- **Billing type** information
-
 ### Cost Calculation Structure
 
-The panel displays a transparent cost breakdown:
+The panel displays a transparent cost breakdown, built from the sum of all expanded and collapsed agent groups:
 
 ```
-Subtotal (all assistant usage)
+Subtotal (sum of all agent-grouped usage)
 + Minimum Applied (billing minimums)
 - Correction Amount (adjustments/credits)
 = Total Cost
@@ -416,7 +466,7 @@ The refresh button intelligently reapplies whichever filter is currently active:
 - If a **predefined period** is selected, the refresh reloads data for that same period
 - If neither is set, it falls back to loading the default current-period consumption
 
-This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing, and the minutes package card and balance block (when applicable) update their figures accordingly.
+This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing, and the minutes package card, balance block, and agent-grouped breakdown (when applicable) update their figures accordingly.
 
 ### Smart Refresh Logic
 
@@ -425,7 +475,11 @@ The refresh system intelligently handles different scenarios:
 - **Period filters**: Refreshes data for the currently selected period
 - **Custom ranges**: Re-applies custom date filters
 - **Default mode**: Falls back to standard consumption loading
-- **State preservation**: Maintains current filter selections, dropdown state, and (when applicable) the historical chart's expanded/collapsed state
+- **State preservation**: Maintains current filter selections, dropdown state, which agent accordions are expanded, and (when applicable) the historical chart's expanded/collapsed state
+
+<Info>
+Expanded agent accordions are preserved across a manual refresh whenever the same agent still appears in the refreshed data, so you don't lose your place mid-review.
+</Info>
 
 ### Loading States
 
@@ -444,7 +498,7 @@ When errors occur, the panel:
 - Maintains last successful data when possible
 
 <Warning>
-If consumption data fails to load, neither the minutes package card nor the rules-v2 balance block are rendered — they do not display a stale or partial state. They reappear automatically once a successful refresh returns their respective data again.
+If consumption data fails to load, neither the minutes package card, the rules-v2 balance block, nor the agent-grouped breakdown are rendered — they do not display a stale or partial state. They reappear automatically once a successful refresh returns their respective data again.
 </Warning>
 
 ## Panel States and Indicators
@@ -537,6 +591,28 @@ If consumption data fails to load, neither the minutes package card nor the rule
 - Compare "consumed this period" against your own call activity to sanity-check the figure
 </Tab>
 
+<Tab title="Agent Group Won't Expand">
+**Possible causes:**
+- Consumption data is currently being refreshed, temporarily disabling interaction
+- The agent group has no line items for the selected period (nothing to expand)
+
+**Solutions:**
+- Wait for the "Recalculating consumption..." state to finish, then try again
+- Confirm the agent had actual billable activity in the selected period by checking a different period
+- Refresh the panel manually if the accordion appears unresponsive
+</Tab>
+
+<Tab title="Agent Totals Don't Match Expectations">
+**Possible causes:**
+- Grouping aggregates all billed line items for that agent within the selected period, which may include adjustments not obvious at a glance
+- A custom date range partially overlaps a billing period, splitting totals differently than expected
+
+**Solutions:**
+- Expand the agent's accordion to review the individual line items contributing to the total
+- Switch to a predefined period instead of a custom range to compare against a full billing cycle
+- Cross-check the unit type and pricing shown per line item against the agent's configured billing rules
+</Tab>
+
 <Tab title="Filters Not Working">
 **Possible causes:**
 - Invalid date range selections
@@ -601,6 +677,12 @@ If consumption data fails to load, neither the minutes package card nor the rule
 - **Collapse filters** when not actively adjusting to save space
 - **Combine filters** with manual refresh for most current data
 
+### Reviewing the Agent-Grouped Breakdown
+- **Scan collapsed totals first**: Use the summary row per agent to quickly spot the biggest contributors before drilling into any detail
+- **Expand selectively**: Only open the accordions for agents you actually need to investigate, keeping the panel easy to read
+- **Compare multiple agents at once**: Take advantage of independent expand/collapse state to keep two or three agents open side by side
+- **Cross-reference with the ticker**: The "top consuming assistant" ticker message should match the highest total in this breakdown — use it as a quick sanity check
+
 ### Administrative Usage
 - **Review historical charts** for long-term planning
 - **Monitor client consumption patterns** for resource allocation
@@ -610,7 +692,7 @@ If consumption data fails to load, neither the minutes package card nor the rule
 ### Collapsed Mode Usage
 - **Keep the panel collapsed** during regular work to let the ticker surface key updates passively
 - **Glance at rotating messages** for a quick pulse on the period total, minutes package or balance status, and top consuming assistant without expanding the panel
-- **Expand only when you need details**, such as adjusting filters or reviewing historical charts
+- **Expand only when you need details**, such as adjusting filters, reviewing agent-level breakdowns, or checking historical charts
 
 ### Managing a Minutes Package
 - **Treat the emerald bar as a planning tool**: use the remaining-minutes footer message to anticipate when the allowance will run out
@@ -625,6 +707,7 @@ If consumption data fails to load, neither the minutes package card nor the rule
 ### Performance Optimization
 - **Keep the panel collapsed** when not actively monitoring
 - **Collapse filter sections** when not in use
+- **Collapse agent accordions** you're no longer actively reviewing to keep the breakdown easy to scan
 - **Refresh manually** when you need the most current data
 - **Use appropriate filter periods** to avoid loading excessive data
 
