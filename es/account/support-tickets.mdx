@@ -17,7 +17,7 @@ El portal de soporte (**Tickets**) te permite hacer seguimiento de todas las inc
     Desde el menú lateral de tu cuenta, selecciona **Tickets**.
   </Step>
   <Step title="Espera a que cargue tu histórico">
-    Verás un resumen con métricas, un gráfico de volumen mensual y el listado completo de tickets de tu cuenta.
+    Verás un panel de métricas, un gráfico de volumen mensual y el listado completo de tickets de tu cuenta.
   </Step>
   <Step title="Actualiza cuando lo necesites">
     Usa el botón **Actualizar** para forzar una recarga de los datos más recientes, sin esperar a la caché.
@@ -59,7 +59,7 @@ Cada ticket incluye una prioridad (**Crítica**, **Alta**, **Media**, **Baja**) 
 - Datos / analítica
 - Otros
 
-## Métricas de tu cuenta
+## Panel de métricas
 
 En la parte superior del portal encontrarás cuatro indicadores clave:
 
@@ -91,6 +91,8 @@ Un desglose por tipo de ticket te permite ver qué categoría concentra más pet
 El listado admite varios filtros combinables:
 
 - **Búsqueda libre**: por título, descripción, número de ticket o nombre del agente asignado.
+- **Mis tickets**: muestra únicamente los tickets que has creado tú, dejando fuera los que abrió otro miembro de la cuenta o el equipo de Meetzy en tu nombre.
+- **Cuenta**: si tu perfil tiene visibilidad sobre varias cuentas (por ejemplo, el equipo de Meetzy), puedes filtrar por una en concreto.
 - **Estado**
 - **Tipo**
 - **Prioridad**
@@ -112,13 +114,38 @@ El listado admite varios filtros combinables:
   <Step title="Selecciona el tipo de ticket">
     Elige la categoría que mejor describa tu petición. Si no encajas en ninguna, usa **Otros**.
   </Step>
+  <Step title="Marca los agentes afectados">
+    Este paso es **obligatorio**. Selecciona uno o varios agentes de tu cuenta a los que afecta la incidencia o petición. Sin al menos un agente marcado, el ticket no se puede enviar: es lo que permite asignarlo correctamente cuando tu cuenta tiene varios agentes activos.
+  </Step>
+  <Step title="Indica la importancia percibida (opcional)">
+    Puedes añadir el nivel de importancia que tú le das al ticket. Es un dato puramente informativo para dar contexto a nuestro equipo; no sustituye ni modifica la prioridad que asignamos internamente.
+  </Step>
+  <Step title="Adjunta archivos si lo necesitas (opcional)">
+    Puedes acompañar el ticket con capturas, PDFs o documentos de Excel. Consulta los límites en la sección [Adjuntos](#adjuntos).
+  </Step>
   <Step title="Envía el ticket">
     En cuanto se registre, aparecerá en tu listado con estado **Pendiente**.
   </Step>
 </Steps>
 
+<Warning>
+  Si no marcas ningún agente afectado, el formulario no dejará enviar el ticket. Es el único campo obligatorio además del título y la descripción.
+</Warning>
+
 <Info>
   Cada ticket que envías incluye un identificador único de solicitud para evitar duplicados si haces clic varias veces o se produce un reintento de red.
+</Info>
+
+## Adjuntos
+
+Tanto al crear un ticket como al comentar en uno existente, puedes añadir archivos adjuntos:
+
+- Hasta **10 archivos** por envío.
+- Tamaño máximo de **20 MB** por archivo.
+- Formatos admitidos: imágenes, PDF y hojas de cálculo (`.xls`, `.xlsx`).
+
+<Info>
+  Los adjuntos se suben en segundo plano una vez el ticket ya se ha creado. Si alguno falla al subirse, el ticket se crea igualmente y podrás verlo (o reintentarlo) desde el detalle del ticket.
 </Info>
 
 ## Ver el detalle de un ticket
@@ -126,10 +153,39 @@ El listado admite varios filtros combinables:
 Selecciona cualquier ticket del listado para abrir su panel de detalle, donde encontrarás:
 
 - Descripción completa y notas de resolución (si el ticket ya está cerrado).
+- Quién creó el ticket: el nombre de la persona si lo abrió un miembro de tu cuenta, o su email si lo abrió la titular. Si el ticket lo registró directamente nuestro equipo, este dato no aparece.
 - Subtareas asociadas, con su propio estado.
 - Archivos adjuntos y enlaces relacionados.
-- Agentes de nuestro equipo asignados al caso.
+- Agentes de nuestro equipo asignados al caso, así como los agentes de tu cuenta marcados como afectados.
+- Historial de resolución y reapertura del ticket.
 
 <Warning>
   Las notas de resolución sólo están disponibles una vez el ticket pasa a estado **Resuelto** o **Descartado**.
+</Warning>
+
+### Historial de resolución y reapertura
+
+Cada vez que un ticket se resuelve o se reabre, queda un registro con la fecha, quién realizó la acción y el motivo (en el caso de una reapertura). Este historial se mantiene completo aunque el ticket pase por varios ciclos de resolución y reapertura, a diferencia de las notas de resolución, que reflejan únicamente el estado más reciente.
+
+### Reabrir un ticket
+
+Si un ticket ya cerrado (**Resuelto** o **Descartado**) no queda solucionado del todo, puedes reabrirlo directamente desde su panel de detalle.
+
+<Steps>
+  <Step title="Abre el ticket cerrado">
+    Entra en el detalle del ticket que quieres reabrir.
+  </Step>
+  <Step title="Pulsa 'Reabrir'">
+    La opción sólo está disponible si el ticket se cerró hace **5 días o menos**.
+  </Step>
+  <Step title="Explica el motivo">
+    Es obligatorio indicar por qué reabres el ticket; ayuda a nuestro equipo a retomarlo con contexto.
+  </Step>
+  <Step title="Confirma la reapertura">
+    El ticket vuelve a un estado activo y queda reflejado en su historial.
+  </Step>
+</Steps>
+
+<Warning>
+  Cada ticket admite un máximo de **3 reaperturas**. Superado ese límite, o si han pasado más de 5 días desde el cierre, deberás abrir un ticket nuevo referenciando el original.
 </Warning>

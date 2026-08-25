@@ -4,7 +4,7 @@ description: "View, filter, and create support tickets for your Meetzy account f
 icon: "ticket"
 ---
 
-The **Tickets** page (`/tickets`) is where you track every support request tied to your account — bugs, feature requests, integration issues, and anything else our team is helping you with. It shows a live status for each ticket, plus a set of summary metrics so you can see how support is trending over time.
+The **Tickets** page (`/tickets`) is where you track every support request tied to your account — bugs, feature requests, integration issues, and anything else our team is helping you with. It shows a live status for each ticket, a full metrics panel, resolution-time breakdowns, and a real audit trail of what happened on each ticket, including reopenings.
 
 <Info>
 This page shows only tickets marked as **public** for your account. Internal notes and private follow-ups tracked by our team are not shown here, but nothing you need to act on is ever hidden from you.
@@ -48,7 +48,7 @@ At the top of the page you'll find four key numbers that summarize your account'
     The median number of days between a ticket's creation and its resolution date, based on tickets that have actually been closed.
 
     <Warning>
-    This is a **median**, not an average. A few very old or unusually complex tickets won't skew this number the way they would an average — that's intentional, since it better reflects the typical resolution time.
+    This is a **median**, not an average. A few very old or unusually complex tickets won't skew this number the way they would an average — that's intentional, since it better reflects the typical resolution time. If the average diverges sharply from the median, the page flags it so you know the mean isn't representative.
     </Warning>
   </Tab>
 </Tabs>
@@ -63,6 +63,14 @@ Further down, a simple bar chart shows how many tickets were opened per month. T
 
 A horizontal bar list shows which ticket types are most frequent (e.g., Bug, Feature request, Integration). Clicking a bar toggles a filter for that type, letting you drill into just that category. Click it again to remove the filter.
 
+### Resolution times by type and priority
+
+Below the topics list, a table breaks down resolution speed two ways: by **ticket type** and by **priority**. For each row you'll see how many tickets were closed and the median number of days it took. The type or priority with the most closed tickets is highlighted, since it's the most statistically meaningful row.
+
+<Info>
+Only tickets with an actual resolution date are counted here — tickets still open don't have a resolution time yet, so they're excluded from both the overall median and these breakdowns.
+</Info>
+
 ## Using the search and filters
 
 The ticket list supports several filters that can be combined:
@@ -70,14 +78,15 @@ The ticket list supports several filters that can be combined:
 | Filter | What it does |
 |---|---|
 | **Search** | Matches against ticket title, description, ticket number, company name, and assigned agent names. |
+| **Mis tickets** | Shows only the tickets you personally opened from this dashboard. Tickets opened directly by the Meetzy team in our internal system aren't attributable to any specific user and won't appear under this filter, even though they're visible under "all tickets". |
 | **Status** | Filter by `pendiente`, `en_proceso`, `testing`, `solventado`, `backlog`, or `descartado`. |
 | **Type** | Filter by ticket type (Bug, Performance, Prompt/LLM, UX improvement, Feature request, New agent, Integration, Data/Analytics, Other). |
 | **Priority** | Filter by criticality: Critical, High, Medium, Low. |
-| **Company** | Only visible to Meetzy staff viewing tickets across multiple accounts. |
+| **Account** | Only visible to Meetzy staff, who see public tickets across every account. Lets our team narrow the view down to a single customer. |
 | **Date range** | Filter by ticket creation date, using a "from" and "to" date. The "to" date is inclusive of the entire day. |
 
 <Info>
-All filters apply instantly and update the metrics, monthly chart, and topic breakdown to match. Use the clear filters option to reset everything back to your full ticket history.
+All filters apply instantly and update the metrics, monthly chart, topic breakdown, and resolution-time table to match. Use the clear filters option to reset everything back to your full ticket history.
 </Info>
 
 ## Opening the ticket detail panel
@@ -87,14 +96,57 @@ Click on any ticket row to open its detail panel. This shows:
 - Full title and description
 - Current status, priority, urgency, and impact
 - Creation, update, and (if applicable) resolution timestamps
+- Who created the ticket — for tickets opened from this dashboard, you'll see the member's name or the account owner's email. Tickets opened directly by the Meetzy team don't show a creator, since they aren't tied to a specific user in your account.
 - Due date, if one was set
 - Resolution notes, once the ticket is closed
 - Assigned agents
 - Any subtasks tracked internally against the ticket
 - Attached files or reference URLs
+- The full **resolution history**: every time the ticket was resolved and every time it was reopened, with the date, the actor, and the note or reason attached to that event
 
 <Warning>
 The detail panel loads ticket data on demand — if you have a slow connection, allow a moment for it to populate after clicking a row.
+</Warning>
+
+### Resolution history
+
+Unlike the resolution notes field — which gets overwritten every time a ticket is resolved and loses any trace of prior cycles — the history section is a full, ordered timeline built from the underlying audit log. If a ticket was resolved, reopened, and resolved again, you'll see both resolution events and the reopening in between, each with its own note or reason. This is the most reliable place to understand what actually happened on a ticket that went back and forth.
+
+## Reopening a resolved ticket
+
+If a resolved ticket didn't actually fix your issue, you can reopen it directly from the detail panel instead of creating a duplicate.
+
+<Steps>
+  <Step title="Check the reopen window">
+    Reopening is only available within **5 days** of the ticket's resolution date. After that window closes, the "Reabrir" (Reopen) option disappears and you'll need to open a new ticket referencing the old one.
+  </Step>
+  <Step title="Check the reopen count">
+    Each ticket can be reopened a maximum of **3 times**. Once that limit is reached, the option is no longer available, even within the 5-day window.
+  </Step>
+  <Step title="Provide a reason">
+    A reopening reason is **mandatory** — the system rejects the request without one. Be specific about what's still broken or missing; this reason becomes part of the ticket's permanent history.
+  </Step>
+  <Step title="Confirm">
+    Once reopened, the ticket returns to an active status and the reopening is logged immediately in its resolution history, visible to both you and our team.
+  </Step>
+</Steps>
+
+<Warning>
+The 5-day window and the 3-reopening cap are enforced by the backend, not just the interface — if a reopen request falls outside either limit, it will be rejected even if you find a way to trigger it manually.
+</Warning>
+
+## Comments and attachments
+
+From the ticket detail panel you can add comments to keep the conversation going with our team. Comments support file attachments, and the same limits apply everywhere attachments are used — on ticket creation and on comments alike:
+
+<Info>
+- Up to **10 files** per submission
+- **20 MB** maximum size per file
+- Accepted formats: images, PDF, and Excel spreadsheets (`.xls`, `.xlsx`)
+</Info>
+
+<Warning>
+You can't add comments to a ticket that's already marked as resolved or discarded — reopen it first if you need to continue the conversation.
 </Warning>
 
 ## Creating a new ticket
@@ -106,10 +158,23 @@ The detail panel loads ticket data on demand — if you have a slow connection, 
   <Step title="Fill in the details">
     Provide a clear title and description. Choose a ticket type from the dropdown — this helps route your request to the right team faster.
   </Step>
+  <Step title="Select the affected agent(s)">
+    Choose at least one of your account's agents that the ticket relates to. This field is **mandatory** — without it, the ticket can't be submitted. If your account has several agents, this is what lets our system route the ticket to the right project internally.
+  </Step>
+  <Step title="Optionally, set the perceived importance">
+    You can indicate how important this issue feels to you, independent of the priority our team assigns. This is purely informational and helps give context, but it doesn't override our internal triage.
+  </Step>
+  <Step title="Attach files if useful">
+    Screenshots, logs, or spreadsheets can be attached directly (up to 10 files, 20 MB each). Attachments upload in the background after the ticket is created — a slow upload won't delay ticket creation itself.
+  </Step>
   <Step title="Submit">
-    Once submitted, your ticket is created and immediately visible in your list. It will also sync with our internal tracking system automatically.
+    Once submitted, your ticket is created and immediately visible in your list, tagged as created by you. It will also sync with our internal tracking system automatically.
   </Step>
 </Steps>
+
+<Warning>
+If your account has more than one agent and you don't select at least one, the ticket submission will be rejected. Make sure the agent selector loads correctly before submitting — if it appears empty, try refreshing the page.
+</Warning>
 
 <Info>
 If you submit a ticket while offline or the request times out, it's safe to retry — duplicate submissions are automatically prevented.
@@ -126,5 +191,11 @@ If you submit a ticket while offline or the request times out, it's safe to retr
   </Tab>
   <Tab title="Can I edit a ticket after creating it?">
     Ticket details can't be edited from this portal after submission. To add information, reply through the ticket detail panel or contact support directly.
+  </Tab>
+  <Tab title="Why can't I reopen this resolved ticket?">
+    Either more than 5 days have passed since it was resolved, or it has already reached the maximum of 3 reopenings. In both cases, open a new ticket and reference the original one in the description.
+  </Tab>
+  <Tab title="Why doesn't 'Mis tickets' show a ticket I know exists?">
+    That filter only shows tickets created from this dashboard by you. Tickets opened directly by the Meetzy team on your behalf aren't attributed to any specific user, so they won't appear here — but they're still visible under "all tickets".
   </Tab>
 </Tabs>
