@@ -1,44 +1,26 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the enhanced Calls page with configurable and pinnable columns, predefined and custom saved views, summary cards, adaptive live updates, suspicious call detection, OK/KO review verdicts, inline tag editing, Excel exports, and a full waveform recording player with per-turn latency breakdown and cross-call navigation."
+description: "Explore the new Calls page with configurable and pinnable columns, predefined and custom saved views, date/agent/tag/status filters, a dedicated suspicious-call filter, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, and an opt-in Live mode."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is an improved version of the classic Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, at-a-glance summary cards, a streamlined single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full and selective Excel exports, and a redesigned recording player with a waveform, adjustable playback speed, cross-call navigation, and a per-turn latency breakdown in the transcript.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, a single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table, an OK/KO review workflow with audit notes, inline tag editing, and full or selective Excel exports.
 
 <Info>
-The Advanced Calls View is currently rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
+The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
 </Info>
 
 ## Switching between views
 
-When you open the Advanced Calls View for the first time, you'll see a migration banner at the top of the page confirming you're on the new experience.
+When you open the Advanced Calls View, you'll see a migration banner at the top of the page confirming you're on the new experience.
 
 - The banner reads **"You're viewing the new Calls page."**, with a **Switch back to the classic view** link right next to it — click it to return to the original Calls page (`/calls-old`) at any time.
 - The banner is always visible at the top of the page, so you're never in doubt about which version of the Calls page you're looking at.
 - Your filters, column layout, and saved views on the Advanced Calls View are stored independently, so switching back and forth won't affect either page.
-- If you had previously customized columns on the classic Calls page, that configuration is **automatically migrated** into the Advanced Calls View the first time you visit it, so you don't lose your existing setup.
-
-<Info>
-The migration is one-time and read-only: it reads your old column visibility, sort order, page size, and any dynamic input/output columns you had defined on the classic Calls page, and reconstructs the closest equivalent layout in the Advanced Calls View. Only fixed columns that still exist in both column sets are carried over — the two sets aren't identical — while your custom dynamic fields are rebuilt as-is, since their shape matches directly. From that point on, the two pages keep fully independent configurations.
-</Info>
 
 <Warning>
 The Advanced Calls View is under active development. If something doesn't behave as expected, use the classic view as a fallback while we continue improving it.
 </Warning>
-
-## Summary cards
-
-At the top of the page, four summary cards give you an instant read on the calls currently matching your filters, without needing to scan the full table:
-
-- **Volume** — total number of calls matching the active filters.
-- **Avg. latency** — the average AI response latency across those calls, so you can spot performance regressions at a glance.
-- **Avg. duration** — the average call duration for the filtered set.
-- **Reviewed** — how many of the filtered calls have already been marked as reviewed, so your team can track audit progress in real time.
-
-<Info>
-Summary cards always reflect your **current filters** — including the Suspicious calls filter — so they update instantly as you refine your search.
-</Info>
 
 ## Configurable and pinnable columns
 
@@ -55,7 +37,7 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
     Drag columns into the order that makes the most sense for your workflow.
   </Step>
   <Step title="Pin important columns">
-    Click the **pin** icon next to any column to anchor it. Pinned columns are grouped together and stuck to the **right edge** of the table so they stay visible no matter how many other columns you add or how far you scroll horizontally. **Reviewed** and **Actions** are pinned by default, and admins also get the **Links** column pinned automatically (see below).
+    Click the **pin** icon next to any column to anchor it. Pinned columns are grouped together and stuck to the **right edge** of the table so they stay visible no matter how many other columns you add or how far you scroll horizontally. **Reviewed** and **Actions** are pinned by default.
   </Step>
   <Step title="Reset to defaults">
     If you want to start over, click **Reset to default** inside the column manager to discard your custom visibility, order, and pinning, restoring the platform's original column layout.
@@ -70,18 +52,6 @@ Dynamic fields are detected automatically from the structured inputs and outputs
 Resetting columns cannot be undone. If you rely on a custom layout, consider saving it as a view first (see below) before resetting.
 </Warning>
 
-## Admin shortcut links column
-
-Admin users get an additional pinned column called **Links**, which gives one-click access to the raw call data on the provider side — the same shortcuts available on the classic Calls page, now built into the table itself.
-
-- Each row shows small icons linking directly to the call's entry in **Twilio** and, when applicable, **ElevenLabs**, so you can jump straight into the provider dashboard for deep debugging without leaving the flow of your review.
-- This column is **only visible to admin users** — it never appears, even briefly, for non-admin accounts.
-- Like other pinned columns, **Links** stays anchored to the right edge of the table regardless of your column configuration, and it can be shown or hidden from the column manager like any other column.
-
-<Info>
-Because this column depends on confirming your admin status, it may appear a moment after the rest of the table loads. This is expected and ensures non-admins never see it, even transiently.
-</Info>
-
 ## Views
 
 The **👁️ Views** menu in the top-right corner is where you switch between different column-and-filter layouts. It's split into two sections: a set of **predefined views** maintained by Meetzy, and **My views** — the layouts you save yourself. The name of whichever view is currently active is always shown next to the **Views** button, so you know at a glance which layout you're on.
@@ -95,7 +65,7 @@ Predefined views are ready-made layouts covering common review tasks, so you don
 - **Compact overview** — a stripped-down layout with just the date, agent, caller, status, and duration, for quickly scanning volume without the extra detail.
 - **Transfers & escalations** — highlights transferred and ended calls together with tags and the call summary, useful for reviewing how escalations were handled.
 
-Click any predefined view's name to apply it instantly. Applying a predefined view only changes your columns, sorting, and page size — exactly like applying one of your own saved views — so it's just as easy to switch away from afterward.
+Click any predefined view's name to apply it instantly.
 
 <Info>
 Predefined views can be applied as many times as you like, but they can't be renamed or deleted — they're shared starting points, not personal views. If you want to tweak one, apply it first and then save your adjusted version under a new name in **My views**.
@@ -116,7 +86,7 @@ Once you've configured your columns, pins, and filters the way you like, you can
     Type a name for your view in the input field and click **Save current**. Give it something memorable, like "Suspicious calls this week" or "My agent's calls".
   </Step>
   <Step title="Apply a saved view">
-    Open the Views menu at any time and click a view's name — predefined or your own — to instantly apply it. The active view is highlighted in green with a checkmark next to it, both in the predefined list and in **My views**. Use the **✕** icon next to one of your own views to delete it.
+    Open the Views menu at any time and click a view's name — predefined or your own — to instantly apply it. The active view is highlighted in green with a checkmark next to it. Use the **✕** icon next to one of your own views to delete it.
   </Step>
 </Steps>
 
@@ -124,31 +94,16 @@ Once you've configured your columns, pins, and filters the way you like, you can
 Saved views are stored per user, so each teammate can build their own set of named views — on top of the same shared predefined views — without affecting anyone else's setup. If you don't have any saved views yet, the **My views** section simply shows a short note letting you know the list is empty.
 </Info>
 
-## Live updates
-
-Live polling is **opt-in** — the table doesn't refresh in the background unless you turn it on, so it never surprises you mid-review.
-
-- Toggle **Live** near the top of the table to start polling for new calls automatically.
-- While active, a small live indicator confirms polling is running.
-- The refresh interval is **adaptive**: it automatically speeds up while new matching calls are actively coming in, and backs off to a more relaxed pace during quiet periods, so the table stays responsive without hammering the backend unnecessarily.
-- Newly arrived calls that match your current filters are briefly highlighted in the table so they're easy to spot as they come in.
-- Live polling respects your current filters, sort order, and scroll position — turning it on won't reset or interrupt what you're looking at.
-- You can turn **Live** off at any time to freeze the table at its current state, for example while you focus on reviewing a batch of calls.
-
-<Info>
-Live polling automatically pauses while you're interacting with elements like the review note editor, the tag editor, or an open modal, so you never lose in-progress input. It resumes once you're done.
-</Info>
-
 ## Filtering calls
 
-The filter bar is organized into a single, evenly spaced row of controls followed by the status chips, making it easy to scan and combine filters without any layout jumping around as you use them.
+The filter bar is organized into a single, evenly spaced row of controls followed by the status chips, making it easy to scan and combine filters.
 
 ### Date range
 
 Choose from common presets (Today, Yesterday, Last 7 days, This month, etc.) or define a fully custom start and end date and time.
 
 <Info>
-Unlike the classic Calls page, day-based presets here (such as "Today" or "Last 7 days") end at 23:59:59 of the last day, instead of rolling into 00:00 of the following day.
+Day-based presets here (such as "Today" or "Last 7 days") end at 23:59:59 of the last day, instead of rolling into 00:00 of the following day.
 </Info>
 
 ### Agents
@@ -163,10 +118,6 @@ The agent filter uses a chip-based multi-select:
 ### Tags
 
 Tags work the same way as agents — search, select, and manage them as chips. This makes it easy to combine multiple tags to narrow down a specific segment of calls.
-
-### Call ID
-
-Filter directly by a specific Call ID when you need to jump straight to a known call, without scrolling through the rest of the table.
 
 ### Status
 
@@ -185,9 +136,19 @@ The **Suspicious calls** filter is a one-click way to surface calls that are wor
 This is intentionally an **OR** condition rather than an **AND** condition. Combining several individual filters (like status) would only show calls matching *all* conditions, which tends to under-match what auditors actually want to review first. The Suspicious calls filter is designed to catch anything that looks off, from any angle.
 </Info>
 
-### Free-text search
+## Live updates
 
-Use the search box to look up calls by transcript content, independent of the other structured filters.
+Live polling is **opt-in** — the table doesn't refresh in the background unless you turn it on, so it never surprises you mid-review.
+
+- Toggle **Live** near the top of the table to start polling for new calls automatically.
+- While active, a small live indicator confirms polling is running.
+- Newly arrived calls that match your current filters are briefly highlighted in the table so they're easy to spot as they come in.
+- Live polling respects your current filters, sort order, and scroll position — turning it on won't reset or interrupt what you're looking at.
+- You can turn **Live** off at any time to freeze the table at its current state, for example while you focus on reviewing a batch of calls.
+
+<Info>
+Live polling automatically pauses while you're interacting with elements like the review note editor, the tag editor, or an open modal, so you never lose in-progress input. It resumes once you're done.
+</Info>
 
 ## Review and audit workflow
 
@@ -195,7 +156,7 @@ Each row in the table includes a **Reviewed** control that lets your team track 
 
 <Steps>
   <Step title="Mark a call as reviewed">
-    Click the review indicator on a call's row to toggle its reviewed status inline. The **Reviewed** summary card at the top of the page updates immediately to reflect the new count.
+    Click the review indicator on a call's row to toggle its reviewed status inline.
   </Step>
   <Step title="Set an OK/KO verdict">
     Once you've listened to or read through a call, click **OK** or **KO** to record your audit verdict. Clicking the same verdict again clears it. Setting a verdict automatically marks the call as reviewed; clearing the reviewed toggle also clears the verdict.
@@ -215,10 +176,6 @@ Only one review note editor can be open at a time. Clicking outside the editor, 
 You can also filter the table down to only the calls you've marked **OK** or **KO**, which makes it easy to pull up everything you've already flagged during a session, or to double-check a batch of approvals before sharing them.
 
 This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** so your team can jump straight back into it later.
-
-<Info>
-The same OK/KO verdict, reviewed toggle, and note editor are also available inside the recording player modal, so you can complete your review right after listening to a call without going back to the table.
-</Info>
 
 ## Inline tag editing
 
@@ -243,7 +200,7 @@ The **Tags** column lets you manage a call's tags directly from the table, witho
 </Steps>
 
 <Info>
-Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away. Tags can also be added or removed from inside the recording player modal, staying in sync with the table row.
+Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away.
 </Info>
 
 ## Exporting to Excel
@@ -262,223 +219,3 @@ The Advanced Calls View supports two export modes:
 <Info>
 Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the review status, verdict, and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
 </Info>
-
-## Recording player
-
-Clicking a call's recording opens a redesigned player modal that puts the audio, the review controls, and the transcript side by side.
-
-### Waveform, speed, and navigation
-
-- The recording is rendered as a real **waveform** built from the decoded audio, not a generic progress bar — click anywhere on the waveform to seek instantly to that point.
-- Use the **±10s** buttons to skip forward or backward, or the play/pause button to start and stop playback.
-- Choose a **playback speed** from the available presets (0.5x up to 2x) to review calls faster or listen more carefully to a tricky section.
-- Download the original recording at any time with **Download recording**.
-- If you opened the player from the table, **previous/next** arrows in the header (and the ← / → arrow keys) let you move to the adjacent call in your current filtered list without closing and reopening the modal.
-
-<Info>
-The previous/next navigation controls live in the modal's header, right next to the close button, rather than floating over the waveform or transcript — so they're always within reach without ever covering the content you're reviewing.
-</Info>
-
-<Steps>
-  <Step title="Open a recording">
-    Click any call's recording icon from the table to open the player modal. The arrows appear automatically in the header whenever there's an adjacent call to move to.
-  </Step>
-  <Step title="Move to the next or previous call">
-    Click the **←** / **→** arrows next to the close button, or simply press the **arrow keys** on your keyboard, to jump to the previous or next call in your current filtered and sorted list — without closing the modal.
-  </Step>
-  <Step title="Keep your place">
-    The player automatically loads the new call's waveform, transcript, and review controls in place, so you can move through a whole batch of calls — listening, tagging, and setting OK/KO verdicts — without ever returning to the table in between.
-  </Step>
-</Steps>
-
-<Info>
-Navigation follows the exact same order as the table beneath it, respecting your active filters and sort order. The **←** arrow is disabled on the first call of the list and the **→** arrow is disabled on the last one, so you always know when you've reached either end.
-</Info>
-
-### Transcript with per-turn latency breakdown
-
-The transcript panel shows the conversation turn by turn, with each agent reply annotated with **"Replied in Xs"**:
-
-- Click on a reply's latency badge to expand a **response-time breakdown**, showing a stacked bar of exactly where that time went — for example, time spent transcribing the caller's speech, generating the LLM response, and synthesizing the reply — along with the model used for that turn.
-- User turns show how long the **transcription** took, when available.
-- Tool calls made by the agent during a turn appear as their own expandable badges, so you can inspect what was called and what was returned without leaving the transcript.
-
-<Info>
-This breakdown is what powers the **Avg. latency** summary card and the Suspicious calls filter's high-latency check — the same underlying per-turn data is just made visible here so you can see exactly why a particular reply was slow.
-</Info>
-
-## Relevant code changes
-
-### src/app/calls-v2/recording-player-modal.component.html
-```
-<div *ngIf="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4" (click)="closeModal()">
-  <div
-    class="w-full max-w-6xl max-h-[88vh] rounded-xl shadow-2xl flex flex-col"
-    [ngClass]="isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'"
-    (click)="$event.stopPropagation()">
-
-    <div class="flex items-start justify-between px-6 py-5 border-b" [ngClass]="isDarkMode ? 'border-gray-700' : 'border-gray-200'">
-      <div>
-        <h3 class="text-base font-semibold">Call recording</h3>
-        <p class="text-sm mt-1" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
-          {{ call?.from }} → {{ call?.to }}
-        </p>
-      </div>
-
-      <div class="flex items-center gap-1">
-        <!-- Prev/next call navigation: lives in the header, not floating
-             over the content, so it never covers the waveform/transcript. -->
-        <ng-container *ngIf="hasPrevious || hasNext">
-          <button type="button" (click)="goPrevious()" [disabled]="!hasPrevious" title="Previous call (←)"
-            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
-            <ng-icon name="heroChevronLeft" size="18"></ng-icon>
-          </button>
-          <button type="button" (click)="goNext()" [disabled]="!hasNext" title="Next call (→)"
-            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
-            <ng-icon name="heroChevronRight" size="18"></ng-icon>
-          </button>
-          <div class="w-px h-5 mx-1" [ngClass]="isDarkMode ? 'bg-gray-700' : 'bg-gray-200'"></div>
-        </ng-container>
-
-        <button type="button" (click)="closeModal()" class="p-1.5 rounded-md" [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
-          <ng-icon name="heroXMark" size="18"></ng-icon>
-        </button>
-      </div>
-    </div>
-
-    <div class="flex-1 min-h-0 grid grid-cols-1 md:grid-cols-5"
-      [class.nav-slide-next]="navDirection === 'next'"
-      [class.nav-slide-prev]="navDirection === 'prev'">
-
-      <!-- Player -->
-      <div class="md:col-span-2 p-8 border-b md:border-b-0 md:border-r" [ngClass]="isDarkMode ? 'border-gray-700' : 'border-gray-200'">
-        <div *ngIf="loading" class="py-10 text-center text-sm" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
-          Loading recording…
-        </div>
-
-        <div *ngIf="!loading && error" class="py-10 text-center text-sm text-red-500">{{ error }}</div>
-
-        <div *ngIf="!loading && !error">
-          <canvas #waveformCanvas width="600" height="90" class="w-full h-[90px] cursor-pointer" (click)="onWaveformClick($event)"></canvas>
-
-          <div class="flex items-center justify-between text-xs mt-3 mb-8" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
-            <span>{{ formatTime(currentTime) }}</span>
-            <span>{{ formatTime(duration) }}</span>
-          </div>
-
-          <div class="flex items-center justify-center gap-6 mb-8">
-            <button type="button" (click)="skip(-10)" title="Back 10s"
-              class="flex flex-col items-center gap-0.5 w-12 h-12 justify-center rounded-full border"
-              [ngClass]="isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : 'border-gray-300 text-gray-600 hover:bg-gray-50'">
-              <ng-icon name="heroBackward" size="16"></ng-icon>
-              <span class="text-[10px] leading-none">10s</span>
-            </button>
-            <button type="button" (click)="togglePlay()" class="w-14 h-14 flex items-center justify-center rounded-full text-white bg-emerald-500 hover:bg-emerald-400 shadow-sm">
-              <ng-icon [name]="isPlaying ? 'heroPauseSolid' : 'heroPlaySolid'" size="22"></ng-icon>
-            </button>
-            <button type="button" (click)="skip(10)" title="Forward 10s"
-              class="flex flex-col items-center gap-0.5 w-12 h-12 justify-center rounded-full border"
-              [ngClass]="isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : 'border-gray-300 text-gray-600 hover:bg-gray-50'">
-              <ng-icon name="heroForward" size="16"></ng-icon>
-              <span class="text-[10px] leading-none">10s</span>
-            </button>
-          </div>
-
-          <div class="space-y-3">
-            <div>
-              <p class="text-xs font-medium mb-1.5" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">Speed</p>
-              <div class="flex items-center gap-1.5">
-                <button
-                  *ngFor="let speed of speedOptions"
-                  type="button"
-                  (click)="setSpeed(speed)"
-                  class="px-2.5 py-1 rounded-md text-xs font-medium border"
-                  [ngClass]="playbackRate === speed
-                    ? 'bg-emerald-500 border-emerald-500 text-white'
-                    : (isDarkMode ? 'border-gray-600 text-gray-300' : 'border-gray-300 text-gray-600')">
-                  {{ speed }}x
-                </button>
-              </div>
-            </div>
-
-            <button type="button" (click)="download()"
-              class="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-500 hover:underline pt-1">
-              <ng-icon name="heroArrowDownTray" size="15"></ng-icon> Download recording
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Transcript -->
-      <div class="md:col-span-3 p-8 overflow-y-auto">
-        <h4 class="text-sm font-semibold mb-3">Transcript</h4>
-
-        <div *ngIf="isLoadingTranscript" class="text-center text-sm py-8" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">Loading…</div>
-
-        <div *ngIf="!isLoadingTranscript && transcriptError" class="text-center text-sm py-8 text-red-500">{{ transcriptError }}</div>
-
-        <!-- Rich per-turn view (ElevenLabs conversation_turn_metrics/llm_usage/tool_calls) -->
-        <div *ngIf="!isLoadingTranscript && transcriptEntries.length > 0" class="space-y-3">
-          <div *ngFor="let entry of transcriptEntries; let i = index" class="flex" [ngClass]="entry.role === 'agent' ? 'justify-start' : 'justify-end'">
-            <div class="max-w-[92%] w-full sm:w-auto">
-              <div *ngIf="entry.message" class="px-3.5 py-2.5 rounded-2xl text-sm"
-                [ngClass]="entry.role === 'agent'
-                  ? (isDarkMode ? 'bg-gray-700 text-gray-100' : 'bg-gray-100 text-gray-900')
-                  : 'bg-emerald-600 text-white'">
-                {{ entry.message }}
-              </div>
-              <p *ngIf="!entry.message" class="text-xs italic" [ngClass]="isDarkMode ? 'text-gray-500' : 'text-gray-400'">
-                (no speech detected)
-              </p>
-
-              <!-- Badges: time + latency metrics + LLM model + tool markers -->
-              <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-xs" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
-                <span>{{ formatTurnTime(entry.time_in_call_secs) }}</span>
-
-                <span *ngIf="entry.role === 'user' && asrLatency(entry) as latency">
-                  Transcribed in {{ formatElapsed(latency) }}
-                </span>
-
-                <ng-container *ngIf="entry.role === 'agent'">
-                  <!-- One clear headline instead of raw TTS/LLM jargon: how long
-                       the agent took to answer, expandable into where it went. -->
-                  <button *ngIf="breakdownByEntry[i] as bd" type="button" (click)="toggleDetail('llm-' + i)"
-                    class="inline-flex items-center gap-1 font-medium hover:underline">
-                    Replied in {{ formatElapsed(bd.responseSeconds) }}
-                    <span class="opacity-60">{{ expandedDetail === ('llm-' + i) ? '▾' : '▸' }}</span>
-                  </button>
-
-                  <button *ngFor="let t of toolPairsByEntry[i]" type="button" (click)="toggleDetail('tool-' + i + '-' + t.call.request_id)" class="hover:underline font-medium">
-                    🔧 {{ t.call.tool_name }} <span>{{ expandedDetail === ('tool-' + i + '-' + t.call.request_id) ? '▾' : '▸' }}</span>
-                  </button>
-                </ng-container>
-              </div>
-
-              <!-- Response-time breakdown: where the latency actually went -->
-              <div *ngIf="expandedDetail === ('llm-' + i) && breakdownByEntry[i] as bd"
-                class="mt-2.5 p-4 rounded-xl border" [ngClass]="isDarkMode ? 'border-gray-700 bg-gray-900/40' : 'border-gray-200 bg-gray-50'">
-
-                <div class="flex items-start justify-between gap-6 mb-4">
-                  <div>
-                    <p class="text-[10px] uppercase tracking-wide" [ngClass]="isDarkMode ? 'text-gray-500' : 'text-gray-400'">Replied in</p>
-                    <p class="text-2xl font-semibold tabular-nums leading-tight">{{ formatElapsed(bd.responseSeconds) }}</p>
-                  </div>
-                  <div class="text-right min-w-0">
-                    <p class="text-[10px] uppercase tracking-wide" [ngClass]="isDarkMode ? 'text-gray-500' : 'text-gray-400'">Model</p>
-                    <p class="text-xs font-medium truncate">{{ bd.model || 'Unknown' }}</p>
-                  </div>
-                </div>
-
-                <!-- Stacked composition of the total -->
-                <div class="flex w-full h-2.5 rounded-full overflow-hidden gap-px mb-3"
-                  [ngClass]="isDarkMode ? 'bg-gray-800' : 'bg-gray-200'">
-                  <div *ngFor="let seg of bd.segments" [ngClass]="seg.colorClass"
-                    [style.width.%]="seg.pct" [style.min-width.px]="2"
-                    [title]="seg.label + ': ' + formatElapsed(seg.seconds)"></div>
-                </div>
-
-                <div class="space-y-2">
-                  <div *ngFor="let seg of bd.segments" class="flex items-center gap-2.
-```
