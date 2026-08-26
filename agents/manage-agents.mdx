@@ -9,7 +9,7 @@ icon: 'robot'
 The **Agents** page has been fully redesigned around a **master-detail layout**: a compact agent list on the left and a rich detail panel on the right, so you can browse, inspect, and act on any agent without leaving the page.
 
 <Info>
-  This redesign replaces the classic Agents page. A **"Switch back to the classic view"** banner remains available at the top of the screen while both experiences coexist.
+  This redesign replaces the classic Agents page. A **"Switch back to the classic view"** banner sits at the very top of the screen while both experiences coexist — click it any time to return to the previous layout without losing your place.
 </Info>
 
 ## What's New in the Agents Page (Agents v2)
@@ -17,9 +17,11 @@ The **Agents** page has been fully redesigned around a **master-detail layout**:
 The new Agents page (internally called **Agents v2**) bundles several improvements that were previously scattered across different views or unavailable altogether:
 
 - **Latency history per agent** — every agent row shows a compact latency sparkline, and the detail panel's Overview tab includes a full 14-day latency history chart, so you can spot regressions at a glance or dive deeper without leaving the page.
-- **Phone Health status chips** — a colored beacon next to each agent's number reflects its spam/deliverability status (green, red, or gray), with a direct link into the full [Phone Health](/agents/phone-numbers) report.
+- **Lazy-loaded Phone Health chips** — a colored beacon next to each agent's number reflects its spam/deliverability status (green, red, or gray), with a direct link into the full [Phone Health](/agents/phone-numbers) report. To keep the page fast, this status is fetched on demand rather than for the whole list at once.
+- **Sortable agent list** — a dedicated sort selector lets you reorder the list by newest, most calls, or name.
 - **Richer filters** — search, company, archived visibility, and a dedicated spam-only toggle now live together in a single filters bar, with a one-click **Clear filters** action.
-- **New "Call" modal** — placing a test call (inbound or outbound) now happens from a redesigned panel with country prefix selection, agent version selection for Advanced agents, and a shortcut to edit custom form fields, all without leaving the Agents page.
+- **New "Call" modal** — placing a test call (inbound or outbound) now happens from a redesigned modal with country prefix selection, agent version selection for Advanced agents, and a shortcut to edit custom form fields, all without leaving the Agents page.
+- **Collapsible demo agents section** — sample/demo agents are grouped separately from your real agents and tucked away by default, keeping the main list focused.
 
 <Tip>
   Missing the old page already? The **"Switch back to the classic view"** link at the top of the screen is still there for you — no judgment if you, like Wolverine pining for 1980s Canada, occasionally long for the way things used to be.
@@ -27,7 +29,7 @@ The new Agents page (internally called **Agents v2**) bundles several improvemen
 
 <Tabs>
   <Tab title="Agents List (left)">
-    A scrollable list of agents with search, company filter, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload. Each row also surfaces a phone health indicator and a latency mini-chart at a glance.
+    A scrollable list of agents with search, company filter, a sort selector, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload. Each row also surfaces a phone health indicator and a latency mini-chart at a glance. Demo agents appear in their own collapsible section below your real agents.
   </Tab>
   <Tab title="Detail Panel (right)">
     A tabbed panel — **Overview**, **Calls**, and **Settings** — showing everything about the selected agent: performance metrics, latency history, call log, and configuration.
@@ -52,6 +54,21 @@ The filters bar above the list lets admins and multi-company users narrow down t
   The company filter dropdown includes its own search box, making it easy to jump straight to a specific organization when you manage dozens of companies.
 </Tip>
 
+### Sorting the List
+
+A compact sort selector sits above the agent list, next to the agent count, and lets you reorder the list without affecting any of the active filters:
+
+| Sort option | Order |
+|-------------|-------|
+| **Newest first** (default) | Most recently created agents at the top |
+| **Most calls** | Agents ranked by call volume in the same 14-day window used for the latency sparklines |
+| **Name (A-Z)** | Alphabetical, ascending |
+| **Name (Z-A)** | Alphabetical, descending |
+
+<Info>
+  Your sort preference persists across visits, so you don't need to reselect it every time you open the Agents page.
+</Info>
+
 ### Selecting an Agent
 
 Click any row in the list to open it in the detail panel. The selected row is highlighted with a colored left border, and archived agents display a small **Archived** badge next to their name.
@@ -64,8 +81,14 @@ Every row in the agent list now includes two at-a-glance signals, so you no long
 - **Latency sparkline**: a compact 14-day mini-chart of average AI response latency, rendered inline in the row. It uses the same underlying data as the Overview tab's latency history chart, letting you compare agents' recent performance without opening each one individually.
 
 <Info>
-  Latency history and phone health data for all visible agents are fetched in the background right after the list loads, so the initial render stays fast and the sparklines/beacons populate a moment later.
+  **Latency history** is fetched in bulk (in small chunks) right after the list loads, so sparklines populate for every visible row a moment after the initial render.
+
+  **Phone health**, however, is loaded **lazily** and per agent — it's a slower check that isn't practical to run for hundreds of agents at once. The beacon shows a neutral "Check" state until you either select that agent (which triggers its individual health check) or turn on the **Phone health** spam-only filter, which loads the status for every currently visible agent so the filter can work correctly.
 </Info>
+
+### Collapsible Demo Agents
+
+Sample and demo agents are grouped separately from your production agents, in a dedicated **Demo agents** section below the main list. This section is **collapsed by default** to keep the primary list focused on the agents you actually manage — click its header to expand or collapse it. Demo agents can still be selected, previewed, and called for testing purposes like any other agent, but they're excluded from the main list's filters and sort order.
 
 ## Agent Detail Panel
 
@@ -113,7 +136,7 @@ Both charts share the same rendering component and gracefully show an empty stat
 
 ### Phone Health Shortcut
 
-The **Phone health** card sits below the charts and links directly to the spam/deliverability report for the numbers assigned to the selected agent — the same report reachable from the row-level beacon in the agent list.
+The **Phone health** card sits below the charts and links directly to the spam/deliverability report for the numbers assigned to the selected agent — the same report reachable from the row-level beacon in the agent list. Selecting an agent from the list is exactly what triggers its individual phone health check, so this card should always have fresh data by the time you view it.
 
 ### Quick Actions
 
@@ -189,7 +212,7 @@ The **Swap Phone Number** modal lets you replace an agent's current number with 
 
 <Steps>
   <Step title="Open the Swap Modal">
-    From the "Call" side panel next to any phone number, or from the agent's Settings, click the swap icon next to the number you want to replace.
+    From the "Call" modal next to any phone number, or from the agent's Settings, click the swap icon next to the number you want to replace.
   </Step>
   <Step title="Review the Swap">
     The modal displays the **current number** (marked for release) and automatically loads the **next available number** from the same Twilio account to assign in its place.
@@ -213,7 +236,7 @@ Every agent that accepts outbound test/init calls has a configurable form. The *
 
 <Steps>
   <Step title="Open the Field Editor">
-    Click **Edit Form** in the "Call" panel of any agent to open the **Configure Form Fields** modal.
+    Click **Edit Form** in the "Call" modal of any agent to open the **Configure Form Fields** modal.
   </Step>
   <Step title="Add or Edit Fields">
     For each custom field, configure:
@@ -250,6 +273,10 @@ Each agent row includes a **Call** modal with everything needed to place a quick
     - **Edit Form** shortcut to open the custom fields editor directly from the modal
   </Tab>
 </Tabs>
+
+<Info>
+  The **Call** button opens this flow as a standalone modal rather than an inline panel, so opening it never shifts the rows below it in the agent list — only one agent's Call modal can be open at a time.
+</Info>
 
 <Warning>
   Test calls consume billable minutes from your plan. Monitor usage in the billing dashboard.

@@ -234,7 +234,7 @@ El selector de período se implementa como un menú desplegable (`dropdown`) tot
 </Steps>
 
 <Info>
-El cierre del menú al hacer clic fuera se gestiona mediante un listener global de clics en el documento, que verifica si el elemento pulsado pertenece al contenedor del desplegable (`data-billy-period-dropdown`).
+El cierre del menú al hacer clic fuera se gestiona mediante un listener global de clics en el documento, adjuntado dinámicamente solo mientras el desplegable está abierto y ejecutado **fuera** de la zona de Angular (`NgZone.runOutsideAngular`). Solo se vuelve a entrar en la zona —y se marca el componente para revisión— cuando el clic detectado corresponde realmente a un cierre del menú, evitando así que cualquier clic de la página fuerce un ciclo de detección de cambios innecesario en este panel.
 </Info>
 
 ```typescript
@@ -242,28 +242,45 @@ togglePeriodDropdown(): void {
   if (this.loading) {
     return;
   }
-  this.periodDropdownOpen = !this.periodDropdownOpen;
+  if (this.periodDropdownOpen) {
+    this.closePeriodDropdown();
+  } else {
+    this.periodDropdownOpen = true;
+    this.attachDocumentClickListener();
+  }
 }
 
 async selectPeriod(periodKey: string): Promise<void> {
-  this.periodDropdownOpen = false;
+  this.closePeriodDropdown();
   if (periodKey === this.selectedPeriodKey && this.dateMode === 'period') {
     return;
   }
   await this.onPeriodChange(periodKey);
 }
 
-@HostListener('document:click', ['$event'])
-onDocumentClick(event: MouseEvent): void {
-  if (!this.periodDropdownOpen) {
+private attachDocumentClickListener(): void {
+  if (this.documentClickListener) {
     return;
   }
-  const target = event.target as HTMLElement | null;
-  if (!target?.closest('[data-billy-period-dropdown]')) {
-    this.periodDropdownOpen = false;
-  }
+  this.zone.runOutsideAngular(() => {
+    this.documentClickListener = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('[data-billy-period-dropdown]')) {
+        return;
+      }
+      this.zone.run(() => {
+        this.closePeriodDropdown();
+        this.cdr.markForCheck();
+      });
+    };
+    document.addEventListener('click', this.documentClickListener);
+  });
 }
 ```
+
+<Warning>
+El panel se ejecuta bajo la estrategia `OnPush` de Angular porque vive fuera del `router-outlet`, montado en todas las rutas de la aplicación. Por eso el listener de clics del desplegable se adjunta y desmonta dinámicamente, en lugar de usar un `@HostListener` permanente: mantenerlo activo en todo momento provocaría que cualquier clic de la página —en cualquier ruta— marcara este panel para revisión, degradando el rendimiento en vistas con listas largas, como el desglose de consumo por agente en la vista de administrador.
+</Warning>
 
 ### Períodos Automáticos
 
@@ -326,7 +343,7 @@ Para administradores, se incluyen características extra:
 </Tabs>
 
 <Warning>
-Ni la barra de progreso del paquete de minutos ni el bloque de balance rules-v2 se muestran en la vista de administrador, ya que dicha vista agrega el consumo de múltiples clientes y no representa un único paquete o contrato individual.
+Ni la barra de progreso del paquete de minutos ni el bloque de balance rules-v2 se muestran en la vista de administrador, ya que dicha vista agrega el consumo de múltiples clientes y no representa un único paquete o contrato individual. Al cambiar a esta vista, además, la sección de gráfico histórico se resetea automáticamente (se colapsa, se descarta el historial cargado y se destruye la instancia del gráfico) para evitar mostrar datos obsoletos.
 </Warning>
 
 ### Gráfico Histórico de Facturación
@@ -374,6 +391,7 @@ async loadBillingHistory(): Promise<void> {
     this.historyError = true;
   } finally {
     this.historyLoading = false;
+    this.cdr.markForCheck();
   }
 }
 ```
@@ -466,6 +484,8 @@ Para cada asistente se muestra:
 - **Mínimo aplicable** (si corresponde)
 - **Subtotal** calculado
 
+Las filas se agrupan internamente por asistente (`BreakdownGroup`), calculando el subtotal de cada grupo y marcando si dispone de detalle adicional expandible, de forma que el desglose se muestre de forma jerárquica y no como una lista plana de reglas.
+
 ### Estructura de Datos
 
 ```typescript
@@ -484,6 +504,13 @@ interface BillyConsumptionBreakdownItem {
   unit?: 'seconds' | 'minutes' | 'calls';
   rule_name?: string | null;
 }
+
+interface BreakdownGroup {
+  name: string;
+  subtotal: number;
+  items: BillyConsumptionBreakdownItem[];
+  hasDetail: boolean;
+}
 ```
 
 ### Cálculos Totales
@@ -500,22 +527,30 @@ El panel incluye cálculos finales que muestran:
 
 ### Números y Monedas
 
-El panel utiliza formateo internacionalizado específico para España:
+El panel utiliza formateo internacionalizado específico para España. Para evitar el coste de construir un `Intl.NumberFormat` en cada ciclo de detección de cambios —especialmente relevante en el desglose por agente, con una fila por asistente en la vista de administrador—, los formateadores de moneda se cachean en un `Map` indexado por divisa, y el formateador numérico se instancia una única vez como constante estática de la clase:
 
 ```typescript
-formatCurrency(value: number, currency: string = 'EUR'): string {
-  return new Intl.NumberFormat('es-ES', {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }).format(Number(value || 0));
+private static readonly currencyFormatters = new Map<string, Intl.NumberFormat>();
+private static readonly numberFormatter = new Intl.NumberFormat('es-ES', {
+  maximumFractionDigits: 2
+});
+
+formatCurrency(value: number | null | undefined, currency: string = 'EUR'): string {
+  let formatter = BillyConsumptionPanelComponent.currencyFormatters.get(currency);
+  if (!formatter) {
+    formatter = new Intl.NumberFormat('es-ES', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    BillyConsumptionPanelComponent.currencyFormatters.set(currency, formatter);
+  }
+  return formatter.format(Number(value || 0));
 }
 
 formatNumber(value: number): string {
-  return new Intl.NumberFormat('es-ES', {
-    maximumFractionDigits: 2
-  }).format(Number(value || 0));
+  return BillyConsumptionPanelComponent.numberFormatter.format(Number(value || 0));
 }
 ```
 
@@ -677,6 +712,10 @@ toggleCollapsed(): void {
 
 ## Performance y Optimización
 
+<Info>
+El panel utiliza la estrategia `ChangeDetectionStrategy.OnPush` de Angular, no como optimización opcional, sino como requisito de arquitectura: al vivir fuera del `router-outlet` de la aplicación, permanece montado en todas las rutas. Con la estrategia por defecto, cualquier clic, temporizador o respuesta HTTP originada en cualquier página de la aplicación re-evaluaría todo el template del panel, y en la vista de administrador el desglose incluye una fila por agente, lo que podía llegar a bloquear el hilo principal en clientes con listas largas (por ejemplo, al navegar por `/agents`).
+</Info>
+
 ### Carga Diferida
 
 <Steps>
@@ -694,6 +733,10 @@ toggleCollapsed(): void {
 
   <Step title="Temporizadores del Ticker">
     Los temporizadores del ticker de mensajes solo se activan mientras el panel está colapsado, liberándose automáticamente al destruirse el componente (`ngOnDestroy`)
+  </Step>
+
+  <Step title="Listener del desplegable de período">
+    El listener de clics del desplegable de período se adjunta y desmonta dinámicamente, ejecutándose fuera de la zona de Angular mientras el menú permanece cerrado, para no forzar ciclos de detección de cambios innecesarios en cada clic de la página
   </Step>
 </Steps>
 

@@ -10,7 +10,7 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 
 <CardGroup cols={2}>
   <Card title="Panel Izquierdo (Lista)" icon="list">
-    Lista completa de agentes con búsqueda, filtro por compañía, indicador de salud telefónica con sparkline por fila, filtro de salud telefónica e interruptor para mostrar u ocultar agentes archivados
+    Lista completa de agentes con búsqueda, filtro por compañía, sparkline de latencia por fila, chip de salud telefónica, filtro de salud telefónica, control de orden e interruptor para mostrar u ocultar agentes archivados
   </Card>
   <Card title="Panel Derecho (Detalle)" icon="eye">
     Vista detallada del agente seleccionado organizada en tres pestañas: Overview, Calls y Settings
@@ -18,14 +18,18 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 </CardGroup>
 
 <Info>
-  Esta es la nueva página de Agentes, identificada bajo el subtítulo **"Improved view with agent latency history"**. Si necesitas volver temporalmente a la vista clásica, verás un aviso en la parte superior con un enlace **"Switch back to the classic view"**.
+  Esta es la nueva página de Agentes, identificada bajo el subtítulo **"Improved view with agent latency history"**. En la parte superior de toda la pantalla verás un banner permanente que indica **"You're viewing the new Agents page."**, con un enlace **"Switch back to the classic view"** que te lleva de inmediato a la vista clásica si prefieres seguir usándola mientras te familiarizas con la nueva.
 </Info>
+
+<Tip>
+  El banner de vuelta a la vista clásica no desaparece ni se puede cerrar de forma permanente: está pensado como una red de seguridad mientras la nueva página termina de recibir feedback, así que siempre estará disponible por si necesitas volver atrás en cualquier momento.
+</Tip>
 
 ## Navegación Rápida
 
 <Tabs>
   <Tab title="Panel de Agentes">
-    Explora la lista completa de agentes con búsqueda, filtro por compañía, filtro de salud telefónica y control de visibilidad de archivados
+    Explora la lista completa de agentes con búsqueda, filtro por compañía, filtro de salud telefónica, orden configurable y control de visibilidad de archivados
   </Tab>
   <Tab title="Panel de Detalle">
     Analiza métricas de rendimiento, gráficos de latencia y volumen, historial de llamadas y configuración específica en las pestañas Overview, Calls y Settings
@@ -34,7 +38,7 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
     Accede a funciones de configuración profesional para agentes con el badge "Advanced"
   </Tab>
   <Tab title="Herramientas de Prueba">
-    Realiza llamadas de prueba entrantes y salientes para validar el comportamiento del agente
+    Abre el modal de llamada para realizar pruebas entrantes y salientes y validar el comportamiento del agente
   </Tab>
 </Tabs>
 
@@ -76,6 +80,10 @@ El interruptor **Archived agents** controla la visibilidad de los agentes archiv
 - **Hidden** (por defecto): Los agentes archivados quedan ocultos para mantener la lista limpia
 - **Shown**: Los agentes archivados aparecen junto al resto, identificados con un badge **Archived**
 
+<Note>
+  Al activar el interruptor, la lista se recarga desde el servidor para incluir también los agentes archivados, por lo que puede tardar un instante adicional en actualizarse.
+</Note>
+
 #### Filtrar por Salud Telefónica
 
 El interruptor **Phone health** te permite acotar la lista a los agentes cuyos números presentan problemas de reputación:
@@ -86,6 +94,10 @@ El interruptor **Phone health** te permite acotar la lista a los agentes cuyos n
 <Tip>
   Este filtro es especialmente útil para hacer una revisión periódica y detectar rápidamente qué agentes necesitan un intercambio de número o una atención prioritaria.
 </Tip>
+
+<Info>
+  Al activar **Spam issues only** por primera vez, la aplicación solicita en segundo plano el estado de salud telefónica de todos los agentes visibles (no se piden por adelantado al cargar la página, para no ralentizar el dashboard). Mientras esa comprobación está en curso, los chips de salud muestran temporalmente el estado **"Check"**.
+</Info>
 
 <Info>
   Usa el botón **Clear filters** para restablecer la búsqueda, el filtro de compañía, el filtro de salud telefónica y la visibilidad de archivados con un solo clic. Este botón solo aparece cuando hay algún filtro activo.
@@ -109,24 +121,29 @@ Justo encima de la lista de agentes, una barra superior muestra el número total
 
 ### Sparkline de Latencia
 
-Junto al nombre de cada agente se muestra un pequeño gráfico de líneas (**sparkline**) con la evolución de su latencia media de IA durante los últimos 14 días. Este histórico se calcula una sola vez tras cargar la lista completa (no en cada fila por separado), por lo que aparece de forma progresiva justo después de que la lista termine de renderizarse.
+Junto al nombre de cada agente se muestra un pequeño gráfico de líneas (**sparkline**) con la evolución de su latencia media de IA durante los últimos 14 días. Este histórico se calcula una sola vez tras cargar la lista completa (en peticiones agrupadas en bloques, no una por fila), por lo que aparece de forma progresiva justo después de que la lista termine de renderizarse.
 
 <Note>
   Si un agente todavía no tiene suficientes llamadas registradas en ese periodo, el sparkline simplemente no se muestra para esa fila.
 </Note>
 
-### Indicador de Salud Telefónica (Beacon)
+### Chip de Salud Telefónica
 
-Cada fila también incluye un pequeño indicador circular de color que resume el estado de salud del número telefónico asociado al agente:
+Cada fila también incluye un pequeño **chip** de color que resume el estado de salud del número telefónico asociado al agente:
 
-| Color | Significado |
+| Estado del chip | Significado |
 |-------|-------------|
-| **Verde** | Sin incidencias detectadas de spam o deliverability |
-| **Rojo / Ámbar** | Se detectaron problemas de reputación en el número |
-| **Gris** | Estado aún desconocido o en proceso de comprobación |
+| **Check** | Estado inicial, antes de que se haya consultado el servicio de salud telefónica para este agente |
+| **Verde / Healthy** | Sin incidencias detectadas de spam o deliverability |
+| **Rojo o Ámbar / Spam issues** | Se detectaron problemas de reputación en el número |
+| **Gris** | Estado desconocido o comprobación fallida |
+
+<Info>
+  A diferencia del sparkline (que se carga para toda la lista de una vez), la salud telefónica de cada agente es una consulta más costosa y se pide **bajo demanda**: solo se solicita al seleccionar ese agente en el panel de detalle o al activar el filtro **Phone health: Spam issues only**. Hasta entonces, el chip permanece en el estado **"Check"**.
+</Info>
 
 <Tip>
-  Haz clic sobre el indicador o usa el botón de Phone Health dentro del panel de detalle para acceder al reporte completo de spam y deliverability del número.
+  Haz clic sobre el chip o usa el botón de Phone Health dentro del panel de detalle para acceder al reporte completo de spam y deliverability del número, mostrado en un modal dedicado.
 </Tip>
 
 ## Vista Detallada del Agente
@@ -181,7 +198,7 @@ Es la pestaña que se abre por defecto al seleccionar un agente. Ofrece un panel
 
 #### Tarjeta de Phone Health
 
-Un bloque destacado dentro de Overview te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability), sin salir del panel de detalle. Es el mismo acceso directo que representa el beacon de color visible en la lista de agentes.
+Un bloque destacado dentro de Overview te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability) mediante un modal, sin salir del panel de detalle. Es el mismo acceso directo que representa el chip de color visible en la lista de agentes; al seleccionar el agente, este bloque dispara además la consulta de salud telefónica bajo demanda si aún no se había cargado.
 
 #### Acciones Rápidas
 
@@ -191,7 +208,7 @@ En la parte inferior de Overview encontrarás, según tus permisos y el tipo de 
 |--------|-----------------|-------------|
 | **Editor** | Agentes con Editor Avanzado | Abre el Advanced Editor en una nueva pestaña |
 | **Trends** | Agentes con Editor Avanzado | Abre la vista de tendencias de evaluación filtrada por este agente |
-| **Clone** | Administradores y usuarios con rol adecuado | Inicia el flujo de clonación en dos pasos |
+| **Clone** | Administradores y usuarios con rol adecuado | Inicia el flujo de clonación en dos pasos, en un modal dedicado |
 | **Archive** | Usuarios con permiso de creación/edición de agentes | Abre el modal de confirmación de archivado |
 
 ### Pestaña Calls
@@ -303,7 +320,7 @@ Cada agente puede tener campos personalizados que aparecen en el formulario de l
 
 <Steps>
   <Step title="Abrir el editor de campos">
-    Haz clic en el botón **Edit Form** dentro del panel de "Llamar" de la fila del agente, o desde la pestaña Settings si el agente no es avanzado
+    Haz clic en el botón **Edit Form** dentro del modal de llamada del agente, o desde la pestaña Settings si el agente no es avanzado
   </Step>
   <Step title="Añadir o editar un campo">
     Para cada campo puedes definir:
@@ -337,7 +354,7 @@ Meetzy ofrece una experiencia de creación guiada por IA:
 
 <Steps>
   <Step title="Describe tu agente">
-    Utiliza el overlay de creación para describir en lenguaje natural qué debe hacer tu agente
+    Haz clic en **New Agent**, visible en la cabecera de la página, y utiliza el overlay de creación para describir en lenguaje natural qué debe hacer tu agente
   </Step>
   <Step title="Generación automática">
     La IA analiza tu descripción y genera automáticamente:
@@ -356,6 +373,10 @@ Meetzy ofrece una experiencia de creación guiada por IA:
   "Un agente que responde llamadas de soporte al cliente para una clínica dental, agenda citas y transfiere casos urgentes a la recepcionista..."
 </Tip>
 
+<Info>
+  El botón **New Agent** solo aparece si tienes permiso de creación/edición de agentes. El panel de filtros de la lista tampoco se muestra si no cuentas con ese permiso.
+</Info>
+
 ## Duplicar y Clonar Agentes
 
 ### Requisitos de Permisos
@@ -366,7 +387,7 @@ Meetzy ofrece una experiencia de creación guiada por IA:
 
 ### Proceso de Clonación en Dos Pasos
 
-El clonado se realiza a través de un modal de **dos pasos**: primero configuras los detalles de la copia y después revisas un resumen antes de confirmar.
+El clonado se realiza a través de un **modal de dos pasos**: primero configuras los detalles de la copia y después revisas un resumen antes de confirmar.
 
 <Steps>
   <Step title="Seleccionar agente">
@@ -384,7 +405,7 @@ El clonado se realiza a través de un modal de **dos pasos**: primero configuras
     El modal muestra un resumen con la compañía destino, el número seleccionado, su uso y el modo de tools elegido antes de ejecutar la clonación
   </Step>
   <Step title="Personalizar">
-    Una vez creado, edita el nuevo agente según tus necesidades específicas
+    Una vez creado, el nuevo agente queda seleccionado automáticamente en el panel de detalle para que puedas editarlo según tus necesidades específicas
   </Step>
 </Steps>
 
@@ -487,7 +508,7 @@ Un agente archivado puede reactivarse en cualquier momento:
 
 ## Intercambiar Número de Teléfono (Swap)
 
-Meetzy permite intercambiar el número telefónico asignado a un agente por otro número disponible en la misma cuenta de Twilio, sin necesidad de reconfigurar el agente desde cero.
+Meetzy permite intercambiar el número telefónico asignado a un agente por otro número disponible en la misma cuenta de Twilio, sin necesidad de reconfigurar el agente desde cero. La operación se realiza a través de un modal dedicado.
 
 ### Cuándo usar el Swap
 
@@ -499,7 +520,7 @@ Meetzy permite intercambiar el número telefónico asignado a un agente por otro
 
 <Steps>
   <Step title="Iniciar el swap">
-    Haz clic en el icono de intercambio (⇄) junto al número telefónico que deseas cambiar, disponible en el panel de "Llamar" de la fila del agente o en la pestaña Settings
+    Haz clic en el icono de intercambio (⇄) junto al número telefónico que deseas cambiar, disponible en el modal de llamada del agente o en la pestaña Settings
   </Step>
   <Step title="Revisar el número actual">
     El modal muestra el **número actual** que será liberado, resaltado en rojo
@@ -534,13 +555,17 @@ La disponibilidad del swap depende de tu rol:
 
 ## Sistema de Llamadas de Prueba
 
-Cada agente incluye herramientas integradas para realizar pruebas exhaustivas desde su panel de "Llamar" por fila:
+Cada agente incluye un **modal de llamada** con herramientas integradas para realizar pruebas exhaustivas, accesible desde el botón de llamar de su fila en la lista.
+
+<Info>
+  Este flujo se implementó como un modal (y no como un panel desplegado dentro de la propia fila) precisamente para evitar que abrir las opciones de llamada desplace el resto de la lista hacia abajo. Solo puede haber un modal de llamada abierto a la vez.
+</Info>
 
 ### Llamadas Entrantes de Prueba
 
 <Tabs>
   <Tab title="Configuración">
-    El sistema muestra los números telefónicos dedicados del agente:
+    El modal muestra los números telefónicos dedicados del agente:
     ```
     Phone to test inbound call:
     +34 612 345 678 [📋 Copiar sin prefijo]
@@ -567,18 +592,18 @@ Cada agente incluye herramientas integradas para realizar pruebas exhaustivas de
 
 ### Llamadas Salientes de Prueba
 
-El formulario de llamadas salientes se genera dinámicamente basado en los campos configurados del agente:
+El formulario de llamadas salientes, dentro del modal, se genera dinámicamente basado en los campos configurados del agente:
 
 #### Campos Comunes
 - **Número de destino**: Con selector de prefijo de país (se recuerda tu última selección)
 - **Campos personalizados**: Según la configuración del agente (nombre, empresa, propósito, etc.), editables mediante el botón **Edit Form**
-- **Selector de voz**: Opcional, para probar diferentes voces
+- **Selector de voz**: Opcional, para probar diferentes voces (se carga desde el catálogo de voces disponibles en tu cuenta)
 - **Selector de versión**: Solo para agentes con Editor Avanzado
 
 #### Funcionalidades Avanzadas
 - **Validación en tiempo real**: Se avisa de los campos obligatorios que falten antes de iniciar la llamada
 - **Formato internacional**: Amplio catálogo de prefijos de país disponibles en el selector
-- **Intercambio rápido de número**: Icono de swap (⇄) disponible junto a cada número entrante, si tienes permisos
+- **Intercambio rápido de número**: Icono de swap (⇄) disponible junto a cada número entrante, si tienes permisos, que abre el modal de swap sin cerrar el modal de llamada
 
 <Warning>
   Las llamadas de prueba consumen minutos de tu plan igual que las llamadas normales. Usa esta función con moderación durante el desarrollo.
@@ -605,23 +630,30 @@ Esto permite:
 
 ### Organización de Demos
 
-Los agentes marcados como **Demo** aparecen en una sección colapsible separada para mantener la organización:
+Los agentes marcados como **Demo** aparecen en una sección **colapsable** independiente, separada de la lista principal, para mantener la organización. Por defecto esta sección aparece **contraída**, así que deberás expandirla haciendo clic sobre su cabecera para ver los agentes que contiene:
 
 - **Templates profesionales**: Casos de uso comunes preconfigurados
 - **Ejemplos por industria**: Agentes especializados por sector
 - **Casos de referencia**: Implementaciones exitosas anonimizadas
 
+<Tip>
+  Los agentes demo no se ven afectados por el filtro de compañía ni por la búsqueda principal de la lista: siempre aparecen agrupados en su propia sección, independientemente de los filtros que tengas activos.
+</Tip>
+
 ### Uso de Agentes Demo
 
 <Steps>
+  <Step title="Expandir la sección">
+    Haz clic en la cabecera **Demo agents** para desplegar la lista de agentes de ejemplo disponibles
+  </Step>
   <Step title="Explorar templates">
     Navega por la sección de demos para encontrar casos similares al tuyo
   </Step>
   <Step title="Analizar configuración">
-    Revisa la configuración, prompts y flujos de conversación
+    Selecciona un agente demo para abrir su panel de detalle y revisar su configuración, prompts y flujos de conversación
   </Step>
   <Step title="Clonar y personalizar">
-    Duplica el agente demo y adáptalo a tus necesidades específicas
+    Usa el botón **Clone** para duplicar el agente demo y adáptalo a tus necesidades específicas
   </Step>
 </Steps>
 
@@ -666,12 +698,14 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | **Copiar ID** | Clic en el badge de ID | Copia el identificador único al portapapeles |
 | **Editor** | Botón "Editor" (pestaña Overview) | Abre el Advanced Editor en una nueva pestaña |
 | **Trends** | Botón "Trends" (pestaña Overview) | Abre la vista de tendencias de evaluación del agente |
-| **Clone** | Botón "Clone" (pestaña Overview) | Inicia el flujo de clonación en dos pasos |
+| **Clone** | Botón "Clone" (pestaña Overview) | Abre el modal de clonación en dos pasos |
 | **Archive** | Botón "Archive" (pestaña Overview) | Abre el modal de confirmación de archivado |
-| **Swap número** | Icono ⇄ junto al número | Abre el modal de intercambio de número telefónico |
-| **Edit Form** | Botón "Edit Form" en el panel de llamar | Abre el editor de campos personalizados |
+| **Llamar** | Botón de llamar en la fila del agente | Abre el modal de llamada con opciones de prueba entrante y saliente |
+| **Swap número** | Icono ⇄ junto al número (dentro del modal de llamada o Settings) | Abre el modal de intercambio de número telefónico |
+| **Edit Form** | Botón "Edit Form" en el modal de llamada | Abre el editor de campos personalizados |
 | **Cambiar de agente (Editor Avanzado)** | Selector de agentes | Salta a otro agente sin perder el contexto del editor |
 | **Cerrar panel** | Clic en ✕ | Cierra la vista detallada y vuelve a la vista de solo lista |
+| **Volver a la vista clásica** | Enlace en el banner superior | Redirige a la página `/agents` clásica |
 
 ### Atajos de Teclado en el Editor Avanzado
 
@@ -699,96 +733,8 @@ Para usuarios administradores, está disponible la gestión masiva:
 
 El sistema monitorea continuamente la salud de tus agentes:
 
-- **Phone Health**: Estado de números telefónicos asignados, visible como un beacon de color en cada fila de la lista, filtrable mediante el interruptor **Phone health** y accesible en detalle desde la pestaña Overview
+- **Phone Health**: Estado de números telefónicos asignados, visible como un chip de color en cada fila de la lista (cargado bajo demanda), filtrable mediante el interruptor **Phone health** y accesible en detalle desde la pestaña Overview o desde el modal correspondiente
 - **Latency sparkline**: Mini-gráfico de 14 días con la evolución de la latencia media, visible directamente en la lista sin necesidad de abrir el panel de detalle
 - **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días, percentil P90 y tendencia comparativa
 - **Success Rate**: Tasa de llamadas cerradas con éxito
-- **Call Volume**: Volumen diario de llamadas con histórico de 30 días
-
-### Notificaciones Automáticas
-
-Recibe alertas sobre:
-- **Números marcados como spam**: Notificación inmediata
-- **Fallos recurrentes**: Patrones de error detectados
-- **Límites de uso**: Advertencias sobre consumo de minutos
-- **Actualizaciones del sistema**: Nuevas funcionalidades disponibles
-
-## Siguientes Pasos
-
-<CardGroup cols={2}>
-  <Card title="Números de Teléfono" icon="phone" href="/es/agents/phone-numbers">
-    Aprende a asignar, gestionar y optimizar números telefónicos para tus agentes.
-  </Card>
-  <Card title="Phone Health" icon="heart-pulse" href="/es/agents/phone-health">
-    Monitorea la salud y rendimiento de tus números telefónicos.
-  </Card>
-  <Card title="Editor Avanzado" icon="code" href="/es/agents/advanced-editor">
-    Domina las funcionalidades avanzadas de configuración de agentes.
-  </Card>
-  <Card title="Base de Conocimiento" icon="book-open" href="/es/agents/knowledge-base">
-    Configura y gestiona las fuentes de información de tus agentes.
-  </Card>
-</CardGroup>
-
-## Resolución de Problemas
-
-### Problemas Comunes
-
-<Tabs>
-  <Tab title="Agente no responde">
-    **Posibles causas:**
-    - Número telefónico pausado o desactivado
-    - Configuración incorrecta del prompt
-    - Problemas de conectividad del proveedor
-    - El agente fue archivado accidentalmente
-    
-    **Soluciones:**
-    1. Verificar estado del número desde el beacon en la lista o la tarjeta de Phone Health en la pestaña Overview
-    2. Confirmar que el agente no muestra el badge "Archived" en el encabezado del panel
-    3. Probar con una llamada de prueba desde el panel de "Llamar"
-    4. Revisar la pestaña Calls para identificar errores recientes
-  </Tab>
-  <Tab title="Calidad de conversación baja">
-    **Mejoras recomendadas:**
-    - Optimizar el prompt del sistema (< 25,000 caracteres)
-    - Actualizar la base de conocimiento
-    - Configurar respuestas más específicas
-    - Revisar configuración de voz y velocidad
-  </Tab>
-  <Tab title="Error en clonación">
-    **Verificar lo siguiente:**
-    - Usuario administrador o con rol "user"/"member"
-    - Números telefónicos disponibles en la cuenta de Twilio del agente original
-    - Límites de plan no excedidos
-    - Si eliges "Reuse existing tools", confirma que realmente quieres compartir las tools entre ambos agentes
-  </Tab>
-  <Tab title="No encuentro un agente archivado">
-    **Pasos para localizarlo:**
-    - Activa el interruptor **Archived agents** en el panel de filtros para mostrarlos
-    - Verifica que estás en la compañía correcta si administras varias organizaciones
-    - Usa la búsqueda por nombre o ID para confirmar su existencia
-  </Tab>
-  <Tab title="No puedo hacer swap de un número">
-    **Verifica lo siguiente:**
-    - Confirma que tienes el rol o permiso adecuado para este agente (ver tabla de permisos de swap)
-    - Si el agente es demo, solo un administrador puede realizar el intercambio
-    - Asegúrate de que existan números disponibles en la misma cuenta de Twilio; si no los hay, el modal mostrará un mensaje de error
-  </Tab>
-  <Tab title="No veo el sparkline de latencia en una fila">
-    **Verifica lo siguiente:**
-    - El agente necesita tener llamadas registradas en los últimos 14 días para que exista histórico que graficar
-    - El histórico se carga en segundo plano tras mostrar la lista, así que puede tardar unos segundos en aparecer
-    - Si el filtro de compañía, búsqueda o el filtro de **Phone health** está muy acotado, confirma que el agente en cuestión realmente está en el listado visible
-  </Tab>
-  <Tab title="El filtro de Phone health no muestra ningún agente">
-    **Verifica lo siguiente:**
-    - Es posible que ninguno de tus agentes tenga actualmente incidencias de spam o deliverability registradas
-    - Confirma que no tienes también un filtro de compañía o búsqueda muy restrictivo combinado
-    - Usa **Clear filters** para restablecer todos los filtros y confirmar el resultado sin combinaciones
-  </Tab>
-  <Tab title="No encuentro el selector de agentes en el editor">
-    **Verifica lo siguiente:**
-    - El selector solo aparece en modo edición, no al crear un agente nuevo
-    - Solo está disponible en pantallas de escritorio; en móvil usa **Back to Agents**
-    - Debe existir al menos un agente adicional en la compañía activa para que la lista muestre opciones
-    - Si eres administrador, comprueba que el fil
+- **Call Volume**:
