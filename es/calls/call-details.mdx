@@ -238,6 +238,10 @@ El modal se divide en dos zonas:
 | 🎧 Izquierda | Reproductor de audio con forma de onda |
 | 💬 Derecha | Transcripción turno por turno con desglose de latencia, modelo LLM y tool calls |
 
+<Info>
+La forma de onda se dibuja a partir del **audio real**, decodificado en el navegador con la Web Audio API a partir del archivo descargado — no es una animación genérica. Esto te permite ubicar visualmente silencios, picos de voz y pausas antes incluso de reproducir el audio.
+</Info>
+
 ### Reproductor de Audio
 
 El reproductor dibuja la **forma de onda real** del audio (decodificada con la Web Audio API a partir del archivo descargado, no una animación genérica), lo que te permite ubicar visualmente silencios, picos de voz y pausas. A medida que la llamada avanza, la parte ya reproducida de la forma de onda se resalta en color para indicar el progreso.
@@ -323,6 +327,37 @@ El veredicto es **deseleccionable**: si haces clic de nuevo sobre el botón ya a
 
 <Info>
 El veredicto OK/KO queda disponible como filtro en la tabla de llamadas, lo que te permite, por ejemplo, listar únicamente las llamadas marcadas como KO para priorizar su revisión o escalarlas al equipo correspondiente, o las llamadas sin veredicto para saber qué falta por revisar.
+</Info>
+
+### Revisión y Etiquetas desde el Reproductor
+
+<Info>
+No necesitas cerrar el reproductor ni volver a la tabla para marcar una llamada como revisada, escribir una nota de auditoría o gestionar sus etiquetas: todo está disponible en el propio modal de grabación, y los cambios se guardan sobre la misma llamada que ves en la tabla de fondo.
+</Info>
+
+En la parte inferior del modal encontrarás los controles de revisión y etiquetas:
+
+| Control | Acción |
+|---------|--------|
+| Checkbox **Reviewed** | Marca o desmarca la llamada como revisada |
+| Campo de nota | Texto libre para dejar constancia de por qué se marcó así la llamada |
+| Input de etiquetas | Escribe una etiqueta y presiona `Enter` para añadirla |
+| ✕ en cada etiqueta | Elimina esa etiqueta de la llamada |
+
+<Steps>
+<Step title="Marca la llamada como revisada">
+Activa el checkbox **Reviewed**. Si la desmarcas, el veredicto OK/KO asociado también se limpia automáticamente.
+</Step>
+<Step title="Escribe una nota (opcional)">
+Añade contexto sobre la revisión en el campo de texto. La nota se guarda automáticamente unos instantes después de dejar de escribir, sin necesidad de un botón de guardar.
+</Step>
+<Step title="Añade o elimina etiquetas">
+Escribe el texto de la etiqueta y presiona `Enter` para agregarla, o haz clic en la ✕ junto a una etiqueta existente para quitarla.
+</Step>
+</Steps>
+
+<Info>
+Mientras el foco esté dentro del campo de nota o del input de etiquetas, las flechas `←` y `→` del teclado **no** navegan entre llamadas: se usan con normalidad para mover el cursor de texto. Esto evita que, al escribir una nota larga, un `←` accidental te saque de la llamada que estás documentando.
 </Info>
 
 ### Transcripción Enriquecida por Turno

@@ -12,6 +12,10 @@ Every call generates detailed data that helps you understand what happened durin
 
 Click on any call row in the Call History table, or click the **View** button to open the details modal.
 
+<Info>
+The recording player described below (waveform, navigation, review, and tags) is a single shared component. It now also powers the recording modal in the **advanced Calls view**, so whichever screen you review calls from, the behavior and shortcuts documented here are identical.
+</Info>
+
 ## Modal Layout
 
 The Call Details modal is organized in a three-column layout:
@@ -205,6 +209,10 @@ The webhook section only appears if a webhook was configured and triggered for t
 
 If call recording is enabled, clicking the recording icon opens a dedicated **Call Recording** modal with a full-featured player on one side and a rich, per-turn transcript on the other.
 
+<Info>
+This is the same recording modal used across Meetzy — including the **advanced Calls view** — so the waveform player, keyboard navigation, and review/tag editing described below all work identically no matter which list you opened it from.
+</Info>
+
 ### Navigating Between Calls
 
 The recording modal no longer traps you on a single call. When you open a recording from a filtered list (for example, from Call History), the modal knows about the calls immediately before and after the one you're viewing, and lets you move between them without closing the modal and reopening a different row.
@@ -226,7 +234,7 @@ The previous/next buttons are automatically disabled (dimmed, non-clickable) at 
 Arrow key navigation is automatically disabled while you're typing in the review note or tag input fields inside the modal, so pressing ← or → to move the cursor in a text field never accidentally jumps to another call.
 </Info>
 
-Switching calls triggers a short slide transition (the content pane animates left or right depending on the direction you navigated) so it's clear a new recording has loaded, and reloads the waveform, audio, and transcript for the newly selected call.
+Switching calls triggers a short slide transition (the content pane animates left or right depending on the direction you navigated) so it's clear a new recording has loaded, and reloads the waveform, audio, transcript, review status, and tags for the newly selected call.
 
 ### Quick Verdict (Pending / OK / KO)
 
@@ -271,6 +279,29 @@ Combining the tri-state verdict with previous/next navigation and the arrow-key 
 <Warning>
 Setting a verdict updates the call's review status immediately. If you need to also leave a written explanation, use the review note field alongside the verdict control — the two are independent and both persist with the call.
 </Warning>
+
+### Reviewed Status, Notes, and Tags — Right From the Modal
+
+Full review editing now lives inside the recording modal itself, so you don't need to go back to the table row to finish reviewing a call.
+
+<CardGroup cols={2}>
+  <Card title="Reviewed checkbox" icon="check-double">
+    A **Reviewed** checkbox marks the call as looked-at, independent of the OK/KO verdict. Unchecking it also clears the verdict back to Pending, keeping the two fields consistent — the same behavior as the checkbox in the calls table.
+  </Card>
+  <Card title="Review note" icon="pen">
+    A text field lets you type a free-form note explaining your verdict (e.g. "Agent missed the callback time"). It saves automatically a moment after you stop typing, so there's no separate save button to remember.
+  </Card>
+  <Card title="Tags" icon="tag">
+    Add or remove tags for the call directly in the modal footer — press **Enter** after typing a tag to add it, or click the **✕** on an existing tag chip to remove it. Changes apply immediately and are reflected back in the calls table.
+  </Card>
+  <Card title="Follows the call" icon="arrow-right-arrow-left">
+    Just like the verdict, the Reviewed checkbox, note, and tags all reload for whichever call you navigate to with the previous/next controls — nothing is carried over between calls.
+  </Card>
+</CardGroup>
+
+<Info>
+Because tags and review fields are edited on the same object the table row displays, updates made in the modal show up in the calls list the moment you close it — no manual refresh needed.
+</Info>
 
 ### Waveform Player
 
@@ -399,7 +430,7 @@ When you copy data:
     Review input params and output to diagnose why a call didn't perform as expected.
   </Card>
   <Card title="Quality Assurance" icon="check-double">
-    Listen to recordings, check transcriptions, and mark each call Pending/OK/KO to build a fast, keyboard-driven QA workflow.
+    Listen to recordings, check transcriptions, and mark each call Pending/OK/KO — plus add a note and tags — to build a fast, keyboard-driven QA workflow entirely inside the recording modal.
   </Card>
   <Card title="Integration Verification" icon="plug">
     Verify that webhook data was sent correctly and contains expected values.
@@ -423,7 +454,7 @@ The ← and → shortcuts only apply while the Call Recording modal is open, and
 </Info>
 
 <Info>
-There is no dedicated shortcut for the verdict control — use the on-screen Pending/OK/KO buttons in the modal. This keeps the verdict a deliberate click rather than something that could be triggered accidentally while navigating between calls.
+There is no dedicated shortcut for the verdict control, the Reviewed checkbox, or tags — use the on-screen controls in the modal. This keeps review edits a deliberate click/keystroke rather than something that could be triggered accidentally while navigating between calls with the arrow keys.
 </Info>
 
 ## Next Steps

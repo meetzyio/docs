@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the new Calls page with configurable and pinnable columns, predefined and custom saved views, date/agent/tag/status filters, a dedicated suspicious-call filter, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, and an opt-in Live mode."
+description: "Explore the new Calls page with configurable and pinnable columns, predefined and custom saved views, date/agent/tag/status filters, a dedicated suspicious-call filter, an adaptive Live mode, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, and a waveform recording player."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, a single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table, an OK/KO review workflow with audit notes, inline tag editing, and full or selective Excel exports.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, a single-row filter bar with a dedicated suspicious-call filter, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, and a built-in recording player with a real waveform.
 
 <Info>
 The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -142,6 +142,7 @@ Live polling is **opt-in** — the table doesn't refresh in the background unles
 
 - Toggle **Live** near the top of the table to start polling for new calls automatically.
 - While active, a small live indicator confirms polling is running.
+- Polling is **adaptive**: while new calls keep arriving the table checks in frequently, and the interval automatically backs off the longer things stay quiet — so a busy line gets near-instant updates without hammering the server during slow periods, and things speed back up the moment activity picks up again.
 - Newly arrived calls that match your current filters are briefly highlighted in the table so they're easy to spot as they come in.
 - Live polling respects your current filters, sort order, and scroll position — turning it on won't reset or interrupt what you're looking at.
 - You can turn **Live** off at any time to freeze the table at its current state, for example while you focus on reviewing a batch of calls.
@@ -177,6 +178,10 @@ You can also filter the table down to only the calls you've marked **OK** or **K
 
 This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** so your team can jump straight back into it later.
 
+<Info>
+This same reviewed toggle, OK/KO verdict, and note editor are also available directly inside the recording player modal, so you can record your audit verdict right after listening to a call without switching back to the table.
+</Info>
+
 ## Inline tag editing
 
 The **Tags** column lets you manage a call's tags directly from the table, without opening the call's detail view.
@@ -200,7 +205,31 @@ The **Tags** column lets you manage a call's tags directly from the table, witho
 </Steps>
 
 <Info>
-Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away.
+Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away. The same add/remove tag editor is also available inside the recording player modal.
+</Info>
+
+## Recording player
+
+Clicking a call's recording opens a dedicated player modal built specifically for reviewing audio quickly, with a real waveform rendered from the decoded audio rather than a generic progress bar.
+
+<Tabs>
+  <Tab title="Waveform & seeking">
+    The waveform is built client-side from the actual audio data using the Web Audio API, so its shape reflects the real volume of the call rather than a placeholder animation. Click anywhere on the waveform to seek directly to that point in the recording.
+  </Tab>
+  <Tab title="Skip ±10s">
+    Use the skip-back and skip-forward controls to jump exactly 10 seconds backward or forward — handy for re-listening to a specific exchange without scrubbing manually.
+  </Tab>
+  <Tab title="Playback speed">
+    Choose a playback speed — 0.5×, 0.75×, 1×, 1.25×, 1.5×, or 2× — to slow down a tricky passage or speed through a long, uneventful call.
+  </Tab>
+</Tabs>
+
+<Info>
+The player modal also includes **Previous** and **Next** navigation (with matching arrow-key shortcuts) to move between calls without closing the modal, the same **Reviewed**/**OK**/**KO** review controls and audit note found in the table, and inline tag management — so you can complete most of a review session without ever leaving the recording view.
+</Info>
+
+<Info>
+Keyboard shortcuts for navigating between calls are disabled automatically while you're typing in the note or tag input, so arrow keys behave normally while you're writing.
 </Info>
 
 ## Exporting to Excel
