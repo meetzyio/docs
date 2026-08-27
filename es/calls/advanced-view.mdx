@@ -4,7 +4,7 @@ description: "Descubre la nueva vista mejorada de Llamadas con columnas configur
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas predefinidas y guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla mediante el modo **Live** y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas predefinidas y guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen con desglose de tiempos de transferencia, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla mediante el modo **Live** y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
@@ -16,8 +16,8 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 - Un gestor de columnas completo, con columnas dinámicas de entrada y salida, reordenamiento y **columnas fijadas** a la derecha de la tabla
 - Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
 - **Vistas predefinidas**, listas para usar, además de vistas guardadas propias para reutilizar tus combinaciones favoritas de columnas y orden
-- Tarjetas de resumen con las métricas clave del rango filtrado, siempre visibles antes de entrar al detalle de la tabla
-- Filtros avanzados de fecha, agentes, etiquetas, estado y búsqueda de texto, reorganizados en un panel más claro
+- Tarjetas de resumen con las métricas clave del rango filtrado, incluyendo el **desglose de tiempo de transferencia** (entrante y saliente), siempre visibles antes de entrar al detalle de la tabla
+- Filtros avanzados de fecha, agentes, etiquetas, estado (incluyendo el nuevo estado **Silencio**) y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
 - Estado **Revisado**, **veredicto de auditoría (OK / KO)** y notas por llamada, con guardado automático
@@ -132,8 +132,10 @@ Esta migración lee, de forma exclusivamente local y de solo lectura, la configu
 
 Antes de la tabla, un conjunto de tarjetas de resumen te ofrece un vistazo rápido a las métricas clave del rango de fechas y filtros que tengas activos, sin necesidad de desplazarte por toda la tabla ni exportar nada.
 
+Entre las métricas disponibles se incluye el **desglose de tiempo de transferencia**, calculado por separado para llamadas **entrantes** y **salientes**: el tiempo total (en segundos) que las llamadas filtradas pasaron transferidas a un humano. Esta separación te permite detectar rápidamente, por ejemplo, si el volumen de transferencias proviene principalmente de llamadas entrantes de soporte o de campañas salientes.
+
 <Info>
-  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo.
+  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo, incluido el desglose de tiempos de transferencia.
 </Info>
 
 ---
@@ -168,10 +170,15 @@ Puedes filtrar por uno o varios estados a la vez, mostrados como chips en su pro
 | Closed | Llamada finalizada correctamente |
 | No answer | Sin respuesta |
 | Voicemail | Derivada a buzón de voz |
+| **Silence** | Llamada conectada en la que no hubo conversación: se detectó silencio y no llegó a producirse un intercambio real con el interlocutor |
 | Busy | Línea ocupada |
 | Failed | Llamada fallida |
 | Transfer | Llamada transferida |
 | Blocked | Llamada bloqueada |
+
+<Info>
+  El estado **Silencio** es especialmente útil para detectar llamadas que se conectaron técnicamente pero no llegaron a tener ningún contenido de conversación, un patrón distinto al de "No answer" (donde la llamada nunca se llegó a contestar).
+</Info>
 
 ### Búsqueda por ID de llamada y texto libre
 
