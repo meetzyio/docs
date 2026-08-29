@@ -1,6 +1,6 @@
 ---
 title: 'Copilot'
-description: 'AI-powered system engineer that transforms your agent with intelligent prompt editing, parameter configuration, rich visual diagnostics, and comprehensive setup'
+description: 'AI-powered system engineer that transforms your agent with intelligent prompt editing, parameter configuration, rich visual diagnostics, conversation management, file attachments, and voice dictation'
 icon: 'robot'
 ---
 
@@ -9,7 +9,7 @@ icon: 'robot'
 Copilot is an advanced AI-powered system engineer integrated into the Advanced Editor. It goes far beyond simple prompt editing - **Copilot can configure your entire agent system** including input parameters, output settings, evaluations, audio expressiveness, and core configurations. Using sophisticated structured editing and intelligent analysis, Copilot transforms your agent based on natural language instructions and real call data.
 
 <Info>
-Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, and even suggest improvements - all through natural conversation and targeted operations. Beyond plain text, Copilot can also reply with **rich visual blocks** - stat panels, tables, charts, and cards - to make diagnostics and analysis instantly scannable.
+Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, and even suggest improvements - all through natural conversation and targeted operations. Beyond plain text, Copilot can also reply with **rich visual blocks** - stat panels, tables, charts, and cards - to make diagnostics and analysis instantly scannable. You can now also **manage multiple conversation threads**, **attach files** (PDFs, Word documents, plain text, and images) for extra context, and **dictate your messages by voice** instead of typing them.
 </Info>
 
 ## Accessing Copilot
@@ -31,6 +31,48 @@ Copilot now has a face: a gradient orb avatar that represents Meetzy across the 
 
 <Info>
 The orb appears in three places: the welcome screen hero, the avatar next to each assistant message, and the typing/thinking indicator - giving Copilot a consistent, recognizable identity throughout the conversation. Its state (**idle** or **active**) always reflects whether Copilot is waiting for you or actively working, so you always know at a glance whether it's inactive or engaged.
+</Info>
+
+## Managing Conversations
+
+Copilot now supports **multiple, independent conversation threads** per agent, so you can keep separate lines of work - a diagnosis session, a test-creation session, a quick one-off question - without losing context between them. Everything lives in a compact **thread selector** in the Copilot header, right next to the orb.
+
+<Tabs>
+  <Tab title="Switching Conversations">
+    Click the **Conversations** dropdown in the header to see every thread you've had with this agent's Copilot, sorted by recency.
+
+    - Each entry shows the conversation **title** and a **relative timestamp** (e.g. "2h ago")
+    - The currently active thread is highlighted
+    - Selecting a different thread instantly loads its full message history, replacing the current view
+  </Tab>
+  <Tab title="Creating a New Conversation">
+    Start a fresh thread at any time:
+
+    - Click **"Nueva conversación"** at the top of the dropdown, or
+    - Click the **"+"** button next to the thread selector in the header
+
+    A new conversation begins with the welcome screen and quick action cards, exactly like your first-ever session with Copilot.
+  </Tab>
+  <Tab title="Renaming a Conversation">
+    Hover over any conversation in the list to reveal a **pencil icon**. Click it to rename the thread inline:
+
+    - Type the new title directly in the list
+    - Press **Enter** to save, or **Escape** to cancel
+    - Clicking outside the field also commits the new name
+
+    Renaming helps you keep long-running Copilot histories organized - for example, naming a thread "Pricing objection fixes" or "Onboarding flow tests".
+  </Tab>
+  <Tab title="Deleting a Conversation">
+    Hover over a conversation and click the **trash icon** to remove it:
+
+    - A small inline confirmation ("¿Borrar? Sí / No") appears before anything is deleted
+    - Deleting the **currently active** thread automatically resets the panel to a new, empty conversation
+    - Deletion is permanent and removes the full message history for that thread
+  </Tab>
+</Tabs>
+
+<Info>
+The thread selector is disabled while a conversation is loading or streaming, so you can't accidentally switch away from an in-progress response. All thread operations (create, rename, delete, switch) are scoped to the current agent - each assistant keeps its own independent set of Copilot conversations.
 </Info>
 
 ## Enhanced Welcome Experience
@@ -132,6 +174,119 @@ Copilot doesn't just reply with text anymore - when the situation calls for it, 
 <Info>
 Rich blocks stream in alongside regular text, so Copilot can explain a finding in natural language and immediately back it up with a stat grid, table, chart, or card - all within the same response. Look for these blocks whenever you ask Copilot to diagnose, compare, or summarize data - they turn a long paragraph into something you can scan in seconds.
 </Info>
+
+## File Attachments
+
+You can now attach files directly to your messages in Copilot to give it richer context - a scanned complaint letter, a call transcript exported as a document, a pricing sheet, or a screenshot of a dashboard.
+
+<Tabs>
+  <Tab title="Supported Formats">
+    Click the **clip icon** next to the input field to attach one or more files:
+
+    - 📄 **PDF** — text is extracted page by page; scanned or image-only pages are automatically converted to images so Copilot can still "see" them
+    - 📝 **DOCX / DOC** — text content is extracted automatically
+    - 📃 **TXT / MD / CSV** — read as plain text
+    - 🖼️ **Images** (PNG, JPG, JPEG, WEBP, GIF) — sent directly for visual analysis
+
+    You can select multiple files at once; each one appears as a small chip above the input while it's attached.
+  </Tab>
+  <Tab title="Limits">
+    To keep uploads fast and reliable:
+
+    - **10 MB** maximum size per file
+    - **Up to 5 images** per message (this quota is shared across standalone images and any images generated from rasterizing scanned PDF pages)
+    - Unsupported file extensions are rejected with a clear error message before anything is sent
+
+    <Warning>
+    If a PDF is entirely a scan with little to no extractable text, its pages are converted to images and count toward the 5-image limit. Very long scanned PDFs may only have their first pages processed once the image quota is reached.
+    </Warning>
+  </Tab>
+  <Tab title="Managing Attachments">
+    Before sending your message:
+
+    - Each attached file shows as a **chip** with its name (and a thumbnail for images)
+    - Files still being processed (e.g. a large PDF being parsed) show a **loading spinner** in place of the chip
+    - Click the **×** on any chip to remove that attachment before sending
+    - Processing or size/format errors appear as dismissible banners above the input, so you always know exactly why a file wasn't attached
+  </Tab>
+</Tabs>
+
+<Info>
+Attachments are sent alongside your message text in the same request, so Copilot can reason about the file content together with your instructions - for example, "Here's the customer's complaint email (attached PDF) - update the prompt to handle this objection better."
+</Info>
+
+## Voice Input & Call Context Analysis
+
+Enhanced natural interaction capabilities for comprehensive system configuration - including hands-free dictation for writing your messages.
+
+<Tabs>
+  <Tab title="Voice Dictation">
+    Instead of typing, you can **dictate your message** and let Copilot transcribe it automatically:
+
+    <Steps>
+      <Step title="Start Recording">
+        Two ways to start:
+
+        - **Hold the microphone button** next to the input field
+        - **Double-press Shift** to start hands-free recording
+
+        While recording, the input area shows a **live waveform visualizer** and a pulsing red dot so you always know you're being recorded.
+      </Step>
+      <Step title="Stop and Transcribe">
+        Click the microphone button again (now shown as a stop icon) to end the recording. Copilot automatically:
+
+        - Sends the audio for transcription
+        - Shows a spinner while transcribing
+        - Fills the input field with the transcribed text, ready to review or send
+      </Step>
+      <Step title="Cancel a Recording">
+        Press **Escape** at any time while recording to discard it - no audio is sent and the input stays empty.
+      </Step>
+    </Steps>
+
+    <Info>
+    Short audio cues play when recording starts and stops, so you get clear feedback even without looking at the screen. If transcription fails or no audio was captured, the input simply stays empty - nothing is lost, and you can try again.
+    </Info>
+  </Tab>
+  <Tab title="Natural Speech Processing">
+    **Speak conversationally about any system changes**:
+
+    - "Add input parameters for customer budget and timeline preferences"
+    - "Create evaluations to measure appointment booking success"
+    - "Update the greetings to be more friendly and professional"
+    - "Based on call A-B-C-1-2-3, improve the pricing objection handling"
+
+    Voice converts to text automatically, and Copilot interprets the request across all configuration areas just like a typed message - generating appropriate changes across multiple panels.
+  </Tab>
+  <Tab title="Call Context Integration">
+    **Powerful call reference system** for data-driven improvements:
+
+    ### Using Call References
+
+    ```
+    @call:abc123 The agent failed to capture the customer's budget 
+    and preferred contact method. Add the missing parameters and 
+    improve the data collection prompts.
+    ```
+
+    When you reference a call, Copilot:
+    - Automatically loads the full transcript
+    - Analyzes conversation flow and data gaps
+    - Suggests missing input/output parameters
+    - Updates prompts based on specific context
+    - Creates relevant evaluation criteria
+    - **Generates or updates tests based on call patterns**
+
+    ### Comprehensive Call Analysis
+
+    Referenced calls provide rich context for:
+    - **Missing Data Identification**: What information wasn't captured
+    - **Process Gap Analysis**: Where the conversation broke down
+    - **Parameter Suggestions**: Input/output fields based on actual needs
+    - **Evaluation Criteria**: Performance metrics based on real outcomes
+    - **Test Creation & Updates**: New or refined automated test scenarios from actual interactions
+  </Tab>
+</Tabs>
 
 ## System Engineering Capabilities
 
@@ -433,66 +588,6 @@ One of Copilot's most powerful features is generating - and maintaining - compre
   </Tab>
 </Tabs>
 
-## Voice Input & Call Context Analysis
-
-Enhanced natural interaction capabilities for comprehensive system configuration:
-
-<Tabs>
-  <Tab title="Voice Command System">
-    <Steps>
-      <Step title="Activation Methods">
-        **Two ways to start voice recording**:
-        
-        - **Hold microphone button** in the input field
-        - **Double-press Shift** to begin hands-free recording
-      </Step>
-      <Step title="Natural Speech Processing">
-        **Speak conversationally about any system changes**:
-        
-        - "Add input parameters for customer budget and timeline preferences"
-        - "Create evaluations to measure appointment booking success"
-        - "Update the greetings to be more friendly and professional"
-        - "Based on call A-B-C-1-2-3, improve the pricing objection handling"
-      </Step>
-      <Step title="System-Wide Understanding">
-        **Copilot interprets requests across all configuration areas**:
-        
-        - Voice converts to text automatically
-        - AI determines which systems need updates
-        - Generates appropriate changes across multiple panels
-      </Step>
-    </Steps>
-  </Tab>
-  <Tab title="Call Context Integration">
-    **Powerful call reference system** for data-driven improvements:
-    
-    ### Using Call References
-    
-    ```
-    @call:abc123 The agent failed to capture the customer's budget 
-    and preferred contact method. Add the missing parameters and 
-    improve the data collection prompts.
-    ```
-    
-    When you reference a call, Copilot:
-    - Automatically loads the full transcript
-    - Analyzes conversation flow and data gaps
-    - Suggests missing input/output parameters
-    - Updates prompts based on specific context
-    - Creates relevant evaluation criteria
-    - **Generates or updates tests based on call patterns**
-    
-    ### Comprehensive Call Analysis
-    
-    Referenced calls provide rich context for:
-    - **Missing Data Identification**: What information wasn't captured
-    - **Process Gap Analysis**: Where the conversation broke down
-    - **Parameter Suggestions**: Input/output fields based on actual needs
-    - **Evaluation Criteria**: Performance metrics based on real outcomes
-    - **Test Creation & Updates**: New or refined automated test scenarios from actual interactions
-  </Tab>
-</Tabs>
-
 ## Accepting and Rejecting System Changes
 
 ### Granular Change Control Across All Panels
@@ -676,6 +771,30 @@ Show me how our success rate has changed over the last 4 weeks.
 - A **line chart** plotting success rate by week
 - A closing note on whether the trend is improving, flat, or declining
 
+### Attaching a Document for Extra Context
+
+```
+[Attach a PDF of the customer complaint] Based on this complaint, 
+update the prompt so the agent acknowledges the issue before offering a solution.
+```
+
+**Copilot performs**:
+- Extracts the text content from the attached PDF (or rasterizes scanned pages as images if needed)
+- Reads the complaint alongside your instruction
+- Proposes a prompt edit that addresses the specific issue described in the document
+
+### Dictating a Request Instead of Typing It
+
+```
+Double-press Shift, say: "Update the greeting to sound warmer and 
+mention our new extended support hours", then press the mic button to stop.
+```
+
+**Copilot performs**:
+- Records and transcribes your spoken request
+- Fills the input field with the transcribed text for you to review
+- Processes it exactly like a typed message once you send it
+
 ## Quick Start with Predefined Actions
 
 The welcome interface provides four **instant setup options**:
@@ -782,7 +901,7 @@ Copilot: [Updates the existing test's chat history and success condition in plac
 ```
 
 <Info>
-Copilot maintains conversation context across multiple system modification requests, allowing for iterative refinement of your entire agent configuration through natural dialogue.
+Copilot maintains conversation context across multiple system modification requests, allowing for iterative refinement of your entire agent configuration through natural dialogue. Use the **thread selector** to keep unrelated iteration threads separate - for example, running your lead-qualification setup in one conversation while diagnosing an unrelated issue in a second thread, then switching between them without losing either context.
 </Info>
 
 ## Comprehensive System Tasks
@@ -846,9 +965,10 @@ sounding exaggerated anywhere else.
 | Shortcut | Action |
 |----------|--------|
 | **⌘J** | Open/focus Copilot panel |
-| **Shift + Shift** | Start/stop voice recording |
+| **Shift + Shift** | Start/stop voice recording (dictation) |
 | **⌘Enter** | Send message to Copilot |
-| **Escape** | Close suggestions or cancel recording |
+| **Enter** | Send message (Shift+Enter for a new line) |
+| **Escape** | Close suggestions or cancel an in-progress recording |
 | **⌘1** | Navigate to Basic Settings panel |
 | **⌘2** | Navigate to Greetings panel |
 | **⌘3** | Navigate to Input Parameters panel |
@@ -880,139 +1000,4 @@ sounding exaggerated anywhere else.
   <Step title="Leverage Real Call Data for System Design">
     **Reference actual calls to drive system-wide improvements**:
     
-    - Use `@call:ID` syntax to provide specific examples of system gaps
-    - Let Copilot analyze real conversation data across all configuration areas
-    - Address actual problems with coordinated parameter, prompt, and evaluation updates
-    - **Generate tests from successful calls, and update existing ones as requirements change**
-  </Step>
-  <Step title="Read the Rich Blocks Before Acting">
-    **Use stat grids, tables, and charts to validate assumptions**:
-    
-    - Check trend indicators in stat grids before deciding what to prioritize
-    - Scan failure tables for patterns rather than reacting to a single call
-    - Use the closing card's recommendations as your next prompt to Copilot
-    - Ask Copilot directly for a chart or table if a text answer feels hard to scan
-  </Step>
-  <Step title="Review All Affected Configuration Areas">
-    **Check every panel with purple notification indicators**:
-    
-    - Input Parameters for new data collection fields
-    - Output Settings for enhanced data capture **and any proposed Output Parameter or Output Enrichment changes**
-    - Evaluations for performance measurement
-    - Basic Settings for core configuration updates
-    - **Tests panel for newly generated or updated test scenarios**
-    - Prompt for updated audio expressiveness tags
-    - Consider the impact across the entire agent system
-  </Step>
-  <Step title="Think in System Integration Terms">
-    **Consider how changes work together across the platform**:
-    
-    - New input parameters should have matching output fields
-    - Prompt changes need corresponding evaluation criteria
-    - Output configurations should include proper enrichment instructions
-    - **Successful configurations should include test scenarios for quality assurance**
-    - Test comprehensive workflows after system-wide changes
-  </Step>
-  <Step title="Use Voice for Complex System Requests">
-    **Natural speech excels for describing comprehensive system needs**:
-    
-    - "Set up complete sales qualification with lead scoring, CRM integration, and quality tests"
-    - "Based on these three problem calls, optimize the entire agent system with comprehensive testing"
-    - Let conversational input guide holistic system improvements
-  </Step>
-  <Step title="Keep Tests Current Instead of Duplicating Them">
-    **Update existing tests as your agent evolves**:
-    
-    - Reference an existing test by name to update its conditions instead of creating a near-duplicate
-    - Use test updates after prompt or policy changes to keep your suite accurate
-    - Reserve new test creation for genuinely new scenarios or call patterns
-  </Step>
-  <Step title="Fine-Tune Audio Expressiveness Deliberately">
-    **Treat audio tags as part of the prompt, not an afterthought**:
-    
-    - Ask Copilot to review tag usage periodically, not just when something sounds wrong
-    - Balance expressiveness so it enhances key moments without becoming distracting
-    - Verify changes by listening to a Playground call after tags are updated
-  </Step>
-  <Step title="Review Output Changes Before Accepting Them">
-    **Treat Output Parameter and Enrichment suggestions like any other change**:
-    
-    - Open the Output Settings panel whenever Copilot proposes output-related changes
-    - Read each pending card's operation (Add/Modify/Remove) and field details before deciding
-    - Use individual Accept/Reject for surgical control, or bulk actions when you trust the full batch
-    - Nothing is applied to your agent until you explicitly accept it
-  </Step>
-  <Step title="Follow Cross-Panel Notification Cues">
-    **Purple indicators guide you to all affected system areas**:
-    
-    - Check every panel with notification dots
-    - Don't miss configuration changes in different areas
-    - **Review generated or updated tests in the Tests panel**
-    - Use seamless navigation to review comprehensively
-  </Step>
-  <Step title="Test System Changes Comprehensively">
-    **Validate complete system modifications before deploying**:
-    
-    - Test new parameters with real data in Playground
-    - Verify evaluation criteria work with actual conversations
-    - Validate output configurations and webhook integrations
-    - **Run generated or updated tests to ensure quality maintenance**
-    - Run regression tests across the entire conversation flow
-  </Step>
-  <Step title="Iterate on Complete System Understanding">
-    **Build comprehensive agent configurations through dialogue**:
-    
-    - Start with high-level system requirements
-    - Refine specific areas through follow-up conversations
-    - Test and adjust system-wide configurations
-    - **Generate and refine tests based on real performance**
-    - Build understanding of how all components work together
-  </Step>
-</Steps>
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card
-    title="Input Parameters"
-    icon="adjustments-horizontal"  
-    href="/advanced-editor/panels/input-parameters"
-  >
-    Configure comprehensive input parameters with AI suggestions from Copilot
-  </Card>
-  <Card
-    title="Output Settings"
-    icon="arrow-up-tray"
-    href="/advanced-editor/panels/output-settings"  
-  >
-    Set up output fields, enrichment, and webhooks with intelligent recommendations - now including Copilot's own accept/reject pending-changes panel
-  </Card>
-  <Card
-    title="Evaluations"
-    icon="chart-bar"
-    href="/advanced-editor/panels/evaluations"
-  >
-    Create comprehensive performance measurements with Copilot's system analysis
-  </Card>
-  <Card
-    title="Basic Settings"
-    icon="cog-6-tooth"
-    href="/advanced-editor/panels/basic-settings"
-  >
-    Configure core agent settings with AI-powered optimization
-  </Card>
-  <Card
-    title="Tests"
-    icon="clipboard-check"
-    href="/advanced-editor/tests"
-  >
-    Create and maintain comprehensive automated tests for your entire agent system, including scenarios generated and updated from call history
-  </Card>
-  <Card
-    title="Playground"
-    icon="gamepad"
-    href="/advanced-editor/playground"
-  >
-    Test your complete system configuration with real data and validate generated test scenarios
-  </Card>
-</C
+    - Use `@call:ID` syntax to provide specific examples of system g

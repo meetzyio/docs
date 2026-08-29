@@ -16,6 +16,36 @@ Copilot no solo sugiere: edita. Describe lo que quieres mejorar y observa cómo 
 
 Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Copilot" para acceder, o usa el atajo de teclado `⌘J`.
 
+## Selector de Conversaciones
+
+En la cabecera de Copilot, junto al nombre "Copilot", encontrarás el **selector de conversaciones**: un desplegable que te permite gestionar todos los hilos de chat que has tenido con Copilot para el agente actual, sin perder ninguno de ellos.
+
+<Info>
+Cada agente mantiene su propio historial de conversaciones con Copilot. Al abrir el editor, Copilot carga automáticamente el último hilo en el que estabas trabajando.
+</Info>
+
+<Steps>
+  <Step title="Ver el historial de conversaciones">
+    Haz clic en el botón con el ícono de burbuja (junto al título del hilo activo) para desplegar la lista de conversaciones. Cada elemento muestra el título del hilo y la fecha relativa de su última actividad (por ejemplo, "hace 2 horas").
+  </Step>
+  <Step title="Cambiar de conversación">
+    Haz clic en cualquier conversación de la lista para cargarla al instante. El hilo activo se resalta en verde para que siempre sepas en cuál estás trabajando.
+  </Step>
+  <Step title="Crear una nueva conversación">
+    Usa el botón "Nueva conversación" dentro del desplegable, o el ícono `+` de la cabecera, para empezar un hilo limpio sin perder el anterior. El hilo previo queda guardado y accesible desde el selector.
+  </Step>
+  <Step title="Renombrar una conversación">
+    Pasa el cursor sobre una conversación de la lista y haz clic en el ícono de lápiz. El título se vuelve editable en línea: escribe el nuevo nombre y presiona `Enter` para guardarlo, o `Escape` para cancelar.
+  </Step>
+  <Step title="Borrar una conversación">
+    Pasa el cursor sobre la conversación y haz clic en el ícono de papelera. Aparecerá una confirmación ("¿Borrar?") antes de eliminarla de forma definitiva.
+
+    <Warning>
+    Si borras la conversación que tienes activa en ese momento, Copilot reinicia automáticamente a una conversación nueva y vacía.
+    </Warning>
+  </Step>
+</Steps>
+
 ## El Orbe de Copilot: la cara de Meetzy
 
 Copilot tiene una identidad visual propia: un **orbe animado con degradado** que actúa como la "cara" de Meetzy en toda la experiencia. Este orbe reemplaza los íconos genéricos de chat y aparece en tres lugares clave:
@@ -73,6 +103,82 @@ Cuando abres Copilot por primera vez, verás al orbe dando la bienvenida junto a
 <Info>
 Cada tarjeta tiene su propio color de fondo, ícono y una pequeña flecha que se anima al pasar el cursor, invitando a la acción con un solo clic. No necesitas escribir nada: el prompt correspondiente se envía automáticamente a Copilot.
 </Info>
+
+## Adjuntar Archivos a tus Mensajes
+
+Junto al campo de texto de Copilot hay un botón con ícono de clip que te permite **adjuntar archivos** a tu mensaje, para que Copilot los use como contexto adicional al analizar o mejorar tu agente.
+
+### Formatos soportados
+
+<Tabs>
+  <Tab title="Documentos de texto (.txt, .md, .csv)">
+    Se leen directamente como texto plano y se incluyen en el contexto del mensaje tal cual.
+  </Tab>
+  <Tab title="Word (.docx, .doc)">
+    El contenido se extrae automáticamente como texto (sin formato de estilos), ideal para pegar guiones, políticas internas o documentación de producto.
+  </Tab>
+  <Tab title="PDF">
+    Copilot extrae el texto de cada página del PDF. Si detecta páginas escaneadas o con muy poco texto (por ejemplo, capturas o imágenes), esas páginas específicas se convierten automáticamente en imágenes para que Copilot pueda "verlas" igualmente.
+  </Tab>
+  <Tab title="Imágenes (.png, .jpg, .jpeg, .webp, .gif)">
+    Se adjuntan directamente como imágenes para que Copilot pueda analizarlas visualmente (capturas de pantalla, diagramas de flujo, etc.).
+  </Tab>
+</Tabs>
+
+### Cómo adjuntar un archivo
+
+<Steps>
+  <Step title="Haz clic en el clip">
+    El ícono de clip está a la izquierda del campo de texto, junto al micrófono.
+  </Step>
+  <Step title="Selecciona uno o varios archivos">
+    Puedes seleccionar varios archivos a la vez desde el explorador de tu sistema.
+  </Step>
+  <Step title="Espera el procesado">
+    Mientras el archivo se procesa (extracción de texto, lectura de páginas del PDF, etc.), verás una pequeña burbuja con un spinner y el nombre del archivo.
+  </Step>
+  <Step title="Revisa el chip y escribe tu mensaje">
+    Una vez procesado, el archivo aparece como una **chip** con su nombre (y una miniatura si es una imagen). Puedes quitarlo antes de enviar haciendo clic en la `x` de la chip.
+  </Step>
+  <Step title="Envía tu mensaje">
+    Al enviar, los adjuntos viajan junto con tu texto para que Copilot los use como contexto de la conversación.
+  </Step>
+</Steps>
+
+<Warning>
+Cada archivo tiene un límite de **10MB**. Además, solo puedes adjuntar un máximo de **5 imágenes** por mensaje (las páginas de un PDF rasterizadas cuentan dentro de ese mismo cupo). Si un archivo supera el límite o tiene un formato no soportado, verás un aviso claro debajo del campo de texto.
+</Warning>
+
+<Info>
+Puedes combinar varios tipos de archivo en un mismo mensaje: por ejemplo, un PDF con la política de reembolsos junto a una captura de pantalla del flujo actual del agente.
+</Info>
+
+## Dictado por Voz en el Input
+
+Además de escribir, puedes **dictarle mensajes a Copilot** usando el botón de micrófono ubicado junto al campo de texto (o el atajo `⌘⇧V`).
+
+<Steps>
+  <Step title="Inicia la grabación">
+    Haz clic en el ícono de micrófono o presiona `⌘⇧V`. El campo de texto se sustituye por un visualizador de audio en tiempo real con barras animadas que reaccionan a tu voz.
+  </Step>
+  <Step title="Habla con normalidad">
+    Puedes describir lo que quieres pedirle a Copilot igual que si lo escribieras, incluyendo referencias a llamadas con `@call:ID`.
+  </Step>
+  <Step title="Detén la grabación">
+    Haz clic nuevamente en el botón (ahora con ícono de stop) para finalizar. Copilot transcribe automáticamente el audio y coloca el texto resultante en el campo de entrada para que lo revises antes de enviarlo.
+  </Step>
+  <Step title="Cancela si es necesario">
+    Presiona `Escape` en cualquier momento durante la grabación para descartarla sin transcribir nada.
+  </Step>
+</Steps>
+
+<Info>
+Mientras se transcribe el audio, el botón del micrófono muestra un spinner. La transcripción utiliza el idioma español de forma predeterminada para máxima precisión.
+</Info>
+
+<Warning>
+El dictado por voz requiere permisos de micrófono del navegador y una conexión segura (HTTPS). Si tu navegador bloquea el acceso al micrófono, revisa la configuración de permisos del sitio.
+</Warning>
 
 ## Sistema de Eventos SSE Avanzado
 
@@ -799,111 +905,4 @@ Durante el procesamiento de contexto de llamadas, Copilot muestra indicadores de
 
 ## Sugerencias Inteligentes de IA Expandidas
 
-El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo que anticipa necesidades y optimiza flujos de trabajo.
-
-### Algoritmo de Generación de Sugerencias
-
-<Steps>
-  <Step title="Análisis de Contexto Inmediato">
-    - **Cambio actual**: Tipo y alcance de la modificación realizada
-    - **Áreas relacionadas**: Secciones del prompt que podrían beneficiarse
-    - **Configuración existente**: Parámetros, outputs y evaluaciones actuales
-    - **Historial de cambios**: Patrones de modificaciones previas
-  </Step>
-  <Step title="Machine Learning Predictivo">
-    - **Modelos entrenados**: Análisis de millones de prompts y mejoras exitosas
-    - **Reconocimiento de patrones**: Identificación de mejoras que típicamente van juntas
-    - **Correlación de éxito**: Relación entre cambios y métricas de éxito posteriores
-    - **Conocimiento de dominio**: Expertise específico en IA conversacional
-  </Step>
-  <Step title="Filtrado y Priorización">
-    - **Puntuación de relevancia**: Puntuación de pertinencia al contexto actual
-    - **Evaluación de impacto**: Evaluación del impacto potencial en rendimiento
-    - **Complejidad de implementación**: Dificultad técnica de implementación
-    - **Aprendizaje de preferencias**: Adaptación a patrones de aceptación del usuario
-  </Step>
-  <Step title="Personalización Adaptativa">
-    - **Patrones de uso**: Aprendizaje de preferencias individuales de usuarios
-    - **Especificidad de dominio**: Adaptación a industria o caso de uso específico
-    - **Feedback de rendimiento**: Incorporación de métricas de llamadas post-implementación
-    - **Pruebas A/B**: Experimentación continua con tipos de sugerencias
-  </Step>
-</Steps>
-
-### Categorías Avanzadas de Sugerencias
-
-<Tabs>
-  <Tab title="Sugerencias de Configuración Avanzada">
-    **Parámetros de Entrada Inteligentes**:
-    ```json
-    {
-      "type": "input_parameter",
-      "suggestion": {
-        "name": "customer_tier",
-        "type": "enum",
-        "values": ["bronze", "silver", "gold", "platinum"],
-        "rationale": "Detected pricing discussions in 73% of calls - personalization needed"
-      }
-    }
-    ```
-    
-    **Campos de Salida Predictivos**:
-    - Análisis de conversaciones para identificar información no capturada
-    - Sugerencias de campos basadas en patrones de cierre exitoso
-    - Validaciones automáticas según tipo de campo
-    - Sugerencias de enriquecimiento para contexto adicional
-    
-    **Evaluaciones Automáticas**:
-    - Métricas derivadas de problemas identificados en llamadas
-    - KPIs específicos por industria o caso de uso
-    - Criterios de éxito correlacionados con resultados de negocio
-    - Benchmarking automático contra estándares de la industria
-  </Tab>
-  <Tab title="Sugerencias de Testing Automatizado">
-    **Generación Inteligente de Tests**:
-    ```javascript
-    {
-      testName: "Objection Handling - Price Sensitivity",
-      scenario: "Customer expresses price concerns",
-      successCriteria: [
-        "Agent acknowledges concern empathetically",
-        "Provides value justification",
-        "Offers alternatives or payment plans"
-      ],
-      dynamicVariables: {
-        pricePoint: "$299",
-        competitorPrice: "$199",
-        customerBudget: "$250"
-      }
-    }
-    ```
-    
-    **Casos Límite Automáticos**:
-    - Generación de tests para casos límite identificados
-    - Simulación de clientes difíciles basada en llamadas reales
-    - Tests de validación para nuevos campos de output
-    - Tests de regresión automáticos para cambios de prompt
-
-    **Actualización sobre tests existentes**:
-    - Cuando un test ya cubre el escenario pero quedó desactualizado, Copilot lo actualiza en lugar de duplicarlo
-    - Conserva el `test_id`, el nombre y el historial de ejecuciones previas
-    - Solo modifica los campos necesarios (condición de éxito, variables dinámicas, historial de chat)
-  </Tab>
-  <Tab title="Sugerencias de Optimización de Rendimiento">
-    **Análisis Predictivo de Métricas**:
-    - Predicción de impacto en la tasa de éxito de llamadas
-    - Optimización de duración de llamada vs satisfacción
-    - Mejoras específicas para tasa de conversión
-    - Personalización basada en segmentos de clientes
-    
-    **Pruebas A/B Automáticas**:
-    - Sugerencias de variantes para testing
-    - Configuración automática de experimentos comparativos
-    - Métricas de significancia estadística
-    - Recomendaciones de duración de prueba según volumen de llamadas
-  </Tab>
-</Tabs>
-
-<Info>
-Ya sea que Copilot modifique el system prompt, los tags de audio, un test existente o los parámetros y el enriquecimiento de salida, el principio es siempre el mismo: **proponer primero, aplicar después**. Tú mantienes siempre la última palabra sobre qué cambios entran en producción.
-</Info>
+El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo que anticipa neces
