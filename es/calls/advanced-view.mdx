@@ -1,10 +1,10 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables, columnas fijadas, vistas predefinidas y guardadas, modo en vivo, filtros avanzados, revisión con veredicto de auditoría y notas, edición de tags en línea y reproductor con navegación entre llamadas"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables y fijadas, columnas dinámicas de entrada/salida, vistas predefinidas y guardadas, modo en vivo, filtros avanzados (incluyendo etiquetas y el estado Silencio), tarjetas de resumen con desglose de transferencias entrantes/salientes, revisión con veredicto de auditoría y notas, edición de tags en línea y reproductor con navegación entre llamadas"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables y fijables (incluyendo una columna de enlaces solo para administradores), vistas predefinidas y guardadas, filtros avanzados (incluyendo un filtro rápido de llamadas sospechosas), tarjetas de resumen con desglose de tiempos de transferencia, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, actualización en vivo de la tabla mediante el modo **Live** y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, **columnas dinámicas** descubiertas automáticamente y **columnas fijadas** (incluyendo una columna de enlaces solo para administradores), **vistas predefinidas y guardadas**, filtros avanzados —fecha, agentes, **etiquetas** y estado, incluido el nuevo estado **Silencio**— y un filtro rápido de llamadas sospechosas, tarjetas de resumen con desglose de tiempos de transferencia **entrante y saliente**, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, **actualización en vivo** de la tabla mediante el modo **Live** y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
@@ -13,16 +13,16 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 ## Qué encontrarás en esta vista
 
 - Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
-- Un gestor de columnas completo, con columnas dinámicas de entrada y salida, reordenamiento y **columnas fijadas** a la derecha de la tabla
+- Un gestor de columnas completo, con **columnas dinámicas** de entrada y salida descubiertas automáticamente, reordenamiento y **columnas fijadas** a la derecha de la tabla
 - Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
-- **Vistas predefinidas**, listas para usar, además de vistas guardadas propias para reutilizar tus combinaciones favoritas de columnas y orden
+- **Vistas predefinidas**, listas para usar, además de **vistas guardadas** propias para reutilizar tus combinaciones favoritas de columnas y orden
 - Tarjetas de resumen con las métricas clave del rango filtrado, incluyendo el **desglose de tiempo de transferencia** (entrante y saliente), siempre visibles antes de entrar al detalle de la tabla
-- Filtros avanzados de fecha, agentes, etiquetas, estado (incluyendo el nuevo estado **Silencio**) y búsqueda de texto, reorganizados en un panel más claro
+- Filtros avanzados de fecha, agentes, **etiquetas**, estado (incluyendo el nuevo estado **Silencio**) y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
 - Estado **Revisado**, **veredicto de auditoría (OK / KO)** y notas por llamada, con guardado automático
 - **Edición de etiquetas en línea**, para añadir o quitar tags sin salir de la vista de llamadas
-- Actualización en vivo de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas
+- **Actualización en vivo** de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas
 - Gráficos de latencia real de IA y reproductor de grabaciones integrado, con **navegación anterior/siguiente entre llamadas consecutivas** directamente desde la cabecera del modal, y desglose detallado de cada respuesta
 
 ---
@@ -44,14 +44,14 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
     El botón **👁️ Views** abre un menú dividido en dos grupos claramente diferenciados:
 
     - **Predefined**: un conjunto de vistas listas para usar, pensadas para tareas habituales de auditoría. Puedes aplicarlas en un clic, pero no se pueden eliminar ni renombrar, ya que forman parte de la configuración base de Meetzy.
-    - **My views**: tus propias vistas guardadas, creadas a partir de tu configuración actual de columnas y orden.
+    - **My views**: tus propias **vistas guardadas**, creadas a partir de tu configuración actual de columnas, columnas fijadas y orden.
 
     Junto al botón **Views**, el nombre de la vista activa se muestra en todo momento, para que sepas de un vistazo qué combinación de columnas estás usando sin tener que reabrir el menú.
 
     Desde este mismo menú puedes:
-    - Aplicar cualquier vista predefinida o guardada (restaura columnas, orden de columnas fijadas, ordenación y paginación)
+    - Aplicar cualquier vista predefinida o guardada (restaura columnas visibles, columnas dinámicas, orden de columnas fijadas, ordenación y paginación)
     - Eliminar una de tus vistas guardadas (las predefinidas no tienen esta opción)
-    - Guardar la configuración actual de columnas y filtros con un nombre nuevo
+    - Guardar la configuración actual de columnas, columnas fijadas y filtros con un nombre nuevo
 
     <Info>
       Las vistas predefinidas incluidas de fábrica son:
@@ -67,7 +67,7 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
     </Info>
 
     <Info>
-      Las vistas guardadas propias son ideales para compartir un mismo criterio de auditoría entre tu equipo, por ejemplo "Llamadas fallidas de esta semana" o "Revisión de agente de ventas".
+      Las **vistas guardadas** propias son ideales para compartir un mismo criterio de auditoría entre tu equipo, por ejemplo "Llamadas fallidas de esta semana" o "Revisión de agente de ventas". Guardan tanto las columnas visibles y su orden como qué columnas están fijadas, para que cualquiera que aplique la vista vea exactamente la misma disposición.
     </Info>
   </Step>
 
@@ -75,7 +75,7 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
     El botón **⚙️ Columns** abre el gestor de columnas, un panel lateral donde puedes:
     - Activar o desactivar columnas visibles
     - Reordenar las columnas mediante arrastrar y soltar
-    - Añadir columnas dinámicas descubiertas automáticamente a partir de los campos de **entrada** (input) y **salida** (output) de tus agentes
+    - Añadir **columnas dinámicas** descubiertas automáticamente a partir de los campos de **entrada** (input) y **salida** (output) de tus agentes
     - **Fijar** columnas para que queden siempre visibles a la derecha de la tabla mientras el resto se desplaza horizontalmente por debajo
 
     <Info>
@@ -88,7 +88,7 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
   </Step>
 
   <Step title="Live (Modo en vivo)">
-    El interruptor **Live** activa la actualización automática de la tabla en segundo plano. Está **desactivado por defecto**: tú decides cuándo empezar a recibir llamadas nuevas en tiempo real, sin que la página consuma recursos innecesarios en cada carga.
+    El interruptor **Live** activa la **actualización en vivo** de la tabla en segundo plano. Está **desactivado por defecto**: tú decides cuándo empezar a recibir llamadas nuevas en tiempo real, sin que la página consuma recursos innecesarios en cada carga.
 
     <Info>
       Al activarlo, las llamadas nuevas que cumplan tus filtros actuales aparecen automáticamente en la tabla y se resaltan brevemente para que las identifiques de un vistazo. Al desactivarlo, la tabla deja de refrescarse sola y vuelve a depender de tus acciones manuales (filtrar, recargar, paginar).
@@ -135,7 +135,7 @@ Antes de la tabla, un conjunto de tarjetas de resumen te ofrece un vistazo rápi
 Entre las métricas disponibles se incluye el **desglose de tiempo de transferencia**, calculado por separado para llamadas **entrantes** y **salientes**: el tiempo total (en segundos) que las llamadas filtradas pasaron transferidas a un humano. Esta separación te permite detectar rápidamente, por ejemplo, si el volumen de transferencias proviene principalmente de llamadas entrantes de soporte o de campañas salientes.
 
 <Info>
-  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo, incluido el desglose de tiempos de transferencia.
+  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo, incluido el desglose de tiempos de transferencia entrante y saliente.
 </Info>
 
 ---
@@ -158,7 +158,11 @@ El filtro de agentes funciona como un selector de "chips": escribe para buscar u
 
 ### Etiquetas (Tags)
 
-Igual que el filtro de agentes, las etiquetas se muestran como chips seleccionables a partir de las etiquetas disponibles en tus llamadas.
+Igual que el filtro de agentes, las **etiquetas** se muestran como chips seleccionables a partir de las etiquetas disponibles en tus llamadas: escribe para buscar una etiqueta, haz clic para añadirla al filtro y quítala con la ✕ del chip correspondiente. Puedes combinar varias etiquetas a la vez para acotar la búsqueda a llamadas que tengan cualquiera de ellas.
+
+<Info>
+  El filtro de etiquetas se alimenta de las etiquetas reales presentes en tus llamadas, por lo que se mantiene siempre al día con los tags que tú u otros miembros de tu equipo hayan añadido, incluidos los creados mediante la edición en línea desde la propia tabla o el reproductor de grabaciones.
+</Info>
 
 ### Estado de la llamada
 
@@ -177,7 +181,7 @@ Puedes filtrar por uno o varios estados a la vez, mostrados como chips en su pro
 | Blocked | Llamada bloqueada |
 
 <Info>
-  El estado **Silencio** es especialmente útil para detectar llamadas que se conectaron técnicamente pero no llegaron a tener ningún contenido de conversación, un patrón distinto al de "No answer" (donde la llamada nunca se llegó a contestar).
+  El estado **Silencio** es especialmente útil para detectar llamadas que se conectaron técnicamente pero no llegaron a tener ningún contenido de conversación, un patrón distinto al de "No answer" (donde la llamada nunca se llegó a contestar). Este estado ya existía en el backend, pero antes solo se podía filtrar de forma manual; ahora aparece como una opción más dentro del selector de estados.
 </Info>
 
 ### Búsqueda por ID de llamada y texto libre
@@ -208,6 +212,14 @@ También puedes filtrar por un ID de llamada específico o buscar texto libre de
 ### Ordenación y paginación
 
 Puedes ordenar la tabla por cualquier columna visible y elegir el número de filas por página entre **25, 50, 100 o 300**.
+
+### Columnas dinámicas
+
+Además de las columnas estándar de la llamada, el gestor de columnas descubre automáticamente **columnas dinámicas** a partir de los campos de **entrada** (input) y **salida** (output) que tus agentes generan en cada llamada. Esto te permite, por ejemplo, mostrar como columna un campo concreto que recoge tu agente durante la conversación (entrada) o un dato extraído por el modelo al finalizar la llamada (salida), sin necesidad de configuración adicional en el backend.
+
+<Info>
+  Los campos dinámicos disponibles dependen de los agentes y llamadas presentes en tu cuenta: cuantas más llamadas con estructuras de entrada/salida distintas tengas, más opciones de columnas dinámicas encontrarás en el gestor de columnas. Cada campo conserva su clave, etiqueta y ruta original, tanto si lo añades manualmente como si procede de una vista migrada desde la vista clásica.
+</Info>
 
 ### Columnas fijadas
 
@@ -246,13 +258,13 @@ Tanto el estado revisado como el veredicto y la nota se incluyen en la exportaci
 
 ### Edición de etiquetas en línea
 
-Además de usarlas como filtro, las etiquetas (**tags**) de cada llamada se pueden editar directamente desde la vista de detalle de la grabación, sin necesidad de salir de `/calls-v2` ni abrir un formulario aparte:
+Además de usarlas como filtro, las **etiquetas** (tags) de cada llamada se pueden editar directamente desde la vista de detalle de la grabación, sin necesidad de salir de `/calls-v2` ni abrir un formulario aparte:
 
 - Escribe el nombre de una etiqueta nueva y pulsa **Enter** (o el botón correspondiente) para añadirla a la llamada
 - Haz clic en la ✕ de cualquier etiqueta existente para quitarla
 
 <Info>
-  Los cambios de etiquetas se guardan al instante contra esa llamada específica y se reflejan de inmediato en la fila correspondiente de la tabla, sin recargar la página.
+  Los cambios de etiquetas se guardan al instante contra esa llamada específica y se reflejan de inmediato en la fila correspondiente de la tabla, sin recargar la página. Cualquier etiqueta nueva que crees aquí queda disponible automáticamente en el filtro de **etiquetas** del panel de filtros.
 </Info>
 
 ### Actualización en vivo
@@ -260,7 +272,7 @@ Además de usarlas como filtro, las etiquetas (**tags**) de cada llamada se pued
 Con el interruptor **Live** activado, la tabla se actualiza automáticamente en segundo plano para reflejar llamadas nuevas o cambios de estado, sin necesidad de recargar la página. Las llamadas recién llegadas se resaltan brevemente para que puedas identificarlas de un vistazo.
 
 <Info>
-  La actualización en vivo respeta los filtros y la ordenación que tengas activos: solo se incorporan a la tabla las llamadas que cumplen tus criterios actuales.
+  La **actualización en vivo** respeta los filtros y la ordenación que tengas activos: solo se incorporan a la tabla las llamadas que cumplen tus criterios actuales. Al desactivar el modo **Live**, este proceso en segundo plano se detiene por completo hasta que vuelvas a activarlo.
 </Info>
 
 ### Latencia real de IA

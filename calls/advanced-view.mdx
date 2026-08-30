@@ -4,7 +4,7 @@ description: "Explore the new Calls page with configurable and pinnable columns,
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, a single-row filter bar with a dedicated suspicious-call filter, a call statistics summary bar with transfer-time totals, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, and a built-in recording player with a real waveform.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, a single-row filter bar with agent, tag, status, and suspicious-call filters, a call statistics summary bar with transfer-time totals, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, and a built-in recording player with a real waveform.
 
 <Info>
 The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -44,8 +44,17 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
   </Step>
 </Steps>
 
+### Dynamic columns from inputs and outputs
+
+The Advanced Calls View scans a batch of your loaded calls and automatically discovers structured fields captured on each call's **input parameters** and **agent output**, turning them into selectable columns without any manual setup.
+
+- Every dynamic column is clearly labeled with its **source** — `input` or `output` — so you always know where the value comes from, and which agent it belongs to when relevant.
+- A handful of internal input fields (like `playbook_id`, `voice_id`, `temperature`, or `record`) are excluded automatically, since they're configuration details rather than meaningful call data.
+- Nested objects and arrays are inspected up to a couple of levels deep, so fields buried inside a JSON output (for example inside a `metadata` object) can still surface as their own columns.
+- If the same field appears at different paths across calls — for example an agent update that moved a field from the root of the output into a `metadata` object — the column still resolves and displays the value correctly for both older and newer calls, so you don't end up with the value silently missing or duplicated near-identical columns for what's really the same field.
+
 <Info>
-Dynamic fields are detected automatically from the structured inputs and outputs captured during your calls, so new fields from your agents show up as selectable columns without any manual setup. Each dynamic column is clearly labeled with its source — **input** or **output** — so you always know where the value comes from.
+Dynamic fields are re-discovered as new calls load, so new fields introduced by an updated agent version show up as selectable columns automatically, without needing a page refresh or manual configuration.
 </Info>
 
 <Warning>
@@ -86,7 +95,7 @@ Once you've configured your columns, pins, and filters the way you like, you can
     Type a name for your view in the input field and click **Save current**. Give it something memorable, like "Suspicious calls this week" or "My agent's calls".
   </Step>
   <Step title="Apply a saved view">
-    Open the Views menu at any time and click a view's name — predefined or your own — to instantly apply it. The active view is highlighted in green with a checkmark next to it. Use the **✕** icon next to one of your own views to delete it.
+    Open the Views menu at any time and click a view's name — predefined or your own — to instantly apply it. The active view is highlighted in green with a checkmark next to it, and its name appears next to the **Views** button. Use the **✕** icon next to one of your own views to delete it.
   </Step>
 </Steps>
 
@@ -119,6 +128,10 @@ The agent filter uses a chip-based multi-select:
 
 Tags work the same way as agents — search, select, and manage them as chips. This makes it easy to combine multiple tags to narrow down a specific segment of calls.
 
+- The tag suggestions dropdown is populated from every tag currently used across your calls, so it stays in sync as new tags are created.
+- You can combine several tags at once — a call matching **any** of the selected tags is included, making it easy to group related segments (for example, several campaign tags) into a single filtered view.
+- Tags added, renamed, or removed through the inline tag editor (see below) are reflected in this filter's suggestions right away.
+
 ### Status
 
 Filter by one or more call statuses, including Open, Closed, No answer, Voicemail, **Silence**, Busy, Failed, Transferred, and Blocked.
@@ -146,21 +159,21 @@ Because calls with the **Silence** status have no meaningful transcript by defin
 
 ## Call statistics & transfer time summary
 
-Above the table, a summary bar shows aggregate statistics computed across **every call matching your current filters and date range** — not just the calls currently loaded on screen. This makes it a reliable, at-a-glance health check even before you scroll through a single row.
+Above the table, a summary bar shows aggregate statistics computed **server-side** across **every call matching your current filters and date range** — not just the calls currently loaded on screen. This makes it a reliable, at-a-glance health check even before you scroll through a single row.
 
 The summary includes:
 
 - **Total calls**, **closed calls**, and **voicemail calls** in the selected range.
 - **Average duration** across all matching calls.
 - **Average** and **P90 AI response latency**, useful for spotting whether slowness is a rare outlier or a widespread pattern.
-- **Transfer time totals**, broken down separately for **inbound** and **outbound** transferred calls, so you can see how much total time was spent on transfers in each direction.
+- **Transfer time totals**, shown as two separate summary cards for **inbound** and **outbound** transferred calls, so you can see at a glance how much total time was spent on transfers in each direction.
 
 <Info>
-The transfer time totals only account for time spent in the transferred portion of a call, and are aggregated separately for inbound and outbound calls since the two typically have very different transfer patterns and costs. This is calculated server-side across the full filtered date range, so it stays accurate even when you're only looking at a page of 50 or 100 loaded calls.
+The transfer time totals only account for time spent in the transferred portion of a call, and are aggregated separately for inbound and outbound calls since the two typically have very different transfer patterns and costs. This is calculated server-side across the full filtered date range, so the numbers stay accurate even when you're only looking at a page of 50 or 100 loaded calls.
 </Info>
 
 <Info>
-Because these statistics respect your active filters, you can combine them with the **Agents**, **Tags**, or **Status** filters to check, for example, the average transfer time for a single agent or for only the calls tagged as escalations.
+Because these statistics respect your active filters, you can combine them with the **Agents**, **Tags**, or **Status** filters to check, for example, the average transfer time for a single agent, or the total inbound transfer seconds for only the calls tagged as escalations.
 </Info>
 
 ## Live updates
@@ -275,219 +288,3 @@ The Advanced Calls View supports two export modes:
 <Info>
 Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the review status, verdict, and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
 </Info>
-
-## Relevant code changes
-
-### src/app/calls-v2/calls-v2-dynamic-fields.util.ts
-```
-// Discovers extra columns from each agent's input parameters (call.data) and
-// output (call.output), mirroring the pattern already used by /calls
-// (extractInputFields/extractJsonFields in calls.component.ts) so /calls-v2
-// keeps the same "add a column for any input/output field" capability.
-
-export interface DynamicFieldDefinition {
-  key: string; // unique column key, e.g. input_foo or output_<agentId>_bar
-  label: string;
-  path: string; // dot-notation path, supports foo[0].bar
-  source: 'input' | 'output';
-  agentId?: string;
-  agentName?: string;
-  example?: any;
-}
-
-const INPUT_EXCLUDED_KEYS = new Set([
-  'playbook_id', 'assistant_id', 'voice_id', 'voice_model', 'text_model',
-  'call_id', 'temperature', 'record', 'empathy', 'language',
-]);
-
-// Friendlier labels for keys whose literal name reads oddly in this product
-// (e.g. ElevenLabs/internal naming calls the agent "assistant").
-const FIELD_LABEL_OVERRIDES: Record<string, string> = {
-  assistant_id: 'Agent Id',
-};
-
-function formatFieldLabel(key: string): string {
-  if (FIELD_LABEL_OVERRIDES[key]) return FIELD_LABEL_OVERRIDES[key];
-  return key
-    .replace(/_/g, ' ')
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-function sanitizeKeyPart(path: string): string {
-  return path.replace(/[^a-zA-Z0-9]/g, '_');
-}
-
-function extractFields(
-  obj: any,
-  prefix: string,
-  source: 'input' | 'output',
-  out: Map<string, DynamicFieldDefinition>,
-  agentId?: string,
-  agentName?: string,
-  depth = 0,
-): void {
-  if (obj === null || obj === undefined || depth > 2) return;
-
-  if (typeof obj === 'object' && !Array.isArray(obj)) {
-    for (const key of Object.keys(obj)) {
-      if (source === 'input' && !prefix && INPUT_EXCLUDED_KEYS.has(key)) continue;
-      const path = prefix ? `${prefix}.${key}` : key;
-      const value = obj[key];
-      if (value === null || value === undefined) continue;
-
-      const agentKeyPart = agentId ? `${sanitizeKeyPart(agentId)}_` : '';
-      const fieldKey = `${source}_${agentKeyPart}${sanitizeKeyPart(path)}`;
-
-      let example = value;
-      if (typeof value === 'string' && value.length > 60) example = value.slice(0, 60) + '…';
-      else if (typeof value === 'object' && !Array.isArray(value)) example = `{${Object.keys(value).length} fields}`;
-      else if (Array.isArray(value)) example = `[${value.length} items]`;
-
-      if (!out.has(fieldKey)) {
-        out.set(fieldKey, { key: fieldKey, label: formatFieldLabel(key), path, source, agentId, agentName, example });
-      }
-
-      if (typeof value === 'object' && !Array.isArray(value)) {
-        extractFields(value, path, source, out, agentId, agentName, depth + 1);
-      } else if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
-        extractFields(value[0], `${path}[0]`, source, out, agentId, agentName, depth + 1);
-      }
-    }
-  } else if (Array.isArray(obj) && obj.length > 0) {
-    extractFields(obj[0], prefix ? `${prefix}[0]` : '[0]', source, out, agentId, agentName, depth);
-  }
-}
-
-export function getParsedOutput(call: any): any {
-  const raw = call?.output;
-  if (raw == null) return null;
-  if (typeof raw === 'object') return raw;
-  if (typeof raw === 'string') {
-    try { return JSON.parse(raw); } catch { return null; }
-  }
-  return null;
-}
-
-// Scans a batch of loaded calls and returns the discoverable input/output
-// fields grouped implicitly by agent (agentName/agentId on each field).
-export function discoverDynamicFields(calls: any[]): { inputFields: DynamicFieldDefinition[]; outputFields: DynamicFieldDefinition[] } {
-  const inputMap = new Map<string, DynamicFieldDefinition>();
-  const outputMap = new Map<string, DynamicFieldDefinition>();
-
-  for (const call of calls) {
-    const agentName = call.playbook_name;
-    const agentId = call.playbook_id;
-
-    if (call.data && typeof call.data === 'object') {
-      extractFields(call.data, '', 'input', inputMap, agentId, agentName);
-    }
-
-    const output = getParsedOutput(call);
-    if (output && typeof output === 'object') {
-      extractFields(output, '', 'output', outputMap, agentId, agentName);
-    }
-  }
-
-  return {
-    inputFields: dedupeByAgentAndLabel([...inputMap.values()]).sort((a, b) => a.label.localeCompare(b.label)),
-    outputFields: dedupeByAgentAndLabel([...outputMap.values()]).sort((a, b) => a.label.localeCompare(b.label)),
-  };
-}
-
-/**
- * Mismo campo en dos paths distintos (p.ej. lead_qualification en la raíz
- * en unas llamadas y bajo metadata.lead_qualification en otras — cambios de
- * esquema entre versiones del agente) generaba dos entradas casi idénticas
- * en el selector de columnas ("Lead Qualification" x2) sin forma de saber
- * cuál elegir. Se queda solo con la primera por agente+label — no hace
- * falta más de una, porque resolveDynamicValue ya prueba ambos sitios.
- */
-function dedupeByAgentAndLabel(fields: DynamicFieldDefinition[]): DynamicFieldDefinition[] {
-  const seen = new Set<string>();
-  const result: DynamicFieldDefinition[] = [];
-  for (const field of fields) {
-    const dedupeKey = `${field.agentId || ''}::${field.label}`;
-    if (seen.has(dedupeKey)) continue;
-    seen.add(dedupeKey);
-    result.push(field);
-  }
-  return result;
-}
-
-function resolvePath(root: any, path: string): any {
-  if (root === null || root === undefined) return undefined;
-  let current = root;
-  for (const rawKey of path.split('.')) {
-    if (current === null || current === undefined) return undefined;
-    const bracketIndex = rawKey.indexOf('[');
-    if (bracketIndex !== -1) {
-      const arrayKey = rawKey.substring(0, bracketIndex);
-      const index = parseInt(rawKey.substring(bracketIndex + 1, rawKey.indexOf(']', bracketIndex)), 10);
-      current = arrayKey ? current[arrayKey] : current;
-      current = Array.isArray(current) && !isNaN(index) ? current[index] : undefined;
-    } else {
-      current = current[rawKey];
-    }
-  }
-  return current;
-}
-
-/**
- * Ticket Accom: "en algunos casos [la columna] no se visualiza la
- * cualificación como si lo tenía antes" — el mismo campo (p.ej.
- * lead_qualification) cambia de sitio entre versiones del output del
- * agente: unas veces en la raíz, otras dentro de metadata.*. Si el path
- * exacto con el que se descubrió la columna no resuelve, se prueba la
- * última parte del path (el nombre del campo) tanto en la raíz como
- * dentro de metadata antes de rendirse — así la columna sigue mostrando
- * el valor aunque el esquema de esa llamada concreta sea distinto.
- */
-export function resolveDynamicValue(call: any, field: { path: string; source: 'input' | 'output' }): any {
-  const root = field.source === 'input' ? call.data : getParsedOutput(call);
-  let value = resolvePath(root, field.path);
-
-  if ((value === null || value === undefined) && root && typeof root === 'object') {
-    const leafKey = field.path.split('.').pop()?.replace(/\[\d+\]$/, '');
-    if (leafKey) {
-      if (root[leafKey] !== undefined && root[leafKey] !== null) {
-        value = root[leafKey];
-      } else if (root.metadata && typeof root.metadata === 'object' && root.metadata[leafKey] !== undefined && root.metadata[leafKey] !== null) {
-        value = root.metadata[leafKey];
-      }
-    }
-  }
-
-  if (value !== null && value !== undefined && typeof value === 'object') return JSON.stringify(value);
-  return value;
-}
-
-```
-
-### src/app/calls-v2/calls-v2.component.ts (status options — new "Silence" entry)
-```
-const STATUS_OPTIONS = [
-  { value: 'open', label: 'Open' },
-  { value: 'closed', label: 'Closed' },
-  { value: 'no-answer', label: 'No answer' },
-  { value: 'voicemail', label: 'Voicemail' },
-  // Ticket Accom #571: faltaba en el filtro aunque es un status real y
-  // frecuente (silencio detectado en la llamada, sin conversación) — ya
-  // se podía filtrar de facto pasando el valor a mano, pero no aparecía
-  // como opción en la UI.
-  { value: 'silence-call', label: 'Silence' },
-  { value: 'busy', label: 'Busy' },
-  { value: 'failed', label: 'Failed' },
-  { value: 'transfer', label: 'Transferred' },
-  { value: 'blocked', label: 'Blocked' },
-];
-```
-
-### src/app/calls-v2/calls-v2.component.ts (aggregate stats shape backing the transfer time summary)
-```
-aggregate: {
-  total: number; closed: number; voicemail: number; avg_duration: number | null; avg_latency: number | null; p90_latency: number | null;
-  transfer_seconds_inbound: number; transfer_seconds_outbound: number;
-} | null = null;
-loadingAggregate = false;
-```
