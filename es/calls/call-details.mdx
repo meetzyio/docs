@@ -231,12 +231,12 @@ La sección de webhook solo aparece si se configuró y ejecutó un webhook para 
 
 Si la grabación de llamadas está habilitada, desde la columna **Recording** de la tabla de llamadas (o desde el botón correspondiente en los Detalles de Llamada) puedes abrir un reproductor avanzado con la grabación y, junto a ella, una vista enriquecida de la transcripción turno por turno.
 
-El modal se divide en dos zonas:
+El modal se organiza en dos bloques principales:
 
 | Zona | Contenido |
 |------|-----------|
-| 🎧 Izquierda | Reproductor de audio con forma de onda |
-| 💬 Derecha | Transcripción turno por turno con desglose de latencia, modelo LLM y tool calls |
+| 🎧 Superior | Reproductor de audio con forma de onda, a todo el ancho |
+| 💬 Inferior | Transcripción turno por turno (izquierda) y panel de revisión, veredicto y etiquetas (derecha) |
 
 <Info>
 La forma de onda se dibuja a partir del **audio real**, decodificado en el navegador con la Web Audio API a partir del archivo descargado — no es una animación genérica. Esto te permite ubicar visualmente silencios, picos de voz y pausas antes incluso de reproducir el audio.
@@ -271,7 +271,7 @@ Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Des
 El reproductor de grabación no es una ventana aislada por llamada: puedes moverte a la llamada anterior o siguiente de la lista filtrada sin cerrar el modal ni perder tu posición en la tabla. Los controles de navegación viven en la cabecera del modal, no flotan sobre el contenido, así que nunca tapan la forma de onda ni la transcripción.
 </Info>
 
-En la cabecera del modal, junto al botón de cerrar, aparecen dos flechas de navegación:
+En la cabecera del modal, junto al nombre y los números de origen/destino de la llamada, aparecen dos flechas de navegación seguidas del botón de cerrar:
 
 | Control | Acción |
 |---------|--------|
@@ -286,7 +286,7 @@ Haz clic en ⬅️ o ➡️ para cargar la llamada anterior o siguiente respecto
 Con el modal abierto, presiona `←` o `→` para navegar sin soltar el mouse. Esto no funciona mientras estás escribiendo dentro de un campo de texto, como la nota de revisión o el input de etiquetas.
 </Step>
 <Step title="Observa la transición">
-Al cambiar de llamada, el contenido se desliza suavemente en la dirección correspondiente, confirmando visualmente que se cargó una llamada distinta.
+Al cambiar de llamada, el contenido se desliza suavemente en la dirección correspondiente (hacia la izquierda o la derecha según el sentido de la navegación), confirmando visualmente que se cargó una llamada distinta.
 </Step>
 </Steps>
 
@@ -302,7 +302,7 @@ Esta navegación es especialmente útil para sesiones de **control de calidad**:
 Además de navegar entre llamadas, puedes emitir un veredicto rápido de control de calidad —**OK** o **KO**— directamente desde el reproductor, sin necesidad de abrir el modal de detalles ni volver a la tabla principal.
 </Info>
 
-En la cabecera del modal, junto a las flechas de navegación, encontrarás dos botones de veredicto:
+Junto al panel de revisión y etiquetas encontrarás dos botones de veredicto:
 
 | Control | Acción |
 |---------|--------|
@@ -332,10 +332,10 @@ El veredicto OK/KO queda disponible como filtro en la tabla de llamadas, lo que 
 ### Revisión y Etiquetas desde el Reproductor
 
 <Info>
-No necesitas cerrar el reproductor ni volver a la tabla para marcar una llamada como revisada, escribir una nota de auditoría o gestionar sus etiquetas: todo está disponible en el propio modal de grabación, y los cambios se guardan sobre la misma llamada que ves en la tabla de fondo.
+No necesitas cerrar el reproductor ni volver a la tabla para marcar una llamada como revisada, escribir una nota de auditoría o gestionar sus etiquetas: todo está disponible en el propio modal de grabación, junto a la transcripción, y los cambios se guardan sobre la misma llamada que ves en la tabla de fondo.
 </Info>
 
-En la parte inferior del modal encontrarás los controles de revisión y etiquetas:
+Junto a la transcripción encontrarás los controles de revisión y etiquetas:
 
 | Control | Acción |
 |---------|--------|
@@ -370,6 +370,8 @@ Junto al reproductor, cada turno de la conversación (agente o usuario) se muest
 | `Transcribed in Xms` | Turnos del usuario | Latencia del reconocimiento de voz (ASR / speech-to-text) |
 | `Replied in Xs` | Turnos del agente | Tiempo total de respuesta del agente, expandible en un desglose de latencia |
 | 🔧 Nombre de herramienta | Turnos del agente con tool calls | Una por cada herramienta invocada en ese turno, expandible |
+
+Si un turno del usuario no contiene voz detectada, la burbuja se reemplaza por el texto en cursiva *"(no speech detected)"*, sin que esto interrumpa el resto de indicadores del turno.
 
 <Info>
 Estos datos provienen directamente de la conversación original en ElevenLabs (`conversation_turn_metrics`, `llm_usage`, `tool_calls` y `tool_results`), replicando el nivel de detalle que verías en la consola del proveedor, ya que Meetzy no persiste esta granularidad turno por turno en su propia base de datos.
@@ -420,7 +422,7 @@ Al hacer clic en el indicador 🔧 de una herramienta, se despliega un panel con
 Haz clic en el ícono de reproducción en la columna **Recording**, o desde el botón de grabación dentro de los Detalles de Llamada.
 </Step>
 <Step title="Ubica el turno de interés">
-Desplázate por la transcripción a la derecha mientras escuchas el audio a la izquierda.
+Desplázate por la transcripción mientras escuchas el audio en la parte superior del modal.
 </Step>
 <Step title="Expande el desglose">
 Haz clic en **"Replied in Xs"** o en cualquier tool call para ver el detalle completo de ese turno.

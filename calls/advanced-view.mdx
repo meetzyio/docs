@@ -157,6 +157,8 @@ This is intentionally an **OR** condition rather than an **AND** condition. Comb
 Because calls with the **Silence** status have no meaningful transcript by definition, they're naturally caught by the "no transcript at all" condition above — so turning on **Suspicious calls** is also a quick way to spot silent calls without setting up a status filter first.
 </Info>
 
+The suspicious filter is a single toggle placed alongside the rest of the filter bar — it doesn't require selecting a status or configuring anything else first. Turn it on to instantly narrow the table down to calls worth a closer look, and turn it off to go back to your regular filtered view. It also combines cleanly with the other filters: for example, enabling **Suspicious calls** together with an **Agent** filter shows you only that agent's calls that need attention, without having to build a multi-condition filter manually.
+
 ## Call statistics & transfer time summary
 
 Above the table, a summary bar shows aggregate statistics computed **server-side** across **every call matching your current filters and date range** — not just the calls currently loaded on screen. This makes it a reliable, at-a-glance health check even before you scroll through a single row.
@@ -190,6 +192,15 @@ Live polling is **opt-in** — the table doesn't refresh in the background unles
 <Info>
 Live polling automatically pauses while you're interacting with elements like the review note editor, the tag editor, or an open modal, so you never lose in-progress input. It resumes once you're done.
 </Info>
+
+<Tabs>
+  <Tab title="When to turn Live on">
+    Turn **Live** on when you're actively monitoring an ongoing campaign or a busy line and want to catch new calls — especially suspicious ones — as soon as they land, without manually refreshing the page.
+  </Tab>
+  <Tab title="When to turn Live off">
+    Turn **Live** off while you're deep in a review session, filling in audit notes, or exporting a specific batch of calls, so the table stays perfectly still while you work.
+  </Tab>
+</Tabs>
 
 ## Review and audit workflow
 
@@ -288,3 +299,11 @@ The Advanced Calls View supports two export modes:
 <Info>
 Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the review status, verdict, and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
 </Info>
+
+<Info>
+The **Export selection (N)** button only appears once you've selected at least one row, with the count updating live as you check or uncheck rows — so you always know exactly how many calls will be included before you export.
+</Info>
+
+<Warning>
+Both export modes generate the file client-side based on the calls currently loaded in the table. If you're exporting all filtered calls, make sure you've loaded as many pages as you need before exporting, since the export won't reach beyond what's already been fetched into the table.
+</Warning>
