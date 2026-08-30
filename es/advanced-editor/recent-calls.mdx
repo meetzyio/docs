@@ -27,21 +27,33 @@ Cada llamada aparece como una tarjeta con la siguiente información:
 
 ## Acciones disponibles
 
+Cada tarjeta de llamada ofrece varias formas de profundizar en el detalle, todo sin salir del Editor Avanzado (excepto cuando explícitamente decides abrir la página completa de Llamadas).
+
 <Steps>
   <Step title="Actualizar la lista">
     Haz clic en el icono de refrescar (🔄) en la esquina superior derecha del panel para volver a cargar las llamadas más recientes sin recargar toda la página.
   </Step>
-  <Step title="Abrir una llamada">
-    Haz clic en cualquier tarjeta de llamada para abrirla en una nueva pestaña. El enlace te lleva a la vista clásica de llamadas (`/calls-old`), donde podrás escuchar la grabación, ver la transcripción completa y revisar los detalles de evaluación.
+  <Step title="Escuchar la grabación con transcripción">
+    Haz clic en cualquier parte de la tarjeta de una llamada (o en el botón **Escuchar**) para abrir un reproductor con el audio y la transcripción, directamente en un modal dentro del editor. No necesitas navegar a otra página para revisar lo que dijo el agente y el cliente.
 
     <Info>
-    La vista actual del panel de Llamadas (`/calls`) no admite abrir una grabación automáticamente mediante un enlace directo, por eso este acceso rápido sigue apuntando a la vista clásica.
+    Este modal es el mismo reproductor que se usa en el panel de Llamadas, por lo que la experiencia es totalmente consistente entre ambas vistas.
     </Info>
   </Step>
-  <Step title="Ver todas las llamadas">
+  <Step title="Inspeccionar el detalle completo">
+    Usa el botón **Inspect** para abrir un modal con el detalle completo de la llamada: metadatos, resultado de la evaluación, variables extraídas y demás información asociada.
+  </Step>
+  <Step title="Abrir la llamada en la página completa">
+    Haz clic en el icono de enlace externo, al final de la fila de acciones, para abrir la llamada en el panel de Llamadas (`/calls`) en una nueva pestaña. La página se abre con el filtro de esa llamada ya aplicado, así puedes seguir explorando el historial completo, exportar datos o usar el resto de funciones avanzadas del panel.
+  </Step>
+  <Step title="Ver todas las llamadas del agente">
     Usa el botón **View all** para navegar al panel de Llamadas con un filtro ya aplicado por este agente, permitiéndote explorar el historial completo más allá de los últimos 30 días.
   </Step>
 </Steps>
+
+<Info>
+Los botones de acción (Escuchar, Inspect y el enlace a la página completa) aparecen al pasar el cursor sobre la tarjeta de la llamada.
+</Info>
 
 ## Estados posibles
 

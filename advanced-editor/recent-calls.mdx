@@ -25,11 +25,11 @@ The panel displays up to **20 calls from the last 30 days** for the agent you cu
 Only the most recent 30 days of activity are loaded, capped at 20 calls, to keep the panel fast and focused on what matters right now.
 </Info>
 
-Click any call in the list to open its full detail — including the recording — in a new tab.
+Every call card gives you three ways to dig deeper, without ever leaving the Advanced Editor for the first two:
 
-<Info>
-This deep link always opens the **classic Calls view** (`/calls-old`), not the new Calls page. The new Calls page doesn't support automatically opening a specific recording via a URL parameter, so linking directly to a call only works reliably through the classic view for now.
-</Info>
+1. Click anywhere on the card to **listen to the recording with the transcript inline**.
+2. Hover the card and click **Inspect** to open the full call detail.
+3. Hover the card and click the arrow icon to **open that same call in the full Calls page**, with the filter already applied.
 
 ## Call statuses
 
@@ -62,7 +62,7 @@ Colors follow a simple convention: green for finished/successful calls, red for 
     If something goes wrong while fetching calls, an error message is shown along with a **Retry** button.
   </Tab>
   <Tab title="Populated">
-    Calls are listed newest first, each as a clickable card with status, participants, summary, time, and duration.
+    Calls are listed newest first, each as a clickable card with status, participants, summary, time, duration, and a row of hover actions.
   </Tab>
 </Tabs>
 
@@ -84,13 +84,43 @@ Colors follow a simple convention: green for finished/successful calls, red for 
 You can also refresh with the keyboard shortcut <kbd>⇧</kbd><kbd>⌘</kbd><kbd>R</kbd> without moving your hands away from the editor.
 </Info>
 
-## Opening a call recording
+## Listening to a call and reading the transcript
 
-When you click a call card, Meetzy opens a new tab pointing at the classic Calls page with that call's recording pre-selected (`/calls-old?recording=<call_id>`).
+Clicking anywhere on a call card — not just a dedicated button — opens the recording player **inline, as a modal on top of the editor**. This is the same player used on the full Calls page, so you get the audio controls and the full transcript side by side, without any page navigation.
 
-<Warning>
-This is intentional, not a bug: the new Calls page doesn't yet know how to read a `recording` query parameter and open the corresponding recording automatically. Until that capability is added to the new page, Recent Calls will keep deep-linking into the classic view so the recording actually opens instead of landing you on an unfiltered call list.
-</Warning>
+<Steps>
+  <Step title="Click a call card">
+    Click anywhere on the row, or hover the card and press the **Escuchar** button that appears in the actions row.
+  </Step>
+  <Step title="Review the recording and transcript">
+    The modal opens with the audio player and the complete transcript of the conversation, so you can confirm what was actually said on the call.
+  </Step>
+  <Step title="Close the modal">
+    Close it to return to the Advanced Editor exactly where you left off — no tab switching, no lost context.
+  </Step>
+</Steps>
+
+<Info>
+This replaces the previous behavior of opening the recording in a new browser tab. Everything now happens inline, keeping you focused on the agent you're editing.
+</Info>
+
+## Inspecting a call
+
+Need more than the recording — status details, structured data, function calls, or metadata? Hover a call card and click **Inspect**.
+
+<Info>
+Inspect opens the same detailed call view used across Meetzy, as a modal inside the Advanced Editor. It's the fastest way to debug a specific interaction without losing your place in the editor.
+</Info>
+
+## Opening a call in the full Calls page
+
+Sometimes you want the complete Calls experience — filters, export, call history — centered on one specific call. Hover a call card and click the arrow icon in the actions row.
+
+This opens a **new tab** on the full Calls page with that call's recording filter already applied, so the page loads straight into the context of the call you clicked.
+
+<Info>
+Unlike **Escuchar** and **Inspect**, this action intentionally leaves the Advanced Editor and opens a new tab, since the full Calls page offers capabilities (filtering, exporting, browsing history) that don't make sense inside a compact side panel.
+</Info>
 
 ## Viewing all calls
 
@@ -101,7 +131,7 @@ The **View all** button is disabled until an agent is loaded in the editor — f
 </Warning>
 
 <Info>
-Unlike opening a single recording, **View all** navigates to the new Calls page, since it only needs an agent filter — not a recording deep link.
+**View all** filters the Calls page by agent, showing every call for that agent. Clicking a specific call card instead filters by that single recording — use whichever fits what you're trying to check.
 </Info>
 
 ## Tips
@@ -109,4 +139,4 @@ Unlike opening a single recording, **View all** navigates to the new Calls page,
 - Use Recent Calls right after publishing a change to quickly confirm the agent is behaving as expected on real calls.
 - Hover over the relative timestamp to see the exact date and time the call took place.
 - If a call has no summary, it usually means the summary hasn't been generated yet or evaluation wasn't configured for the agent.
-- If you were expecting the new Calls page when clicking a call, don't worry — you'll be able to jump straight back to it using the banner shown at the top of the classic view.
+- Reach for **Inspect** when you need structured details beyond the audio and transcript, and reach for the arrow icon when you need the full power of the Calls page around a specific call.
