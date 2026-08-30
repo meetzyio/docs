@@ -1,6 +1,6 @@
 ---
 title: 'Copilot'
-description: 'AI-powered system engineer that transforms your agent with intelligent prompt editing, parameter configuration, rich visual diagnostics, conversation management, file attachments, and voice dictation'
+description: 'AI-powered system engineer that transforms your agent with intelligent prompt editing, parameter configuration, rich visual diagnostics, conversation management, file attachments, voice dictation, and one-click agent cloning'
 icon: 'robot'
 ---
 
@@ -9,7 +9,7 @@ icon: 'robot'
 Copilot is an advanced AI-powered system engineer integrated into the Advanced Editor. It goes far beyond simple prompt editing - **Copilot can configure your entire agent system** including input parameters, output settings, evaluations, audio expressiveness, and core configurations. Using sophisticated structured editing and intelligent analysis, Copilot transforms your agent based on natural language instructions and real call data.
 
 <Info>
-Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, and even suggest improvements - all through natural conversation and targeted operations. Beyond plain text, Copilot can also reply with **rich visual blocks** - stat panels, tables, charts, and cards - to make diagnostics and analysis instantly scannable. You can now also **manage multiple conversation threads**, **attach files** (PDFs, Word documents, plain text, and images) for extra context, and **dictate your messages by voice** instead of typing them.
+Copilot has evolved from a prompt assistant to a complete system engineer - like having Data from Star Trek, but specifically designed for agent configuration. It can modify prompts, configure parameters, set up evaluations, update basic settings, adjust audio expressiveness tags, create and update tests from call history, clone your agent, and even suggest improvements - all through natural conversation and targeted operations. Beyond plain text, Copilot can also reply with **rich visual blocks** - stat panels, tables, charts, and cards - to make diagnostics and analysis instantly scannable. You can now also **manage multiple conversation threads**, **attach files** (PDFs, Word documents, plain text, and images) for extra context, **dictate your messages by voice**, and **navigate your prompt history** like a terminal.
 </Info>
 
 ## Accessing Copilot
@@ -44,6 +44,7 @@ Copilot now supports **multiple, independent conversation threads** per agent, s
     - Each entry shows the conversation **title** and a **relative timestamp** (e.g. "2h ago")
     - The currently active thread is highlighted
     - Selecting a different thread instantly loads its full message history, replacing the current view
+    - This is the fastest way to **pick up an old conversation exactly where you left it** - re-open a past diagnosis, a test-creation thread, or a cloning session without re-explaining context
   </Tab>
   <Tab title="Creating a New Conversation">
     Start a fresh thread at any time:
@@ -83,19 +84,21 @@ When you first open Copilot, you'll see a clean welcome screen led by the Copilo
   <Tab title="Quick Action Cards">
     **Four color-coded cards** for the most common engineering workflows:
 
-    - 🟣 **Diagnose performance** — analyzes real metrics, failed evaluations, and relevant calls, then shows the key findings visually (KPIs & call evidence)
-    - 🌹 **Find recurring failures** — scans failed evaluations across your call history and returns a table of recurring issues with real examples
-    - 🟢 **Create a regression test** — turns a real failed call into an automated regression test so the same bug never ships again
-    - 🟡 **Improve and verify** — updates the prompt based on the current diagnosis and suggests how to verify the change afterward
+    - 🟣 **Diagnostica el rendimiento** — analyzes real metrics, failed evaluations, and relevant calls, then shows the key findings visually (KPIs & call evidence)
+    - 🌹 **Encuentra fallos recurrentes** — scans failed evaluations across your call history and returns a table of recurring issues with real examples
+    - 🟢 **Crea un test de regresión** — turns a real failed call into an automated regression test so the same bug never ships again
+    - 🟡 **Mejora y verifica** — updates the prompt based on the current diagnosis and suggests how to verify the change afterward
+
+    Each card is a plain, borderless row (icon + title + short description) rather than a heavy button, so the welcome screen stays calm and readable at a glance.
   </Tab>
   <Tab title="One-Click Setup">
     **Instant analysis and fixes** with a single click:
 
     ```
-    Click "Diagnose performance" → Runs a full performance diagnosis with visual KPIs
-    Click "Find recurring failures" → Surfaces failure patterns in a table with call evidence
-    Click "Create a regression test" → Builds a regression test from a real failed call
-    Click "Improve and verify" → Improves the prompt and proposes a verification plan
+    Click "Diagnostica el rendimiento" → Runs a full performance diagnosis with visual KPIs
+    Click "Encuentra fallos recurrentes" → Surfaces failure patterns in a table with call evidence
+    Click "Crea un test de regresión" → Builds a regression test from a real failed call
+    Click "Mejora y verifica" → Improves the prompt and proposes a verification plan
     ```
 
     Each card pre-fills an optimized prompt and starts the conversation immediately - no typing required to get your first insight.
@@ -139,7 +142,7 @@ Copilot doesn't just reply with text anymore - when the situation calls for it, 
     - Color-coded tones (neutral, info, success, warning, danger) to highlight what needs attention
     - Optional hint text under each stat for extra context
 
-    Perfect for summarizing "Diagnose performance" results in a single scannable view.
+    Perfect for summarizing "Diagnostica el rendimiento" results in a single scannable view.
   </Tab>
   <Tab title="Tables">
     **Structured data views** for lists of calls, failures, or test results:
@@ -149,7 +152,7 @@ Copilot doesn't just reply with text anymore - when the situation calls for it, 
     - Scrollable, expandable body for long result sets without breaking the chat layout
     - Optional footnote for extra context or data source
 
-    Ideal for "Find recurring failures" results, showing each failure pattern with examples side by side.
+    Ideal for "Encuentra fallos recurrentes" results, showing each failure pattern with examples side by side.
   </Tab>
   <Tab title="Charts">
     **Visual trend analysis** rendered inline with the conversation:
@@ -215,9 +218,9 @@ You can now attach files directly to your messages in Copilot to give it richer 
 Attachments are sent alongside your message text in the same request, so Copilot can reason about the file content together with your instructions - for example, "Here's the customer's complaint email (attached PDF) - update the prompt to handle this objection better."
 </Info>
 
-## Voice Input & Call Context Analysis
+## Composing Messages: Voice, History & Call Context
 
-Enhanced natural interaction capabilities for comprehensive system configuration - including hands-free dictation for writing your messages.
+Enhanced natural interaction capabilities for comprehensive system configuration - including hands-free dictation, a navigable prompt history, and rich call context references.
 
 <Tabs>
   <Tab title="Voice Dictation">
@@ -227,13 +230,13 @@ Enhanced natural interaction capabilities for comprehensive system configuration
       <Step title="Start Recording">
         Two ways to start:
 
-        - **Hold the microphone button** next to the input field
-        - **Double-press Shift** to start hands-free recording
+        - **Click the microphone button** next to the input field
+        - Press **⌘⇧V** (Cmd/Ctrl + Shift + V) to start hands-free recording from anywhere in the input
 
-        While recording, the input area shows a **live waveform visualizer** and a pulsing red dot so you always know you're being recorded.
+        While recording, the input area is replaced by a **live waveform visualizer** and a pulsing red dot so you always know you're being recorded.
       </Step>
       <Step title="Stop and Transcribe">
-        Click the microphone button again (now shown as a stop icon) to end the recording. Copilot automatically:
+        Click the microphone button again (now shown as a stop icon), or press **⌘⇧V** a second time, to end the recording. Copilot automatically:
 
         - Sends the audio for transcription
         - Shows a spinner while transcribing
@@ -245,8 +248,18 @@ Enhanced natural interaction capabilities for comprehensive system configuration
     </Steps>
 
     <Info>
-    Short audio cues play when recording starts and stops, so you get clear feedback even without looking at the screen. If transcription fails or no audio was captured, the input simply stays empty - nothing is lost, and you can try again.
+    Short audio cues play when recording starts and stops, so you get clear feedback even without looking at the screen. If transcription fails or no audio was captured, the input simply stays empty - nothing is lost, and you can try again. The clip (attachment) button is hidden while recording to keep the input focused on voice capture.
     </Info>
+  </Tab>
+  <Tab title="Prompt History">
+    Copilot remembers everything you've typed to it, letting you browse and reuse past prompts like a terminal:
+
+    - With the input field empty (or your cursor at the very start of the text), press **↑** to step back through your previous prompts, most recent first
+    - Press **↓** to step forward again, eventually returning to a blank input
+    - History is scoped per browser and shared across your Copilot sessions, so switching agents or conversation threads doesn't reset it
+    - Up to the last **100 prompts** are kept, oldest entries are dropped automatically as new ones come in
+
+    This is especially useful for re-running a diagnostic prompt you've used before, or tweaking a previous instruction without retyping it from scratch.
   </Tab>
   <Tab title="Natural Speech Processing">
     **Speak conversationally about any system changes**:
@@ -357,6 +370,47 @@ Copilot now operates as a comprehensive system engineer that can modify every as
   </Tab>
 </Tabs>
 
+## Cloning Agents with Copilot
+
+Copilot can now **clone an entire agent** for you, right from the chat - useful for spinning up a variant for a new region, a different phone number, or an A/B test, without leaving the conversation.
+
+<Steps>
+  <Step title="Ask Copilot to Clone the Agent">
+    Simply describe what you want in natural language:
+
+    ```
+    Clone this agent so I can test a friendlier greeting without touching the original.
+    ```
+
+    Copilot prepares a clone proposal based on the current agent's configuration - prompt, parameters, evaluations, and settings.
+  </Step>
+  <Step title="Review the Inline Confirmation">
+    Instead of cloning immediately, Copilot shows an **inline confirmation card** directly in the chat:
+
+    - A summary of what will be cloned (agent name, key configuration highlights)
+    - A clear **Confirm** and **Cancel** action
+    - Nothing is created until you explicitly confirm
+  </Step>
+  <Step title="Choose a Phone Number">
+    As part of the same confirmation step, you can **select a phone number** for the new cloned agent from your available numbers:
+
+    - A dropdown lists all phone numbers currently available on your account
+    - You can leave it unassigned and configure a number later from Basic Settings
+    - This avoids the extra step of jumping to another panel right after cloning
+  </Step>
+  <Step title="Confirm and Track Progress">
+    Once you confirm:
+
+    - Copilot shows an in-progress state while the clone is being created
+    - On success, it confirms the new agent's name and, if selected, its assigned phone number
+    - On failure, a clear error message explains what went wrong so you can retry
+  </Step>
+</Steps>
+
+<Info>
+Cloning through Copilot never modifies the original agent - it always creates a brand-new, independent agent with a copy of the current configuration. The inline confirmation step exists specifically so a clone is never triggered by accident from a casual request.
+</Info>
+
 ## Enhanced SSE Protocol
 
 Copilot uses a streamlined event system for real-time feedback across all system modifications:
@@ -375,11 +429,16 @@ Copilot uses a streamlined event system for real-time feedback across all system
 | **agent_config** | Basic settings update | ⚙️ Configuration preview | Core settings |
 | **audio_tags_set** | Expressive audio tag update | 🎙️ Tag list preview | Audio expressiveness |
 | **rich_block** | Rich UI block (stat grid, table, chart, card) | 📊 Inline visual component | Diagnostics & analysis |
+| **clone_agent** | Agent clone proposal | 🧬 Inline confirmation with phone number picker | Agent cloning |
 | **complete** | Operation finished | ✅ Summary with next steps | All operations |
 | **error** | Operation failed | ❌ Error with suggested fixes | All operations |
 
 <Info>
 The `rich_block` event carries a `blockType` (`stat_grid`, `table`, `chart`, or `card`) plus a structured `data` payload. The frontend renders it as a native component inline with the rest of the streamed conversation, right next to any `text` events in the same response.
+</Info>
+
+<Info>
+The `clone_agent` event carries a clone proposal (target agent details) that renders as an inline confirmation card in the chat, complete with a phone number selector populated from your account's available numbers. No agent is created until you click **Confirm**.
 </Info>
 
 <Info>
@@ -737,10 +796,22 @@ a normalized format, and we're missing a lead-source output field.
 - Renders both proposals inside the **Output Settings panel** as pending change cards
 - Waits for you to **Accept** or **Reject** each one - or use Accept All / Reject All - before anything is applied to the agent
 
+### Cloning an Agent for a New Campaign
+
+```
+Clone this agent for our Madrid campaign and assign it the +34 900 123 456 number.
+```
+
+**Copilot performs**:
+- Prepares a clone proposal from the current agent's full configuration
+- Shows an inline confirmation card in the chat with the proposed name and a phone number dropdown pre-filtered to your available numbers
+- Waits for you to click **Confirm**
+- Creates the new agent and confirms its name and assigned number once done
+
 ### Diagnosing Performance with Rich Blocks
 
 ```
-Click "Diagnose performance" on the welcome screen
+Click "Diagnostica el rendimiento" on the welcome screen
 ```
 
 **Copilot responds with**:
@@ -752,7 +823,7 @@ Click "Diagnose performance" on the welcome screen
 ### Finding Recurring Failures
 
 ```
-Click "Find recurring failures" on the welcome screen
+Click "Encuentra fallos recurrentes" on the welcome screen
 ```
 
 **Copilot responds with**:
@@ -786,8 +857,8 @@ update the prompt so the agent acknowledges the issue before offering a solution
 ### Dictating a Request Instead of Typing It
 
 ```
-Double-press Shift, say: "Update the greeting to sound warmer and 
-mention our new extended support hours", then press the mic button to stop.
+Press ⌘⇧V, say: "Update the greeting to sound warmer and 
+mention our new extended support hours", then press ⌘⇧V again to stop.
 ```
 
 **Copilot performs**:
@@ -795,12 +866,24 @@ mention our new extended support hours", then press the mic button to stop.
 - Fills the input field with the transcribed text for you to review
 - Processes it exactly like a typed message once you send it
 
+### Reusing a Previous Prompt from History
+
+```
+Press ↑ in the empty input to recall your last message, 
+then edit a couple of words and press Enter.
+```
+
+**Copilot performs**:
+- Fills the input with your previous prompt, most recent first
+- Lets you keep pressing ↑ to go further back, or ↓ to come forward
+- Sends the (optionally edited) prompt like any other message once you hit Enter
+
 ## Quick Start with Predefined Actions
 
 The welcome interface provides four **instant setup options**:
 
 <Tabs>
-  <Tab title="Diagnose Performance">
+  <Tab title="Diagnostica el rendimiento">
     **One-click performance diagnostics**:
     
     - Pulls real metrics, failed evaluations, and relevant calls
@@ -809,7 +892,7 @@ The welcome interface provides four **instant setup options**:
     
     Perfect for: Getting a fast health check on any agent
   </Tab>
-  <Tab title="Find Recurring Failures">
+  <Tab title="Encuentra fallos recurrentes">
     **Pattern detection across failed evaluations**:
     
     - Scans call history for repeated failure types
@@ -818,7 +901,7 @@ The welcome interface provides four **instant setup options**:
     
     Perfect for: Root-causing quality issues before they scale
   </Tab>
-  <Tab title="Create a Regression Test">
+  <Tab title="Crea un test de regresión">
     **Turn bugs into safeguards**:
     
     - Builds a regression test from a real failed call
@@ -827,7 +910,7 @@ The welcome interface provides four **instant setup options**:
     
     Perfect for: Locking in a fix after resolving an issue
   </Tab>
-  <Tab title="Improve and Verify">
+  <Tab title="Mejora y verifica">
     **Close the loop on prompt changes**:
     
     - Updates the prompt based on the latest diagnosis
@@ -852,152 +935,4 @@ After completing comprehensive changes, Copilot provides intelligent system-wide
     - Enhanced greetings → recommends matching closing procedures
     - Created or updated tests → suggests additional edge case scenarios
     - Adjusted audio tags → recommends verifying delivery in Playground
-  </Tab>
-  <Tab title="Configuration Completeness">
-    **System audit recommendations**:
-    
-    - Missing evaluation criteria for new parameters
-    - Suggested output enrichment for captured data
-    - Recommended tests for new conversation flows
-    - Configuration validation and optimization tips
-    - Test coverage analysis and suggestions
-  </Tab>
-  <Tab title="Quality Assurance Prompts">
-    **Comprehensive testing reminders**:
-    
-    - "Test parameter changes in Playground with real data"
-    - "Create regression tests for updated conversation flows"
-    - "Verify evaluation criteria with sample calls"
-    - "Validate output enrichment with webhook testing"
-    - "Run generated or updated tests to ensure quality maintenance"
-    - "Listen to a Playground call to confirm the new audio tags sound natural"
-  </Tab>
-</Tabs>
-
-## Conversation History & Iterative Configuration
-
-Build sophisticated system improvements through multi-turn conversations:
-
-```
-User: Set up lead qualification for this sales agent
-
-Copilot: [Creates input params, output fields, evaluations, and prompt updates]
-
-User: Good, but make the budget qualification less aggressive
-
-Copilot: [Refines parameters and prompt approach across affected areas]
-
-User: Add follow-up scheduling and CRM integration
-
-Copilot: [Adds scheduling params, webhook configs, and integration tests]
-
-User: @call:abc123 Create tests based on this successful call
-
-Copilot: [Generates comprehensive test scenarios from call history]
-
-User: Update the "Follow-up scheduling" test - we now offer same-day slots
-
-Copilot: [Updates the existing test's chat history and success condition in place]
-```
-
-<Info>
-Copilot maintains conversation context across multiple system modification requests, allowing for iterative refinement of your entire agent configuration through natural dialogue. Use the **thread selector** to keep unrelated iteration threads separate - for example, running your lead-qualification setup in one conversation while diagnosing an unrelated issue in a second thread, then switching between them without losing either context.
-</Info>
-
-## Comprehensive System Tasks
-
-### Complete Agent Setup from Scratch
-```
-Create a professional appointment scheduling agent named "Sarah" 
-with comprehensive lead qualification, appointment booking parameters, 
-success tracking evaluations, friendly but professional greetings,
-and test scenarios for quality assurance.
-```
-
-### Data-Driven System Optimization
-```
-@call:abc123 @call:def456 Analyze these problematic calls and 
-optimize the entire agent system - fix the prompts, add missing 
-parameters, create better evaluations, set up proper testing,
-and generate quality assurance tests.
-```
-
-### Multi-System Integration Configuration
-```
-Set up this agent for CRM integration with Salesforce - add all 
-necessary input and output parameters, webhook configurations, 
-data enrichment instructions, integration success evaluations,
-and comprehensive test scenarios for the integration workflow.
-```
-
-### Performance-Driven System Updates
-```
-Our conversion rate is low. Analyze the current setup and improve 
-the qualification process, add better objection handling, create 
-conversion tracking evaluations, optimize output data capture,
-and generate tests to maintain improved performance.
-```
-
-### Test Suite Creation and Maintenance from Call History
-```
-@call:perfect1 @call:perfect2 @call:perfect3 These are our best calls.
-Create a comprehensive test suite based on these successful patterns,
-and update any existing tests that no longer match current policies.
-```
-
-### Compliance and Quality Assurance Setup
-```
-Add comprehensive compliance checking for this financial services 
-agent - include required disclosures in prompts, compliance tracking 
-parameters, regulatory evaluation criteria, audit trail outputs,
-and compliance verification tests.
-```
-
-### Voice Expressiveness Tuning
-```
-Review the current audio tags for this customer support agent and 
-adjust them so empathy comes through during complaints without 
-sounding exaggerated anywhere else.
-```
-
-## Keyboard Shortcuts for System Navigation
-
-| Shortcut | Action |
-|----------|--------|
-| **⌘J** | Open/focus Copilot panel |
-| **Shift + Shift** | Start/stop voice recording (dictation) |
-| **⌘Enter** | Send message to Copilot |
-| **Enter** | Send message (Shift+Enter for a new line) |
-| **Escape** | Close suggestions or cancel an in-progress recording |
-| **⌘1** | Navigate to Basic Settings panel |
-| **⌘2** | Navigate to Greetings panel |
-| **⌘3** | Navigate to Input Parameters panel |
-| **⌘6** | Navigate to Evaluations panel |
-| **⌘7** | Navigate to Output Settings panel |
-| **⌘8** | Navigate to Tests panel |
-| **⌘G** | Navigate to Git Changes panel |
-
-## Best Practices for System Engineering
-
-<Steps>
-  <Step title="Start with Quick Actions">
-    **Use the welcome-screen cards for common workflows**:
-    
-    - Start with "Diagnose performance" for a comprehensive health check
-    - Use "Find recurring failures" to root-cause quality issues
-    - Click "Create a regression test" to lock in a fix
-    - Try "Improve and verify" to close the loop on a diagnosis
-  </Step>
-  <Step title="Use Comprehensive Natural Language">
-    **Describe complete system needs rather than isolated changes**:
-    
-    **Good:** "Set up complete lead qualification with budget tracking, contact preferences, scoring system, success evaluations, and quality assurance tests"
-    
-    **Limited:** "Add a budget parameter"
-    
-    Comprehensive requests generate coordinated improvements across the entire system.
-  </Step>
-  <Step title="Leverage Real Call Data for System Design">
-    **Reference actual calls to drive system-wide improvements**:
-    
-    - Use `@call:ID` syntax to provide specific examples of system g
+    - Cloned an agent → suggests reviewing its phone number and gree

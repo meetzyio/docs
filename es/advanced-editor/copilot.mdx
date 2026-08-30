@@ -46,6 +46,26 @@ Cada agente mantiene su propio historial de conversaciones con Copilot. Al abrir
   </Step>
 </Steps>
 
+## Historial de Prompts con el Teclado
+
+El campo de texto de Copilot recuerda todo lo que le has escrito anteriormente, igual que la terminal de tu sistema operativo. Esto te permite recuperar y reutilizar prompts anteriores sin tener que volver a escribirlos.
+
+<Steps>
+  <Step title="Navega hacia atrás con la flecha ↑">
+    Con el campo de texto vacío (o en la posición inicial del cursor), presiona la flecha `↑` para recuperar el último mensaje que enviaste. Sigue presionando `↑` para retroceder aún más en tu historial.
+  </Step>
+  <Step title="Navega hacia adelante con la flecha ↓">
+    Presiona `↓` para avanzar de nuevo hacia mensajes más recientes del historial, hasta volver al campo vacío original.
+  </Step>
+  <Step title="Edita antes de enviar">
+    El texto recuperado queda completamente editable: puedes ajustarlo antes de enviarlo, sin afectar la entrada original guardada en el historial.
+  </Step>
+</Steps>
+
+<Info>
+El historial se guarda localmente en tu navegador y **se comparte entre agentes y sesiones**, por lo que siempre tienes a mano tus prompts más usados (por ejemplo, "Diagnostica los últimos fallos" o "Hazlo menos formal"), sin importar en qué agente estés trabajando. Se conservan hasta los últimos 100 prompts enviados.
+</Info>
+
 ## El Orbe de Copilot: la cara de Meetzy
 
 Copilot tiene una identidad visual propia: un **orbe animado con degradado** que actúa como la "cara" de Meetzy en toda la experiencia. Este orbe reemplaza los íconos genéricos de chat y aparece en tres lugares clave:
@@ -75,33 +95,33 @@ El orbe no es solo decorativo: su estado (`idle` / `active`) está sincronizado 
 
 ## Pantalla de Bienvenida
 
-Cuando abres Copilot por primera vez, verás al orbe dando la bienvenida junto a un mensaje corto ("Vamos a afinar este agente") y **cuatro tarjetas de acción rápida** con bloques de color sólido, pensadas para cubrir el ciclo completo de mejora de un agente: diagnosticar, encontrar fallos, crear una salvaguarda y verificar la mejora.
+Cuando abres Copilot por primera vez, verás al orbe dando la bienvenida junto a un mensaje corto ("Afina este agente") y **cuatro acciones rápidas** en forma de lista, pensadas para cubrir el ciclo completo de mejora de un agente: diagnosticar, encontrar fallos, crear una salvaguarda y verificar la mejora.
 
 <Steps>
-  <Step title="Diagnosticar rendimiento (violeta)">
-    Un clic para que Copilot analice el rendimiento del agente usando métricas reales, evaluaciones fallidas y llamadas relevantes, mostrando los hallazgos clave de forma visual.
+  <Step title="Diagnostica el rendimiento">
+    Un clic para que Copilot analice el rendimiento del agente usando métricas reales, evaluaciones fallidas y llamadas relevantes, mostrando los hallazgos clave de forma visual (KPIs y evidencia de llamadas reales).
 
-    **Prompt enviado**: "Diagnostica el rendimiento de este agente usando métricas reales, evaluaciones fallidas y llamadas relevantes. Muestra los hallazgos clave de forma visual."
+    **Prompt enviado**: "Diagnostica el rendimiento de este agente con métricas reales, evaluaciones fallidas y llamadas relevantes. Muestra los hallazgos clave de forma visual."
   </Step>
-  <Step title="Encontrar fallos recurrentes (rosa)">
-    Identifica patrones de fallo repetidos en el agente y los presenta en una tabla con ejemplos extraídos de llamadas reales.
+  <Step title="Encuentra fallos recurrentes">
+    Identifica las evaluaciones que más fallan y presenta los patrones en una tabla con ejemplos extraídos de llamadas reales.
 
-    **Prompt enviado**: "Encuentra fallos recurrentes en este agente y muéstralos en una tabla con ejemplos de llamadas reales."
+    **Prompt enviado**: "Encuentra fallos recurrentes de este agente y muéstralos en una tabla con ejemplos de llamadas reales."
   </Step>
-  <Step title="Crear un test de regresión (verde)">
-    Convierte una llamada real que falló en un test automatizado, para que ese problema específico no vuelva a ocurrir.
+  <Step title="Crea un test de regresión">
+    Convierte una llamada real que falló en una salvaguarda automatizada, para que ese problema específico no vuelva a ocurrir.
 
-    **Prompt enviado**: "Crea un test de regresión a partir de una llamada real que falló, para que este problema no vuelva a ocurrir."
+    **Prompt enviado**: "Crea un test de regresión a partir de una llamada real fallida para que este problema no vuelva a pasar."
   </Step>
-  <Step title="Mejorar y verificar (ámbar)">
-    Mejora el system prompt del agente basándose en el diagnóstico actual y sugiere cómo verificar que el cambio realmente funcionó, cerrando el ciclo de mejora.
+  <Step title="Mejora y verifica">
+    Mejora el system prompt del agente basándose en el diagnóstico actual y propone cómo verificar el cambio pasándole tests, cerrando el ciclo de mejora.
 
-    **Prompt enviado**: "Mejora el prompt del agente basándote en el diagnóstico actual y luego sugiere cómo verificar el cambio."
+    **Prompt enviado**: "Mejora el prompt del agente según el diagnóstico actual y propón cómo verificar el cambio con tests."
   </Step>
 </Steps>
 
 <Info>
-Cada tarjeta tiene su propio color de fondo, ícono y una pequeña flecha que se anima al pasar el cursor, invitando a la acción con un solo clic. No necesitas escribir nada: el prompt correspondiente se envía automáticamente a Copilot.
+Cada acción se presenta como una fila silenciosa con ícono, título y una breve descripción, con una pequeña flecha que se anima al pasar el cursor. No necesitas escribir nada: el prompt correspondiente se envía automáticamente a Copilot con un solo clic.
 </Info>
 
 ## Adjuntar Archivos a tus Mensajes
@@ -121,7 +141,7 @@ Junto al campo de texto de Copilot hay un botón con ícono de clip que te permi
     Copilot extrae el texto de cada página del PDF. Si detecta páginas escaneadas o con muy poco texto (por ejemplo, capturas o imágenes), esas páginas específicas se convierten automáticamente en imágenes para que Copilot pueda "verlas" igualmente.
   </Tab>
   <Tab title="Imágenes (.png, .jpg, .jpeg, .webp, .gif)">
-    Se adjuntan directamente como imágenes para que Copilot pueda analizarlas visualmente (capturas de pantalla, diagramas de flujo, etc.).
+    Se adjuntan directamente como imágenes para que Copilot pueda analizarlas visualmente (capturas de pantalla, diagramas de flujo, etc.). Si es una imagen, verás además una pequeña miniatura en la chip del adjunto.
   </Tab>
 </Tabs>
 
@@ -146,7 +166,7 @@ Junto al campo de texto de Copilot hay un botón con ícono de clip que te permi
 </Steps>
 
 <Warning>
-Cada archivo tiene un límite de **10MB**. Además, solo puedes adjuntar un máximo de **5 imágenes** por mensaje (las páginas de un PDF rasterizadas cuentan dentro de ese mismo cupo). Si un archivo supera el límite o tiene un formato no soportado, verás un aviso claro debajo del campo de texto.
+Cada archivo tiene un límite de **10MB**. Además, solo puedes adjuntar un máximo de **5 imágenes** por mensaje (las páginas de un PDF rasterizadas cuentan dentro de ese mismo cupo). Si un archivo supera el límite o tiene un formato no soportado, verás un aviso claro debajo del campo de texto, que puedes descartar con la `x`.
 </Warning>
 
 <Info>
@@ -178,6 +198,36 @@ Mientras se transcribe el audio, el botón del micrófono muestra un spinner. La
 
 <Warning>
 El dictado por voz requiere permisos de micrófono del navegador y una conexión segura (HTTPS). Si tu navegador bloquea el acceso al micrófono, revisa la configuración de permisos del sitio.
+</Warning>
+
+## Clonar un Agente desde Copilot
+
+Copilot puede clonar tu agente actual para que pruebes variantes (un tono distinto, un flujo alternativo, un experimento A/B) sin arriesgar la configuración original. En lugar de ejecutar el clonado de inmediato, la propuesta aparece como una **tarjeta de confirmación inline dentro del propio chat**, para que decidas los detalles antes de que se cree nada.
+
+<Steps>
+  <Step title="Pide el clonado">
+    Escríbele a Copilot algo como *"Clona este agente para probar una versión más formal"* o *"Duplica este agente antes de hacer cambios grandes"*. Copilot interpreta la intención y prepara una propuesta con un nombre sugerido para el nuevo agente.
+  </Step>
+  <Step title="Revisa la tarjeta de propuesta">
+    En el propio hilo de conversación aparece una tarjeta con el nombre propuesto para el agente clonado y un resumen de qué se copiará (system prompt, tests, parámetros de salida y configuración general).
+  </Step>
+  <Step title="Elige un número de teléfono">
+    La tarjeta incluye un desplegable con los números de teléfono disponibles en tu cuenta, para asignarle uno al agente recién clonado. También puedes dejarlo sin número asignado y configurarlo más tarde.
+  </Step>
+  <Step title="Confirma o cancela">
+    Pulsa **Confirmar** para proceder con el clonado, o **Cancelar** para descartar la propuesta sin crear nada. Mientras se crea el nuevo agente, la tarjeta muestra un estado de "Clonando…" con un spinner.
+  </Step>
+  <Step title="Revisa el resultado">
+    Al finalizar, la tarjeta se actualiza con el resultado de la operación: un mensaje de éxito con acceso directo al nuevo agente, o un mensaje de error claro si algo falló, sin afectar en ningún momento al agente original.
+  </Step>
+</Steps>
+
+<Info>
+El agente original nunca se modifica durante este proceso: el clonado siempre genera un agente completamente nuevo e independiente, incluso si cancelas a mitad de camino.
+</Info>
+
+<Warning>
+Si tu cuenta no tiene números de teléfono disponibles en el momento del clonado, aún puedes confirmar la creación del agente y asignarle un número más adelante desde su configuración.
 </Warning>
 
 ## Sistema de Eventos SSE Avanzado
@@ -347,6 +397,16 @@ Copilot utiliza un protocolo de eventos Server-Sent Events (SSE) para comunicaci
     }
     ```
     - Permite a Copilot responder con tarjetas, tablas, gráficos o grids de estadísticas en lugar de solo texto
+
+    **Clone_Agent**: Propuesta de clonado de agente
+    ```json
+    {
+      "type": "clone_agent",
+      "suggestedName": "Ventas – Versión formal",
+      "summary": "Copia el system prompt, tests y parámetros de salida del agente actual"
+    }
+    ```
+    - No clona nada por sí solo: deja la propuesta en espera de confirmación inline en el chat
     
     **Error**: Manejo de errores durante procesamiento
     ```json
@@ -599,7 +659,7 @@ Además de reescribir el system prompt, Copilot puede actuar directamente sobre 
     **Cuándo lo hace Copilot**:
     - Al diagnosticar que el agente suena demasiado plano o robótico en ciertas partes
     - Cuando el prompt describe una emoción o énfasis que no está reflejado en tags reales
-    - Como parte de una mejora de "Mejorar y verificar" enfocada en tono de voz
+    - Como parte de una mejora de "Mejora y verifica" enfocada en tono de voz
 
     <Info>
     Los cambios de tags se muestran como un evento independiente en el chat, con una vista previa de los tags antes y después, para que puedas aceptarlos o descartarlos igual que una edición de prompt.
@@ -673,236 +733,4 @@ Los marcadores son insertados automáticamente por Copilot y permiten operacione
 
 ```json
 {
-  "type": "edit",
-  "operation": "replace_section",
-  "targetSection": "Email Capture Protocol",
-  "newContent": "When collecting email addresses:\n1. Ask clearly and naturally\n2. Repeat back for confirmation\n3. Validate format if possible\n4. Save to 'customer_email' field",
-  "summary": "Enhanced email capture with validation steps",
-  "linesAdded": 4,
-  "metadata": {
-    "previousLines": 2,
-    "improvement": "Added confirmation and validation steps",
-    "rationale": "Based on @call:abc123 where email was incorrectly captured"
-  }
-}
-```
-
-## Sistema de Grabación de Voz Avanzado
-
-Copilot incluye capacidades de grabación de voz sofisticadas para interacción natural y sin usar las manos.
-
-### Modos de Grabación Disponibles
-
-<Tabs>
-  <Tab title="Grabación Manual por Botón">
-    **Activación**: Clic en ícono de micrófono
-    
-    **Características**:
-    - Control total sobre inicio/pausa/parada
-    - Ideal para solicitudes largas y complejas
-    - Permite revisión antes de envío
-    - Indicadores visuales de estado de grabación
-    
-    **Flujo de trabajo**:
-    1. Clic en micrófono → Solicitar permisos
-    2. Grabación activa con feedback visual
-    3. Clic en "Parar" → Procesamiento automático
-    4. Transcripción y envío a Copilot
-  </Tab>
-  <Tab title="Mantener presionado (tecla Alt)">
-    **Activación**: Mantener presionada la tecla Alt
-    
-    **Características**:
-    - Estilo "walkie-talkie" para rapidez
-    - Ideal para correcciones y ajustes rápidos
-    - Se detiene automáticamente al soltar la tecla
-    - Feedback háptico en dispositivos compatibles
-    
-    **Casos de uso**:
-    - Refinamientos rápidos: "Hazlo menos formal"
-    - Correcciones inmediatas: "El tono es muy agresivo"
-    - Instrucciones puntuales: "Añade validación de email"
-  </Tab>
-  <Tab title="Detección de Silencio Inteligente">
-    **Activación**: Automática durante grabación
-    
-    **Características**:
-    - Detección de pausas naturales
-    - Finalización automática tras silencio prolongado
-    - Algoritmos de puerta de ruido (noise gate) para filtrado
-    - Adaptación a patrones de habla individuales
-    
-    **Configuración**:
-    - Umbral de silencio: 2-5 segundos
-    - Sensibilidad ajustable según ambiente
-    - Cancelación de ruido de fondo
-  </Tab>
-</Tabs>
-
-### Implementación Técnica de Voz
-
-<Steps>
-  <Step title="Inicialización del MediaRecorder">
-    ```javascript
-    const mediaRecorder = new MediaRecorder(stream, {
-      mimeType: 'audio/webm;codecs=opus',
-      audioBitsPerSecond: 128000
-    });
-    ```
-    - Calidad optimizada para reconocimiento de voz
-    - Compresión eficiente para transmisión rápida
-    - Compatibilidad multi-navegador garantizada
-  </Step>
-  <Step title="Procesamiento en Tiempo Real">
-    - **Segmentación**: Audio dividido en fragmentos de 1-2 segundos
-    - **Streaming**: Procesamiento progresivo durante grabación
-    - **Gestión de buffer**: Optimización de memoria y latencia
-    - **Manejo de errores**: Recuperación automática de fallos de red
-  </Step>
-  <Step title="Transcripción vía Web Speech API">
-    - **Modelo**: Optimizado para terminología técnica de AI/ML
-    - **Idiomas**: Soporte para español, inglés y variantes regionales
-    - **Confianza**: Puntuación de precisión para validación automática
-    - **Respaldo**: Servicios en la nube para casos complejos
-  </Step>
-  <Step title="Post-procesamiento Inteligente">
-    - **Limpieza**: Filtrado de muletillas y repeticiones
-    - **Contextualización**: Interpretación de referencias como "@call:ID"
-    - **Formateo**: Estructura automática para procesamiento por Copilot
-    - **Validación**: Verificación de coherencia antes de envío
-  </Step>
-</Steps>
-
-### Permisos y Solución de Problemas de Audio
-
-<Warning>
-La grabación de voz requiere permisos explícitos del navegador y conexión HTTPS para funcionamiento seguro.
-</Warning>
-
-| Problema | Causa Probable | Solución |
-|----------|----------------|----------|
-| "Micrófono no disponible" | Permisos denegados | Permitir en configuración del navegador |
-| "Audio distorsionado" | Micrófono de baja calidad | Usar headset o micrófono externo |
-| "Transcripción incorrecta" | Ruido de fondo excesivo | Ambiente silencioso o cancelación de ruido |
-| "Grabación se corta" | Límite de tiempo excedido | Dividir en solicitudes más cortas |
-
-## Análisis de Contexto de Llamadas Profundo
-
-Una de las capacidades más avanzadas de Copilot es su habilidad para analizar llamadas reales y generar mejoras específicas basadas en problemas identificados.
-
-### Sintaxis @call Expandida
-
-```
-Sintaxis básica: @call:ID_LLAMADA
-Sintaxis múltiple: @call:abc123 @call:xyz789 @call:def456
-Sintaxis con filtro: @call:recent:5 (últimas 5 llamadas)
-Sintaxis por fecha: @call:today @call:yesterday @call:this_week
-```
-
-### Proceso de Carga de Contexto Automatizado
-
-<Steps>
-  <Step title="Detección de Patrones">
-    - **Regex avanzado**: Identificación de todas las variantes de `@call:`
-    - **Validación**: Verificación de existencia de IDs de llamada
-    - **Priorización**: Ordenamiento por relevancia y fecha
-    - **Deduplicación**: Eliminación de referencias redundantes
-  </Step>
-  <Step title="Recuperación de Transcripciones">
-    - **Carga paralela**: Múltiples llamadas procesadas simultáneamente
-    - **Caché inteligente**: Almacenamiento local de transcripciones frecuentes
-    - **Compresión**: Optimización de ancho de banda para transcripciones largas
-    - **Manejo de tiempos de espera**: Manejo robusto de llamadas indisponibles
-  </Step>
-  <Step title="Análisis Contextual Avanzado">
-    - **Procesamiento NLP**: Análisis semántico de problemas identificados
-    - **Análisis de sentimiento**: Detección de frustración o satisfacción
-    - **Reconocimiento de entidades**: Extracción de nombres, fechas, productos mencionados
-    - **Flujo de conversación**: Mapeo de patrones de diálogo problemáticos
-  </Step>
-  <Step title="Síntesis de Insights">
-    - **Reconocimiento de patrones**: Identificación de problemas recurrentes
-    - **Análisis de causa raíz**: Diagnóstico de causas fundamentales
-    - **Evaluación de impacto**: Evaluación de severidad e impacto
-    - **Generación de soluciones**: Propuestas específicas de mejora
-  </Step>
-</Steps>
-
-### Tipos de Análisis de Llamadas
-
-<Tabs>
-  <Tab title="Análisis de Flujo Conversacional">
-    **Métricas analizadas**:
-    - Interrupciones del agente vs cliente
-    - Tiempos de respuesta y pausas
-    - Cambios de tópico abruptos
-    - Bucles conversacionales problemáticos
-    
-    **Mejoras típicas**:
-    - Timing de interrupciones optimizado
-    - Transiciones más suaves entre temas
-    - Manejo de silencios incómodos
-    - Estrategias de recuperación de conversación
-  </Tab>
-  <Tab title="Análisis de Captura de Información">
-    **Elementos rastreados**:
-    - Información solicitada vs obtenida
-    - Precisión de datos capturados
-    - Validación en tiempo real
-    - Seguimiento de información faltante
-    
-    **Optimizaciones aplicadas**:
-    - Prompts específicos de validación
-    - Confirmación automática de datos críticos
-    - Manejo de información parcial o incorrecta
-    - Estrategias de re-captura no intrusivas
-  </Tab>
-  <Tab title="Análisis de Manejo de Objeciones">
-    **Patrones identificados**:
-    - Tipos de objeciones más frecuentes
-    - Efectividad de respuestas del agente
-    - Timing de abordaje de preocupaciones
-    - Escalación vs resolución exitosa
-    
-    **Mejoras implementadas**:
-    - Scripts personalizados por tipo de objeción
-    - Enfoque empático vs lógico según contexto
-    - Técnicas de reformulación y redirección
-    - Estrategias de cierre alternativas
-  </Tab>
-  <Tab title="Análisis de Satisfacción del Cliente">
-    **Indicadores monitoreados**:
-    - Cambios en tono de voz del cliente
-    - Expresiones de frustración o satisfacción
-    - Nivel de engagement durante la llamada
-    - Resultado final vs expectativas iniciales
-    
-    **Ajustes resultantes**:
-    - Personalización de tono según cliente
-    - Detección temprana de descontento
-    - Estrategias de recuperación proactivas
-    - Optimización de expectativas iniciales
-  </Tab>
-</Tabs>
-
-### Indicadores Visuales de Contexto Avanzados
-
-Durante el procesamiento de contexto de llamadas, Copilot muestra indicadores detallados:
-
-```
-📞 Cargando contexto de llamada: abc123
-   ├── Transcripción: ✅ Cargada (2.3MB, 45min)
-   ├── Metadatos: ✅ Satisfacción del cliente: 3/10
-   ├── Análisis: 🔄 Procesando sentimiento...
-   └── Problemas identificados: ❌ Fallo en captura de email, interrupción en el min 23
-
-📞 Cargando contexto de llamada: xyz789
-   ├── Transcripción: ✅ Cargada (1.8MB, 32min)
-   ├── Metadatos: ✅ Satisfacción del cliente: 8/10
-   ├── Análisis: ✅ Completo
-   └── Problemas identificados: ⚠️  Menor: formato de teléfono inconsistente
-```
-
-## Sugerencias Inteligentes de IA Expandidas
-
-El sistema de sugerencias de Copilot ha evolucionado hacia un motor predictivo que anticipa neces
+  "type": "ed
