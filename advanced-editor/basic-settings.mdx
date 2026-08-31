@@ -414,9 +414,91 @@ Choose from leading AI models across multiple providers to power your agent's in
   </Tab>
 </Tabs>
 
+## Intelligence Configuration
+
+The Intelligence section groups together the controls that directly affect how your agent "thinks" and speaks during a call, plus the switches that turn Meetzy's predefined prompt blocks on or off. These controls live alongside your AI model selection and are among the most impactful settings in the Advanced Editor.
+
+<Tabs>
+  <Tab title="Model Temperature">
+    **What Temperature Controls:**
+
+    The Temperature slider adjusts the randomness and creativity of the selected AI model's responses. It ranges from **0.0** (fully deterministic) to **1.0** (highly creative and varied).
+
+    | Value Range | Behavior | Best For |
+    |--------------|----------|----------|
+    | **0.0 - 0.3** | Highly consistent, predictable phrasing | Compliance-heavy scripts, strict scripted flows, financial or legal intake |
+    | **0.4 - 0.6** | Balanced consistency with natural variation | **Most business use cases (recommended default)** |
+    | **0.7 - 1.0** | Creative, varied, more human-like improvisation | Casual conversations, brainstorming, entertainment-oriented agents |
+
+    <Info>
+    **Recommended Default**: A mid-range temperature (around **0.5**) offers the best balance between natural conversation flow and predictable, on-brand responses for most phone agents.
+    </Info>
+
+    <Warning>
+    **High Temperature Risk**: Setting temperature too high can cause the agent to drift off-script, invent information, or respond inconsistently across calls. Always test thoroughly after adjusting.
+    </Warning>
+  </Tab>
+  <Tab title="Call Recording Toggle">
+    **Recording Switch:**
+
+    A simple on/off toggle controls whether calls handled by this agent are recorded and stored for later review.
+
+    <Steps>
+      <Step title="Locate the Toggle">
+        Find the "Record Calls" switch in the Intelligence section
+      </Step>
+      <Step title="Enable or Disable">
+        Turn it on to store audio recordings of every call, or off to skip recording entirely
+      </Step>
+      <Step title="Confirm Compliance">
+        Ensure recording aligns with your local regulations and disclosure requirements before enabling
+      </Step>
+    </Steps>
+
+    <Info>
+    **Default State**: Call recording is **enabled by default**, allowing quality assurance, training, and compliance review from day one.
+    </Info>
+
+    <Warning>
+    **Regulatory Responsibility**: Some jurisdictions require explicit caller consent before recording. Verify your legal obligations before keeping this toggle enabled.
+    </Warning>
+  </Tab>
+  <Tab title="Foundation Components Switches">
+    **Three Independent Toggles:**
+
+    Meetzy Foundation Components are delivered as three separate switches, each controlling a predefined block of prompt instructions that gets automatically injected into your agent's behavior:
+
+    | Toggle | Prompt Block Injected | Default |
+    |--------|-----------------------|---------|
+    | **Safety Guardrails** | Content filtering, professional tone enforcement, prompt-injection protection, edge-case handling | **On** |
+    | **Conversational Aspects** | Natural pacing, active listening cues, empathetic phrasing, professional phone etiquette | **On** |
+    | **Agent Skills** | Industry-aware professional background, business process knowledge, situational response patterns | **On** |
+
+    <Steps>
+      <Step title="Review Each Toggle">
+        Inspect the three switches individually to understand which prompt block each one controls
+      </Step>
+      <Step title="Disable Only if Necessary">
+        Turn off a specific toggle only when your custom system prompt directly conflicts with that predefined block
+      </Step>
+      <Step title="Test After Changes">
+        Use the Playground to validate agent behavior any time a Foundation Component toggle is changed
+      </Step>
+    </Steps>
+
+    <Info>
+    **Independent Control**: Each toggle can be switched on or off independently, allowing granular control over which predefined prompt blocks are combined with your custom instructions.
+    </Info>
+
+    <Warning>
+    **Strong Recommendation**: Keep all three toggles enabled unless you have a specific requirement that conflicts with one of the predefined blocks. Disabling them removes months of accumulated conversational optimization.
+    </Warning>
+  </Tab>
+</Tabs>
+
 ## Meetzy Foundation Components
 
-Leverage Meetzy's powerful built-in foundational components that provide professional-grade conversation capabilities refined through thousands of real-world interactions:
+Leverage Meetzy's powerful built-in foundational components that provide professional-grade conversation capabilities refined through thousands of real-world interactions. Each component below is controlled by its own toggle switch in the Intelligence section, letting you activate or deactivate the corresponding predefined prompt block at any time.
 
 <Tabs>
   <Tab title="Enhanced Safety Guardrails">
@@ -429,14 +511,14 @@ Leverage Meetzy's powerful built-in foundational components that provide profess
     - **Context Awareness**: Appropriate responses based on conversation context
     - **Industry Best Practices**: Following established business communication protocols
 
-    **Configuration:**
-    - **Default State**: Enabled by default for maximum protection
-    - **Zero Setup**: Functions automatically without additional configuration
-    - **Transparent Operation**: Works seamlessly with custom prompts and behaviors
-    - **Adaptive Intelligence**: Automatically adjusts based on context and language
+    **Toggle Behavior:**
+    - **Default State**: Toggle is **on** by default for maximum protection
+    - **Zero Setup**: Functions automatically without additional configuration once enabled
+    - **Transparent Operation**: Works seamlessly alongside custom prompts and behaviors
+    - **Instant Effect**: Switching the toggle off immediately removes the guardrail prompt block from the agent
 
     <Warning>
-    **Recommended Practice**: Keep safety guardrails enabled unless specific requirements conflict with professional conversation standards.
+    **Recommended Practice**: Keep the Safety Guardrails toggle enabled unless specific requirements conflict with professional conversation standards.
     </Warning>
   </Tab>
   <Tab title="Advanced Conversational Aspects">
@@ -450,17 +532,16 @@ Leverage Meetzy's powerful built-in foundational components that provide profess
     - **Cultural Sensitivity**: Appropriate communication styles for different regions
     - **Conflict Resolution**: Professional de-escalation and problem-solving approaches
 
-    **Performance Benefits:**
-    - **Immediate Professionalism**: Agents sound experienced from first interaction
-    - **Accelerated Development**: Skip months of conversation optimization
-    - **Consistent Excellence**: Every agent benefits from accumulated expertise
-    - **Adaptive Intelligence**: Automatically adapts to specific business contexts
+    **Toggle Behavior:**
+    - **Default State**: Toggle is **on** by default
+    - **Immediate Professionalism**: Agents sound experienced from the first interaction while enabled
+    - **Reversible**: Disabling the toggle removes the conversational prompt block without affecting other Foundation Components
 
     <Info>
-    **Battle-Tested Patterns**: Conversational aspects represent months of optimization based on successful real-world conversations.
+    **Battle-Tested Patterns**: Conversational aspects represent months of optimization based on successful real-world conversations, applied instantly whenever this toggle is enabled.
     </Info>
   </Tab>
-  <Tab title="Professional Agent Skills">
+  <Tab title="Agent Skills">
     **Comprehensive Professional Background:**
     - **Industry-Specific Knowledge**: Tailored professional contexts for various sectors
     - **Advanced Communication Skills**: Professional-level interaction capabilities
@@ -470,6 +551,11 @@ Leverage Meetzy's powerful built-in foundational components that provide profess
     - **Situational Awareness**: Context-appropriate responses based on business needs
     - **Problem-Solving Experience**: Track record of resolving customer challenges
     - **Relationship Management**: Professional relationship building and maintenance skills
+
+    **Toggle Behavior:**
+    - **Default State**: Toggle is **on** by default
+    - **Layered With Skill Templates**: Works together with any specialized skill templates selected earlier in this section
+    - **Independent Switch**: Can be disabled without affecting Safety Guardrails or Conversational Aspects
 
     **Specialized Skills Examples:**
     - **Sales Representatives**: Quota achievement and conversion expertise
@@ -482,14 +568,14 @@ Leverage Meetzy's powerful built-in foundational components that provide profess
   <Tab title="Foundation Integration">
     **Synergistic Component Operation:**
 
-    | Component | Primary Function | Integration Level | Business Impact |
-    |-----------|------------------|------------------|------------------|
-    | **Safety Guardrails** | Protective framework | **Critical** | Risk mitigation |
-    | **Conversational Aspects** | Natural communication | **Essential** | User experience |
-    | **Professional Agent Skills** | Credibility establishment | **Important** | Trust building |
+    | Component | Toggle Default | Primary Function | Business Impact |
+    |-----------|-----------------|------------------|------------------|
+    | **Safety Guardrails** | On | Protective framework | Risk mitigation |
+    | **Conversational Aspects** | On | Natural communication | User experience |
+    | **Agent Skills** | On | Credibility establishment | Trust building |
 
     <Info>
-    **Synergistic Design**: All foundational components work together to create a cohesive, professional agent experience that adapts to your specific business requirements.
+    **Synergistic Design**: All three toggles work together to create a cohesive, professional agent experience, but each can be adjusted independently to adapt to your specific business requirements.
     </Info>
 
     <Info>
@@ -497,7 +583,7 @@ Leverage Meetzy's powerful built-in foundational components that provide profess
     </Info>
 
     <Warning>
-    **Strong Recommendation**: Keep all foundational components enabled unless you have specific custom requirements that directly conflict. These are optimized for maximum performance.
+    **Strong Recommendation**: Keep all foundational component toggles enabled unless you have specific custom requirements that directly conflict. These are optimized for maximum performance.
     </Warning>
   </Tab>
 </Tabs>
@@ -555,6 +641,8 @@ Fine-tune how your agent handles conversation timing and responses:
 - **Performance Analytics**: Analyze conversation patterns and success rates
 - **Customer Service Verification**: Validate service quality and resolution effectiveness
 
+Recording is controlled by the **Record Calls toggle** in the Intelligence section, described above. Switching it on stores audio for every completed call; switching it off skips recording entirely for that agent.
+
 <Info>
 **Default Enabled**: Call recording is enabled by default to provide maximum value from every interaction and support continuous improvement.
 </Info>
@@ -582,6 +670,9 @@ Fine-tune how your agent handles conversation timing and responses:
   <Step title="Voice Optimization">
     Configure language, voice selection, and fine-tune voice parameters for optimal performance
   </Step>
+  <Step title="Intelligence Tuning">
+    Set the model Temperature, decide whether to enable call recording, and review the three Foundation Components toggles
+  </Step>
   <Step title="Behavioral Configuration">
     Set up conversational behavior, response timing, and call management parameters
   </Step>
@@ -598,9 +689,9 @@ Fine-tune how your agent handles conversation timing and responses:
 **Seamless Workflow Integration:**
 - **Voice Agents**: Automatically configure appropriate voice and behavioral settings
 - **Specialized Skills**: Integrate with system prompts and conversation patterns
-- **Foundation Components**: Work harmoniously with custom prompts and tools
+- **Foundation Components**: Work harmoniously with custom prompts and tools, and can be toggled independently
 - **Language Selection**: Influence greeting templates and conversation suggestions
-- **AI Models**: Optimize for specific conversation complexity and requirements
+- **AI Models**: Optimize for specific conversation complexity and requirements, tuned further via the Temperature slider
 
 <Info>
 **Workflow Optimization**: Complete basic settings configuration before proceeding to other Advanced Editor sections for optimal agent development experience.
@@ -636,6 +727,17 @@ Fine-tune how your agent handles conversation timing and responses:
     - Use "Check Status" to confirm verification state
     - Maintain updated caller ID list for outbound campaigns
   </Tab>
+  <Tab title="Intelligence Tuning Issues">
+    **Temperature Problems:**
+    - **Overly Robotic Responses**: Raise Temperature slightly toward the 0.5 range
+    - **Off-Script Drift**: Lower Temperature toward 0.2-0.3 for tighter control
+    - **Inconsistent Results Across Calls**: Retest after any Temperature change using the Playground
+
+    **Foundation Toggle Problems:**
+    - **Unexpected Tone Shifts**: Check whether Safety Guardrails or Conversational Aspects were accidentally disabled
+    - **Missing Professional Context**: Confirm the Agent Skills toggle is enabled
+    - **Recording Not Captured**: Verify the Record Calls toggle is switched on before the call took place
+  </Tab>
   <Tab title="Performance Optimization">
     **Model Selection Strategy:**
     <Info>
@@ -649,11 +751,11 @@ Fine-tune how your agent handles conversation timing and responses:
 
     **Foundation Components:**
     <Info>
-    **Component Benefits**: Keep Meetzy foundation components enabled to leverage professional-grade conversation patterns and safety measures.
+    **Component Benefits**: Keep Meetzy foundation component toggles enabled to leverage professional-grade conversation patterns and safety measures.
     </Info>
 
     <Warning>
-    **Change Impact**: Any modifications to AI models, voice settings, or foundational components should be thoroughly tested before production deployment.
+    **Change Impact**: Any modifications to AI models, Temperature, voice settings, or foundational component toggles should be thoroughly tested before production deployment.
     </Warning>
   </Tab>
 </Tabs>

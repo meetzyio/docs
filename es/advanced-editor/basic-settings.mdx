@@ -8,10 +8,173 @@ icon: 'gear'
 
 La Configuración Básica establece los **Componentes Fundacionales** de tu agente conversacional de IA, incluyendo la configuración de infraestructura telefónica con cuentas Twilio, gestión de números de teléfono y caller IDs, así como la personalización con agentes de voz especializados por industria, componentes base de seguridad y capacidades conversacionales avanzadas.
 
+<Info>
+Los controles de **Temperature**, **grabación de llamadas** y los **toggles de Meetzy Foundation Components** viven todos dentro de la sección **Intelligence** del editor avanzado. Esta guía documenta cada uno en detalle para que puedas ajustar el nivel de creatividad, cumplimiento y calidad conversacional de tu agente.
+</Info>
+
+## Sección Intelligence
+
+La sección **Intelligence** agrupa todos los controles que definen la "mente" de tu agente: el modelo de IA que utiliza, cuánta creatividad se le permite (Temperature), si sus conversaciones se grabarán, y qué Componentes Fundacionales de Meetzy están activos. Todos estos controles se encuentran en el mismo panel para que puedas ajustarlos de forma conjunta y coherente.
+
+### Temperature (Creatividad del Modelo)
+
+<Info>
+**Valor por defecto**: 0.7 — un balance óptimo entre respuestas consistentes y naturalidad conversacional, validado en miles de agentes en producción.
+</Info>
+
+El control de **Temperature** determina cuánta variabilidad y creatividad tiene el modelo de IA al generar sus respuestas. Es uno de los parámetros más importantes para ajustar la personalidad y previsibilidad de tu agente.
+
+<Tabs>
+  <Tab title="¿Cómo funciona?">
+    **Temperature baja (0.0 - 0.3)**
+    - Respuestas más deterministas, consistentes y predecibles
+    - El agente tiende a repetir patrones y frases similares ante situaciones parecidas
+    - Ideal cuando necesitas máxima precisión y control sobre el mensaje
+    - Reduce el riesgo de respuestas inesperadas o "creativas" en exceso
+
+    **Temperature media (0.4 - 0.7)**
+    - Balance entre consistencia y naturalidad conversacional
+    - El agente varía su fraseo sin perder coherencia ni precisión
+    - Recomendado para la gran mayoría de casos de uso empresariales
+
+    **Temperature alta (0.8 - 1.0)**
+    - Respuestas más creativas, variadas y espontáneas
+    - Mayor riesgo de desviaciones del guion o inconsistencias
+    - Útil en contextos donde se busca una conversación más humana y menos "robotizada"
+  </Tab>
+
+  <Tab title="Recomendaciones por Caso de Uso">
+    | Caso de Uso | Temperature Sugerida | Razón |
+    |-------------|----------------------|-------|
+    | Soporte técnico y troubleshooting | 0.2 - 0.4 | Precisión y consistencia en instrucciones |
+    | Atención al cliente estándar | 0.5 - 0.7 | Naturalidad sin perder control del mensaje |
+    | Ventas y negociación | 0.6 - 0.8 | Espontaneidad para adaptarse al interlocutor |
+    | Compliance y sector regulado (salud, finanzas) | 0.1 - 0.3 | Máxima previsibilidad y control de riesgo |
+    | Agentes conversacionales generales | 0.5 - 0.65 | Balance recomendado por defecto |
+  </Tab>
+
+  <Tab title="Buenas Prácticas">
+    - **Empieza siempre con el valor por defecto** (0.7) y ajusta gradualmente según los resultados observados en el Playground
+    - **Baja el valor** si notas que el agente se desvía del guion, inventa información o suena inconsistente entre llamadas
+    - **Sube el valor** si el agente suena demasiado robótico, repetitivo o poco natural
+    - **Documenta los cambios** de Temperature junto con el motivo, para poder revertir fácilmente si el rendimiento empeora
+    - **Prueba en A/B** diferentes valores de Temperature antes de aplicar cambios masivos en producción
+  </Tab>
+</Tabs>
+
+<Warning>
+Valores de Temperature muy altos (cercanos a 1.0) pueden hacer que el agente genere respuestas incoherentes, se desvíe de las instrucciones del sistema o incumpla políticas de la empresa. En sectores regulados, se recomienda mantener valores bajos y validar exhaustivamente en Playground antes de producción.
+</Warning>
+
+### Grabación de Llamadas (Toggle en Intelligence)
+
+El toggle de **grabación de llamadas** se encuentra en la sección Intelligence, junto a la selección de modelo y el control de Temperature. Está **habilitado por defecto** en todos los agentes nuevos.
+
+<Steps>
+  <Step title="Localizar el toggle">
+    Dentro del panel Intelligence, busca el interruptor "Grabar llamadas" junto a los controles de modelo y Temperature
+  </Step>
+  <Step title="Revisar el estado actual">
+    Un toggle en verde/activado indica que la grabación está habilitada; en gris/desactivado, deshabilitada
+  </Step>
+  <Step title="Activar o desactivar según necesidad">
+    Haz clic sobre el toggle para cambiar el estado. El cambio se aplica de inmediato a partir de la próxima llamada
+  </Step>
+  <Step title="Confirmar el cambio">
+    Guarda la configuración del agente para persistir el nuevo estado del toggle
+  </Step>
+</Steps>
+
+Para conocer en profundidad los beneficios, características avanzadas y opciones de configuración de la grabación (retención, selectividad, seguridad), consulta la sección [Configuración de Grabación de Llamadas](#configuración-de-grabación-de-llamadas) más abajo en esta misma página.
+
+### Toggles de Meetzy Foundation Components
+
+<Info>
+Los tres Componentes Fundacionales de Meetzy —**Guardrails de Seguridad**, **Aspectos Conversacionales** y **Skills de Agente**— ahora se controlan de forma **independiente** mediante toggles individuales dentro de la sección Intelligence. Esto te da control granular total sobre qué fundamentos del sistema se aplican a tu agente.
+</Info>
+
+Cada Componente Fundacional tiene su propio interruptor on/off. Por defecto, **los tres toggles están activados** en agentes nuevos para garantizar conversaciones de alta calidad desde el primer momento.
+
+<Steps>
+  <Step title="Abrir la sección Intelligence">
+    Ve al panel Intelligence dentro del editor avanzado de tu agente
+  </Step>
+  <Step title="Localizar los tres toggles de Foundation Components">
+    Verás tres interruptores independientes, uno por cada componente: 🛡️ Guardrails de Seguridad, 🎭 Aspectos Conversacionales y 💼 Skills de Agente
+  </Step>
+  <Step title="Activar o desactivar individualmente">
+    Cada toggle puede activarse o desactivarse sin afectar a los otros dos, permitiendo combinaciones personalizadas
+  </Step>
+  <Step title="Revisar el efecto en el prompt">
+    Al desactivar un componente, su contenido correspondiente se elimina automáticamente del prompt del sistema del asistente
+  </Step>
+  <Step title="Guardar y validar en Playground">
+    Guarda los cambios y prueba exhaustivamente en el Playground antes de aplicar en producción
+  </Step>
+</Steps>
+
+#### Detalle de cada Toggle
+
+<Tabs>
+  <Tab title="🛡️ Guardrails de Seguridad">
+    **Toggle independiente** — Activado por defecto
+
+    Controla la inclusión de:
+    - Restricciones éticas y de comportamiento rigurosas
+    - Mantenimiento del contexto profesional en toda interacción
+    - Prevención automática de temas inapropiados o sensibles
+    - Límites de conversación seguros y apropiados
+    - Protocolos de escalación automática ante situaciones complejas
+    - Filtros de contenido y moderación preventiva
+
+    <Warning>
+    Desactivar este toggle elimina las protecciones de comportamiento del prompt base. Solo recomendado si cuentas con tus propios guardrails personalizados, ya probados y validados.
+    </Warning>
+  </Tab>
+
+  <Tab title="🎭 Aspectos Conversacionales">
+    **Toggle independiente** — Activado por defecto
+
+    Controla la inclusión de:
+    - Manejo inteligente de interrupciones del interlocutor
+    - Gestión profesional de silencios y pausas conversacionales
+    - Transiciones conversacionales fluidas y naturales
+    - Técnicas de clarificación activa y confirmación
+    - Adaptación dinámica al ritmo del interlocutor
+    - Reconocimiento y manejo de emociones básicas
+    - Estrategias de re-engagement para conversaciones estancadas
+
+    <Info>
+    Desactivar este toggle puede hacer que el agente suene menos natural en el manejo de silencios, interrupciones y transiciones. Útil solo si tienes lógica conversacional propia ya implementada.
+    </Info>
+  </Tab>
+
+  <Tab title="💼 Skills de Agente (Background Laboral)">
+    **Toggle independiente** — Activado por defecto
+
+    Controla la inclusión de:
+    - Conocimiento profundo de protocolos telefónicos empresariales
+    - Mejores prácticas del sector de atención al cliente
+    - Experiencia en comunicación corporativa multicanal
+    - Estándares internacionales de servicio al cliente
+    - Competencias profesionales transversales certificadas
+    - Técnicas de resolución de conflictos y mediación
+    - Conocimiento de compliance y regulaciones básicas
+
+    <Info>
+    Este toggle es independiente de la selección de un Agente de Voz Especializado (ver sección más abajo). Puedes desactivarlo si prefieres definir tú mismo el background profesional del agente en un prompt personalizado.
+    </Info>
+  </Tab>
+</Tabs>
+
+<Warning>
+**Importante**: Desactivar cualquiera de los tres toggles puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado, probado y validado en producción. Recomendamos desactivar un solo toggle a la vez y validar en Playground antes de continuar.
+</Warning>
+
 ## Componentes Base de Meetzy
 
 <Info>
-Los Componentes Base están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento.
+Los Componentes Base están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento. Su activación individual se gestiona mediante los **toggles de Meetzy Foundation Components** descritos en la sección Intelligence más arriba.
 </Info>
 
 Los Componentes Base de Meetzy proporcionan la fundación para agentes conversacionales profesionales y consistentes. Esta funcionalidad permite un control granular sobre qué elementos base del sistema Meetzy se incluyen en el prompt del asistente.
@@ -598,7 +761,7 @@ Los Caller IDs permiten configurar números específicos para llamadas salientes
 
 ## Configuración de Modelo de IA (LLM)
 
-Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacional y capacidades de razonamiento de tu agente especializado.
+Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacional y capacidades de razonamiento de tu agente especializado. Este selector vive en la sección **Intelligence**, justo al lado del control de Temperature y los toggles de Foundation Components.
 
 ### Modelos Disponibles por Proveedor
 
@@ -609,604 +772,4 @@ Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia conversacion
     | **Gemini 3.1 Flash Lite Preview** | Ultra Alto ⭐ | Muy Rápida | Medio | **Recomendado por defecto** - Máximo rendimiento optimizado para producción |
     | Gemini 2.5 Flash | Alto | Rápida | Medio | Balance perfecto calidad-velocidad para operaciones 24/7 |
     | Gemini 2.0 Flash | Equilibrado | Muy Rápida | Bajo | Respuestas rápidas económicas para alto volumen |
-    | Gemini 1.5 Pro | Máximo | Moderada | Alto | Razonamiento complejo y análisis profundo especializado |
-    | Gemini 1.5 Flash | Confiable | Rápida | Medio | Estabilidad probada en producción empresarial |
-    
-    **Características Distintivas de Gemini:**
-    - Comprensión contextual superior para conversaciones largas
-    - Integración nativa con herramientas de Google Workspace
-    - Optimización específica para casos de uso empresariales
-    - Soporte multimodal avanzado (texto, voz, imagen)
-    - Compliance y seguridad empresarial certificada
-  </Tab>
-  
-  <Tab title="OpenAI">
-    | Modelo | Rendimiento | Velocidad | Costo | Ideal Para |
-    |--------|-------------|-----------|-------|------------|
-    | GPT-4o | Alto | Rápida | Alto | Balance inteligencia-velocidad versátil para casos complejos |
-    | GPT-4.1 | Máximo | Moderada | Muy Alto | Últimas capacidades y tecnología más avanzada disponible |
-    | GPT-4.1 Mini | Eficiente | Muy Rápida | Medio | Económico manteniendo calidad superior de OpenAI |
-    | GPT-4.1 Nano | Básico | Ultra Rápida | Bajo | Respuestas instantáneas ultra rápidas para consultas simples |
-    
-    **Fortalezas de OpenAI:**
-    - Calidad de escritura y creatividad superiores
-    - Razonamiento lógico excepcional
-    - Amplio conocimiento general actualizado
-    - Integración robusta con APIs empresariales
-    - Comunidad y ecosistema de desarrollo maduro
-  </Tab>
-  
-  <Tab title="Anthropic Claude">
-    | Modelo | Rendimiento | Velocidad | Costo | Ideal Para |
-    |--------|-------------|-----------|-------|------------|
-    | Claude Haiku 4.5 | Eficiente | Ultra Rápida | Muy Bajo | Máxima economía y velocidad para operaciones masivas |
-    | Claude Sonnet 3.5 | Alto | Rápida | Medio | Balance premium entre capacidades y eficiencia |
-    | Claude Opus | Máximo | Moderada | Alto | Análisis más sofisticado y razonamiento ético avanzado |
-    
-    **Ventajas de Claude:**
-    - Enfoque ético y seguridad conversacional superior
-    - Excelente para contenido sensible o regulado
-    - Razonamiento transparente y explicable
-    - Reducción de sesgos y alucinaciones
-    - Cumplimiento riguroso con políticas empresariales
-  </Tab>
-  
-  <Tab title="Comparativa Técnica">
-    **🚀 Velocidad de Respuesta (menor latencia)**
-    1. GPT-4.1 Nano (ultra rápido)
-    2. Claude Haiku 4.5 (ultra rápido) 
-    3. Gemini 2.0 Flash (muy rápido)
-    4. Gemini 2.5 Flash (rápido)
-    5. GPT-4.1 Mini (rápido)
-    
-    **🧠 Capacidades Intelectuales (razonamiento complejo)**
-    1. GPT-4.1 (máximo)
-    2. Gemini 1.5 Pro (máximo)
-    3. Claude Opus (máximo)
-    4. Gemini 3.1 Flash Lite Preview (ultra alto)
-    5. GPT-4o (alto)
-    
-    **💰 Eficiencia de Costos (mejor relación calidad-precio)**
-    1. Claude Haiku 4.5 (excelente)
-    2. Gemini 2.0 Flash (muy buena)
-    3. GPT-4.1 Mini (buena)
-    4. Gemini 2.5 Flash (buena)
-    5. Gemini 3.1 Flash Lite Preview (buena)
-  </Tab>
-</Tabs>
-
-### Guía de Selección Estratégica por Caso de Uso
-
-<Tabs>
-  <Tab title="🚀 Maximizar Velocidad">
-    **Modelos Ultra-Rápidos para Tiempo Real:**
-    - **GPT-4.1 Nano** (respuestas sub-segundo)
-    - **Claude Haiku 4.5** (económico y ultra veloz)
-    - **Gemini 2.0 Flash** (equilibrio velocidad-calidad)
-    
-    **Casos de Uso Ideales:**
-    - Call centers con altísimo volumen (>1000 llamadas/día)
-    - Consultas simples y directas (FAQ, información básica)
-    - Respuestas inmediatas críticas (emergencias, urgencias)
-    - Sistemas de routing y clasificación automática
-    - Chatbots de soporte básico integrados
-    
-    **Beneficios Operacionales:**
-    - Reducción dramática de tiempo de espera
-    - Capacidad para manejar picos de tráfico
-    - Menor costo computacional por interacción
-    - Mayor satisfacción del cliente por velocidad
-  </Tab>
-  
-  <Tab title="⚖️ Balance Óptimo">
-    **Modelos Recomendados para Mayoría de Casos:**
-    - **Gemini 3.1 Flash Lite Preview** ⭐ (opción por defecto premium)
-    - **GPT-4o** (versatilidad y confiabilidad probada)
-    - **Gemini 2.5 Flash** (rendimiento consistente superior)
-    
-    **Casos de Uso Principales:**
-    - 85% de operaciones empresariales estándar
-    - Conversaciones complejas pero fluidas
-    - Agentes especializados por industria
-    - Atención al cliente multi-nivel
-    - Ventas consultivas y nurturing de leads
-    
-    **Ventajas Estratégicas:**
-    - Relación calidad-precio óptima validada
-    - Flexibilidad para múltiples tipos de consultas
-    - Escalabilidad probada en producción
-    - Mantenimiento simplificado de configuraciones
-  </Tab>
-  
-  <Tab title="🧠 Máxima Inteligencia">
-    **Modelos Premium para Casos Complejos:**
-    - **Gemini 1.5 Pro** (razonamiento profundo multimodal)
-    - **GPT-4.1** (capacidades más avanzadas disponibles)
-    - **Claude Opus** (análisis ético y transparente)
-    
-    **Casos de Uso Especializados:**
-    - Análisis complejo de información empresarial
-    - Resolución de problemas técnicos sofisticados
-    - Toma de decisiones críticas con múltiples variables
-    - Consultoría especializada y asesoramiento estratégico
-    - Compliance y análisis regulatorio automático
-    
-    **Aplicaciones Estratégicas:**
-    - C-level executive support y business intelligence
-    - Legal tech y análisis contractual automatizado
-    - Medical decision support y diagnóstico asistido
-    - Financial analysis y risk assessment avanzado
-  </Tab>
-  
-  <Tab title="💰 Optimizar Costos">
-    **Modelos Económicos Manteniendo Calidad:**
-    - **Claude Haiku 4.5** (mejor relación calidad-precio)
-    - **Gemini 2.0 Flash** (Google value proposition)
-    - **GPT-4.1 Mini** (OpenAI económico manteniendo capacidades)
-    
-    **Escenarios de Optimización:**
-    - Startups y SMBs con presupuestos limitados
-    - Operaciones de alto volumen con márgenes ajustados
-    - Pruebas, desarrollo y staging environments
-    - Implementaciones piloto y validación de concepto
-    - Servicios freemium con upgrade path
-    
-    **Estrategias de Ahorro:**
-    - Implementación en fases con modelo económico inicial
-    - Upgrade selectivo a modelos premium para casos críticos
-    - Optimización de prompts para reducir tokens
-    - Monitoring y análisis de ROI por modelo utilizado
-  </Tab>
-</Tabs>
-
-<Info>
-**Recomendación Estratégica**: **Gemini 3.1 Flash Lite Preview** representa actualmente la mejor opción por defecto, ofreciendo capacidades de última generación, velocidad empresarial, y costo-efectividad superior validado en miles de implementaciones empresariales.
-</Info>
-
-### Consideraciones Técnicas para Selección
-
-**🔧 Latencia y Performance**
-- **Crítica** (<500ms): Nano, Haiku, Flash
-- **Estándar** (500ms-1.5s): 4o, Flash Lite Preview, Sonnet
-- **Investigación** (1.5s+): Pro, Opus, 4.1
-
-**📊 Escalabilidad y Throughput**
-- **Alto volumen** (>500 req/min): Haiku, Flash, Nano
-- **Medio volumen** (100-500 req/min): Flash Lite, 4o, Mini
-- **Especializado** (<100 req/min): Pro, Opus, 4.1
-
-**🔒 Compliance y Seguridad**
-- **Máxima seguridad**: Claude (cualquier versión)
-- **Enterprise grade**: Gemini Pro, GPT-4.1
-- **Estándar empresarial**: Resto de modelos
-
-**💾 Context Window y Memoria**
-- **Conversaciones largas**: Gemini Pro, Claude Opus
-- **Sesiones estándar**: Todas las opciones Flash/4o
-- **Consultas cortas**: Nano, Haiku, Mini
-
-## Configuración Avanzada del Agente
-
-### Nombre Interno del Agente
-
-Proporciona un nombre descriptivo y estructurado que facilite la identificación y gestión eficiente en tu panel administrativo y workflows empresariales.
-
-<Info>
-**Mejores Prácticas de Nomenclatura Empresarial:**
-- **Incluye especialidad**: "Ventas Inmobiliaria - Premium Madrid"
-- **Especifica función y nivel**: "Soporte Técnico - Nivel 1 - 24/7"
-- **Indica idioma y región**: "Atención Cliente - Español LATAM"
-- **Añade ubicación o sucursal**: "Recepción Barcelona - Eixample"
-- **Versioning para A/B testing**: "Sales Agent v2.1 - High Convert"
-</Info>
-
-#### Ejemplos de Nomenclatura Estructurada
-
-**🏢 Por Departamento:**
-- "VENTAS_Inmobiliaria_Premium_ES"
-- "SOPORTE_Técnico_L1_24h"
-- "MARKETING_LeadQualification_EMEA"
-
-**📍 Por Ubicación Geográfica:**
-- "Madrid_Receptionist_Castellana"
-- "Barcelona_Sales_CityCenter" 
-- "LATAM_CustomerSuccess_GMT-3"
-
-**🎯 Por Público Objetivo:**
-- "VIP_CustomerCare_Premium"
-- "SMB_Sales_Onboarding"
-- "Enterprise_TechnicalSupport"
-
-**🔄 Por Versión y Testing:**
-- "CustomerService_v3.2_Production"
-- "Sales_ABTest_Variant_B"
-- "Support_Beta_NewFeatures"
-
-### Configuración de Grabación de Llamadas
-
-<Info>
-**Habilitado por defecto**: La grabación de llamadas está activada automáticamente para cumplir con mejores prácticas de calidad, auditoría legal, análisis de rendimiento y cumplimiento regulatorio empresarial.
-</Info>
-
-#### Beneficios Estratégicos de la Grabación
-
-<Steps>
-  <Step title="Control de Calidad Continuo">
-    **Monitoreo en tiempo real** de la calidad conversacional con alertas automáticas y detección proactiva de áreas de mejora, análisis de sentimientos y satisfaction scoring automatizado
-  </Step>
-  <Step title="Análisis de Rendimiento Detallado">
-    **Métricas avanzadas de éxito** incluyendo conversion rates, tiempo de resolución, satisfaction scores, análisis de sentimientos, identificación de pain points y oportunidades de up-sell
-  </Step>
-  <Step title="Cumplimiento Regulatorio Automático">
-    **Adherencia automática** a requisitos legales específicos de tu industria y región, incluyendo GDPR, CCPA, sox compliance, y regulaciones financieras y de salud
-  </Step>
-  <Step title="Mejora Continua del Sistema">
-    **Machine learning insights** para optimización automática de configuraciones, prompts, flujos conversacionales y agentes especializados basado en datos reales de performance
-  </Step>
-  <Step title="Formación y Entrenamiento">
-    **Casos reales documentados** para mejorar el rendimiento del sistema, entrenar nuevos agentes, crear knowledge bases actualizadas y desarrollar mejores prácticas
-  </Step>
-  <Step title="Análisis Competitivo y Market Intelligence">
-    **Insights de mercado** derivados de conversaciones para entender mejor necesidades del cliente, tendencias del mercado y oportunidades de producto
-  </Step>
-</Steps>
-
-#### Características Avanzadas de Grabación
-
-**🔍 Análisis Automático:**
-- Transcripción automática multi-idioma con alta precisión
-- Análisis de sentimientos en tiempo real
-- Identificación automática de keywords y temas críticos
-- Scoring automático de calidad conversacional
-- Detección de compliance violations y alertas
-
-**📊 Métricas y KPIs:**
-- Tiempo de respuesta promedio por agente
-- Tasas de resolución en primera llamada
-- Customer satisfaction scores automáticos
-- Análisis de successful outcomes por especialidad
-- ROI tracking por tipo de conversación
-
-**🛡️ Seguridad y Privacidad:**
-- Encriptación end-to-end para todas las grabaciones
-- Cumplimiento automático con regulaciones de privacidad
-- Retención configurable según requisitos legales
-- Redaction automática de información sensible (PII)
-- Access controls granulares para equipos
-
-**⚡ Integración Empresarial:**
-- Export automático a sistemas CRM existentes
-- APIs para integración con herramientas de análisis
-- Dashboards ejecutivos en tiempo real
-- Alertas automáticas para escalación
-- Integration con quality assurance workflows
-
-### Opciones de Configuración de Grabación
-
-<Tabs>
-  <Tab title="Habilitado (Recomendado)">
-    **Grabación Completa Activada** ✅
-    
-    **Beneficios Inmediatos:**
-    - Análisis completo de performance en tiempo real
-    - Compliance automático con regulaciones
-    - Métricas detalladas y insights accionables
-    - Capacidad de mejora continua basada en datos
-    - Protección legal y documentación completa
-    
-    **Características Incluidas:**
-    - Transcripción automática multiidioma
-    - Análisis de sentimientos avanzado
-    - Scoring de calidad conversacional
-    - Alertas automáticas de escalación
-    - Dashboards ejecutivos en tiempo real
-  </Tab>
-  
-  <Tab title="Deshabilitado">
-    **Grabación Desactivada** ⚠️
-    
-    **Limitaciones Significativas:**
-    - Sin análisis de performance detallado
-    - Compliance manual y propenso a errores
-    - Imposibilidad de mejora basada en datos reales
-    - Falta de evidencia para disputes legales
-    - Pérdida de insights valiosos de mercado
-    
-    **Casos de Uso Limitados:**
-    - Ambientes de testing y desarrollo únicamente
-    - Situaciones específicas de privacidad extrema
-    - Configuraciones temporales de prototipado
-    
-    <Warning>
-    **No recomendado para producción**: Deshabilitar grabación limita severamente las capacidades de optimización, compliance y análisis de calidad.
-    </Warning>
-  </Tab>
-  
-  <Tab title="Configuración Avanzada">
-    **Opciones de Personalización Detalladas:**
-    
-    **📅 Retención de Datos:**
-    - 30 días: Testing y desarrollo
-    - 90 días: Operaciones estándar
-    - 1 año: Compliance empresarial
-    - 7 años: Regulaciones financieras estrictas
-    
-    **🎯 Selectividad de Grabación:**
-    - Todas las llamadas (recomendado)
-    - Solo llamadas salientes
-    - Solo llamadas entrantes
-    - Basado en duración mínima
-    - Filtros por keywords o temas específicos
-    
-    **🔒 Niveles de Seguridad:**
-    - Estándar: Encriptación básica
-    - Empresarial: Encriptación avanzada + access controls
-    - Regulado: Máxima seguridad + compliance automático
-    - Custom: Configuración específica según industria
-  </Tab>
-</Tabs>
-
-## Mejores Prácticas de Configuración Integral
-
-<Steps>
-  <Step title="Configuración Base Recomendada">
-    **Fundación Sólida:**
-    - Usar **Gemini 3.1 Flash Lite Preview** como modelo por defecto optimizado
-    - Mantener **todos los Componentes Base** activados para máxima calidad
-    - **Habilitar grabación** de llamadas con retención empresarial
-    - Configurar **nombres descriptivos** siguiendo convenciones estructuradas
-  </Step>
-  <Step title="Configuración de Infraestructura Telefónica">
-    **Setup Técnico Robusto:**
-    - **Seleccionar cuenta Twilio** apropiada según región y compliance (administradores)
-    - **Asignar número telefónico** específico y único para cada agente
-    - **Verificar completamente** todos los Caller IDs necesarios para operaciones
-    - **Configurar redundancia** con múltiples números para alta disponibilidad
-  </Step>
-  <Step title="Selección de Agente Especializado">
-    **Optimización por Industria:**
-    - **Elegir agente de voz** que coincida específicamente con tu sector e imagen corporativa
-    - **Considerar perfil demográfico** de tus clientes objetivo y preferencias regionales
-    - **Validar skills profesionales** incluidos vs requisitos de tu operación
-    - **Probar combinaciones** de voz, velocidad y personalidad para máxima efectividad
-  </Step>
-  <Step title="Validación Exhaustiva Pre-Producción">
-    **Testing Sistemático:**
-    - **Probar completamente** en Playground con escenarios reales antes de producción
-    - **Verificar comportamientos** específicos del sector y edge cases comunes
-    - **Validar integración** con sistemas empresariales existentes (CRM, helpdesk, etc.)
-    - **Confirmar performance** bajo carga simulada y condiciones adversas
-  </Step>
-  <Step title="Monitoreo Continuo y Optimización">
-    **Gestión Operacional:**
-    - **Revisar regularmente** velocidad de respuesta y calidad conversacional
-    - **Analizar métricas** de calidad conversacional y satisfaction scores
-    - **Optimizar configuraciones** basado en feedback real y data analytics
-    - **Implementar mejoras** incrementales basadas en insights de grabaciones
-  </Step>
-</Steps>
-
-## Casos de Uso Específicos por Industria
-
-<Tabs>
-  <Tab title="Sector Inmobiliario">
-    **Configuración Recomendada Optimizada:**
-    - **Agente Especializado**: Real Estate Sales Specialist certificado
-    - **Modelo de IA**: Gemini 3.1 Flash Lite Preview para análisis de propiedades
-    - **Skills Integrados**: Valoraciones, hipotecas, análisis de mercado inmobiliario
-    - **Caller IDs**: Números locales para cada zona de operación
-    
-    **Beneficios Específicos del Sector:**
-    - Conocimiento profundo de terminología inmobiliaria y legal
-    - Procesos de compra-venta optimizados según legislación local
-    - Gestión inteligente de leads cualificados con scoring automático
-    - Integración con MLS y sistemas de gestión inmobiliaria
-    
-    **KPIs Optimizados:**
-    - Lead qualification rate >75%
-    - Appointment booking rate >60%
-    - Customer satisfaction >4.5/5
-    - Average call duration 8-12 minutos
-  </Tab>
-  
-  <Tab title="E-commerce y Retail">
-    **Configuración Recomendada Optimizada:**
-    - **Agente Especializado**: Customer Success Specialist multicanal
-    - **Modelo de IA**: GPT-4o para versatilidad y product knowledge
-    - **Skills Integrados**: Gestión de pedidos, devoluciones, soporte post-venta
-    - **Integración**: APIs de inventario, sistemas de pago, logistics
-    
-    **Beneficios Específicos del Sector:**
-    - Gestión de pedidos automatizada con tracking en tiempo real
-    - Soporte post-venta profesional con escalación inteligente
-    - Análisis de patrones de compra para up-sell y cross-sell
-    - Manejo experto de devoluciones y guarantee claims
-    
-    **Optimizaciones Especiales:**
-    - Integration con Shopify, WooCommerce, Magento
-    - Real-time inventory checking y stock notifications
-    - Automated refund processing según políticas
-    - Multi-language support para mercados internacionales
-  </Tab>
-  
-  <Tab title="Servicios Médicos y Salud">
-    **Configuración Recomendada Optimizada:**
-    - **Agente Especializado**: Medical Receptionist certificado en HIPAA
-    - **Modelo de IA**: Gemini 1.5 Pro para precisión y compliance médico
-    - **Skills Integrados**: Programación de citas, coordinación médica, information básica
-    - **Compliance**: HIPAA, GDPR médico, regulaciones sanitarias locales
-    
-    **Beneficios Específicos del Sector:**
-    - Programación de citas eficiente con disponibilidad en tiempo real
-    - Información médica básica segura dentro de límites regulatorios
-    - Cumplimiento automático de protocolos sanitarios y de privacidad
-    - Escalación inteligente para emergencias y casos urgentes
-    
-    **Características Especiales:**
-    - HIPAA compliant recording y data handling
-    - Integration con EHR systems (Epic, Cerner, etc.)
-    - Multilingual medical terminology support
-    - Automated appointment reminders y follow-ups
-  </Tab>
-  
-  <Tab title="Servicios Financieros">
-    **Configuración Recomendada Optimizada:**
-    - **Agente Especializado**: Financial Services Advisor con certificación regulatoria
-    - **Modelo de IA**: Claude Opus para máximo compliance y ethical reasoning
-    - **Skills Integrados**: Análisis crediticio, productos financieros, compliance
-    - **Seguridad**: SOX compliance, PCI DSS, regulaciones bancarias
-    
-    **Beneficios Específicos del Sector:**
-    - Asesoramiento financiero básico dentro de marcos regulatorios
-    - Procesamiento de aplicaciones de crédito con verification automática
-    - Compliance automático con regulaciones bancarias y financieras
-    - Fraud detection y security protocols avanzados
-    
-    **Regulaciones y Compliance:**
-    - SOX, PCI DSS, GDPR financial data protection
-    - Automated compliance checking y documentation
-    - Audit trails completos y immutable logging
-    - Risk assessment automático por transacción
-  </Tab>
-</Tabs>
-
-## Troubleshooting Avanzado y Resolución de Problemas
-
-<Tabs>
-  <Tab title="Problemas con Caller IDs">
-    **Síntomas Comunes y Diagnóstico:**
-    - ❌ Verificación fallida repetidamente sin razón aparente
-    - 📞 Número no recibe códigos de verificación de Twilio
-    - 🔄 Estados de validación inconsistentes o colgados
-    - ⏰ Timeouts durante el proceso de verificación
-    
-    **Soluciones Detalladas Paso a Paso:**
-    
-    **1. Verificación de Formato:**
-    - Confirmar formato exacto E.164: +[código país][número sin espacios]
-    - Ejemplos correctos: +34912345678, +1234567890, +33123456789
-    - Evitar: espacios, guiones, paréntesis, extensiones
-    
-    **2. Diagnóstico de Conectividad:**
-    - Verificar que el número puede recibir llamadas internacionales
-    - Comprobar no hay bloqueos de llamadas automáticas o robocalls
-    - Revisar configuración de operador telefónico (Movistar, Vodafone, etc.)
-    - Intentar desde diferentes números para validar conectividad
-    
-    **3. Troubleshooting Avanzado:**
-    - Intentar verificación desde diferentes ubicaciones/dispositivos
-    - Contactar operador telefónico para verificar configuración
-    - Usar números alternativos de la misma empresa como backup
-    - Contactar soporte Meetzy con logs específicos para análisis
-  </Tab>
-  
-  <Tab title="Gestión de Números de Teléfono">
-    **Síntomas Comunes y Diagnóstico:**
-    - 📋 Lista de números completamente vacía o no carga
-    - 🚫 Números deseados no aparecen como disponibles
-    - ⚠️ Errores de carga persistentes de inventario
-    - 🔄 Sincronización lenta entre Twilio y Meetzy
-    
-    **Diagnóstico Sistemático:**
-    
-    **1. Verificación de Cuenta Twilio:**
-    - Confirmar selección de cuenta Twilio correcta (administradores)
-    - Validar permisos y API keys vigentes
-    - Verificar límites de cuenta y billing status
-    - Comprobar configuración regional de la cuenta
-    
-    **2. Gestión de Inventario:**
-    - Solicitar más números usando "Request more numbers"
-    - Contactar administrador para liberación de números específicos
-    - Verificar números asignados a agentes inactivos o archivados
-    - Revisar límites de números por cuenta y políticas empresariales
-    
-    **3. Solución de Problemas Técnicos:**
-    - Refresh manual de la página y cache clearing
-    - Contactar soporte con información específica de la cuenta
-    - Verificar status de APIs de Twilio en tiempo real
-    - Revisar logs de conectividad entre sistemas
-  </Tab>
-  
-  <Tab title="Rendimiento de Agentes Especializados">
-    **Síntomas Comunes y Optimización:**
-    - 🐌 Respuestas consistentemente lentas (>3 segundos)
-    - 🎭 Calidad conversacional por debajo de expectativas
-    - 🤖 Comportamientos inesperados o inconsistentes
-    - 📊 Métricas de satisfacción declinando
-    
-    **Optimización Sistemática de Performance:**
-    
-    **1. Optimización de Modelo de IA:**
-    - **Para Velocidad**: Cambiar a Gemini 2.0 Flash o GPT-4.1 Nano
-    - **Para Calidad**: Upgrade a Gemini 1.5 Pro o GPT-4.1
-    - **Para Balance**: Mantener Gemini 3.1 Flash Lite Preview
-    - Monitorear latencia promedio y ajustar según SLAs
-    
-    **2. Ajuste de Configuración de Voz:**
-    - Incrementar velocidad a 1.10x para percepción de eficiencia
-    - Reducir estabilidad a 0.10-0.15 para mayor expresividad
-    - Ajustar similitud según feedback específico de usuarios
-    - A/B testing con diferentes configuraciones vocales
-    
-    **3. Optimización de Prompts y Skills:**
-    - Revisar y simplificar prompts de sistema específicos
-    - Validar configuración de agente especializado vs use case real
-    - Actualizar knowledge base con información más reciente
-    - Implementar mejoras basadas en análisis de conversaciones
-    
-    **4. Monitoreo y Análisis Continuo:**
-    - Implementar dashboards de performance en tiempo real
-    - Analizar logs detallados de conversaciones problemáticas
-    - Establecer alertas automáticas para degradación de performance
-    - Revisar métricas semanalmente y optimizar incrementalmente
-  </Tab>
-  
-  <Tab title="Problemas de Integración Empresarial">
-    **Síntomas Comunes y Resolución:**
-    - 🔌 Fallas recurrentes en conexión con sistemas externos
-    - 📊 Sincronización de datos incorrecta o incompleta
-    - 🚨 Errores de API frequency o rate limiting
-    - 🔐 Problemas de autenticación y permisos
-    
-    **Diagnóstico y Solución Integral:**
-    
-    **1. Validación de Credenciales:**
-    - Verificar vigencia de API keys y tokens de acceso
-    - Confirmar permisos específicos en sistemas target
-    - Validar configuración de OAuth y refresh tokens
-    - Revisar logs de autenticación para errors específicos
-    
-    **2. Configuración de Webhooks:**
-    - Verificar URLs de webhook y accessibility desde internet
-    - Confirmar formato de payload y headers requeridos
-    - Implementar retry logic y error handling robusto
-    - Validar SSL certificates y security configurations
-    
-    **3. Conectividad y Red:**
-    - Comprobar conectividad desde servidores Meetzy
-    - Revisar configuración de firewalls y security groups
-    - Validar DNS resolution y latency de red
-    - Implementar health checks y monitoring continuo
-    
-    **4. Escalación y Soporte:**
-    - Documentar errors específicos con timestamps
-    - Contactar soporte técnico con información detallada
-    - Proporcionar logs de sistemas internos relevantes
-    - Coordinar con equipos de IT internos según sea necesario
-  </Tab>
-</Tabs>
-
-<Warning>
-**Crítico para Operaciones**: Cambios en configuraciones fundamentales (modelo de IA, número de teléfono, agente de voz especializado, componentes base) pueden afectar significativamente el comportamiento, performance y experiencia del usuario del agente. **Siempre realiza pruebas exhaustivas** en el Playground con escenarios reales después de cualquier modificación importante antes de implementar en producción.
-</Warning>
-
-## Siguientes Pasos en tu Journey de Configuración
-
-Después de configurar los aspectos fundamentales de tu agente especializado con componentes base y skills profesionales, continúa personalizando su comportamiento y capacidades avanzadas:
-
-<Steps>
-  <Step title="Saludos Personalizados Contextuales">
-    **Configura mensajes de bienvenida específicos** para llamadas entrantes y salientes adaptados a tu agente especializado, incluyendo:
-    - Scripts de apertura por tipo de llamada (inbound/outbound)
-    - Personalización por hora del día y día de la sem
+    | Gemini 1.5 Pro | Máximo | Moderada | Alto | Razonamiento complejo y anális

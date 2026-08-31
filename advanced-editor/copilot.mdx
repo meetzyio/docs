@@ -16,6 +16,40 @@ Copilot has evolved from a prompt assistant to a complete system engineer - like
 
 Copilot is located in the right panel of the Advanced Editor. Click the "Copilot" tab or press **⌘J** to access it quickly.
 
+<Info>
+**Copilot v2 is now the default experience for every agent.** All the capabilities described on this page - the Copilot orb, multiple conversation threads, rich response blocks, file attachments, voice dictation, prompt history, and agent cloning - are part of Copilot v2 and are enabled automatically, with no setup required.
+</Info>
+
+## Copilot Versions
+
+<Tabs>
+  <Tab title="Copilot v2 (Default)">
+    Copilot v2 is the standard experience for all agents in the Advanced Editor. It includes the full feature set covered in this page:
+
+    - The gradient **Copilot orb** with idle/active states
+    - **Multiple conversation threads** per agent, with rename and delete support
+    - **Rich response blocks** (stat grids, tables, charts, cards)
+    - **File attachments** (PDF, DOCX, TXT, images)
+    - **Voice dictation** and **prompt history** navigation
+    - **Agent cloning** with inline confirmation
+
+    You don't need to do anything to use it - it's already active whenever you open Copilot.
+  </Tab>
+  <Tab title="Reverting to Copilot v1 (temporary)">
+    If you need to temporarily fall back to the previous Copilot experience (Copilot v1) - for example, to compare behavior or work around an issue - you can force it via a URL parameter:
+
+    ```
+    ?copilot=v1
+    ```
+
+    Append this parameter to the Advanced Editor URL for the agent you're editing. Copilot will load the v1 interface for that session instead of the default v2 experience.
+
+    <Warning>
+    `?copilot=v1` is intended as a **temporary fallback**, not a permanent setting. Copilot v1 does not include the features introduced with v2 (multiple conversation threads, rich response blocks, file attachments, voice dictation, prompt history, or agent cloning). Remove the parameter (or simply navigate without it) to return to the default v2 experience.
+    </Warning>
+  </Tab>
+</Tabs>
+
 ## Meet the Copilot Orb
 
 Copilot now has a face: a gradient orb avatar that represents Meetzy across the entire chat experience, replacing the generic bot icon.
@@ -907,32 +941,3 @@ The welcome interface provides four **instant setup options**:
     - Builds a regression test from a real failed call
     - Captures the exact conditions that caused the failure
     - Adds it to your Tests panel to prevent recurrence
-    
-    Perfect for: Locking in a fix after resolving an issue
-  </Tab>
-  <Tab title="Mejora y verifica">
-    **Close the loop on prompt changes**:
-    
-    - Updates the prompt based on the latest diagnosis
-    - Suggests a verification plan (Playground or regression test)
-    - Keeps changes traceable through the diff review system
-    
-    Perfect for: Applying and validating a fix in one flow
-  </Tab>
-</Tabs>
-
-## Next Step Suggestions & System Recommendations
-
-After completing comprehensive changes, Copilot provides intelligent system-wide recommendations:
-
-<Tabs>
-  <Tab title="Related System Improvements">
-    **Cross-system optimization suggestions**:
-    
-    - Added input parameters → suggests matching output fields and evaluations
-    - Improved prompt handling → recommends relevant test creation or updates
-    - Updated evaluations → suggests parameter adjustments for better measurement
-    - Enhanced greetings → recommends matching closing procedures
-    - Created or updated tests → suggests additional edge case scenarios
-    - Adjusted audio tags → recommends verifying delivery in Playground
-    - Cloned an agent → suggests reviewing its phone number and gree

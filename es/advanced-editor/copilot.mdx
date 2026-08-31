@@ -12,6 +12,38 @@ Copilot es un editor de prompts impulsado por IA integrado en el Editor Avanzado
 Copilot no solo sugiere: edita. Describe lo que quieres mejorar y observa cómo modifica tu system prompt en tiempo real usando un sistema de eventos avanzado SSE (Server-Sent Events).
 </Info>
 
+## Copilot v2: la nueva experiencia por defecto
+
+**Copilot v2** es ahora la experiencia predeterminada al abrir el Editor Avanzado. Se trata de una evolución de Copilot con una interfaz más rápida y refinada, pensada para que el flujo de diagnóstico, edición y verificación de tu agente sea todavía más fluido.
+
+<Info>
+Todas las funcionalidades descritas en esta página (selector de conversaciones, historial por teclado, adjuntar archivos, dictado por voz, clonado de agentes, bloques enriquecidos, tags de audio, actualización de tests, etc.) están disponibles en Copilot v2.
+</Info>
+
+### Volver a Copilot v1
+
+Si prefieres seguir usando la versión anterior de Copilot, puedes hacerlo añadiendo un parámetro a la URL del Editor Avanzado:
+
+```
+?copilot=v1
+```
+
+<Steps>
+  <Step title="Añade el parámetro a la URL">
+    Abre el Editor Avanzado de tu agente y añade `?copilot=v1` al final de la URL (por ejemplo, `.../advanced-editor/tu-agente-id?copilot=v1`).
+  </Step>
+  <Step title="La preferencia se guarda automáticamente">
+    Una vez que cargas el editor con `?copilot=v1`, tu navegador recuerda esta elección, por lo que no necesitas repetir el parámetro cada vez que vuelvas a abrir el editor.
+  </Step>
+  <Step title="Vuelve a Copilot v2 cuando quieras">
+    Para regresar a la experiencia por defecto, añade `?copilot=v2` a la URL. Esto sobrescribe la preferencia guardada y reactiva Copilot v2 de forma persistente.
+  </Step>
+</Steps>
+
+<Warning>
+La elección entre v1 y v2 se guarda por navegador, no por agente ni por cuenta. Si cambias de navegador o de dispositivo, verás nuevamente Copilot v2 por defecto hasta que ajustes la URL.
+</Warning>
+
 ## Accediendo a Copilot
 
 Copilot está ubicado en el panel derecho del Editor Avanzado. Haz clic en la pestaña "Copilot" para acceder, o usa el atajo de teclado `⌘J`.

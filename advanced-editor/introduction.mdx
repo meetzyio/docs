@@ -227,6 +227,50 @@ The left panel contains all configuration sections accessible via an intuitive i
 The **Recent Calls** tab shows the last 30 days of calls for the agent you're currently editing, including status, success outcome, duration, and a quick summary. Click any call to open its full recording and transcript in a new tab, or use "View all" to jump to the Calls page filtered for this agent.
 </Info>
 
+## Best Practices Guide
+
+Building a great agent isn't only about wiring up settings correctly, it's also about writing clear prompts, structuring greetings well, and choosing the right skills for the job. To help with that, the Advanced Editor now includes a built-in **Best Practices Guide** that you can open at any time, right from the toolbar, without ever leaving your current agent.
+
+<Info>
+The Best Practices Guide is contextual documentation designed to help you build better agents faster. It's especially useful right after using the Creation Overlay, when you're fine-tuning a Foundation-generated setup for the first time.
+</Info>
+
+### How to Open the Guide
+
+<Steps>
+  <Step title="Locate the Guide Icon">
+    Look for the **book icon** ("Best Practices") in the Advanced Editor's top toolbar, next to the other editor actions.
+  </Step>
+  <Step title="Click to Open">
+    Click the icon to open the Best Practices modal. A short loading state appears briefly while the guide content is fetched.
+  </Step>
+  <Step title="Read the Guide">
+    Browse the guide's sections directly inside the modal, no need to leave the editor or lose your current work.
+  </Step>
+  <Step title="Close and Keep Editing">
+    Close the modal at any time to return to exactly where you left off in your configuration.
+  </Step>
+</Steps>
+
+<Warning>
+Opening the Best Practices Guide never affects your unsaved changes, Git status, or auto-save behavior. It's a read-only overlay on top of your current editing session.
+</Warning>
+
+### What the Guide Covers
+
+The Best Practices Guide is organized to walk you through the most important decisions when building an agent:
+
+- **Writing effective system prompts**: how to structure instructions clearly, avoid ambiguity, and keep prompts maintainable as they grow
+- **Crafting greetings that convert**: tips for inbound and outbound openers that set the right tone from the first second of the call
+- **Choosing and configuring skills**: guidance on when to use built-in skills versus custom logic, and how to avoid over-configuring an agent
+- **Getting the most out of Foundation components**: recommendations for adapting industry templates to your specific business instead of using them as-is
+- **Testing before you publish**: a checklist-style overview of what to validate in Playground and Tests before deploying to production
+- **Common pitfalls to avoid**: real-world mistakes that lead to unreliable agents, along with practical fixes
+
+<Info>
+Think of the Best Practices Guide as a quick reference you can consult while you work, rather than a full manual you need to read end-to-end before getting started.
+</Info>
+
 ## Focus Mode - Distraction-Free Editing
 
 Sometimes you just need to concentrate on the **System Prompt** without the visual noise of configuration panels and testing tools around you. **Focus Mode** does exactly that: it hides the left configuration panel and the right panel (Meetzy Copilot, Playground, Tests, Changes, Recent Calls), leaving only the Monaco editor centered on your screen.
@@ -456,6 +500,9 @@ Skills are automatically suggested and configured based on your Creation Overlay
   <Step title="Review Foundation Setup">
     Examine the automatically configured Foundation components and skills. Verify they match your requirements and add or remove as needed.
   </Step>
+  <Step title="Open the Best Practices Guide">
+    If it's your first time fine-tuning an agent, open the Best Practices Guide from the toolbar to review recommendations on prompts, greetings, and skills before making changes.
+  </Step>
   <Step title="Check Version Control Status">
     Always verify the Git status indicator before starting work to understand collaboration state and avoid conflicts.
   </Step>
@@ -531,6 +578,19 @@ The integrated agent selector revolutionizes workflow efficiency:
 - **Search functionality** to quickly locate specific agents
 - **Visual identification** with avatar-based agent indicators
 - **Context preservation** with comprehensive unsaved changes protection
+
+### A Guide That Meets You Where You Are
+
+The Best Practices Guide was built with one goal in mind: help you build better agents without breaking your flow.
+
+- **One click away**: always accessible from the toolbar, no matter which section you're editing
+- **Non-intrusive**: opens as a modal overlay, your configuration state is never touched
+- **Focused content**: organized around the real decisions you make while building an agent, not generic marketing copy
+- **Great for onboarding**: a natural next step after the Creation Overlay, right when you start customizing a Foundation-generated agent
+
+<Info>
+Consider making the Best Practices Guide your first stop whenever you're unsure whether a prompt, greeting, or skill configuration follows recommended patterns.
+</Info>
 
 ### Focus Mode for Deep Work
 
