@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the new Calls page with configurable and pinnable columns, predefined and custom saved views, date/agent/tag/status filters, a dedicated suspicious-call filter, an adaptive Live mode, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, a transfer-time summary bar, the new Silence status, and a waveform recording player."
+description: "Explore the new Calls page with configurable and pinnable columns, a recovered Evaluations column, predefined and custom saved views, date/agent/tag/status filters, a dedicated suspicious-call filter, an OK/KO verdict filter, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, a transfer-time summary bar, the Silence status, and a waveform recording player with previous/next call navigation."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns and pinning), a **Views** menu with both predefined and custom saved views, a single-row filter bar with agent, tag, status, and suspicious-call filters, a call statistics summary bar with transfer-time totals, an opt-in live-refreshing table with adaptive polling, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, and a built-in recording player with a real waveform.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a single-row filter bar with agent, tag, status, suspicious-call, and OK/KO verdict filters, a call statistics summary bar with transfer-time totals, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, and a built-in recording player with a real waveform and previous/next navigation between calls.
 
 <Info>
 The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -31,18 +31,26 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
     Click the **⚙️ Columns** button in the top-right corner of the page to open the column manager.
   </Step>
   <Step title="Show or hide columns">
-    Toggle any column on or off. This includes standard fields (status, duration, agent, tags) as well as **dynamic columns** discovered automatically from your call inputs and outputs.
+    Toggle any column on or off. This includes standard fields (status, duration, agent, tags, evaluations) as well as **dynamic columns** discovered automatically from your call inputs and outputs.
   </Step>
   <Step title="Reorder columns">
     Drag columns into the order that makes the most sense for your workflow.
   </Step>
   <Step title="Pin important columns">
-    Click the **pin** icon next to any column to anchor it. Pinned columns are grouped together and stuck to the **right edge** of the table so they stay visible no matter how many other columns you add or how far you scroll horizontally. **Reviewed** and **Actions** are pinned by default.
+    Click the **pin** icon next to any column to anchor it. Pinned columns are grouped together and stuck to the **right edge** of the table, so they stay visible no matter how many other columns you add or how far you scroll horizontally. **Reviewed** and **Actions** are pinned by default, and you can pin any additional column — such as **Tags** or a dynamic output field you check on every call — the same way.
   </Step>
   <Step title="Reset to defaults">
     If you want to start over, click **Reset to default** inside the column manager to discard your custom visibility, order, and pinning, restoring the platform's original column layout.
   </Step>
 </Steps>
+
+### Evaluations column
+
+The **Evaluations** column shows which evaluation criteria a call met, mirroring the column that already existed on the classic Calls page.
+
+<Info>
+Evaluations previously existed in the classic view but hadn't been migrated to the Advanced Calls View, so it was missing here and couldn't even be turned on from the column manager. It's now available like any other column and, since it's information many teams audit daily, it's **enabled by default** — including for anyone who already had a saved column layout from before this fix, which is automatically upgraded to include it.
+</Info>
 
 ### Dynamic columns from inputs and outputs
 
@@ -146,7 +154,6 @@ The **Suspicious calls** filter is a one-click way to surface calls that are wor
 
 - The AI response latency was unusually high.
 - The call ended with a problematic status (`no-answer`, `failed`, or `blocked`).
-- The call's goal was not met.
 - The call has no transcript at all.
 
 <Info>
@@ -158,6 +165,16 @@ Because calls with the **Silence** status have no meaningful transcript by defin
 </Info>
 
 The suspicious filter is a single toggle placed alongside the rest of the filter bar — it doesn't require selecting a status or configuring anything else first. Turn it on to instantly narrow the table down to calls worth a closer look, and turn it off to go back to your regular filtered view. It also combines cleanly with the other filters: for example, enabling **Suspicious calls** together with an **Agent** filter shows you only that agent's calls that need attention, without having to build a multi-condition filter manually.
+
+### Review verdict (OK/KO)
+
+A dedicated verdict filter lets you narrow the table down to only the calls your team has already reviewed and marked with an outcome:
+
+- Select **OK** to see everything approved during review.
+- Select **KO** to pull up everything flagged as problematic.
+- Leave it unset to show calls regardless of verdict, including calls that haven't been reviewed at all.
+
+This is especially handy at the end of a review session — quickly pull up every call marked **KO** to make sure each one has a follow-up note, or check every **OK** call before sharing a "clean" batch with a manager or client. It also combines with the other filters, for example to check the **KO** calls for a single agent or tag.
 
 ## Call statistics & transfer time summary
 
@@ -178,27 +195,24 @@ The transfer time totals only account for time spent in the transferred portion 
 Because these statistics respect your active filters, you can combine them with the **Agents**, **Tags**, or **Status** filters to check, for example, the average transfer time for a single agent, or the total inbound transfer seconds for only the calls tagged as escalations.
 </Info>
 
-## Live updates
+## Refreshing the table
 
-Live polling is **opt-in** — the table doesn't refresh in the background unless you turn it on, so it never surprises you mid-review.
+The table is refreshed **manually**, using a dedicated **↻ Refresh** button near the top of the table.
 
-- Toggle **Live** near the top of the table to start polling for new calls automatically.
-- While active, a small live indicator confirms polling is running.
-- Polling is **adaptive**: while new calls keep arriving the table checks in frequently, and the interval automatically backs off the longer things stay quiet — so a busy line gets near-instant updates without hammering the server during slow periods, and things speed back up the moment activity picks up again.
-- Newly arrived calls that match your current filters are briefly highlighted in the table so they're easy to spot as they come in.
-- Live polling respects your current filters, sort order, and scroll position — turning it on won't reset or interrupt what you're looking at.
-- You can turn **Live** off at any time to freeze the table at its current state, for example while you focus on reviewing a batch of calls.
+- Click **Refresh** whenever you want to pull in the newest calls matching your current filters, date range, and sort order.
+- Newly arrived calls that weren't in the table before are briefly highlighted, so they're easy to spot right after a refresh.
+- Refreshing respects your current filters, sort order, and scroll position — it won't reset or jump you back to the top of the table.
 
 <Info>
-Live polling automatically pauses while you're interacting with elements like the review note editor, the tag editor, or an open modal, so you never lose in-progress input. It resumes once you're done.
+This replaces the previous automatic **Live** polling mode. Rather than the table quietly refreshing itself in the background at adaptive intervals, you're now fully in control of when the table updates — click **Refresh** whenever you want the latest calls, and the table stays perfectly still in between clicks. This also removes any risk of a background refresh interrupting an in-progress edit, like a review note or tag you're in the middle of typing.
 </Info>
 
 <Tabs>
-  <Tab title="When to turn Live on">
-    Turn **Live** on when you're actively monitoring an ongoing campaign or a busy line and want to catch new calls — especially suspicious ones — as soon as they land, without manually refreshing the page.
+  <Tab title="When to refresh">
+    Click **Refresh** right before starting a review session to make sure you're looking at the latest calls, or periodically while monitoring an ongoing campaign to check for new activity — especially combined with the **Suspicious calls** filter to catch anything that needs attention as soon as it shows up.
   </Tab>
-  <Tab title="When to turn Live off">
-    Turn **Live** off while you're deep in a review session, filling in audit notes, or exporting a specific batch of calls, so the table stays perfectly still while you work.
+  <Tab title="Why manual instead of automatic">
+    A manual refresh keeps the table predictable while you work: your scroll position, open editors, and in-progress filters are never disturbed by a refresh you didn't ask for. You decide exactly when new data comes in.
   </Tab>
 </Tabs>
 
@@ -225,9 +239,9 @@ Each row in the table includes a **Reviewed** control that lets your team track 
 Only one review note editor can be open at a time. Clicking outside the editor, or opening a note on another row, will close the current one.
 </Info>
 
-You can also filter the table down to only the calls you've marked **OK** or **KO**, which makes it easy to pull up everything you've already flagged during a session, or to double-check a batch of approvals before sharing them.
+Use the **Review verdict (OK/KO)** filter described above to pull up everything you've already flagged during a session, or to double-check a batch of approvals before sharing them.
 
-This review workflow is especially useful when combined with the **Suspicious calls** filter: turn on **Live** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** so your team can jump straight back into it later.
+This review workflow is especially useful when combined with the **Suspicious calls** filter: click **Refresh** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** so your team can jump straight back into it later.
 
 <Info>
 This same reviewed toggle, OK/KO verdict, and note editor are also available directly inside the recording player modal, so you can record your audit verdict right after listening to a call without switching back to the table.
@@ -275,12 +289,32 @@ Clicking a call's recording opens a dedicated player modal built specifically fo
   </Tab>
 </Tabs>
 
+### Navigating between calls
+
+Instead of closing the modal to move to another row, the player lets you step through calls directly from within it.
+
+<Steps>
+  <Step title="Use the arrow buttons">
+    Click the **‹** and **›** icons in the modal header to jump to the previous or next call in your current filtered and sorted list.
+  </Step>
+  <Step title="Or use your keyboard">
+    Press the **←** and **→** arrow keys to move between calls without touching the mouse — handy for quickly moving through a batch of flagged calls.
+  </Step>
+  <Step title="Reach the edges">
+    The **‹** and **›** buttons are automatically disabled once you reach the first or last call in the list, so you always know when you've reviewed everything currently loaded.
+  </Step>
+</Steps>
+
 <Info>
-The player modal also includes **Previous** and **Next** navigation (with matching arrow-key shortcuts) to move between calls without closing the modal, the same **Reviewed**/**OK**/**KO** review controls and audit note found in the table, and inline tag management — so you can complete most of a review session without ever leaving the recording view.
+Moving to the next or previous call keeps the same modal open — the recording, transcript, and review controls all update in place, with a short slide transition indicating which direction you moved.
 </Info>
 
 <Info>
 Keyboard shortcuts for navigating between calls are disabled automatically while you're typing in the note or tag input, so arrow keys behave normally while you're writing.
+</Info>
+
+<Info>
+The player modal also includes the same **Reviewed**/**OK**/**KO** review controls and audit note found in the table, plus inline tag management — so you can complete most of a review session, including moving on to the next call, without ever leaving the recording view.
 </Info>
 
 ## Exporting to Excel
@@ -307,3 +341,164 @@ The **Export selection (N)** button only appears once you've selected at least o
 <Warning>
 Both export modes generate the file client-side based on the calls currently loaded in the table. If you're exporting all filtered calls, make sure you've loaded as many pages as you need before exporting, since the export won't reach beyond what's already been fetched into the table.
 </Warning>
+
+## Relevant code changes
+
+### src/app/calls-v2/calls-v2-columns.ts
+```
+import { ColumnDefinition } from '../interfaces/table-state';
+
+export type CallsV2ColumnType =
+  | 'text'
+  | 'date'
+  | 'duration'
+  | 'status'
+  | 'boolean'
+  | 'tags'
+  | 'evaluations'
+  | 'latency'
+  | 'latency_spark'
+  | 'recording'
+  | 'review'
+  | 'admin_links'
+  | 'actions';
+
+export interface CallsV2ColumnDefinition extends ColumnDefinition {
+  type: CallsV2ColumnType;
+  width?: string;
+  // Present only on user-added dynamic columns (from an agent's input
+  // parameters or output). `source` distinguishes call.data (input) from
+  // call.output (output) when resolving the value for each row.
+  path?: string;
+  source?: 'input' | 'output';
+  // Pinned columns are visually grouped and kept stuck to the right edge of
+  // the table while the rest scrolls horizontally underneath them.
+  pinned?: boolean;
+}
+
+// Default column set for /calls-v2. Users can hide, reorder, and (for
+// dynamic columns) add more from each agent's input/output fields — see
+// column-manager.component.ts.
+export const DEFAULT_CALLS_V2_COLUMNS: CallsV2ColumnDefinition[] = [
+  { key: 'created_time', label: 'Date', type: 'date', sortable: true, visible: true, toggleable: true, width: '160px' },
+  { key: 'playbook_name', label: 'Agent', type: 'text', sortable: true, visible: true, toggleable: true, width: '160px' },
+  // Native fields already on every Call row (call.playbook_id/call.id), so
+  // unlike the dynamic "Agent Id"/"Call Id" columns discovered from an
+  // agent's OUTPUT, these are always populated regardless of call status.
+  { key: 'playbook_id', label: 'Agent ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
+  { key: 'id', label: 'Call ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
+  { key: 'from', label: 'From', type: 'text', sortable: false, visible: true, toggleable: true, width: '130px' },
+  { key: 'to', label: 'To', type: 'text', sortable: false, visible: false, toggleable: true, width: '130px' },
+  { key: 'status', label: 'Status', type: 'status', sortable: true, visible: true, toggleable: true, width: '130px' },
+  { key: 'success', label: 'Goal', type: 'boolean', sortable: true, visible: false, toggleable: true, width: '90px' },
+  { key: 'duration', label: 'Duration', type: 'duration', sortable: true, visible: true, toggleable: true, width: '100px' },
+  { key: 'avg_response_latency_ms', label: 'Avg AI latency', type: 'latency', sortable: true, visible: true, toggleable: true, width: '130px' },
+  { key: 'latency_spark', label: 'Latency (turns)', type: 'latency_spark', sortable: false, visible: true, toggleable: true, width: '100px' },
+  { key: 'max_response_latency_ms', label: 'Max latency', type: 'latency', sortable: true, visible: false, toggleable: true, width: '130px' },
+  { key: 'tags', label: 'Tags', type: 'tags', sortable: false, visible: true, toggleable: true, width: '160px' },
+  // Ticket Accom #574: la columna existía en /calls (legado) pero no se migró
+  // a /calls-v2, así que al pasar a la versión nueva las evaluaciones
+  // "desaparecieron" y tampoco había forma de activarlas desde el gestor de
+  // columnas. Visible por defecto: es el dato que Accom audita a diario.
+  // mergeSavedColumns ya inserta las columnas fijas nuevas en preferencias
+  // guardadas antiguas, así que aparece también para quien ya tenía vista guardada.
+  { key: 'evaluations', label: 'Evaluations', type: 'evaluations', sortable: false, visible: true, toggleable: true, width: '130px' },
+  { key: 'playbook_company', label: 'Company', type: 'text', sortable: false, visible: false, toggleable: true, width: '140px' },
+  { key: 'email', label: 'Email', type: 'text', sortable: false, visible: false, toggleable: true, width: '180px' },
+  { key: 'summary', label: 'Summary', type: 'text', sortable: false, visible: false, toggleable: true, width: '260px' },
+  { key: 'type', label: 'Type', type: 'text', sortable: false, visible: false, toggleable: true, width: '100px' },
+  { key: 'end_call', label: 'Hung up by', type: 'text', sortable: false, visible: false, toggleable: true, width: '110px' },
+  { key: 'transferred', label: 'Transferred', type: 'boolean', sortable: false, visible: false, toggleable: true, width: '100px' },
+  { key: 'duration_agent', label: 'Agent duration', type: 'duration', sortable: false, visible: false, toggleable: true, width: '110px' },
+  { key: 'recording', label: 'Recording', type: 'recording', sortable: false, visible: true, toggleable: true, width: '110px' },
+  { key: 'review', label: 'Reviewed', type: 'review', sortable: false, visible: true, toggleable: true, width: '150px', pinned: true },
+  { key: 'actions', label: 'Actions', type: 'actions', sortable: false, visible: true, toggleable: false, width: '270px', pinned: true },
+];
+
+// Admin-only column (mirrors the Twilio/ElevenLabs shortcut dots in /calls).
+// Deliberately NOT part of DEFAULT_CALLS_V2_COLUMNS — it must never appear for
+// a non-admin user, even transiently before admin status resolves, so the
+// component inserts it into `columns` itself once `isAdminUser` is confirmed
+// true, right before 'actions' (same slot new fixed columns use).
+export const ADMIN_LINKS_COLUMN: CallsV2ColumnDefinition = {
+  key: 'admin_links',
+  label: 'Links',
+  type: 'admin_links',
+  sortable: false,
+  visible: true,
+  toggleable: true,
+  width: '70px',
+  pinned: true,
+};
+
+```
+
+### src/app/calls-v2/recording-player-modal.component.html
+```
+<div *ngIf="isOpen" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 px-4" (click)="closeModal()">
+  <div
+    class="w-full max-w-6xl max-h-[88vh] rounded-xl shadow-2xl flex flex-col"
+    [ngClass]="isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'"
+    (click)="$event.stopPropagation()">
+
+    <div class="flex items-start justify-between px-6 py-5 border-b" [ngClass]="isDarkMode ? 'border-gray-700' : 'border-gray-200'">
+      <div>
+        <h3 class="text-base font-semibold">Call recording</h3>
+        <p class="text-sm mt-1" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
+          {{ call?.from }} → {{ call?.to }}
+        </p>
+      </div>
+
+      <div class="flex items-center gap-1">
+        <!-- Prev/next call navigation: lives in the header, not floating
+             over the content, so it never covers the waveform/transcript. -->
+        <ng-container *ngIf="hasPrevious || hasNext">
+          <button type="button" (click)="goPrevious()" [disabled]="!hasPrevious" title="Previous call (←)"
+            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
+            <ng-icon name="heroChevronLeft" size="18"></ng-icon>
+          </button>
+          <button type="button" (click)="goNext()" [disabled]="!hasNext" title="Next call (→)"
+            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
+            <ng-icon name="heroChevronRight" size="18"></ng-icon>
+          </button>
+          <div class="w-px h-5 mx-1" [ngClass]="isDarkMode ? 'bg-gray-700' : 'bg-gray-200'"></div>
+        </ng-container>
+
+        <button type="button" (click)="closeModal()" class="p-1.5 rounded-md" [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
+          <ng-icon name="heroXMark" size="18"></ng-icon>
+        </button>
+      </div>
+    </div>
+```
+
+### src/app/calls-v2/recording-player-modal.component.ts
+```
+@HostListener('document:keydown', ['$event'])
+onKeydown(event: KeyboardEvent): void {
+  if (!this.isOpen) return;
+  const target = event.target as HTMLElement | null;
+  // Don't hijack arrow keys while the user is typing in the note/tag inputs.
+  if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return;
+  if (event.key === 'ArrowLeft') {
+    event.preventDefault();
+    this.goPrevious();
+  } else if (event.key === 'ArrowRight') {
+    event.preventDefault();
+    this.goNext();
+  }
+}
+
+goPrevious(): void {
+  if (!this.hasPrevious) return;
+  this.triggerNavAnimation('prev');
+  this.previousCall.emit();
+}
+
+goNext(): void {
+  if (!this.hasNext) return;
+  this.triggerNavAnimation('next');
+  this.nextCall.emit();
+}
+```
