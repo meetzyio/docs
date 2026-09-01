@@ -107,7 +107,7 @@ If you don't explicitly configure an execution mode, your agent automatically us
 **Transfer v2** is a Beta upgrade to Call Transfer that replaces the single destination model with a flexible list of **transfer rules**. Instead of sending every transfer to the same number, your agent evaluates each rule's condition in real time and routes the call to the matching destination — with its own type, customer message, and optional briefing for the receiving human agent.
 </Info>
 
-Enable Transfer v2 with the **"Transfer to multiple destinations (Beta)"** toggle inside the Call Transfer panel. Once active, you can define as many rules as you need.
+Enable Transfer v2 with the **"Transfer to multiple destinations (Beta)"** toggle inside the Call Transfer panel. Once active, you can define as many rules as you need instead of a single fixed number.
 
 Each rule includes:
 
@@ -809,6 +809,74 @@ The system remembers which Carrier submode (Gate or Live) you last used. Switchi
 <Warning>
 Carrier-level AMD accuracy can vary depending on your telephony provider and the destination country. Test both Gate and Live submodes with real call patterns before relying on them for high-volume outbound campaigns.
 </Warning>
+
+## Active Listening Sounds (Backchanneling)
+
+<Info>
+**Active Listening Sounds** — also known as backchanneling — make your agent produce short, natural acknowledgment sounds and interjections (like "mm-hmm", "I see", "right") while the caller is speaking, instead of staying completely silent until it's the agent's turn. This mirrors how humans naturally signal they're listening during a real conversation.
+</Info>
+
+This feature is only available for agents using **v3 voices** (`eleven_v3_conversational`). It doesn't apply to agents on the Flash model, since backchanneling relies on the more expressive, natural delivery that v3 voices support.
+
+### Why Use Backchanneling
+
+- Makes long caller explanations feel like a real conversation instead of a monologue into silence
+- Reduces the perception of dead air, especially over telephony where silence can feel like the call dropped
+- Reinforces trust and rapport — callers feel heard as they speak, not just after they finish
+- Adds a layer of natural expressiveness on top of everything else v3 voices already provide
+
+### Intensity Levels
+
+<Tabs>
+  <Tab title="Low">
+    **Minimal, Neutral Acknowledgments**
+
+    Only occasional, low-key sounds such as a subtle "mm-hmm", used sparingly.
+
+    - **Best for**: Formal contexts, sensitive topics, or brands with a more reserved tone
+    - **Experience**: Caller notices the agent is engaged without it feeling chatty
+    - **When to use it**: Choose Low when you want a hint of active listening without drawing attention to it
+  </Tab>
+  <Tab title="Normal (Default)">
+    **Balanced, Natural Acknowledgments**
+
+    A moderate frequency of backchannel sounds and short interjections that mimic typical human listening behavior.
+
+    - **Best for**: Most use cases — general customer service, sales, and support conversations
+    - **Experience**: Feels like a natural, attentive conversation without being distracting
+    - **When to use it**: Keep Normal as your default unless you have a specific reason to dial it up or down
+  </Tab>
+  <Tab title="Expressive">
+    **Frequent, Expressive Acknowledgments**
+
+    More frequent backchannel sounds, including short exclamations, for a livelier, more animated listening style.
+
+    - **Best for**: Casual, friendly, or high-energy brand personalities where warmth and enthusiasm matter
+    - **Experience**: Caller perceives a highly engaged, energetic listener
+    - **When to use it**: Choose Expressive when your brand voice leans casual and upbeat, and a more animated agent fits the experience
+  </Tab>
+</Tabs>
+
+### Configuration
+
+<Steps>
+  <Step title="Confirm Your Agent Uses a v3 Voice">
+    Active Listening Sounds only apply to agents configured with an `eleven_v3_conversational` voice. If your agent is on the Flash model, this option won't have an effect.
+  </Step>
+  <Step title="Enable Active Listening Sounds">
+    Toggle on the backchanneling option in the Actions & Tools panel.
+  </Step>
+  <Step title="Choose an Intensity Level">
+    Select **Low**, **Normal**, or **Expressive** based on how animated you want your agent to sound while listening.
+  </Step>
+  <Step title="Test With Real Call Scenarios">
+    Listen to a few test calls with longer caller responses to confirm the intensity level matches your brand's tone before rolling it out broadly.
+  </Step>
+</Steps>
+
+<Info>
+If left unconfigured, agents on a v3 voice default to **Normal** intensity. You can disable Active Listening Sounds entirely at any time if you prefer the agent to stay silent until the caller finishes speaking.
+</Info>
 
 ## End Call Strategy
 

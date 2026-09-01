@@ -1,12 +1,12 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura transferencias con reglas múltiples y modo de ejecución configurable, detección de contestador en dos niveles (Agente/Operadora con submodos Gate y Live), finalización de llamadas, webhooks, recall automático, horarios de atención, comunicación multicanal y dominios de email propios'
+description: 'Configura transferencias con reglas múltiples y modo de ejecución configurable, detección de contestador en dos niveles (Agente/Operadora con submodos Gate y Live), sonidos de escucha activa para voces v3, finalización de llamadas, webhooks, recall automático, horarios de atención, comunicación multicanal y dominios de email propios'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples (Transfer v2 Beta) y modo de ejecución configurable, detección de contestador reorganizada en dos niveles (Agente/Operadora), webhooks personalizados, protocolos de rellamada, el **Schedule Controller (Beta)** para horarios de atención, integración de calendario y comunicación multicanal con Email, SMS y WhatsApp, incluyendo la vinculación de tu propio dominio de email.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples (Transfer v2 Beta) y modo de ejecución configurable, detección de contestador reorganizada en dos niveles (Agente/Operadora), sonidos de escucha activa para voces v3, webhooks personalizados, protocolos de rellamada, el **Schedule Controller (Beta)** para horarios de atención, integración de calendario y comunicación multicanal con Email, SMS y WhatsApp, incluyendo la vinculación de tu propio dominio de email.
 
 <Info>
 Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
@@ -546,4 +546,101 @@ El sistema recuerda automáticamente el último submodo de Operadora utilizado (
 |-----------------|----------------------|------------------------|-------------------|-----------|-------------------|
 | **Agente (Native)** | `native` | Durante la conversación, vía análisis semántico de la IA | Ninguna | Alta, pero requiere que el contestador haya reproducido su mensaje | Llamadas entrantes y salientes con mensajes de apertura cortos |
 | **Operadora - Gate** | `gate` | Antes de que el agente hable, vía señal técnica del operador | Baja a moderada | Muy alta | Campañas salientes masivas con mensajes de apertura largos o sensibles |
-| **Operadora - Live** | `live` | En paralelo al primer mensaje del agente | Ninguna | Alta, con posible margen de error mínimo al inicio | Llamadas entr
+| **Operadora - Live** | `live` | En paralelo al primer mensaje del agente | Ninguna | Alta, con posible margen de error mínimo al inicio | Llamadas entrantes o campañas donde la inmediatez conversacional es prioritaria |
+| **Desactivado** | `off` | No se realiza ninguna detección | Ninguna | No aplica | Casos donde ya se filtra el contestador en un paso previo del flujo de llamada |
+
+<Warning>
+Un valor heredado vacío (`''`) en `amd_mode` se interpreta como la configuración por defecto de la cuenta (legacy) y no activa ninguno de los dos niveles de forma explícita. Si necesitas un comportamiento predecible, configura siempre de forma explícita el nivel "Agent" o "Carrier" (con su submodo) en lugar de dejar el campo vacío.
+</Warning>
+
+<Warning>
+Los submodos **Gate** y **Live** dependen de las capacidades técnicas del proveedor de telefonía (carrier) configurado para el número saliente. Antes de desplegar en producción, verifica con el equipo de soporte de Meetzy que tu proveedor soporta la detección de contestador a nivel de operadora para la región y el tipo de número que estás utilizando.
+</Warning>
+
+## Sonidos de Escucha Activa (Backchannel) para Voces v3
+
+<Info>
+Los **sonidos de escucha activa** (o *backchannels*) son las pequeñas interjecciones que un agente pronuncia mientras el interlocutor está hablando —como "mm-hmm", "ya veo", "claro"— para transmitir que está escuchando activamente, igual que haría una persona real en una llamada telefónica. Esta funcionalidad se controla mediante la propiedad `backchannel_mode` (`'' | 'off' | 'low' | 'normal' | 'expressive'`) y **solo está disponible en agentes configurados con el modelo de voz `eleven_v3_conversational`**.
+</Info>
+
+<Warning>
+Si tu agente utiliza el modelo `eleven_flash_v2_5` u otro modelo distinto a `eleven_v3_conversational`, esta configuración no tendrá ningún efecto audible, ya que los sonidos de escucha activa son una capacidad exclusiva de las voces v3.
+</Warning>
+
+### Niveles de Escucha Activa Disponibles
+
+<Tabs>
+  <Tab title="Off (Desactivado)">
+    El agente no emite ningún sonido ni interjección mientras el usuario habla. La conversación se mantiene en silencio de parte del agente hasta que le toca su turno.
+
+    **Recomendado para**: agentes muy formales, grabaciones donde se requiere un audio limpio sin solapamientos, o casos donde las interjecciones podrían interferir con sistemas de transcripción automática.
+  </Tab>
+  <Tab title="Low (Bajo)">
+    El agente emite asentimientos neutros y poco frecuentes (como "mm-hmm" o "ajá") mientras el usuario habla, con una cadencia discreta que no interrumpe el flujo natural de la conversación.
+
+    **Recomendado para**: entornos profesionales donde se busca un equilibrio entre naturalidad y sobriedad, como soporte técnico o gestiones administrativas.
+  </Tab>
+  <Tab title="Normal (Por Defecto)">
+    El agente utiliza una frecuencia estándar de interjecciones de escucha activa, similar a la de una conversación telefónica humana habitual. Es el comportamiento equivalente al valor heredado (`''`) en agentes v3.
+
+    **Recomendado para**: la mayoría de los casos de uso conversacionales, donde se busca naturalidad sin perder profesionalidad.
+  </Tab>
+  <Tab title="Expressive (Expresivo)">
+    El agente añade, además de los asentimientos habituales, exclamaciones con mayor carga emocional (como "¡vaya!", "¡genial!") cuando el contexto lo amerita, aportando un tono más cercano y expresivo a la conversación.
+
+    **Recomendado para**: agentes orientados a ventas, atención al cliente con enfoque cercano, o marcas que buscan una personalidad conversacional más viva y humana.
+  </Tab>
+</Tabs>
+
+### Proceso de Configuración
+
+<Steps>
+  <Step title="Verificar el Modelo de Voz">
+    Confirma que tu agente tiene seleccionado el modelo `eleven_v3_conversational` en la configuración de voz; de lo contrario, esta opción no tendrá efecto.
+  </Step>
+  <Step title="Activar Active Listening Sounds">
+    Habilita el interruptor correspondiente a los sonidos de escucha activa en la sección de Acciones y Herramientas (`backchannelEnabled: true`).
+  </Step>
+  <Step title="Elegir el Nivel de Intensidad">
+    Selecciona entre "Low", "Normal" (recomendado por defecto) o "Expressive" según el tono de marca y el contexto de tus llamadas.
+  </Step>
+  <Step title="Probar con una Llamada Real">
+    Realiza una llamada de prueba manteniendo pausas y respuestas largas para verificar que las interjecciones se sienten naturales y no resultan intrusivas.
+  </Step>
+</Steps>
+
+<Warning>
+Un valor heredado vacío (`''`) en `backchannel_mode` equivale a `normal` en agentes con voz `eleven_v3_conversational`. Si desactivas el interruptor "Active Listening Sounds", el valor se guarda como `off`, agrupando internamente ese estado con cualquier configuración previa distinta de `low`, `normal` o `expressive`.
+</Warning>
+
+### Comparativa de Niveles de Backchannel
+
+| Nivel | Valor de `backchannel_mode` | Frecuencia de Interjecciones | Carga Emocional | Recomendado Para |
+|-------|------------------------------|-------------------------------|------------------|-------------------|
+| **Off** | `off` | Ninguna | Ninguna | Entornos formales o con transcripción automática sensible |
+| **Low** | `low` | Baja, solo asentimientos neutros | Baja | Soporte técnico, gestiones administrativas |
+| **Normal** | `normal` (o `''` heredado) | Estándar, similar a una llamada humana habitual | Media | La mayoría de los casos de uso conversacionales |
+| **Expressive** | `expressive` | Estándar + exclamaciones adicionales | Alta | Ventas, atención cercana, marcas con personalidad expresiva |
+
+## Estrategia de Finalización de Llamada: Configuración del Prompt
+
+Además de la detección automática de contestadores a nivel de Agente y Operadora, puedes definir un prompt personalizado (`endCallPrompt`) que describa explícitamente a la IA en qué otras circunstancias debe finalizar la llamada, como despedidas claras del usuario o del propio agente.
+
+<Steps>
+  <Step title="Activar End Call Strategy">
+    Habilita el interruptor de finalización de llamada (`endCallEnabled: true`).
+  </Step>
+  <Step title="Seleccionar o Personalizar la Plantilla">
+    Usa el botón "Add Template" para insertar una plantilla predefinida en tu idioma, o redacta tu propio criterio de finalización.
+  </Step>
+  <Step title="Combinar con Voicemail Detection">
+    Ten en cuenta que la lógica del prompt (`endCallPrompt`) y la detección técnica de contestadores (`amd_mode`) son complementarias: el prompt cubre casos semánticos generales (despedidas, contestadores no cubiertos por el nivel Operadora), mientras que `amd_mode` cubre la detección temprana y técnica antes o durante el inicio de la llamada.
+  </Step>
+</Steps>
+
+## Webhooks Personalizados
+
+Meetzy permite definir herramientas (`WebhookTool`) que conectan tu agente con sistemas externos mediante llamadas HTTP durante la conversación, ideales para consultar bases de datos, CRMs o disparar automatizaciones.
+
+<Info>
+Cada webhook se configura con un esquema de API (`api_schema`) que define la URL, el método HTTP, los parámetros de consulta o de cuerpo, y las cabeceras necesarias. Puedes controlar el modo de ejecución (`execution_mode`) de cada webhook igual que en la transferencia de llamadas, elig
