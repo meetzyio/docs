@@ -71,6 +71,36 @@ Configure how your agent intelligently transfers calls to human agents, departme
   </Tab>
 </Tabs>
 
+### Transfer Execution Mode
+
+Beyond choosing *where* a call goes, you can now control exactly *when* the transfer is executed relative to what the agent says right before handing off the call. This setting applies to the transfer tool as a whole, regardless of whether you're using the classic single-destination configuration or Transfer v2 rules.
+
+<Tabs>
+  <Tab title="Post Tool Speech (Default)">
+    **Speak First, Then Transfer**
+
+    The agent finishes saying the transfer message — the default phrase or the rule-specific Customer Message — and only then does the actual call transfer take place.
+
+    - **Behavior**: The caller always hears a clear heads-up ("Let me connect you now...") before the line is handed off
+    - **Best for**: Most use cases, especially Warm transfers where a smooth, predictable handoff matters
+    - **Trade-off**: A short, natural pause between the message and the actual transfer
+    - **Recommended**: This is the default behavior for the Call Transfer tool
+  </Tab>
+  <Tab title="Immediate">
+    **Transfer Right Away**
+
+    The transfer is triggered as soon as the agent decides to transfer, without waiting for the message to finish playing — the handoff and the spoken message effectively overlap.
+
+    - **Behavior**: Fastest possible handoff, but the caller may hear the message cut short as the transfer connects
+    - **Best for**: Time-sensitive scenarios where shaving off every second matters more than a polished announcement
+    - **Trade-off**: Less predictable caller experience compared to Post Tool Speech
+  </Tab>
+</Tabs>
+
+<Info>
+If you don't explicitly configure an execution mode, your agent automatically uses **Post Tool Speech** — this ensures the caller always hears the transfer message before being handed off.
+</Info>
+
 ### Transfer v2 (Beta): Multiple Transfer Rules
 
 <Info>
@@ -167,7 +197,7 @@ Agent Briefing: "Caller is upset about a delayed refund, already apologized and 
 ```
 
 <Info>
-When Transfer v2 is disabled, your agent falls back to the classic single-destination Call Transfer configuration described above.
+When Transfer v2 is disabled, your agent falls back to the classic single-destination Call Transfer configuration described above. The Transfer Execution Mode setting applies the same way in both cases.
 </Info>
 
 <Warning>
@@ -703,7 +733,7 @@ Business Hours is currently in **Beta**. Double-check the resolved status during
 **Early Voicemail Detection** adds a telephony-aware layer of Answering Machine Detection (AMD) that works alongside — and independently from — the phrase-based detection configured in **End Call Strategy** below. Instead of relying only on the agent recognizing a voicemail greeting mid-conversation, this feature can flag an answering machine earlier, using either the agent's own reasoning or signals from the carrier.
 </Info>
 
-Enable this tool to choose **how early** and **at what level** voicemail detection happens, trading off a small amount of latency for a higher confidence detection, or vice versa.
+Enable this tool to choose **how early** and **at what level** voicemail detection happens, trading off a small amount of latency for a higher confidence detection, or vice versa. Detection is organized into two levels — **Agent** and **Carrier** (also referred to as "Operator") — with the Carrier level offering two submodes, **Gate** and **Live**.
 
 ### Detection Levels
 
@@ -714,16 +744,18 @@ Enable this tool to choose **how early** and **at what level** voicemail detecti
     The AI agent listens to the call audio itself and recognizes voicemail or answering machine greetings using its own conversational reasoning — the same underlying mechanism used by the End Call Strategy phrase templates.
 
     - **How it works**: The agent starts speaking normally and identifies typical voicemail phrasing as the conversation unfolds ("please leave a message after the tone", etc.)
-    - **Best for**: Simple setups where a natural conversation start matters more than shaving off detection time
+    - **Best for**: Simple setups where a natural conversation start matters more than shaving off detection time, or when your telephony carrier doesn't provide a reliable native AMD signal
+    - **When to use it**: Choose Agent when you'd rather keep the call flow simple and let the same phrase-recognition logic you already trust (via End Call Strategy) handle voicemail cases, without adding a telephony-level dependency
     - **Default**: This is the default level the first time Early Voicemail Detection is enabled
   </Tab>
-  <Tab title="Carrier">
+  <Tab title="Carrier (Operator)">
     **Carrier-Level Detection**
 
     Detection is delegated to the telephony carrier's native Answering Machine Detection signal, which analyzes call setup characteristics — ringing pattern, greeting cadence, energy levels — independently of what the agent says.
 
     - **How it works**: The carrier analyzes the call in real time and reports whether it believes a human or a machine answered
     - **Best for**: Faster, more consistent detection, especially useful for outbound calling at scale
+    - **When to use it**: Choose Carrier when you're running outbound campaigns and want detection decisions grounded in telephony-level signals rather than solely on what the agent hears and interprets
     - **Requires**: Choosing one of the two Carrier submodes below (Gate or Live)
   </Tab>
 </Tabs>
@@ -740,7 +772,7 @@ When the Carrier level is selected, choose how the agent should act on the carri
 
     - **Behavior**: A brief pause occurs at the very start of the call while the carrier determines human vs. machine
     - **Trade-off**: A slightly slower start, but the agent never delivers the wrong opening line to a machine
-    - **Best for**: Outbound calling where avoiding a wasted greeting to voicemail outweighs a one-to-two second delay
+    - **When to use it**: Choose Gate for outbound calling where avoiding a wasted or awkward greeting to voicemail outweighs a one-to-two second delay at the start of the call — ideal for high-volume campaigns where consistency matters more than speed
   </Tab>
   <Tab title="Live">
     **Live Mode**
@@ -749,7 +781,7 @@ When the Carrier level is selected, choose how the agent should act on the carri
 
     - **Behavior**: The agent can start speaking right away; if the carrier reports a machine mid-stream, the system reacts on the fly (e.g., handing off to End Call Strategy or leaving a pre-recorded message)
     - **Trade-off**: A faster, more natural-feeling start, with a small chance the agent speaks a line or two before the machine is confirmed
-    - **Best for**: Scenarios where a fast, natural call start is the priority
+    - **When to use it**: Choose Live when a fast, natural call start is the priority — for example, inbound-style experiences or campaigns where caller perception of responsiveness matters more than avoiding the rare case of the agent speaking briefly to a machine
   </Tab>
 </Tabs>
 
@@ -764,7 +796,7 @@ The system remembers which Carrier submode (Gate or Live) you last used. Switchi
     Toggle on Early Voicemail Detection in the Actions & Tools panel.
   </Step>
   <Step title="Choose a Detection Level">
-    Select **Agent** for native recognition by the AI, or **Carrier** for telephony-level AMD.
+    Select **Agent** for native recognition by the AI, or **Carrier** (Operator) for telephony-level AMD.
   </Step>
   <Step title="Select a Submode (Carrier only)">
     If you chose Carrier, pick **Gate** for a safer, slightly delayed start, or **Live** for an immediate start with parallel analysis.
