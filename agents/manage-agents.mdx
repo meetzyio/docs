@@ -22,6 +22,7 @@ The new Agents page (internally called **Agents v2**) bundles several improvemen
 - **Richer filters** — search, company, archived visibility, and a dedicated spam-only toggle now live together in a single filters bar, with a one-click **Clear filters** action.
 - **New "Call" modal** — placing a test call (inbound or outbound) now happens from a redesigned modal with country prefix selection, agent version selection for Advanced agents, and a shortcut to edit custom form fields, all without leaving the Agents page.
 - **Collapsible demo agents section** — sample/demo agents are grouped separately from your real agents and tucked away by default, keeping the main list focused.
+- **A brand-new detail panel** — selecting an agent now opens a tabbed **Overview / Calls / Settings** panel packed with metrics, a 90-day call log, and the full configuration form, all in one place.
 
 <Tip>
   Missing the old page already? The **"Switch back to the classic view"** link at the top of the screen is still there for you — no judgment if you, like Wolverine pining for 1980s Canada, occasionally long for the way things used to be.
@@ -92,7 +93,22 @@ Sample and demo agents are grouped separately from your production agents, in a 
 
 ## Agent Detail Panel
 
-Once an agent is selected, the detail panel on the right organizes all information into three tabs:
+Selecting an agent from the list opens the detail panel on the right, with a header showing the agent's name, ID badge, and company, followed by a set of quick action buttons and three tabs: **Overview**, **Calls**, and **Settings**.
+
+<Info>
+  On mobile and narrow screens, the header actions collapse into a single kebab (**⋮**) menu to save space, exposing the same options in a dropdown.
+</Info>
+
+### Header Actions
+
+A row of buttons at the top of the panel gives you one-click access to the most common agent workflows, without needing to scroll into the Overview tab:
+
+| Action | Availability | What it does |
+|--------|--------------|---------------|
+| **Editor** | Advanced agents only | Opens the [Advanced Editor](/agents/advanced-editor) for this agent in a new tab |
+| **Trends** | Advanced agents only | Opens the evaluation trends view for this agent in a new tab |
+| **Clone** | Admins and users/members with clone permission | Launches the two-step clone assistant described below |
+| **Archive** | Users with agent create/edit permission | Launches the archive confirmation flow described below |
 
 <Tabs>
   <Tab title="Overview">
@@ -101,10 +117,9 @@ Once an agent is selected, the detail panel on the right organizes all informati
     - **Latency history chart**: a 14-day time series of average AI response latency, helping you spot regressions or improvements over time
     - **Call volume chart**: a 30-day time series of daily call counts
     - **Phone health**: a clickable card linking to the spam/deliverability report for the agent's assigned numbers
-    - **Quick actions**: **Editor** (Advanced agents only), **Trends** (Advanced agents only), **Clone**, and **Archive**
   </Tab>
   <Tab title="Calls">
-    A sortable table of the agent's calls from the last 90 days, including date, origin number, status, duration, and latency. Admin users additionally see quick links per call. Recordings can be played directly from this tab using the same player used across the Calls section.
+    A sortable table of the agent's calls from the **last 90 days**, including date, origin number, status, duration, and latency. Click any column header to reorder the table by that field. Admin users additionally see quick links per call out to **Twilio** and **ElevenLabs** for deeper debugging. Recordings can be played directly from this tab using the same player used across the Calls section, letting you inspect a specific call without leaving the panel.
   </Tab>
   <Tab title="Settings">
     The full configuration form for standard (non-Advanced) agents — the same settings previously available on the classic page, including save/discard change detection and an editing timeout safeguard. Advanced agents don't show this tab since their configuration is managed from the [Advanced Editor](/agents/advanced-editor).
@@ -138,14 +153,38 @@ Both charts share the same rendering component and gracefully show an empty stat
 
 The **Phone health** card sits below the charts and links directly to the spam/deliverability report for the numbers assigned to the selected agent — the same report reachable from the row-level beacon in the agent list. Selecting an agent from the list is exactly what triggers its individual phone health check, so this card should always have fresh data by the time you view it.
 
+### Calls Tab in Detail
+
+The Calls tab gives you a focused, agent-scoped view of call history without needing to jump to the main Calls section and filter manually:
+
+- **90-day window**: the table loads calls from the last 90 days by default, sorted by most recent first.
+- **Sortable columns**: click any column header (date, status, duration, latency, etc.) to toggle its sort order.
+- **Admin-only debugging links**: admin users see extra per-call links out to the underlying **Twilio** call log and the **ElevenLabs** conversation, useful when troubleshooting a specific problem call.
+- **Inline recording playback**: click a call to open its recording in the same player component used in the main Calls section, so you can listen to (or download) the audio without leaving the agent's detail panel.
+
+### Settings Tab in Detail
+
+For standard (non-Advanced) agents, the Settings tab reproduces the full classic configuration form inside the detail panel:
+
+- **Agent name** and core identification fields
+- **Prompts**: the agent's system/behavior prompts, editable inline or via a fullscreen textarea for longer content
+- **Outbound options**: call behavior settings applied to outbound calls
+- **Evaluations**: manage the list of post-call evaluations run against this agent's conversations, including creating, editing, and deleting evaluation criteria
+- **Webhook**: configure the webhook endpoint that receives call events and data for this agent
+- **NPS survey**: enable and configure a post-call satisfaction survey
+- **Danger zone**: a collapsed, opt-in section exposing sensitive, rarely-touched settings — raw instructions, assigned phone numbers, and call transfer configuration
+
+<Warning>
+  The **Danger zone** fields directly affect how the agent behaves in production calls. Double-check raw instruction changes, phone number assignments, and transfer settings before saving.
+</Warning>
+
+<Info>
+  Settings changes are tracked with a **dirty-check**: the Save button only activates once you've actually modified something, and an **editing timeout** automatically locks the form after **10 minutes of inactivity**, requiring you to reload the latest data before making further changes. This prevents two people from silently overwriting each other's edits.
+</Info>
+
 ### Quick Actions
 
-At the bottom of the Overview tab, a row of quick action buttons lets you jump straight into common workflows without leaving the detail panel:
-
-- **Editor** — opens the [Advanced Editor](/agents/advanced-editor) in a new tab (Advanced agents only)
-- **Trends** — opens the evaluation trends view for this agent in a new tab (Advanced agents only)
-- **Clone** — launches the clone assistant described below
-- **Archive** — launches the archive confirmation flow described below
+The same **Editor**, **Trends**, **Clone**, and **Archive** actions available in the panel header are the primary entry points for the workflows below — use whichever one matches what you need to do with the selected agent.
 
 ## Clone Agents
 
@@ -153,7 +192,7 @@ Agent cloning now uses a guided **two-step assistant** instead of a single form,
 
 <Steps>
   <Step title="Step 1 — Configure the Clone">
-    Open **Clone** from the agent's Overview tab (or from the row's quick actions) to fill in the base configuration:
+    Open **Clone** from the agent detail panel's header actions to fill in the base configuration:
     - **Agent Name**: defaults to `<Original Name> (Copy)`, fully editable
     - **Target Company**: shown only to admin users on the Meetzy domain with access to multiple companies; regular users automatically clone into their own company
     - **Phone Number**: select an available number from the same Twilio account as the original agent — the list loads automatically once a company is chosen
@@ -182,7 +221,7 @@ Agent cloning now uses a guided **two-step assistant** instead of a single form,
   Archiving is the recommended way to retire an agent you no longer need while keeping its configuration, call history, and analytics intact for future reference.
 </Info>
 
-Archiving deactivates an agent without deleting its data. The **Archive Agent** modal, available from the Overview tab's quick actions, guides you through the process:
+Archiving deactivates an agent without deleting its data. The **Archive Agent** modal, available from the detail panel's header actions, guides you through the process:
 
 <Steps>
   <Step title="Review the Confirmation">
@@ -212,7 +251,7 @@ The **Swap Phone Number** modal lets you replace an agent's current number with 
 
 <Steps>
   <Step title="Open the Swap Modal">
-    From the "Call" modal next to any phone number, or from the agent's Settings, click the swap icon next to the number you want to replace.
+    From the "Call" modal next to any phone number, or from the agent's Settings tab, click the swap icon next to the number you want to replace.
   </Step>
   <Step title="Review the Swap">
     The modal displays the **current number** (marked for release) and automatically loads the **next available number** from the same Twilio account to assign in its place.
@@ -289,11 +328,12 @@ Each agent row includes a **Call** modal with everything needed to place a quick
     - Full access to clone, archive, restore, and swap phone numbers on any agent
     - Company filter available in both the agent list and the clone modal's target company selector
     - Cross-company agent management
+    - Only role that sees the Twilio/ElevenLabs debugging links in the Calls tab
   </Tab>
   <Tab title="Advanced Editor Users">
     - Create and edit Advanced agents via the [Advanced Editor](/agents/advanced-editor)
     - Clone, archive, and manage phone numbers for their own agents
-    - Access to Settings tab for standard agents
+    - Access to the Settings tab for standard agents
   </Tab>
   <Tab title="Standard Users">
     - View assigned agents and their Overview/Calls tabs

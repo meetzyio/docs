@@ -148,10 +148,10 @@ Cada fila también incluye un pequeño **chip** de color que resume el estado de
 
 ## Vista Detallada del Agente
 
-Al seleccionar cualquier agente en la lista, el panel derecho carga su información en tres pestañas: **Overview**, **Calls** y **Settings**.
+Al seleccionar cualquier agente en la lista, el panel derecho carga su información en tres pestañas: **Overview**, **Calls** y **Settings**. Estas pestañas comparten un mismo encabezado con el nombre del agente, su ID, badge de archivado (si aplica) y las acciones rápidas del agente, de modo que puedas cambiar de pestaña sin perder ese contexto.
 
 <Note>
-  En pantallas móviles, la lista se oculta automáticamente mientras el panel de detalle está abierto, dejando toda la pantalla disponible para revisar la información del agente. Usa el botón cerrar (✕) para volver a la vista de lista.
+  En pantallas móviles, la lista se oculta automáticamente mientras el panel de detalle está abierto, dejando toda la pantalla disponible para revisar la información del agente. Usa el botón cerrar (✕) para volver a la vista de lista. En esta misma vista móvil, las acciones del encabezado (Editor, Trends, Clone, Archive) se agrupan en un menú de tipo kebab (⋮) para ahorrar espacio.
 </Note>
 
 ### Encabezado del Panel
@@ -164,10 +164,15 @@ En la parte superior del panel de detalle encontrarás:
 | **ID del Agente** | Identificador único del sistema | Clic para copiar al portapapeles |
 | **Badge Archived** | Indicador de estado archivado | Visible únicamente si el agente está archivado |
 | **Compañía** | Organización propietaria del agente | Solo visible si el agente tiene compañía asociada |
+| **Acciones rápidas** | Editor, Trends, Clone, Archive | En escritorio se muestran como botones; en móvil, agrupadas en un menú ⋮ |
 | **Botón cerrar (✕)** | Cierra el panel de detalle | Vuelve a la vista de solo lista |
 
 <Note>
-  Los agentes con **Editor Avanzado** habilitado no muestran la pestaña **Settings**, ya que su configuración se gestiona íntegramente desde el Advanced Editor.
+  Los agentes con **Editor Avanzado** habilitado no muestran la pestaña **Settings**, ya que su configuración se gestiona íntegramente desde el Advanced Editor. En cambio, sí muestran los botones **Editor** y **Trends**, que solo están disponibles para este tipo de agentes.
+</Note>
+
+<Note>
+  Al cambiar de agente en la lista, el panel de detalle vuelve siempre a abrirse en la pestaña **Overview**, sin conservar la pestaña que tenías seleccionada previamente.
 </Note>
 
 ### Pestaña Overview
@@ -177,9 +182,12 @@ Es la pestaña que se abre por defecto al seleccionar un agente. Ofrece un panel
 #### Tarjetas de Resumen
 
 - **Total calls**: Número acumulado de llamadas
-- **Success rate**: Porcentaje de llamadas cerradas con éxito
 - **Avg duration**: Duración media de las conversaciones
 - **Avg AI latency**: Latencia media de respuesta de la IA, con un indicador de tendencia (▲/▼) que compara la primera y la segunda mitad del periodo analizado, además del percentil **P90** de latencia cuando hay datos disponibles
+
+<Info>
+  Mientras las métricas se están cargando, cada tarjeta muestra temporalmente el símbolo **"—"** en lugar del valor, y el indicador de tendencia solo aparece cuando hay suficientes días con datos de latencia como para comparar la primera mitad del periodo con la segunda.
+</Info>
 
 #### Gráficos Históricos
 
@@ -193,27 +201,31 @@ Es la pestaña que se abre por defecto al seleccionar un agente. Ofrece un panel
 </CardGroup>
 
 <Note>
-  Si el agente aún no tiene datos suficientes, cada gráfico muestra un mensaje indicando que todavía no hay información disponible.
+  Si el agente aún no tiene datos suficientes, cada gráfico muestra un mensaje indicando que todavía no hay información disponible ("No latency data yet." o "No calls yet.", según corresponda).
 </Note>
 
 #### Tarjeta de Phone Health
 
-Un bloque destacado dentro de Overview te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability) mediante un modal, sin salir del panel de detalle. Es el mismo acceso directo que representa el chip de color visible en la lista de agentes; al seleccionar el agente, este bloque dispara además la consulta de salud telefónica bajo demanda si aún no se había cargado.
+Un bloque destacado dentro de Overview, con icono de teléfono, te permite acceder directamente al reporte de salud de los números telefónicos asociados al agente (spam y deliverability) mediante un modal, sin salir del panel de detalle. Es el mismo acceso directo que representa el chip de color visible en la lista de agentes; al seleccionar el agente, este bloque dispara además la consulta de salud telefónica bajo demanda si aún no se había cargado.
 
 #### Acciones Rápidas
 
-En la parte inferior de Overview encontrarás, según tus permisos y el tipo de agente:
+En la parte superior del panel, junto al encabezado, encontrarás según tus permisos y el tipo de agente:
 
 | Acción | Disponibilidad | Descripción |
 |--------|-----------------|-------------|
-| **Editor** | Agentes con Editor Avanzado | Abre el Advanced Editor en una nueva pestaña |
-| **Trends** | Agentes con Editor Avanzado | Abre la vista de tendencias de evaluación filtrada por este agente |
-| **Clone** | Administradores y usuarios con rol adecuado | Inicia el flujo de clonación en dos pasos, en un modal dedicado |
+| **Editor** | Solo agentes con Editor Avanzado | Abre el Advanced Editor en una nueva pestaña |
+| **Trends** | Solo agentes con Editor Avanzado | Abre la vista de tendencias de evaluación filtrada por este agente |
+| **Clone** | Administradores y usuarios con rol `user` o `member` | Inicia el flujo de clonación en dos pasos, en un modal dedicado |
 | **Archive** | Usuarios con permiso de creación/edición de agentes | Abre el modal de confirmación de archivado |
+
+<Tip>
+  Estos botones son visibles desde cualquiera de las tres pestañas (Overview, Calls, Settings), ya que forman parte del encabezado compartido del panel y no exclusivamente de Overview.
+</Tip>
 
 ### Pestaña Calls
 
-Muestra el historial de llamadas del agente correspondiente a los últimos 90 días (a diferencia de otras vistas de llamadas, que por defecto muestran solo 7 días):
+Muestra el historial de llamadas del agente correspondiente a los últimos 90 días (a diferencia de otras vistas de llamadas, que por defecto muestran solo 7 días), ordenado de forma descendente por fecha:
 
 | Columna | Información |
 |---------|-------------|
@@ -226,8 +238,12 @@ Muestra el historial de llamadas del agente correspondiente a los últimos 90 d�
 | **Actions** | Acceso a la grabación y otros detalles de la llamada |
 
 <Tip>
-  Puedes reproducir la grabación de cualquier llamada directamente desde esta pestaña sin salir del panel de detalle, gracias al mismo reproductor utilizado en la sección de Calls.
+  Puedes reproducir la grabación de cualquier llamada directamente desde esta pestaña sin salir del panel de detalle, gracias al mismo reproductor modal utilizado en la sección de Calls.
 </Tip>
+
+<Note>
+  La consulta de llamadas se limita a 200 resultados por petición. Si el agente registra un volumen mayor en los últimos 90 días, ajusta el orden o utiliza la sección general de Calls para un análisis más exhaustivo.
+</Note>
 
 ### Pestaña Settings
 
@@ -245,7 +261,7 @@ Para agentes que muestran el badge **"Advanced"**:
 
 <Steps>
   <Step title="Acceder al editor">
-    Haz clic en el botón **Editor** dentro de la pestaña Overview del panel de detalle
+    Haz clic en el botón **Editor**, visible en el encabezado del panel de detalle (en escritorio) o dentro del menú ⋮ (en móvil)
   </Step>
   <Step title="Navegar por secciones">
     Utiliza el navegador lateral izquierdo para acceder a cada sección:
@@ -391,7 +407,7 @@ El clonado se realiza a través de un **modal de dos pasos**: primero configuras
 
 <Steps>
   <Step title="Seleccionar agente">
-    Escoge el agente que deseas duplicar y haz clic en el botón **Clone** dentro de su panel de detalle
+    Escoge el agente que deseas duplicar y haz clic en el botón **Clone**, disponible en el encabezado del panel de detalle
   </Step>
   <Step title="Paso 1: Configurar el duplicado">
     En el primer paso del modal define:
@@ -405,7 +421,7 @@ El clonado se realiza a través de un **modal de dos pasos**: primero configuras
     El modal muestra un resumen con la compañía destino, el número seleccionado, su uso y el modo de tools elegido antes de ejecutar la clonación
   </Step>
   <Step title="Personalizar">
-    Una vez creado, el nuevo agente queda seleccionado automáticamente en el panel de detalle para que puedas editarlo según tus necesidades específicas
+    Una vez creado, el nuevo agente queda seleccionado automáticamente en el panel de detalle (abierto en su pestaña Overview) para que puedas editarlo según tus necesidades específicas
   </Step>
 </Steps>
 
@@ -441,7 +457,7 @@ Cuando un agente ya no está en uso pero quieres conservar su configuración e h
     Selecciona el agente que deseas archivar desde la lista para abrir su panel de detalle
   </Step>
   <Step title="Iniciar el archivado">
-    Haz clic en el botón **Archive** dentro de la pestaña Overview. Se abrirá un modal de confirmación
+    Haz clic en el botón **Archive**, visible en el encabezado del panel de detalle. Se abrirá un modal de confirmación
   </Step>
   <Step title="Decidir sobre el número telefónico">
     En el modal, activa la opción **Release its phone number for other agents** si deseas liberar el número asociado para reutilizarlo en otro agente. Si la dejas desactivada, el número permanecerá reservado para este agente
@@ -696,16 +712,21 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | Acción | Método | Descripción |
 |--------|---------|-------------|
 | **Copiar ID** | Clic en el badge de ID | Copia el identificador único al portapapeles |
-| **Editor** | Botón "Editor" (pestaña Overview) | Abre el Advanced Editor en una nueva pestaña |
-| **Trends** | Botón "Trends" (pestaña Overview) | Abre la vista de tendencias de evaluación del agente |
-| **Clone** | Botón "Clone" (pestaña Overview) | Abre el modal de clonación en dos pasos |
-| **Archive** | Botón "Archive" (pestaña Overview) | Abre el modal de confirmación de archivado |
+| **Editor** | Botón "Editor" en el encabezado (solo agentes avanzados) | Abre el Advanced Editor en una nueva pestaña |
+| **Trends** | Botón "Trends" en el encabezado (solo agentes avanzados) | Abre la vista de tendencias de evaluación del agente |
+| **Clone** | Botón "Clone" en el encabezado | Abre el modal de clonación en dos pasos |
+| **Archive** | Botón "Archive" en el encabezado | Abre el modal de confirmación de archivado |
+| **Ver Phone Health** | Tarjeta "Phone health" en la pestaña Overview | Abre el modal con el reporte de spam/deliverability |
 | **Llamar** | Botón de llamar en la fila del agente | Abre el modal de llamada con opciones de prueba entrante y saliente |
 | **Swap número** | Icono ⇄ junto al número (dentro del modal de llamada o Settings) | Abre el modal de intercambio de número telefónico |
 | **Edit Form** | Botón "Edit Form" en el modal de llamada | Abre el editor de campos personalizados |
 | **Cambiar de agente (Editor Avanzado)** | Selector de agentes | Salta a otro agente sin perder el contexto del editor |
 | **Cerrar panel** | Clic en ✕ | Cierra la vista detallada y vuelve a la vista de solo lista |
 | **Volver a la vista clásica** | Enlace en el banner superior | Redirige a la página `/agents` clásica |
+
+<Note>
+  En pantallas móviles, las acciones **Editor**, **Trends**, **Clone** y **Archive** no se muestran como botones independientes en el encabezado: se agrupan bajo un único icono de menú (⋮) para optimizar el espacio disponible.
+</Note>
 
 ### Atajos de Teclado en el Editor Avanzado
 
@@ -733,8 +754,7 @@ Para usuarios administradores, está disponible la gestión masiva:
 
 El sistema monitorea continuamente la salud de tus agentes:
 
-- **Phone Health**: Estado de números telefónicos asignados, visible como un chip de color en cada fila de la lista (cargado bajo demanda), filtrable mediante el interruptor **Phone health** y accesible en detalle desde la pestaña Overview o desde el modal correspondiente
+- **Phone Health**: Estado de números telefónicos asignados, visible como un chip de color en cada fila de la lista (cargado bajo demanda), filtrable mediante el interruptor **Phone health** y accesible en detalle desde la tarjeta correspondiente en la pestaña Overview
 - **Latency sparkline**: Mini-gráfico de 14 días con la evolución de la latencia media, visible directamente en la lista sin necesidad de abrir el panel de detalle
-- **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días, percentil P90 y tendencia comparativa
-- **Success Rate**: Tasa de llamadas cerradas con éxito
-- **Call Volume**:
+- **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días, percentil P90 y tendencia comparativa, visible en la tarjeta de resumen de la pestaña Overview
+- **Total Calls y Avg Duration**: Volumen acumulado y duración media de las conversaciones, también disponibles en las tarjetas de resumen de Overview
