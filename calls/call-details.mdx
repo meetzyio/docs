@@ -236,6 +236,23 @@ Arrow key navigation is automatically disabled while you're typing in the review
 
 Switching calls triggers a short slide transition (the content pane animates left or right depending on the direction you navigated) so it's clear a new recording has loaded, and reloads the waveform, audio, transcript, review status, and tags for the newly selected call.
 
+### Call ID Badge Next to the Transcript
+
+To make it easy to reference a specific call while reviewing recordings — for example, when filing a bug report or pasting the ID into a support ticket — the **Call ID** is now shown as a small badge right above the transcript panel, next to the "Transcript" heading.
+
+<CardGroup cols={2}>
+  <Card title="Always visible" icon="id-badge">
+    You no longer need to scroll back up to the Call Information panel or return to the table to find the ID of the call you're currently listening to — it's shown directly next to the transcript.
+  </Card>
+  <Card title="One-click copy" icon="copy">
+    Click the badge to copy the Call ID to your clipboard, exactly like the copy buttons elsewhere in the modal.
+  </Card>
+</CardGroup>
+
+<Info>
+Because the badge reloads together with the rest of the panel, navigating to the previous/next call with the header buttons or arrow keys automatically updates it to the new call's ID — you'll never accidentally copy the wrong one.
+</Info>
+
 ### Quick Verdict (Pending / OK / KO)
 
 Reviewing a batch of recordings usually ends with the same decision for each call: was this a good call or not? Instead of closing the modal and marking the call from the table, you can now record that verdict right from the recording player.
@@ -250,12 +267,16 @@ The verdict control is **tri-state**, not a simple on/off toggle:
 
 <CardGroup cols={2}>
   <Card title="OK / KO control" icon="thumbs-up">
-    A three-way control in the modal lets you mark the call currently loaded as **OK** or **KO**, with the active option visually highlighted. Clicking the currently active option again clears it, returning the call to **Pending**.
+    A three-way control in the modal, next to the review checkbox, lets you mark the call currently loaded as **OK** or **KO**, with the active option visually highlighted.
   </Card>
-  <Card title="Stays with the call" icon="link">
-    The verdict is saved against the call you're viewing and travels with it — navigating to the previous/next call loads that call's own verdict state (Pending, OK, or KO), it never carries over from the call you just left.
+  <Card title="Click again to deselect" icon="rotate-left">
+    Clicking the currently active option a second time clears it, returning the call to **Pending** — there's no need to hunt for a separate "clear" or "undo" action.
   </Card>
 </CardGroup>
+
+<Info>
+The verdict is saved against the call you're viewing and travels with it — navigating to the previous/next call loads that call's own verdict state (Pending, OK, or KO); it never carries over from the call you just left.
+</Info>
 
 <Steps>
   <Step title="Open a recording">
@@ -328,7 +349,7 @@ The waveform is computed once per call and cached for the session — reopening 
 
 ### Enriched Transcript
 
-Next to the player, the transcript is rendered turn-by-turn (not as a single wall of text). Each turn shows its elapsed time in the call, and agent turns carry two kinds of expandable detail sourced directly from the underlying ElevenLabs conversation: a **response time breakdown** and, when applicable, **tool call details**.
+Next to the player, the transcript is rendered turn-by-turn (not as a single wall of text), with the [Call ID badge](#call-id-badge-next-to-the-transcript) sitting right next to the "Transcript" heading. Each turn shows its elapsed time in the call, and agent turns carry two kinds of expandable detail sourced directly from the underlying ElevenLabs conversation: a **response time breakdown** and, when applicable, **tool call details**.
 
 #### Turn Latency Breakdown
 
@@ -378,12 +399,26 @@ If the agent invoked a tool or function during a turn, a **🔧 tool name** badg
 
 This lets you verify not just *that* a tool was called, but exactly *what* was sent and *what* came back, without leaving the recording view.
 
+#### Color-Coded Tool Activity
+
+To make tool activity scannable at a glance, the transcript now uses a consistent color code for anything related to tools — both in the badges next to a turn and in the expanded detail cards below it:
+
+| Color | Meaning |
+|-------|---------|
+| 🟠 Amber | A tool call — the request the agent sent to a tool, with the tool name and parameters |
+| 🔵 Blue | A tool response — the result the tool returned for that call |
+| 🔴 Red | A tool error — the call failed, and the card shows the error details instead of a result |
+
+<Info>
+This color coding is applied consistently across the modal: the small **🔧 tool name** badge next to a turn, and the expanded parameters/result card underneath it, both use the same amber/blue/red scheme. A quick glance down the transcript is enough to spot which turns involved tools and whether any of those calls failed.
+</Info>
+
 <Info>
 This view mirrors what ElevenLabs' own conversation view shows, since this per-turn detail (latency metrics, model attribution, tool payloads) isn't persisted in Meetzy's database — it's fetched live from ElevenLabs when you open the recording.
 </Info>
 
 <Warning>
-If the underlying ElevenLabs conversation is no longer available (for example, an old or purged call), the modal automatically falls back to a **plain transcript** view — the message bubbles are still shown, but without latency breakdowns, model detail, or tool call/result cards. A short notice appears above the transcript in this case.
+If the underlying ElevenLabs conversation is no longer available (for example, an old or purged call), the modal automatically falls back to a **plain transcript** view — the message bubbles are still shown, but without latency breakdowns, model detail, or expandable tool call/result cards. A short notice appears above the transcript in this case. The same amber/blue/red color coding for tool calls, responses, and errors is preserved in this fallback mode wherever that information is still present in the raw transcript, so tool activity remains easy to spot even without the rich per-turn metrics.
 </Warning>
 
 <Warning>
@@ -427,7 +462,7 @@ When you copy data:
 
 <CardGroup cols={2}>
   <Card title="Debugging" icon="bug">
-    Review input params and output to diagnose why a call didn't perform as expected.
+    Review input params and output to diagnose why a call didn't perform as expected. Use the color-coded tool cards in the transcript to quickly spot which tool call failed.
   </Card>
   <Card title="Quality Assurance" icon="check-double">
     Listen to recordings, check transcriptions, and mark each call Pending/OK/KO — plus add a note and tags — to build a fast, keyboard-driven QA workflow entirely inside the recording modal.
@@ -454,7 +489,7 @@ The ← and → shortcuts only apply while the Call Recording modal is open, and
 </Info>
 
 <Info>
-There is no dedicated shortcut for the verdict control, the Reviewed checkbox, or tags — use the on-screen controls in the modal. This keeps review edits a deliberate click/keystroke rather than something that could be triggered accidentally while navigating between calls with the arrow keys.
+There is no dedicated shortcut for the verdict control, the Reviewed checkbox, or tags — use the on-screen controls in the modal. This keeps review edits a deliberate click/keystroke rather than something that could be triggered accidentally while navigating between calls with the arrow keys. Clicking an already-selected OK or KO button deselects it back to Pending.
 </Info>
 
 ## Next Steps

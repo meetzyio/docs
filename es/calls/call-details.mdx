@@ -326,6 +326,10 @@ El veredicto es **deseleccionable**: si haces clic de nuevo sobre el botón ya a
 </Info>
 
 <Info>
+Desmarcar el checkbox **Reviewed** también limpia automáticamente el veredicto OK/KO asociado, para que ambos estados —revisada y veredicto— se mantengan siempre coherentes.
+</Info>
+
+<Info>
 El veredicto OK/KO queda disponible como filtro en la tabla de llamadas, lo que te permite, por ejemplo, listar únicamente las llamadas marcadas como KO para priorizar su revisión o escalarlas al equipo correspondiente, o las llamadas sin veredicto para saber qué falta por revisar.
 </Info>
 
@@ -361,6 +365,10 @@ Mientras el foco esté dentro del campo de nota o del input de etiquetas, las fl
 </Info>
 
 ### Transcripción Enriquecida por Turno
+
+<Info>
+Encima de la transcripción, junto al título **"Transcript"**, aparece un badge con el **ID de la llamada** en formato monoespaciado y copiable con un clic. Esto es especialmente útil en sesiones de control de calidad, donde necesitas referenciar rápidamente una llamada concreta (por ejemplo, al reportar un caso al equipo técnico) sin tener que volver a la tabla principal para localizar su identificador.
+</Info>
 
 Junto al reproductor, cada turno de la conversación (agente o usuario) se muestra como una burbuja de chat, con indicadores debajo que resumen lo que ocurrió técnicamente en ese turno:
 
@@ -412,10 +420,20 @@ Compara los porcentajes de cada segmento (ASR, LLM, TTS, overhead) para saber en
 
 #### Detalle de Tool Calls por turno
 
-Al hacer clic en el indicador 🔧 de una herramienta, se despliega un panel con:
+Cada chip 🔧 se muestra en **ámbar**, siguiendo el mismo código de color en todo el reproductor: ámbar identifica una invocación de herramienta. Al hacer clic en el indicador, se despliega un panel con dos tarjetas diferenciadas por color para que puedas distinguir de un vistazo la petición de la respuesta:
 
-- **Parámetros** - el JSON enviado a la herramienta en el momento de la invocación
-- **Respuesta** - el JSON devuelto por la herramienta, marcado como error si corresponde
+<CardGroup cols={2}>
+  <Card title="Parámetros" icon="arrow-up-right-from-square">
+    Tarjeta en **ámbar** con el JSON exacto que se envió a la herramienta en el momento de la invocación.
+  </Card>
+  <Card title="Respuesta" icon="arrow-down-left">
+    Tarjeta en **azul** con el JSON devuelto por la herramienta. Si la ejecución falló, la tarjeta cambia a **rojo** para que el error salte a la vista de inmediato.
+  </Card>
+</CardGroup>
+
+<Info>
+Este mismo código de color (ámbar = petición, azul = respuesta correcta, rojo = respuesta con error) se mantiene consistente en toda la transcripción enriquecida, así que después de revisar un par de turnos puedes identificar el estado de cada tool call sin necesidad de leer el JSON completo.
+</Info>
 
 <Steps>
 <Step title="Abre el reproductor">
@@ -425,7 +443,7 @@ Haz clic en el ícono de reproducción en la columna **Recording**, o desde el b
 Desplázate por la transcripción mientras escuchas el audio en la parte superior del modal.
 </Step>
 <Step title="Expande el desglose">
-Haz clic en **"Replied in Xs"** o en cualquier tool call para ver el detalle completo de ese turno.
+Haz clic en **"Replied in Xs"** o en cualquier chip 🔧 de tool call para ver el detalle completo de ese turno, incluyendo las tarjetas de color de parámetros y respuesta.
 </Step>
 </Steps>
 
