@@ -242,7 +242,19 @@ Muestra el historial de llamadas del agente correspondiente a los últimos 90 d�
 </Tip>
 
 <Note>
-  La consulta de llamadas se limita a 200 resultados por petición. Si el agente registra un volumen mayor en los últimos 90 días, ajusta el orden o utiliza la sección general de Calls para un análisis más exhaustivo.
+  La consulta de llamadas se limita a 200 resultados por petición. Si el agente registra un volumen mayor en los últimos 90 días, ajusta el orden o utiliza el botón **View all** para un análisis más exhaustivo.
+</Note>
+
+#### Botón "View all"
+
+En la cabecera de la pestaña Calls encontrarás el botón **View all**, que abre la sección general de **Calls** en una nueva pestaña, ya filtrada automáticamente por este agente (`/calls-v2?agent_id=...`). Es útil cuando necesitas aplicar filtros adicionales, exportar resultados o revisar un histórico mayor a los 90 días que muestra el panel de detalle.
+
+<Info>
+  Este botón recupera una funcionalidad que existía en la pantalla clásica de agentes y que se había perdido en el rediseño inicial de la vista de detalle: te permite saltar directamente de un agente concreto a su historial completo de llamadas sin tener que volver a aplicar el filtro manualmente en la sección Calls.
+</Info>
+
+<Note>
+  Para agentes marcados como **Demo**, el botón **View all** solo está disponible si eres administrador, siguiendo la misma restricción de acceso que aplica al resto de funcionalidades de llamadas para este tipo de agentes.
 </Note>
 
 ### Pestaña Settings
@@ -656,6 +668,10 @@ Los agentes marcados como **Demo** aparecen en una sección **colapsable** indep
   Los agentes demo no se ven afectados por el filtro de compañía ni por la búsqueda principal de la lista: siempre aparecen agrupados en su propia sección, independientemente de los filtros que tengas activos.
 </Tip>
 
+<Note>
+  Para los agentes demo, funcionalidades relacionadas con llamadas —como el botón **View all** de la pestaña Calls— solo están disponibles si accedes con una cuenta de administrador. El resto de usuarios puede consultar la configuración del agente demo, pero no su historial de llamadas asociado.
+</Note>
+
 ### Uso de Agentes Demo
 
 <Steps>
@@ -717,6 +733,7 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | **Clone** | Botón "Clone" en el encabezado | Abre el modal de clonación en dos pasos |
 | **Archive** | Botón "Archive" en el encabezado | Abre el modal de confirmación de archivado |
 | **Ver Phone Health** | Tarjeta "Phone health" en la pestaña Overview | Abre el modal con el reporte de spam/deliverability |
+| **Ver todas las llamadas** | Botón "View all" en la pestaña Calls | Abre la sección Calls filtrada por este agente en una nueva pestaña |
 | **Llamar** | Botón de llamar en la fila del agente | Abre el modal de llamada con opciones de prueba entrante y saliente |
 | **Swap número** | Icono ⇄ junto al número (dentro del modal de llamada o Settings) | Abre el modal de intercambio de número telefónico |
 | **Edit Form** | Botón "Edit Form" en el modal de llamada | Abre el editor de campos personalizados |
@@ -743,18 +760,4 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 ### Acciones en Lote
 
 Para usuarios administradores, está disponible la gestión masiva:
-- **Pausar múltiples agentes**: Para mantenimiento programado
-- **Archivar múltiples agentes**: Para limpiar agentes descontinuados en bloque
-- **Cambiar compañía**: Transferir agentes entre organizaciones
-- **Exportar configuración**: Backup de configuraciones múltiples
-
-## Monitoreo y Alertas
-
-### Indicadores de Salud
-
-El sistema monitorea continuamente la salud de tus agentes:
-
-- **Phone Health**: Estado de números telefónicos asignados, visible como un chip de color en cada fila de la lista (cargado bajo demanda), filtrable mediante el interruptor **Phone health** y accesible en detalle desde la tarjeta correspondiente en la pestaña Overview
-- **Latency sparkline**: Mini-gráfico de 14 días con la evolución de la latencia media, visible directamente en la lista sin necesidad de abrir el panel de detalle
-- **Avg AI Latency**: Latencia media de respuesta, con histórico de 14 días, percentil P90 y tendencia comparativa, visible en la tarjeta de resumen de la pestaña Overview
-- **Total Calls y Avg Duration**: Volumen acumulado y duración media de las conversaciones, también disponibles en las tarjetas de resumen de Overview
+- **Pausar múltiples agentes**: Para m

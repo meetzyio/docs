@@ -119,7 +119,7 @@ A row of buttons at the top of the panel gives you one-click access to the most 
     - **Phone health**: a clickable card linking to the spam/deliverability report for the agent's assigned numbers
   </Tab>
   <Tab title="Calls">
-    A sortable table of the agent's calls from the **last 90 days**, including date, origin number, status, duration, and latency. Click any column header to reorder the table by that field. Admin users additionally see quick links per call out to **Twilio** and **ElevenLabs** for deeper debugging. Recordings can be played directly from this tab using the same player used across the Calls section, letting you inspect a specific call without leaving the panel.
+    A sortable table of the agent's calls from the **last 90 days**, including date, origin number, status, duration, and latency. Click any column header to reorder the table by that field. Admin users additionally see quick links per call out to **Twilio** and **ElevenLabs** for deeper debugging. Recordings can be played directly from this tab using the same player used across the Calls section, letting you inspect a specific call without leaving the panel. A **"View all calls"** shortcut opens the main Calls section in a new tab, already filtered down to this agent, for whenever the 90-day snapshot isn't enough.
   </Tab>
   <Tab title="Settings">
     The full configuration form for standard (non-Advanced) agents — the same settings previously available on the classic page, including save/discard change detection and an editing timeout safeguard. Advanced agents don't show this tab since their configuration is managed from the [Advanced Editor](/agents/advanced-editor).
@@ -161,6 +161,11 @@ The Calls tab gives you a focused, agent-scoped view of call history without nee
 - **Sortable columns**: click any column header (date, status, duration, latency, etc.) to toggle its sort order.
 - **Admin-only debugging links**: admin users see extra per-call links out to the underlying **Twilio** call log and the **ElevenLabs** conversation, useful when troubleshooting a specific problem call.
 - **Inline recording playback**: click a call to open its recording in the same player component used in the main Calls section, so you can listen to (or download) the audio without leaving the agent's detail panel.
+- **View all calls**: opens the full [Calls](/calls) section in a new tab, pre-filtered to this agent's ID, for whenever you need to look further back than 90 days or apply additional filters.
+
+<Tip>
+  This shortcut mirrors an option that existed on the classic Agents page — it opens the general Calls list scoped to the agent instead of duplicating advanced filtering inside the detail panel.
+</Tip>
 
 ### Settings Tab in Detail
 
