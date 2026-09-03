@@ -9,19 +9,19 @@ icon: 'phone'
 The Call History section provides a comprehensive view of all calls made by your AI agents. You can search, filter, and analyze call data to monitor performance and identify insights with powerful filtering capabilities, an audit/review workflow, and customizable views.
 
 <Info>
-A banner now sits at the very top of this page, letting you switch at any time between the **classic Call History table** and the **new, improved Calls view**. Both views are documented separately — this page covers the improved view; head over to [Call History (Classic)](/calls/call-history-classic) for a full walkthrough of the original table if you're using that view instead.
+A banner now sits at the very top of this page, letting you switch at any time between the **classic Call History table** and the **new, improved Calls view**. Both views are documented separately — this page covers the improved view; head over to [Call History (Classic)](/calls/call-history-classic) for a full walkthrough of the original table, now available at **`/calls-old`**, if you're using that view instead.
 </Info>
 
 <Info>
-**New:** there's now an even more capable calls view available at **`/calls-v2`**, featuring fully configurable columns and additional filters beyond what's described below. If you've been living happily in the classic table, this is your reminder to come take a look — don't get stuck in the past like a photon trapped in a box. See the [Advanced Calls View](#configurable-columns) section on this page for the full breakdown of what's new.
+**New:** the improved calls view has replaced the classic table as the default experience. It features fully configurable and pinnable columns, saved and built-in views, summary cards, an OK/KO review workflow with note history, inline tag management, and shareable filtered links — everything described below. If you've been living happily in the classic table, this is your reminder to come take a look — don't get stuck in the past like a photon trapped in a box.
 </Info>
 
 ## Accessing Call History
 
-Navigate to **Calls** in the main menu to access your complete call history. This now opens the improved calls view (**Calls v2**) by default.
+Navigate to **Calls** in the main menu to access your complete call history. This now opens the improved calls view by default.
 
 <Info>
-Calls v2 brings **fully configurable, drag-and-drop columns** (including dynamic input/output fields grouped by agent, with key columns pinned to the right edge), **saved views**, **real AI latency metrics with a per-turn detail chart**, an **expanded filter bar** (date presets, multi-agent selection, tag autocomplete, exact Call ID, latency range, and a one-click "suspicious calls" filter), a built-in **review/audit workflow** with per-call notes, and an **Excel export** that can target either all filtered calls or just your current selection.
+The improved view brings **fully configurable, drag-and-drop, and pinnable columns** (including dynamic input/output fields grouped by agent), **saved views — both built-in and your own**, **real AI latency metrics with a per-turn detail chart**, **summary cards** for at-a-glance volume and performance stats, an **expanded filter bar** (date presets, multi-agent selection, tag autocomplete, exact Call ID, latency range, and a one-click "suspicious calls" filter), **inline tag management**, a built-in **OK/KO review and audit workflow** with per-call note history, **shareable direct links** with preset filters, and an **Excel export** that can target either all filtered calls or just your current selection.
 </Info>
 
 ### Switching Between Views
@@ -56,15 +56,54 @@ The calls interface consists of:
 |---------|-------------|
 | 🟡 Notice Banner | Reminder that you're on the new view, with a link back to the classic table |
 | 📊 Header | Title, description, Views menu, Columns manager, and export actions |
+| 📈 Summary Cards | At-a-glance stats for volume, latency, duration, review status, and transfer times, scoped to your current filters |
 | 🔍 Filter Bar | Advanced filtering controls with visibility management |
-| ⚙️ Columns | Configurable, draggable columns including dynamic agent fields, pinned columns, and saved views |
-| 📋 Call Table | List of all calls with key information, including review status |
+| ⚙️ Columns | Configurable, draggable, pinnable columns including dynamic agent fields and saved views |
+| 📋 Call Table | List of all calls with key information, inline tag management, and review status |
 | 📄 Details Modal | Detailed view of individual calls, including a full AI latency chart |
+
+## Summary Cards
+
+<Info>
+Right below the filter bar, a row of summary cards gives you a real-time snapshot of the calls currently matching your filters — no need to scroll the table or run a manual count.
+</Info>
+
+| Card | What it shows |
+|------|---------------|
+| **Call volume** | The total number of calls matching your current filters, across all pages |
+| **Avg latency** | The average AI response latency across the filtered calls, in milliseconds |
+| **Avg duration** | The average call length across the filtered calls, in minutes:seconds |
+| **Reviewed** | How many of the filtered calls have been marked with a verdict (OK or KO), typically shown as a count and percentage of the total |
+| **Inbound transfer time** | The average time elapsed before an inbound call was transferred, when applicable |
+| **Outbound transfer time** | The average time elapsed before an outbound call was transferred, when applicable |
+
+<Steps>
+<Step title="Apply Your Filters">
+Set up your date range, agents, tags, status, or any other filter as usual.
+</Step>
+<Step title="Read the Cards">
+The summary cards recalculate automatically to reflect only the calls matching your current filters — they update every time a filter changes.
+</Step>
+<Step title="Spot Trends Quickly">
+Use the cards as a quick health check before diving into the table — for example, a sudden jump in **Avg latency** or in the **Outbound transfer time** card can be a signal to filter further and investigate specific calls.
+</Step>
+<Step title="Track Review Progress">
+Watch the **Reviewed** card during a QA sweep to see your audit coverage increase in real time as you go through the table and leave verdicts.
+</Step>
+</Steps>
+
+<Tip>
+Combine the **Reviewed** card with the "Suspicious calls" filter to measure how much of your suspicious backlog has actually been audited, rather than just how many suspicious calls exist.
+</Tip>
+
+<Warning>
+Transfer time cards only reflect calls where a transfer actually occurred. If none of your currently filtered calls involved a transfer, the corresponding card will show an empty or zero value rather than being hidden.
+</Warning>
 
 ## Configurable Columns
 
 <Info>
-The improved calls view lets you fully control which columns appear, in what order, and even add columns sourced directly from each agent's input parameters or structured output — no need to open a call individually to see a specific data point.
+The improved calls view lets you fully control which columns appear, in what order, whether they're pinned, and even add columns sourced directly from each agent's input parameters or structured output — no need to open a call individually to see a specific data point.
 </Info>
 
 Click the **⚙️ Columns** button above the table to open the column manager panel. It's organized into three areas:
@@ -72,7 +111,7 @@ Click the **⚙️ Columns** button above the table to open the column manager p
 | Section | Purpose |
 |---------|---------|
 | **Input columns** | Discover fields from each agent's input parameters (`call.data`) and add them as columns, grouped by agent |
-| **Columns** | Manage visibility and order of all currently active columns — fixed and dynamic — via drag and drop |
+| **Columns** | Manage visibility, order, and pinning of all currently active columns — fixed and dynamic — via drag and drop |
 | **Output columns** | Discover fields from each agent's structured output (`call.output`) and add them as columns, grouped by agent |
 
 Saved column layouts live in the separate **👁️ Views** menu next to the Columns button — see [Saved Views](#saved-views) below.
@@ -87,6 +126,9 @@ In the **Columns** section, drag any row using the ⠿ handle to reorder it. The
 <Step title="Show or Hide Columns">
 Use the checkbox next to each column name to toggle its visibility. Columns marked as non-toggleable (such as **Actions**) always remain visible.
 </Step>
+<Step title="Pin or Unpin a Column">
+Click the 📌 pin icon next to any column to fix it to the right edge of the table, so it stays visible no matter how far you scroll horizontally or how many columns you've added. Click it again to unpin.
+</Step>
 <Step title="Add a Dynamic Column from Input or Output">
 Click **Input columns** or **Output columns**, find the field you need under the relevant agent group (grouped and collapsible per agent), and click **Add**. The field appears immediately as a new column, placed just before the pinned columns, and is tagged with an **input**/**output** badge in the Columns list.
 </Step>
@@ -94,12 +136,12 @@ Click **Input columns** or **Output columns**, find the field you need under the
 Dynamic columns display a small ✕ button next to their badge in the Columns list. Click ✕ to remove them from your view entirely.
 </Step>
 <Step title="Reset to Defaults">
-Click **Reset to default columns** at the bottom of the panel to discard all customizations and restore the original column set.
+Click **Reset to default columns** at the bottom of the panel to discard all customizations and restore the original column set, including pinning.
 </Step>
 </Steps>
 
 <Tip>
-Your column configuration — order, visibility, and any dynamic columns you've added — is saved automatically per user and restored the next time you open the view. There's no manual save step.
+Your column configuration — order, visibility, pinning, and any dynamic columns you've added — is saved automatically per user and restored the next time you open the view. There's no manual save step.
 </Tip>
 
 <Warning>
@@ -109,41 +151,49 @@ Dynamic columns are tied to the agent and field path they were created from. If 
 ### Pinned Columns
 
 <Info>
-A small number of columns are **pinned to the right edge** of the table so they stay visible regardless of how many columns you add or how far you scroll horizontally.
+Any column can be **pinned to the right edge** of the table so it stays visible regardless of how many columns you add or how far you scroll horizontally — not just the defaults.
 </Info>
 
-By default, **Reviewed** and **Actions** are pinned. This keeps your audit status and row-level actions within reach even when you've added several dynamic input/output columns that push the table wide.
+By default, **Verdict** and **Actions** are pinned. This keeps your audit status and row-level actions within reach even when you've added several dynamic input/output columns that push the table wide. You can pin additional columns (or unpin these two) from the column manager at any time.
 
 <Tip>
-Pinned columns are visually grouped together at the right edge — if you rely heavily on the review workflow, keep the **Reviewed** column pinned rather than hiding it, so you always know which calls in view still need attention.
+Pinned columns are visually grouped together at the right edge — if you rely heavily on the review workflow, keep the **Verdict** column pinned rather than hiding it, so you always know which calls in view still need attention. If tag triage is central to your process, consider pinning **Tags** as well.
 </Tip>
 
 ### Saved Views
 
 <Info>
-Beyond your single auto-saved layout, the **👁️ Views** menu (next to the Columns button in the header) lets you keep multiple **named views** — for example, one focused on latency troubleshooting and another focused on audit review — and switch between them instantly.
+Beyond your single auto-saved layout, the **👁️ Views** menu (next to the Columns button in the header) lets you keep multiple **named views** — for example, one focused on latency troubleshooting and another focused on audit review — and switch between them instantly. The menu combines two kinds of views: a set of **built-in views** provided out of the box, and any **custom views** you save yourself.
 </Info>
+
+| View type | Description |
+|-----------|--------------|
+| **Built-in views** | Predefined column layouts shipped with the platform, covering common workflows (e.g. a review-focused layout or a latency-focused layout) — always available, can't be edited or deleted |
+| **Your saved views** | Custom column layouts you create and name yourself, listed separately from the built-in ones |
 
 <Steps>
 <Step title="Configure a Layout">
-Show, hide, reorder, and add dynamic columns until the table matches the view you want to save.
+Show, hide, reorder, pin, and add dynamic columns until the table matches the view you want to save.
 </Step>
 <Step title="Open the Views Menu">
-Click **👁️ Views** in the header to open the saved views panel.
+Click **👁️ Views** in the header to open the saved views panel, which lists built-in views first, followed by your own.
 </Step>
-<Step title="Name and Save">
-Type a name into the **New view name…** field and click **Save current**. The current column configuration is stored as a new saved view.
+<Step title="Apply a Built-in View">
+Click on any built-in view's name to instantly apply its predefined column layout.
+</Step>
+<Step title="Name and Save Your Own">
+Type a name into the **New view name…** field and click **Save current**. The current column configuration is stored as a new custom view.
 </Step>
 <Step title="Apply a Saved View">
-Click on any saved view's name in the list to instantly replace your current column configuration with that view's layout.
+Click on any of your saved views' names in the list to instantly replace your current column configuration with that view's layout.
 </Step>
 <Step title="Delete a Saved View">
-Click the ✕ next to a saved view to remove it. This only deletes the saved view itself — it doesn't change your currently active columns.
+Click the ✕ next to one of your saved views to remove it. Built-in views don't show a delete option. Deleting a saved view only removes the saved view itself — it doesn't change your currently active columns.
 </Step>
 </Steps>
 
 <Tip>
-Saved views only capture the **column configuration** (which columns, their order, and visibility) — they don't store filters, sorting, or page size. Combine a saved view with a filter preset for a fully repeatable workflow.
+Saved views only capture the **column configuration** (which columns, their order, visibility, and pinning) — they don't store filters, sorting, or page size. Combine a saved view with a filter preset, or a [direct link](#direct-links-with-preset-filters), for a fully repeatable workflow.
 </Tip>
 
 ### Legacy Column Configuration Migration
@@ -182,9 +232,9 @@ Out of the box, the improved view includes:
 | Duration | Call length |
 | Avg AI latency | Average AI response latency for the call |
 | Latency (turns) | Compact sparkline of latency across the call's turns |
-| Tags | Dynamic tags associated with the call |
+| Tags | Dynamic and custom tags associated with the call, editable inline |
 | Recording | Access to the call recording player |
-| Reviewed *(pinned)* | Audit/review status for the call, with an inline note editor |
+| Verdict *(pinned)* | Audit/review status for the call (OK / KO / not reviewed), with an inline note editor and note history |
 | Actions *(pinned)* | Row-level quick actions |
 
 Additional columns such as **To**, **Max latency**, **Company**, **Email**, **Summary**, **Type**, **Hung up by**, and **Agent duration** are available but hidden by default — enable them from the column manager as needed.
@@ -193,44 +243,80 @@ Additional columns such as **To**, **Max latency**, **Company**, **Email**, **Su
 The **Agent ID** and **Call ID** columns render as compact badges showing only the last 10 characters with a one-click copy button — handy for grabbing an exact ID to paste into the Call ID filter without cluttering the row with a full UUID.
 </Tip>
 
+## Inline Tag Management
+
+<Info>
+Tags no longer require opening the call details modal to manage — you can add, create, and remove tags directly from the **Tags** column in the table.
+</Info>
+
+<Steps>
+<Step title="Open the Tag Editor">
+Click into the **Tags** cell for any call to open its inline tag editor.
+</Step>
+<Step title="Add an Existing Tag">
+Start typing to see autocomplete suggestions drawn from tags already used across your calls, then click one to attach it.
+</Step>
+<Step title="Create a New Tag">
+If no existing tag matches what you typed, choose the option to create it as a brand-new tag and attach it to the call in one step.
+</Step>
+<Step title="Remove a Tag">
+Click the ✕ on any tag chip within the cell to detach it from that call — this doesn't delete the tag itself, it just removes the association with this call.
+</Step>
+<Step title="Close the Editor">
+Click outside the cell to close the inline editor. Changes are saved immediately as you add or remove tags, with no separate save button.
+</Step>
+</Steps>
+
+<Tip>
+Because tag edits are immediate, the **Tags** filter's autocomplete list picks up newly created tags right away — handy when you're standardizing tag names across a batch of calls during a review session.
+</Tip>
+
+<Warning>
+Removing a tag from a call only affects that call's association. If other calls also use the same tag, they are unaffected.
+</Warning>
+
 ## Review & Audit Workflow
 
 <Info>
-Every call can now be marked as reviewed and annotated with a free-text note directly from the table — no need to leave Call History to track your QA process.
+Every call can now be marked with a clear **OK/KO verdict** and annotated with a running history of audit notes directly from the table — no need to leave Call History to track your QA process.
 </Info>
 
-The **Reviewed** column (pinned to the right by default) is the entry point for the audit workflow:
+The **Verdict** column (pinned to the right by default) is the entry point for the audit workflow:
 
 | Element | Description |
 |---------|-------------|
-| **Reviewed toggle** | Marks the call as reviewed or not yet reviewed, visually distinguished in the column |
-| **Note popover** | An inline editor attached to the Reviewed column where you can write a free-text audit note for that specific call |
-| **Auto-save** | Notes are saved automatically shortly after you stop typing, without a separate save button |
+| **OK / KO toggle** | Marks the call as passing review (**OK**), failing review (**KO**), or leaves it as not yet reviewed |
+| **Note popover** | An inline editor attached to the Verdict column where you can write a free-text audit note for that specific call |
+| **Note history** | Previous notes are preserved as a chronological log rather than being overwritten, so you can see how the assessment of a call evolved over time |
+| **Auto-save** | New notes are saved automatically shortly after you stop typing, without a separate save button |
 
 <Steps>
 <Step title="Open the Review Popover">
-Click the **Reviewed** cell for any call to open its inline note editor.
+Click the **Verdict** cell for any call to open its inline review editor.
 </Step>
-<Step title="Mark as Reviewed">
-Toggle the call's reviewed status to indicate it has been audited.
+<Step title="Set the Verdict">
+Choose **OK** if the call passes your review criteria, or **KO** if it doesn't. You can change the verdict again later if a second look changes your assessment.
 </Step>
 <Step title="Write an Audit Note">
 Type your observations, findings, or QA comments directly into the note field. Your input is debounced and saved automatically a moment after you stop typing.
+</Step>
+<Step title="Review the History">
+Scroll the note history within the popover to see previous notes, each preserved with its own timestamp, rather than a single note that gets overwritten every time.
 </Step>
 <Step title="Close the Popover">
 Click anywhere outside the popover to close it. Only one review popover can be open at a time, so opening a new one automatically closes any other that was active.
 </Step>
 <Step title="Revisit Later">
-Reopen the Reviewed cell for any call at any time to read or edit the existing note — your review history for that call is preserved.
+Reopen the Verdict cell for any call at any time to read the full note history, add a new note, or change the verdict — your review history for that call is preserved.
 </Step>
 </Steps>
 
 <Tip>
-Combine the Reviewed column with a saved filter preset (for example "Failed + Last 7 Days") and a saved column view that keeps **Reviewed** and **Tags** visible, to build a repeatable QA sweep: filter down to the calls you need to audit, review each one, leave a note, and move to the next.
+Combine the Verdict column with a saved filter preset (for example "KO + Last 7 Days") and a saved column view that keeps **Verdict** and **Tags** visible, to build a repeatable QA sweep: filter down to the calls you need to audit, assign a verdict, leave a note, and move to the next.
 </Tip>
 
 <Warning>
-Review status and notes are stored per call and are visible to anyone with access to Call History — treat audit notes as shared team documentation rather than private scratch notes.
+Review status and notes are stored per call and are visible to anyone with access to Call History — treat audit notes as shared team documentation rather than private scratch notes. Because notes accumulate as a history rather than being replaced, avoid including anything you wouldn't want a future reviewer to see permanently attached to the call.
 </Warning>
 
 ## AI Latency Metrics
@@ -249,7 +335,7 @@ The improved view surfaces AI latency at three levels of detail:
 
 <Steps>
 <Step title="Scan Averages at a Glance">
-Sort the table by **Avg AI latency** to quickly identify calls or agents with consistently slow responses.
+Sort the table by **Avg AI latency** to quickly identify calls or agents with consistently slow responses, or check the **Avg latency** summary card for the overall picture across your current filters.
 </Step>
 <Step title="Spot Outliers with Max Latency">
 Enable the **Max latency** column (hidden by default) to catch calls with an isolated but severe delay that the average might hide.
@@ -324,7 +410,7 @@ Because the waveform is built from decoded audio rather than a static image, lon
 ## Excel Export
 
 <Info>
-Exporting to Excel respects exactly what you see: only the columns currently visible in your table — in the order you've arranged them — are included in the exported file, including any dynamic input/output columns you've added and the current review status/notes.
+Exporting to Excel respects exactly what you see: only the columns currently visible in your table — in the order you've arranged them — are included in the exported file, including any dynamic input/output columns you've added and the current verdict/note history.
 </Info>
 
 Two export options are available side by side in the header:
@@ -336,10 +422,10 @@ Two export options are available side by side in the header:
 
 <Steps>
 <Step title="Configure Your View">
-Use the column manager to show, hide, and reorder columns until the table reflects exactly the data you want to export. Apply a saved view first if you have one ready for this purpose.
+Use the column manager to show, hide, reorder, and pin columns until the table reflects exactly the data you want to export. Apply a saved or built-in view first if you have one ready for this purpose.
 </Step>
 <Step title="Apply Your Filters">
-Narrow down the calls you want using the filter bar, since the full export follows the currently filtered result set.
+Narrow down the calls you want using the filter bar, since the full export follows the currently filtered result set. The summary cards give you a quick sanity check on how many calls (and what averages) you're about to export.
 </Step>
 <Step title="Choose Full or Selective Export">
 Click **Export to Excel** to export every filtered call, or select specific rows with the checkboxes and click **Export selection (N)** to export only those calls — useful when you've hand-picked a set of calls during a review session.
@@ -348,16 +434,55 @@ Click **Export to Excel** to export every filtered call, or select specific rows
 The button shows an "Exporting…" state while the file is being generated.
 </Step>
 <Step title="Open the File">
-The downloaded spreadsheet mirrors your visible columns and their order, including any dynamic agent input/output fields you've added and the Reviewed status/notes, making it easy to share exactly the view you were working with.
+The downloaded spreadsheet mirrors your visible columns and their order, including any dynamic agent input/output fields you've added and the Verdict status/note history, making it easy to share exactly the view you were working with.
 </Step>
 </Steps>
 
 <Tip>
-"Export selection" is a natural companion to the review workflow: mark and annotate the calls you've audited, select them, and export just that batch as a record of your QA pass — without pulling in every other call matching your filters.
+"Export selection" is a natural companion to the review workflow: assign verdicts and leave notes on the calls you've audited, select them, and export just that batch as a record of your QA pass — without pulling in every other call matching your filters.
 </Tip>
 
 <Warning>
 If you hide a column after exporting, previously downloaded files aren't affected retroactively — each export is a snapshot of your column configuration, filters, and (for selective exports) selection at that moment.
+</Warning>
+
+## Direct Links with Preset Filters
+
+<Info>
+Every combination of filters in the improved Calls view can be captured as a URL, letting you jump straight into a pre-filtered set of calls from a dashboard, a saved bookmark, or a message to a teammate — without manually reconstructing the filters each time.
+</Info>
+
+As you adjust filters, the page URL updates to reflect your current selection through query parameters, so the resulting link is fully shareable and reproducible.
+
+| Parameter area | Behavior |
+|------------------|----------|
+| **Date range** | The selected preset or custom range is encoded in the URL, so opening the link restores the exact same window |
+| **Agents** | Selected agent IDs are encoded as a list, restoring the full multi-select when the link is opened |
+| **Tags** | Selected tags are encoded and reapplied automatically |
+| **Status** | The chosen status value is included and reapplied on load |
+| **Suspicious calls** | If enabled, the link preserves this toggle so the recipient lands on the same flagged subset |
+
+<Steps>
+<Step title="Configure the Filters You Want to Share">
+Set up date range, agents, tags, status, or the suspicious calls toggle exactly as you want the recipient to see them.
+</Step>
+<Step title="Copy the Page URL">
+Copy the URL directly from your browser's address bar — it already reflects your current filter state as query parameters.
+</Step>
+<Step title="Share or Bookmark It">
+Send the link to a teammate, paste it into a ticket, or save it as a browser bookmark for a recurring check.
+</Step>
+<Step title="Open the Link Later">
+Opening the link — by you or anyone else with access — applies all the encoded filters immediately, overriding whatever filters were previously active in that browser session.
+</Step>
+</Steps>
+
+<Tip>
+Direct links only capture filters, not column layout. Pair a direct link with instructions to apply a specific saved or built-in view for a fully reproducible experience on the recipient's end.
+</Tip>
+
+<Warning>
+Direct links encode filter values, not the underlying data. If a referenced agent, tag, or call is later deleted or renamed, the link will still apply the filter as best it can, but results may differ from when the link was created.
 </Warning>
 
 ## Advanced Filter System
@@ -429,7 +554,7 @@ Click the date range field to open the preset picker:
 Click the date range field in the Filter Bar to reveal the list of presets.
 </Step>
 <Step title="Pick a Preset">
-Click any preset to apply it instantly — the field updates to reflect your selection and the table refreshes.
+Click any preset to apply it instantly — the field updates to reflect your selection and the table and summary cards refresh.
 </Step>
 <Step title="Or Set a Custom Range">
 Scroll to the **Custom range** section at the bottom of the picker and set an exact **From** and **To** date and time using the datetime inputs.
@@ -561,13 +686,13 @@ Enabling this filter highlights calls that match **any** of the following condit
 Toggle **Suspicious calls** on in the Filter Bar.
 </Step>
 <Step title="Review the Narrowed Results">
-The table updates to show only calls matching at least one of the suspicious conditions above.
+The table and summary cards update to show only calls matching at least one of the suspicious conditions above.
 </Step>
 <Step title="Investigate Each Call">
 Open each flagged call's details, recording, or latency chart to determine whether it needs a review note, a tag, or escalation.
 </Step>
-<Step title="Mark as Reviewed">
-Use the **Reviewed** column to mark calls you've checked and leave an audit note, so the next pass through your suspicious calls doesn't re-cover the same ground.
+<Step title="Assign a Verdict">
+Use the **Verdict** column to mark calls you've checked as **OK** or **KO** and leave an audit note, so the next pass through your suspicious calls doesn't re-cover the same ground.
 </Step>
 </Steps>
 
@@ -576,7 +701,7 @@ Unlike Min/Max latency or Status, which apply a strict AND to your other filters
 </Info>
 
 <Tip>
-Combine "Suspicious calls" with a date range like **Today** or **Last 24 hours** to build a quick daily triage habit: check what's suspicious since yesterday, review it, and clear the queue.
+Combine "Suspicious calls" with a date range like **Today** or **Last 24 hours** to build a quick daily triage habit: check what's suspicious since yesterday, review it, and clear the queue. Save the combination as a [direct link](#direct-links-with-preset-filters) so it's one click away every morning.
 </Tip>
 
 ### Exact Call ID Search
@@ -602,228 +727,3 @@ The system performs a direct database lookup for the exact call ID, ignoring any
 </Step>
 <Step title="Instant Results">
 The matching call is displayed immediately, bypassing all other filters.
-</Step>
-<Step title="Clear Search">
-Remove the call ID to restore normal filtering functionality. All previously configured filters are automatically re-enabled and reapplied — the "superposition" is restored exactly as you left it.
-</Step>
-</Steps>
-
-<Tip>
-Like the Goal and Evaluations filters, the Call ID field is hidden from the Filter Bar by default and can be enabled from the filter visibility settings (⚙️) whenever your workflow requires manual, exact ID lookups.
-</Tip>
-
-<Warning>
-This priority behavior is exclusive and non-negotiable: while a Call ID value is present, there is no way to combine it with Date Range, Agents, Status, Direction, Success, Goal, Tags, Evaluations, Latency range, or Suspicious calls. If you need a combined search, clear the Call ID field first and use the other filters instead.
-</Warning>
-
-### Dynamic Tags Filter with Autocomplete
-
-<Info>
-Filter calls by dynamic tags that are automatically generated based on call content, outcomes, and agent behaviors, using a chip-based multi-select field with live autocomplete.
-</Info>
-
-<Steps>
-<Step title="Start Typing a Tag">
-Click into the Tags field and start typing. A dropdown appears listing existing tags that match what you've typed.
-</Step>
-<Step title="Select a Suggested Tag">
-Click a suggestion to add it as a chip in the field. You can add multiple tags this way to filter for calls matching any of them.
-</Step>
-<Step title="Remove a Tag">
-Click the ✕ on any tag chip to remove just that tag, or clear the field entirely to remove all tag filters at once.
-</Step>
-</Steps>
-
-The tags filter provides:
-
-- **Dynamic Tag Generation** - Tags are automatically created based on call analysis
-- **Autocomplete Suggestions** - Existing tags are suggested as you type, so you don't need to remember exact spelling
-- **Multi-Select Capability** - Select multiple tags to find calls matching any or all criteria
-- **Real-time Updates** - Tag list updates as new calls are processed
-- **Custom Tag Support** - Manual tags can be added to calls for additional categorization
-
-<Info>
-The Tags filter is **visible by default** in the Filter Bar, so it's ready to use as soon as you open Call History. You can still hide it from the ⚙️ filter settings panel if you prefer a more minimal filter set. Like all other filters, it is temporarily disabled while a Call ID search is active.
-</Info>
-
-### Evaluations Filter
-
-<Info>
-Filter calls based on evaluation status, letting you quickly locate calls that are pending review, partially evaluated, or fully completed.
-</Info>
-
-Available options include:
-
-- **Completed** - Calls with all evaluations processed
-- **Pending** - Calls waiting for evaluation
-- **Partial** - Calls with some but not all evaluations completed
-
-This filter is hidden by default in a minimal setup and can be enabled from the filter visibility panel (⚙️) whenever you need deeper evaluation-based analysis. It is also disabled while a Call ID search is active, following the same priority behavior as the rest of the filters.
-
-### Filter Presets
-
-<Tip>
-Save your most-used filter combinations as presets for quick access to common search patterns.
-</Tip>
-
-Create and manage filter presets:
-
-<Steps>
-<Step title="Configure Filters">
-Set up your desired combination of filters (date range, agents, status, latency range, suspicious calls, etc.)
-</Step>
-<Step title="Save as Preset">
-Click "Save Preset" and give it a descriptive name
-</Step>
-<Step title="Quick Access">
-Access saved presets from the preset dropdown for instant filter application
-</Step>
-<Step title="Manage Presets">
-Edit or delete presets as your filtering needs evolve
-</Step>
-</Steps>
-
-<Tip>
-Filter presets and column saved views are independent: a filter preset remembers *which calls* you're looking at, while a saved view remembers *which columns* you see. Pair a specific preset with a specific saved view for a fully repeatable workflow — for example, "Suspicious + Last 7 Days" alongside a "Review & audit" column layout that keeps Reviewed pinned and visible.
-</Tip>
-
-## Enhanced Visual Indicators
-
-### Filter Status Indicators
-
-The interface now includes improved visual feedback:
-
-| Indicator | Meaning |
-|-----------|---------|
-| 🟦 Blue Badge | Active filter with values selected |
-| 🔢 Count Badge | Number of items selected in multi-select filters (agents, tags) |
-| 🚫 Disabled State | Filter temporarily disabled (e.g., during Call ID search) |
-| ⚙️ Settings Icon | Opens the filter visibility configuration panel (controls Goal, Tags, Evaluations, and Call ID) |
-| 👁️ Hidden Filter | Filter is configured as not visible in the current view, but may still hold an active value affecting your results |
-| ✨ Preset Active | A saved preset is currently applied |
-
-<Tip>
-The 👁️ Hidden Filter indicator is especially useful right after enabling the Call ID search: once you clear it, glance at the ⚙️ panel to confirm which of your previously hidden filters silently came back into play.
-</Tip>
-
-### Selection Status
-
-When calls are selected:
-
-- **Selection Counter** - Shows "Export selection (N)" in the header once at least one call is checked
-- **Bulk Action Bar** - Appears with available actions for selected calls
-- **Clear Selection** - One-click option to deselect all calls
-
-## Call Table
-
-The call table displays key information for each call with enhanced visual design:
-
-| Column | Description |
-|--------|-------------|
-| Selection | Checkbox to select calls |
-| Status | Call status badge with color coding |
-| Success | ✓ or ✗ indicator with evaluation context |
-| Agent | Name of the agent that handled the call |
-| Agent ID *(optional)* | The agent's ID, shown as a compact copyable badge |
-| Call ID *(optional)* | The call's ID, shown as a compact copyable badge |
-| Direction | 📞 Inbound or 📲 Outbound with clear icons |
-| From | Caller phone number with formatting |
-| To | Recipient phone number with formatting |
-| Duration | Call length in minutes:seconds |
-| Date | When the call occurred with relative time |
-| Tags | Dynamic tags associated with the call |
-| LLM *(optional)* | Language model(s) that handled the call |
-| LLM detail *(optional)* | Turn-by-turn breakdown of model usage |
-| Avg AI latency *(optional)* | Mean AI response latency for the call |
-| Max latency *(optional)* | Highest AI response latency recorded in the call |
-| Latency (turns) *(optional)* | Sparkline of latency per turn |
-| Reviewed *(pinned)* | Audit/review status with an inline note editor |
-| *(any input/output field you've added)* | Dynamic column sourced from an agent's input parameters or structured output |
-
-<Info>
-The **LLM**, **LLM detail**, **Avg AI latency**, **Max latency**, and **Latency (turns)** columns are optional. In the classic Call History table they're hidden by default and can be enabled from the column customizer; in the improved calls view, **Avg AI latency** and **Latency (turns)** are visible out of the box.
-</Info>
-
-### LLM and LLM Detail Columns
-
-<Info>
-These two columns surface the underlying language model activity for every call, which is especially useful for agents built on ElevenLabs' conversational stack, where a **model cascade** can automatically fall back to a secondary model mid-call if the primary one becomes unavailable or degrades.
-</Info>
-
-| Column | What it shows |
-|--------|---------------|
-| **LLM** | The distinct model(s) used during the call, listed in the order they were engaged (e.g. a single model like `gpt-4o`, or multiple models such as `gpt-4o + gpt-4o-mini` if a fallback occurred). |
-| **LLM detail** | An expandable, turn-by-turn breakdown showing exactly which model handled each conversational turn and at what point in the call the switch happened. |
-
-<Steps>
-<Step title="Enable the Columns">
-Open the column manager above the Call Table and toggle on **LLM** and/or **LLM detail** to add them to your view.
-</Step>
-<Step title="Read the LLM Column">
-Each row shows the model(s) used for that call. A single model name means the call ran entirely on the primary model with no fallback.
-</Step>
-<Step title="Spot Degradations">
-When a call shows **more than one model** in the LLM column, it means the ElevenLabs cascade degraded at least once during the call — falling back from the primary model to a secondary one. This is the same detection logic used in the call details modal.
-</Step>
-<Step title="Drill Into LLM Detail">
-Expand the LLM detail column (or open the call in the Details Modal) to see the exact timestamp of each turn and which model produced it, helping you pinpoint when and why a degradation happened.
-</Step>
-</Steps>
-
-<Tip>
-Use the LLM column together with the Status and Success filters to quickly check whether cascade degradations correlate with lower success rates or specific agents, then dig deeper with LLM detail on the affected calls.
-</Tip>
-
-<Warning>
-For calls made before model cascade tracking was introduced, the LLM column falls back to the legacy single `model_used` value when no multi-model data is available. In that case, no degradation can be detected for those older calls.
-</Warning>
-
-### Bulk Actions
-
-<Tabs>
-<Tab title="Selection">
-When you select multiple calls:
-1. The **"Export selection (N)"** button appears in the header, next to the general **Export to Excel** button
-2. Bulk export options become available immediately, no separate confirmation step required
-3. Additional bulk actions appear in the action bar
-4. Deselect individual rows or clear the whole selection to hide the selective export button again
-</Tab>
-<Tab title="Export">
-Export filtered results:
-- Excel export that follows your currently visible columns, their order, and review status
-- CSV format for spreadsheet analysis (classic view)
-- JSON format for technical analysis (classic view)
-- PDF reports for presentations (classic view)
-- Include/exclude specific columns via the column manager before exporting
-</Tab>
-</Tabs>
-
-### Enhanced Sorting
-
-Click column headers to sort with improved indicators:
-
-- **Single Click** - Ascending order with ↑ arrow
-- **Double Click** - Descending order with ↓ arrow
-- **Sort Memory** - Last sort preference is remembered
-- **Multi-Column Sort** - Hold Shift to sort by multiple columns
-
-## Pagination
-
-Enhanced pagination controls:
-
-- **Smart Page Sizes** - 25, 50, 100, 300 calls per page
-- **Jump to Page** - Direct page number input
-- **Results Counter** - "Showing X to Y of Z calls" with total count
-- **Performance Optimization** - Efficient loading for large datasets
-
-## Quick Actions
-
-For each call row with improved accessibility:
-
-| Action | Description | Shortcut |
-|--------|-------------|----------|
-| 👁️ View | Open call details modal | Click row |
-| 📋 Copy ID | Copy call ID to clipboard | Copy button on the Call ID badge |
-| 🏷️ Add Tags | Add custom tags to the call | Tag icon |
-| 📊 Analytics | Quick performance insights | Chart icon |
-| ▶️ Play Recording | Open the waveform recording player | Recording column |
