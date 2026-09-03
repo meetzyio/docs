@@ -1,10 +1,10 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables y fijadas, la columna Evaluations, columnas dinámicas de entrada/salida, vistas predefinidas y guardadas, modo en vivo con actualización manual, filtros avanzados (incluyendo etiquetas, el estado Silencio, llamadas sospechosas y el veredicto de auditoría OK/KO), tarjetas de resumen con desglose de transferencias entrantes/salientes, revisión con veredicto de auditoría y notas, edición de tags en línea y reproductor con navegación entre llamadas"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables y fijadas, la columna Evaluations, columnas dinámicas de entrada/salida agrupadas por agente con buscador, vistas predefinidas y guardadas, modo en vivo con actualización manual, filtros avanzados (incluyendo etiquetas, el estado Silencio, llamadas sospechosas y el veredicto de auditoría OK/KO), tarjetas de resumen con desglose de transferencias entrantes/salientes, revisión con veredicto de auditoría y notas, edición de tags en línea y reproductor con navegación entre llamadas"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, la columna **Evaluations**, **columnas dinámicas** descubiertas automáticamente y **columnas fijadas** (incluyendo una columna de enlaces solo para administradores), **vistas predefinidas y guardadas**, filtros avanzados —fecha, agentes, **etiquetas**, estado (incluido el nuevo estado **Silencio**), **veredicto de auditoría (OK / KO)** y un filtro rápido de llamadas sospechosas—, tarjetas de resumen con desglose de tiempos de transferencia **entrante y saliente**, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, **actualización en vivo** de la tabla mediante el modo **Live** (con un botón de **refresco manual** para actualizar la tabla al instante sin activarlo) y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, la columna **Evaluations**, **columnas dinámicas** descubiertas automáticamente y agrupadas por agente, un **buscador de campos** dentro del propio gestor de columnas, **columnas fijadas** (incluyendo una columna de enlaces solo para administradores), **vistas predefinidas y guardadas**, filtros avanzados —fecha, agentes, **etiquetas**, estado (incluido el nuevo estado **Silencio**), **veredicto de auditoría (OK / KO)** y un filtro rápido de llamadas sospechosas—, tarjetas de resumen con desglose de tiempos de transferencia **entrante y saliente**, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, **actualización en vivo** de la tabla mediante el modo **Live** (con un botón de **refresco manual** para actualizar la tabla al instante sin activarlo) y métricas reales de latencia de IA por cada llamada.
 
 <Info>
   Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
@@ -13,7 +13,7 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 ## Qué encontrarás en esta vista
 
 - Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
-- Un gestor de columnas completo, con la columna **Evaluations**, **columnas dinámicas** de entrada y salida descubiertas automáticamente, reordenamiento y **columnas fijadas** a la derecha de la tabla
+- Un gestor de columnas completo, con la columna **Evaluations**, un **buscador de campos** de entrada/salida, **paneles agrupados por agente**, **columnas dinámicas** de entrada y salida descubiertas automáticamente, reordenamiento y **columnas fijadas** a la derecha de la tabla
 - Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
 - **Vistas predefinidas**, listas para usar, además de **vistas guardadas** propias para reutilizar tus combinaciones favoritas de columnas y orden
 - Tarjetas de resumen con las métricas clave del rango filtrado, incluyendo el **desglose de tiempo de transferencia** (entrante y saliente), siempre visibles antes de entrar al detalle de la tabla
@@ -79,8 +79,11 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
     El botón **⚙️ Columns** abre el gestor de columnas, un panel lateral donde puedes:
     - Activar o desactivar columnas visibles, incluida **Evaluations**
     - Reordenar las columnas mediante arrastrar y soltar
-    - Añadir **columnas dinámicas** descubiertas automáticamente a partir de los campos de **entrada** (input) y **salida** (output) de tus agentes
+    - **Buscar** un campo concreto de entrada o salida por su nombre, sin tener que desplazarte manualmente por todos los agentes
+    - Añadir **columnas dinámicas** descubiertas automáticamente a partir de los campos de **entrada** (input) y **salida** (output) de tus agentes, organizadas en **paneles agrupados por agente**
+    - **Quitar** una columna dinámica ya añadida directamente desde la lista de columnas, sin tener que reiniciar toda tu configuración
     - **Fijar** columnas para que queden siempre visibles a la derecha de la tabla mientras el resto se desplaza horizontalmente por debajo
+    - Restaurar en cualquier momento la configuración de columnas por defecto con el botón **Reset to default columns**, al pie del panel
 
     <Info>
       Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla. Si tu usuario es administrador, la columna **Links** también aparece fijada junto a ellas.
@@ -88,6 +91,35 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
 
     <Info>
       Las columnas fijadas se agrupan siempre al final de la tabla, independientemente de la posición en la que las coloques dentro del gestor de columnas. Esto garantiza que el orden visual de las columnas fijadas sea siempre predecible, tanto en las vistas predefinidas como en las guardadas.
+    </Info>
+
+    #### Buscador de campos de entrada/salida
+
+    En la parte superior del panel encontrarás un campo de búsqueda con el texto de ejemplo *"Search input/output field… (e.g. lead qualification)"*. A medida que escribes, tanto el panel de campos de **entrada** como el de **salida** filtran en tiempo real los resultados que coincidan, lo que resulta especialmente útil cuando trabajas con agentes que tienen decenas de campos configurados y necesitas localizar uno concreto sin desplazarte manualmente por toda la lista.
+
+    <Info>
+      Si tu búsqueda no encuentra ningún campo coincidente, el panel correspondiente te lo indica con un mensaje del tipo *"No input fields match '...'"* o *"No output fields match '...'"*, para que sepas de inmediato que el término introducido no existe entre los campos disponibles en las llamadas cargadas.
+    </Info>
+
+    #### Paneles agrupados por agente
+
+    Los botones **Input columns** y **Output columns**, cada uno con un contador del total de campos disponibles, despliegan un panel independiente con todos los campos descubiertos automáticamente a partir de tus llamadas. Dentro de cada panel, los campos ya no aparecen como una lista plana: se agrupan por **agente**, mostrando el nombre del agente junto al número de campos que aporta, y cada grupo se puede expandir o contraer haciendo clic sobre su cabecera.
+
+    Esta agrupación facilita mucho el trabajo cuando tienes varios agentes con estructuras de datos distintas, ya que puedes concentrarte en los campos de un solo agente a la vez, sin tener que revisar una lista larga y mezclada de todos los campos disponibles en la cuenta.
+
+    <Info>
+      Solo un panel —el de entrada o el de salida— puede estar abierto a la vez: al abrir uno, el otro se cierra automáticamente, para mantener el gestor de columnas ordenado y evitar que ambos paneles ocupen demasiado espacio en pantalla simultáneamente.
+    </Info>
+
+    #### Añadir y quitar columnas dinámicas
+
+    Dentro de cada grupo de agente, cada campo muestra su etiqueta y su ruta original entre paréntesis, junto a un botón:
+
+    - **Add**: añade ese campo como columna dinámica a tu configuración actual. En cuanto se añade, el botón cambia a **Added** y se deshabilita, para que sepas de un vistazo qué campos ya están incorporados a la tabla.
+    - Una vez añadida, la columna dinámica aparece en la lista general de **Columns**, identificada con una etiqueta (`input` o `output`) junto a su nombre. Desde ahí puedes quitarla en cualquier momento haciendo clic en la **✕** situada junto a ella, sin afectar al resto de columnas ni a las fijadas.
+
+    <Info>
+      Añadir o quitar una columna dinámica no elimina el campo del listado de "Input columns" / "Output columns": simplemente cambia el estado del botón entre **Add** y **Added**, por lo que siempre puedes volver a añadir un campo que hayas quitado previamente sin perder de vista su origen (agente, etiqueta y ruta).
     </Info>
   </Step>
 
@@ -253,8 +285,14 @@ La columna **Evaluations** muestra el resultado de las evaluaciones automáticas
 
 Además de las columnas estándar de la llamada, el gestor de columnas descubre automáticamente **columnas dinámicas** a partir de los campos de **entrada** (input) y **salida** (output) que tus agentes generan en cada llamada. Esto te permite, por ejemplo, mostrar como columna un campo concreto que recoge tu agente durante la conversación (entrada) o un dato extraído por el modelo al finalizar la llamada (salida), sin necesidad de configuración adicional en el backend.
 
+Estos campos ya no se presentan como una lista larga y plana: dentro del gestor de columnas se organizan en dos paneles independientes —**Input columns** y **Output columns**— y, dentro de cada uno, en **grupos colapsables por agente**, con el nombre del agente y el número de campos que aporta. Un **buscador de campos** en la parte superior del panel te permite filtrar por nombre en ambos paneles simultáneamente, algo especialmente útil en cuentas con muchos agentes o campos configurados.
+
 <Info>
   Los campos dinámicos disponibles dependen de los agentes y llamadas presentes en tu cuenta: cuantas más llamadas con estructuras de entrada/salida distintas tengas, más opciones de columnas dinámicas encontrarás en el gestor de columnas. Cada campo conserva su clave, etiqueta y ruta original, tanto si lo añades manualmente como si procede de una vista migrada desde la vista clásica.
+</Info>
+
+<Info>
+  Puedes añadir un campo como columna con el botón **Add** de su grupo de agente correspondiente, y quitarlo en cualquier momento con la **✕** situada junto a su nombre en la lista general de **Columns**. Ambas acciones se reflejan de inmediato: el botón **Add** cambia a **Added** en cuanto el campo forma parte de tu configuración actual, y vuelve a estar disponible como **Add** si decides quitar esa columna más adelante.
 </Info>
 
 ### Columnas fijadas
@@ -354,4 +392,4 @@ Desde cada llamada puedes abrir:
 
 ## Modo oscuro
 
-La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos el banner de vista clásica, las tarjetas de resumen, los menús desplegables, el gestor de columnas, el reproductor de grabaciones y los modales.
+La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos el banner de vista clásica, las tarjetas de resumen, los menús desplegables, el gestor de columnas (buscador de campos, paneles agrupados por agente y lista de columnas), el reproductor de grabaciones y los modales.
