@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the new Calls page with configurable and pinnable columns, a recovered Evaluations column, predefined and custom saved views, date/agent/tag/call ID/status filters, a dedicated suspicious-call filter, an OK/KO verdict filter, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, a transfer-time summary bar, the Silence status, top-and-bottom pagination, and a waveform recording player with previous/next call navigation."
+description: "Explore the new Calls page with a pinnable column manager, predefined and custom saved views, date/agent/tag/status filters with chips, suspicious-call detection, an OK/KO review verdict filter, summary cards, inline tag editing, per-call audit notes, per-turn latency detail, admin links to Twilio/ElevenLabs, and Excel exports."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a two-row filter bar covering date range, agents, tags, call ID, and status, along with a dedicated suspicious-call filter and an OK/KO verdict filter, a call statistics summary bar with transfer-time totals, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, pagination controls at both the top and bottom of the table, and a built-in recording player with a real waveform and previous/next navigation between calls.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a two-row filter bar covering date range, agents, tags, call ID, and status, along with a dedicated suspicious-call filter and an OK/KO verdict filter, a set of summary cards covering volume, latency, and review progress, a manual refresh control, an OK/KO review workflow with per-call audit notes, inline tag editing, per-turn latency detail, admin-only links to Twilio and ElevenLabs, full or selective Excel exports, pagination controls at both the top and bottom of the table, and a built-in recording player with a real waveform and previous/next navigation between calls.
 
 <Info>
 The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -203,23 +203,24 @@ A dedicated verdict filter lets you narrow the table down to only the calls your
 
 This is especially handy at the end of a review session — quickly pull up every call marked **KO** to make sure each one has a follow-up note, or check every **OK** call before sharing a "clean" batch with a manager or client. It also combines with the other filters, for example to check the **KO** calls for a single agent or tag.
 
-## Call statistics & transfer time summary
+## Summary cards
 
-Above the table, a summary bar shows aggregate statistics computed **server-side** across **every call matching your current filters and date range** — not just the calls currently loaded on screen. This makes it a reliable, at-a-glance health check even before you scroll through a single row.
+Above the table, a row of summary cards shows aggregate statistics computed **server-side** across **every call matching your current filters and date range** — not just the calls currently loaded on screen. This makes it a reliable, at-a-glance health check even before you scroll through a single row.
 
-The summary includes:
+The cards include:
 
-- **Total calls**, **closed calls**, and **voicemail calls** in the selected range.
-- **Average duration** across all matching calls.
-- **Average** and **P90 AI response latency**, useful for spotting whether slowness is a rare outlier or a widespread pattern.
-- **Transfer time totals**, shown as two separate summary cards for **inbound** and **outbound** transferred calls, so you can see at a glance how much total time was spent on transfers in each direction.
+- **Volume** — the total number of calls matching your current filters, giving you an immediate sense of scale before diving into the table.
+- **Average latency** — the average AI response latency across matching calls, useful for spotting whether your agents are responding promptly overall.
+- **Average duration** — how long matching calls last on average, handy for comparing campaigns or agents against each other.
+- **Reviewed** — how many of the matching calls already have a review recorded, so you can track audit progress for a given segment at a glance.
+- **Transfer time** — the total time spent on transfers, broken out separately for inbound and outbound calls, so you can see how much time each direction is costing you.
 
 <Info>
-The transfer time totals only account for time spent in the transferred portion of a call, and are aggregated separately for inbound and outbound calls since the two typically have very different transfer patterns and costs. This is calculated server-side across the full filtered date range, so the numbers stay accurate even when you're only looking at a page of 50 or 100 loaded calls.
+Because these cards respect your active filters, you can combine them with the **Agents**, **Tags**, or **Status** filters to check, for example, the average latency for a single agent, or the reviewed count for only the calls tagged as escalations.
 </Info>
 
 <Info>
-Because these statistics respect your active filters, you can combine them with the **Agents**, **Tags**, or **Status** filters to check, for example, the average transfer time for a single agent, or the total inbound transfer seconds for only the calls tagged as escalations.
+The transfer time card only accounts for time spent in the transferred portion of a call, and is aggregated separately for inbound and outbound calls since the two typically have very different transfer patterns and costs. It's calculated server-side across the full filtered date range, so the numbers stay accurate even when you're only looking at a page of 50 or 100 loaded calls.
 </Info>
 
 ## Refreshing the table
@@ -257,7 +258,7 @@ Both pagination bars always reflect the same total-row count for your current fi
 
 ## Review and audit workflow
 
-Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, an **OK/KO verdict**, and an optional audit note — all editable directly inline, without opening a separate modal. This column is pinned to the right edge of the table by default, so it stays visible no matter how many columns you've added.
+Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, an **OK/KO verdict**, and an optional per-call audit note — all editable directly inline, without opening a separate modal. This column is pinned to the right edge of the table by default, so it stays visible no matter how many columns you've added.
 
 <Steps>
   <Step title="Mark a call as reviewed">
@@ -267,7 +268,7 @@ Each row in the table includes a **Reviewed** control that lets your team track 
     Once you've listened to or read through a call, click **OK** or **KO** to record your audit verdict. Clicking the same verdict again clears it. Setting a verdict automatically marks the call as reviewed; clearing the reviewed toggle also clears the verdict.
   </Step>
   <Step title="Add an audit note">
-    Click the note icon to open a small inline editor and write context about why the call was flagged, resolved, or worth revisiting — for example, explaining why a call was marked KO.
+    Click the note icon to open a small inline editor and write context about why the call was flagged, resolved, or worth revisiting — for example, explaining why a call was marked KO. The note is stored per call, so it stays attached to that specific call for anyone reviewing the history later.
   </Step>
   <Step title="Save automatically">
     The reviewed toggle, the verdict, and the note text are all saved automatically a moment after you stop interacting — no need to click a separate save button.
@@ -278,7 +279,7 @@ Each row in the table includes a **Reviewed** control that lets your team track 
 Only one review note editor can be open at a time. Clicking outside the editor, or opening a note on another row, will close the current one.
 </Info>
 
-Use the **Review verdict (OK/KO)** filter described above to pull up everything you've already flagged during a session, or to double-check a batch of approvals before sharing them.
+Use the **Review verdict (OK/KO)** filter described above to pull up everything you've already flagged during a session, or to double-check a batch of approvals before sharing them. The **Reviewed** summary card also gives you a quick sense of how much of your current filtered segment still needs attention.
 
 This review workflow is especially useful when combined with the **Suspicious calls** filter: click **Refresh** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** so your team can jump straight back into it later.
 
@@ -311,6 +312,29 @@ The **Tags** column lets you manage a call's tags directly from the table, witho
 <Info>
 Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away. The same add/remove tag editor is also available inside the recording player modal.
 </Info>
+
+## Per-turn latency detail
+
+Beyond the aggregate latency numbers shown in the summary cards, you can drill into a single call to see exactly how its AI response latency evolved turn by turn.
+
+- Opening a call's latency detail breaks down the response time for each individual agent turn in the conversation, rather than just showing a single average for the whole call.
+- This makes it easy to spot whether a high average latency came from one slow turn — for example, a moment where the agent had to call an external tool — or from consistently sluggish responses throughout the call.
+- Turn-by-turn latency pairs naturally with the transcript, so you can line up a slow response with exactly what was being discussed at that point in the call.
+
+<Info>
+Use per-turn latency detail together with the **Latency monitoring** predefined view: sort by average latency to find the slowest calls first, then open each one to see precisely which turn is dragging the average up.
+</Info>
+
+## Admin links
+
+For users with administrator access, each call includes quick links out to the underlying infrastructure providers, so you don't have to leave the page to cross-reference a call.
+
+- A **Twilio** link opens the corresponding call record directly in the Twilio console, useful for checking carrier-level details like call routing or SIP diagnostics.
+- An **ElevenLabs** link opens the corresponding conversation directly in the ElevenLabs dashboard, useful for checking voice generation details or debugging the underlying AI conversation.
+
+<Warning>
+These links are only visible to administrator accounts. If you don't see them on a call, your role doesn't currently have access to the underlying provider dashboards.
+</Warning>
 
 ## Recording player
 
@@ -353,7 +377,7 @@ Keyboard shortcuts for navigating between calls are disabled automatically while
 </Info>
 
 <Info>
-The player modal also includes the same **Reviewed**/**OK**/**KO** review controls and audit note found in the table, plus inline tag management — so you can complete most of a review session, including moving on to the next call, without ever leaving the recording view.
+The player modal also includes the same **Reviewed**/**OK**/**KO** review controls, per-call audit note, and per-turn latency detail found in the table, plus inline tag management — so you can complete most of a review session, including moving on to the next call, without ever leaving the recording view.
 </Info>
 
 ## Exporting to Excel
