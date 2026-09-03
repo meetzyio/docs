@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the new Calls page with configurable and pinnable columns, a recovered Evaluations column, predefined and custom saved views, date/agent/tag/status filters, a dedicated suspicious-call filter, an OK/KO verdict filter, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, a transfer-time summary bar, the Silence status, and a waveform recording player with previous/next call navigation."
+description: "Explore the new Calls page with configurable and pinnable columns, a recovered Evaluations column, predefined and custom saved views, date/agent/tag/call ID/status filters, a dedicated suspicious-call filter, an OK/KO verdict filter, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, Excel exports, a transfer-time summary bar, the Silence status, top-and-bottom pagination, and a waveform recording player with previous/next call navigation."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a single-row filter bar with agent, tag, status, suspicious-call, and OK/KO verdict filters, a call statistics summary bar with transfer-time totals, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, and a built-in recording player with a real waveform and previous/next navigation between calls.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a two-row filter bar covering date range, agents, tags, call ID, and status, along with a dedicated suspicious-call filter and an OK/KO verdict filter, a call statistics summary bar with transfer-time totals, a manual refresh control, an OK/KO review workflow with audit notes, inline tag editing, full or selective Excel exports, pagination controls at both the top and bottom of the table, and a built-in recording player with a real waveform and previous/next navigation between calls.
 
 <Info>
 The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -113,7 +113,7 @@ Saved views are stored per user, so each teammate can build their own set of nam
 
 ## Filtering calls
 
-The filter bar is organized into a single, evenly spaced row of controls followed by the status chips, making it easy to scan and combine filters.
+The filter bar is organized into two clearly separated rows: a top row holding **Date range**, **Agents**, **Tags**, and **Call ID**, each given equal width so the row stays evenly balanced, and a second, full-width row dedicated entirely to the **Status** chips. Splitting status onto its own row keeps the chips from wrapping awkwardly next to the other inputs and gives them room to breathe as more statuses (like **Silence**) are added.
 
 ### Date range
 
@@ -140,9 +140,17 @@ Tags work the same way as agents — search, select, and manage them as chips. T
 - You can combine several tags at once — a call matching **any** of the selected tags is included, making it easy to group related segments (for example, several campaign tags) into a single filtered view.
 - Tags added, renamed, or removed through the inline tag editor (see below) are reflected in this filter's suggestions right away.
 
+### Call ID
+
+The **Call ID** field lets you jump straight to a single call when you already know its identifier — for example, one referenced in a support ticket or shared by a teammate.
+
+- Paste or type a full or partial call ID to narrow the table down to matching calls.
+- This filter combines with the others, so you can also use it to double-check that a specific call falls within a given agent, tag, or date range.
+- Clear the field to remove the filter and go back to your broader result set.
+
 ### Status
 
-Filter by one or more call statuses, including Open, Closed, No answer, Voicemail, **Silence**, Busy, Failed, Transferred, and Blocked.
+Filter by one or more call statuses, including Open, Closed, No answer, Voicemail, **Silence**, Busy, Failed, Transferred, and Blocked. These chips now sit on their own dedicated row below the other filters, so selecting several statuses at once never crowds the row above.
 
 <Info>
 **Silence** identifies calls where the line connected but no real conversation took place — the call ended without a transcript worth reviewing. It's surfaced as its own selectable status chip, separate from Failed or No answer, so you can isolate these calls specifically instead of digging for them inside a broader status group.
@@ -215,6 +223,18 @@ This replaces the previous automatic **Live** polling mode. Rather than the tabl
     A manual refresh keeps the table predictable while you work: your scroll position, open editors, and in-progress filters are never disturbed by a refresh you didn't ask for. You decide exactly when new data comes in.
   </Tab>
 </Tabs>
+
+## Pagination
+
+To avoid forcing you to scroll all the way down just to move to the next page (and then back up to reach the filters again), pagination controls are shown **twice**: once directly above the table, right next to the refresh control, and again below the table after the last row.
+
+- Both pagination bars stay in sync — changing the page size or moving to another page from either one updates the table and both bars together.
+- The top bar is convenient when you've just adjusted a filter and want to immediately move through pages without scrolling.
+- The bottom bar is convenient after scanning a full page of results top to bottom, letting you jump to the next page right where you left off.
+
+<Info>
+Both pagination bars always reflect the same total-row count for your current filters, so there's no risk of the top and bottom controls disagreeing on how many pages are available.
+</Info>
 
 ## Review and audit workflow
 
@@ -341,164 +361,3 @@ The **Export selection (N)** button only appears once you've selected at least o
 <Warning>
 Both export modes generate the file client-side based on the calls currently loaded in the table. If you're exporting all filtered calls, make sure you've loaded as many pages as you need before exporting, since the export won't reach beyond what's already been fetched into the table.
 </Warning>
-
-## Relevant code changes
-
-### src/app/calls-v2/calls-v2-columns.ts
-```
-import { ColumnDefinition } from '../interfaces/table-state';
-
-export type CallsV2ColumnType =
-  | 'text'
-  | 'date'
-  | 'duration'
-  | 'status'
-  | 'boolean'
-  | 'tags'
-  | 'evaluations'
-  | 'latency'
-  | 'latency_spark'
-  | 'recording'
-  | 'review'
-  | 'admin_links'
-  | 'actions';
-
-export interface CallsV2ColumnDefinition extends ColumnDefinition {
-  type: CallsV2ColumnType;
-  width?: string;
-  // Present only on user-added dynamic columns (from an agent's input
-  // parameters or output). `source` distinguishes call.data (input) from
-  // call.output (output) when resolving the value for each row.
-  path?: string;
-  source?: 'input' | 'output';
-  // Pinned columns are visually grouped and kept stuck to the right edge of
-  // the table while the rest scrolls horizontally underneath them.
-  pinned?: boolean;
-}
-
-// Default column set for /calls-v2. Users can hide, reorder, and (for
-// dynamic columns) add more from each agent's input/output fields — see
-// column-manager.component.ts.
-export const DEFAULT_CALLS_V2_COLUMNS: CallsV2ColumnDefinition[] = [
-  { key: 'created_time', label: 'Date', type: 'date', sortable: true, visible: true, toggleable: true, width: '160px' },
-  { key: 'playbook_name', label: 'Agent', type: 'text', sortable: true, visible: true, toggleable: true, width: '160px' },
-  // Native fields already on every Call row (call.playbook_id/call.id), so
-  // unlike the dynamic "Agent Id"/"Call Id" columns discovered from an
-  // agent's OUTPUT, these are always populated regardless of call status.
-  { key: 'playbook_id', label: 'Agent ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
-  { key: 'id', label: 'Call ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
-  { key: 'from', label: 'From', type: 'text', sortable: false, visible: true, toggleable: true, width: '130px' },
-  { key: 'to', label: 'To', type: 'text', sortable: false, visible: false, toggleable: true, width: '130px' },
-  { key: 'status', label: 'Status', type: 'status', sortable: true, visible: true, toggleable: true, width: '130px' },
-  { key: 'success', label: 'Goal', type: 'boolean', sortable: true, visible: false, toggleable: true, width: '90px' },
-  { key: 'duration', label: 'Duration', type: 'duration', sortable: true, visible: true, toggleable: true, width: '100px' },
-  { key: 'avg_response_latency_ms', label: 'Avg AI latency', type: 'latency', sortable: true, visible: true, toggleable: true, width: '130px' },
-  { key: 'latency_spark', label: 'Latency (turns)', type: 'latency_spark', sortable: false, visible: true, toggleable: true, width: '100px' },
-  { key: 'max_response_latency_ms', label: 'Max latency', type: 'latency', sortable: true, visible: false, toggleable: true, width: '130px' },
-  { key: 'tags', label: 'Tags', type: 'tags', sortable: false, visible: true, toggleable: true, width: '160px' },
-  // Ticket Accom #574: la columna existía en /calls (legado) pero no se migró
-  // a /calls-v2, así que al pasar a la versión nueva las evaluaciones
-  // "desaparecieron" y tampoco había forma de activarlas desde el gestor de
-  // columnas. Visible por defecto: es el dato que Accom audita a diario.
-  // mergeSavedColumns ya inserta las columnas fijas nuevas en preferencias
-  // guardadas antiguas, así que aparece también para quien ya tenía vista guardada.
-  { key: 'evaluations', label: 'Evaluations', type: 'evaluations', sortable: false, visible: true, toggleable: true, width: '130px' },
-  { key: 'playbook_company', label: 'Company', type: 'text', sortable: false, visible: false, toggleable: true, width: '140px' },
-  { key: 'email', label: 'Email', type: 'text', sortable: false, visible: false, toggleable: true, width: '180px' },
-  { key: 'summary', label: 'Summary', type: 'text', sortable: false, visible: false, toggleable: true, width: '260px' },
-  { key: 'type', label: 'Type', type: 'text', sortable: false, visible: false, toggleable: true, width: '100px' },
-  { key: 'end_call', label: 'Hung up by', type: 'text', sortable: false, visible: false, toggleable: true, width: '110px' },
-  { key: 'transferred', label: 'Transferred', type: 'boolean', sortable: false, visible: false, toggleable: true, width: '100px' },
-  { key: 'duration_agent', label: 'Agent duration', type: 'duration', sortable: false, visible: false, toggleable: true, width: '110px' },
-  { key: 'recording', label: 'Recording', type: 'recording', sortable: false, visible: true, toggleable: true, width: '110px' },
-  { key: 'review', label: 'Reviewed', type: 'review', sortable: false, visible: true, toggleable: true, width: '150px', pinned: true },
-  { key: 'actions', label: 'Actions', type: 'actions', sortable: false, visible: true, toggleable: false, width: '270px', pinned: true },
-];
-
-// Admin-only column (mirrors the Twilio/ElevenLabs shortcut dots in /calls).
-// Deliberately NOT part of DEFAULT_CALLS_V2_COLUMNS — it must never appear for
-// a non-admin user, even transiently before admin status resolves, so the
-// component inserts it into `columns` itself once `isAdminUser` is confirmed
-// true, right before 'actions' (same slot new fixed columns use).
-export const ADMIN_LINKS_COLUMN: CallsV2ColumnDefinition = {
-  key: 'admin_links',
-  label: 'Links',
-  type: 'admin_links',
-  sortable: false,
-  visible: true,
-  toggleable: true,
-  width: '70px',
-  pinned: true,
-};
-
-```
-
-### src/app/calls-v2/recording-player-modal.component.html
-```
-<div *ngIf="isOpen" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 px-4" (click)="closeModal()">
-  <div
-    class="w-full max-w-6xl max-h-[88vh] rounded-xl shadow-2xl flex flex-col"
-    [ngClass]="isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'"
-    (click)="$event.stopPropagation()">
-
-    <div class="flex items-start justify-between px-6 py-5 border-b" [ngClass]="isDarkMode ? 'border-gray-700' : 'border-gray-200'">
-      <div>
-        <h3 class="text-base font-semibold">Call recording</h3>
-        <p class="text-sm mt-1" [ngClass]="isDarkMode ? 'text-gray-400' : 'text-gray-500'">
-          {{ call?.from }} → {{ call?.to }}
-        </p>
-      </div>
-
-      <div class="flex items-center gap-1">
-        <!-- Prev/next call navigation: lives in the header, not floating
-             over the content, so it never covers the waveform/transcript. -->
-        <ng-container *ngIf="hasPrevious || hasNext">
-          <button type="button" (click)="goPrevious()" [disabled]="!hasPrevious" title="Previous call (←)"
-            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
-            <ng-icon name="heroChevronLeft" size="18"></ng-icon>
-          </button>
-          <button type="button" (click)="goNext()" [disabled]="!hasNext" title="Next call (→)"
-            class="p-1.5 rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
-            <ng-icon name="heroChevronRight" size="18"></ng-icon>
-          </button>
-          <div class="w-px h-5 mx-1" [ngClass]="isDarkMode ? 'bg-gray-700' : 'bg-gray-200'"></div>
-        </ng-container>
-
-        <button type="button" (click)="closeModal()" class="p-1.5 rounded-md" [ngClass]="isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-black/5'">
-          <ng-icon name="heroXMark" size="18"></ng-icon>
-        </button>
-      </div>
-    </div>
-```
-
-### src/app/calls-v2/recording-player-modal.component.ts
-```
-@HostListener('document:keydown', ['$event'])
-onKeydown(event: KeyboardEvent): void {
-  if (!this.isOpen) return;
-  const target = event.target as HTMLElement | null;
-  // Don't hijack arrow keys while the user is typing in the note/tag inputs.
-  if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) return;
-  if (event.key === 'ArrowLeft') {
-    event.preventDefault();
-    this.goPrevious();
-  } else if (event.key === 'ArrowRight') {
-    event.preventDefault();
-    this.goNext();
-  }
-}
-
-goPrevious(): void {
-  if (!this.hasPrevious) return;
-  this.triggerNavAnimation('prev');
-  this.previousCall.emit();
-}
-
-goNext(): void {
-  if (!this.hasNext) return;
-  this.triggerNavAnimation('next');
-  this.nextCall.emit();
-}
-```
