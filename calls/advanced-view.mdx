@@ -1,10 +1,10 @@
 ---
 title: "Advanced Calls View"
-description: "Explore the new Calls page with a pinnable column manager, predefined and custom saved views, date/agent/tag/status filters with chips, suspicious-call detection, an OK/KO review verdict filter, summary cards, inline tag editing, per-call audit notes, per-turn latency detail, admin links to Twilio/ElevenLabs, and Excel exports."
+description: "Explore the new Calls page with a pinnable column manager, predefined and custom saved views, date/agent/company/tag/evaluation/status filters with chips, suspicious-call detection, an OK/KO review verdict filter, summary cards with inbound/outbound transfer time and real AI latency, inline tag editing, per-call audit notes, per-turn latency detail, admin links to Twilio/ElevenLabs, and Excel exports."
 icon: "table-list"
 ---
 
-The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a two-row filter bar covering date range, agents, tags, call ID, and status, along with a dedicated suspicious-call filter and an OK/KO verdict filter, a set of summary cards covering volume, latency, and review progress, a manual refresh control, an OK/KO review workflow with per-call audit notes, inline tag editing, per-turn latency detail, admin-only links to Twilio and ElevenLabs, full or selective Excel exports, pagination controls at both the top and bottom of the table, and a built-in recording player with a real waveform and previous/next navigation between calls.
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns discovered per agent, pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a two-row filter bar covering date range, agents, company, tags, evaluations, call ID, and status, along with a dedicated suspicious-call filter and an OK/KO verdict filter, a set of summary cards covering volume, latency, review progress, and inbound/outbound transfer time, a manual refresh control, an OK/KO review workflow with per-call audit notes, inline tag editing, per-turn latency detail, admin-only links to Twilio and ElevenLabs, full or selective Excel exports, pagination controls at both the top and bottom of the table, and a built-in recording player with a real waveform and previous/next navigation between calls.
 
 <Info>
 The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
@@ -40,7 +40,7 @@ Unlike the classic Calls page, the Advanced Calls View lets you fully customize 
     Inside an expanded agent group, click **Add** next to any field to turn it into a column immediately. Once added, the button switches to a disabled **Added** state, so you always know at a glance which fields from that agent are already on the table.
   </Step>
   <Step title="Show or hide columns">
-    In the **Columns** list below the discovery panels, toggle any column on or off. This includes standard fields (status, duration, agent, tags, evaluations) as well as any dynamic input/output columns you've added.
+    In the **Columns** list below the discovery panels, toggle any column on or off. This includes standard fields (status, duration, agent, company, tags, evaluations) as well as any dynamic input/output columns you've added.
   </Step>
   <Step title="Reorder columns">
     Drag any row in the **Columns** list — using the ⠿ handle — up or down to drop it into the position that makes the most sense for your workflow. The reordering works the same for standard and dynamic columns alike.
@@ -132,7 +132,7 @@ Saved views are stored per user, so each teammate can build their own set of nam
 
 ## Filtering calls
 
-The filter bar is organized into two clearly separated rows: a top row holding **Date range**, **Agents**, **Tags**, and **Call ID**, each given equal width so the row stays evenly balanced, and a second, full-width row dedicated entirely to the **Status** chips (plus the **Suspicious calls** and **Review verdict** controls described below). Splitting status onto its own row keeps the chips from wrapping awkwardly next to the other inputs and gives them room to breathe as more statuses (like **Silence**) are added.
+The filter bar is organized into two clearly separated rows: a top row holding **Date range**, **Agents**, **Tags**, **Evaluations**, and **Call ID**, plus a **Company** filter for administrator accounts, all given equal width so the row stays evenly balanced — and a second, full-width row dedicated entirely to the **Status** chips (plus the **Suspicious calls** and **Review verdict** controls described below). Splitting status onto its own row keeps the chips from wrapping awkwardly next to the other inputs and gives them room to breathe as more statuses (like **Silence**) are added.
 
 ### Date range
 
@@ -151,6 +151,18 @@ The agent filter uses a chip-based multi-select:
 - Remove a chip by clicking the **✕** on it, or clear all selected agents at once.
 - Leaving the filter empty shows calls from all agents.
 
+### Company
+
+For administrator accounts, an additional **Company** filter narrows the table down to calls belonging to a specific company — useful when reviewing calls across several accounts at once instead of switching between them one by one.
+
+- Start typing a company name to search, the same way the Agents filter works.
+- Combine it with **Agents** or **Tags** to zero in on, for example, a single agent that belongs to a specific company.
+- This filter is only visible to administrator accounts; regular accounts already see calls scoped to their own company and don't need it.
+
+<Info>
+The Company filter reads from the same `playbook_company` data already shown by the optional **Company** column, so the two stay consistent with each other.
+</Info>
+
 ### Tags
 
 Tags work the same way as agents — search, select, and manage them as chips. This makes it easy to combine multiple tags to narrow down a specific segment of calls.
@@ -158,6 +170,18 @@ Tags work the same way as agents — search, select, and manage them as chips. T
 - The tag suggestions dropdown is populated from every tag currently used across your calls, so it stays in sync as new tags are created.
 - You can combine several tags at once — a call matching **any** of the selected tags is included, making it easy to group related segments (for example, several campaign tags) into a single filtered view.
 - Tags added, renamed, or removed through the inline tag editor (see below) are reflected in this filter's suggestions right away.
+
+### Evaluations
+
+The **Evaluations** filter lets you narrow the table down using the same evaluation criteria surfaced in the **Evaluations** column, without having to scan every row manually.
+
+- Filter **by name** to isolate calls that were checked against a specific evaluation criterion — for example, only calls evaluated for "asked for consent" or "confirmed appointment date".
+- Filter **by result** to further narrow those calls down to only the ones that **passed**, only the ones that **failed**, or the ones where that evaluation wasn't applicable to the call.
+- Combining a criterion name with a result is the fastest way to answer questions like "which calls failed the identity-verification check this week", instead of opening each call individually to check its evaluations.
+
+<Info>
+Like Tags, the list of evaluation names offered in this filter is drawn from the evaluations actually recorded across your calls, so it stays in sync as agents' evaluation criteria evolve.
+</Info>
 
 ### Call ID
 
@@ -201,7 +225,7 @@ A dedicated verdict filter lets you narrow the table down to only the calls your
 - Select **KO** to pull up everything flagged as problematic.
 - Leave it unset to show calls regardless of verdict, including calls that haven't been reviewed at all.
 
-This is especially handy at the end of a review session — quickly pull up every call marked **KO** to make sure each one has a follow-up note, or check every **OK** call before sharing a "clean" batch with a manager or client. It also combines with the other filters, for example to check the **KO** calls for a single agent or tag.
+This is especially handy at the end of a review session — quickly pull up every call marked **KO** to make sure each one has a follow-up note, or check every **OK** call before sharing a "clean" batch with a manager or client. It also combines with the other filters, for example to check the **KO** calls for a single agent, tag, or evaluation result.
 
 ## Summary cards
 
@@ -210,13 +234,13 @@ Above the table, a row of summary cards shows aggregate statistics computed **se
 The cards include:
 
 - **Volume** — the total number of calls matching your current filters, giving you an immediate sense of scale before diving into the table.
-- **Average latency** — the average AI response latency across matching calls, useful for spotting whether your agents are responding promptly overall.
+- **Average latency** — the real AI response latency averaged across matching calls, computed from actual turn-by-turn response times rather than an estimate, useful for spotting whether your agents are responding promptly overall.
 - **Average duration** — how long matching calls last on average, handy for comparing campaigns or agents against each other.
 - **Reviewed** — how many of the matching calls already have a review recorded, so you can track audit progress for a given segment at a glance.
-- **Transfer time** — the total time spent on transfers, broken out separately for inbound and outbound calls, so you can see how much time each direction is costing you.
+- **Transfer time** — the total time spent on transfers, broken out separately for **inbound** and **outbound** calls, so you can see how much time each direction is costing you.
 
 <Info>
-Because these cards respect your active filters, you can combine them with the **Agents**, **Tags**, or **Status** filters to check, for example, the average latency for a single agent, or the reviewed count for only the calls tagged as escalations.
+Because these cards respect your active filters, you can combine them with the **Agents**, **Company**, **Tags**, **Evaluations**, or **Status** filters to check, for example, the average latency for a single agent, or the reviewed count for only the calls tagged as escalations.
 </Info>
 
 <Info>
@@ -315,7 +339,7 @@ Tags added or removed inline are immediately reflected in the **Tags** filter's 
 
 ## Per-turn latency detail
 
-Beyond the aggregate latency numbers shown in the summary cards, you can drill into a single call to see exactly how its AI response latency evolved turn by turn.
+Beyond the aggregate latency numbers shown in the summary cards, you can drill into a single call to see exactly how its real AI response latency evolved turn by turn.
 
 - Opening a call's latency detail breaks down the response time for each individual agent turn in the conversation, rather than just showing a single average for the whole call.
 - This makes it easy to spot whether a high average latency came from one slow turn — for example, a moment where the agent had to call an external tool — or from consistently sluggish responses throughout the call.
@@ -333,7 +357,7 @@ For users with administrator access, each call includes quick links out to the u
 - An **ElevenLabs** link opens the corresponding conversation directly in the ElevenLabs dashboard, useful for checking voice generation details or debugging the underlying AI conversation.
 
 <Warning>
-These links are only visible to administrator accounts. If you don't see them on a call, your role doesn't currently have access to the underlying provider dashboards.
+These links, along with the **Company** filter, are only visible to administrator accounts. If you don't see them, your role doesn't currently have access to the underlying provider dashboards or cross-company data.
 </Warning>
 
 ## Recording player
@@ -404,3 +428,152 @@ The **Export selection (N)** button only appears once you've selected at least o
 <Warning>
 Both export modes generate the file client-side based on the calls currently loaded in the table. If you're exporting all filtered calls, make sure you've loaded as many pages as you need before exporting, since the export won't reach beyond what's already been fetched into the table.
 </Warning>
+
+## Relevant code changes
+
+### src/app/calls-v2/calls-v2-columns.ts
+```
+import { ColumnDefinition } from '../interfaces/table-state';
+
+export type CallsV2ColumnType =
+  | 'text'
+  | 'date'
+  | 'duration'
+  | 'status'
+  | 'boolean'
+  | 'tags'
+  | 'evaluations'
+  | 'latency'
+  | 'latency_spark'
+  | 'recording'
+  | 'review'
+  | 'admin_links'
+  | 'actions';
+
+export interface CallsV2ColumnDefinition extends ColumnDefinition {
+  type: CallsV2ColumnType;
+  width?: string;
+  // Present only on user-added dynamic columns (from an agent's input
+  // parameters or output). `source` distinguishes call.data (input) from
+  // call.output (output) when resolving the value for each row.
+  path?: string;
+  source?: 'input' | 'output';
+  // Pinned columns are visually grouped and kept stuck to the right edge of
+  // the table while the rest scrolls horizontally underneath them.
+  pinned?: boolean;
+}
+
+// Default column set for /calls-v2. Users can hide, reorder, and (for
+// dynamic columns) add more from each agent's input/output fields — see
+// column-manager.component.ts. Call ID primera (segunda tras Links para admins).
+export const DEFAULT_CALLS_V2_COLUMNS: CallsV2ColumnDefinition[] = [
+  // Native fields already on every Call row (call.id/call.playbook_id), so
+  // unlike the dynamic "Agent Id"/"Call Id" columns discovered from an
+  // agent's OUTPUT, these are always populated regardless of call status.
+  { key: 'id', label: 'Call ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
+  { key: 'created_time', label: 'Date', type: 'date', sortable: true, visible: true, toggleable: true, width: '160px' },
+  { key: 'playbook_name', label: 'Agent', type: 'text', sortable: true, visible: true, toggleable: true, width: '160px' },
+  { key: 'playbook_id', label: 'Agent ID', type: 'text', sortable: false, visible: true, toggleable: true, width: '140px' },
+  { key: 'from', label: 'From', type: 'text', sortable: false, visible: true, toggleable: true, width: '130px' },
+  { key: 'to', label: 'To', type: 'text', sortable: false, visible: false, toggleable: true, width: '130px' },
+  { key: 'status', label: 'Status', type: 'status', sortable: true, visible: true, toggleable: true, width: '130px' },
+  { key: 'success', label: 'Goal', type: 'boolean', sortable: true, visible: false, toggleable: true, width: '90px' },
+  { key: 'duration', label: 'Duration', type: 'duration', sortable: true, visible: true, toggleable: true, width: '100px' },
+  { key: 'avg_response_latency_ms', label: 'Avg AI latency', type: 'latency', sortable: true, visible: true, toggleable: true, width: '130px' },
+  { key: 'latency_spark', label: 'Latency (turns)', type: 'latency_spark', sortable: false, visible: true, toggleable: true, width: '100px' },
+  { key: 'max_response_latency_ms', label: 'Max latency', type: 'latency', sortable: true, visible: false, toggleable: true, width: '130px' },
+  { key: 'tags', label: 'Tags', type: 'tags', sortable: false, visible: true, toggleable: true, width: '160px' },
+  // Evaluaciones por llamada (ticket #574) — no se migró de /calls legado.
+  { key: 'evaluations', label: 'Evaluations', type: 'evaluations', sortable: false, visible: true, toggleable: true, width: '130px' },
+  { key: 'playbook_company', label: 'Company', type: 'text', sortable: false, visible: false, toggleable: true, width: '140px' },
+  { key: 'email', label: 'Email', type: 'text', sortable: false, visible: false, toggleable: true, width: '180px' },
+  { key: 'summary', label: 'Summary', type: 'text', sortable: false, visible: false, toggleable: true, width: '260px' },
+  { key: 'type', label: 'Type', type: 'text', sortable: false, visible: false, toggleable: true, width: '100px' },
+  { key: 'end_call', label: 'Hung up by', type: 'text', sortable: false, visible: false, toggleable: true, width: '110px' },
+  { key: 'transferred', label: 'Transferred', type: 'boolean', sortable: false, visible: false, toggleable: true, width: '100px' },
+  { key: 'duration_agent', label: 'Agent duration', type: 'duration', sortable: false, visible: false, toggleable: true, width: '110px' },
+  { key: 'recording', label: 'Recording', type: 'recording', sortable: false, visible: true, toggleable: true, width: '110px' },
+  { key: 'review', label: 'Reviewed', type: 'review', sortable: false, visible: true, toggleable: true, width: '150px', pinned: true },
+  { key: 'actions', label: 'Actions', type: 'actions', sortable: false, visible: true, toggleable: false, width: '270px', pinned: true },
+];
+
+// Admin-only column (mirrors the Twilio/ElevenLabs shortcut dots in /calls).
+// NOT part of DEFAULT_CALLS_V2_COLUMNS — must never appear for a non-admin, so
+// the component inserts it itself, as FIRST column, once isAdminUser is confirmed.
+export const ADMIN_LINKS_COLUMN: CallsV2ColumnDefinition = {
+  key: 'admin_links',
+  label: 'Links',
+  type: 'admin_links',
+  sortable: false,
+  visible: true,
+  toggleable: true,
+  width: '70px',
+};
+
+// Versión del layout guardado en preferencias. v2: Links (admin) primera y Call ID
+// segunda; las preferencias anteriores se migran una sola vez al cargar.
+export const CALLS_V2_LAYOUT_VERSION = 2;
+
+export function applyLeadingColumnsLayout(cols: CallsV2ColumnDefinition[]): CallsV2ColumnDefinition[] {
+  const links = cols.find((c) => c.key === ADMIN_LINKS_COLUMN.key);
+  const callId = cols.find((c) => c.key === 'id');
+  // Visibles: la migración expresa el nuevo default; el usuario puede volver a ocultarlas.
+  const leading: CallsV2ColumnDefinition[] = [];
+  if (links) leading.push({ ...links, pinned: false, visible: true });
+  if (callId) leading.push({ ...callId, pinned: false, visible: true });
+  return [...leading, ...cols.filter((c) => c !== links && c !== callId)];
+}
+
+```
+
+### src/app/calls-v2/calls-v2.component.html
+```
+<div class="min-h-screen" [ngClass]="isDarkMode() ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'">
+
+  <div class="px-6 py-8 md:px-10 md:py-10">
+
+  <!-- Header -->
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Calls</h1>
+      <!-- Vuelta a /calls-old como enlace discreto en el subtítulo, sin banner -->
+      <p class="text-sm mt-1" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-500'">
+        Improved view with configurable columns and real AI latency
+        (<a routerLink="/calls-old" class="underline underline-offset-2 hover:no-underline" [ngClass]="isDarkMode() ? 'hover:text-gray-200' : 'hover:text-gray-700'">Switch back to the classic view</a>)
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <span *ngIf="activeViewName" class="text-sm truncate max-w-[12rem]" [ngClass]="isDarkMode() ? 'text-gray-400' : 'text-gray-500'" [title]="activeViewName">
+        {{ activeViewName }}
+      </span>
+      <div class="relative" #viewsMenuWrapper>
+        <button
+          type="button"
+          (click)="showViewsMenu = !showViewsMenu; showColumnManager = false"
+          class="inline-flex items-center gap-2 px-3.5 py-2 border rounded-md text-sm font-medium shadow-sm"
+          [ngClass]="isDarkMode() ? 'border-gray-600 hover:bg-gray-800' : 'border-gray-300 hover:bg-gray-50'">
+          <ng-icon name="heroEye" size="16"></ng-icon> Views
+        </button>
+        <div *ngIf="showViewsMenu" class="absolute right-0 z-20 mt-1 w-72 rounded-md border shadow-lg"
+          [ngClass]="isDarkMode() ? 'bg-gray-800 border-gray-600' : 'bg-white border-gray-200'">
+          <div class="max-h-80 overflow-y-auto py-1">
+            <p class="px-3 pt-1.5 pb-1 text-[11px] font-semibold uppercase tracking-wide" [ngClass]="isDarkMode() ? 'text-gray-500' : 'text-gray-400'">Predefined</p>
+            <div *ngFor="let view of builtInViews" (click)="applySavedView(view.id); showViewsMenu = false"
+              title="Switch to this view"
+              class="flex items-center gap-2 px-3 py-2 cursor-pointer transition-colors"
+              [ngClass]="view.id === activeViewId
+                ? (isDarkMode() ? 'bg-emerald-900/25' : 'bg-emerald-50')
+                : (isDarkMode() ? 'hover:bg-gray-700' : 'hover:bg-gray-50')">
+              <span class="w-4 h-4 flex-shrink-0 flex items-center justify-center">
+                <ng-icon *ngIf="view.id === activeViewId" name="heroCheck" size="14"
+                  [ngClass]="isDarkMode() ? 'text-emerald-400' : 'text-emerald-600'"></ng-icon>
+              </span>
+              <span class="truncate text-sm" [ngClass]="view.id === activeViewId ? (isDarkMode() ? 'text-emerald-400 font-medium' : 'text-emerald-600 font-medium') : ''">
+                {{ view.name }}
+              </span>
+            </div>
+
+            <div class="my-1 border-t" [ngClass]="isDarkMode() ? 'border-gray-700' : 'border-gray-200'"></div>
+            <p class="px-3 pt-1 pb-1 text-[11px] font-semibold uppercase tracking-wide" [ngClass]="isDarkMode() ? 'text-gray-500' : 'text-gray-400'">My views</p>
+
+            <div *ngFor="let view of sav

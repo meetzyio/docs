@@ -9,7 +9,7 @@ icon: 'robot'
 The **Agents** page has been fully redesigned around a **master-detail layout**: a compact agent list on the left and a rich detail panel on the right, so you can browse, inspect, and act on any agent without leaving the page.
 
 <Info>
-  This redesign replaces the classic Agents page. A **"Switch back to the classic view"** banner sits at the very top of the screen while both experiences coexist — click it any time to return to the previous layout without losing your place.
+  This redesign replaces the classic Agents page. A discreet **"Switch back to the classic view"** link sits right under the page title while both experiences coexist — click it any time to return to the previous layout without losing your place.
 </Info>
 
 ## What's New in the Agents Page (Agents v2)
@@ -25,7 +25,7 @@ The new Agents page (internally called **Agents v2**) bundles several improvemen
 - **A brand-new detail panel** — selecting an agent now opens a tabbed **Overview / Calls / Settings** panel packed with metrics, a 90-day call log, and the full configuration form, all in one place.
 
 <Tip>
-  Missing the old page already? The **"Switch back to the classic view"** link at the top of the screen is still there for you — no judgment if you, like Wolverine pining for 1980s Canada, occasionally long for the way things used to be.
+  Missing the old page already? The **"Switch back to the classic view"** link, right below the page title, is still there for you — no judgment if you, like Wolverine pining for 1980s Canada, occasionally long for the way things used to be.
 </Tip>
 
 <Tabs>
@@ -73,6 +73,10 @@ A compact sort selector sits above the agent list, next to the agent count, and 
 ### Selecting an Agent
 
 Click any row in the list to open it in the detail panel. The selected row is highlighted with a colored left border, and archived agents display a small **Archived** badge next to their name.
+
+<Info>
+  On smaller screens, selecting an agent replaces the list with the detail panel entirely; a **back** action returns you to the list without losing your active filters or scroll position.
+</Info>
 
 ### Phone Health Indicator and Latency Mini-Chart
 
@@ -304,7 +308,7 @@ Every agent that accepts outbound test/init calls has a configurable form. The *
 
 ## Test Calling from the "Call" Modal
 
-Each agent row includes a **Call** modal with everything needed to place a quick test call — inbound or outbound — without leaving the Agents page.
+Each agent row includes a **Call** modal — accessible directly from the list, without opening the detail panel first — with everything needed to place a quick test call, inbound or outbound, without leaving the Agents page.
 
 <Tabs>
   <Tab title="Inbound Testing">
@@ -319,7 +323,7 @@ Each agent row includes a **Call** modal with everything needed to place a quick
 </Tabs>
 
 <Info>
-  The **Call** button opens this flow as a standalone modal rather than an inline panel, so opening it never shifts the rows below it in the agent list — only one agent's Call modal can be open at a time.
+  The **Call** button opens this flow as a standalone modal rather than an inline panel, so opening it never shifts the rows below it in the agent list — only one agent's Call modal can be open at a time, and it can be triggered straight from any row's action button, whether or not that agent is currently selected.
 </Info>
 
 <Warning>

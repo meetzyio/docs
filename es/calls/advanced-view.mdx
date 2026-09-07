@@ -14,6 +14,7 @@ La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con u
 
 - Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
 - Un gestor de columnas completo, con la columna **Evaluations**, un **buscador de campos** de entrada/salida, **paneles agrupados por agente**, **columnas dinámicas** de entrada y salida descubiertas automáticamente, reordenamiento y **columnas fijadas** a la derecha de la tabla
+- Las columnas **Call ID** (y, para administradores, **Links**) siempre encabezando la tabla como columnas de acceso rápido, en lugar de mezclarse con el resto de campos
 - Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
 - **Vistas predefinidas**, listas para usar, además de **vistas guardadas** propias para reutilizar tus combinaciones favoritas de columnas y orden
 - Tarjetas de resumen con las métricas clave del rango filtrado, incluyendo el **desglose de tiempo de transferencia** (entrante y saliente), siempre visibles antes de entrar al detalle de la tabla
@@ -86,7 +87,11 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
     - Restaurar en cualquier momento la configuración de columnas por defecto con el botón **Reset to default columns**, al pie del panel
 
     <Info>
-      Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla. Si tu usuario es administrador, la columna **Links** también aparece fijada junto a ellas.
+      Por defecto, las columnas **Reviewed** (Revisado) y **Actions** (Acciones) vienen fijadas al borde derecho de la tabla, para que siempre tengas a mano el estado de auditoría y las acciones de cada llamada sin importar cuánto desplaces la tabla.
+    </Info>
+
+    <Info>
+      **Call ID**, y también **Links** si tu usuario es administrador, encabezan siempre la tabla como columnas de arranque (a la izquierda), en lugar de aparecer fijadas a la derecha junto a Reviewed y Actions. Esto te da un identificador de llamada y un acceso rápido de administración siempre visibles nada más abrir la vista, sin tener que desplazarte ni configurarlas manualmente.
     </Info>
 
     <Info>
@@ -167,6 +172,14 @@ Esta migración lee, de forma exclusivamente local y de solo lectura, la configu
 <Info>
   Esta migración ocurre una única vez por cuenta, la primera vez que se carga `/calls-v2` sin ninguna configuración previa de la vista nueva. A partir de ahí, cualquier cambio que hagas en el gestor de columnas o en las vistas guardadas se administra exclusivamente desde la nueva vista, sin volver a consultar la configuración heredada.
 </Info>
+
+### Actualización del orden de columnas iniciales
+
+<Info>
+  Independientemente de si migraste desde la vista clásica o ya usabas `/calls-v2` con anterioridad, Meetzy aplica además una segunda migración, más ligera, la primera vez que cargas la vista tras esta actualización: **Call ID**, y **Links** si tu usuario es administrador, se recolocan automáticamente como las primeras columnas de la tabla (visibles y sin fijar), en lugar de mantenerse en la posición en la que estuvieran antes. El resto de tu configuración —columnas visibles, columnas dinámicas y columnas fijadas a la derecha— se conserva exactamente igual.
+</Info>
+
+Esta reorganización también ocurre una única vez por cuenta y es completamente transparente: no necesitas volver a configurar nada manualmente para beneficiarte del nuevo orden de columnas iniciales.
 
 ---
 
@@ -281,6 +294,14 @@ La columna **Evaluations** muestra el resultado de las evaluaciones automáticas
   Si ya tenías una configuración de columnas guardada de antes de este cambio, no necesitas hacer nada: Meetzy inserta automáticamente la columna **Evaluations** en tus preferencias guardadas, para que también aparezca en las vistas que ya tenías creadas.
 </Info>
 
+### Columna Call ID
+
+La columna **Call ID** muestra el identificador único de cada llamada y, junto con **Links** para administradores, encabeza siempre la tabla como una columna de arranque, a la izquierda de todo lo demás. A diferencia de las columnas dinámicas descubiertas a partir de campos de salida (como un posible "Call Id" que devuelva el propio agente), esta columna nativa está siempre presente en cada fila, independientemente del estado o resultado de la llamada.
+
+<Info>
+  Puedes ocultar la columna **Call ID** desde el gestor de columnas como cualquier otra columna opcional, pero su posición de partida —encabezando la tabla— se mantiene aunque la reordenes, la ocultes y vuelvas a mostrarla más tarde.
+</Info>
+
 ### Columnas dinámicas
 
 Además de las columnas estándar de la llamada, el gestor de columnas descubre automáticamente **columnas dinámicas** a partir de los campos de **entrada** (input) y **salida** (output) que tus agentes generan en cada llamada. Esto te permite, por ejemplo, mostrar como columna un campo concreto que recoge tu agente durante la conversación (entrada) o un dato extraído por el modelo al finalizar la llamada (salida), sin necesidad de configuración adicional en el backend.
@@ -297,18 +318,26 @@ Estos campos ya no se presentan como una lista larga y plana: dentro del gestor 
 
 ### Columnas fijadas
 
-Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed**, **Links** (si eres administrador) o **Actions**, sin perderlas de vista al revisar campos dinámicos, evaluaciones u otras columnas adicionales.
+Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed** o **Actions**, sin perderlas de vista al revisar campos dinámicos, evaluaciones u otras columnas adicionales.
 
 <Info>
   Independientemente del orden en que arrastres las columnas dentro del gestor de columnas, las columnas fijadas siempre se agrupan al final de la tabla. Esto se aplica tanto si defines tu propia combinación de columnas fijadas como si aplicas una vista predefinida o guardada que ya incluya columnas fijadas.
 </Info>
 
+<Info>
+  **Call ID** y **Links** (para administradores) no forman parte de este grupo de columnas fijadas: en lugar de quedar ancladas al borde derecho, encabezan la tabla por la izquierda como columnas de arranque siempre visibles al abrir la vista. Puedes reordenarlas u ocultarlas como cualquier otra columna, pero no aparecerán agrupadas junto a Reviewed o Actions.
+</Info>
+
 ### Columna de enlaces (solo administradores)
 
 <Info>
-  Si tu usuario tiene permisos de administrador, verás una columna adicional llamada **Links**, colocada junto a **Reviewed** y **Actions**. Esta columna te ofrece accesos directos equivalentes a los "puntos" de acceso rápido de la vista clásica (por ejemplo, hacia Twilio o ElevenLabs), pensados para depuración interna.
+  Si tu usuario tiene permisos de administrador, verás una columna adicional llamada **Links**, situada como la primera columna de la tabla, incluso antes de **Call ID**. Esta columna te ofrece accesos directos equivalentes a los "puntos" de acceso rápido de la vista clásica (por ejemplo, hacia Twilio o ElevenLabs), pensados para depuración interna.
 
   Esta columna nunca aparece para usuarios que no son administradores, ni siquiera momentáneamente mientras se confirma el estado de administrador: solo se añade a la tabla una vez que Meetzy verifica que tu cuenta tiene ese permiso.
+</Info>
+
+<Info>
+  Colocar **Links** como primera columna, en lugar de fijarla al borde derecho junto a Reviewed y Actions, te da un acceso de administración inmediato nada más abrir la tabla, sin tener que desplazarte horizontalmente. Si prefieres otra posición, puedes reordenarla libremente desde el gestor de columnas como cualquier otra columna.
 </Info>
 
 ### Selección múltiple
@@ -386,10 +415,4 @@ Puedes reproducir la grabación de audio de cualquier llamada directamente desde
 Desde cada llamada puedes abrir:
 
 - La **transcripción completa** de la conversación, con turnos individuales, latencias por etapa y detalle de llamadas a herramientas (tool calls) cuando el agente las utiliza
-- Un formulario de **feedback / ticket de soporte** para reportar un problema relacionado con esa llamada específica
-
----
-
-## Modo oscuro
-
-La vista de Llamadas se adapta automáticamente al modo oscuro de tu cuenta, ajustando colores de fondo, bordes y texto en toda la interfaz, incluidos el banner de vista clásica, las tarjetas de resumen, los menús desplegables, el gestor de columnas (buscador de campos, paneles agrupados por agente y lista de columnas), el reproductor de grabaciones y los modales.
+- Un

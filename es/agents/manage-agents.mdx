@@ -18,11 +18,11 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 </CardGroup>
 
 <Info>
-  Esta es la nueva página de Agentes, identificada bajo el subtítulo **"Improved view with agent latency history"**. En la parte superior de toda la pantalla verás un banner permanente que indica **"You're viewing the new Agents page."**, con un enlace **"Switch back to the classic view"** que te lleva de inmediato a la vista clásica si prefieres seguir usándola mientras te familiarizas con la nueva.
+  Esta es la nueva página de Agentes, identificada bajo el subtítulo **"Improved view with agent latency history"**. Junto a ese subtítulo encontrarás un enlace discreto **"Switch back to the classic view"** que te lleva de inmediato a la página clásica de agentes (`/agents-old`) si prefieres seguir usándola mientras te familiarizas con la nueva.
 </Info>
 
 <Tip>
-  El banner de vuelta a la vista clásica no desaparece ni se puede cerrar de forma permanente: está pensado como una red de seguridad mientras la nueva página termina de recibir feedback, así que siempre estará disponible por si necesitas volver atrás en cualquier momento.
+  El enlace de vuelta a la vista clásica siempre está disponible: está pensado como una red de seguridad mientras la nueva página termina de recibir feedback, así que puedes volver atrás en cualquier momento sin perder acceso a tus agentes.
 </Tip>
 
 ## Navegación Rápida
@@ -44,6 +44,10 @@ La sección **Agents** presenta una interfaz moderna de tipo maestro-detalle que
 
 ## Buscar y Filtrar Agentes
 
+<Info>
+  El panel de filtros completo (búsqueda, compañía, archivados, salud telefónica y botón de limpiar) solo se muestra si tienes permiso de creación/edición de agentes. Si no cuentas con ese permiso, verás directamente la lista de agentes sin controles de filtrado.
+</Info>
+
 ### Búsqueda Inteligente
 
 El campo de búsqueda en la parte superior del panel de filtros soporta múltiples criterios:
@@ -63,7 +67,7 @@ Si tienes acceso a múltiples organizaciones, el selector **Company** aparece ju
 
 <Steps>
   <Step title="Acceder al filtro">
-    Haz clic en el dropdown **"All companies"**
+    Haz clic en el dropdown que muestra **"All companies"**
   </Step>
   <Step title="Buscar o seleccionar">
     Usa el campo **"Filter companies…"** dentro del desplegable o selecciona directamente la compañía deseada de la lista
@@ -739,7 +743,7 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | **Edit Form** | Botón "Edit Form" en el modal de llamada | Abre el editor de campos personalizados |
 | **Cambiar de agente (Editor Avanzado)** | Selector de agentes | Salta a otro agente sin perder el contexto del editor |
 | **Cerrar panel** | Clic en ✕ | Cierra la vista detallada y vuelve a la vista de solo lista |
-| **Volver a la vista clásica** | Enlace en el banner superior | Redirige a la página `/agents` clásica |
+| **Volver a la vista clásica** | Enlace junto al subtítulo de la página | Redirige a la página `/agents-old` clásica |
 
 <Note>
   En pantallas móviles, las acciones **Editor**, **Trends**, **Clone** y **Archive** no se muestran como botones independientes en el encabezado: se agrupan bajo un único icono de menú (⋮) para optimizar el espacio disponible.
@@ -757,7 +761,8 @@ El editor avanzado incluye un sistema de control de versiones inspirado en Git:
 | **⌘K** | Búsqueda rápida de agentes |
 | **Escape** | Cerrar modales abiertos |
 
-### Acciones en Lote
+## Preguntas Frecuentes
 
-Para usuarios administradores, está disponible la gestión masiva:
-- **Pausar múltiples agentes**: Para m
+<AccordionGroup>
+  <Accordion title="¿Por qué el sparkline de latencia no aparece en algunas filas?">
+    El sparkline requiere un volumen mínim
