@@ -1,39 +1,40 @@
 ---
 title: "Vista avanzada de Llamadas"
-description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables y fijadas, la columna Evaluations, columnas dinámicas de entrada/salida agrupadas por agente con buscador, vistas predefinidas y guardadas, modo en vivo con actualización manual, filtros avanzados (incluyendo etiquetas, el estado Silencio, llamadas sospechosas y el veredicto de auditoría OK/KO), tarjetas de resumen con desglose de transferencias entrantes/salientes, revisión con veredicto de auditoría y notas, edición de tags en línea y reproductor con navegación entre llamadas"
+description: "Descubre la nueva vista mejorada de Llamadas con columnas configurables y fijadas, la columna Evaluations, columnas dinámicas de entrada/salida agrupadas por agente con buscador, vistas predefinidas y guardadas, modo en vivo con actualización manual, filtros avanzados (compañía, etiquetas, el estado Silencio, resultado de evaluación, llamadas sospechosas y el veredicto de auditoría OK/KO), tarjetas de resumen con desglose de transferencias entrantes/salientes, revisión con veredicto de auditoría y notas, edición de tags en línea, reproductor con navegación entre llamadas y enlaces directos (deep links) con filtros predefinidos"
 icon: "table-list"
 ---
 
-La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, la columna **Evaluations**, **columnas dinámicas** descubiertas automáticamente y agrupadas por agente, un **buscador de campos** dentro del propio gestor de columnas, **columnas fijadas** (incluyendo una columna de enlaces solo para administradores), **vistas predefinidas y guardadas**, filtros avanzados —fecha, agentes, **etiquetas**, estado (incluido el nuevo estado **Silencio**), **veredicto de auditoría (OK / KO)** y un filtro rápido de llamadas sospechosas—, tarjetas de resumen con desglose de tiempos de transferencia **entrante y saliente**, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, **actualización en vivo** de la tabla mediante el modo **Live** (con un botón de **refresco manual** para actualizar la tabla al instante sin activarlo) y métricas reales de latencia de IA por cada llamada.
+La nueva vista de **Llamadas** (`/calls-v2`) reemplaza a la vista clásica con una experiencia mucho más flexible: columnas configurables, la columna **Evaluations**, **columnas dinámicas** descubiertas automáticamente y agrupadas por agente, un **buscador de campos** dentro del propio gestor de columnas, **columnas fijadas** (incluyendo una columna de enlaces solo para administradores), **vistas predefinidas y guardadas**, filtros avanzados —fecha, **compañía** (para administradores), agentes, **etiquetas**, estado (incluido el nuevo estado **Silencio**), **resultado de evaluación**, **veredicto de auditoría (OK / KO)** y un filtro rápido de llamadas sospechosas—, tarjetas de resumen con desglose de tiempos de transferencia **entrante y saliente**, revisión con veredicto y notas de auditoría, edición de etiquetas en línea, **actualización en vivo** de la tabla mediante el modo **Live** (con un botón de **refresco manual** para actualizar la tabla al instante sin activarlo), métricas reales de latencia de IA por cada llamada y soporte de **enlaces directos (deep links)** que permiten abrir la vista con filtros ya aplicados.
 
 <Info>
-  Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el banner superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
+  Si algo no funciona como esperabas en esta nueva vista, puedes volver a la vista clásica en cualquier momento haciendo clic en **"Switch back to the classic view"** en el subtítulo superior. El enlace te lleva a `/calls-old`, donde encontrarás la experiencia anterior intacta mientras te familiarizas con la nueva.
 </Info>
 
 ## Qué encontrarás en esta vista
 
-- Un banner superior que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
-- Un gestor de columnas completo, con la columna **Evaluations**, un **buscador de campos** de entrada/salida, **paneles agrupados por agente**, **columnas dinámicas** de entrada y salida descubiertas automáticamente, reordenamiento y **columnas fijadas** a la derecha de la tabla
+- Un enlace discreto junto al título que te permite volver a la vista clásica en un clic mientras te adaptas a la nueva
+- Un gestor de columnas completo, con la columna **Evaluations**, un **buscador de campos** de entrada/salida, **paneles agrupados por agente**, **columnas dinámicas** de entrada y salida descubiertas automáticamente, reordenamiento y **columnas fijadas** al borde derecho de la tabla
 - Las columnas **Call ID** (y, para administradores, **Links**) siempre encabezando la tabla como columnas de acceso rápido, en lugar de mezclarse con el resto de campos
 - Una columna de **enlaces de administrador**, visible únicamente para usuarios con permisos de administrador
 - **Vistas predefinidas**, listas para usar, además de **vistas guardadas** propias para reutilizar tus combinaciones favoritas de columnas y orden
 - Tarjetas de resumen con las métricas clave del rango filtrado, incluyendo el **desglose de tiempo de transferencia** (entrante y saliente), siempre visibles antes de entrar al detalle de la tabla
-- Filtros avanzados de fecha, agentes, **etiquetas**, estado (incluyendo el nuevo estado **Silencio**), **veredicto de auditoría (OK / KO)** y búsqueda de texto, reorganizados en un panel más claro
+- Filtros avanzados de fecha, **compañía** (solo administradores), agentes, **etiquetas**, estado (incluyendo el nuevo estado **Silencio**), **resultado de evaluación**, **veredicto de auditoría (OK / KO)** y búsqueda de texto, reorganizados en un panel más claro
 - Un filtro rápido de **llamadas sospechosas** para auditar primero lo más crítico
 - Exportación a Excel, ya sea de todas las llamadas filtradas o solo de tu selección
 - Estado **Revisado**, **veredicto de auditoría (OK / KO)** y notas por llamada, con guardado automático
 - **Edición de etiquetas en línea**, para añadir o quitar tags sin salir de la vista de llamadas
 - **Actualización en vivo** de la tabla mediante el modo **Live**, con indicador visual de llamadas nuevas, más un botón de **refresco manual** para forzar una actualización puntual en cualquier momento
 - Gráficos de latencia real de IA y reproductor de grabaciones integrado, con **navegación anterior/siguiente entre llamadas consecutivas** directamente desde la cabecera del modal, y desglose detallado de cada respuesta
+- Soporte de **enlaces directos (deep links)**: puedes compartir o guardar una URL que abre `/calls-v2` con un conjunto concreto de filtros ya aplicados
 
 ---
 
-## Banner de vista clásica
+## Enlace a la vista clásica
 
-Justo debajo del encabezado, un banner discreto te recuerda que estás usando la nueva vista de Llamadas y te ofrece un enlace directo, **"Switch back to the classic view"**, para regresar a `/calls-old` en cualquier momento.
+Justo debajo del título **Calls**, un enlace discreto en el subtítulo, **"Switch back to the classic view"**, te permite regresar a `/calls-old` en cualquier momento.
 
 <Info>
-  Este banner no desaparece automáticamente: se mantiene visible mientras la nueva vista está en periodo de adopción, para que siempre tengas a mano una salida rápida si necesitas comparar comportamientos entre ambas vistas.
+  Este enlace no desaparece automáticamente: se mantiene visible mientras la nueva vista está en periodo de adopción, para que siempre tengas a mano una salida rápida si necesitas comparar comportamientos entre ambas vistas.
 </Info>
 
 ---
@@ -73,6 +74,10 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
 
     <Info>
       Si ya tenías una vista guardada de antes de que existiera la columna **Evaluations**, no necesitas hacer nada: Meetzy inserta automáticamente las columnas fijas nuevas en las preferencias guardadas antiguas, por lo que la columna aparecerá también en tus vistas ya existentes.
+    </Info>
+
+    <Info>
+      Si combinas una vista guardada con un **enlace directo (deep link)** que incluya filtros en la URL (por ejemplo, un enlace compartido por un compañero), los filtros del enlace tienen prioridad sobre los que la vista hubiera aplicado por defecto. La vista sigue controlando qué columnas ves y en qué orden; el deep link controla qué llamadas se muestran.
     </Info>
   </Step>
 
@@ -125,6 +130,18 @@ Justo debajo del encabezado, un banner discreto te recuerda que estás usando la
 
     <Info>
       Añadir o quitar una columna dinámica no elimina el campo del listado de "Input columns" / "Output columns": simplemente cambia el estado del botón entre **Add** y **Added**, por lo que siempre puedes volver a añadir un campo que hayas quitado previamente sin perder de vista su origen (agente, etiqueta y ruta).
+    </Info>
+
+    #### Fijar columnas (pinning)
+
+    Junto a cada columna del listado encontrarás un icono de **chincheta** (📌). Al activarlo, esa columna pasa a formar parte del grupo de **columnas fijadas**, que se ancla siempre al borde derecho de la tabla mientras el resto de columnas se desplaza horizontalmente por debajo.
+
+    - Puedes fijar tantas columnas como necesites: todas las que marques como fijadas se agrupan juntas, en el mismo orden relativo en el que aparecen en el listado de columnas.
+    - Desactivar la chincheta de una columna la devuelve al flujo normal de la tabla, en la posición que le corresponda según el orden general de columnas.
+    - Las columnas fijadas por defecto (**Reviewed** y **Actions**) pueden desfijarse igual que cualquier otra, si prefieres una tabla más simple sin columnas ancladas.
+
+    <Info>
+      El estado de fijado de cada columna se guarda junto con el resto de tu configuración de columnas, por lo que se conserva tanto en tus **vistas guardadas** como al recargar la página. Al aplicar una vista predefinida o guardada, se restaura exactamente el mismo conjunto de columnas fijadas con el que se creó esa vista.
     </Info>
   </Step>
 
@@ -190,14 +207,14 @@ Antes de la tabla, un conjunto de tarjetas de resumen te ofrece un vistazo rápi
 Entre las métricas disponibles se incluye el **desglose de tiempo de transferencia**, calculado por separado para llamadas **entrantes** y **salientes**: el tiempo total (en segundos) que las llamadas filtradas pasaron transferidas a un humano. Esta separación te permite detectar rápidamente, por ejemplo, si el volumen de transferencias proviene principalmente de llamadas entrantes de soporte o de campañas salientes.
 
 <Info>
-  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo, incluido el desglose de tiempos de transferencia entrante y saliente.
+  Las tarjetas de resumen se recalculan automáticamente cada vez que cambias los filtros —incluida la **compañía** cuando eres administrador—, por lo que siempre reflejan el mismo conjunto de llamadas que ves en la tabla debajo, incluido el desglose de tiempos de transferencia entrante y saliente.
 </Info>
 
 ---
 
 ## Filtros disponibles
 
-Los filtros se agrupan en un panel único, organizado en filas regulares para facilitar la lectura: primero el rango de fechas, agentes, etiquetas y búsqueda; después los chips de estado y de veredicto de auditoría en sus propias filas; y finalmente el filtro rápido de llamadas sospechosas junto a las acciones de exportación.
+Los filtros se agrupan en un panel único, organizado en filas regulares para facilitar la lectura: primero el rango de fechas, la **compañía** (solo administradores), agentes, etiquetas y búsqueda; después los chips de estado, **resultado de evaluación** y veredicto de auditoría en sus propias filas; y finalmente el filtro rápido de llamadas sospechosas junto a las acciones de exportación.
 
 ### Rango de fechas
 
@@ -207,9 +224,31 @@ El selector de rango de fechas ofrece atajos predefinidos (por ejemplo, *Última
   A diferencia de la vista clásica, en esta vista los rangos basados en días (como "Hoy" o "Ayer") terminan exactamente a las 23:59:59 del último día, en lugar de a las 00:00 del día siguiente. Es una simplificación intencional de esta vista.
 </Info>
 
+### Compañía (solo administradores)
+
+<Info>
+  Este filtro solo aparece si tu usuario tiene permisos de **administrador de Meetzy**. Para el resto de usuarios, la vista se limita automáticamente a su propia cuenta y este selector no se muestra.
+</Info>
+
+El filtro de **Company** funciona igual que el de agentes: escribe para buscar una cuenta por nombre, haz clic para añadirla como chip y quítala con la ✕ correspondiente o con el botón de limpiar. Puedes seleccionar una única compañía o combinar varias a la vez.
+
+Al elegir una o varias compañías, la vista completa se acota a esas cuentas:
+
+- El selector de **agentes** solo muestra los agentes pertenecientes a las compañías seleccionadas
+- La **tabla de llamadas**, las **tarjetas de resumen** y las **evaluaciones** disponibles se recalculan para reflejar únicamente los datos de esas cuentas
+- Si no seleccionas ninguna compañía, la vista se comporta como antes: se muestran los datos de todas las cuentas a las que tienes acceso
+
+<Info>
+  Este filtro está pensado principalmente para soporte interno y auditorías multi-cuenta: permite a un administrador de Meetzy revisar las llamadas de una o varias compañías concretas sin tener que cambiar de sesión ni solicitar acceso independiente a cada cuenta.
+</Info>
+
 ### Agentes
 
 El filtro de agentes funciona como un selector de "chips": escribe para buscar un agente, haz clic para añadirlo, y usa la ✕ en cada chip (o el botón de limpiar) para quitarlo. Puedes combinar varios agentes en el mismo filtro.
+
+<Info>
+  Si eres administrador y tienes una o varias **compañías** seleccionadas en el filtro anterior, la lista de agentes disponibles aquí se limita automáticamente a esas compañías, para que no tengas que buscar entre agentes de cuentas que no estás auditando en ese momento.
+</Info>
 
 ### Etiquetas (Tags)
 
@@ -239,9 +278,23 @@ Puedes filtrar por uno o varios estados a la vez, mostrados como chips en su pro
   El estado **Silencio** es especialmente útil para detectar llamadas que se conectaron técnicamente pero no llegaron a tener ningún contenido de conversación, un patrón distinto al de "No answer" (donde la llamada nunca se llegó a contestar). Este estado ya existía en el backend, pero antes solo se podía filtrar de forma manual; ahora aparece como una opción más dentro del selector de estados.
 </Info>
 
+### Resultado de evaluación
+
+Además de la columna **Evaluations** en la tabla, puedes filtrar directamente por el resultado de las evaluaciones automáticas configuradas para tus agentes:
+
+| Chip | Muestra |
+|---|---|
+| **Passed** | Llamadas cuya evaluación automática se cumplió |
+| **Failed** | Llamadas cuya evaluación automática no se cumplió |
+| **Not evaluated** | Llamadas sin evaluación disponible, por ejemplo porque el agente no tiene evaluaciones configuradas o la llamada no llegó a procesarse |
+
+<Info>
+  Este filtro te permite, por ejemplo, aislar de inmediato todas las llamadas que **Failed** una evaluación crítica de calidad, sin tener que recorrer la columna **Evaluations** manualmente fila por fila. Puedes combinarlo con el resto de filtros —agente, fecha, etiquetas, estado— para acotar la revisión a exactamente lo que necesitas auditar.
+</Info>
+
 ### Veredicto de auditoría (OK / KO)
 
-Además de filtrar por estado técnico de la llamada, puedes filtrar por el **veredicto de auditoría** que tú u otro miembro de tu equipo hayáis asignado a cada llamada:
+Además de filtrar por estado técnico de la llamada o por resultado de evaluación automática, puedes filtrar por el **veredicto de auditoría** que tú u otro miembro de tu equipo hayáis asignado manualmente a cada llamada:
 
 | Chip | Muestra |
 |---|---|
@@ -250,7 +303,11 @@ Además de filtrar por estado técnico de la llamada, puedes filtrar por el **ve
 | **Not reviewed** | Llamadas que todavía no tienen un veredicto asignado |
 
 <Info>
-  Este filtro es especialmente útil para localizar rápidamente todas las llamadas que un compañero marcó como **KO** durante una sesión de auditoría, o para comprobar cuánto trabajo de revisión queda pendiente filtrando por **Not reviewed**. Puedes combinarlo con el resto de filtros (fecha, agente, etiquetas, estado) para acotar la búsqueda todo lo que necesites.
+  Este filtro es especialmente útil para localizar rápidamente todas las llamadas que un compañero marcó como **KO** durante una sesión de auditoría, o para comprobar cuánto trabajo de revisión queda pendiente filtrando por **Not reviewed**. Puedes combinarlo con el resto de filtros (fecha, compañía, agente, etiquetas, estado, resultado de evaluación) para acotar la búsqueda todo lo que necesites.
+</Info>
+
+<Info>
+  El **resultado de evaluación** (automático, generado por la IA) y el **veredicto de auditoría** (manual, asignado por una persona) son conceptos independientes: una llamada puede tener una evaluación automática en **Passed** y, aun así, recibir un veredicto manual de **KO** si el auditor detecta un problema que la evaluación automática no contempla, o viceversa. Ambos filtros se pueden combinar para encontrar, por ejemplo, discrepancias entre lo que la IA considera correcto y lo que el equipo humano valida.
 </Info>
 
 ### Búsqueda por ID de llamada y texto libre
@@ -276,6 +333,30 @@ También puedes filtrar por un ID de llamada específico o buscar texto libre de
 
 ---
 
+## Enlaces directos con filtros (deep links)
+
+`/calls-v2` admite parámetros en la propia URL para abrir la vista con un conjunto de filtros ya aplicado, sin necesidad de configurarlos manualmente cada vez.
+
+<Info>
+  Esta funcionalidad es especialmente útil para compartir un enlace directo desde Slack, un correo o cualquier otra herramienta hacia, por ejemplo, "todas las llamadas KO del agente de ventas esta semana", o para enlazar desde otras pantallas internas de Meetzy directamente a un subconjunto concreto de llamadas.
+</Info>
+
+Al abrir un enlace con parámetros de filtro, Meetzy:
+
+- Aplica automáticamente los filtros indicados en la URL (rango de fechas, compañía, agentes, etiquetas, estado, resultado de evaluación, veredicto de auditoría o búsqueda de texto, según los parámetros presentes)
+- Ignora cualquier filtro que no reconozca o que tenga un valor inválido, sin bloquear la carga del resto de la vista
+- Mantiene la configuración de columnas y la vista activa (predefinida o guardada) que tuvieras seleccionada previamente: el deep link decide **qué llamadas** ver, no **cómo** se muestran
+
+<Info>
+  Si abres un deep link y después cambias manualmente cualquiera de los filtros aplicados, el comportamiento a partir de ese momento es idéntico al de cualquier otro filtro: se actualiza la tabla y las tarjetas de resumen normalmente, sin que el enlace original vuelva a aplicarse hasta que recargues la página con esa misma URL.
+</Info>
+
+<Warning>
+  El filtro de **Company** solo tiene efecto si el usuario que abre el enlace tiene permisos de administrador. Si un usuario sin ese permiso abre un deep link que incluye una compañía concreta, ese parámetro se ignora silenciosamente y el resto de filtros se aplican con normalidad sobre los datos de su propia cuenta.
+</Warning>
+
+---
+
 ## Tabla de llamadas
 
 ### Ordenación y paginación
@@ -294,6 +375,10 @@ La columna **Evaluations** muestra el resultado de las evaluaciones automáticas
   Si ya tenías una configuración de columnas guardada de antes de este cambio, no necesitas hacer nada: Meetzy inserta automáticamente la columna **Evaluations** en tus preferencias guardadas, para que también aparezca en las vistas que ya tenías creadas.
 </Info>
 
+<Info>
+  Recuerda que, además de verla como columna, puedes usar el nuevo filtro de **resultado de evaluación** del panel de filtros para acotar la tabla a llamadas con un resultado concreto (Passed, Failed o Not evaluated), en lugar de recorrer la columna manualmente.
+</Info>
+
 ### Columna Call ID
 
 La columna **Call ID** muestra el identificador único de cada llamada y, junto con **Links** para administradores, encabeza siempre la tabla como una columna de arranque, a la izquierda de todo lo demás. A diferencia de las columnas dinámicas descubiertas a partir de campos de salida (como un posible "Call Id" que devuelva el propio agente), esta columna nativa está siempre presente en cada fila, independientemente del estado o resultado de la llamada.
@@ -309,7 +394,7 @@ Además de las columnas estándar de la llamada, el gestor de columnas descubre 
 Estos campos ya no se presentan como una lista larga y plana: dentro del gestor de columnas se organizan en dos paneles independientes —**Input columns** y **Output columns**— y, dentro de cada uno, en **grupos colapsables por agente**, con el nombre del agente y el número de campos que aporta. Un **buscador de campos** en la parte superior del panel te permite filtrar por nombre en ambos paneles simultáneamente, algo especialmente útil en cuentas con muchos agentes o campos configurados.
 
 <Info>
-  Los campos dinámicos disponibles dependen de los agentes y llamadas presentes en tu cuenta: cuantas más llamadas con estructuras de entrada/salida distintas tengas, más opciones de columnas dinámicas encontrarás en el gestor de columnas. Cada campo conserva su clave, etiqueta y ruta original, tanto si lo añades manualmente como si procede de una vista migrada desde la vista clásica.
+  Los campos dinámicos disponibles dependen de los agentes y llamadas presentes en tu cuenta (o, si eres administrador, en las compañías seleccionadas en el filtro de **Company**): cuantas más llamadas con estructuras de entrada/salida distintas tengas, más opciones de columnas dinámicas encontrarás en el gestor de columnas. Cada campo conserva su clave, etiqueta y ruta original, tanto si lo añades manualmente como si procede de una vista migrada desde la vista clásica.
 </Info>
 
 <Info>
@@ -319,6 +404,8 @@ Estos campos ya no se presentan como una lista larga y plana: dentro del gestor 
 ### Columnas fijadas
 
 Las columnas marcadas como fijadas (**pinned**) desde el gestor de columnas se agrupan visualmente y quedan pegadas al borde derecho de la tabla, mientras el resto de columnas se desplaza horizontalmente por debajo. Esto es especialmente útil para columnas que necesitas consultar constantemente, como **Reviewed** o **Actions**, sin perderlas de vista al revisar campos dinámicos, evaluaciones u otras columnas adicionales.
+
+Puedes activar o desactivar el fijado de cualquier columna desde el icono de **chincheta** (📌) junto a su nombre en el gestor de columnas, tal y como se describe en la sección [Columns](#encabezado-y-acciones-principales) anterior.
 
 <Info>
   Independientemente del orden en que arrastres las columnas dentro del gestor de columnas, las columnas fijadas siempre se agrupan al final de la tabla. Esto se aplica tanto si defines tu propia combinación de columnas fijadas como si aplicas una vista predefinida o guardada que ya incluya columnas fijadas.
@@ -361,58 +448,4 @@ Tanto el estado revisado como el veredicto y la nota se incluyen en la exportaci
 
 ### Edición de etiquetas en línea
 
-Además de usarlas como filtro, las **etiquetas** (tags) de cada llamada se pueden editar directamente desde la vista de detalle de la grabación, sin necesidad de salir de `/calls-v2` ni abrir un formulario aparte:
-
-- Escribe el nombre de una etiqueta nueva y pulsa **Enter** (o el botón correspondiente) para añadirla a la llamada
-- Haz clic en la ✕ de cualquier etiqueta existente para quitarla
-
-<Info>
-  Los cambios de etiquetas se guardan al instante contra esa llamada específica y se reflejan de inmediato en la fila correspondiente de la tabla, sin recargar la página. Cualquier etiqueta nueva que crees aquí queda disponible automáticamente en el filtro de **etiquetas** del panel de filtros.
-</Info>
-
-### Actualización en vivo y refresco manual
-
-Con el interruptor **Live** activado, la tabla se actualiza automáticamente en segundo plano para reflejar llamadas nuevas o cambios de estado, sin necesidad de recargar la página. Las llamadas recién llegadas se resaltan brevemente para que puedas identificarlas de un vistazo.
-
-Si prefieres no dejar **Live** activado de forma continua, el botón de **refresco manual** situado junto al interruptor te permite pedir una actualización puntual de la tabla en cualquier momento, respetando siempre los filtros y la ordenación activos.
-
-<Info>
-  La **actualización en vivo** y el **refresco manual** respetan los filtros y la ordenación que tengas activos: solo se incorporan a la tabla las llamadas que cumplen tus criterios actuales. Al desactivar el modo **Live**, el proceso de actualización automática en segundo plano se detiene por completo, pero el botón de refresco manual sigue disponible para actualizar la tabla cuando tú lo decidas.
-</Info>
-
-### Latencia real de IA
-
-<Tabs>
-  <Tab title="Mini gráfico (sparkline)">
-    Cada fila muestra un pequeño gráfico de latencia que te da una vista rápida del comportamiento de la IA durante esa llamada.
-  </Tab>
-  <Tab title="Gráfico detallado">
-    Al hacer clic sobre la latencia de una llamada, se abre un modal con el gráfico completo de latencia para un análisis más detallado.
-  </Tab>
-  <Tab title="Desglose por turno">
-    Dentro del reproductor de grabación, cada respuesta del agente incluye un desglose visual de a dónde fue el tiempo de respuesta: comprensión del habla (ASR), procesamiento del modelo (LLM), generación de voz (TTS) y, si corresponde, una espera deliberada del agente antes de hablar. Este último tramo no cuenta como lentitud, sino como una pausa intencional (por ejemplo, antes de preguntar "¿sigues ahí?").
-  </Tab>
-</Tabs>
-
-### Reproductor de grabaciones
-
-Puedes reproducir la grabación de audio de cualquier llamada directamente desde un reproductor integrado, con forma de onda real (generada a partir del audio decodificado), salto de ±10 segundos, control de velocidad de reproducción y descarga del archivo, sin salir de la vista de llamadas.
-
-<Info>
-  El reproductor incluye botones de navegación **← anterior** y **siguiente →** integrados directamente en la cabecera del modal, junto al nombre de la llamada, para pasar de una llamada a otra dentro del mismo conjunto filtrado sin cerrar la ventana ni taparla con controles flotantes sobre la forma de onda o la transcripción. También puedes usar las flechas **←** y **→** del teclado como atajo. Ambos botones se desactivan automáticamente en cuanto ya no hay una llamada anterior o siguiente disponible en el conjunto actual.
-</Info>
-
-<Info>
-  Al navegar entre llamadas, el contenido del modal (reproductor y transcripción) se desliza suavemente en la dirección correspondiente, ayudándote a percibir que estás avanzando o retrocediendo dentro del mismo listado filtrado, en lugar de abrir una llamada completamente nueva.
-</Info>
-
-<Info>
-  En el pie del reproductor encontrarás los mismos controles de estado **Revisado**, **veredicto de auditoría (OK / KO)**, nota de auditoría y edición de etiquetas disponibles en la tabla, para que puedas auditar una llamada de principio a fin —y pasar directamente a la siguiente usando los botones de navegación o las flechas del teclado— sin cerrar el modal.
-</Info>
-
-### Transcripción y ficha de feedback
-
-Desde cada llamada puedes abrir:
-
-- La **transcripción completa** de la conversación, con turnos individuales, latencias por etapa y detalle de llamadas a herramientas (tool calls) cuando el agente las utiliza
-- Un
+Además de usarlas como filtro, las **etiquetas** (tags) de cada llamada se p
