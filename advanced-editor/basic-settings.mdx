@@ -156,6 +156,121 @@ Configure and manage client phone numbers for outbound calling with advanced ver
   </Tab>
 </Tabs>
 
+## Outbound Numbers
+
+The **Outbound Numbers** panel is where you manage the actual phone numbers your agent uses to place calls. Unlike other Basic Settings fields, this panel applies changes immediately rather than waiting for a save action, because it determines which number a live call will actually dial out from.
+
+<Info>
+**Not a Versioned Field**: Outbound number changes take effect right away. There's no draft state and no need to publish — adding or removing a number updates the agent's active calling behavior instantly.
+</Info>
+
+<Tabs>
+  <Tab title="Numbers in Use">
+    The top of the panel shows a single status banner summarizing how the agent currently calls out, followed by the list of numbers actively in rotation.
+
+    **Status Banner Meanings:**
+    - **✅ Calls only from 400 numbers**: The agent has at least one 400 number assigned and will only dial from 400 numbers
+    - **❌ Can't make calls yet**: The account is restricted to 400-only mode but no 400 number has been added
+    - **ℹ️ Calls from the numbers below**: The agent uses its assigned caller IDs/lines; adding a 400 number will switch it to 400-only mode
+    - **⚠️ Account not set up**: The agent's phone account configuration is incomplete — contact the Meetzy team
+
+    **Each Number Entry Shows:**
+    - The phone number in E.164 format
+    - A type badge (400, mobile, toll-free, geographic, etc.)
+    - A "Line" badge for purchased numbers versus verified caller IDs
+    - A "Temporary use" badge when the number comes from Meetzy's shared 400 pool and may rotate
+    - Whether the number is also shared with other agents on the account
+
+    <Info>
+    **Line Numbers Are Managed Elsewhere**: Purchased phone numbers (lines) can't be removed from this panel — manage them from the agent's phone number configuration instead. Only caller IDs can be removed here.
+    </Info>
+  </Tab>
+  <Tab title="Adding Caller IDs">
+    Use the **Add numbers** button to open the picker and attach additional verified caller IDs to the agent.
+
+    <Steps>
+      <Step title="Open the Picker">
+        Click "Add numbers" to reveal the list of caller IDs available to add
+      </Step>
+      <Step title="Select Numbers">
+        Check one or more available numbers, or use "Select all available 400 numbers" to quickly add every eligible 400 number at once
+      </Step>
+      <Step title="Review Unavailable Numbers">
+        Numbers that can't be added are listed with a reason (already in use, unverified, incompatible account, etc.)
+      </Step>
+      <Step title="Confirm">
+        Apply your selection — the agent's number list and status banner update immediately
+      </Step>
+    </Steps>
+
+    <Warning>
+    **Scoped to Your Account**: Only caller IDs that belong to the agent's own account are shown. There is no free-text field and no way to request numbers from another account.
+    </Warning>
+  </Tab>
+  <Tab title="Removing Old Numbers">
+    Each caller ID in the active list includes a **Remove** button, letting you detach it from the agent individually.
+
+    - Removal happens immediately and updates the status banner right away
+    - Removing a caller ID that is shared with other agents only affects this agent
+    - If an operation partially fails (for example, one number can't be changed), a notice lists exactly which numbers failed and why
+
+    <Info>
+    **Partial Failures Are Explicit**: If you add or remove several numbers at once and one fails, the panel clearly reports which specific number failed and the reason, instead of silently skipping it.
+    </Info>
+  </Tab>
+  <Tab title="Copy to Other Agents">
+    Quickly replicate this agent's caller ID configuration across other agents on the same account using **Copy to other agents**.
+
+    <Steps>
+      <Step title="Open the Copy Panel">
+        Click "Copy to other agents" (only enabled when the current agent has at least one caller ID in rotation)
+      </Step>
+      <Step title="Select Target Agents">
+        Choose one or more agents from the account, or select all at once
+      </Step>
+      <Step title="Run the Copy">
+        Confirm to apply the source agent's caller IDs to each selected target
+      </Step>
+      <Step title="Review Results">
+        Each target agent shows a per-agent result: copied, unchanged, not allowed, or error
+      </Step>
+    </Steps>
+
+    <Info>
+    **Non-Destructive**: Copying only adds the source agent's caller IDs to the targets — it doesn't remove any numbers the target agents already have.
+    </Info>
+  </Tab>
+  <Tab title="Automatic Call Mode Detection">
+    Meetzy automatically determines how an agent places calls based on which numbers are assigned — there's no manual mode switch to configure.
+
+    **How Mode Detection Works:**
+    - If the agent has **any 400 number** in its active rotation, it automatically switches to **400-only mode** and will only dial from 400 numbers going forward
+    - If the agent has **no 400 numbers**, it continues calling from its regular assigned caller IDs and lines as usual
+    - When an agent transitions into 400-only mode, a notice confirms the change so you're aware of the new calling behavior
+
+    <Warning>
+    **Customer Service Agents Are Locked**: If Meetzy configured this agent specifically for customer service calls, its calling purpose is locked and it cannot use 400 numbers. Contact the Meetzy team if this needs to change.
+    </Warning>
+  </Tab>
+</Tabs>
+
+### Account-Wide 400-Only Mode (Meetzy Team Only)
+
+<Info>
+**Visibility**: This toggle is only visible to the Meetzy team, not to regular account users. When viewing an agent on behalf of a customer account, the panel displays a notice indicating you're viewing as the Meetzy team.
+</Info>
+
+The Meetzy team can enable a **"400-only"** switch at the account level, forcing every agent on that account to place calls exclusively from 400 numbers, regardless of which individual caller IDs are assigned to each agent.
+
+**Behavior When Enabled:**
+- All agents on the account inherit the 400-only restriction automatically
+- Agents without a 400 number assigned will be unable to place calls until one is added
+- The status banner on each agent reflects this account-level policy rather than a per-agent decision
+
+<Warning>
+**Account-Level Impact**: This is an account-wide policy change, not a per-agent setting. Enabling it affects every agent under that account simultaneously.
+</Warning>
+
 ## Agent Skills and Professional Expertise
 
 Transform your agent with specialized industry skills and expertise templates that enhance conversation quality and task completion:
@@ -363,7 +478,7 @@ Choose from leading AI models across multiple providers to power your agent's in
   </Tab>
   <Tab title="OpenAI GPT">
     | Model | Performance | Characteristics | Best For |
-    |-------|-------------|-----------------|----------|
+    |-------|-------------|------------------|----------|
     | **GPT-4o** | High | Balanced intelligence and speed | General business use |
     | **GPT-4.1** | Premium | Latest capabilities and reasoning | Complex problem-solving |
     | **GPT-4.1 Mini** | Balanced | Optimized efficiency | Cost-effective operations |
@@ -726,6 +841,19 @@ Recording is controlled by the **Record Calls toggle** in the Intelligence secti
     - Complete verification promptly after receiving code
     - Use "Check Status" to confirm verification state
     - Maintain updated caller ID list for outbound campaigns
+  </Tab>
+  <Tab title="Outbound Numbers Issues">
+    **Common Scenarios:**
+    - **"Account not set up" warning**: The agent's phone account configuration is incoherent — contact the Meetzy team to resolve it
+    - **Agent suddenly switched to 400-only**: Adding a 400 number automatically enables 400-only mode for that agent; this is expected behavior, not an error
+    - **Can't remove a number**: Line numbers (purchased phone numbers) can't be removed from this panel — manage them in the phone number configuration instead
+    - **Copy results show "not allowed"**: The target agent's account or purpose configuration prevents receiving that number type
+    - **No numbers available to add**: All eligible caller IDs for the account may already be assigned, or none have been verified yet
+
+    **Best Practices:**
+    - Review the status banner before and after any change to confirm the expected calling mode
+    - Use "Copy to other agents" to keep caller ID configurations consistent across an account
+    - Treat "Temporary use" numbers as unstable — don't rely on them for long-term caller ID branding
   </Tab>
   <Tab title="Intelligence Tuning Issues">
     **Temperature Problems:**
