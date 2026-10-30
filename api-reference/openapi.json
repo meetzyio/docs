@@ -85,11 +85,69 @@
       }
     },
     "/calls": {
-      "get":{
-        "description": "API that get the list of calls made by users.",
+      "get": {
+        "description": "One page of calls for a single agent owned by the authenticated account. The body is an object with agent_id, agent_name, page, total_pages and calls, ordered by created_time descending.",
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "query",
+            "required": true,
+            "description": "UUID of the agent. assistant_id is accepted as the same field. The agent must belong to the authenticated account.",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "assistant_id",
+            "in": "query",
+            "required": false,
+            "description": "Alias of agent_id. If both are sent, they must be equal.",
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "1-based page number. Default 1. Maximum 1000.",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 1 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Calls per page. Default 50. Maximum 100.",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "description": "Window start, UTC. YYYY-MM-DD or YYYY-MM-DD HH:mm:ss. Must be sent with endDate. Maximum span 90 days.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "Window end, inclusive, UTC. A date-only value includes that whole UTC day.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "daysFromNow",
+            "in": "query",
+            "required": false,
+            "description": "Days back from now (UTC) when startDate and endDate are omitted. Default 15. Maximum 90.",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 90, "default": 15 }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "One status, a comma-separated list, or repeated. Allowed: closed, silence-call, voicemail, busy,  no-answer, failed. When omitted, the query is limited to those same statuses.",
+            "schema": { "type": "string" }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Call response",
+            "description": "One page of calls",
             "content": {
               "application/json": {
                 "schema": {
@@ -99,7 +157,7 @@
             }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Invalid agent_id, dates, status, page, or limit",
             "content": {
               "application/json": {
                 "schema": {
@@ -107,9 +165,11 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Agent not found on this account"
           }
         }
-      
       }
     }
     
@@ -184,89 +244,91 @@
         }
       },
       "GET_CallsResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
+        "type": "object",
+        "required": ["agent_id", "agent_name", "page", "total_pages", "calls"],
+        "properties": {
+          "agent_id": {
+            "description": "UUID of the agent.",
+            "type": "string"
+          },
+          "agent_name": {
+            "description": "Name of the agent.",
+            "type": "string"
+          },
+          "page": {
+            "description": "Requested page as a string, starting at \"1\".",
+            "type": "string"
+          },
+          "total_pages": {
+            "description": "Total pages as a string. \"0\" when nothing matches.",
+            "type": "string"
+          },
+          "calls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
             "id": {
-              "description": "The id of the call",
+              "description": "Call UUID.",
               "type": "string"
             },
-            "phone": {
-              "description": "The phone to call with country prefix (e.g. +34600000000).",
+            "created_time": {
+              "description": "When the call was created, YYYY-MM-DD HH:mm:ss in UTC.",
               "type": "string"
             },
-            "email": {
-              "description": "The email of the lead.",
+            "timestamp": {
+              "description": "Unix timestamp in milliseconds.",
+              "type": "integer"
+            },
+            "assistant_id": {
+              "description": "Agent that handled the call.",
               "type": "string"
             },
-            "firstname": {
-              "description": "The firstname of the lead.",
+            "from": {
+              "description": "Phone number that initiated the call.",
               "type": "string"
             },
-            "lastname": {
-              "description": "The lastname of the lead.",
+            "to": {
+              "description": "Phone number that received the call.",
               "type": "string"
             },
-            "playbook_id": {
-              "description": "The id of the playbook you want to use to make the call. You can get the list of playbooks using your dashboard (/playbook endpoint will be available soon).",
-              "type": "string"
-            },
-            "voice_id": {
-              "description": "The number of the voice to use (values: 1, 2, 3, 4, 5, random) - Default 3.",
-              "type": "string"
-            },
-            "language": {
-              "description": "The language used by Flark during the call (values: ES, EN, FR, DE, IT, PT, ...) - Default ES.",
+            "status": {
+              "description": "Call status. One of: closed, silence-call, voicemail, busy, no-answer, failed.",
               "type": "string"
             },
             "duration": {
-              "description": "The duration of the call in seconds.",
+              "description": "Duration in seconds.",
               "type": "integer"
             },
-            "status": {
-              "description": "The status of the call (values: queued, ringing, completed, failed, routed).",
-              "type": "string"
-            },
-            "summary": {
-              "description": "The summary of the call.",
-              "type": "string"
-            },
-            "transcription:": {
-              "description": "The transcription of the call.",
-              "type": "string"
-            },
-            "sentiment:": {
-              "description": "The sentiment of the call (values: positive, neutral, negative, frustrated, angry, happy, sad, etc.",
-              "type": "string"
-            },
-            "recorded:": {
-              "description": "If the call was recorded or not.",
+            "recording": {
+              "description": "Whether a recording is available.",
               "type": "boolean"
             },
-            "record_url:": {
-              "description": "The url of the recorded call.",
+            "transcript": {
+              "description": "Call transcript.",
               "type": "string"
             },
-            "created_at": {
-              "description": "The date and time when the call was created.",
+            "success": {
+              "description": "Whether the call was marked successful.",
+              "type": "boolean"
+            },
+            "summary": {
+              "description": "Summary of the call.",
               "type": "string"
             },
-            "<custom_param_1>": {
-              "description": "A custom param you created when you created the call (like UTM, postal_code, program_of_insterest, etc.)",
-              "type": "string"
+            "output": {
+              "description": "Structured output. Shape depends on the agent.",
+              "type": "object"
             },
-            "<custom_param_2>": {
-              "description": "A custom param you created when you created the call (like UTM, postal_code, program_of_insterest, etc.)",
-              "type": "string"
-            },
-            "<custom_param_N>": {
-              "description": "You can add as many custom params as you want.",
-              "type": "string"
+            "data": {
+              "description": "Call parameters. Voice and model fields are removed.",
+              "type": "object"
             }
           }
         }
-      },
+      }
+    }
+  },
       "GET_CallResponse":{
         "type": "object",
         "properties": {

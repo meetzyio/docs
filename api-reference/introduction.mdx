@@ -30,9 +30,9 @@ All API requests require authentication using a Bearer token.
 Include the token in the `Authorization` header:
 
 ```bash
-curl -X GET https://api.meetzy.io/calls \
+curl -G https://api.meetzy.io/calls \
   -H "Authorization: Bearer YOUR_API_TOKEN" \
-  -H "Content-Type: application/json"
+  --data-urlencode "agent_id=YOUR_AGENT_ID"
 ```
 
 <Warning>
@@ -130,7 +130,8 @@ headers = {
 
 response = requests.get(
     'https://api.meetzy.io/calls',
-    headers=headers
+    headers=headers,
+    params={'agent_id': AGENT_ID}
 )
 ```
 </CodeGroup>

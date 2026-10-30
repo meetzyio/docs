@@ -1,16 +1,16 @@
 ---
 title: 'List Calls'
 api: 'GET /calls'
-description: 'Retrieve a list of calls with filtering options'
+description: 'Retrieve one page of calls for a single agent'
 ---
 
 ## Overview
 
-This endpoint retrieves a list of calls associated with the authenticated user's assistants. You can filter calls by date range, status, and playbook.
+Returns one page of calls for a single agent owned by the authenticated account. The body is a JSON object. `calls` is ordered by `created_time` descending (most recent first). `page` and `total_pages` are strings.
+
+`agent_id` is required. A request without it does not list every agent on the account.
 
 ## Authentication
-
-This endpoint requires authentication using a Bearer token in the Authorization header.
 
 ```bash
 Authorization: Bearer YOUR_API_TOKEN
@@ -18,198 +18,237 @@ Authorization: Bearer YOUR_API_TOKEN
 
 ## Query Parameters
 
+<ParamField query="agent_id" type="string" required>
+  UUID of the agent whose calls you want. The agent must belong to the authenticated account. `assistant_id` is accepted as the same field. If both are sent, they must be equal.
+</ParamField>
+
+<ParamField query="page" type="number" optional default="1">
+  1-based page number.
+
+  - Minimum: 1
+  - Maximum: 1000
+</ParamField>
+
+<ParamField query="limit" type="number" optional default="50">
+  Calls per page.
+
+  - Minimum: 1
+  - Maximum: 100
+  - Default: 50
+</ParamField>
+
 <ParamField query="startDate" type="string" optional>
-  Start date for filtering calls. Format: `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss`
-  
-  If not provided, it will be calculated based on `daysFromNow` parameter.
+  Start of the window, interpreted as UTC. Format: `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss`. A timezone suffix such as `Z` or `+02:00` is accepted and converted to UTC.
+
+  Must be sent together with `endDate`.
 </ParamField>
 
 <ParamField query="endDate" type="string" optional>
-  End date for filtering calls. Format: `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss`
-  
-  If not provided, it will default to the current date/time.
+  End of the window, inclusive, interpreted as UTC. Same formats as `startDate`.
+
+  A date-only value (`2026-10-29`) includes that whole UTC day, through 23:59:59. Must be sent together with `startDate`. The span cannot exceed 90 days.
 </ParamField>
 
 <ParamField query="daysFromNow" type="number" optional default="15">
-  Number of days to look back from today. Only used if `startDate` and `endDate` are not provided.
-  
+  How many days back from now (UTC) to include. Used only when `startDate` and `endDate` are omitted.
+
   - Minimum: 1
   - Maximum: 90
   - Default: 15
+
+  An invalid value returns 400. It is not replaced with the default.
 </ParamField>
 
 <ParamField query="status" type="string" optional>
-  Filter calls by status. Valid values:
-  - `open` - Call is in progress or pending
-  - `closed` - Call has been completed successfully
-  - `rong-phone-forno-answer` - Wrong phone number or no answer
-  - `wmat` - Waiting for manual action
-  - `failed` - Call failed
-  - `recall-scheduled` - A recall has been scheduled
-  - `voicemail` - Call went to voicemail
-</ParamField>
+  Filter by call status. Omit it and the query still returns only calls in `busy`, `closed`, `no-answer`, `silence-call`, `voicemail`, and `failed`.
 
-<ParamField query="playbook_id" type="string" optional>
-  Filter calls by a specific playbook (assistant) ID. Must be a valid UUID.
+  One value, a comma-separated list, or the parameter repeated:
+
+  `status=closed`
+
+  `status=closed,voicemail`
+
+  `status=closed&status=voicemail`
+
+  Allowed values: `busy`, `closed`, `no-answer`, `silence-call`, `voicemail`, `failed`.
+
+  Any other value returns 400. It is not ignored.
 </ParamField>
 
 ## Response
 
+<ResponseField name="agent_id" type="string">
+  UUID of the agent this page belongs to.
+</ResponseField>
+
+<ResponseField name="agent_name" type="string">
+  Name of that agent.
+</ResponseField>
+
+<ResponseField name="page" type="string">
+  The page you requested, starting at `"1"`.
+</ResponseField>
+
+<ResponseField name="total_pages" type="string">
+  `ceil(matching calls / limit)`, as a string. `"0"` when the filter matches nothing.
+
+  A page past the end still returns this object with `calls` as an empty array.
+</ResponseField>
+
 <ResponseField name="calls" type="array">
-  Array of call objects, ordered by `created_time` descending (most recent first).
-  
+  Call objects for this page.
+
   <Expandable title="Call Object">
     <ResponseField name="id" type="string">
-      Unique identifier for the call (UUID)
+      Call UUID
     </ResponseField>
-    
+
     <ResponseField name="created_time" type="string">
       When the call was created. Format: `YYYY-MM-DD HH:mm:ss` (UTC)
     </ResponseField>
-    
+
     <ResponseField name="timestamp" type="number">
-      Unix timestamp in milliseconds of when the call was created
+      Unix timestamp in milliseconds
     </ResponseField>
-    
+
     <ResponseField name="assistant_id" type="string">
-      ID of the assistant (playbook) that handled the call
+      Agent that handled the call
     </ResponseField>
-    
+
     <ResponseField name="from" type="string">
-      Phone number that initiated the call. Empty if not available or invalid.
+      Phone number that initiated the call. Empty when it is not available.
     </ResponseField>
-    
+
     <ResponseField name="to" type="string">
       Phone number that received the call
     </ResponseField>
-    
+
     <ResponseField name="status" type="string">
-      Current status of the call. See status parameter for possible values.
+      Call status. See the `status` parameter for the allowed values.
     </ResponseField>
-    
+
     <ResponseField name="duration" type="number">
-      Duration of the call in seconds
+      Duration in seconds
     </ResponseField>
-    
-    <ResponseField name="recording" type="string">
-      URL to the call recording (if available)
+
+    <ResponseField name="recording" type="boolean">
+      Whether a recording is available
     </ResponseField>
-    
+
     <ResponseField name="transcript" type="string">
-      HTML-formatted transcript of the call. Includes speaker labels formatted as `<b>[Speaker]</b>`.
+      Transcript. Older transcripts are returned with speaker labels as `<b>[Speaker]</b>`.
     </ResponseField>
-    
+
     <ResponseField name="success" type="boolean">
-      Whether the call was successful
+      Whether the call was marked successful
     </ResponseField>
-    
+
     <ResponseField name="summary" type="string">
-      AI-generated summary of the call
+      Summary of the call
     </ResponseField>
-    
+
     <ResponseField name="output" type="object">
-      Structured output data from the call. Format depends on the playbook configuration.
+      Structured output. The shape depends on the agent.
     </ResponseField>
-    
+
     <ResponseField name="data" type="object">
-      Additional call data and parameters. Sensitive fields like voice_id, voice_model, text_model, and assistant_id are removed for security.
-      
-      <Expandable title="Data Object">
-        <ResponseField name="params" type="object">
-          Custom parameters passed to the call
-        </ResponseField>
-      </Expandable>
+      Call parameters. `voice_id`, `voice_model`, `text_model`, `assistant_id`, `call_id`, `temperature`, and `record` are removed.
     </ResponseField>
   </Expandable>
 </ResponseField>
 
 ## Example Requests
 
-### Get calls from the last 30 days
+### First page
 
 ```bash
-GET https://api.meetzy.io/calls?daysFromNow=30
+curl "https://api.meetzy.io/calls?agent_id=550e8400-e29b-41d4-a716-446655440000" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
 ```
 
-### Get calls within a specific date range
+### Next page
+
+Repeat the same filters and send the next page number. Nothing is cached between requests. `page` comes back inside the JSON.
 
 ```bash
-GET https://api.meetzy.io/calls?startDate=2024-01-01&endDate=2024-01-31
+curl "https://api.meetzy.io/calls?agent_id=550e8400-e29b-41d4-a716-446655440000&page=2" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
 ```
 
-### Get only closed calls
+### Date range, status, and page size
 
 ```bash
-GET https://api.meetzy.io/calls?status=closed
+curl "https://api.meetzy.io/calls?agent_id=550e8400-e29b-41d4-a716-446655440000&startDate=2026-10-01&endDate=2026-10-29&status=closed,voicemail&limit=50&page=1" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
 ```
 
-### Get calls for a specific playbook
-
-```bash
-GET https://api.meetzy.io/calls?playbook_id=550e8400-e29b-41d4-a716-446655440000
-```
-
-### Combine filters
-
-```bash
-GET https://api.meetzy.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400-e29b-41d4-a716-446655440000
-```
+`endDate=2026-10-29` includes that entire UTC day.
 
 ## Example Response
 
 ```json
-[
+{
+  "agent_id": "550e8400-e29b-41d4-a716-446655440000",
+  "agent_name": "Sales",
+  "page": "1",
+  "total_pages": "4",
+  "calls": [
   {
     "id": "123e4567-e89b-12d3-a456-426614174000",
-    "created_time": "2024-11-12 10:30:00",
-    "timestamp": 1731407400000,
+    "created_time": "2026-10-29 10:30:00",
+    "timestamp": 1761733800000,
     "assistant_id": "550e8400-e29b-41d4-a716-446655440000",
     "from": "+34612345678",
     "to": "+34987654321",
     "status": "closed",
     "duration": 180,
-    "recording": "https://recordings.meetzy.io/call-123.mp3",
+    "recording": true,
     "transcript": "<b>[Agent]</b> Hello, this is Sarah from Meetzy...<br><br><b>[Customer]</b> Hi Sarah...",
     "success": true,
     "summary": "Customer was interested in the premium plan...",
     "output": {
       "appointment_scheduled": true,
-      "date": "2024-11-15",
+      "date": "2026-11-15",
       "time": "14:00"
     },
     "data": {
       "params": {
-        "campaign_id": "summer-2024",
+        "campaign_id": "summer-2026",
         "lead_source": "website"
       }
     }
   }
-]
+  ]
+}
 ```
 
 ## Error Responses
 
+<ResponseField name="400 Bad Request" type="object">
+  Missing or invalid `agent_id`, an invalid date or status, a range longer than 90 days, or a `page` / `limit` outside its bounds.
+
+  ```json
+  { "error": "agent_id is required" }
+  ```
+</ResponseField>
+
 <ResponseField name="401 Unauthorized" type="object">
-  Authentication failed or token is invalid
-  
+  Missing or invalid token.
+
   ```json
-  {
-    "error": "Unauthorized"
-  }
+  { "error": "Unauthorized" }
   ```
 </ResponseField>
 
-<ResponseField name="403 Forbidden" type="object">
-  User does not have permission to access this resource
-  
+<ResponseField name="404 Not Found" type="object">
+  The agent does not exist on this account.
+
   ```json
-  "Unauthorized"
+  { "error": "Agent not found" }
   ```
 </ResponseField>
 
-<ResponseField name="500 Internal Server Error" type="object">
-  An error occurred on the server
-  
+<ResponseField name="500 Internal Server Error" type="string">
   ```json
   "Internal Server Error"
   ```
@@ -217,9 +256,7 @@ GET https://api.meetzy.io/calls?daysFromNow=7&status=closed&playbook_id=550e8400
 
 ## Notes
 
-- All dates are handled in Europe/Madrid timezone and converted to UTC in the response
-- The `from` field is automatically sanitized to remove invalid entries like "phoneNumber.phoneNumber"
-- Transcripts are formatted with HTML tags for better readability in UI applications
-- The endpoint automatically filters calls to only show those belonging to assistants owned by the authenticated user
-- Maximum date range when using `daysFromNow` is 90 days
-
+- Dates are UTC. A value without a timezone is not read as Europe/Madrid.
+- `from` is cleared when the stored value is the placeholder `phoneNumber.phoneNumber`.
+- Each request reads the database again. `page=2` skips the first `limit` matching calls.
+- The account id is not a valid `agent_id`. Send the id of one agent.
