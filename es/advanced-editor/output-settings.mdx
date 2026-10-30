@@ -16,25 +16,84 @@ Una configuración de salida bien definida convierte cada llamada en datos estru
 
 Los Parámetros de Salida son campos personalizados que tu agente extrae de la conversación.
 
-### Configuración con el Copiloto de IA
+### Cambios Pendientes del Copilot
 
-El Copiloto de IA puede sugerir automáticamente parámetros de salida basados en tu prompt del sistema:
+Cuando el Copilot de IA analiza tu prompt del sistema, puede sugerir cambios automáticamente en los parámetros de salida. Estos aparecen en un **banner morado con borde punteado**, justo encima de la lista de parámetros.
 
 <Warning>
-Las sugerencias del Copiloto aparecen en un banner morado. Revisa cada sugerencia cuidadosamente antes de aceptarla.
+Las sugerencias del Copilot aparecen resaltadas en morado. Revisa cada cambio cuidadosamente antes de aceptarlo, ya que se aplican en conjunto.
 </Warning>
 
-#### Aceptar Sugerencias del Copiloto
+#### Anatomía del Banner de Cambios
+
+El banner muestra un contador con el número total de cambios pendientes (por ejemplo, "3 parameter changes") junto a un icono de configuración, y dos botones de acción:
+
+| Botón | Acción |
+|-------|--------|
+| **Accept** | Aplica todos los cambios sugeridos a la lista de parámetros |
+| **Reject** | Descarta todas las sugerencias sin modificar tus parámetros actuales |
+
+Debajo del encabezado, cada cambio propuesto se lista individualmente con una etiqueta de operación coloreada:
+
+| Operación | Descripción | Color de Etiqueta |
+|----------|-------------|--------------|
+| **Añadir** | Parámetros nuevos sugeridos | Verde |
+| **Modificar** | Cambios en parámetros existentes | Amarillo |
+| **Eliminar** | Parámetros marcados para eliminación | Rojo |
+
+Cada línea muestra el nombre del parámetro (en formato monoespaciado) y, cuando aplica, el tipo de dato sugerido (por ejemplo, `presupuesto: number`).
 
 <Steps>
-  <Step title="Revisar Sugerencias">
-    Cuando el Copiloto analice tu prompt, verás un banner con parámetros sugeridos.
+  <Step title="Revisar Banner de Cambios">
+    Cuando aparezcan sugerencias, verás el banner morado con el número de cambios pendientes en la parte superior de la sección de Parámetros de Salida.
   </Step>
-  <Step title="Evaluar Cada Parámetro">
-    Revisa el nombre, tipo y descripción de cada parámetro sugerido.
+  <Step title="Evaluar Cada Cambio">
+    Revisa el tipo de operación (etiqueta de color), el nombre del parámetro y, si corresponde, el tipo de dato de cada cambio propuesto.
   </Step>
   <Step title="Aceptar o Rechazar">
-    Haz clic en "Aceptar Todas" para aplicar todas las sugerencias o "Rechazar" para descartarlas.
+    - **Accept**: Aplica todos los cambios sugeridos de una sola vez
+    - **Reject**: Descarta todas las sugerencias y conserva tu configuración actual
+  </Step>
+</Steps>
+
+<Info>
+Los cambios se aceptan o rechazan como un conjunto completo. Si solo quieres aplicar algunos, edítalos manualmente después de aceptar todos.
+</Info>
+
+### Plantillas de Parámetros
+
+Las plantillas predefinidas te permiten añadir rápidamente parámetros comunes:
+
+#### Plantillas Disponibles
+
+**Información Personal**
+- `firstname`, `lastname` - Datos personales del cliente
+- `email`, `phone` - Información de contacto
+- `company`, `position` - Datos empresariales
+
+**Datos de Marketing**
+- `utm_source`, `utm_medium`, `utm_campaign` - Parámetros UTM
+- `lead_score`, `lead_status` - Calificación de leads
+- `tags` - Etiquetas asociadas
+
+**Información Comercial**
+- `budget` - Presupuesto mencionado
+- `timeline` - Plazo de decisión
+- `decision_maker` - Si es tomador de decisiones
+- `pain_points` - Puntos de dolor identificados
+
+<Steps>
+  <Step title="Acceder a Plantillas">
+    En modo UX, haz clic en el botón "Templates" junto a "Add Parameter".
+  </Step>
+  <Step title="Explorar Panel de Plantillas">
+    Se abre un panel flotante con scroll que muestra todas las plantillas categorizadas.
+  </Step>
+  <Step title="Añadir Plantillas">
+    Haz clic en "Add" junto a cada plantilla que desees incluir.
+  </Step>
+  <Step title="Gestionar Plantillas Añadidas">
+    Los parámetros ya añadidos muestran la etiqueta "Added" en verde y un icono para eliminarlos.
   </Step>
 </Steps>
 
@@ -45,7 +104,7 @@ Las sugerencias del Copiloto aparecen en un banner morado. Revisa cada sugerenci
     Navega a la sección de Configuración de Salida en el panel izquierdo.
   </Step>
   <Step title="Añadir Parámetro">
-    Haz clic en "Añadir Parámetro de Salida" para crear un nuevo campo.
+    Haz clic en "Add Parameter" para crear un nuevo campo.
   </Step>
   <Step title="Configurar Propiedades">
     Establece nombre, tipo y descripción para el parámetro.
@@ -68,39 +127,39 @@ Las sugerencias del Copiloto aparecen en un banner morado. Revisa cada sugerenci
 | Number | Cantidades, calificaciones | 4.5 |
 | Boolean | Decisiones sí/no | true |
 
-### Ejemplo de Parámetros de Salida
-
-```json
-{
-  "interes_cliente": "string",
-  "cita_programada": "boolean",
-  "fecha_preferida": "string",
-  "puntuacion_satisfaccion": "number",
-  "seguimiento_necesario": "boolean"
-}
-```
-
 ## Modos de Edición
 
-Puedes configurar parámetros de salida usando dos modos:
+Puedes configurar parámetros de salida usando dos modos diferentes:
 
 ### Modo UX (Visual)
 
+El modo visual proporciona una interfaz intuitiva con funciones avanzadas:
+
 <Steps>
   <Step title="Añadir Parámetro">
-    Haz clic en el botón "+" para añadir un nuevo campo de salida.
+    Haz clic en el botón "Add Parameter" para crear un nuevo campo.
+  </Step>
+  <Step title="Usar Plantillas">
+    Accede al botón "Templates" para plantillas predefinidas.
   </Step>
   <Step title="Configurar Detalles">
-    Rellena nombre, tipo y descripción en el formulario.
+    Completa nombre, tipo y descripción en el formulario expandible.
   </Step>
-  <Step title="Reordenar">
-    Arrastra y suelta para reordenar parámetros.
+  <Step title="Reordenar Parámetros">
+    Arrastra y suelta parámetros para cambiar su orden.
   </Step>
 </Steps>
 
+**Funcionalidades del Modo UX:**
+- Panel de plantillas flotante con scroll
+- Indicadores visuales de plantillas añadidas
+- Formularios expandibles para cada parámetro
+- Drag & drop para reordenamiento
+- Validación en tiempo real
+
 ### Modo Texto (JSON)
 
-Para usuarios avanzados, cambia al Modo Texto para editar parámetros como JSON:
+Para usuarios avanzados, el modo texto ofrece edición directa en JSON:
 
 ```json
 [
@@ -122,29 +181,102 @@ Para usuarios avanzados, cambia al Modo Texto para editar parámetros como JSON:
 ]
 ```
 
+**Funcionalidades del Modo Texto:**
+- Editor de texto con resaltado de sintaxis
+- Sincronización de scroll entre editor y vista previa
+- Detección automática de errores JSON
+- Soporte para copiar/pegar configuraciones
+
+<Tabs>
+  <Tab title="Ventajas Modo UX">
+    - Interfaz intuitiva y visual
+    - Plantillas predefinidas
+    - Validación automática
+    - Ideal para principiantes
+  </Tab>
+  <Tab title="Ventajas Modo Texto">
+    - Edición rápida y directa
+    - Importar/exportar configuraciones
+    - Control total sobre el JSON
+    - Ideal para usuarios avanzados
+  </Tab>
+</Tabs>
+
 <Info>
-El Modo Texto es útil al copiar configuraciones entre agentes o importar desde fuentes externas.
+Puedes cambiar entre modos en cualquier momento usando el toggle en la esquina superior derecha.
 </Info>
 
 ## Enriquecimiento de Salida
 
-Habilita campos predefinidos adicionales para incluir en tu salida:
+El enriquecimiento permite incluir campos predefinidos adicionales en tu salida:
 
-| Campo | Descripción |
-|-------|-------------|
-| 📝 Transcripción | Transcripción completa de la conversación |
-| 📋 Resumen | Resumen de llamada generado por IA |
-| ✅ Estado de Éxito | Si la llamada logró su objetivo |
-| 🆔 ID de Llamada | Identificador único de llamada |
-| 🤖 ID de Agente | Identificador del agente/playbook |
-| ⏱️ Duración | Duración de llamada en segundos |
-| 📅 Creado | Timestamp de inicio de llamada |
-| 📊 Estado de Llamada | Estado final de la llamada |
-| ✅ Evaluaciones | Resultados de tests de evaluación |
+### Campos Disponibles
+
+| Campo | Descripción | Utilidad |
+|-------|-------------|----------|
+| 📝 **Transcripción** | Texto completo de la conversación | Análisis detallado, compliance |
+| 📋 **Resumen** | Resumen generado por IA | Vista rápida del contenido |
+| ✅ **Estado de Éxito** | Si la llamada logró su objetivo, evaluado según criterios personalizados | KPIs y métricas de conversión |
+| 🆔 **ID de Llamada** | Identificador único de llamada | Referencia y trazabilidad |
+| 🤖 **ID de Agente** | Identificador del agente/playbook | Análisis por agente |
+| ⏱️ **Duración** | Duración en segundos | Métricas operativas |
+| 📅 **Creado** | Timestamp de inicio | Análisis temporal |
+| 📊 **Estado de Llamada** | Estado final (completada, fallida, etc.) | Análisis de calidad |
+| ✅ **Evaluaciones** | Resultados de tests de calidad | Control de calidad |
+| 📱 **Tipo** | Inbound/Outbound | Segmentación de llamadas |
+
+### Estado de Éxito con Criterios Personalizados
+
+El toggle de **Success** (Estado de Éxito) ahora incluye un campo de criterios donde puedes definir, en lenguaje natural, qué condiciones debe cumplir la llamada para considerarse exitosa.
+
+<Steps>
+  <Step title="Activar el Toggle de Success">
+    En la sección de Enriquecimiento, activa el toggle **Success** para habilitar este campo en tu salida.
+  </Step>
+  <Step title="Definir los Criterios">
+    Al activarlo, se despliega un campo de texto donde describes las condiciones de éxito. Por ejemplo: "La llamada es exitosa si el cliente programó una cita o solicitó ser contactado nuevamente".
+  </Step>
+  <Step title="Guardar Configuración">
+    El agente evaluará automáticamente cada conversación contra estos criterios y devolverá `true` o `false` en el campo `success`.
+  </Step>
+</Steps>
+
+<Info>
+Cuanto más específicos sean tus criterios, más precisa será la evaluación. Evita ambigüedades y describe escenarios concretos de éxito.
+</Info>
+
+**Ejemplos de criterios de éxito:**
+
+- `"Exitosa si se agendó una cita o se confirmó un presupuesto"`
+- `"Exitosa únicamente si el cliente aceptó la propuesta comercial"`
+- `"Exitosa si se recopiló el email y el teléfono de contacto"`
 
 <Warning>
-Habilita solo los campos que necesites para mantener los payloads de webhook manejables.
+Si no defines criterios, el campo `success` usará una evaluación genérica basada en si se cumplió el objetivo general del agente, lo cual puede ser menos preciso.
 </Warning>
+
+### Gestión de Cambios Pendientes en Enriquecimiento
+
+Al igual que con los parámetros de salida, el Copilot puede sugerir cambios en la configuración de Enriquecimiento (incluyendo el toggle de Success y sus criterios). Estos cambios aparecen en su **propio banner morado**, independiente del banner de parámetros.
+
+<Warning>
+Los cambios en el enriquecimiento se muestran en un banner separado, justo encima de la sección de campos de Enriquecimiento. No se mezclan con los cambios de Parámetros de Salida.
+</Warning>
+
+<Steps>
+  <Step title="Detección Automática">
+    El Copilot analiza tu prompt del sistema y puede sugerir activar/desactivar campos de enriquecimiento o modificar los criterios de éxito.
+  </Step>
+  <Step title="Revisión del Banner">
+    El banner muestra el contador de cambios pendientes junto con los botones **Accept** y **Reject**, igual que en la sección de Parámetros.
+  </Step>
+  <Step title="Revisión Independiente">
+    Puedes aceptar o rechazar los cambios de enriquecimiento sin que esto afecte los cambios pendientes en Parámetros de Salida, y viceversa.
+  </Step>
+  <Step title="Aplicación Selectiva">
+    Cada categoría de cambios (Parámetros vs. Enriquecimiento) se gestiona de forma totalmente independiente.
+  </Step>
+</Steps>
 
 ## Configuración de Webhook
 
@@ -169,11 +301,11 @@ Envía resultados de llamadas a tus sistemas externos automáticamente.
 
 ### Opciones de Configuración de Webhook
 
-| Ajuste | Descripción |
-|---------|-------------|
-| URL | Tu endpoint de webhook |
-| Método | GET, POST, PUT, DELETE |
-| Header Auth | Autenticación (ej., Bearer token) |
+| Ajuste | Descripción | Opciones |
+|---------|-------------|----------|
+| **URL** | Tu endpoint de webhook | HTTPS recomendado |
+| **Método** | Método HTTP | GET, POST, PUT, DELETE |
+| **Header Auth** | Autenticación | Bearer token, API key |
 
 ### Ejemplo de Payload de Webhook
 
@@ -189,78 +321,258 @@ Envía resultados de llamadas a tus sistemas externos automáticamente.
     "interes_cliente": "Plan Premium",
     "cita_programada": true,
     "fecha_preferida": "2024-01-20",
-    "puntuacion_satisfaccion": 5
+    "puntuacion_satisfaccion": 5,
+    "firstname": "María",
+    "email": "maria@example.com",
+    "budget": 1500,
+    "decision_maker": true
   },
-  "transcription": "...",
-  "summary": "El cliente preguntó sobre el Plan Premium y programó una cita para el 20 de enero."
+  "transcription": "Conversación completa aquí...",
+  "summary": "El cliente preguntó sobre el Plan Premium y programó una cita para el 20 de enero. Mostró alto interés y tiene presupuesto aprobado."
 }
 ```
 
-## Mejores Prácticas
+<Info>
+El campo `success` en el payload refleja el resultado de evaluar los criterios que definiste en el toggle de Success. Si no configuraste criterios personalizados, se usará la evaluación genérica del objetivo del agente.
+</Info>
 
-<Warning>
-Escribe descripciones claras para parámetros de salida. La IA usa estas descripciones para entender qué extraer.
-</Warning>
+## Flujo de Trabajo con Copilot
 
-1. **Sé Específico** - "Rango de presupuesto del cliente" es mejor que "presupuesto"
-2. **Usa Tipos Apropiados** - Boolean para sí/no, number para cantidades
-3. **Mantén Relevancia** - Solo captura datos que realmente usarás
-4. **Aprovecha el Copiloto** - Usa las sugerencias de IA como punto de partida
-5. **Prueba Extracción** - Usa el Playground para verificar extracción correcta
-6. **Asegura Webhooks** - Siempre usa autenticación para datos sensibles
-
-## Flujo de Trabajo con Copiloto
+El Copilot ofrece asistencia inteligente mejorada para configurar parámetros de salida y enriquecimiento:
 
 <Steps>
-  <Step title="Escribir el Prompt">
-    Desarrolla tu prompt del sistema describiendo la conversación y objetivos.
+  <Step title="Análisis Automático">
+    Al escribir o modificar tu prompt del sistema, el Copilot analiza automáticamente el contenido.
   </Step>
-  <Step title="Activar Análisis">
-    El Copiloto analiza automáticamente tu prompt y sugiere parámetros de salida relevantes.
+  <Step title="Detección de Cambios">
+    Identifica qué parámetros necesitan añadirse, modificarse o eliminarse, y qué campos de enriquecimiento (incluyendo Success) deberían activarse o ajustarse.
   </Step>
-  <Step title="Revisar Sugerencias">
-    Evalúa cada parámetro sugerido en el banner morado.
+  <Step title="Sugerencias Contextuales">
+    Propone cambios basados en el contexto y objetivos de tu agente, incluyendo posibles criterios de éxito.
   </Step>
-  <Step title="Aceptar o Personalizar">
-    Acepta las sugerencias útiles y personaliza según tus necesidades específicas.
+  <Step title="Revisión Granular">
+    Presenta cada cambio con operación específica y detalles, separando siempre Parámetros de Enriquecimiento en banners distintos.
   </Step>
-  <Step title="Probar en Playground">
-    Valida que los parámetros extraigan correctamente los datos deseados.
+  <Step title="Aplicación Selectiva">
+    Permite aceptar o rechazar cambios por categoría (parámetros vs. enriquecimiento) de forma completamente independiente.
   </Step>
 </Steps>
 
-## Patrones Comunes de Salida
+### Tipos de Sugerencias del Copilot
 
-### Llamadas de Ventas
+**Adición de Parámetros**
+- Nuevos campos identificados en el prompt
+- Parámetros sugeridos basados en el tipo de conversación
+- Campos estándar para el sector específico
+
+**Modificación de Existentes**
+- Cambios en tipos de datos más apropiados
+- Mejoras en descripciones para mejor extracción
+- Ajustes basados en contexto actualizado
+
+**Eliminación de Redundantes**
+- Parámetros que ya no son relevantes
+- Campos duplicados o similares
+- Parámetros incompatibles con el nuevo prompt
+
+**Ajustes en Enriquecimiento**
+- Activación o desactivación de campos como Transcripción, Resumen o Success
+- Propuestas de criterios de éxito basados en el objetivo detectado en el prompt
+- Refinamiento de criterios existentes para mayor precisión
+
+## Mejores Prácticas Avanzadas
+
+### Configuración Estratégica
+
+<Warning>
+Una configuración de salida mal diseñada puede resultar en datos incompletos o inconsistentes.
+</Warning>
+
+1. **Planificación Previa**
+   - Define qué datos necesitas antes de configurar
+   - Considera tu flujo de trabajo posterior
+   - Alinea con los campos de tu CRM
+
+2. **Uso Inteligente de Plantillas**
+   - Comienza con plantillas estándar
+   - Personaliza según tu industria
+   - Combina plantillas para casos específicos
+
+3. **Aprovechamiento del Copilot**
+   - Utiliza las sugerencias como base
+   - Refina las propuestas según tu contexto
+   - Itera basándote en resultados reales
+   - Revisa cuidadosamente los criterios de éxito sugeridos antes de aceptarlos
+
+### Optimización de Descripciones
+
+Las descripciones de parámetros son críticas para la extracción correcta:
+
+**❌ Malo**: `"presupuesto"`
+**✅ Bueno**: `"Rango de presupuesto mensual mencionado por el cliente para el servicio, en euros"`
+
+**❌ Malo**: `"interesado"`
+**✅ Bueno**: `"Si el cliente mostró interés genuino en proceder con el siguiente paso del proceso de venta"`
+
+### Optimización de Criterios de Éxito
+
+Al igual que las descripciones de parámetros, los criterios de éxito deben ser específicos:
+
+**❌ Malo**: `"La llamada fue buena"`
+**✅ Bueno**: `"Exitosa si el cliente confirmó una cita o solicitó una propuesta formal por email"`
+
+### Gestión de Datos Sensibles
+
+<Warning>
+Siempre usa autenticación segura para webhooks que manejan datos sensibles.
+</Warning>
+
+- Implementa HTTPS para todos los endpoints
+- Usa tokens de autenticación seguros
+- Considera el cifrado de datos sensibles
+- Implementa logs de auditoría
+
+## Patrones de Configuración por Industria
+
+### E-commerce y Retail
 ```json
 {
-  "producto_interesado": "string",
-  "rango_presupuesto": "string",
-  "plazo_decision": "string",
-  "seguimiento_necesario": "boolean",
-  "puntuacion_lead": "number"
+  "producto_interes": "string",
+  "rango_presupuesto": "string", 
+  "talla_preferencia": "string",
+  "canal_preferido": "string",
+  "fecha_compra_estimada": "string",
+  "cliente_recurrente": "boolean",
+  "promocion_aplicada": "string",
+  "metodo_pago_preferido": "string"
 }
 ```
 
-### Soporte al Cliente
+### Servicios Profesionales
 ```json
 {
-  "tipo_incidencia": "string",
-  "estado_resolucion": "string",
-  "puntuacion_satisfaccion": "number",
-  "escalado_necesario": "boolean"
+  "tipo_servicio": "string",
+  "urgencia_proyecto": "string",
+  "presupuesto_aprobado": "number",
+  "equipo_tamaño": "number",
+  "plazo_inicio": "string",
+  "stakeholders": "string",
+  "experiencia_previa": "boolean",
+  "referencias_requeridas": "boolean"
 }
 ```
 
-### Programación de Citas
+### Inmobiliario
 ```json
 {
-  "fecha_cita": "string",
-  "hora_cita": "string",
-  "servicio_solicitado": "string",
-  "confirmacion_enviada": "boolean"
+  "tipo_propiedad": "string",
+  "zona_preferida": "string",
+  "rango_precio": "string",
+  "num_habitaciones": "number",
+  "financiacion_aprobada": "boolean",
+  "plazo_mudanza": "string",
+  "primera_vivienda": "boolean",
+  "visita_programada": "boolean"
 }
 ```
+
+### Salud y Wellness
+```json
+{
+  "tipo_consulta": "string",
+  "sintomas_principales": "string",
+  "tratamiento_previo": "boolean",
+  "seguro_medico": "string",
+  "fecha_cita_preferida": "string",
+  "medico_preferencia": "string",
+  "urgencia_nivel": "number",
+  "autorizacion_tratamiento": "boolean"
+}
+```
+
+## Monitoreo y Optimización
+
+### Análisis de Extracción
+
+<Steps>
+  <Step title="Revisar Datos Extraídos">
+    Analiza regularmente la calidad de datos extraídos.
+  </Step>
+  <Step title="Identificar Patrones">
+    Busca campos frecuentemente vacíos o inconsistentes.
+  </Step>
+  <Step title="Refinar Descripciones">
+    Mejora las descripciones de parámetros problemáticos y ajusta los criterios de éxito si el campo `success` no refleja la realidad.
+  </Step>
+  <Step title="Iterar y Mejorar">
+    Ajusta la configuración basándote en resultados reales.
+  </Step>
+</Steps>
+
+### KPIs de Calidad de Datos
+
+| Métrica | Objetivo | Acción si Bajo |
+|---------|----------|----------------|
+| **Completitud** | >85% campos llenos | Revisar descripciones |
+| **Consistencia** | >90% valores válidos | Mejorar validación |
+| **Precisión** | >95% datos correctos | Refinar prompts |
+| **Precisión de Success** | >90% coincidencia con revisión manual | Refinar criterios de éxito |
+
+## Integración con Sistemas Externos
+
+### CRM Integration
+
+<Tabs>
+  <Tab title="Salesforce">
+    - Mapea parámetros a campos estándar
+    - Usa IDs de Salesforce como referencias
+    - Configura webhooks para crear/actualizar leads
+  </Tab>
+  <Tab title="HubSpot">
+    - Aprovecha propiedades personalizadas
+    - Sincroniza con líneas de tiempo de contactos
+    - Implementa scoring automático
+  </Tab>
+  <Tab title="Pipedrive">
+    - Utiliza campos personalizados
+    - Automatiza creación de actividades
+    - Actualiza pipeline stages
+  </Tab>
+</Tabs>
+
+### Herramientas de Marketing
+
+- **Email Marketing**: Segmenta listas basándote en parámetros extraídos
+- **Analytics**: Envía eventos a Google Analytics o similares  
+- **Automatización**: Dispara workflows basados en datos de llamadas y el campo `success`
+
+## Troubleshooting Común
+
+### Problemas de Extracción
+
+**Problema**: Parámetros frecuentemente vacíos
+**Solución**: 
+- Verifica que la descripción sea específica y clara
+- Asegúrate que la información se mencione en las llamadas
+- Considera dividir parámetros complejos en varios simples
+
+**Problema**: Datos inconsistentes
+**Solución**:
+- Estandariza formatos esperados en las descripciones
+- Usa validaciones en tu sistema receptor
+- Proporciona ejemplos en las descripciones
+
+**Problema**: El campo `success` no refleja el resultado real de la llamada
+**Solución**:
+- Revisa y reescribe los criterios de éxito con condiciones más concretas
+- Evita términos subjetivos como "buena" o "positiva"
+- Incluye ejemplos de escenarios de éxito y fracaso en los criterios
+
+**Problema**: Webhooks fallando
+**Solución**:
+- Verifica la URL del endpoint
+- Confirma la autenticación
+- Revisa logs del servidor receptor
 
 ## Siguientes Pasos
 
@@ -270,13 +582,13 @@ Escribe descripciones claras para parámetros de salida. La IA usa estas descrip
     icon="hand-wave"
     href="/es/advanced-editor/greetings"
   >
-    Configura mensajes de bienvenida
+    Configura mensajes de bienvenida personalizados
   </Card>
   <Card
     title="Evaluaciones"
     icon="check-double"
     href="/es/advanced-editor/evaluations"
   >
-    Configura tests de calidad
+    Implementa tests de calidad automáticos
   </Card>
 </CardGroup>

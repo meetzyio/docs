@@ -1,68 +1,212 @@
 ---
 title: 'Actions & Tools'
-description: 'Configure integrations, call transfers, webhooks, and automated actions'
+description: 'Configure integrations, call transfers, webhooks, and automated actions for your AI agents'
 icon: 'wrench'
 ---
 
 ## Overview
 
-The Actions & Tools section allows you to configure what your agent can do during and after calls. This includes transferring calls to human agents or SIP trunks, ending conversations intelligently, making webhook API requests, and setting up automated follow-up protocols.
+The Actions & Tools section is the powerhouse of your AI agent's operational capabilities. Here you configure what your agent can do during and after calls - from transferring conversations to human agents or SIP systems, to making intelligent API calls, checking business hours, detecting voicemail early, and setting up sophisticated callback protocols.
+
+<Info>
+This section transforms your agent from a simple conversationalist into a fully integrated business automation tool that can take real actions and connect with your existing systems.
+</Info>
 
 ## Call Transfer
 
-Configure how your agent handles call transfers to human agents, departments, or SIP endpoints.
+Configure how your agent intelligently transfers calls to human agents, departments, or external phone systems when needed.
+
+### Transfer Configuration
+
+<Steps>
+  <Step title="Enable Transfer Capability">
+    Toggle the "Call Transfer" option to activate the transfer functionality for your agent.
+  </Step>
+  <Step title="Choose Transfer Destination">
+    Select between traditional phone numbers or SIP trunk endpoints based on your infrastructure.
+  </Step>
+  <Step title="Configure Transfer Logic">
+    Define when and how your agent should initiate transfers using smart prompting and multi-language templates.
+  </Step>
+  <Step title="Test Transfer Flow">
+    Validate that transfers work correctly with your phone system before going live.
+  </Step>
+</Steps>
 
 ### Transfer Types
 
 <Tabs>
   <Tab title="Phone Number">
-    Transfer calls to traditional phone numbers or mobile devices.
+    **Traditional Phone Transfer**
+    
+    Perfect for transferring to mobile phones, landlines, or traditional business numbers.
+
+    - **Format**: Use international format (+1234567890)
+    - **Best for**: Human agents, customer service departments, sales teams
+    - **Reliability**: High compatibility with all phone systems
+    - **Cost**: Standard telephony rates apply
+
+    **Configuration Example:**
+    ```
+    Transfer Number: +1-555-123-4567
+    Department: Sales Team
+    ```
   </Tab>
   <Tab title="SIP Trunk">
-    Transfer calls to SIP endpoints for integration with VoIP systems.
+    **SIP/VoIP Transfer**
+    
+    Ideal for enterprise environments with PBX systems, call centers, or VoIP infrastructure.
+
+    - **Format**: `sip:extension@gateway_ip:port`
+    - **Best for**: Call centers, PBX extensions, enterprise VoIP
+    - **Benefits**: Lower costs, advanced routing, better integration
+    - **Requirements**: SIP-compatible phone system
+
+    **Configuration Examples:**
+    ```
+    Sales Extension: sip:100@10.0.1.50:5060
+    Support Queue: sip:support@pbx.company.com:5060  
+    Manager Direct: sip:200@192.168.1.100:5060
+    ```
   </Tab>
 </Tabs>
 
-### Phone Number Transfer
+### Transfer Execution Mode
 
-<Steps>
-  <Step title="Enable Transfer">
-    Toggle the "Call Transfer" option to activate transfer functionality.
-  </Step>
-  <Step title="Select Transfer Type">
-    Choose "Phone Number" from the transfer type selector.
-  </Step>
-  <Step title="Enter Phone Number">
-    Input the destination phone number in international format (e.g., +1234567890).
-  </Step>
-  <Step title="Configure Transfer Prompt">
-    Define when the agent should initiate transfers using the prompt field.
-  </Step>
-</Steps>
+Beyond choosing *where* a call goes, you can now control exactly *when* the transfer is executed relative to what the agent says right before handing off the call. This setting applies to the transfer tool as a whole, regardless of whether you're using the classic single-destination configuration or Transfer v2 rules.
 
-### SIP Transfer Configuration
+<Tabs>
+  <Tab title="Post Tool Speech (Default)">
+    **Speak First, Then Transfer**
 
-For advanced VoIP integrations, you can configure SIP-based transfers:
+    The agent finishes saying the transfer message — the default phrase or the rule-specific Customer Message — and only then does the actual call transfer take place.
 
-<Steps>
-  <Step title="Select SIP Transfer">
-    Choose "SIP Trunk" from the transfer type options.
-  </Step>
-  <Step title="Enter SIP URI">
-    Input the SIP URI in the format: `sip:extension@gateway_ip:port`
-  </Step>
-  <Step title="Example Configuration">
-    Example: `sip:100@78.136.102.246:5060`
-  </Step>
-</Steps>
+    - **Behavior**: The caller always hears a clear heads-up ("Let me connect you now...") before the line is handed off
+    - **Best for**: Most use cases, especially Warm transfers where a smooth, predictable handoff matters
+    - **Trade-off**: A short, natural pause between the message and the actual transfer
+    - **Recommended**: This is the default behavior for the Call Transfer tool
+  </Tab>
+  <Tab title="Immediate">
+    **Transfer Right Away**
+
+    The transfer is triggered as soon as the agent decides to transfer, without waiting for the message to finish playing — the handoff and the spoken message effectively overlap.
+
+    - **Behavior**: Fastest possible handoff, but the caller may hear the message cut short as the transfer connects
+    - **Best for**: Time-sensitive scenarios where shaving off every second matters more than a polished announcement
+    - **Trade-off**: Less predictable caller experience compared to Post Tool Speech
+  </Tab>
+</Tabs>
 
 <Info>
-SIP transfers are ideal for integration with PBX systems, call centers, and enterprise VoIP infrastructure.
+If you don't explicitly configure an execution mode, your agent automatically uses **Post Tool Speech** — this ensures the caller always hears the transfer message before being handed off.
 </Info>
 
-### Transfer Prompt Templates
+### Transfer v2 (Beta): Multiple Transfer Rules
 
-Use pre-configured transfer prompts in multiple languages:
+<Info>
+**Transfer v2** is a Beta upgrade to Call Transfer that replaces the single destination model with a flexible list of **transfer rules**. Instead of sending every transfer to the same number, your agent evaluates each rule's condition in real time and routes the call to the matching destination — with its own type, customer message, and optional briefing for the receiving human agent.
+</Info>
+
+Enable Transfer v2 with the **"Transfer to multiple destinations (Beta)"** toggle inside the Call Transfer panel. Once active, you can define as many rules as you need instead of a single fixed number.
+
+Each rule includes:
+
+| Field | Description |
+|-------|-------------|
+| **Condition** | A natural-language description of when this rule should trigger (e.g., "the customer asks to speak with sales", "the customer wants to cancel a subscription") |
+| **Destination Type** | `Phone` or `SIP`, matching the same formats used in standard Call Transfer |
+| **Destination Value** | The phone number (`+1234567890`) or SIP URI (`sip:extension@ip:port`) to route to |
+| **Transfer Type** | `Direct` or `Warm` — controls how the handoff is performed |
+| **Customer Message** | An optional per-rule message the agent says to the caller right before transferring, overriding the default transfer phrase |
+| **Agent Briefing** | An optional message relayed to the receiving human agent — a short summary of who is calling and why — used only on `Warm` transfers |
+
+<Tabs>
+  <Tab title="Direct Transfer">
+    **Direct (Blind / Cold) Transfer**
+    
+    The agent immediately connects the caller to the destination without staying on the line.
+
+    - **Best for**: Simple routing to a known extension or department
+    - **Experience**: Fastest handoff, no context relay
+    - **Use when**: The destination doesn't need a live briefing before speaking with the customer
+    - **Agent Briefing**: Not applicable — since the agent disconnects immediately, there's no opportunity to relay context
+  </Tab>
+  <Tab title="Warm Transfer">
+    **Warm (Conference) Transfer**
+    
+    The agent stays connected momentarily to introduce the call and pass context before disconnecting.
+
+    - **Best for**: Complex cases, VIP customers, or situations requiring a smooth handoff
+    - **Experience**: The receiving human agent hears the Agent Briefing before taking over the conversation
+    - **Use when**: Context preservation is critical to avoid the customer repeating themselves
+    - **Agent Briefing**: Recommended — write a short, factual summary such as "Caller is asking about invoice #4521, already confirmed their identity"
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Enable Transfer v2">
+    Toggle "Transfer to multiple destinations (Beta)" within the Call Transfer section.
+  </Step>
+  <Step title="Add a Rule">
+    Click "Add rule" and describe the condition that should trigger this specific transfer.
+  </Step>
+  <Step title="Configure Destination">
+    Choose Phone or SIP and enter the corresponding destination value.
+  </Step>
+  <Step title="Choose Transfer Type">
+    Select Direct for an immediate handoff or Warm to relay context before disconnecting.
+  </Step>
+  <Step title="Add a Customer Message (Optional)">
+    Write a message specific to this rule, such as "Let me connect you with our billing team" for a billing-related rule.
+  </Step>
+  <Step title="Add an Agent Briefing (Optional, Warm only)">
+    For Warm transfers, write a short internal summary the receiving human agent will hear before taking the call — for example, the customer's issue, sentiment, or anything already resolved.
+  </Step>
+  <Step title="Repeat for Additional Rules">
+    Add as many rules as needed to cover all the transfer scenarios for your agent.
+  </Step>
+</Steps>
+
+<Warning>
+Rules are evaluated in the order they appear. Place more specific conditions above general ones to avoid a broad rule capturing calls meant for a more precise destination.
+</Warning>
+
+**Example Configuration:**
+
+```
+Rule 1
+Condition: the customer wants to talk to sales or ask about pricing
+Destination: Phone → +1-555-200-1000
+Type: Warm
+Customer Message: "I'll connect you with our sales team, one moment please."
+Agent Briefing: "Inbound caller interested in the Pro plan, already asked about annual pricing."
+
+Rule 2
+Condition: the customer reports a technical issue or outage
+Destination: SIP → sip:support@pbx.company.com:5060
+Type: Direct
+Customer Message: "Transferring you to technical support now."
+Agent Briefing: (not applicable — Direct transfer)
+
+Rule 3
+Condition: the customer explicitly asks for a manager or wants to file a complaint
+Destination: Phone → +1-555-200-2000
+Type: Warm
+Customer Message: (default transfer phrase)
+Agent Briefing: "Caller is upset about a delayed refund, already apologized and confirmed order #8823."
+```
+
+<Info>
+When Transfer v2 is disabled, your agent falls back to the classic single-destination Call Transfer configuration described above. The Transfer Execution Mode setting applies the same way in both cases.
+</Info>
+
+<Warning>
+Transfer v2 is currently in **Beta**. Test each rule's condition thoroughly with realistic phrasing before relying on it in production, and keep an eye on how overlapping conditions are prioritized.
+</Warning>
+
+### Multi-Language Transfer Prompt Templates
+
+The transfer prompt is crucial - it teaches your AI agent exactly when to transfer calls. Choose from professionally crafted templates in 6 languages:
 
 <Tabs>
   <Tab title="Spanish">
@@ -74,6 +218,11 @@ Use pre-configured transfer prompts in multiple languages:
     - El usuario muestra desconfianza hacia el asistente virtual
     - Se necesita información específica que no está disponible en el sistema
     - El usuario requiere autorización o gestión de datos personales sensibles
+    - Situaciones que requieren negociación o decisiones complejas
+    - Quejas o reclamaciones que necesitan atención personalizada
+    - El usuario solicita escalación a un supervisor o gerente
+    - Casos de facturación complejos o disputas de pagos
+    - Situaciones médicas o legales que requieren experiencia humana
     ```
   </Tab>
   <Tab title="English">
@@ -85,6 +234,11 @@ Use pre-configured transfer prompts in multiple languages:
     - The user shows distrust towards the virtual assistant
     - Specific information is needed that is not available in the system
     - The user requires authorization or management of sensitive personal data
+    - Situations requiring negotiation or complex decisions
+    - Complaints or claims that need personalized attention
+    - The user requests escalation to a supervisor or manager
+    - Complex billing or payment dispute situations
+    - Medical or legal situations requiring human expertise
     ```
   </Tab>
   <Tab title="French">
@@ -96,289 +250,651 @@ Use pre-configured transfer prompts in multiple languages:
     - L'utilisateur montre de la méfiance envers l'assistant virtuel
     - Des informations spécifiques sont nécessaires qui ne sont pas disponibles dans le système
     - L'utilisateur nécessite une autorisation ou la gestion de données personnelles sensibles
+    - Situations nécessitant négociation ou décisions complexes
+    - Plaintes ou réclamations nécessitant une attention personnalisée
+    - L'utilisateur demande une escalade vers un superviseur ou manager
+    - Situations de facturation complexes ou litiges de paiement
+    - Situations médicales ou légales nécessitant une expertise humaine
     ```
   </Tab>
-</Tabs>
-
-## End Call Strategy
-
-Configure intelligent call termination with answering machine detection and strategic call ending.
-
-### Call Termination Settings
-
-<Steps>
-  <Step title="Enable End Call Strategy">
-    Toggle the "End Call Strategy" option to activate intelligent termination.
-  </Step>
-  <Step title="Configure Termination Conditions">
-    Define scenarios that should trigger call ending using the prompt field.
-  </Step>
-  <Step title="Use Language Templates">
-    Select from pre-configured templates for different languages and use cases.
-  </Step>
-</Steps>
-
-### Answering Machine Detection
-
-The system automatically detects answering machines and voicemail systems using common phrases:
-
-<Info>
-The agent recognizes phrases like "Leave your message after the signal," "We cannot attend you at this time," and similar automated responses across multiple languages.
-</Info>
-
-### End Call Templates
-
-Choose from pre-configured end call strategies:
-
-<Tabs>
-  <Tab title="Spanish">
-    Includes answering machine detection for Spanish-language voicemail systems and proper call termination protocols.
-  </Tab>
-  <Tab title="English">
-    Comprehensive English-language answering machine detection and professional call ending procedures.
-  </Tab>
-  <Tab title="French">
-    French-language voicemail detection and culturally appropriate call termination strategies.
-  </Tab>
   <Tab title="German">
-    German-language answering machine recognition and proper call ending protocols.
+    ```
+    Wird verwendet, um den Anruf an eine Person zu übertragen in folgenden Fällen:
+
+    - Der Benutzer das Angebot oder den Service direkt ablehnt
+    - Der Benutzer ausdrücklich darum bittet, mit einer menschlichen Person zu sprechen
+    - Der Benutzer Misstrauen gegenüber dem virtuellen Assistenten zeigt
+    - Spezifische Informationen benötigt werden, die im System nicht verfügbar sind
+    - Der Benutzer eine Autorisierung oder Verwaltung sensibler persönlicher Daten benötigt
+    - Situationen, die Verhandlungen oder komplexe Entscheidungen erfordern
+    - Beschwerden oder Ansprüche, die persönliche Aufmerksamkeit benötigen
+    - Der Benutzer eine Eskalation zu einem Vorgesetzten oder Manager anfordert
+    - Komplexe Abrechnungs- oder Zahlungsstreitigkeiten
+    - Medizinische oder rechtliche Situationen, die menschliche Expertise erfordern
+    ```
   </Tab>
   <Tab title="Italian">
-    Italian-language voicemail detection and appropriate call termination procedures.
+    ```
+    Usato per trasferire la chiamata a una persona nei seguenti casi:
+
+    - L'utente rifiuta direttamente la proposta o il servizio
+    - L'utente richiede espressamente di parlare con una persona umana
+    - L'utente mostra sfiducia verso l'assistente virtuale
+    - Sono necessarie informazioni specifiche non disponibili nel sistema
+    - L'utente richiede autorizzazione o gestione di dati personali sensibili
+    - Situazioni che richiedono negoziazione o decisioni complesse
+    - Reclami o richieste che necessitano attenzione personalizzata
+    - L'utente richiede escalation a un supervisore o manager
+    - Situazioni di fatturazione complesse o dispute di pagamento
+    - Situazioni mediche o legali che richiedono competenza umana
+    ```
   </Tab>
   <Tab title="Portuguese">
-    Portuguese-language answering machine detection and professional call ending strategies.
+    ```
+    Usado para transferir a chamada para uma pessoa nos seguintes casos:
+
+    - O usuário rejeita diretamente a proposta ou serviço
+    - O usuário solicita expressamente falar com uma pessoa humana
+    - O usuário mostra desconfiança em relação ao assistente virtual
+    - São necessárias informações específicas que não estão disponíveis no sistema
+    - O usuário requer autorização ou gestão de dados pessoais sensíveis
+    - Situações que requerem negociação ou decisões complexas
+    - Reclamações ou solicitações que precisam de atenção personalizada
+    - O usuário solicita escalação para um supervisor ou gerente
+    - Situações complexas de faturamento ou disputas de pagamento
+    - Situações médicas ou legais que requerem expertise humana
+    ```
   </Tab>
 </Tabs>
 
 ## Webhook Tools
 
-Create custom API integrations that your agent can trigger during conversations.
+Create powerful API integrations that allow your agent to interact with external systems during conversations through our sophisticated modal interface.
 
-### Creating a Webhook Tool
+<Info>
+**Enhanced Modal Interface**: Webhook Tools now feature an advanced configuration modal with real-time testing, parameter mapping, authentication methods, and intelligent conversation data extraction.
+</Info>
+
+### Webhook Tool Modal Interface
+
+Configure webhook tools through our comprehensive modal interface:
 
 <Steps>
-  <Step title="Add New Tool">
-    Click "Add Webhook Tool" to create a new integration.
+  <Step title="Tool Identity Configuration">
+    Set up the basic tool identity and activation conditions.
+    
+    **Required Fields:**
+    - **Name**: Unique identifier (e.g., "create_lead", "check_inventory")
+    - **Description**: Clear explanation of when the AI should use this tool
+    - **Execution Mode**: Choose immediate or deferred execution
   </Step>
-  <Step title="Configure Basic Information">
-    - Set the tool name and description
-    - The description helps the AI understand when to use this tool
+  <Step title="API Endpoint Setup">
+    Configure the core API connection details.
+    
+    **Configuration Options:**
+    - **Base URL**: Complete webhook endpoint URL
+    - **HTTP Method**: GET, POST, PUT, PATCH, or DELETE
+    - **Request Timeout**: 5-60 seconds (default: 20)
+    - **Error Handling**: Retry logic and fallback behavior
   </Step>
-  <Step title="Set API Endpoint">
-    Enter the webhook URL that will receive the HTTP request.
+  <Step title="Authentication Configuration">
+    Set up secure authentication for your API endpoints.
+    
+    **Supported Authentication Types:**
+    - Bearer Token authentication (OAuth 2.0, JWT)
+    - API Key authentication (Header or Query parameter)
+    - Basic Auth with username/password
+    - Custom header authentication
   </Step>
-  <Step title="Choose HTTP Method">
-    Select the appropriate method: GET, POST, PUT, or DELETE.
-  </Step>
-  <Step title="Define Parameters">
-    Add query parameters and/or request body fields as needed.
+  <Step title="Parameter Mapping">
+    Define intelligent parameter mapping with conversation data extraction.
+    
+    **Parameter Configuration:**
+    - **Query Parameters**: URL-encoded for GET requests
+    - **Body Parameters**: JSON payload for POST/PUT/PATCH
+    - **Header Parameters**: Custom HTTP headers
+    - **Value Sources**: LLM extraction, static values, conversation metadata
   </Step>
 </Steps>
 
-### Parameter Configuration
+### Advanced Parameter Configuration
 
-Each webhook parameter supports:
-
-| Property | Description | Options |
-|----------|-------------|---------|
-| Name | Parameter identifier | Custom string |
-| Type | Data type | string, number, boolean, integer |
-| Required | Whether parameter is mandatory | true/false |
-| Description | What the parameter represents | Custom text |
-| Value Type | How value is determined | LLM prompt, static value |
-
-### Query Parameters vs Body Parameters
+Each webhook parameter supports sophisticated data mapping:
 
 <Tabs>
-  <Tab title="Query Parameters">
-    Added to the URL as query string parameters:
-    ```
-    GET https://api.example.com/users?name=John&age=25
-    ```
+  <Tab title="Parameter Properties">
+    | Property | Description | Options | Example |
+    |----------|-------------|---------|---------|
+    | **Name** | Parameter identifier | Custom string | `customer_name` |
+    | **Type** | Data validation | string, number, boolean, integer, array, object | `string` |
+    | **Required** | Mandatory field | true/false | `true` |
+    | **Description** | AI understanding context | Natural language | "Customer's full name from conversation" |
+    | **Value Source** | Data extraction method | LLM extraction, static value, metadata | LLM prompt |
+    | **Extraction Prompt** | AI instruction | Natural language | "Extract the customer's email address" |
   </Tab>
-  <Tab title="Body Parameters">
-    Sent in the request body (for POST, PUT, PATCH):
+  <Tab title="Value Sources">
+    **LLM Extraction**
+    
+    Intelligent conversation data extraction:
     ```json
     {
-      "name": "John",
-      "age": 25,
-      "email": "john@example.com"
+      "extraction_prompt": "Extract the customer's phone number from the conversation",
+      "parameter_type": "string",
+      "required": true
+    }
+    ```
+
+    **Static Values**
+    
+    Fixed values for consistent data:
+    ```json
+    {
+      "static_value": "phone_call",
+      "parameter": "source",
+      "type": "string"
+    }
+    ```
+
+    **Conversation Metadata**
+    
+    Built-in conversation data:
+    - Call duration and timestamps
+    - Customer and agent phone numbers
+    - Call direction (inbound/outbound)
+    - Call status and outcome
+    - Agent ID and configuration details
+  </Tab>
+  <Tab title="Data Types">
+    **Supported Parameter Types:**
+
+    - **string**: Text data, names, descriptions, addresses
+    - **number**: Numeric values with decimal precision
+    - **integer**: Whole numbers only (IDs, quantities)
+    - **boolean**: true/false values for flags
+    - **array**: List of values or complex objects
+    - **object**: Nested data structures with properties
+
+    **Type Validation:**
+    Automatic validation ensures data consistency and provides clear error messages for type mismatches.
+  </Tab>
+</Tabs>
+
+### Webhook Authentication Methods
+
+<Tabs>
+  <Tab title="Bearer Token">
+    **JWT/OAuth 2.0 Authentication**
+    
+    Modern token-based authentication for secure API access:
+    ```json
+    {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+    }
+    ```
+    
+    **Use Cases:**
+    - Salesforce, HubSpot, and modern CRM systems
+    - OAuth 2.0 protected endpoints
+    - JWT-based authentication systems
+    - Enterprise SaaS platforms
+  </Tab>
+  <Tab title="API Key">
+    **Simple API Key Authentication**
+    
+    Traditional API key authentication:
+    ```json
+    {
+      "X-API-Key": "sk_live_abcd1234efgh5678ijkl",
+      "Authorization": "ApiKey sk_live_abcd1234efgh5678ijkl"
+    }
+    ```
+    
+    **Use Cases:**
+    - Third-party service APIs
+    - Legacy system integration
+    - Custom internal APIs
+    - Simple authentication requirements
+  </Tab>
+  <Tab title="Basic Auth">
+    **Username/Password Authentication**
+    
+    HTTP Basic authentication:
+    ```json
+    {
+      "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ="
+    }
+    ```
+    
+    **Use Cases:**
+    - Legacy systems
+    - Internal APIs
+    - Simple HTTP authentication
+    - Development and testing environments
+  </Tab>
+</Tabs>
+
+### Webhook Integration Examples
+
+<Tabs>
+  <Tab title="CRM Lead Creation">
+    **Salesforce Lead Integration**
+
+    Automatically create leads when customers show purchase interest:
+
+    ```json
+    {
+      "name": "create_salesforce_lead",
+      "description": "Create a new lead in Salesforce when customer shows purchase interest",
+      "url": "https://api.salesforce.com/services/data/v52.0/sobjects/Lead",
+      "method": "POST",
+      "authentication": {
+        "type": "bearer_token",
+        "token": "{{salesforce_access_token}}"
+      },
+      "body_parameters": {
+        "FirstName": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract customer's first name from conversation"
+        },
+        "LastName": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract customer's last name from conversation"
+        },
+        "Phone": {
+          "type": "string",
+          "required": true,
+          "value_type": "conversation_metadata",
+          "metadata_field": "customer_phone"
+        },
+        "LeadSource": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "AI Phone Call"
+        }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="Inventory Checking">
+    **Real-time Product Availability**
+
+    Check product availability during customer inquiries:
+
+    ```json
+    {
+      "name": "check_product_availability",
+      "description": "Check real-time product availability when customer asks about specific items",
+      "url": "https://inventory.yourcompany.com/api/check",
+      "method": "GET",
+      "authentication": {
+        "type": "api_key",
+        "key": "{{inventory_api_key}}",
+        "location": "header"
+      },
+      "query_parameters": {
+        "product_sku": {
+          "type": "string",
+          "required": true,
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract product SKU or name mentioned by customer"
+        },
+        "location": {
+          "type": "string",
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract customer's preferred store location or zip code"
+        },
+        "quantity": {
+          "type": "integer",
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract desired quantity, default to 1 if not specified"
+        }
+      },
+      "response_timeout": 10
+    }
+    ```
+  </Tab>
+  <Tab title="Calendar Booking">
+    **Appointment Scheduling**
+
+    Automatically schedule appointments through calendar systems:
+
+    ```json
+    {
+      "name": "book_calendar_appointment",
+      "description": "Schedule an appointment when customer requests a meeting or consultation",
+      "url": "https://api.calendly.com/scheduled_events",
+      "method": "POST",
+      "authentication": {
+        "type": "bearer_token",
+        "token": "{{calendly_access_token}}"
+      },
+      "body_parameters": {
+        "event_type": {
+          "type": "string",
+          "value_type": "static",
+          "static_value": "https://calendly.com/your-company/30-min-consultation"
+        },
+        "start_time": {
+          "type": "string",
+          "value_type": "llm_extraction",
+          "extraction_prompt": "Extract preferred meeting time from customer in ISO format"
+        },
+        "invitee": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "value_type": "llm_extraction",
+              "extraction_prompt": "Customer's full name"
+            },
+            "email": {
+              "type": "string",
+              "value_type": "llm_extraction",
+              "extraction_prompt": "Customer's email address"
+            }
+          }
+        }
+      }
     }
     ```
   </Tab>
 </Tabs>
 
-### Advanced Webhook Settings
+## Business Hours (Beta)
 
-<AccordionGroup>
-  <Accordion title="Response Timeout" icon="clock">
-    Configure how long to wait for the API response (default: 20 seconds).
-  </Accordion>
-  <Accordion title="Interruption Control" icon="pause">
-    - **Enabled**: Agent pauses while waiting for webhook response
-    - **Disabled**: Agent continues speaking while request processes
-  </Accordion>
-  <Accordion title="Pre-tool Speech" icon="volume-high">
-    Force the agent to speak before executing the webhook tool.
-  </Accordion>
-  <Accordion title="Tool Call Sound" icon="bell">
-    Choose sound effect during webhook execution:
-    - **Typing**: Typing sound effect
-    - **None**: No sound effect
-  </Accordion>
-  <Accordion title="Execution Mode" icon="play">
-    - **Immediate**: Execute during the call
-    - **Deferred**: Execute after the call ends
-  </Accordion>
-</AccordionGroup>
+<Info>
+**Business Hours** is a new built-in tool (Beta) that lets your agent automatically resolve whether the current call is happening within your configured business hours — no webhook or external calendar needed. It replaces manual date/time reasoning with a structured weekly schedule, holiday calendar, and time zone awareness.
+</Info>
 
-### Example: CRM Integration
+Instead of prompting the model to reason about dates, weekdays, and time zones, the Business Hours tool evaluates the call timestamp against your configuration and returns whether the business is **open** or **closed** at that exact moment — including support for holiday exceptions and dedicated messaging for each state.
 
-```json
-{
-  "name": "create_lead",
-  "description": "Create a new lead in the CRM when customer shows purchase interest",
-  "api_schema": {
-    "url": "https://api.yourcrm.com/leads",
-    "method": "POST",
-    "request_body_schema": {
-      "type": "object",
-      "required": ["name", "phone"],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Customer's full name"
-        },
-        "phone": {
-          "type": "string",
-          "description": "Customer's phone number"
-        },
-        "interest": {
-          "type": "string",
-          "description": "Product or service they're interested in"
-        }
-      }
-    }
-  },
-  "response_timeout_secs": 15,
-  "disable_interruptions": true
-}
-```
+### What It Solves
 
-### Authentication
+- Avoids transferring calls to a human team that isn't available
+- Lets the agent give accurate opening hours or a "we're currently closed" response automatically
+- Enables conditional logic such as "only offer live transfer during business hours, otherwise offer a callback"
+- Accounts for holidays and special closures without extra prompt engineering
+- Removes the need for manual date/time arithmetic in the system prompt
 
-Configure webhook authentication using request headers:
-
-```json
-{
-  "request_headers": {
-    "Authorization": "Bearer your-api-token",
-    "Content-Type": "application/json",
-    "X-API-Key": "your-api-key"
-  }
-}
-```
-
-## Recall Protocol
-
-Set up automatic follow-up calls when certain conditions aren't met during the initial conversation.
-
-### Recall Configuration
+### Configuration
 
 <Steps>
-  <Step title="Enable Recall Protocol">
-    Toggle the recall feature to activate automatic callbacks.
+  <Step title="Enable Business Hours">
+    Add the Business Hours tool from the Actions & Tools panel and toggle it on.
   </Step>
-  <Step title="Set Maximum Attempts">
-    Define how many retry calls should be attempted (typically 2-5).
+  <Step title="Set Your Weekly Schedule">
+    Configure opening and closing times independently for each day of the week (Monday through Sunday). Mark any day as fully closed when it doesn't apply — for example, weekends or days your business doesn't operate.
   </Step>
-  <Step title="Configure Timing">
-    Set intervals between recall attempts using the schedule options.
+  <Step title="Add Holidays">
+    Define specific dates — national holidays, company closures, or one-off exceptions — that should always be treated as closed (or with custom hours) regardless of the regular weekly schedule.
   </Step>
-  <Step title="Define Success Conditions">
-    Specify what constitutes a successful call that doesn't require follow-up.
+  <Step title="Configure Time Zone">
+    Select the time zone your business hours are defined in, so the tool correctly resolves the call time regardless of where the customer is calling from.
+  </Step>
+  <Step title="Set In-Hours and Out-of-Hours Messages">
+    Write a custom message the agent uses when the call falls within business hours, and a different message for when it falls outside business hours (including holidays).
+  </Step>
+  <Step title="Reference the Tool in Your Prompt or Rules">
+    Use the tool's result in your system prompt logic, or combine it with a Transfer v2 rule condition (e.g., "only transfer to sales if within business hours").
   </Step>
 </Steps>
 
-### Recall Schedule Options
+### Weekly Schedule Fields
 
-| Interval | Use Case |
-|----------|----------|
-| 5 minutes | Immediate follow-up for urgent matters |
-| 15 minutes | Quick retry for busy signals |
-| 30 minutes | Standard short-term follow-up |
-| 1-2 hours | Business hour follow-up |
-| 4 hours | Same-day callback |
-| Next business day | Professional follow-up timing |
+Each day of the week supports its own independent configuration:
 
-### Success Conditions
+| Field | Description |
+|-------|-------------|
+| **Day** | Monday through Sunday |
+| **Status** | Open or Closed for that day |
+| **Opening Time** | Start of business hours (e.g., `09:00`) |
+| **Closing Time** | End of business hours (e.g., `18:00`) |
 
-Define scenarios that indicate a successful call:
+### Holidays
 
-- Customer provided required information
-- Meeting or appointment was scheduled  
-- Purchase decision was made
-- Customer explicitly requested no follow-up
-- Call was transferred to human agent
+Holidays override the regular weekly schedule for a specific date:
+
+| Field | Description |
+|-------|-------------|
+| **Date** | The specific calendar date the holiday applies to |
+| **Label** | A descriptive name (e.g., "New Year's Day", "Company Retreat") |
+| **Status** | Closed all day, or Open with custom hours for that date |
+
+### In-Hours vs Out-of-Hours Messages
+
+<Tabs>
+  <Tab title="In-Hours Message">
+    **Used while the business is open**
+
+    Optional message the agent can use to confirm availability, such as:
+
+    ```
+    "We're currently open — I can connect you with our team right away."
+    ```
+  </Tab>
+  <Tab title="Out-of-Hours Message">
+    **Used while the business is closed (including holidays)**
+
+    Message explaining unavailability and next steps, such as:
+
+    ```
+    "We're currently closed. Our business hours are Monday to Friday, 9 AM to 6 PM. Would you like me to schedule a callback for the next business day?"
+    ```
+  </Tab>
+</Tabs>
+
+### Example Schedule
+
+```
+Monday - Friday: 09:00 - 18:00
+Saturday: 10:00 - 14:00
+Sunday: Closed
+Time Zone: Europe/Madrid
+
+Holidays:
+- Jan 1: New Year's Day (Closed)
+- Dec 25: Christmas Day (Closed)
+- Aug 15: Summer Break (Closed)
+
+In-Hours Message: "We're currently open — I can connect you with our team right away."
+Out-of-Hours Message: "We're currently closed. Our business hours are Monday to Friday, 9 AM to 6 PM. Would you like me to schedule a callback?"
+```
+
+### Example Usage
+
+**Combined with Transfer v2:**
+
+```
+Rule 1
+Condition: the customer wants to talk to sales AND business hours are open
+Destination: Phone → +1-555-200-1000
+Type: Warm
+
+Rule 2
+Condition: the customer wants to talk to sales AND business hours are closed
+Destination: (no transfer — offer to schedule a callback instead)
+```
+
+**Combined with End Call Strategy or system prompt:**
+
+Instruct the agent to check the Business Hours result before offering a live transfer, and fall back to taking a message or booking a callback when the result is `closed`.
 
 <Warning>
-Use recall protocols responsibly. Excessive callbacks can annoy customers and may violate telecommunications regulations like TCPA in the US or GDPR in Europe.
+Business Hours is currently in **Beta**. Double-check the resolved status during testing, especially around daylight saving time transitions and newly added holidays.
 </Warning>
 
-## Best Practices
+## Early Voicemail Detection
 
-### For Call Transfers
-1. **Clear Trigger Conditions** - Define specific scenarios that warrant human intervention
-2. **Provide Context** - Ensure transferred calls include relevant conversation context  
-3. **Test Transfer Paths** - Verify both phone and SIP transfers work reliably
-4. **Have Fallback Options** - Configure backup numbers for failed transfers
+<Info>
+**Early Voicemail Detection** adds a telephony-aware layer of Answering Machine Detection (AMD) that works alongside — and independently from — the phrase-based detection configured in **End Call Strategy** below. Instead of relying only on the agent recognizing a voicemail greeting mid-conversation, this feature can flag an answering machine earlier, using either the agent's own reasoning or signals from the carrier.
+</Info>
 
-### For Webhook Tools
-1. **Descriptive Names** - Use clear, descriptive names so the AI knows when to trigger tools
-2. **Handle API Errors** - Ensure your endpoints return user-friendly error messages
-3. **Secure Endpoints** - Always use authentication headers for sensitive APIs
-4. **Test Thoroughly** - Validate webhook integrations using the Playground
-5. **Monitor Performance** - Track webhook response times and success rates
+Enable this tool to choose **how early** and **at what level** voicemail detection happens, trading off a small amount of latency for a higher confidence detection, or vice versa. Detection is organized into two levels — **Agent** and **Carrier** (also referred to as "Operator") — with the Carrier level offering two submodes, **Gate** and **Live**.
 
-### For End Call Strategy
-1. **Multilingual Support** - Configure detection phrases in your target languages
-2. **Cultural Sensitivity** - Adapt goodbye messages to local business customs
-3. **Clear Termination** - Ensure agents clearly signal call ending to customers
-4. **Log Call Outcomes** - Track why calls ended for optimization insights
+### Detection Levels
 
-### For Recall Protocol
-1. **Respect Boundaries** - Honor customer preferences about follow-up timing
-2. **Legal Compliance** - Follow local regulations about automated callbacks
-3. **Diminishing Returns** - Use fewer attempts with longer intervals over time
-4. **Success Tracking** - Monitor recall effectiveness and adjust strategies
+<Tabs>
+  <Tab title="Agent">
+    **Agent-Level Detection (Native)**
 
-## Coming Soon
+    The AI agent listens to the call audio itself and recognizes voicemail or answering machine greetings using its own conversational reasoning — the same underlying mechanism used by the End Call Strategy phrase templates.
 
-The following integrations are in development:
+    - **How it works**: The agent starts speaking normally and identifies typical voicemail phrasing as the conversation unfolds ("please leave a message after the tone", etc.)
+    - **Best for**: Simple setups where a natural conversation start matters more than shaving off detection time, or when your telephony carrier doesn't provide a reliable native AMD signal
+    - **When to use it**: Choose Agent when you'd rather keep the call flow simple and let the same phrase-recognition logic you already trust (via End Call Strategy) handle voicemail cases, without adding a telephony-level dependency
+    - **Default**: This is the default level the first time Early Voicemail Detection is enabled
+  </Tab>
+  <Tab title="Carrier (Operator)">
+    **Carrier-Level Detection**
 
-| Feature | Description | Timeline |
-|---------|-------------|----------|
-| 📧 Email Integration | Send emails during or after calls | Q2 2024 |
-| 💬 SMS Integration | Send text messages to customers | Q2 2024 |
-| 📱 WhatsApp Integration | Send WhatsApp messages | Q3 2024 |
-| 📊 Advanced Analytics | Detailed webhook and transfer analytics | Q3 2024 |
+    Detection is delegated to the telephony carrier's native Answering Machine Detection signal, which analyzes call setup characteristics — ringing pattern, greeting cadence, energy levels — independently of what the agent says.
 
-## Next Steps
+    - **How it works**: The carrier analyzes the call in real time and reports whether it believes a human or a machine answered
+    - **Best for**: Faster, more consistent detection, especially useful for outbound calling at scale
+    - **When to use it**: Choose Carrier when you're running outbound campaigns and want detection decisions grounded in telephony-level signals rather than solely on what the agent hears and interprets
+    - **Requires**: Choosing one of the two Carrier submodes below (Gate or Live)
+  </Tab>
+</Tabs>
 
-<CardGroup cols={2}>
-  <Card
-    title="Input Parameters"
-    icon="arrow-right-to-bracket"
-    href="/advanced-editor/input-params"
-  >
-    Configure dynamic variables for personalization
-  </Card>
-  <Card
-    title="Output Settings"  
-    icon="arrow-right-from-bracket"
-    href="/advanced-editor/output-settings"
-  >
-    Define data extraction and webhook delivery
-  </Card>
-</CardGroup>
+### Carrier Submodes: Gate vs Live
+
+When the Carrier level is selected, choose how the agent should act on the carrier's AMD signal:
+
+<Tabs>
+  <Tab title="Gate">
+    **Gate Mode**
+
+    The system waits for the carrier's AMD analysis to finish **before** letting the agent start speaking.
+
+    - **Behavior**: A brief pause occurs at the very start of the call while the carrier determines human vs. machine
+    - **Trade-off**: A slightly slower start, but the agent never delivers the wrong opening line to a machine
+    - **When to use it**: Choose Gate for outbound calling where avoiding a wasted or awkward greeting to voicemail outweighs a one-to-two second delay at the start of the call — ideal for high-volume campaigns where consistency matters more than speed
+  </Tab>
+  <Tab title="Live">
+    **Live Mode**
+
+    The call connects immediately and the carrier's AMD analysis runs live, in parallel with the conversation.
+
+    - **Behavior**: The agent can start speaking right away; if the carrier reports a machine mid-stream, the system reacts on the fly (e.g., handing off to End Call Strategy or leaving a pre-recorded message)
+    - **Trade-off**: A faster, more natural-feeling start, with a small chance the agent speaks a line or two before the machine is confirmed
+    - **When to use it**: Choose Live when a fast, natural call start is the priority — for example, inbound-style experiences or campaigns where caller perception of responsiveness matters more than avoiding the rare case of the agent speaking briefly to a machine
+  </Tab>
+</Tabs>
+
+<Info>
+The system remembers which Carrier submode (Gate or Live) you last used. Switching back to Carrier after temporarily trying Agent level automatically restores your previous submode.
+</Info>
+
+### Configuration
+
+<Steps>
+  <Step title="Enable Early Voicemail Detection">
+    Toggle on Early Voicemail Detection in the Actions & Tools panel.
+  </Step>
+  <Step title="Choose a Detection Level">
+    Select **Agent** for native recognition by the AI, or **Carrier** (Operator) for telephony-level AMD.
+  </Step>
+  <Step title="Select a Submode (Carrier only)">
+    If you chose Carrier, pick **Gate** for a safer, slightly delayed start, or **Live** for an immediate start with parallel analysis.
+  </Step>
+  <Step title="Keep End Call Strategy Active as a Fallback">
+    Leave your End Call Strategy phrase templates configured — Early Voicemail Detection catches most cases sooner, while phrase detection remains a reliable safety net for anything it misses.
+  </Step>
+</Steps>
+
+<Warning>
+Carrier-level AMD accuracy can vary depending on your telephony provider and the destination country. Test both Gate and Live submodes with real call patterns before relying on them for high-volume outbound campaigns.
+</Warning>
+
+## Active Listening Sounds (Backchanneling)
+
+<Info>
+**Active Listening Sounds** — also known as backchanneling — make your agent produce short, natural acknowledgment sounds and interjections (like "mm-hmm", "I see", "right") while the caller is speaking, instead of staying completely silent until it's the agent's turn. This mirrors how humans naturally signal they're listening during a real conversation.
+</Info>
+
+This feature is only available for agents using **v3 voices** (`eleven_v3_conversational`). It doesn't apply to agents on the Flash model, since backchanneling relies on the more expressive, natural delivery that v3 voices support.
+
+### Why Use Backchanneling
+
+- Makes long caller explanations feel like a real conversation instead of a monologue into silence
+- Reduces the perception of dead air, especially over telephony where silence can feel like the call dropped
+- Reinforces trust and rapport — callers feel heard as they speak, not just after they finish
+- Adds a layer of natural expressiveness on top of everything else v3 voices already provide
+
+### Intensity Levels
+
+<Tabs>
+  <Tab title="Low">
+    **Minimal, Neutral Acknowledgments**
+
+    Only occasional, low-key sounds such as a subtle "mm-hmm", used sparingly.
+
+    - **Best for**: Formal contexts, sensitive topics, or brands with a more reserved tone
+    - **Experience**: Caller notices the agent is engaged without it feeling chatty
+    - **When to use it**: Choose Low when you want a hint of active listening without drawing attention to it
+  </Tab>
+  <Tab title="Normal (Default)">
+    **Balanced, Natural Acknowledgments**
+
+    A moderate frequency of backchannel sounds and short interjections that mimic typical human listening behavior.
+
+    - **Best for**: Most use cases — general customer service, sales, and support conversations
+    - **Experience**: Feels like a natural, attentive conversation without being distracting
+    - **When to use it**: Keep Normal as your default unless you have a specific reason to dial it up or down
+  </Tab>
+  <Tab title="Expressive">
+    **Frequent, Expressive Acknowledgments**
+
+    More frequent backchannel sounds, including short exclamations, for a livelier, more animated listening style.
+
+    - **Best for**: Casual, friendly, or high-energy brand personalities where warmth and enthusiasm matter
+    - **Experience**: Caller perceives a highly engaged, energetic listener
+    - **When to use it**: Choose Expressive when your brand voice leans casual and upbeat, and a more animated agent fits the experience
+  </Tab>
+</Tabs>
+
+### Configuration
+
+<Steps>
+  <Step title="Confirm Your Agent Uses a v3 Voice">
+    Active Listening Sounds only apply to agents configured with an `eleven_v3_conversational` voice. If your agent is on the Flash model, this option won't have an effect.
+  </Step>
+  <Step title="Enable Active Listening Sounds">
+    Toggle on the backchanneling option in the Actions & Tools panel.
+  </Step>
+  <Step title="Choose an Intensity Level">
+    Select **Low**, **Normal**, or **Expressive** based on how animated you want your agent to sound while listening.
+  </Step>
+  <Step title="Test With Real Call Scenarios">
+    Listen to a few test calls with longer caller responses to confirm the intensity level matches your brand's tone before rolling it out broadly.
+  </Step>
+</Steps>
+
+<Info>
+If left unconfigured, agents on a v3 voice default to **Normal** intensity. You can disable Active Listening Sounds entirely at any time if you prefer the agent to stay silent until the caller finishes speaking.
+</Info>
+
+## End Call Strategy
+
+Configure intelligent call termination with sophisticated answering machine detection and strategic conversation ending across multiple languages.
+
+### Enhanced Call Termination Logic
+
+<Steps>
+  <Step title="Enable Smart Termination">
+    Activate the "End Call Strategy" to handle call endings intelligently with multi-language support.
+  </Step>
+  <Step title="Configure Detection Phrases">
+    Use comprehensive phrase detection across 6 languages for answering machines and voicemail systems.
+  </Step>
+  <Step title="Define Completion Criteria">
+    Specify what constitutes a successful call that should end naturally.
+  </Step>
+  <Step title="Handle Edge Cases">
+    Configure responses for unexpected scenarios like long silences or system errors.
+  </Step>
+</Steps>

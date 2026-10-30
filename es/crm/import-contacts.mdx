@@ -1,12 +1,12 @@
 ---
 title: 'Importar Contactos'
-description: 'Importa contactos desde archivos Excel o Google Sheets'
+description: 'Importa contactos desde archivos Excel o Google Sheets con funcionalidades avanzadas'
 icon: 'file-import'
 ---
 
 # Importar Contactos
 
-Meetzy te permite importar contactos de forma masiva desde archivos Excel (.xlsx, .xls, .xlsm) o directamente desde Google Sheets. Esto te permite poblar rápidamente tu base de datos de contactos para campañas.
+Meetzy te permite importar contactos de forma masiva desde archivos Excel (.xlsx, .xls, .xlsm) o directamente desde Google Sheets. Esto te permite poblar rápidamente tu base de datos de contactos para campañas con características avanzadas de validación y configuración.
 
 ## Métodos de Importación
 
@@ -15,19 +15,35 @@ Meetzy te permite importar contactos de forma masiva desde archivos Excel (.xlsx
 | 📊 Excel | Sube archivos .xlsx, .xls o .xlsm | Archivo hasta 10MB |
 | 📗 Google Sheets | Conecta directamente a tus hojas de cálculo | Integración con cuenta Google |
 
-## Asistente de Importación
+## Nueva Interfaz de Usuario
 
-El proceso de importación sigue tres pasos:
+La experiencia de importación ha sido rediseñada con una interfaz moderna que incluye:
+
+- **Panel de consumo Billy**: Monitorea en tiempo real el consumo de recursos durante la importación
+- **Indicadores visuales mejorados**: Estados de progreso más claros y detallados
+- **Validación avanzada**: Detección automática de errores y sugerencias de corrección
+- **Configuración de horarios**: Programa cuándo realizar las llamadas automáticas
+
+<Info>
+El nuevo panel de consumo aparece automáticamente durante importaciones grandes para ayudarte a monitorear el uso de recursos.
+</Info>
+
+## Asistente de Importación Mejorado
+
+El proceso de importación sigue pasos optimizados:
 
 <Steps>
   <Step title="Subir / Seleccionar">
-    Elige tu archivo fuente u hoja de cálculo.
+    Elige tu archivo fuente u hoja de cálculo con validación instantánea.
   </Step>
-  <Step title="Configurar">
-    Mapea columnas y establece opciones de importación.
+  <Step title="Configurar Avanzado">
+    Mapea columnas, establece opciones avanzadas y configura protocolos de rellamada.
   </Step>
-  <Step title="Importar">
-    Procesa contactos y visualiza resultados.
+  <Step title="Programar Campaña">
+    Define horarios de llamadas y estrategias de reintento.
+  </Step>
+  <Step title="Importar y Ejecutar">
+    Procesa contactos con monitoreo en tiempo real.
   </Step>
 </Steps>
 
@@ -42,25 +58,26 @@ El proceso de importación sigue tres pasos:
 5. Tamaño máximo de archivo: 10MB
 
 <Tip>
-Arrastrar y soltar funciona directamente en la zona de carga. El borde se vuelve verde cuando se detecta un archivo válido.
+El nuevo sistema de arrastrar y soltar incluye indicadores visuales mejorados. El borde se vuelve verde cuando se detecta un archivo válido y muestra una vista previa instantánea de la estructura.
 </Tip>
 
-### Validación del Archivo
+### Validación Avanzada del Archivo
 
-Una vez subido, el sistema analiza tu archivo:
+Una vez subido, el sistema realiza análisis profundo:
 
 | Análisis | Descripción |
 |----------|-------------|
 | Total Rows | Número de filas de datos detectadas |
-| Valid Phones | Filas con números de teléfono válidos |
-| Duplicates | Números de teléfono duplicados encontrados |
-| No Phone | Filas sin número de teléfono |
+| Valid Phones | Filas con números de teléfono válidos (con formato internacional) |
+| Duplicates | Números duplicados con opción de deduplicación automática |
+| No Phone | Filas sin número válido con sugerencias de corrección |
+| Data Quality Score | Puntuación de calidad basada en completitud de campos |
 
 <Warning>
-Las filas sin número de teléfono serán omitidas durante la importación. Asegúrate de que tu columna de teléfono esté formateada correctamente.
+El sistema ahora detecta automáticamente formatos de teléfono incorrectos y sugiere correcciones. Las filas con problemas graves serán marcadas para revisión manual.
 </Warning>
 
-## Importación desde Google Sheets
+## Importación desde Google Sheets Mejorada
 
 ### Conectando Google Sheets
 
@@ -68,161 +85,297 @@ Si no está conectado:
 
 1. Haz clic en **Connect Google Sheets**
 2. Autoriza con tu cuenta de Google
-3. Otorga acceso a tus hojas de cálculo
+3. Otorga acceso ampliado a hojas de cálculo
+4. **Nuevo**: Sincronización en tiempo real disponible
 
 ### Seleccionando una Hoja de Cálculo
 
-1. Navega por tus hojas disponibles
-2. Usa la barra de búsqueda para encontrar archivos específicos
-3. Haz clic en una hoja para seleccionarla
-4. El sistema valida la estructura de la hoja
+1. Navega por tus hojas con vista previa mejorada
+2. Usa la búsqueda inteligente para encontrar archivos
+3. **Nuevo**: Acceso a hojas compartidas del equipo
+4. Validación automática de estructura y permisos
 
-## Mapeo de Columnas
+## Mapeo de Columnas Inteligente
 
-### Campos Requeridos
+### Campos Estándar Expandidos
 
-| Campo | Descripción | Requerido |
-|-------|-------------|-----------|
-| Phone | Número de teléfono del contacto | ✅ Sí |
-| Name | Nombre del contacto | No |
-| Email | Email del contacto | No |
+| Campo | Descripción | Requerido | Nuevo |
+|-------|-------------|-----------|-------|
+| Phone | Número de teléfono (formato internacional) | ✅ Sí | Validación mejorada |
+| Name | Nombre completo o separado | No | Auto-combinación |
+| Email | Email con validación de formato | No | Verificación de dominio |
+| Company | Empresa del contacto | No | ✅ Campo expandido |
+| Job Title | Cargo profesional | No | ✅ Nuevo campo |
+| City | Ciudad de residencia | No | ✅ Nuevo campo |
+| Country | País (formato ISO) | No | ✅ Nuevo campo |
+| Timezone | Zona horaria para llamadas | No | ✅ Nuevo campo |
 
-### Mapeando Columnas
+### Mapeo Automático
 
-1. Para cada campo, selecciona la columna correspondiente de tu archivo
-2. La vista previa se actualiza en tiempo real
-3. Las columnas resaltadas indican campos mapeados
+El sistema ahora incluye:
 
-### Campos Personalizados
-
-Añade columnas adicionales como campos personalizados:
-
-1. Ve las columnas disponibles sin mapear
-2. Haz clic en un nombre de columna para incluirlo
-3. Los campos personalizados se almacenan con el contacto
-4. Úsalos en prompts de agentes con parámetros de entrada
+1. **Detección inteligente**: Reconoce automáticamente columnas comunes
+2. **Sugerencias contextuales**: Propone mapeos basados en contenido
+3. **Validación en tiempo real**: Muestra errores antes de importar
+4. **Preservación de datos**: Mantiene campos personalizados intactos
 
 <Info>
-Las columnas ya mapeadas a campos estándar (Phone, Name, Email) no pueden añadirse como campos personalizados.
+El nuevo motor de mapeo utiliza IA para reconocer patrones de datos y sugerir la configuración óptima automáticamente.
 </Info>
 
-## Vista Previa de Datos
+## Configuración de Protocolos de Rellamada
 
-Antes de importar, revisa tus datos:
+### Modos de Configuración
 
-- Las primeras filas se muestran en una tabla de vista previa
-- Las columnas mapeadas están resaltadas en verde
-- Verifica que los datos se ven correctos antes de proceder
+<Tabs>
+  <Tab title="Fechas Específicas">
+    Programa llamadas en fechas y horarios exactos:
+    - Fecha y hora de inicio de campaña
+    - Hasta 5 reintentos programados
+    - Validación de horarios comerciales
+    - Ajuste automático por zona horaria
+  </Tab>
+  <Tab title="Protocolo de Retrasos">
+    Define intervalos automáticos entre llamadas:
+    - Retraso inicial configurable
+    - Incremento progresivo de intervalos
+    - Límite máximo de intentos
+    - Filtros por días laborables
+  </Tab>
+</Tabs>
 
-## Selección de Hoja
+### Configuración de Horarios
 
-Si tu archivo contiene múltiples hojas:
+```json
+{
+  "campaignStart": "2024-03-15T09:00:00",
+  "retryAttempts": [
+    {
+      "date": "2024-03-15",
+      "time": "14:00",
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "delay": 24,
+      "unit": "hours"
+    }
+  ],
+  "businessHours": {
+    "start": "09:00",
+    "end": "18:00",
+    "timezone": "local"
+  }
+}
+```
 
-1. Aparece un dropdown para seleccionar la hoja
-2. Elige la hoja que contiene tus contactos
-3. El mapeo se actualiza según las columnas de la hoja seleccionada
+## Plantillas de Rellamada
 
-## Asignación a Segmento
+### Plantillas Predefinidas
 
-Todos los contactos importados se añaden automáticamente a un segmento:
+| Plantilla | Descripción | Intentos |
+|-----------|-------------|----------|
+| 🚀 Agresiva | Llamadas frecuentes para leads calientes | 5 intentos en 48h |
+| 📞 Estándar | Protocolo equilibrado para uso general | 3 intentos en 1 semana |
+| 🕐 Pausada | Contacto espaciado para leads fríos | 2 intentos en 2 semanas |
+| 🎯 Personalizada | Configura tu propio protocolo | Hasta 10 intentos |
 
-1. Ingresa un **Nombre de Segmento**
-2. Esto crea un nuevo segmento con tus importaciones
-3. Usa segmentos para campañas dirigidas
+### Crear Plantillas Personalizadas
 
-<Tip>
-Usa nombres descriptivos como "Leads Febrero 2024" o "Prospectos Inmobiliarios" para fácil identificación.
-</Tip>
+<Steps>
+  <Step title="Configurar Protocolo">
+    Define horarios y frecuencia de rellamadas.
+  </Step>
+  <Step title="Nombrar Plantilla">
+    Asigna un nombre descriptivo y descripción.
+  </Step>
+  <Step title="Guardar y Reutilizar">
+    La plantilla estará disponible para futuras campañas.
+  </Step>
+</Steps>
 
-## Funcionalidades de Admin
+## Panel de Consumo Billy
 
-Para usuarios admin:
+Durante importaciones grandes, aparece automáticamente el panel de monitoreo:
 
-### Selección de Compañía
+### Métricas en Tiempo Real
 
-1. Aparece un selector de compañía en la parte superior
-2. Busca una compañía por nombre
-3. Selecciona para importar contactos a esa compañía
-4. "My Account" importa a tu propia cuenta
+- **Consumo por período**: Uso de minutos facturables
+- **Breakdown por asistente**: Detalle de consumo por agente
+- **Proyección de costos**: Estimación de facturación
+- **Filtros temporales**: Vista por períodos personalizables
 
-## Proceso de Importación
+### Controles de Filtrado
 
-Una vez la configuración está completa:
+1. **Período**: Selecciona rango temporal (mes actual, trimestre, personalizado)
+2. **Fecha personalizada**: Define inicio y fin específicos
+3. **Actualización automática**: Datos en tiempo real durante importación
 
-1. Haz clic en **Start Import**
-2. Un círculo de progreso muestra el porcentaje completado
-3. Stats en vivo muestran:
-   - Nuevos contactos creados
-   - Contactos existentes actualizados
-   - Filas omitidas
+<Warning>
+Las importaciones masivas (>5,000 contactos) pueden generar costos significativos. Utiliza el panel de consumo Billy para monitorear el gasto en tiempo real.
+</Warning>
 
-### Duración de la Importación
+## Asignación Avanzada a Segmentos
 
-El tiempo de procesamiento depende de:
-- Número de filas
-- Velocidad de red
-- Carga del servidor
+### Segmentación Inteligente
 
-Importaciones grandes (10,000+ filas) pueden tardar varios minutos.
+- **Auto-segmentación**: Crea segmentos basados en criterios de los datos
+- **Segmentos múltiples**: Asigna contactos a varios segmentos simultáneamente
+- **Etiquetado dinámico**: Genera tags automáticos basados en contenido
 
-## Reporte de Importación
+### Reglas de Segmentación
 
-Después de completar, verás:
+```javascript
+// Ejemplo de regla de auto-segmentación
+{
+  "criteria": {
+    "city": "Madrid",
+    "company": "*Tech*"
+  },
+  "segment": "Madrid Tech Companies",
+  "tags": ["madrid", "technology", "b2b"]
+}
+```
+
+## Funcionalidades Admin Expandidas
+
+Para usuarios administradores:
+
+### Gestión Multi-Empresa
+
+1. **Selector de empresa mejorado**: Búsqueda y filtrado avanzado
+2. **Importación cruzada**: Mueve contactos entre empresas
+3. **Auditoría completa**: Registro de todas las acciones de importación
+4. **Permisos granulares**: Control de acceso por empresa y segmento
+
+### Monitoreo del Sistema
+
+- Dashboard de importaciones activas
+- Alertas de consumo excesivo
+- Reportes de calidad de datos
+- Métricas de rendimiento del sistema
+
+## Proceso de Importación Optimizado
+
+### Importación en Paralelo
+
+El sistema ahora procesa importaciones en múltiples hilos:
+
+1. **Validación paralela**: Verifica datos mientras se cargan más filas
+2. **Procesamiento asíncrono**: No bloquea la interfaz durante importaciones grandes
+3. **Reintentos automáticos**: Reintenta filas con errores temporales
+4. **Checkpoint system**: Guarda progreso para recuperación en caso de interrupción
+
+### Duración Optimizada
+
+| Tamaño | Tiempo Estimado | Método |
+|--------|----------------|--------|
+| < 1,000 contactos | < 30 segundos | Procesamiento inmediato |
+| 1,000 - 5,000 | 1-3 minutos | Procesamiento en lotes |
+| 5,000 - 20,000 | 5-15 minutos | Procesamiento paralelo |
+| > 20,000 | 15-60 minutos | Procesamiento distribuido |
+
+## Reporte de Importación Detallado
+
+### Métricas Completas
 
 | Métrica | Descripción |
 |---------|-------------|
-| ✅ Imported | Nuevos contactos creados |
+| ✅ Imported | Nuevos contactos creados exitosamente |
 | 🔄 Updated | Contactos existentes actualizados |
-| ⏭️ Skipped | Filas no importadas |
-| 📊 In Segment | Total de contactos en el segmento |
+| ⏭️ Skipped | Filas omitidas con razón específica |
+| ❌ Failed | Errores que requieren intervención manual |
+| 🎯 Segmented | Contactos asignados a segmentos |
+| 📱 Validated | Números de teléfono verificados |
+| 🏷️ Tagged | Tags automáticos aplicados |
 
-### Detalles de Errores
+### Análisis de Calidad
 
-Si ocurrieron errores:
+- **Puntuación de calidad general**: 0-100 basada en completitud
+- **Distribución geográfica**: Mapa de ubicaciones de contactos
+- **Análisis de dominio**: Tipos de empresas más comunes
+- **Recomendaciones**: Sugerencias para mejorar futuras importaciones
 
-- Ve la tabla de errores
-- Cada fila muestra: Número de fila, Teléfono, Mensaje de error
-- Errores comunes: Formato de teléfono inválido, datos requeridos faltantes
+### Exportar Reportes
 
-### Acciones Rápidas
+- PDF detallado con gráficos y métricas
+- CSV con filas procesadas y resultados
+- JSON para integración con sistemas externos
+- Excel con múltiples hojas por categoría de resultado
 
-- **View Segment** - Ir al segmento creado
-- **Import More** - Iniciar una nueva importación
-- **View All Contacts** - Navegar tu CRM
-
-## Mejores Prácticas
+## Mejores Prácticas Actualizadas
 
 <CardGroup cols={2}>
-  <Card title="Limpia Datos Primero" icon="broom">
-    Elimina duplicados y formatea números de teléfono antes de importar.
+  <Card title="Preparación de Datos" icon="database">
+    Utiliza las nuevas herramientas de validación previa para garantizar calidad de datos antes de importar.
   </Card>
-  <Card title="Usa Encabezados" icon="heading">
-    Asegúrate de que la primera fila contenga encabezados de columna.
+  <Card title="Configuración de Horarios" icon="clock">
+    Aprovecha la configuración de zona horaria para optimizar tasas de respuesta.
   </Card>
-  <Card title="Formato de Teléfono" icon="phone">
-    Incluye códigos de país (ej. +1 para US, +34 para España).
+  <Card title="Monitoreo de Costos" icon="chart-line">
+    Usa el panel Billy para controlar gastos durante importaciones grandes.
   </Card>
-  <Card title="Prueba Pequeño" icon="flask">
-    Prueba con un lote pequeño primero para verificar el mapeo.
+  <Card title="Segmentación Estratégica" icon="bullseye">
+    Crea segmentos específicos para campañas más efectivas.
+  </Card>
+  <Card title="Plantillas de Rellamada" icon="repeat">
+    Desarrolla y guarda protocolos de seguimiento para diferentes tipos de leads.
+  </Card>
+  <Card title="Auditoría Regular" icon="search">
+    Revisa reportes de calidad para mejorar continuamente tus procesos.
   </Card>
 </CardGroup>
 
-## Solución de Problemas
+## Solución de Problemas Avanzada
 
-| Problema | Solución |
-|----------|----------|
-| "No phone numbers found" | Verifica que la columna de teléfono esté seleccionada correctamente |
-| "Invalid phone format" | Añade códigos de país a los números |
-| "File too large" | Divide en múltiples archivos menores a 10MB |
-| "Google Sheets not connected" | Ve a Integraciones para reconectar |
+| Problema | Causa Común | Solución Mejorada |
+|----------|-------------|-------------------|
+| "Billy consumption exceeded" | Límite de facturación alcanzado | Contactar soporte o ajustar límites en configuración |
+| "Timezone validation failed" | Formato de zona horaria incorrecto | Usar formato estándar (ej: Europe/Madrid, America/Mexico_City) |
+| "Recall protocol conflict" | Horarios de rellamada solapados | El sistema ahora auto-resuelve conflictos con sugerencias |
+| "Segment capacity full" | Segmento ha alcanzado límite máximo | Crear nuevos segmentos o expandir capacidad |
+| "Import queue full" | Demasiadas importaciones simultáneas | Sistema de cola inteligente - se procesará automáticamente |
+| "Data quality score low" | Muchos campos vacíos o inválidos | Usar las sugerencias del analizador de calidad |
+
+## Integrations y APIs
+
+### Webhook de Importación
+
+Configura webhooks para recibir notificaciones:
+
+```json
+{
+  "event": "import.completed",
+  "import_id": "imp_123456",
+  "status": "success",
+  "stats": {
+    "imported": 1250,
+    "updated": 45,
+    "skipped": 12,
+    "failed": 3
+  },
+  "timestamp": "2024-03-15T10:30:00Z"
+}
+```
+
+### API de Estado
+
+Consulta el progreso programáticamente:
+
+```bash
+GET /api/v1/imports/{import_id}/status
+Authorization: Bearer {token}
+```
 
 ## Siguientes Pasos
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card title="Gestionar Contactos" icon="address-book" href="/es/crm/manage-contacts">
-    Ve y edita tus contactos importados.
+    Ve y edita tus contactos importados con herramientas avanzadas.
   </Card>
-  <Card title="Segmentos" icon="layer-group" href="/es/crm/segments">
-    Organiza contactos en grupos dirigidos.
+  <Card title="Segmentos Avanzados" icon="layer-group" href="/es/crm/segments">
+    Organiza contactos con reglas inteligentes de segmentación.
+  </Card>
+  <Card title="Campañas Automatizadas" icon="robot" href="/es/campaigns/automated">
+    Crea campañas con los contactos importados y protocolos configurados.
   </Card>
 </CardGroup>

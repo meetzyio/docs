@@ -1,0 +1,435 @@
+---
+title: "Gestión Empresarial"
+description: "Herramientas completas para la gestión de empresas y usuarios en Meetzy"
+icon: "building-office"
+---
+
+# Gestión Empresarial
+
+La plataforma de Meetzy incluye un conjunto completo de herramientas para administradores que permite gestionar empresas, usuarios y permisos de manera eficiente y escalable.
+
+<Info>
+Esta funcionalidad está disponible únicamente para administradores de sistema y usuarios con permisos especiales.
+</Info>
+
+## Vista General del Sistema
+
+### Estadísticas en Tiempo Real
+
+El panel de control proporciona métricas clave sobre el ecosistema de tu plataforma:
+
+- **Empresas totales**: Número total de organizaciones registradas
+- **Empresas activas**: Organizaciones con usuarios activos
+- **Miembros totales**: Usuarios registrados en todas las empresas
+- **Miembros activos**: Usuarios que han accedido recientemente
+
+### Modos de Visualización
+
+<Tabs>
+  <Tab title="Vista de Tarjetas">
+    Presentación visual con información destacada de cada empresa:
+    - Logo y nombre de la empresa
+    - Número de miembros
+    - Estado de actividad
+    - Acciones rápidas
+  </Tab>
+  <Tab title="Vista Compacta">
+    Tabla detallada para análisis en profundidad:
+    - Datos completos en formato tabular
+    - Ordenación por múltiples campos
+    - Filtros avanzados
+    - Exportación masiva
+  </Tab>
+</Tabs>
+
+## Paleta de Comandos
+
+### Acceso Rápido con Cmd+K
+
+La paleta de comandos proporciona acceso instantáneo a todas las funcionalidades del sistema mediante atajos de teclado.
+
+<Steps>
+  <Step title="Activar la Paleta">
+    Presiona `Cmd+K` (macOS) o `Ctrl+K` (Windows/Linux) desde cualquier pantalla
+  </Step>
+  <Step title="Buscar Elementos">
+    Escribe para buscar empresas, miembros o acciones específicas
+  </Step>
+  <Step title="Navegar Resultados">
+    Usa las flechas `↑↓` para navegar entre opciones
+  </Step>
+  <Step title="Ejecutar Acción">
+    Presiona `Enter` para ejecutar la acción seleccionada
+  </Step>
+</Steps>
+
+### Funciones Disponibles
+
+La paleta de comandos permite buscar y acceder a:
+
+#### Gestión de Empresas
+- **Buscar empresa**: Localización rápida por nombre o dominio
+- **Ver detalles**: Acceso directo a información completa
+- **Editar configuración**: Modificación de datos empresariales
+- **Gestionar miembros**: Navegación directa al equipo
+
+#### Gestión de Miembros
+- **Buscar miembro**: Localización transversal de usuarios
+- **Ver permisos**: Revisión de accesos asignados
+- **Editar usuario**: Modificación de datos y permisos
+- **Impersonar**: Acceso directo como el usuario
+
+#### Acciones del Sistema
+- **Crear nueva empresa**: Formulario de registro rápido
+- **Añadir miembro**: Invitación directa a equipos
+- **Exportar datos**: Generación de reportes
+- **Configurar filtros**: Personalización de vistas
+
+### Resultados de Búsqueda
+
+Los resultados se organizan por categorías con iconos distintivos:
+
+| Tipo | Icono | Descripción |
+|------|-------|-------------|
+| 🏢 | Empresa | Organizaciones registradas |
+| 👤 | Miembro | Usuarios del sistema |
+| ⚙️ | Acción | Operaciones disponibles |
+| 📊 | Reporte | Análisis y exportaciones |
+
+<Info>
+La búsqueda es inteligente y encuentra coincidencias parciales en nombres, emails y descripciones.
+</Info>
+
+## Gestión de Empresas
+
+### Información de Empresas
+
+Cada empresa incluye los siguientes datos principales:
+
+```typescript
+interface Company {
+  id: string;
+  name: string;
+  domain: string;
+  email: string;
+  created_time: string;
+  disabled: boolean;
+  is_partner: boolean;
+  billing_cycle_type: 'natural_month' | 'custom';
+  billing_cycle_day: number;
+  can_use_advanced_editor: boolean;
+  can_access_crm: boolean;
+}
+```
+
+### Edición de Empresas
+
+<Steps>
+  <Step title="Seleccionar Empresa">
+    Haz clic en el icono de edición junto al nombre de la empresa o usa `Cmd+K` para buscar
+  </Step>
+  <Step title="Modificar Información">
+    Actualiza los campos necesarios:
+    - Nombre completo de la empresa
+    - Dominio corporativo
+    - Email de contacto
+    - Configuración de facturación
+  </Step>
+  <Step title="Configurar Permisos">
+    Define los accesos a nivel empresa:
+    - Editor avanzado
+    - Acceso CRM
+    - Estado de partner
+  </Step>
+  <Step title="Guardar Cambios">
+    Confirma las modificaciones para aplicar los cambios
+  </Step>
+</Steps>
+
+## Gestión de Miembros
+
+### Estructura de Permisos
+
+Los miembros de cada empresa pueden tener los siguientes permisos:
+
+<Warning>
+Los permisos se aplican de forma jerárquica. Un usuario con permisos de edición puede realizar todas las acciones de niveles inferiores.
+</Warning>
+
+#### Permisos Básicos
+- **Visualización**: Acceso de solo lectura a asistentes
+- **Grabaciones**: Acceso a recordings de llamadas
+- **Minutos facturables**: Visualización de consumo
+
+#### Permisos Avanzados
+- **Edición**: Crear y modificar asistentes
+- **Editor avanzado**: Acceso a herramientas de desarrollo
+- **CRM**: Integración con sistemas CRM
+
+### Búsqueda Global de Miembros
+
+La paleta de comandos permite localizar usuarios en todo el sistema:
+
+<Steps>
+  <Step title="Activar Búsqueda">
+    Presiona `Cmd+K` y comienza a escribir el nombre o email del usuario
+  </Step>
+  <Step title="Filtrar Resultados">
+    Los resultados muestran el nombre del miembro y la empresa a la que pertenece
+  </Step>
+  <Step title="Acceso Directo">
+    Selecciona el resultado para acceder directamente al perfil del usuario
+  </Step>
+</Steps>
+
+### Añadir Nuevos Miembros
+
+<Steps>
+  <Step title="Expandir Empresa">
+    Haz clic en el nombre de la empresa para ver sus miembros o usa `Cmd+K` para buscar "Añadir miembro"
+  </Step>
+  <Step title="Botón Añadir Miembro">
+    Selecciona "Añadir miembro" en el panel expandido
+  </Step>
+  <Step title="Información del Usuario">
+    Completa los datos del nuevo miembro:
+    ```typescript
+    {
+      name: string;           // Nombre completo
+      email: string;          // Email corporativo
+      job_title: string;      // Cargo en la empresa
+      can_edit: boolean;      // Permisos de edición
+      can_view_recordings: boolean;
+      can_use_advanced_editor: boolean;
+      can_access_crm: boolean;
+      can_view_billable_minutes: boolean;
+      assistants: string[];   // IDs de asistentes asignados
+    }
+    ```
+  </Step>
+  <Step title="Asignar Asistentes">
+    Selecciona qué asistentes específicos puede gestionar el usuario
+  </Step>
+</Steps>
+
+### Edición de Miembros Existentes
+
+Los administradores pueden modificar cualquier aspecto de los usuarios:
+
+1. **Información personal**: Nombre, email, cargo
+2. **Permisos de acceso**: Granularidad por funcionalidad
+3. **Asistentes asignados**: Control específico por IA
+
+## Herramientas de Administración
+
+### Búsqueda y Navegación
+
+El sistema incluye múltiples opciones de búsqueda integradas con la paleta de comandos:
+
+#### Búsqueda Contextual
+- **Búsqueda por empresa**: Filtro por nombre o dominio
+- **Búsqueda global de miembros**: Localización transversal
+- **Búsqueda de acciones**: Operaciones disponibles por contexto
+
+#### Navegación con Teclado
+```
+Cmd/Ctrl + K  → Abrir paleta de comandos
+↑ ↓          → Navegar resultados
+Enter        → Ejecutar acción seleccionada
+Escape       → Cerrar paleta
+```
+
+### Filtros y Ordenación
+
+<Info>
+Las preferencias de filtro se guardan automáticamente para cada sesión y son accesibles desde la paleta de comandos.
+</Info>
+
+#### Filtros Disponibles
+- **Estado**: Activos, deshabilitados, todos
+- **Tipo**: Empresas regulares, partners
+- **Permisos**: Por tipo de acceso específico
+
+#### Opciones de Ordenación
+- **Fecha de creación**: Más recientes primero
+- **Nombre**: Orden alfabético
+- **Actividad**: Por último acceso
+- **Miembros**: Por número de usuarios
+
+### Acciones Masivas
+
+Para operaciones en múltiples elementos simultáneamente:
+
+```typescript
+// Selección múltiple
+selectedCompanies: Set<string>;
+selectedMembers: Set<string>;
+
+// Acciones disponibles via paleta de comandos
+- Habilitar/deshabilitar empresas
+- Exportar datos seleccionados
+- Modificar permisos en lote
+- Enviar comunicaciones masivas
+```
+
+## Características Avanzadas
+
+### Sistema de Auditoría
+
+<Warning>
+Todas las acciones administrativas quedan registradas para auditoría y compliance, incluyendo el uso de la paleta de comandos.
+</Warning>
+
+El sistema mantiene un historial completo de:
+- Cambios en información de empresas
+- Modificaciones de permisos de usuarios
+- Creación y eliminación de cuentas
+- Accesos administrativos
+- **Uso de paleta de comandos**: Búsquedas y acciones ejecutadas
+
+### Impersonación de Usuarios
+
+Los administradores pueden acceder como cualquier usuario, incluso desde la paleta de comandos:
+
+<Steps>
+  <Step title="Buscar Usuario">
+    Usa `Cmd+K` y escribe "impersonar" seguido del nombre del usuario
+  </Step>
+  <Step title="Seleccionar de Resultados">
+    Elige el usuario específico de los resultados de búsqueda
+  </Step>
+  <Step title="Confirmar Acción">
+    El sistema solicitará confirmación de la impersonación
+  </Step>
+  <Step title="Sesión Impersonada">
+    Accederás con los permisos exactos del usuario seleccionado
+  </Step>
+  <Step title="Finalizar Sesión">
+    Usa el banner superior o la paleta de comandos para volver a tu cuenta administrativa
+  </Step>
+</Steps>
+
+### Gestión de Duplicados
+
+El sistema detecta automáticamente empresas potencialmente duplicadas y las hace disponibles en la paleta de comandos:
+
+- Busca "duplicados" para ver empresas similares
+- Dominios similares aparecen agrupados
+- Nombres de empresa coincidentes se destacan
+- Emails corporativos relacionados se vinculan
+
+### Centro de Notificaciones
+
+Panel centralizado accessible via `Cmd+K` → "notificaciones":
+
+- Notificaciones del sistema
+- Alertas de seguridad
+- Confirmaciones de acciones
+- Historial de actividades
+
+## Atajos de Teclado
+
+Para mayor eficiencia en la gestión:
+
+| Atajo | Acción |
+|-------|--------|
+| `Cmd+K` | Abrir paleta de comandos |
+| `Cmd+Shift+E` | Alternar modo de vista |
+| `Cmd+Z` | Deshacer última acción |
+| `Cmd+Shift+F` | Búsqueda global avanzada |
+| `Escape` | Cerrar modales activos |
+
+<Info>
+Los atajos están optimizados para macOS (`Cmd`) y Windows/Linux (`Ctrl`). La paleta de comandos se adapta automáticamente al sistema operativo.
+</Info>
+
+## Exportación de Datos
+
+### Formatos Disponibles
+
+Accessible desde la paleta de comandos escribiendo "exportar":
+
+- **CSV**: Para análisis en hojas de cálculo
+- **JSON**: Para integraciones técnicas  
+- **PDF**: Para reportes ejecutivos
+
+### Datos Exportables
+
+```typescript
+// Información de empresas
+{
+  company_name: string;
+  domain: string;
+  email: string;
+  created_date: string;
+  status: 'active' | 'disabled';
+  member_count: number;
+  last_activity: string;
+}
+
+// Información de miembros
+{
+  member_name: string;
+  company: string;
+  email: string;
+  role: string;
+  permissions: string[];
+  last_login: string;
+  assistants_assigned: number;
+}
+```
+
+## Mejores Prácticas
+
+### Uso de la Paleta de Comandos
+
+1. **Aprende los patrones**: Memoriza búsquedas frecuentes como "empresa X" o "miembro Y"
+2. **Usa palabras clave**: "editar", "ver", "crear", "exportar" activan acciones contextuales
+3. **Aprovecha la búsqueda parcial**: No necesitas escribir nombres completos
+
+### Gestión de Permisos
+
+1. **Principio de menor privilegio**: Asigna únicamente los permisos necesarios
+2. **Revisión periódica**: Audita permisos trimestralmente usando filtros de la paleta
+3. **Segregación de funciones**: Separa roles administrativos de operativos
+
+### Organización de Empresas
+
+1. **Nomenclatura consistente**: Mantén estándares de nombres para facilitar búsquedas
+2. **Agrupación lógica**: Organiza por sector o tamaño
+3. **Documentación**: Mantén notas sobre configuraciones especiales
+4. **Usa la paleta para navegación**: Accede rápidamente a empresas frecuentes
+
+### Monitorización
+
+1. **Métricas de uso**: Revisa regularmente las estadísticas via paleta de comandos
+2. **Patrones de acceso**: Identifica comportamientos anómalos
+3. **Rendimiento**: Monitoriza tiempos de respuesta del sistema
+4. **Búsquedas frecuentes**: Usa la paleta para crear accesos directos mentales
+
+<Warning>
+Recuerda que las acciones administrativas tienen impacto directo en la experiencia de los usuarios finales. La paleta de comandos facilita la navegación pero mantén la validación de cambios en entornos de prueba cuando sea posible.
+</Warning>
+
+## Notificaciones Toast y Confirmaciones
+
+### Sistema de Deshacer
+
+El sistema incluye notificaciones toast para acciones reversibles:
+
+- **Eliminaciones**: Opción de deshacer en los primeros 10 segundos
+- **Modificaciones masivas**: Restauración de estados anteriores
+- **Cambios de permisos**: Reversión temporal para correcciones
+
+### Modales de Confirmación
+
+Para acciones críticas, el sistema solicita confirmación:
+
+- **Eliminación de empresas**: Modal con advertencia destructiva
+- **Cambios de permisos críticos**: Confirmación de impacto
+- **Impersonación de usuarios**: Verificación de intención
+- **Exportación de datos sensibles**: Confirmación de compliance
+
+<Info>
+Las confirmaciones también están disponibles desde la paleta de comandos, mostrando el contexto de la acción antes de ejecutarla.
+</Info>

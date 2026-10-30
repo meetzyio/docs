@@ -1,139 +1,936 @@
 ---
 title: 'Basic Settings'
-description: 'Configure agent name, language, voice, and AI model'
+description: 'Configure agent name, language, voice, AI model, and foundational components with advanced features'
 icon: 'gear'
 ---
 
 ## Overview
 
-Basic Settings is the first section in the Advanced Editor where you configure the fundamental properties of your AI agent. These settings define how your agent sounds, which language it speaks, and which AI model powers its intelligence.
+Basic Settings is the foundation of your AI agent configuration in Meetzy's Advanced Editor. This section establishes the core identity and capabilities of your agent, including specialized skills, professional voice selection, advanced AI model options, and powerful foundational components that ensure professional-grade performance from the first call.
 
-## Configuration Options
+## Agent Identification
 
 ### Agent Name
 
-Give your agent a descriptive name that helps you identify it in your dashboard.
-
-<Tip>
-Use clear naming conventions like "Customer Support - English" or "Sales Outbound - Spanish" to easily manage multiple agents.
-</Tip>
-
-### Language
-
-Select the primary language your agent will speak and understand. The language setting affects:
-
-- Voice synthesis pronunciation
-- Speech recognition accuracy
-- Greeting templates availability
-
-**Supported Languages:**
-- 🇺🇸 English
-- 🇪🇸 Spanish
-- 🇫🇷 French
-- 🇩🇪 German
-- 🇮🇹 Italian
-- 🇵🇹 Portuguese
-- And more...
-
-### Voice Selection
-
-Choose the voice that represents your agent. You can:
-
-1. **Select from Voice Library** - Browse pre-configured voices
-2. **Preview voices** - Listen to samples before selecting
-3. **Use custom voices** - Select voices you've created in Voice Designer
+Define your agent's internal name for team identification and management:
 
 <Info>
-Voice characteristics like speed, naturalness, and consistency can be fine-tuned in the Voice Library before assigning to your agent.
+**Naming Best Practices**: Use descriptive names like "Customer Support - English" or "Real Estate Sales - Spanish" to easily distinguish agents in your dashboard.
 </Info>
 
-### AI Model (LLM)
+### Company Selection (Admin Only)
 
-Select the Large Language Model that powers your agent's intelligence. Different models offer varying trade-offs between speed, cost, and capability.
+Administrators can assign agents to specific organizations within the system:
 
-#### Available Models
+<Warning>
+Company assignment determines available resources, phone numbers, and access permissions for the agent.
+</Warning>
+
+## Twilio Account Management (Admin Only)
 
 <Tabs>
-  <Tab title="Anthropic">
-    | Model | Best For |
-    |-------|----------|
-    | Claude Haiku 4.5 | Fast responses, cost-effective |
+  <Tab title="Account Selection">
+    Choose the appropriate Twilio account for new agent creation:
+
+    <Steps>
+      <Step title="Select Twilio Account">
+        Choose from available Twilio accounts in the dropdown menu
+      </Step>
+      <Step title="Automatic Resource Loading">
+        Phone numbers and resources automatically populate for the selected account
+      </Step>
+      <Step title="Configuration Integration">
+        Agent inherits the selected account's settings and capabilities
+      </Step>
+    </Steps>
+
+    <Info>
+    Multiple Twilio accounts enable organization-specific configurations and billing separation.
+    </Info>
   </Tab>
-  <Tab title="OpenAI">
-    | Model | Best For |
-    |-------|----------|
-    | GPT-4o | High intelligence, balanced speed |
-    | GPT-4.1 | Latest capabilities |
-    | GPT-4.1 Mini | Faster, cost-effective |
-    | GPT-4.1 Nano | Fastest OpenAI option |
-  </Tab>
-  <Tab title="Google">
-    | Model | Best For |
-    |-------|----------|
-    | Gemini 3 Flash Preview | Latest Google model |
-    | Gemini 2.5 Flash | High performance |
-    | Gemini 2.5 Flash Lite | Balanced option |
-    | Gemini 2.0 Flash | Fast responses |
-    | Gemini 2.0 Flash Lite | Cost-effective |
-    | Gemini 1.5 Pro | Complex reasoning |
-    | Gemini 1.5 Flash | Quick processing |
+  <Tab title="Account Switching">
+    <Warning>
+    **Resource Impact**: Changing Twilio accounts reloads available phone numbers and may affect existing call routing configurations.
+    </Warning>
+
+    **Account Change Effects:**
+    - Phone number availability updates
+    - Caller ID verification requirements may change
+    - Regional settings and capabilities may vary
   </Tab>
 </Tabs>
 
-#### Model Selection Guide
+## Advanced Phone Configuration
 
-<AccordionGroup>
-  <Accordion title="Prioritize Speed" icon="bolt">
-    Choose lightweight models like **GPT-4.1 Nano**, **Gemini 2.0 Flash Lite**, or **Claude Haiku 4.5** for faster response times.
-  </Accordion>
-  <Accordion title="Prioritize Intelligence" icon="brain">
-    For complex conversations requiring nuanced understanding, use **GPT-4.1**, **Gemini 1.5 Pro**, or **Gemini 2.5 Flash**.
-  </Accordion>
-  <Accordion title="Balance Cost & Quality" icon="scale-balanced">
-    Models like **GPT-4.1 Mini** and **Gemini 2.5 Flash Lite** offer a good balance between capability and cost.
-  </Accordion>
-</AccordionGroup>
+### Phone Number Assignment
 
-## Best Practices
+<Tabs>
+  <Tab title="New Agents">
+    Configure phone numbers for new agents with comprehensive management:
+
+    <Steps>
+      <Step title="Select Twilio Account">
+        Choose the appropriate Twilio account (admin users only)
+      </Step>
+      <Step title="Choose Available Number">
+        Select from dynamically loaded available phone numbers
+      </Step>
+      <Step title="Request Additional Numbers">
+        Use the direct Twilio link to purchase more numbers if needed
+      </Step>
+      <Step title="Verify Assignment">
+        Confirm the number appears correctly in the configuration
+      </Step>
+    </Steps>
+
+    <Info>
+    **Real-time Availability**: Phone numbers are filtered by selected Twilio account and show only unassigned numbers.
+    </Info>
+  </Tab>
+  <Tab title="Existing Agents">
+    Phone numbers for existing agents are permanent and displayed for reference:
+
+    <Warning>
+    **Permanent Assignment**: Phone numbers cannot be changed after agent creation. Plan your number allocation carefully.
+    </Warning>
+
+    **Read-only Display:**
+    - Shows assigned phone number in friendly format
+    - Displays associated Twilio account information
+    - Provides reference for configuration management
+  </Tab>
+</Tabs>
+
+### Enhanced Caller ID Management
+
+Configure and manage client phone numbers for outbound calling with advanced verification and status tracking:
+
+<Tabs>
+  <Tab title="Adding Caller IDs">
+    <Steps>
+      <Step title="Initiate Addition">
+        Click "Add Caller ID" to open the configuration dialog
+      </Step>
+      <Step title="Enter Phone Information">
+        Provide a descriptive name and the phone number for verification
+      </Step>
+      <Step title="Automatic Verification Call">
+        Twilio initiates a verification call within 30 seconds
+      </Step>
+      <Step title="Code Entry">
+        Enter the verification code provided during the automated call
+      </Step>
+      <Step title="Status Confirmation">
+        Verify the caller ID status shows as "Verified" and ready for use
+      </Step>
+    </Steps>
+
+    <Info>
+    **Automatic Process**: Twilio automatically calls the provided number with a verification code - no manual intervention required.
+    </Info>
+  </Tab>
+  <Tab title="Advanced Management">
+    **Comprehensive Status Tracking:**
+    - **✅ Verified**: Ready for outbound calls
+    - **⏳ Pending**: Awaiting verification completion
+    - **❌ Failed**: Verification failed, requires retry
+    - **🔄 Processing**: Verification in progress
+
+    **Management Actions:**
+    - **Check Status**: Real-time validation with Twilio
+    - **Update Status**: Refresh verification state
+    - **Retry Verification**: Restart failed verification process
+    - **Delete**: Remove caller ID from agent configuration
+  </Tab>
+  <Tab title="Verification Troubleshooting">
+    <Warning>
+    **Code Timing**: Verification codes are time-limited. Complete the process promptly after receiving the automated call.
+    </Warning>
+
+    **Common Solutions:**
+    - Ensure the phone number can receive automated calls
+    - Check for carrier restrictions on robotic calls
+    - Verify number format is correct (+1XXXXXXXXXX for US)
+    - Use "Retry Verification" for failed attempts
+    - Allow up to 2 minutes for verification call delivery
+  </Tab>
+</Tabs>
+
+## Outbound Numbers
+
+The **Outbound Numbers** panel is where you manage the actual phone numbers your agent uses to place calls. Unlike other Basic Settings fields, this panel applies changes immediately rather than waiting for a save action, because it determines which number a live call will actually dial out from.
+
+<Info>
+**Not a Versioned Field**: Outbound number changes take effect right away. There's no draft state and no need to publish — adding or removing a number updates the agent's active calling behavior instantly.
+</Info>
+
+<Tabs>
+  <Tab title="Numbers in Use">
+    The top of the panel shows a single status banner summarizing how the agent currently calls out, followed by the list of numbers actively in rotation.
+
+    **Status Banner Meanings:**
+    - **✅ Calls only from 400 numbers**: The agent has at least one 400 number assigned and will only dial from 400 numbers
+    - **❌ Can't make calls yet**: The account is restricted to 400-only mode but no 400 number has been added
+    - **ℹ️ Calls from the numbers below**: The agent uses its assigned caller IDs/lines; adding a 400 number will switch it to 400-only mode
+    - **⚠️ Account not set up**: The agent's phone account configuration is incomplete — contact the Meetzy team
+
+    **Each Number Entry Shows:**
+    - The phone number in E.164 format
+    - A type badge (400, mobile, toll-free, geographic, etc.)
+    - A "Line" badge for purchased numbers versus verified caller IDs
+    - A "Temporary use" badge when the number comes from Meetzy's shared 400 pool and may rotate
+    - Whether the number is also shared with other agents on the account
+
+    <Info>
+    **Line Numbers Are Managed Elsewhere**: Purchased phone numbers (lines) can't be removed from this panel — manage them from the agent's phone number configuration instead. Only caller IDs can be removed here.
+    </Info>
+  </Tab>
+  <Tab title="Adding Caller IDs">
+    Use the **Add numbers** button to open the picker and attach additional verified caller IDs to the agent.
+
+    <Steps>
+      <Step title="Open the Picker">
+        Click "Add numbers" to reveal the list of caller IDs available to add
+      </Step>
+      <Step title="Select Numbers">
+        Check one or more available numbers, or use "Select all available 400 numbers" to quickly add every eligible 400 number at once
+      </Step>
+      <Step title="Review Unavailable Numbers">
+        Numbers that can't be added are listed with a reason (already in use, unverified, incompatible account, etc.)
+      </Step>
+      <Step title="Confirm">
+        Apply your selection — the agent's number list and status banner update immediately
+      </Step>
+    </Steps>
+
+    <Warning>
+    **Scoped to Your Account**: Only caller IDs that belong to the agent's own account are shown. There is no free-text field and no way to request numbers from another account.
+    </Warning>
+  </Tab>
+  <Tab title="Removing Old Numbers">
+    Each caller ID in the active list includes a **Remove** button, letting you detach it from the agent individually.
+
+    - Removal happens immediately and updates the status banner right away
+    - Removing a caller ID that is shared with other agents only affects this agent
+    - If an operation partially fails (for example, one number can't be changed), a notice lists exactly which numbers failed and why
+
+    <Info>
+    **Partial Failures Are Explicit**: If you add or remove several numbers at once and one fails, the panel clearly reports which specific number failed and the reason, instead of silently skipping it.
+    </Info>
+  </Tab>
+  <Tab title="Copy to Other Agents">
+    Quickly replicate this agent's caller ID configuration across other agents on the same account using **Copy to other agents**.
+
+    <Steps>
+      <Step title="Open the Copy Panel">
+        Click "Copy to other agents" (only enabled when the current agent has at least one caller ID in rotation)
+      </Step>
+      <Step title="Select Target Agents">
+        Choose one or more agents from the account, or select all at once
+      </Step>
+      <Step title="Run the Copy">
+        Confirm to apply the source agent's caller IDs to each selected target
+      </Step>
+      <Step title="Review Results">
+        Each target agent shows a per-agent result: copied, unchanged, not allowed, or error
+      </Step>
+    </Steps>
+
+    <Info>
+    **Non-Destructive**: Copying only adds the source agent's caller IDs to the targets — it doesn't remove any numbers the target agents already have.
+    </Info>
+  </Tab>
+  <Tab title="Automatic Call Mode Detection">
+    Meetzy automatically determines how an agent places calls based on which numbers are assigned — there's no manual mode switch to configure.
+
+    **How Mode Detection Works:**
+    - If the agent has **any 400 number** in its active rotation, it automatically switches to **400-only mode** and will only dial from 400 numbers going forward
+    - If the agent has **no 400 numbers**, it continues calling from its regular assigned caller IDs and lines as usual
+    - When an agent transitions into 400-only mode, a notice confirms the change so you're aware of the new calling behavior
+
+    <Warning>
+    **Customer Service Agents Are Locked**: If Meetzy configured this agent specifically for customer service calls, its calling purpose is locked and it cannot use 400 numbers. Contact the Meetzy team if this needs to change.
+    </Warning>
+  </Tab>
+</Tabs>
+
+### Account-Wide 400-Only Mode (Meetzy Team Only)
+
+<Info>
+**Visibility**: This toggle is only visible to the Meetzy team, not to regular account users. When viewing an agent on behalf of a customer account, the panel displays a notice indicating you're viewing as the Meetzy team.
+</Info>
+
+The Meetzy team can enable a **"400-only"** switch at the account level, forcing every agent on that account to place calls exclusively from 400 numbers, regardless of which individual caller IDs are assigned to each agent.
+
+**Behavior When Enabled:**
+- All agents on the account inherit the 400-only restriction automatically
+- Agents without a 400 number assigned will be unable to place calls until one is added
+- The status banner on each agent reflects this account-level policy rather than a per-agent decision
 
 <Warning>
-Changing the AI model may affect your agent's behavior. Always test in the Playground after switching models.
+**Account-Level Impact**: This is an account-wide policy change, not a per-agent setting. Enabling it affects every agent under that account simultaneously.
 </Warning>
 
-1. **Test Multiple Models** - Different models may perform better for specific use cases
-2. **Consider Latency** - Faster models provide better user experience in phone calls
-3. **Monitor Costs** - More capable models typically cost more per call
-4. **Match Language** - Ensure voice and language settings are compatible
+## Agent Skills and Professional Expertise
 
-## Voice Settings Parameters
+Transform your agent with specialized industry skills and expertise templates that enhance conversation quality and task completion:
 
-When you select a voice, these parameters can be adjusted:
+<Tabs>
+  <Tab title="Skills Library">
+    **Professional Specializations:**
+    - **Customer Service Excellence**: Advanced support and resolution techniques
+    - **Sales & Lead Qualification**: Persuasion and conversion strategies
+    - **Healthcare Coordination**: Medical appointment scheduling and patient communication
+    - **Real Estate Assistance**: Property information and showing coordination
+    - **Financial Services Support**: Account management and financial guidance
+    - **Legal Intake Specialization**: Case evaluation and consultation scheduling
+    - **Technical Support Expert**: Troubleshooting and technical guidance
 
-| Parameter | Range | Description |
-|-----------|-------|-------------|
-| Speed | 0.70x - 1.20x | Controls how fast the agent speaks |
-| Naturalness | 0.0 - 1.0 | Lower = more natural sounding |
-| Consistency | 0.0 - 1.0 | Higher values may cause artifacts |
+    **Enhanced Communication Skills:**
+    - **Multi-language Proficiency**: Advanced cross-cultural communication
+    - **Conflict Resolution**: De-escalation and problem-solving techniques
+    - **Appointment Management**: Scheduling optimization and coordination
+    - **Data Collection & Validation**: Information gathering and verification
+  </Tab>
+  <Tab title="Skill Selection Process">
+    <Steps>
+      <Step title="Browse Specialized Templates">
+        Explore industry-specific skill templates with audio previews
+      </Step>
+      <Step title="Listen to Demonstrations">
+        Play audio samples to understand each skill's communication style
+      </Step>
+      <Step title="Select Relevant Skills">
+        Choose 3-5 skills that align with your agent's primary objectives
+      </Step>
+      <Step title="Automatic Integration">
+        Skills integrate seamlessly with foundational components and conversation patterns
+      </Step>
+    </Steps>
 
-<Tip>
-Start with default values and adjust based on testing. A speed of 1.0x and naturalness of 0.3 works well for most use cases.
-</Tip>
+    <Info>
+    **Audio Previews**: Each skill template includes professional audio demonstrations showing real conversation examples.
+    </Info>
+  </Tab>
+  <Tab title="Skill Optimization">
+    <Info>
+    **Focused Selection**: Choose skills that directly support your agent's core use case for maximum effectiveness.
+    </Info>
 
-## Next Steps
+    <Info>
+    **Synergistic Combinations**: Select complementary skills that work together to create a comprehensive agent expertise profile.
+    </Info>
 
-<CardGroup cols={2}>
-  <Card
-    title="Greetings"
-    icon="hand-wave"
-    href="/advanced-editor/greetings"
-  >
-    Set up welcome messages
-  </Card>
-  <Card
-    title="System Prompt"
-    icon="file-lines"
-    href="/getting-started/create-agent#system-prompt"
-  >
-    Define agent personality
-  </Card>
-</CardGroup>
+    <Warning>
+    **Avoid Skill Overload**: Too many diverse skills can dilute performance. Focus on your primary business objectives.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Voice Agents and Personality Selection
+
+Choose from specialized voice agents with unique personalities and professional backgrounds designed for specific business scenarios:
+
+<Tabs>
+  <Tab title="Voice Agent Library">
+    **Available Specializations:**
+    - **Customer Service Representatives**: Professional, helpful, and solution-oriented
+    - **Sales Professionals**: Persuasive, confident, and relationship-building focused
+    - **Technical Support Specialists**: Patient, knowledgeable, and detail-oriented
+    - **Healthcare Coordinators**: Empathetic, professional, and scheduling-focused
+    - **Appointment Schedulers**: Efficient, organized, and calendar-management expert
+    - **General Purpose Assistants**: Versatile, adaptable, and multi-skilled
+
+    **Personality Characteristics:**
+    - Unique speaking patterns and conversation styles
+    - Industry-appropriate vocabulary and terminology
+    - Professional demeanor and communication approaches
+    - Specialized knowledge and expertise areas
+  </Tab>
+  <Tab title="Agent Selection Process">
+    <Steps>
+      <Step title="Browse Agent Profiles">
+        Explore voice agents filtered by specialty and characteristics
+      </Step>
+      <Step title="Audio Preview">
+        Listen to conversation samples to understand each agent's personality
+      </Step>
+      <Step title="Filter by Specialty">
+        Use specialty filters to find agents matching your use case
+      </Step>
+      <Step title="Select and Configure">
+        Choose an agent that aligns with your brand voice and objectives
+      </Step>
+    </Steps>
+
+    <Info>
+    **Interactive Previews**: All voice agents include high-quality audio samples demonstrating their unique conversation styles and personalities.
+    </Info>
+  </Tab>
+  <Tab title="Agent Customization">
+    **Voice Agent Benefits:**
+    - Pre-configured personality traits and speaking patterns
+    - Industry-optimized conversation flows and responses
+    - Professional backgrounds and expertise integration
+    - Consistent character maintenance across conversations
+
+    <Info>
+    **Seamless Integration**: Voice agents automatically configure appropriate voice settings, speech patterns, and conversational behaviors.
+    </Info>
+  </Tab>
+</Tabs>
+
+## Language and Voice Configuration
+
+### Advanced Language Selection
+
+Configure your agent's primary communication language with comprehensive regional support:
+
+**Supported Languages:**
+- 🇺🇸 **English** - Global business standard
+- 🇪🇸 **Spanish** - Iberian and Latin American variants
+- 🇫🇷 **French** - Metropolitan and Canadian French
+- 🇩🇪 **German** - Standard and Austrian variants
+- 🇮🇹 **Italian** - Standard Italian
+- 🇵🇹 **Portuguese** - European Portuguese
+- 🇧🇷 **Portuguese (Brazil)** - Brazilian variant
+- 🇨🇳 **Chinese** - Mandarin (Simplified)
+- 🇮🇳 **Hindi** - Standard Hindi
+- 🇯🇵 **Japanese** - Standard Japanese
+- 🇰🇷 **Korean** - Standard Korean
+- 🇦🇷 **Arabic** - Modern Standard Arabic
+- And **20+ additional languages** including Ukrainian, Vietnamese, Indonesian, and more
+
+**Language Impact Areas:**
+- Voice synthesis pronunciation and accent accuracy
+- Speech recognition precision and processing
+- Greeting template availability and suggestions
+- AI model language comprehension and response quality
+- Cultural communication patterns and etiquette
+
+### Professional Voice Selection
+
+<Tabs>
+  <Tab title="Voice Library">
+    **Comprehensive Voice Collection:**
+    - **All Voices**: Complete professional voice library
+    - **Male Voices**: Authoritative and confident options
+    - **Female Voices**: Professional and approachable selections
+    - **Search Function**: Find specific voices by name or characteristics
+
+    **Voice Preview Features:**
+    - High-quality audio samples for every voice
+    - Context-appropriate conversation examples
+    - Professional phone conversation demonstrations
+    - Quality and clarity assessment tools
+  </Tab>
+  <Tab title="Voice Filtering">
+    **Advanced Filter Options:**
+    | Filter | Purpose | Recommended Use |
+    |--------|---------|-----------------|
+    | **All Voices** | Browse complete library | Initial exploration |
+    | **Male** | Male voice characteristics | Specific brand requirements |
+    | **Female** | Female voice characteristics | Audience preferences |
+    | **Search** | Find specific voices | Targeted voice selection |
+
+    <Info>
+    **Quality Assurance**: All voices are professionally tested for phone conversation clarity and business communication appropriateness.
+    </Info>
+  </Tab>
+  <Tab title="Voice Optimization">
+    **Fine-tuning Parameters:**
+
+    | Parameter | Range | Optimal Setting | Purpose |
+    |-----------|-------|-----------------|---------|
+    | **Speed** | 0.70x - 1.20x | **1.06x** | Natural conversation pace |
+    | **Stability** | 0.0 - 1.0 | **0.15** | Voice consistency across utterances |
+    | **Similarity Boost** | 0.0 - 1.0 | **0.65** | Balance naturalness and clarity |
+
+    <Info>
+    **Production-Optimized Defaults**: Default settings (Speed: 1.06x, Stability: 0.15, Similarity Boost: 0.65) are optimized based on thousands of successful phone interactions.
+    </Info>
+
+    <Warning>
+    **Parameter Adjustment**: Modifying voice settings requires thorough testing to ensure optimal conversation quality and user experience.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Advanced AI Model Selection
+
+Choose from leading AI models across multiple providers to power your agent's intelligence and conversation capabilities:
+
+<Tabs>
+  <Tab title="Google Gemini (Recommended)">
+    | Model | Performance | Best For | Status |
+    |-------|-------------|----------|--------|
+    | **Gemini 3.1 Flash Lite Preview** | Optimized | Balanced performance and reliability | **🌟 Default** |
+    | **Gemini 2.5 Flash** | Advanced | Complex reasoning and problem-solving | Premium |
+    | **Gemini 2.5 Flash Lite** | Efficient | Cost-effective with strong capabilities | Balanced |
+    | **Gemini 2.0 Flash** | Fast | Quick responses for simple interactions | Speed-focused |
+    | **Gemini 1.5 Pro** | Premium | Advanced business logic and reasoning | High-end |
+
+    **Gemini Advantages:**
+    - **Optimized Default**: Gemini 3.1 Flash Lite Preview provides excellent out-of-the-box performance
+    - **Advanced Context**: Superior conversation memory and context understanding
+    - **Cost Efficiency**: Multiple options balancing capability and operational costs
+    - **Reliability**: Proven performance across diverse business scenarios
+  </Tab>
+  <Tab title="OpenAI GPT">
+    | Model | Performance | Characteristics | Best For |
+    |-------|-------------|------------------|----------|
+    | **GPT-4o** | High | Balanced intelligence and speed | General business use |
+    | **GPT-4.1** | Premium | Latest capabilities and reasoning | Complex problem-solving |
+    | **GPT-4.1 Mini** | Balanced | Optimized efficiency | Cost-effective operations |
+    | **GPT-4.1 Nano** | Ultra-fast | Minimal latency responses | Speed-critical applications |
+
+    **GPT Selection Guide:**
+    - **GPT-4.1**: Choose for complex scenarios requiring advanced reasoning
+    - **GPT-4o**: Reliable choice for most business conversational needs
+    - **GPT-4.1 Mini**: Optimal balance of capability, cost, and performance
+    - **GPT-4.1 Nano**: Select when response speed is the primary priority
+  </Tab>
+  <Tab title="Anthropic Claude">
+    **Claude Haiku 4.5**
+    - **Performance**: Ultra-fast response times with minimal latency
+    - **Best For**: Cost-effective interactions and straightforward conversations
+    - **Use Cases**: Basic customer service, simple FAQ responses, high-volume operations
+    - **Advantages**: Lowest operational costs, excellent speed, reliable performance
+
+    <Info>
+    **Cost Leadership**: Claude Haiku 4.5 provides excellent conversational capability at the most economical pricing tier.
+    </Info>
+  </Tab>
+  <Tab title="Model Selection Strategy">
+    <Info>
+    **Speed Priority**: For phone conversations where response time is critical:
+    - GPT-4.1 Nano (ultra-fast responses)
+    - Gemini 2.0 Flash (rapid processing)
+    - Claude Haiku 4.5 (minimal latency)
+    </Info>
+
+    <Info>
+    **Intelligence Priority**: For complex conversations requiring advanced reasoning:
+    - GPT-4.1 (latest capabilities)
+    - Gemini 1.5 Pro (premium reasoning)
+    - Gemini 2.5 Flash (advanced logic)
+    </Info>
+
+    <Info>
+    **Balanced Performance**: For optimal capability-to-cost-to-speed ratio:
+    - **Gemini 3.1 Flash Lite Preview** (recommended default)
+    - GPT-4.1 Mini (efficient premium)
+    - Gemini 2.5 Flash Lite (balanced performance)
+    </Info>
+
+    <Warning>
+    **Model Impact**: Changing AI models significantly affects conversation patterns, response quality, and operational costs. Test thoroughly before deployment.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Intelligence Configuration
+
+The Intelligence section groups together the controls that directly affect how your agent "thinks" and speaks during a call, plus the switches that turn Meetzy's predefined prompt blocks on or off. These controls live alongside your AI model selection and are among the most impactful settings in the Advanced Editor.
+
+<Tabs>
+  <Tab title="Model Temperature">
+    **What Temperature Controls:**
+
+    The Temperature slider adjusts the randomness and creativity of the selected AI model's responses. It ranges from **0.0** (fully deterministic) to **1.0** (highly creative and varied).
+
+    | Value Range | Behavior | Best For |
+    |--------------|----------|----------|
+    | **0.0 - 0.3** | Highly consistent, predictable phrasing | Compliance-heavy scripts, strict scripted flows, financial or legal intake |
+    | **0.4 - 0.6** | Balanced consistency with natural variation | **Most business use cases (recommended default)** |
+    | **0.7 - 1.0** | Creative, varied, more human-like improvisation | Casual conversations, brainstorming, entertainment-oriented agents |
+
+    <Info>
+    **Recommended Default**: A mid-range temperature (around **0.5**) offers the best balance between natural conversation flow and predictable, on-brand responses for most phone agents.
+    </Info>
+
+    <Warning>
+    **High Temperature Risk**: Setting temperature too high can cause the agent to drift off-script, invent information, or respond inconsistently across calls. Always test thoroughly after adjusting.
+    </Warning>
+  </Tab>
+  <Tab title="Call Recording Toggle">
+    **Recording Switch:**
+
+    A simple on/off toggle controls whether calls handled by this agent are recorded and stored for later review.
+
+    <Steps>
+      <Step title="Locate the Toggle">
+        Find the "Record Calls" switch in the Intelligence section
+      </Step>
+      <Step title="Enable or Disable">
+        Turn it on to store audio recordings of every call, or off to skip recording entirely
+      </Step>
+      <Step title="Confirm Compliance">
+        Ensure recording aligns with your local regulations and disclosure requirements before enabling
+      </Step>
+    </Steps>
+
+    <Info>
+    **Default State**: Call recording is **enabled by default**, allowing quality assurance, training, and compliance review from day one.
+    </Info>
+
+    <Warning>
+    **Regulatory Responsibility**: Some jurisdictions require explicit caller consent before recording. Verify your legal obligations before keeping this toggle enabled.
+    </Warning>
+  </Tab>
+  <Tab title="Foundation Components Switches">
+    **Three Independent Toggles:**
+
+    Meetzy Foundation Components are delivered as three separate switches, each controlling a predefined block of prompt instructions that gets automatically injected into your agent's behavior:
+
+    | Toggle | Prompt Block Injected | Default |
+    |--------|-----------------------|---------|
+    | **Safety Guardrails** | Content filtering, professional tone enforcement, prompt-injection protection, edge-case handling | **On** |
+    | **Conversational Aspects** | Natural pacing, active listening cues, empathetic phrasing, professional phone etiquette | **On** |
+    | **Agent Skills** | Industry-aware professional background, business process knowledge, situational response patterns | **On** |
+
+    <Steps>
+      <Step title="Review Each Toggle">
+        Inspect the three switches individually to understand which prompt block each one controls
+      </Step>
+      <Step title="Disable Only if Necessary">
+        Turn off a specific toggle only when your custom system prompt directly conflicts with that predefined block
+      </Step>
+      <Step title="Test After Changes">
+        Use the Playground to validate agent behavior any time a Foundation Component toggle is changed
+      </Step>
+    </Steps>
+
+    <Info>
+    **Independent Control**: Each toggle can be switched on or off independently, allowing granular control over which predefined prompt blocks are combined with your custom instructions.
+    </Info>
+
+    <Warning>
+    **Strong Recommendation**: Keep all three toggles enabled unless you have a specific requirement that conflicts with one of the predefined blocks. Disabling them removes months of accumulated conversational optimization.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Meetzy Foundation Components
+
+Leverage Meetzy's powerful built-in foundational components that provide professional-grade conversation capabilities refined through thousands of real-world interactions. Each component below is controlled by its own toggle switch in the Intelligence section, letting you activate or deactivate the corresponding predefined prompt block at any time.
+
+<Tabs>
+  <Tab title="Enhanced Safety Guardrails">
+    **Comprehensive Protection Framework:**
+    - **Content Filtering**: Advanced inappropriate content prevention across all topics
+    - **Professional Standards**: Consistent business communication tone and approach
+    - **Edge Case Management**: Graceful handling of unexpected inputs and scenarios
+    - **Security Protection**: Defense against prompt injection and manipulation attempts
+    - **Compliance Assurance**: Adherence to industry communication standards
+    - **Context Awareness**: Appropriate responses based on conversation context
+    - **Industry Best Practices**: Following established business communication protocols
+
+    **Toggle Behavior:**
+    - **Default State**: Toggle is **on** by default for maximum protection
+    - **Zero Setup**: Functions automatically without additional configuration once enabled
+    - **Transparent Operation**: Works seamlessly alongside custom prompts and behaviors
+    - **Instant Effect**: Switching the toggle off immediately removes the guardrail prompt block from the agent
+
+    <Warning>
+    **Recommended Practice**: Keep the Safety Guardrails toggle enabled unless specific requirements conflict with professional conversation standards.
+    </Warning>
+  </Tab>
+  <Tab title="Advanced Conversational Aspects">
+    **Sophisticated Dialogue Management:**
+    - **Natural Flow Control**: Advanced conversation pacing and rhythm optimization
+    - **Active Listening Techniques**: Professional understanding and response patterns
+    - **Intelligent Response Timing**: Context-aware pausing and conversation timing
+    - **Empathetic Communication**: Emotional intelligence and appropriate emotional responses
+    - **Professional Etiquette**: Industry-standard phone protocols and business courtesy
+    - **Seamless Transitions**: Smooth topic changes and conversation redirection
+    - **Cultural Sensitivity**: Appropriate communication styles for different regions
+    - **Conflict Resolution**: Professional de-escalation and problem-solving approaches
+
+    **Toggle Behavior:**
+    - **Default State**: Toggle is **on** by default
+    - **Immediate Professionalism**: Agents sound experienced from the first interaction while enabled
+    - **Reversible**: Disabling the toggle removes the conversational prompt block without affecting other Foundation Components
+
+    <Info>
+    **Battle-Tested Patterns**: Conversational aspects represent months of optimization based on successful real-world conversations, applied instantly whenever this toggle is enabled.
+    </Info>
+  </Tab>
+  <Tab title="Agent Skills">
+    **Comprehensive Professional Background:**
+    - **Industry-Specific Knowledge**: Tailored professional contexts for various sectors
+    - **Advanced Communication Skills**: Professional-level interaction capabilities
+    - **Business Process Understanding**: Deep comprehension of operations and terminology
+    - **Customer Interaction Mastery**: Extensive experience with diverse service scenarios
+    - **Protocol Expertise**: Professional communication and business protocol understanding
+    - **Situational Awareness**: Context-appropriate responses based on business needs
+    - **Problem-Solving Experience**: Track record of resolving customer challenges
+    - **Relationship Management**: Professional relationship building and maintenance skills
+
+    **Toggle Behavior:**
+    - **Default State**: Toggle is **on** by default
+    - **Layered With Skill Templates**: Works together with any specialized skill templates selected earlier in this section
+    - **Independent Switch**: Can be disabled without affecting Safety Guardrails or Conversational Aspects
+
+    **Specialized Skills Examples:**
+    - **Sales Representatives**: Quota achievement and conversion expertise
+    - **Customer Service Agents**: Resolution and satisfaction specialization
+    - **Healthcare Coordinators**: Medical office and patient interaction experience
+    - **Financial Services**: Compliance knowledge and account management
+    - **Real Estate Professionals**: Market expertise and process knowledge
+    - **Technical Support**: Troubleshooting and system knowledge specialization
+  </Tab>
+  <Tab title="Foundation Integration">
+    **Synergistic Component Operation:**
+
+    | Component | Toggle Default | Primary Function | Business Impact |
+    |-----------|-----------------|------------------|------------------|
+    | **Safety Guardrails** | On | Protective framework | Risk mitigation |
+    | **Conversational Aspects** | On | Natural communication | User experience |
+    | **Agent Skills** | On | Credibility establishment | Trust building |
+
+    <Info>
+    **Synergistic Design**: All three toggles work together to create a cohesive, professional agent experience, but each can be adjusted independently to adapt to your specific business requirements.
+    </Info>
+
+    <Info>
+    **Accumulated Expertise**: These components represent industry best practices refined through analysis of thousands of successful conversations across multiple business sectors.
+    </Info>
+
+    <Warning>
+    **Strong Recommendation**: Keep all foundational component toggles enabled unless you have specific custom requirements that directly conflict. These are optimized for maximum performance.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Advanced Conversational Behavior Configuration
+
+### Response Management
+
+Fine-tune how your agent handles conversation timing and responses:
+
+<Tabs>
+  <Tab title="Response Settings">
+    **Eagerness Control:**
+    - **Low**: More patient, allows longer pauses before responding
+    - **Normal**: Balanced response timing for natural conversation flow (recommended)
+    - **High**: Quick responses, minimal wait time
+    - **Auto**: AI-determined optimal timing based on context
+
+    **Timeout Configuration:**
+    - **Turn Timeout**: Time to wait before considering caller finished speaking (6 seconds default)
+    - **Silence End Call Timeout**: Maximum silence before ending call (25 seconds default)
+    - **Spelling Patience**: Handle spelling requests (auto/enabled/disabled)
+
+    <Info>
+    **Default Optimization**: Standard settings (Normal eagerness, 6s turn timeout, 25s silence timeout) are optimized for professional phone conversations.
+    </Info>
+  </Tab>
+  <Tab title="Call Duration Management">
+    **Duration Controls:**
+    - **Maximum Duration**: Automatic call termination limit (600 seconds default)
+    - **End Call Message**: Custom message when duration limit is reached
+    - **Speculative Turn**: Enable predictive response preparation
+    - **Background Speech Filter**: Filter out background noise and conversations
+
+    **Advanced Features:**
+    - Real-time conversation monitoring
+    - Automatic quality adjustments
+    - Dynamic timeout adaptation
+    - Context-aware behavior modification
+
+    <Warning>
+    **Duration Limits**: Set appropriate maximum call durations to manage costs while allowing sufficient time for complex conversations.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Call Recording and Compliance
+
+### Recording Configuration
+
+**Comprehensive Call Recording Benefits:**
+- **Quality Assurance**: Monitor and maintain high service standards
+- **Training Data**: Collect valuable interaction data for improvement
+- **Compliance Documentation**: Maintain audit trails and regulatory compliance
+- **Performance Analytics**: Analyze conversation patterns and success rates
+- **Customer Service Verification**: Validate service quality and resolution effectiveness
+
+Recording is controlled by the **Record Calls toggle** in the Intelligence section, described above. Switching it on stores audio for every completed call; switching it off skips recording entirely for that agent.
+
+<Info>
+**Default Enabled**: Call recording is enabled by default to provide maximum value from every interaction and support continuous improvement.
+</Info>
+
+### Agent Documentation
+
+**Internal Description Management:**
+- **Maximum Length**: Up to 1,000 characters for comprehensive documentation
+- **Internal Use**: Description is not visible to callers or external users
+- **Team Coordination**: Help team members understand agent purpose and configuration
+- **Organization**: Useful for managing multiple agents across different use cases
+- **Deployment Notes**: Include special considerations and configuration details
+
+## Integration and Advanced Editor Workflow
+
+### Recommended Configuration Sequence
+
+<Steps>
+  <Step title="Foundation Setup">
+    Complete all basic settings including name, company, phone configuration, and foundational components
+  </Step>
+  <Step title="Capability Selection">
+    Choose specialized skills, voice agents, and AI models appropriate for your use case
+  </Step>
+  <Step title="Voice Optimization">
+    Configure language, voice selection, and fine-tune voice parameters for optimal performance
+  </Step>
+  <Step title="Intelligence Tuning">
+    Set the model Temperature, decide whether to enable call recording, and review the three Foundation Components toggles
+  </Step>
+  <Step title="Behavioral Configuration">
+    Set up conversational behavior, response timing, and call management parameters
+  </Step>
+  <Step title="Verification and Testing">
+    Verify all settings, test caller ID functionality, and validate configuration completeness
+  </Step>
+  <Step title="Advanced Configuration">
+    Proceed to configure greetings, system prompts, and additional tools and actions
+  </Step>
+</Steps>
+
+### Integration with Advanced Editor
+
+**Seamless Workflow Integration:**
+- **Voice Agents**: Automatically configure appropriate voice and behavioral settings
+- **Specialized Skills**: Integrate with system prompts and conversation patterns
+- **Foundation Components**: Work harmoniously with custom prompts and tools, and can be toggled independently
+- **Language Selection**: Influence greeting templates and conversation suggestions
+- **AI Models**: Optimize for specific conversation complexity and requirements, tuned further via the Temperature slider
+
+<Info>
+**Workflow Optimization**: Complete basic settings configuration before proceeding to other Advanced Editor sections for optimal agent development experience.
+</Info>
+
+## Troubleshooting and Best Practices
+
+<Tabs>
+  <Tab title="Phone Configuration Issues">
+    **Phone Number Problems:**
+    <Warning>
+    **Permanent Assignment**: Phone numbers cannot be changed after agent creation. Plan allocation carefully and verify availability before proceeding.
+    </Warning>
+
+    **Common Solutions:**
+    - Verify Twilio account permissions and active status
+    - Confirm phone number availability in your target regions
+    - Check account credits and billing status
+    - Validate webhook configurations are properly established
+    - Ensure selected account has appropriate regional coverage
+  </Tab>
+  <Tab title="Caller ID Management">
+    **Verification Challenges:**
+    - **Delayed Verification Calls**: Allow up to 2 minutes for Twilio to initiate calls
+    - **Invalid Codes**: Use "Retry Verification" for failed attempts
+    - **Number Format Issues**: Ensure correct international format (+1XXXXXXXXXX for US)
+    - **Carrier Restrictions**: Check if carrier blocks automated verification calls
+    - **International Numbers**: Some regions may have verification limitations
+
+    **Best Practices:**
+    - Verify phone can receive calls during verification process
+    - Complete verification promptly after receiving code
+    - Use "Check Status" to confirm verification state
+    - Maintain updated caller ID list for outbound campaigns
+  </Tab>
+  <Tab title="Outbound Numbers Issues">
+    **Common Scenarios:**
+    - **"Account not set up" warning**: The agent's phone account configuration is incoherent — contact the Meetzy team to resolve it
+    - **Agent suddenly switched to 400-only**: Adding a 400 number automatically enables 400-only mode for that agent; this is expected behavior, not an error
+    - **Can't remove a number**: Line numbers (purchased phone numbers) can't be removed from this panel — manage them in the phone number configuration instead
+    - **Copy results show "not allowed"**: The target agent's account or purpose configuration prevents receiving that number type
+    - **No numbers available to add**: All eligible caller IDs for the account may already be assigned, or none have been verified yet
+
+    **Best Practices:**
+    - Review the status banner before and after any change to confirm the expected calling mode
+    - Use "Copy to other agents" to keep caller ID configurations consistent across an account
+    - Treat "Temporary use" numbers as unstable — don't rely on them for long-term caller ID branding
+  </Tab>
+  <Tab title="Intelligence Tuning Issues">
+    **Temperature Problems:**
+    - **Overly Robotic Responses**: Raise Temperature slightly toward the 0.5 range
+    - **Off-Script Drift**: Lower Temperature toward 0.2-0.3 for tighter control
+    - **Inconsistent Results Across Calls**: Retest after any Temperature change using the Playground
+
+    **Foundation Toggle Problems:**
+    - **Unexpected Tone Shifts**: Check whether Safety Guardrails or Conversational Aspects were accidentally disabled
+    - **Missing Professional Context**: Confirm the Agent Skills toggle is enabled
+    - **Recording Not Captured**: Verify the Record Calls toggle is switched on before the call took place
+  </Tab>
+  <Tab title="Performance Optimization">
+    **Model Selection Strategy:**
+    <Info>
+    **Testing Approach**: Use the Advanced Editor Playground to test different AI models with your specific conversation scenarios before deployment.
+    </Info>
+
+    **Voice Configuration:**
+    <Info>
+    **Parameter Testing**: Test voice parameter adjustments with real conversation samples to ensure optimal quality and naturalness.
+    </Info>
+
+    **Foundation Components:**
+    <Info>
+    **Component Benefits**: Keep Meetzy foundation component toggles enabled to leverage professional-grade conversation patterns and safety measures.
+    </Info>
+
+    <Warning>
+    **Change Impact**: Any modifications to AI models, Temperature, voice settings, or foundational component toggles should be thoroughly tested before production deployment.
+    </Warning>
+  </Tab>
+</Tabs>
+
+## Advanced Features and Optimization
+
+### Multi-Agent Management
+
+**Administrative Capabilities:**
+- **Company Assignment**: Organize agents by business unit or client
+- **Twilio Account Selection**: Manage multiple telephony configurations
+- **Resource Allocation**: Distribute phone numbers and caller IDs efficiently
+- **Permission Management**: Control access and modification rights
+- **Bulk Configuration**: Streamline setup for multiple similar agents
+
+### Performance Monitoring
+
+**Configuration Quality Assurance:**
+- **Validation Checks**: Automated verification of configuration completeness
+- **Component Integration**: Ensure all selected features work harmoniously
+- **Resource Verification**: Confirm all required resources are properly assigned
+- **Testing Preparation**: Configuration readiness for Playground testing
+- **Deployment Validation**: Pre-deployment configuration verification
+
+## Next Steps in Agent Development
+
+<Steps>
+  <Step title="Complete Basic Configuration">
+    Finalize all basic settings, verify configurations, and ensure all required resources are properly assigned
+  </Step>
+  <Step title="Configure Agent Greetings">
+    Set up appropriate inbound and outbound greetings that align with your agent's personality and use case
+  </Step>
+  <Step title="Define System Prompt">
+    Create comprehensive personality and behavioral instructions that leverage your selected foundational components
+  </Step>
+  <Step title="Set Up Tools and Actions">
+    Configure call handling, transfer capabilities, and external system integrations as needed
+  </Step>
+  <Step title="Comprehensive Testing">
+    Use the Playground to thoroughly test all configurations and conversation scenarios
+  </Step>
+  <Step title="Deploy and Monitor">
+    Launch your agent and continuously monitor performance using analytics and call recordings
+  </Step>
+</Steps>
+
+<Info>
+**Continuous Improvement**: After deployment, regularly analyze call recordings and performance metrics to identify optimization opportunities and enhance agent effectiveness.
+</Info>

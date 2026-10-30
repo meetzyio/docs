@@ -1,167 +1,369 @@
 ---
 title: 'Manage Agents'
-description: 'Learn how to view, edit, duplicate, and manage your voice agents in the Meetzy dashboard'
+description: 'Learn how to view, edit, clone, archive, and manage your voice agents in the redesigned Meetzy Agents dashboard'
+icon: 'robot'
 ---
 
-## Agents Overview
+## Overview
 
-The **Agents** section displays all your voice agents in a split-panel layout:
+The **Agents** page has been fully redesigned around a **master-detail layout**: a compact agent list on the left and a rich detail panel on the right, so you can browse, inspect, and act on any agent without leaving the page.
 
-| Panel | Content |
-|-------|---------|
-| **Left Panel** | Agent list with search and filters |
-| **Right Panel** | Details and actions for selected agent |
+<Info>
+  This redesign replaces the classic Agents page. A discreet **"Switch back to the classic view"** link sits right under the page title while both experiences coexist — click it any time to return to the previous layout without losing your place.
+</Info>
 
-## Search and Filter Agents
+## What's New in the Agents Page (Agents v2)
 
-### Search by Name
+The new Agents page (internally called **Agents v2**) bundles several improvements that were previously scattered across different views or unavailable altogether:
 
-Use the search field at the top of the left panel to filter agents by name.
-
-### Filter by Company
-
-If you have access to multiple companies, filter agents by organization:
-
-1. Click the **"All companies"** dropdown
-2. Search or select the desired company
-3. The list shows only agents from that company
+- **Latency history per agent** — every agent row shows a compact latency sparkline, and the detail panel's Overview tab includes a full 14-day latency history chart, so you can spot regressions at a glance or dive deeper without leaving the page.
+- **Lazy-loaded Phone Health chips** — a colored beacon next to each agent's number reflects its spam/deliverability status (green, red, or gray), with a direct link into the full [Phone Health](/agents/phone-numbers) report. To keep the page fast, this status is fetched on demand rather than for the whole list at once.
+- **Sortable agent list** — a dedicated sort selector lets you reorder the list by newest, most calls, or name.
+- **Richer filters** — search, company, archived visibility, and a dedicated spam-only toggle now live together in a single filters bar, with a one-click **Clear filters** action.
+- **New "Call" modal** — placing a test call (inbound or outbound) now happens from a redesigned modal with country prefix selection, agent version selection for Advanced agents, and a shortcut to edit custom form fields, all without leaving the Agents page.
+- **Collapsible demo agents section** — sample/demo agents are grouped separately from your real agents and tucked away by default, keeping the main list focused.
+- **A brand-new detail panel** — selecting an agent now opens a tabbed **Overview / Calls / Settings** panel packed with metrics, a 90-day call log, and the full configuration form, all in one place.
 
 <Tip>
-  Use the **Clear Filters** button to reset all active filters.
+  Missing the old page already? The **"Switch back to the classic view"** link, right below the page title, is still there for you — no judgment if you, like Wolverine pining for 1980s Canada, occasionally long for the way things used to be.
 </Tip>
 
-## View Agent Details
+<Tabs>
+  <Tab title="Agents List (left)">
+    A scrollable list of agents with search, company filter, a sort selector, and an **Archived agents** visibility toggle. Selecting an agent loads its details on the right without a full page reload. Each row also surfaces a phone health indicator and a latency mini-chart at a glance. Demo agents appear in their own collapsible section below your real agents.
+  </Tab>
+  <Tab title="Detail Panel (right)">
+    A tabbed panel — **Overview**, **Calls**, and **Settings** — showing everything about the selected agent: performance metrics, latency history, call log, and configuration.
+  </Tab>
+</Tabs>
 
-Click any agent to view its details in the right panel:
+## Agent List and Filters
 
-### Information Displayed
+### Search and Company Filter
 
-| Element | Description |
-|---------|-------------|
-| **Agent Name** | The identifier you assigned |
-| **Agent ID** | Unique identifier (click to copy) |
-| **Status Badges** | Training, Pause, Demo, or active version |
-| **Advanced Badge** | Indicates Advanced Editor is enabled |
-| **Phone Health** | Phone number health indicator |
+The filters bar above the list lets admins and multi-company users narrow down the agent list quickly:
 
-### Recent Calls
-
-The panel shows the last 200 calls with:
-
-| Column | Description |
+| Filter | Description |
 |--------|-------------|
-| ID | Call identifier |
-| Date | When the call occurred |
-| Duration | Call length |
-| Status | Completed, failed, etc. |
-| Destination | Called number |
+| **Search** | Matches agent name, company, or agent ID in real time |
+| **Company** | Dropdown with a built-in search box to filter agents by organization; defaults to **"All companies"** |
+| **Archived agents** | Toggle switch to show or hide archived agents in the list (hidden by default) |
+| **Phone health** | Toggle switch to show only agents whose numbers currently have spam/deliverability issues |
+| **Clear filters** | Appears only when at least one filter is active, resetting search, company, archived visibility, and the phone health filter |
 
-<Note>
-  Click **View All** to open the full calls page with more filtering options.
-</Note>
+<Tip>
+  The company filter dropdown includes its own search box, making it easy to jump straight to a specific organization when you manage dozens of companies.
+</Tip>
 
-## Edit an Agent
+### Sorting the List
 
-### Advanced Editor Agents
+A compact sort selector sits above the agent list, next to the agent count, and lets you reorder the list without affecting any of the active filters:
 
-If the agent has the **"advanced"** badge, click the **Advanced Editor** button to open it.
+| Sort option | Order |
+|-------------|-------|
+| **Newest first** (default) | Most recently created agents at the top |
+| **Most calls** | Agents ranked by call volume in the same 14-day window used for the latency sparklines |
+| **Name (A-Z)** | Alphabetical, ascending |
+| **Name (Z-A)** | Alphabetical, descending |
 
-You can modify:
-- Basic settings
-- Greetings
-- System prompt
-- Knowledge Base
-- Actions & Tools
-- Output settings
+<Info>
+  Your sort preference persists across visits, so you don't need to reselect it every time you open the Agents page.
+</Info>
 
-### Standard Agents
+### Selecting an Agent
 
-For agents without the "advanced" badge, editing options are limited to the basic configuration panel.
+Click any row in the list to open it in the detail panel. The selected row is highlighted with a colored left border, and archived agents display a small **Archived** badge next to their name.
 
-## Duplicate an Agent
+<Info>
+  On smaller screens, selecting an agent replaces the list with the detail panel entirely; a **back** action returns you to the list without losing your active filters or scroll position.
+</Info>
 
-<Note>
-  Clone functionality is only available for admin users and advanced agents.
-</Note>
+### Phone Health Indicator and Latency Mini-Chart
 
-To duplicate an agent:
+Every row in the agent list now includes two at-a-glance signals, so you no longer need to open an agent to spot a problem:
 
-1. Select the agent in the list
-2. Click the **Clone Agent** button
-3. A copy is created with the name "[Original Name] (Copy)"
-4. Assign a phone number to the new agent
+- **Phone health beacon**: a small colored dot next to the agent's phone number reflecting the spam/deliverability status of its assigned numbers (green = healthy, red = spam issues detected, gray = status unknown or still loading). Click it to jump straight into the [Phone Health](/agents/phone-numbers) report for that agent.
+- **Latency sparkline**: a compact 14-day mini-chart of average AI response latency, rendered inline in the row. It uses the same underlying data as the Overview tab's latency history chart, letting you compare agents' recent performance without opening each one individually.
 
-Use cases for duplicating:
-- Create variants for A/B testing
-- Adapt an existing agent for another department
-- Maintain a backup version
+<Info>
+  **Latency history** is fetched in bulk (in small chunks) right after the list loads, so sparklines populate for every visible row a moment after the initial render.
 
-## Make Test Calls
+  **Phone health**, however, is loaded **lazily** and per agent — it's a slower check that isn't practical to run for hundreds of agents at once. The beacon shows a neutral "Check" state until you either select that agent (which triggers its individual health check) or turn on the **Phone health** spam-only filter, which loads the status for every currently visible agent so the filter can work correctly.
+</Info>
 
-Each agent has an **Init Call** button that reveals testing options:
+### Collapsible Demo Agents
 
-### Inbound Call (Testing)
+Sample and demo agents are grouped separately from your production agents, in a dedicated **Demo agents** section below the main list. This section is **collapsed by default** to keep the primary list focused on the agents you actually manage — click its header to expand or collapse it. Demo agents can still be selected, previewed, and called for testing purposes like any other agent, but they're excluded from the main list's filters and sort order.
 
-The agent's phone number is displayed:
+## Agent Detail Panel
 
-```
-Phone to test inbound call:
-+1 555 123 4567 [Copy]
-```
+Selecting an agent from the list opens the detail panel on the right, with a header showing the agent's name, ID badge, and company, followed by a set of quick action buttons and three tabs: **Overview**, **Calls**, and **Settings**.
 
-To test:
-1. Copy the number or click to call
-2. Call from your personal phone
-3. The agent responds according to its configuration
+<Info>
+  On mobile and narrow screens, the header actions collapse into a single kebab (**⋮**) menu to save space, exposing the same options in a dropdown.
+</Info>
 
-### Outbound Call (Testing)
+### Header Actions
 
-A form displays with configured fields:
+A row of buttons at the top of the panel gives you one-click access to the most common agent workflows, without needing to scroll into the Overview tab:
 
-To test:
-1. Fill in required fields
-2. Select voice (optional)
-3. Click **Call Now**
-4. You'll receive the call at the specified number
+| Action | Availability | What it does |
+|--------|--------------|---------------|
+| **Editor** | Advanced agents only | Opens the [Advanced Editor](/agents/advanced-editor) for this agent in a new tab |
+| **Trends** | Advanced agents only | Opens the evaluation trends view for this agent in a new tab |
+| **Clone** | Admins and users/members with clone permission | Launches the two-step clone assistant described below |
+| **Archive** | Users with agent create/edit permission | Launches the archive confirmation flow described below |
+
+<Tabs>
+  <Tab title="Overview">
+    **Performance dashboard** for the agent, including:
+    - **Summary cards**: total calls, average call duration, and average AI latency (with a trend arrow comparing recent vs. previous performance, plus a P90 latency reading)
+    - **Latency history chart**: a 14-day time series of average AI response latency, helping you spot regressions or improvements over time
+    - **Call volume chart**: a 30-day time series of daily call counts
+    - **Phone health**: a clickable card linking to the spam/deliverability report for the agent's assigned numbers
+  </Tab>
+  <Tab title="Calls">
+    A sortable table of the agent's calls from the **last 90 days**, including date, origin number, status, duration, and latency. Click any column header to reorder the table by that field. Admin users additionally see quick links per call out to **Twilio** and **ElevenLabs** for deeper debugging. Recordings can be played directly from this tab using the same player used across the Calls section, letting you inspect a specific call without leaving the panel. A **"View all calls"** shortcut opens the main Calls section in a new tab, already filtered down to this agent, for whenever the 90-day snapshot isn't enough.
+  </Tab>
+  <Tab title="Settings">
+    The full configuration form for standard (non-Advanced) agents — the same settings previously available on the classic page, including save/discard change detection and an editing timeout safeguard. Advanced agents don't show this tab since their configuration is managed from the [Advanced Editor](/agents/advanced-editor).
+  </Tab>
+</Tabs>
+
+<Info>
+  The **Avg AI latency** trend arrow compares the average of the most recent half of the visible days against the earlier half — an upward red arrow means latency is increasing, a downward green arrow means it's improving. It only appears once enough daily data points are available.
+</Info>
+
+### Summary Cards
+
+The three cards at the top of the Overview tab give you an instant read on agent health:
+
+| Card | What it shows |
+|------|---------------|
+| **Total calls** | Total number of calls handled by the agent |
+| **Avg duration** | Average call length, formatted as minutes:seconds |
+| **Avg AI latency** | Average AI response latency in milliseconds, its trend arrow, and the P90 latency value underneath |
+
+### Latency History and Call Volume Charts
+
+Below the summary cards, two charts plot the agent's daily behavior over time:
+
+- **Latency history (14 days)**: average AI latency per day, plotted chronologically to make regressions easy to spot.
+- **Call volume (30 days)**: number of calls handled per day, useful for spotting usage spikes or drop-offs.
+
+Both charts share the same rendering component and gracefully show an empty state message when there isn't enough data yet.
+
+### Phone Health Shortcut
+
+The **Phone health** card sits below the charts and links directly to the spam/deliverability report for the numbers assigned to the selected agent — the same report reachable from the row-level beacon in the agent list. Selecting an agent from the list is exactly what triggers its individual phone health check, so this card should always have fresh data by the time you view it.
+
+### Calls Tab in Detail
+
+The Calls tab gives you a focused, agent-scoped view of call history without needing to jump to the main Calls section and filter manually:
+
+- **90-day window**: the table loads calls from the last 90 days by default, sorted by most recent first.
+- **Sortable columns**: click any column header (date, status, duration, latency, etc.) to toggle its sort order.
+- **Admin-only debugging links**: admin users see extra per-call links out to the underlying **Twilio** call log and the **ElevenLabs** conversation, useful when troubleshooting a specific problem call.
+- **Inline recording playback**: click a call to open its recording in the same player component used in the main Calls section, so you can listen to (or download) the audio without leaving the agent's detail panel.
+- **View all calls**: opens the full [Calls](/calls) section in a new tab, pre-filtered to this agent's ID, for whenever you need to look further back than 90 days or apply additional filters.
+
+<Tip>
+  This shortcut mirrors an option that existed on the classic Agents page — it opens the general Calls list scoped to the agent instead of duplicating advanced filtering inside the detail panel.
+</Tip>
+
+### Settings Tab in Detail
+
+For standard (non-Advanced) agents, the Settings tab reproduces the full classic configuration form inside the detail panel:
+
+- **Agent name** and core identification fields
+- **Prompts**: the agent's system/behavior prompts, editable inline or via a fullscreen textarea for longer content
+- **Outbound options**: call behavior settings applied to outbound calls
+- **Evaluations**: manage the list of post-call evaluations run against this agent's conversations, including creating, editing, and deleting evaluation criteria
+- **Webhook**: configure the webhook endpoint that receives call events and data for this agent
+- **NPS survey**: enable and configure a post-call satisfaction survey
+- **Danger zone**: a collapsed, opt-in section exposing sensitive, rarely-touched settings — raw instructions, assigned phone numbers, and call transfer configuration
 
 <Warning>
-  Test calls consume minutes from your plan just like regular calls.
+  The **Danger zone** fields directly affect how the agent behaves in production calls. Double-check raw instruction changes, phone number assignments, and transfer settings before saving.
 </Warning>
 
-### Version Selector (Advanced Agents)
+<Info>
+  Settings changes are tracked with a **dirty-check**: the Save button only activates once you've actually modified something, and an **editing timeout** automatically locks the form after **10 minutes of inactivity**, requiring you to reload the latest data before making further changes. This prevents two people from silently overwriting each other's edits.
+</Info>
 
-For advanced agents, you can select which version to test:
+### Quick Actions
 
-```
-Agent Version (optional):
-- Production version (default)
-- v.1 - Initial version (Production)
-- v.2 - Greeting improvements
-- v.3 - New conversation flow
-```
+The same **Editor**, **Trends**, **Clone**, and **Archive** actions available in the panel header are the primary entry points for the workflows below — use whichever one matches what you need to do with the selected agent.
 
-## Demo Agents
+## Clone Agents
 
-Agents marked as **Demo** appear in a separate collapsible section:
+Agent cloning now uses a guided **two-step assistant** instead of a single form, making it clear exactly what will be duplicated before anything is created.
 
-Demo agents are example templates you can use as reference.
+<Steps>
+  <Step title="Step 1 — Configure the Clone">
+    Open **Clone** from the agent detail panel's header actions to fill in the base configuration:
+    - **Agent Name**: defaults to `<Original Name> (Copy)`, fully editable
+    - **Target Company**: shown only to admin users on the Meetzy domain with access to multiple companies; regular users automatically clone into their own company
+    - **Phone Number**: select an available number from the same Twilio account as the original agent — the list loads automatically once a company is chosen
+    - **Number Usage**: choose whether the assigned number is used for **Outbound & Inbound**, **Outbound only**, or **Inbound only**
+    - **Agent Tools**: choose between **Duplicate tools** (independent copies, safe to edit separately) or **Reuse existing tools** (both agents share the same tools, and edits to one affect the other)
+  </Step>
+  <Step title="Step 2 — Review and Confirm">
+    Clicking **Continue** moves to a summary screen listing the target company, the phone number and its usage mode, and the tools strategy in plain language before you confirm. Use **Back** to return and adjust any setting.
+  </Step>
+  <Step title="Cloning in Progress">
+    Confirming triggers the clone request; the button switches to a disabled **"Cloning..."** state to prevent duplicate submissions. On success, the new agent appears in the list; on failure, an inline error message explains what went wrong so you can retry without losing your inputs.
+  </Step>
+</Steps>
 
-## Quick Actions
+<Warning>
+  If the original agent's Twilio account has no available numbers, the modal shows a warning explaining that a free number from the **same account as the original agent** is required — release a number or purchase a new one before cloning.
+</Warning>
 
-| Action | How to Do It |
-|--------|--------------|
-| Copy ID | Click the copy icon next to the ID |
-| Refresh calls | **Refresh** button in calls panel |
-| View all calls | **View All** button to open calls page |
-| Close panel | Click X or select another agent |
+<Note>
+  The list of tools on the original agent is loaded and shown in the modal so you know exactly what will be duplicated or shared before confirming.
+</Note>
+
+## Archive Agents
+
+<Info>
+  Archiving is the recommended way to retire an agent you no longer need while keeping its configuration, call history, and analytics intact for future reference.
+</Info>
+
+Archiving deactivates an agent without deleting its data. The **Archive Agent** modal, available from the detail panel's header actions, guides you through the process:
+
+<Steps>
+  <Step title="Review the Confirmation">
+    The modal explains that this will hide the agent from the agents list without deleting any of its data.
+  </Step>
+  <Step title="Choose Phone Number Handling">
+    A dedicated checkbox lets you **"Release its phone number for other agents"**:
+    - **Checked**: resets the Twilio configuration and frees the number so it can be assigned to another agent
+    - **Unchecked (default)**: the number stays reserved with this agent
+  </Step>
+  <Step title="Confirm">
+    Click **Archive** to proceed. The button shows an **"Archiving..."** loading state while the request completes. Any error is displayed inline in the modal so you can retry safely.
+  </Step>
+</Steps>
+
+<Warning>
+  Releasing the phone number is **irreversible** — once released, the number may be reassigned to a different agent or company. Leave the checkbox disabled if you plan to reactivate this agent later with the same number.
+</Warning>
+
+### Restoring an Archived Agent
+
+Toggle **Archived agents** to **Shown** in the filters bar to locate an archived agent, select it, and restore it from its detail panel. If its phone number was released during archiving, assign a new one from the [Phone Numbers](/agents/phone-numbers) section before it can resume handling calls.
+
+## Swap Phone Number
+
+The **Swap Phone Number** modal lets you replace an agent's current number with a new one from the same Twilio account — useful when a number develops deliverability issues or needs to be freed up.
+
+<Steps>
+  <Step title="Open the Swap Modal">
+    From the "Call" modal next to any phone number, or from the agent's Settings tab, click the swap icon next to the number you want to replace.
+  </Step>
+  <Step title="Review the Swap">
+    The modal displays the **current number** (marked for release) and automatically loads the **next available number** from the same Twilio account to assign in its place.
+  </Step>
+  <Step title="Confirm">
+    Click **Confirm Swap** to apply the change. The button enters a **"Swapping..."** state while the request is processed against both the database and Twilio. If no available numbers are found, an inline message tells you so, including the Twilio account label.
+  </Step>
+</Steps>
+
+<Warning>
+  A swap updates both your database and Twilio configuration immediately, and the old number is marked for release. This action cannot be undone from the modal.
+</Warning>
+
+## Custom Call Form Fields
+
+Every agent that accepts outbound test/init calls has a configurable form. The **Configure Form Fields** editor lets you manage the custom fields shown in that form, beyond the built-in system fields.
+
+<Info>
+  System fields — **phone**, **voice**, and **language** — are always required and cannot be edited or removed from this editor.
+</Info>
+
+<Steps>
+  <Step title="Open the Field Editor">
+    Click **Edit Form** in the "Call" modal of any agent to open the **Configure Form Fields** modal.
+  </Step>
+  <Step title="Add or Edit Fields">
+    For each custom field, configure:
+    - **Field Label**: the text shown to users filling out the form
+    - **Field Type**: Text, Email, Number, Phone, or Dropdown
+    - **Parameter ID**: the identifier referenced in your agent's prompt as `{{id}}` — auto-generated from the label but fully editable
+    - **Placeholder Text**: optional hint text shown inside the input
+    - **Required field**: whether the field must be filled before a call can be started
+  </Step>
+  <Step title="Remove Fields">
+    Click the trash icon on any field card to delete it (with a confirmation prompt).
+  </Step>
+  <Step title="Save">
+    Click **Save** to persist the field configuration. Parameter IDs are validated for uniqueness and checked against system field names before saving; any conflict is reported inline so you can fix it without losing your changes.
+  </Step>
+</Steps>
+
+<Tip>
+  Custom Parameter IDs are automatically slugified from the field label (lowercase, no accents, underscores instead of spaces) unless you manually override them.
+</Tip>
+
+## Test Calling from the "Call" Modal
+
+Each agent row includes a **Call** modal — accessible directly from the list, without opening the detail panel first — with everything needed to place a quick test call, inbound or outbound, without leaving the Agents page.
+
+<Tabs>
+  <Tab title="Inbound Testing">
+    The modal lists the agent's assigned phone number(s) as clickable `tel:` links, plus a one-click **copy without country code** button for each number. If the agent only has verified caller IDs (no inbound number), a note clarifies it only supports outbound calls.
+  </Tab>
+  <Tab title="Outbound Testing">
+    A dynamic form built from the agent's configured fields (including any custom fields added via the field editor), plus:
+    - **Country prefix selector**: choose from a long list of country codes (with flags) next to the phone input — your last choice is remembered for next time via local storage
+    - **Agent Version selector**: for Advanced agents only, choose a specific saved version to test against, or leave it blank to use the production version
+    - **Edit Form** shortcut to open the custom fields editor directly from the modal
+  </Tab>
+</Tabs>
+
+<Info>
+  The **Call** button opens this flow as a standalone modal rather than an inline panel, so opening it never shifts the rows below it in the agent list — only one agent's Call modal can be open at a time, and it can be triggered straight from any row's action button, whether or not that agent is currently selected.
+</Info>
+
+<Warning>
+  Test calls consume billable minutes from your plan. Monitor usage in the billing dashboard.
+</Warning>
+
+## Permissions and Access Control
+
+<Tabs>
+  <Tab title="Admin Users">
+    - Full access to clone, archive, restore, and swap phone numbers on any agent
+    - Company filter available in both the agent list and the clone modal's target company selector
+    - Cross-company agent management
+    - Only role that sees the Twilio/ElevenLabs debugging links in the Calls tab
+  </Tab>
+  <Tab title="Advanced Editor Users">
+    - Create and edit Advanced agents via the [Advanced Editor](/agents/advanced-editor)
+    - Clone, archive, and manage phone numbers for their own agents
+    - Access to the Settings tab for standard agents
+  </Tab>
+  <Tab title="Standard Users">
+    - View assigned agents and their Overview/Calls tabs
+    - Place test calls using the Call modal
+    - Limited or no access to Archive, Clone, and Settings depending on role
+  </Tab>
+</Tabs>
 
 ## Next Steps
 
 <CardGroup cols={2}>
   <Card title="Phone Numbers" icon="phone" href="/agents/phone-numbers">
-    Learn to assign and manage phone numbers.
+    Assign, release, and manage phone numbers for your agents.
   </Card>
-  <Card title="Phone Health" icon="heart-pulse" href="/agents/phone-health">
-    Monitor your phone numbers' health.
+  <Card title="Advanced Editor" icon="code" href="/agents/advanced-editor">
+    Learn to use the Advanced Editor for full agent configuration.
+  </Card>
+  <Card title="Knowledge Base" icon="book-open" href="/agents/knowledge-base">
+    Manage agent knowledge and information sources.
+  </Card>
+  <Card title="Analytics" icon="chart-line" href="/agents/analytics">
+    Monitor agent performance and call metrics in depth.
   </Card>
 </CardGroup>

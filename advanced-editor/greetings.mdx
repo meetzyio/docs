@@ -1,6 +1,6 @@
 ---
 title: 'Greetings'
-description: 'Configure welcome messages for inbound and outbound calls'
+description: 'Configure welcome messages for inbound and outbound calls with multilingual templates'
 icon: 'hand-wave'
 ---
 
@@ -41,159 +41,277 @@ Hi, this is Sarah from Acme Corp. I'm calling about
 your recent inquiry regarding our services.
 ```
 
-## Configuring Greetings
+## Multilingual Template System
+
+The Advanced Editor provides pre-built greeting templates for multiple languages with country flags and categorized options. This system allows you to quickly apply professional greetings that match your agent's configured language.
+
+### Available Languages
+
+<Tabs>
+  <Tab title="🇪🇸 Spanish">
+    **Inbound Templates:**
+    - "Gracias por llamar a [Empresa]. ¿En qué puedo ayudarle?"
+    - "Hola, ha contactado con [Empresa]. ¿Cómo puedo asistirle?"
+    - "Buenos días/tardes, habla con [Empresa]. ¿En qué le puedo ayudar?"
+    
+    **Outbound Templates:**
+    - "Hola, ¿hablo con [Nombre]? Soy [Agente] de [Empresa]."
+    - "Buenos días [Nombre], le llamo de [Empresa] en relación a..."
+    - "Hola [Nombre], soy [Agente] y le contacto desde [Empresa] porque..."
+  </Tab>
+  
+  <Tab title="🇺🇸 English">
+    **Inbound Templates:**
+    - "Thank you for calling [Company]. How may I help you today?"
+    - "Hello, you've reached [Company]. How can I assist you?"
+    - "Good morning/afternoon, this is [Company]. How may I help you?"
+    
+    **Outbound Templates:**
+    - "Hello, may I speak with [Name]? This is [Agent] from [Company]."
+    - "Hi [Name], this is [Agent] calling from [Company] regarding..."
+    - "Good morning [Name], I'm [Agent] from [Company] and I'm calling about..."
+  </Tab>
+  
+  <Tab title="🇫🇷 French">
+    **Inbound Templates:**
+    - "Merci d'appeler [Entreprise]. Comment puis-je vous aider?"
+    - "Bonjour, vous avez joint [Entreprise]. Comment puis-je vous assister?"
+    - "Bonjour, vous êtes en ligne avec [Entreprise]. Que puis-je faire pour vous?"
+    
+    **Outbound Templates:**
+    - "Bonjour, puis-je parler à [Nom]? Je suis [Agent] de [Entreprise]."
+    - "Bonjour [Nom], je vous appelle de [Entreprise] concernant..."
+    - "Bonjour [Nom], c'est [Agent] de [Entreprise], je vous contacte au sujet de..."
+  </Tab>
+  
+  <Tab title="🇩🇪 German">
+    **Inbound Templates:**
+    - "Vielen Dank für Ihren Anruf bei [Unternehmen]. Wie kann ich Ihnen helfen?"
+    - "Hallo, Sie haben [Unternehmen] erreicht. Wie kann ich Sie unterstützen?"
+    - "Guten Tag, hier ist [Unternehmen]. Was kann ich für Sie tun?"
+    
+    **Outbound Templates:**
+    - "Hallo, spreche ich mit [Name]? Hier ist [Agent] von [Unternehmen]."
+    - "Guten Tag [Name], ich rufe von [Unternehmen] an bezüglich..."
+    - "Hallo [Name], hier spricht [Agent] von [Unternehmen]. Ich rufe an wegen..."
+  </Tab>
+  
+  <Tab title="🇮🇹 Italian">
+    **Inbound Templates:**
+    - "Grazie per aver chiamato [Azienda]. Come posso aiutarla?"
+    - "Salve, ha raggiunto [Azienda]. Come posso assisterla?"
+    - "Buongiorno, è in linea con [Azienda]. In cosa posso aiutarla?"
+    
+    **Outbound Templates:**
+    - "Salve, parlo con [Nome]? Sono [Agente] di [Azienda]."
+    - "Buongiorno [Nome], la chiamo da [Azienda] riguardo a..."
+    - "Salve [Nome], sono [Agente] di [Azienda] e la contatto per..."
+  </Tab>
+  
+  <Tab title="🇵🇹 Portuguese">
+    **Inbound Templates:**
+    - "Obrigado por ligar para [Empresa]. Como posso ajudá-lo?"
+    - "Olá, você contatou [Empresa]. Como posso assisti-lo?"
+    - "Bom dia/tarde, você está falando com [Empresa]. Em que posso ajudar?"
+    
+    **Outbound Templates:**
+    - "Olá, falo com [Nome]? Sou [Agente] da [Empresa]."
+    - "Bom dia [Nome], estou ligando da [Empresa] sobre..."
+    - "Olá [Nome], sou [Agente] da [Empresa] e estou entrando em contato porque..."
+  </Tab>
+</Tabs>
+
+## Using the Template System
 
 <Steps>
-  <Step title="Open Greetings Section">
-    Navigate to the Greetings section in the left panel (👋 icon).
+  <Step title="Access Templates">
+    In the Greetings section, click the "Templates" button next to either the Inbound or Outbound greeting field.
   </Step>
-  <Step title="Enter Inbound Greeting">
-    Write your welcome message for incoming calls.
+  <Step title="Browse Languages">
+    A dropdown menu will appear showing all available languages with their respective country flags for easy identification.
   </Step>
-  <Step title="Enter Outbound Greeting">
-    Write your introduction for outgoing calls.
+  <Step title="Select Template">
+    Choose the template that matches your agent's language configuration and call type (inbound/outbound).
   </Step>
-  <Step title="Save Changes">
-    Click Save to apply your greetings.
+  <Step title="Customize Parameters">
+    The template will be inserted into the text field. Replace placeholder brackets like [Company] and [Agent] with your actual values or dynamic parameters.
   </Step>
 </Steps>
 
-## Using Input Parameters
+<Warning>
+Ensure your chosen template matches your agent's configured language for optimal performance and natural conversation flow.
+</Warning>
 
-Make greetings personal by including input parameters:
+## Enhanced Dynamic Parameters
 
+Make greetings personal and dynamic by including input parameters with enhanced functionality:
+
+### Standard Parameters
 ```
 Hello {{customer_name}}, this is Sarah from Acme Corp. 
 I'm calling about your order {{order_number}} which is 
 scheduled for delivery on {{delivery_date}}.
 ```
 
+### Advanced Parameter Features
+- **Automatic fallback**: Parameters gracefully handle missing values
+- **Type-aware formatting**: Dates, numbers, and text are formatted appropriately
+- **Conditional rendering**: Content adapts based on parameter availability
+
 <Tip>
-Personalized greetings significantly improve customer engagement and call success rates.
+Use the fallback phrase feature to ensure your greeting always works, even when dynamic parameters are unavailable.
 </Tip>
 
-## Language Templates
+## Fallback Phrases (Optional)
 
-The Advanced Editor provides pre-built greeting templates for multiple languages:
+The new fallback system provides a safety net for your greetings:
 
-### Available Languages
+### How Fallbacks Work
+- **Primary greeting** uses dynamic parameters and full personalization
+- **Fallback greeting** activates when any parameter is missing or empty
+- **Seamless transition** ensures calls always start professionally
 
-<Tabs>
-  <Tab title="English">
-    **Inbound:**
-    - "Thank you for calling [Company]. How may I help you today?"
-    - "Hello, you've reached [Company]. How can I assist you?"
-    
-    **Outbound:**
-    - "Hello, may I speak with [Name]? This is [Agent] from [Company]."
-    - "Hi [Name], this is [Agent] calling from [Company] regarding..."
-  </Tab>
-  <Tab title="Spanish">
-    **Inbound:**
-    - "Gracias por llamar a [Empresa]. ¿En qué puedo ayudarle?"
-    - "Hola, ha contactado con [Empresa]. ¿Cómo puedo asistirle?"
-    
-    **Outbound:**
-    - "Hola, ¿hablo con [Nombre]? Soy [Agente] de [Empresa]."
-    - "Hola [Nombre], le llamo de [Empresa] en relación a..."
-  </Tab>
-  <Tab title="French">
-    **Inbound:**
-    - "Merci d'appeler [Entreprise]. Comment puis-je vous aider?"
-    - "Bonjour, vous avez joint [Entreprise]. Comment puis-je vous assister?"
-    
-    **Outbound:**
-    - "Bonjour, puis-je parler à [Nom]? Je suis [Agent] de [Entreprise]."
-    - "Bonjour [Nom], je vous appelle de [Entreprise] concernant..."
-  </Tab>
-</Tabs>
-
-### Using Templates
+### Setting Up Fallbacks
 
 <Steps>
-  <Step title="Click Templates">
-    Click the "Templates" button in the Greetings section.
+  <Step title="Enable Fallback">
+    Click the "Fallback phrase (optional)" toggle below your main greeting.
   </Step>
-  <Step title="Select Language">
-    Choose the language that matches your agent's configuration.
+  <Step title="Write Simple Version">
+    Create a simplified version of your greeting without dynamic parameters.
   </Step>
-  <Step title="Select Template">
-    Pick a template for inbound or outbound calls.
-  </Step>
-  <Step title="Customize">
-    Modify the template to match your company's style.
+  <Step title="Test Scenarios">
+    Your fallback will automatically activate when parameters are unavailable.
   </Step>
 </Steps>
+
+**Example Configuration:**
+```
+Primary: "Hello {{customer_name}}, this is {{agent_name}} from {{company}}..."
+Fallback: "Hello! Thank you for calling. How can I help you today?"
+```
+
+## Configuring Greetings
+
+<Steps>
+  <Step title="Open Greetings Section">
+    Navigate to the Greetings section in the left panel (👋 icon).
+  </Step>
+  <Step title="Choose Template or Custom">
+    Either select a template from the dropdown or write a custom greeting.
+  </Step>
+  <Step title="Add Parameters">
+    Include dynamic parameters using the {{parameter_name}} syntax.
+  </Step>
+  <Step title="Set Fallback (Optional)">
+    Configure a fallback phrase for when parameters are unavailable.
+  </Step>
+  <Step title="Save Changes">
+    Click Save to apply your greetings configuration.
+  </Step>
+</Steps>
+
+## Language-Specific Best Practices
+
+### Spanish Greetings
+- Use formal "usted" form for professional calls
+- Include time-appropriate greetings (buenos días/tardes)
+- Maintain warm but respectful tone
+
+### English Greetings
+- Keep it concise and professional
+- Use clear, simple language
+- Include company identification early
+
+### French Greetings
+- Use appropriate formality level (vous/tu)
+- Include proper salutations
+- Maintain politeness throughout
+
+### German Greetings
+- Use formal address (Sie)
+- Be direct but courteous
+- Include proper titles when available
+
+### Italian Greetings
+- Use formal Lei form for business
+- Include warm but professional tone
+- Consider regional variations
+
+### Portuguese Greetings
+- Distinguish between PT and BR variants
+- Use appropriate formality level
+- Include welcoming language
 
 ## Greeting Tips
 
 <AccordionGroup>
+  <Accordion title="Match Agent Language" icon="language">
+    Always ensure your greeting template matches your agent's configured language for natural conversation flow.
+  </Accordion>
   <Accordion title="Keep It Brief" icon="hourglass-half">
-    Long greetings can frustrate callers. Aim for 2-3 sentences maximum.
+    Long greetings can frustrate callers. Aim for 2-3 sentences maximum across all languages.
   </Accordion>
-  <Accordion title="Be Professional" icon="user-tie">
-    Use professional language that matches your brand voice.
+  <Accordion title="Use Fallbacks Wisely" icon="shield-check">
+    Set up fallback phrases for critical dynamic parameters to ensure calls always start smoothly.
   </Accordion>
-  <Accordion title="State Your Purpose" icon="bullseye">
-    For outbound calls, quickly explain why you're calling.
+  <Accordion title="Test Parameters" icon="flask">
+    Verify that all dynamic parameters work correctly before deploying your agent.
   </Accordion>
-  <Accordion title="Verify Identity" icon="id-card">
-    For outbound calls, confirm you're speaking with the right person.
-  </Accordion>
-  <Accordion title="Match the Language" icon="language">
-    Ensure your greeting matches the language your agent is configured to speak.
+  <Accordion title="Cultural Sensitivity" icon="globe">
+    Consider cultural norms and expectations for each language when crafting greetings.
   </Accordion>
 </AccordionGroup>
 
-## Best Practices
+## Best Practices by Call Type
 
-### Do's
-
+### Inbound Calls
 - ✅ Identify your company immediately
-- ✅ Keep greetings concise
-- ✅ Use natural, conversational language
-- ✅ Include personalization when possible
-- ✅ Match the tone to your brand
+- ✅ Thank the caller for calling
+- ✅ Use welcoming, helpful tone
+- ✅ Offer assistance clearly
+- ✅ Match the caller's language
 
-### Don'ts
-
-- ❌ Use overly formal or robotic language
-- ❌ Make greetings too long
-- ❌ Include unnecessary information
-- ❌ Forget to identify yourself (outbound)
-- ❌ Skip verification (outbound)
+### Outbound Calls
+- ✅ Introduce yourself and company
+- ✅ Verify you're speaking with the right person
+- ✅ State the purpose briefly
+- ✅ Be respectful of the recipient's time
+- ✅ Use appropriate formality level
 
 ## Example Greetings by Industry
 
-### Customer Support
-**Inbound:**
-```
-Thank you for calling Acme Support. My name is Sarah. 
-How can I help you today?
-```
+### Customer Support (Multilingual)
+<Tabs>
+  <Tab title="English">
+    ```
+    Thank you for calling {{company_name}} Support. 
+    This is {{agent_name}}. How can I help you today?
+    ```
+  </Tab>
+  <Tab title="Spanish">
+    ```
+    Gracias por llamar al soporte de {{company_name}}. 
+    Habla {{agent_name}}. ¿En qué puedo ayudarle?
+    ```
+  </Tab>
+</Tabs>
 
-### Sales
-**Outbound:**
-```
-Hello, is this {{customer_name}}? Great! This is Sarah 
-from Acme Corp. I'm reaching out because you recently 
-showed interest in our services. Do you have a moment to chat?
-```
-
-### Appointments
-**Outbound:**
-```
-Hello {{customer_name}}, this is Sarah calling from 
-Dr. Smith's office. I'm calling to confirm your 
-appointment on {{appointment_date}} at {{appointment_time}}.
-```
-
-### Collections
-**Outbound:**
-```
-Hello, may I speak with {{customer_name}}? This is 
-a courtesy call from Acme Financial regarding your account.
-```
+### Sales Calls (Multilingual)
+<Tabs>
+  <Tab title="English">
+    ```
+    Hello {{customer_name}}, this is {{agent_name}} from {{company_name}}. 
+    I'm calling about your recent inquiry. Do you have a moment to chat?
+    ```
+  </Tab>
+  <Tab title="French">
+    ```
+    Bonjour {{customer_name}}, c'est {{agent_name}} de {{company_name}}. 
+    Je vous appelle concernant votre demande récente. Avez-vous un moment?
+    ```
+  </Tab>
+</Tabs>
 
 ## Next Steps
 
@@ -203,7 +321,21 @@ a courtesy call from Acme Financial regarding your account.
     icon="file-lines"
     href="/getting-started/create-agent#system-prompt"
   >
-    Define agent personality
+    Define agent personality and behavior
+  </Card>
+  <Card
+    title="Voice Configuration"
+    icon="microphone"
+    href="/advanced-editor/voice-settings"
+  >
+    Configure voice and language settings
+  </Card>
+  <Card
+    title="Dynamic Parameters"
+    icon="code"
+    href="/advanced-editor/parameters"
+  >
+    Learn about parameter management
   </Card>
   <Card
     title="Evaluations"

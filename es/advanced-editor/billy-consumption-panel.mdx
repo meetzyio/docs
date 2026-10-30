@@ -1,0 +1,849 @@
+---
+title: Panel de Consumo Billy
+description: Gestiona y supervisa el consumo de minutos facturables en tiempo real
+icon: chart-bar
+---
+
+<Info>
+El panel de consumo Billy proporciona una vista integral de tu consumo actual de minutos facturables, permitiendo el seguimiento y análisis detallado de los costos por asistente.
+</Info>
+
+## Descripción General
+
+El panel de consumo Billy es un componente flotante anclado a la parte inferior del editor avanzado. Ofrece:
+
+- **Seguimiento en tiempo real** del consumo de minutos
+- **Barra de progreso del paquete de minutos** contratado (cuando aplica)
+- **Balance de consumo rules-v2**, con tier comprometido o bolsa prepago
+- **Desglose detallado** por asistente
+- **Filtros flexibles** por período, con selector desplegable
+- **Ticker de mensajes** informativos cuando el panel está colapsado
+- **Gráficos históricos** de facturación para administradores
+- **Indicadores visuales** del estado del servicio
+- **Panel expandible/colapsible** para optimizar el espacio
+
+## Características del Panel
+
+### Estados Visuales
+
+El panel utiliza indicadores de color y mensajes para mostrar el estado del servicio:
+
+<Tabs>
+  <Tab title="Activo">
+    - **Verde pulsante**: Servicio operativo y datos actualizados
+    - Consumo cargado correctamente
+    - Indicador animado con efecto de pulso
+  </Tab>
+
+  <Tab title="Error">
+    - **Ámbar fijo**: Error al cargar los datos de consumo
+    - Mensaje: "No se pudo cargar el consumo"
+    - Sin animación de pulso
+  </Tab>
+
+  <Tab title="Cargando">
+    - **Indicador giratorio**: Recalculando consumo
+    - Mensaje: "Recalculando consumo..."
+    - Botón de actualización deshabilitado
+  </Tab>
+</Tabs>
+
+### Controles de Interacción
+
+<Steps>
+  <Step title="Actualización Manual">
+    Botón de refresh para recalcular el consumo actual usando los filtros establecidos. Se deshabilita durante la carga.
+  </Step>
+
+  <Step title="Expandir/Colapsar">
+    Botón para alternar entre vista completa y vista compacta del panel. El estado se persiste en localStorage. Al colapsar, se activa automáticamente el ticker de mensajes.
+  </Step>
+
+  <Step title="Filtros Avanzados">
+    Sección expandible para configurar períodos personalizados con validación automática de fechas.
+  </Step>
+</Steps>
+
+## Barra de Progreso del Paquete de Minutos
+
+<Info>
+Esta barra solo se muestra en vistas de cliente cuyo perfil Billy tiene configurada una asignación mensual de minutos contratados (`minutes_package`). No aparece en la vista de administrador ni si el cliente no tiene un paquete configurado.
+</Info>
+
+La barra de progreso ofrece un resumen visual inmediato del consumo del período actual:
+
+- **Etiqueta de sección**: "Paquete de minutos" en tipografía discreta y mayúsculas espaciadas
+- **Contador numérico**: Muestra minutos consumidos frente al total contratado (`consumidos / contratados min`)
+- **Barra de progreso animada**: Se rellena de forma proporcional al porcentaje de uso, con transición suave
+- **Cambio de color dinámico**:
+  - **Verde esmeralda**: Consumo dentro del límite contratado
+  - **Rojo**: Consumo que ha superado la asignación contratada (`over_allowance`)
+- **Mensaje contextual** debajo de la barra:
+  - Si queda margen disponible: "X min restantes este período"
+  - Si se ha excedido el paquete: "Paquete excedido en X min"
+
+### Estructura de Datos
+
+```typescript
+interface MinutesPackage {
+  consumed: number;
+  contracted: number;
+  remaining: number;
+  usage_percent: number;
+  over_allowance: boolean;
+}
+```
+
+<Warning>
+Cuando `over_allowance` es `true`, la barra cambia a color rojo para alertar visualmente al usuario de que se ha superado el paquete contratado, incluso si el porcentaje visual de la barra permanece al máximo.
+</Warning>
+
+## Balance de Consumo (Rules-v2)
+
+<Info>
+Este bloque es independiente de la barra de paquete de minutos clásica y se muestra únicamente cuando el perfil Billy del cliente opera bajo el motor de reglas de facturación **rules-v2**, expuesto en el campo `consumption.balance` de la respuesta de la API.
+</Info>
+
+A diferencia del paquete de minutos tradicional, el modelo rules-v2 puede representar dos tipos de balance distintos según el contrato activo del cliente: un **tier de volumen comprometido** o una **bolsa prepago**. El componente detecta el tipo mediante la propiedad `kind` y renderiza la variante correspondiente.
+
+<Warning>
+En el modelo de tier comprometido, superar el volumen contratado **no es un error ni una alerta**: es consumo adicional facturable al mismo precio del tier vigente, que se cobrará en el siguiente período. Por eso el excedente nunca se muestra en rojo ni con iconografía de advertencia.
+</Warning>
+
+### Tipo 1: Tier de Volumen Comprometido
+
+Cuando el contrato del cliente incluye un compromiso mensual de volumen (`kind: 'committed_tier'`), el panel muestra:
+
+- **Etiqueta de sección**: "Volumen contratado", acompañada del nombre del tier si está disponible (por ejemplo, "Volumen contratado · Tier Pro")
+- **Contador numérico**: Unidades consumidas frente a las unidades contratadas, formateadas según el tipo de unidad (`seconds`, `minutes` o `calls`)
+- **Barra de progreso**: Siempre en color verde esmeralda, ya que representa consumo dentro de un compromiso contractual, no un límite estricto
+- **Mensaje contextual** debajo de la barra:
+  - Si aún queda margen: "X min restantes del compromiso mensual"
+  - Si hay excedente: "Excedente: X min al mismo precio del tier (importe, se factura el próximo período)"
+
+### Tipo 2: Bolsa Prepago
+
+Cuando el cliente opera con saldo prepago (`kind: 'prepaid_bag'`), el panel muestra en su lugar:
+
+- **Etiqueta de sección**: "Saldo prepago"
+- **Contador numérico**: Unidades disponibles actualmente (`available_units`)
+- **Mensaje contextual**: Unidades consumidas durante el período actual (`consumed_period_units`)
+
+<Info>
+La bolsa prepago no incluye barra de progreso animada, ya que representa un saldo decreciente sin un objetivo de "consumo total" contra el cual comparar visualmente.
+</Info>
+
+### Estructura de Datos
+
+```typescript
+export type BillyBalanceInfo =
+  | {
+      kind: 'committed_tier';
+      unit: 'seconds' | 'minutes' | 'calls';
+      tier_name: string | null;
+      contracted_units: number;
+      consumed_units: number;
+      remaining_units: number;
+      overage_units: number;
+      overage_amount: number;
+      price_per_unit: number;
+      usage_percent: number;
+    }
+  | {
+      kind: 'prepaid_bag';
+      unit: string;
+      available_units: number;
+      consumed_period_units: number;
+      payment_modality: string;
+      discount_percent: number;
+    };
+```
+
+### Formateo de Unidades del Balance
+
+<Info>
+Las unidades del balance se muestran siempre en un formato legible para el usuario final, independientemente de la unidad canónica interna usada por el motor de reglas.
+</Info>
+
+```typescript
+// Los balances basados en segundos se muestran como minutos, ya que
+// resultan más legibles; el resto de unidades se muestran tal cual.
+formatBalanceUnits(value: number | null | undefined, unit: string): string {
+  const units = Number(value || 0);
+  if (unit === 'seconds') {
+    return `${this.formatNumber(Math.round(units / 60))} min`;
+  }
+  if (unit === 'calls') {
+    return `${this.formatNumber(units)} calls`;
+  }
+  return `${this.formatNumber(units)} min`;
+}
+```
+
+<Warning>
+Si `consumption.balance` no está presente en la respuesta de la API (por ejemplo, perfiles que aún usan el motor de facturación clásico), este bloque completo se omite del renderizado, sin afectar al resto del panel ni a la barra de paquete de minutos.
+</Warning>
+
+## Sistema de Filtros Avanzados
+
+### Filtros por Período
+
+El panel incluye un sistema de filtros completo que permite:
+
+- **Períodos predefinidos**: Basados en el día de inicio del período de facturación (8 períodos históricos)
+- **Rangos personalizados**: Selección libre de fechas de inicio y fin
+- **Validación en tiempo real**: Verificación automática de rangos de fechas válidos
+- **Sincronización automática**: Los filtros se sincronizan con los datos de consumo recibidos
+
+### Configuración de Filtros
+
+<Warning>
+Los filtros de fecha deben respetar la lógica temporal:
+- La fecha de inicio no puede ser posterior a la de fin
+- Ambas fechas son requeridas para rangos personalizados
+- Los mensajes de error se muestran en tiempo real
+</Warning>
+
+El sistema de filtros ofrece una sección expandible que permite:
+
+- **Selector de período**: Menú desplegable con períodos predefinidos calculados dinámicamente
+- **Campos de fecha personalizados**: Inputs de fecha para rangos específicos
+- **Botón "Aplicar"**: Para confirmar rangos personalizados
+- **Validación inmediata**: Feedback visual de errores de validación
+
+### Filtro de Período Desplegable
+
+El selector de período se implementa como un menú desplegable (`dropdown`) totalmente accesible:
+
+<Steps>
+  <Step title="Botón desencadenante">
+    Muestra la etiqueta del período actualmente seleccionado y un icono de flecha que rota al abrir el menú. Se deshabilita mientras el panel está cargando datos.
+  </Step>
+
+  <Step title="Lista de opciones">
+    Al abrirse, despliega una lista (`role="listbox"`) con todos los períodos disponibles, posicionada sobre el botón para evitar que se corte en la parte inferior de la pantalla.
+  </Step>
+
+  <Step title="Selección con indicador visual">
+    Cada opción incluye un icono de verificación que solo es visible en el período actualmente seleccionado (`role="option"`, `aria-selected`).
+  </Step>
+
+  <Step title="Cierre automático">
+    El menú se cierra automáticamente al seleccionar una opción, al colapsar la sección de filtros, o al hacer clic fuera del componente.
+  </Step>
+</Steps>
+
+<Info>
+El cierre del menú al hacer clic fuera se gestiona mediante un listener global de clics en el documento, adjuntado dinámicamente solo mientras el desplegable está abierto y ejecutado **fuera** de la zona de Angular (`NgZone.runOutsideAngular`). Solo se vuelve a entrar en la zona —y se marca el componente para revisión— cuando el clic detectado corresponde realmente a un cierre del menú, evitando así que cualquier clic de la página fuerce un ciclo de detección de cambios innecesario en este panel.
+</Info>
+
+```typescript
+togglePeriodDropdown(): void {
+  if (this.loading) {
+    return;
+  }
+  if (this.periodDropdownOpen) {
+    this.closePeriodDropdown();
+  } else {
+    this.periodDropdownOpen = true;
+    this.attachDocumentClickListener();
+  }
+}
+
+async selectPeriod(periodKey: string): Promise<void> {
+  this.closePeriodDropdown();
+  if (periodKey === this.selectedPeriodKey && this.dateMode === 'period') {
+    return;
+  }
+  await this.onPeriodChange(periodKey);
+}
+
+private attachDocumentClickListener(): void {
+  if (this.documentClickListener) {
+    return;
+  }
+  this.zone.runOutsideAngular(() => {
+    this.documentClickListener = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('[data-billy-period-dropdown]')) {
+        return;
+      }
+      this.zone.run(() => {
+        this.closePeriodDropdown();
+        this.cdr.markForCheck();
+      });
+    };
+    document.addEventListener('click', this.documentClickListener);
+  });
+}
+```
+
+<Warning>
+El panel se ejecuta bajo la estrategia `OnPush` de Angular porque vive fuera del `router-outlet`, montado en todas las rutas de la aplicación. Por eso el listener de clics del desplegable se adjunta y desmonta dinámicamente, en lugar de usar un `@HostListener` permanente: mantenerlo activo en todo momento provocaría que cualquier clic de la página —en cualquier ruta— marcara este panel para revisión, degradando el rendimiento en vistas con listas largas, como el desglose de consumo por agente en la vista de administrador.
+</Warning>
+
+### Períodos Automáticos
+
+Los períodos predefinidos se calculan dinámicamente basándose en:
+
+- **Día de inicio de facturación** configurado en el perfil del cliente
+- **Fecha de anclaje** del período actual
+- **8 períodos históricos** incluyendo el período actual
+- **Ajuste automático** para meses con diferentes números de días
+
+```typescript
+private buildPeriodOptions(
+  billingPeriodStartDay: number,
+  anchorDateKey: string,
+  currentPeriodEndDateKey: string,
+  count: number
+): PeriodOption[] {
+  // Calcula automáticamente períodos basados en la configuración de facturación
+}
+```
+
+<Info>
+La lista de períodos solo se reconstruye a partir de una respuesta de "período actual" o en la primera carga. Seleccionar un período antiguo devuelve una respuesta de tipo `custom` anclada a esa fecha; reconstruir la lista desde ahí ocultaría los períodos más recientes. Mantener el anclaje al período actual hace que la navegación sea estable en ambas direcciones.
+</Info>
+
+## Vistas del Panel
+
+### Vista Cliente
+
+Para usuarios normales, el panel muestra:
+
+- **Barra de progreso del paquete de minutos** contratado, si está configurado
+- **Balance de consumo rules-v2** (tier comprometido o bolsa prepago), si el perfil opera bajo este motor
+- **Consumo por asistente** del cliente actual
+- **Totales del período** seleccionado
+- **Desglose de costos** detallado
+- **Filtros de período** disponibles
+
+### Vista Administrador
+
+<Info>
+Los administradores tienen acceso a funcionalidades adicionales cuando el `view_mode` es `admin_clients`.
+</Info>
+
+Para administradores, se incluyen características extra:
+
+<Tabs>
+  <Tab title="Gráficos Históricos">
+    - **Vista histórica** de facturación mensual
+    - **Gráfico interactivo** con Chart.js
+    - **Carga bajo demanda** para optimizar rendimiento
+    - **Manejo de errores** específico para datos históricos
+  </Tab>
+
+  <Tab title="Datos Agregados">
+    - **Consumo consolidado** de múltiples clientes
+    - **Totales globales** del período
+    - **Perspectiva administrativa** completa
+  </Tab>
+</Tabs>
+
+<Warning>
+Ni la barra de progreso del paquete de minutos ni el bloque de balance rules-v2 se muestran en la vista de administrador, ya que dicha vista agrega el consumo de múltiples clientes y no representa un único paquete o contrato individual. Al cambiar a esta vista, además, la sección de gráfico histórico se resetea automáticamente (se colapsa, se descarta el historial cargado y se destruye la instancia del gráfico) para evitar mostrar datos obsoletos.
+</Warning>
+
+### Gráfico Histórico de Facturación
+
+El gráfico histórico se activa únicamente para administradores mediante una sección expandible, y ofrece:
+
+- **Carga diferida**: Solo se carga cuando el administrador lo solicita por primera vez
+- **Visualización interactiva**: Gráfico de barras con información detallada mes a mes
+- **Manejo de estados**: Loading, error y éxito claramente diferenciados
+- **Cacheo en memoria**: Una vez cargado el historial, volver a abrir la sección no repite la petición a la API
+- **Optimización de rendimiento**: Destrucción automática del gráfico al cambiar de contexto o al salir de la vista de administrador
+
+```typescript
+async toggleHistoryChart(): Promise<void> {
+  this.showHistoryChart = !this.showHistoryChart;
+
+  if (!this.showHistoryChart) {
+    return;
+  }
+
+  if (!this.historyLoaded) {
+    await this.loadBillingHistory();
+    return;
+  }
+
+  setTimeout(() => void this.renderHistoryChart());
+}
+
+async loadBillingHistory(): Promise<void> {
+  this.historyLoading = true;
+  this.historyError = false;
+
+  try {
+    const response = await this.apiService.getBillyBillingHistory();
+    if (response.success) {
+      this.billingHistory = response.data.months || [];
+      this.historyLoaded = true;
+      this.refreshTicker();
+      setTimeout(() => void this.renderHistoryChart());
+    } else {
+      this.historyError = true;
+    }
+  } catch (err) {
+    console.error('Billy billing history panel error:', err);
+    this.historyError = true;
+  } finally {
+    this.historyLoading = false;
+    this.cdr.markForCheck();
+  }
+}
+```
+
+<Info>
+Al cargar correctamente el historial de facturación, sus datos también se incorporan al conjunto de mensajes del ticker, enriqueciendo la información mostrada cuando el panel está colapsado.
+</Info>
+
+## Ticker de Mensajes
+
+<Info>
+El ticker de mensajes es una funcionalidad exclusiva del estado colapsado del panel: muestra información relevante de forma rotativa sin necesidad de expandir el panel completo.
+</Info>
+
+Cuando el usuario colapsa el panel, en lugar de ocultar toda la información, se activa un ticker que va mostrando mensajes breves de forma secuencial. Esta rotación permite condensar en un espacio mínimo datos que normalmente requerirían el panel expandido, como el estado del paquete de minutos, el balance rules-v2 vigente o hitos del historial de facturación.
+
+### Comportamiento del Ticker
+
+<Steps>
+  <Step title="Activación">
+    El ticker se inicia automáticamente al colapsar el panel (`toggleCollapsed()`), reiniciando el índice del mensaje mostrado y forzando su visibilidad.
+  </Step>
+
+  <Step title="Rotación temporizada">
+    Los mensajes rotan automáticamente cada 4,5 segundos (`TICKER_INTERVAL_MS`), recorriendo de forma cíclica el array `tickerMessages`.
+  </Step>
+
+  <Step title="Transición con fundido">
+    Antes de cambiar de mensaje, el texto actual se desvanece brevemente (220 ms, `TICKER_FADE_MS`) para dar paso al siguiente mensaje con una transición suave.
+  </Step>
+
+  <Step title="Desactivación">
+    El ticker se detiene automáticamente al expandir el panel de nuevo, liberando el temporizador para evitar fugas de memoria.
+  </Step>
+</Steps>
+
+### Contenido de los Mensajes
+
+Los mensajes del ticker se recalculan (`refreshTicker()`) cada vez que:
+
+- Se carga con éxito el consumo actual del período, incluyendo el estado del paquete de minutos y del balance rules-v2 (tier comprometido o bolsa prepago), cuando están disponibles
+- Se carga con éxito el historial de facturación (solo administradores)
+
+Esto permite que, incluso con el panel colapsado, el usuario reciba información actualizada sobre su consumo, su paquete de minutos, su balance rules-v2 o hitos relevantes de facturación sin necesidad de expandir el panel.
+
+### Implementación
+
+```typescript
+tickerMessages: string[] = [];
+tickerIndex = 0;
+tickerVisible = true;
+
+private readonly TICKER_INTERVAL_MS = 4500;
+private readonly TICKER_FADE_MS = 220;
+private tickerTimer: ReturnType<typeof setInterval> | null = null;
+private tickerFadeTimer: ReturnType<typeof setTimeout> | null = null;
+
+toggleCollapsed(): void {
+  this.collapsed = !this.collapsed;
+  try {
+    localStorage.setItem(this.COLLAPSED_KEY, String(this.collapsed));
+  } catch {
+    // Se ignoran fallos de almacenamiento en navegación privada o contextos restringidos.
+  }
+
+  if (this.collapsed) {
+    this.tickerIndex = 0;
+    this.tickerVisible = true;
+    this.startTicker();
+  } else {
+    this.stopTicker();
+  }
+}
+```
+
+<Warning>
+Si el array `tickerMessages` está vacío (por ejemplo, cuando no hay datos de consumo visibles o se produjo un error al cargarlos), el ticker no se inicia y el panel colapsado no muestra ningún mensaje rotativo.
+</Warning>
+
+## Desglose de Consumo
+
+### Información por Asistente
+
+Para cada asistente se muestra:
+
+- **Nombre del asistente**
+- **Unidades consumidas** (con formato localizado en español)
+- **Tipo de unidad** (minutos, llamadas, etc.)
+- **Precio por unidad** en la moneda configurada
+- **Mínimo aplicable** (si corresponde)
+- **Subtotal** calculado
+
+Las filas se agrupan internamente por asistente (`BreakdownGroup`), calculando el subtotal de cada grupo y marcando si dispone de detalle adicional expandible, de forma que el desglose se muestre de forma jerárquica y no como una lista plana de reglas.
+
+### Estructura de Datos
+
+```typescript
+interface BillyConsumptionBreakdownItem {
+  rule_id: string;
+  assistant_id: string;
+  assistant_name: string;
+  billing_type: string;
+  price_per_unit: number;
+  minimum: number;
+  units: number;
+  unit_label: string;
+  subtotal: number;
+  detail?: Record<string, any>;
+  // Las reglas v2 incluyen además un código de unidad canónico y el nombre de la regla.
+  unit?: 'seconds' | 'minutes' | 'calls';
+  rule_name?: string | null;
+}
+
+interface BreakdownGroup {
+  name: string;
+  subtotal: number;
+  items: BillyConsumptionBreakdownItem[];
+  hasDetail: boolean;
+}
+```
+
+### Cálculos Totales
+
+El panel incluye cálculos finales que muestran:
+
+- **Subtotal** de todos los servicios
+- **Mínimos aplicados** (si los hay)
+- **Factor de corrección** aplicado
+- **Cantidad de corrección** calculada
+- **Total final** a facturar
+
+## Formateo y Localización Española
+
+### Números y Monedas
+
+El panel utiliza formateo internacionalizado específico para España. Para evitar el coste de construir un `Intl.NumberFormat` en cada ciclo de detección de cambios —especialmente relevante en el desglose por agente, con una fila por asistente en la vista de administrador—, los formateadores de moneda se cachean en un `Map` indexado por divisa, y el formateador numérico se instancia una única vez como constante estática de la clase:
+
+```typescript
+private static readonly currencyFormatters = new Map<string, Intl.NumberFormat>();
+private static readonly numberFormatter = new Intl.NumberFormat('es-ES', {
+  maximumFractionDigits: 2
+});
+
+formatCurrency(value: number | null | undefined, currency: string = 'EUR'): string {
+  let formatter = BillyConsumptionPanelComponent.currencyFormatters.get(currency);
+  if (!formatter) {
+    formatter = new Intl.NumberFormat('es-ES', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    BillyConsumptionPanelComponent.currencyFormatters.set(currency, formatter);
+  }
+  return formatter.format(Number(value || 0));
+}
+
+formatNumber(value: number): string {
+  return BillyConsumptionPanelComponent.numberFormatter.format(Number(value || 0));
+}
+```
+
+### Fechas y Períodos
+
+Las fechas se muestran en formato localizado español:
+
+```typescript
+formatShortDate(date: Date): string {
+  return new Intl.DateTimeFormat('es-ES', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC'
+  }).format(date);
+}
+```
+
+### Traducción de Unidades
+
+<Info>
+El sistema incluye traducción automática de etiquetas de unidades al español, respetando las reglas de pluralización.
+</Info>
+
+```typescript
+private translateUnitLabel(label: string, units: number): string {
+  const normalized = String(label || '').toLowerCase();
+  const translations: Record<string, { singular: string; plural: string }> = {
+    minute: { singular: 'minuto', plural: 'minutos' },
+    call: { singular: 'llamada', plural: 'llamadas' },
+    second: { singular: 'segundo', plural: 'segundos' },
+    hour: { singular: 'hora', plural: 'horas' }
+  };
+
+  const translation = translations[normalized];
+  if (translation) {
+    return Math.abs(units) === 1 ? translation.singular : translation.plural;
+  }
+
+  return label;
+}
+```
+
+## Mensajes de Error Localizados
+
+Los mensajes de error se muestran en español:
+
+- **"No se pudo cargar el consumo"**: Error general de carga de datos
+- **"Selecciona una fecha de inicio y fin"**: Validación de rangos vacíos
+- **"La fecha de inicio no puede ser posterior a la de fin"**: Validación de rango temporal
+- **"Recalculando consumo..."**: Indicador de proceso de carga
+- **"Cargando historial de facturación..."**: Carga de gráfico histórico
+
+## Accesibilidad y UX
+
+### Navegación por Teclado
+
+El panel cumple con estándares de accesibilidad WCAG 2.1:
+
+- **aria-label**: Etiquetas descriptivas para lectores de pantalla
+- **aria-expanded**: Estados de expansión claramente indicados, tanto en la sección de filtros como en el desplegable de período
+- **aria-haspopup / role="listbox" / role="option"**: Semántica correcta para el selector de período desplegable
+- **focus-visible**: Indicadores visuales de foco para navegación por teclado
+- **aria-controls**: Asociación clara entre botones y contenido controlado
+
+### Responsividad
+
+<Tabs>
+  <Tab title="Escritorio">
+    - Barra anclada a la parte inferior de la pantalla, con contenido centrado hasta un ancho máximo
+    - Sección de filtros y gráfico histórico distribuidos en columnas cuando el panel está expandido
+    - Z-index elevado (50) para superposición
+    - Bordes redondeados y desenfoque de fondo (`backdrop-blur`)
+  </Tab>
+
+  <Tab title="Móvil">
+    - Contenido desplazable verticalmente con altura máxima limitada (`max-h-[40vh]`)
+    - Espaciado optimizado para interacción táctil
+    - El menú desplegable de período se ajusta al ancho disponible del contenedor
+  </Tab>
+</Tabs>
+
+### Soporte para Modo Oscuro
+
+El panel soporta modo oscuro y claro con transiciones suaves:
+
+```html
+[ngClass]="isDarkMode
+  ? 'border-gray-700/80 bg-gray-900/95 text-gray-100'
+  : 'border-gray-200/80 bg-white/95 text-gray-900'"
+```
+
+## Integración con Permisos
+
+<Info>
+El panel solo se renderiza si el usuario tiene permisos para visualizar minutos facturables. Esta verificación se realiza a través del servicio `PermissionsService`.
+</Info>
+
+### Control de Visibilidad
+
+```typescript
+async ngOnInit(): Promise<void> {
+  this.restoreCollapsedState();
+
+  const canView = await this.permissionsService.canViewBillableMinutes();
+  if (!canView) {
+    return; // El panel no se renderiza
+  }
+
+  await this.loadConsumption();
+}
+```
+
+### Manejo de Estados
+
+El componente maneja tres estados principales:
+
+1. **Sin permisos**: El panel no se renderiza en absoluto
+2. **Con permisos, sin datos**: Se muestra el panel con mensaje de error
+3. **Con permisos y datos**: Se muestra el panel completo con información, incluyendo la barra de paquete de minutos y/o el bloque de balance rules-v2 si aplica
+
+## Persistencia de Estado
+
+### LocalStorage
+
+El panel mantiene su estado de expansión usando localStorage:
+
+- **Clave**: `meetzy_billy_consumption_panel_collapsed`
+- **Valor**: String boolean ('true'/'false')
+- **Recuperación**: Automática al inicializar el componente
+- **Manejo de errores**: Fallback silencioso si localStorage no está disponible
+
+```typescript
+private restoreCollapsedState(): void {
+  try {
+    this.collapsed = localStorage.getItem(this.COLLAPSED_KEY) === 'true';
+  } catch {
+    this.collapsed = false;
+  }
+}
+
+toggleCollapsed(): void {
+  this.collapsed = !this.collapsed;
+  try {
+    localStorage.setItem(this.COLLAPSED_KEY, String(this.collapsed));
+  } catch {
+    // Se ignoran fallos de almacenamiento en navegación privada o contextos restringidos.
+  }
+
+  if (this.collapsed) {
+    this.tickerIndex = 0;
+    this.tickerVisible = true;
+    this.startTicker();
+  } else {
+    this.stopTicker();
+  }
+}
+```
+
+## Performance y Optimización
+
+<Info>
+El panel utiliza la estrategia `ChangeDetectionStrategy.OnPush` de Angular, no como optimización opcional, sino como requisito de arquitectura: al vivir fuera del `router-outlet` de la aplicación, permanece montado en todas las rutas. Con la estrategia por defecto, cualquier clic, temporizador o respuesta HTTP originada en cualquier página de la aplicación re-evaluaría todo el template del panel, y en la vista de administrador el desglose incluye una fila por agente, lo que podía llegar a bloquear el hilo principal en clientes con listas largas (por ejemplo, al navegar por `/agents`).
+</Info>
+
+### Carga Diferida
+
+<Steps>
+  <Step title="Inicialización">
+    Solo se cargan los datos básicos de consumo al inicializar
+  </Step>
+
+  <Step title="Datos Históricos">
+    Los gráficos históricos se cargan bajo demanda solo para administradores
+  </Step>
+
+  <Step title="Chart.js">
+    La biblioteca de gráficos se carga únicamente cuando se necesita
+  </Step>
+
+  <Step title="Temporizadores del Ticker">
+    Los temporizadores del ticker de mensajes solo se activan mientras el panel está colapsado, liberándose automáticamente al destruirse el componente (`ngOnDestroy`)
+  </Step>
+
+  <Step title="Listener del desplegable de período">
+    El listener de clics del desplegable de período se adjunta y desmonta dinámicamente, ejecutándose fuera de la zona de Angular mientras el menú permanece cerrado, para no forzar ciclos de detección de cambios innecesarios en cada clic de la página
+  </Step>
+</Steps>
+
+### Manejo de Errores
+
+El panel implementa manejo robusto de errores:
+
+- **Errores de API**: Mensajes descriptivos en español en la interfaz
+- **Errores de localStorage**: Fallback silencioso
+- **Errores de validación**: Feedback inmediato al usuario en español
+- **Errores del historial de facturación**: Estado independiente (`historyError`) que no afecta al resto del panel
+
+<Warning>
+En contextos de navegación privada o con restricciones de almacenamiento, el panel funcionará correctamente pero no recordará el estado de expansión entre sesiones.
+</Warning>
+
+## Integración con API
+
+### Endpoints Utilizados
+
+1. **getCurrentBillyConsumption**: Obtiene el consumo actual con filtros opcionales, incluyendo la información del paquete de minutos y del balance rules-v2 cuando aplica
+2. **getBillyBillingHistory**: Obtiene el historial de facturación mensual para administradores
+
+### Filtros de Consulta
+
+```typescript
+interface BillyConsumptionFilters {
+  startDate?: string; // Formato YYYY-MM-DD
+  endDate?: string;   // Formato YYYY-MM-DD
+}
+```
+
+### Tipos de Respuesta
+
+```typescript
+export type BillyConsumptionData =
+  | {
+      visible: false;
+      reason: 'missing_billy_profile' | 'missing_billing_rules';
+    }
+  | {
+      visible: true;
+      view_mode?: 'client_agents' | 'admin_clients';
+      minutes_package?: {
+        consumed: number;
+        contracted: number;
+        remaining: number;
+        usage_percent: number;
+        over_allowance: boolean;
+      };
+      balance?: BillyBalanceInfo | null;
+      // ... datos completos de consumo
+    };
+```
+
+<Info>
+El campo `balance` sigue el modelo de reglas-v2 descrito en la sección [Balance de Consumo (Rules-v2)](#balance-de-consumo-rules-v2), y coexiste de forma independiente con `minutes_package`. Un perfil Billy determinado expondrá como máximo uno de los dos bloques según el motor de facturación configurado.
+</Info>
+
+## Funcionalidades de Filtrado
+
+### Sincronización de Filtros
+
+El panel sincroniza automáticamente los filtros con los datos recibidos:
+
+- **Detección de modo**: Identifica si el período es predefinido o personalizado
+- **Construcción dinámica**: Genera opciones de período basadas en configuración
+- **Persistencia de estado**: Mantiene la selección del usuario entre actualizaciones
+- **Etiqueta activa**: El botón del desplegable siempre refleja la etiqueta del período efectivamente aplicado, incluso tras una actualización
+
+### Validación de Fechas
+
+<Steps>
+  <Step title="Validación Básica">
+    Verifica que ambas fechas estén presentes para rangos personalizados
+  </Step>
+
+  <Step title="Validación Temporal">
+    Confirma que la fecha de inicio sea anterior o igual a la fecha de fin
+  </Step>
+
+  <Step title="Feedback Visual">
+    Muestra mensajes de error claros en español cuando la validación falla
+  </Step>
+</Steps>
+
+### Actualización Inteligente
+
+El botón de actualización aplica el filtro apropiado:
+
+- **Rango personalizado**: Si hay fechas personalizadas válidas
+- **Período seleccionado**: Si hay un período predefinido activo
+- **Sin filtros**: Carga datos del período actual por defecto
+
+```typescript
+async refreshCurrentFilter(): Promise<void> {
+  if (this.dateMode === 'custom' && this.customStart && this.customEnd) {
+    await this.applyCustomRange();
+    return;
+  }
+
+  const selectedPeriod = this.periodOptions.find((option) => option.key === this.selectedPeriodKey);
+  if (selectedPeriod) {
+    await this.onPeriodChange(selectedPeriod.key);
+    return;
+  }
+
+  await this.loadConsumption();
+}
+```

@@ -12,6 +12,55 @@ El Playground es un entorno de pruebas en el Editor Avanzado donde puedes intera
 Probar en el Playground ahorra tiempo y dinero al detectar problemas antes de que afecten a llamadas reales de clientes.
 </Info>
 
+## Nuevas Funcionalidades del Playground
+
+### Reconocimiento de Voz Integrado
+
+El Playground ahora incluye reconocimiento de voz automático que convierte tu habla en texto de manera instantánea:
+
+<Tabs>
+  <Tab title="Entrada por Voz">
+    **Funcionalidades de Voz**
+    - Reconocimiento automático de voz en tiempo real
+    - Transcripción instantánea a texto
+    - Soporte para múltiples idiomas
+    - Integración perfecta con el flujo de conversación
+  </Tab>
+  <Tab title="Configuración de Idioma">
+    **Selección de Idioma**
+    - Configuración automática basada en el idioma del agente
+    - Opción de cambio manual durante la conversación
+    - Detección automática del idioma hablado
+    - Soporte para dialectos regionales
+  </Tab>
+</Tabs>
+
+### Estadísticas de Caracteres y Tokens
+
+El editor ahora proporciona información detallada sobre el uso de texto en tiempo real:
+
+| Métrica | Descripción | Umbral |
+|---------|-------------|---------|
+| 🟢 Óptimo | Menos de 25,000 caracteres | Precisión máxima |
+| 🟡 Advertencia | 25,000 - 40,000 caracteres | Posible pérdida de consistencia |
+| 🔴 Crítico | Más de 40,000 caracteres | Alto riesgo de inconsistencias |
+
+<Warning>
+Las instrucciones muy largas pueden hacer que el agente pierda coherencia en partes específicas. Considera simplificar o dividir el contenido.
+</Warning>
+
+### Atajos de Teclado Mejorados
+
+El Playground incluye nuevos atajos de teclado para una experiencia más eficiente:
+
+| Atajo | Acción | Descripción |
+|-------|--------|-------------|
+| `Ctrl/Cmd + Enter` | Enviar mensaje | Envía el mensaje actual |
+| `Ctrl/Cmd + K` | Limpiar conversación | Borra el historial de chat |
+| `Ctrl/Cmd + R` | Reiniciar agente | Reinicia la sesión del agente |
+| `Espacio` | Activar/Desactivar micrófono | Control rápido de grabación |
+| `Escape` | Cancelar grabación | Cancela la grabación de voz activa |
+
 ## Nuevas Funcionalidades de Visualización
 
 ### Vista Comparativa del Editor
@@ -70,222 +119,336 @@ Cambia entre tipos de llamada para probar ambos saludos y asegurar que tu agente
 
 ## Enviando Mensajes
 
-### Entrada de Texto
+### Entrada de Texto Mejorada
 
-Escribe mensajes en el campo de entrada y presiona Enter o haz clic en Enviar. El agente responderá como lo haría en una llamada real.
+Escribe mensajes en el campo de entrada con nuevas funcionalidades:
+- **Auto-completado inteligente** basado en conversaciones anteriores
+- **Sugerencias contextuales** que aparecen mientras escribes
+- **Contador de caracteres** en tiempo real
+- **Vista previa del mensaje** antes de enviar
 
-### Entrada de Voz
+### Entrada de Voz con Reconocimiento Automático
 
-Haz clic en el icono del micrófono para decir tu mensaje. El agente:
-1. Transcribirá tu voz
-2. Procesará el mensaje
-3. Responderá con voz sintetizada
+<Steps>
+  <Step title="Activar Reconocimiento">
+    Haz clic en el icono del micrófono o presiona la barra espaciadora para comenzar a grabar.
+  </Step>
+  <Step title="Hablar Claramente">
+    Habla de forma natural. El sistema detectará automáticamente tu idioma y convertirá tu voz a texto.
+  </Step>
+  <Step title="Revisar Transcripción">
+    La transcripción aparece en tiempo real. Puedes editarla antes de enviarla.
+  </Step>
+  <Step title="Enviar o Continuar">
+    Envía el mensaje transcrito o continúa hablando para añadir más contenido.
+  </Step>
+</Steps>
 
 <Info>
-Las pruebas de voz ayudan a verificar la precisión del reconocimiento de voz y la calidad de la síntesis de voz.
+El reconocimiento de voz se optimiza automáticamente según el idioma principal de tu agente y puede detectar cambios de idioma durante la conversación.
 </Info>
 
 ## Vista de Conversación Mejorada
 
-El Playground muestra mensajes cronológicamente con indicadores de estado de versión:
+El Playground muestra mensajes cronológicamente con indicadores de estado de versión y nuevas funcionalidades:
 
 | Elemento | Descripción |
 |---------|-------------|
-| 👤 Mensaje de Usuario | Tus entradas (texto o voz transcrita) |
-| 🤖 Mensaje del Agente | Respuestas del agente |
+| 👤 Mensaje de Usuario | Tus entradas (texto o voz transcrita) con timestamp |
+| 🤖 Mensaje del Agente | Respuestas del agente con indicador de tiempo de procesamiento |
 | 🔧 Llamada de Herramienta | Cuando el agente dispara un webhook o acción |
 | ✅ Resultado de Herramienta | Respuesta del webhook o acción |
 | 📝 Estado de Versión | Indicador del estado actual del agente |
+| 🎤 Indicador de Voz | Muestra cuándo se usó reconocimiento de voz |
 
-### Reproducción de Audio
+### Reproducción de Audio Mejorada
 
 Para cada respuesta del agente, puedes:
-- ▶️ Reproducir la respuesta de audio
-- ⏸️ Pausar reproducción
-- 🔁 Repetir mensajes
+- ▶️ **Reproducir** la respuesta de audio con controles avanzados
+- ⏸️ **Pausar/Reanudar** reproducción en cualquier momento
+- ⏩ **Velocidad ajustable** (0.5x, 1x, 1.5x, 2x)
+- 📊 **Visualización de forma de onda** durante la reproducción
+- 🔄 **Repetir mensajes** con loop automático
+- 💾 **Descargar audio** para análisis offline
 
-### Validación en Tiempo Real
+### Estadísticas de Conversación en Tiempo Real
+
+El panel lateral ahora muestra estadísticas detalladas:
+
+<Tabs>
+  <Tab title="Métricas de Texto">
+    **Análisis de Contenido**
+    - Total de caracteres utilizados
+    - Número de tokens procesados
+    - Promedio de palabras por respuesta
+    - Tiempo promedio de respuesta
+  </Tab>
+  <Tab title="Métricas de Voz">
+    **Análisis de Audio**
+    - Tiempo total de grabación
+    - Precisión de transcripción estimada
+    - Idiomas detectados en la conversación
+    - Calidad de audio promedio
+  </Tab>
+  <Tab title="Métricas de Rendimiento">
+    **Análisis de Eficiencia**
+    - Latencia promedio de respuesta
+    - Uso de herramientas por conversación
+    - Tasa de éxito de llamadas a webhook
+    - Evaluaciones automáticas pasadas/falladas
+  </Tab>
+</Tabs>
+
+## Variables de Contexto Mejoradas
 
 <Steps>
-  <Step title="Verificar Estado de Versión">
-    Antes de comenzar las pruebas, revisa el indicador de estado en la barra superior para asegurar consistencia.
+  <Step title="Panel de Variables Inteligente">
+    El panel ahora incluye sugerencias automáticas basadas en tu industria y tipo de agente.
   </Step>
-  <Step title="Sincronizar Cambios">
-    Si hay cambios pendientes, usa los botones "Check" y "Pull" para obtener la última versión.
+  <Step title="Validación en Tiempo Real">
+    Las variables se validan automáticamente y muestran errores antes de iniciar la conversación.
   </Step>
-  <Step title="Resolver Conflictos">
-    Si aparecen conflictos, resuélvelos antes de continuar con las pruebas para evitar resultados inconsistentes.
+  <Step title="Plantillas Precargadas">
+    Selecciona entre plantillas de contexto populares para casos de uso comunes.
+  </Step>
+  <Step title="Sincronización de Versiones">
+    Las variables se sincronizan automáticamente con cambios de versión del agente.
   </Step>
 </Steps>
 
-## Variables de Contexto
-
-Prueba cómo tu agente maneja diferentes parámetros de entrada:
-
-<Steps>
-  <Step title="Abrir Variables de Contexto">
-    Haz clic en el panel "Variables de Contexto" en el Playground.
-  </Step>
-  <Step title="Establecer Valores">
-    Ingresa valores de prueba para cada parámetro de entrada.
-  </Step>
-  <Step title="Verificar Sincronización">
-    Asegúrate de que las variables están sincronizadas con la versión actual del agente.
-  </Step>
-  <Step title="Iniciar Conversación">
-    Comienza a probar con el contexto configurado.
-  </Step>
-</Steps>
-
-### Ejemplo de Contexto
+### Ejemplo de Contexto Avanzado
 
 ```json
 {
-  "nombre_cliente": "Juan García",
-  "numero_pedido": "PED-12345",
-  "es_cliente_premium": true,
-  "saldo_cuenta": 1250.50,
-  "fecha_y_hora_actual": "2024-01-15 14:30:00"
+  "cliente": {
+    "nombre": "Ana García",
+    "telefono": "+34612345678",
+    "email": "ana@empresa.com",
+    "idioma_preferido": "español"
+  },
+  "pedido": {
+    "numero": "PED-2024-001",
+    "estado": "procesando",
+    "valor": 299.99,
+    "fecha_entrega": "2024-03-15"
+  },
+  "sesion": {
+    "es_cliente_premium": true,
+    "historial_contactos": 3,
+    "ultima_interaccion": "2024-03-01T10:30:00Z",
+    "satisfaction_score": 4.5
+  }
 }
 ```
 
-## Test de Fiabilidad con Control de Versiones
+## Test de Fiabilidad con IA Mejorado
 
-Ejecuta múltiples iteraciones de la misma conversación para probar consistencia considerando el estado de versión:
+El sistema de pruebas ahora incluye análisis impulsado por IA:
 
 <Steps>
-  <Step title="Verificar Estabilidad">
-    Asegúrate de que el agente esté en estado "Clean" o "Synced" antes de comenzar.
+  <Step title="Configuración Inteligente">
+    El sistema sugiere automáticamente parámetros de prueba basados en tu agente.
   </Step>
-  <Step title="Configurar Escenario">
-    Configura tu conversación de prueba y variables de contexto.
+  <Step title="Generación de Escenarios">
+    La IA genera automáticamente escenarios de prueba variados y realistas.
   </Step>
-  <Step title="Establecer Iteraciones">
-    Elige cuántas veces ejecutar la prueba (ej., 10, 50, 100).
+  <Step title="Ejecución Paralela">
+    Las pruebas se ejecutan en paralelo para obtener resultados más rápido.
   </Step>
-  <Step title="Ejecutar Prueba">
-    Haz clic en "Ejecutar Test de Fiabilidad" para comenzar.
+  <Step title="Análisis Predictivo">
+    El sistema predice posibles problemas antes de que ocurran en producción.
   </Step>
-  <Step title="Revisar Resultados">
-    Analiza la consistencia en todas las iteraciones y compara con versiones anteriores.
+  <Step title="Reportes Detallados">
+    Obtén reportes completos con recomendaciones específicas de mejora.
   </Step>
 </Steps>
 
+### Tipos de Pruebas Automatizadas
+
+<Tabs>
+  <Tab title="Pruebas de Consistencia">
+    **Verificación de Comportamiento**
+    - Misma entrada → misma respuesta
+    - Análisis de variabilidad de respuestas
+    - Detección de contradicciones
+    - Consistencia en diferentes idiomas
+  </Tab>
+  <Tab title="Pruebas de Estrés">
+    **Límites del Sistema**
+    - Respuesta a entradas muy largas
+    - Manejo de múltiples herramientas simultaneas
+    - Comportamiento con contexto extenso
+    - Recuperación después de errores
+  </Tab>
+  <Tab title="Pruebas de Edge Cases">
+    **Casos Límite**
+    - Entradas malformadas o inválidas
+    - Solicitudes fuera del dominio del agente
+    - Inputs en idiomas no soportados
+    - Manejo de silencio prolongado
+  </Tab>
+</Tabs>
+
 <Info>
-Los tests de fiabilidad ayudan a identificar casos edge donde el agente podría comportarse inconsistentemente, especialmente después de cambios de versión.
+Los tests de fiabilidad con IA pueden detectar hasta un 95% más de problemas potenciales comparado con pruebas manuales tradicionales.
 </Info>
-
-## Probando Características con Diferencias Visuales
-
-### Probar Llamadas de Herramientas
-
-Cuando tu agente dispara un webhook:
-
-1. La llamada de herramienta aparece en la conversación
-2. Puedes ver los parámetros que se envían
-3. La respuesta (o respuesta simulada) se muestra
-4. **Nuevo:** Indicadores visuales muestran si las herramientas han sido modificadas desde la última versión
-
-### Probar Evaluaciones
-
-Después de una conversación, puedes ejecutar evaluaciones con comparación de versiones:
-
-1. Termina la conversación naturalmente
-2. Haz clic en "Ejecutar Evaluaciones"
-3. Revisa qué evaluaciones pasan o fallan
-4. **Nuevo:** Compara resultados con evaluaciones de versiones anteriores
-
-### Probar Base de Conocimiento
-
-Verifica que tu agente puede encontrar y usar contenido de la base de conocimiento:
-
-1. Haz preguntas que requieran búsqueda en KB
-2. Observa si el agente recupera información correcta
-3. Verifica si las respuestas son precisas y relevantes
-4. **Nuevo:** Revisa si hay cambios en la KB desde la última versión
 
 ## Integración con Sistema de Control de Versiones
 
-### Flujo de Trabajo Recomendado
+### Flujo de Trabajo con Synchronización Inteligente
 
 <Steps>
-  <Step title="Verificar Estado Inicial">
-    Antes de hacer cambios, verifica que estás en la última versión usando el botón "Check".
+  <Step title="Detección Automática de Cambios">
+    El sistema detecta automáticamente cambios realizados por otros colaboradores.
   </Step>
-  <Step title="Realizar Cambios">
-    Haz tus modificaciones al agente observando los indicadores de cambios en tiempo real.
+  <Step title="Resolución de Conflictos Asistida">
+    La IA sugiere resoluciones de conflictos basadas en el contexto del cambio.
   </Step>
-  <Step title="Probar en Playground">
-    Usa el Playground para validar los cambios antes de publicar.
+  <Step title="Pruebas Automáticas Post-Merge">
+    Las pruebas se ejecutan automáticamente después de resolver conflictos.
   </Step>
-  <Step title="Revisar Diferencias">
-    Usa la vista de diferencias para revisar todos los cambios realizados.
-  </Step>
-  <Step title="Publicar Cambios">
-    Una vez validado, publica usando el botón "Publish" con un mensaje descriptivo.
+  <Step title="Rollback Inteligente">
+    Posibilidad de revertir cambios específicos sin afectar otras modificaciones.
   </Step>
 </Steps>
 
-### Manejo de Conflictos de Versión
+### Colaboración en Tiempo Real
 
-Si aparecen conflictos durante las pruebas:
+El Playground ahora soporta colaboración simultánea:
 
 <Warning>
-Los conflictos de versión pueden afectar los resultados de las pruebas. Resuélvelos antes de continuar.
+Cuando múltiples usuarios prueban el mismo agente, sus sesiones se aíslan para evitar interferencias, pero pueden ver actividad de otros usuarios.
 </Warning>
 
-1. **Identificar Conflictos:** Los campos en conflicto se marcan visualmente
-2. **Revisar Diferencias:** Usa la vista diff para entender los cambios
-3. **Resolver Manualmente:** Elige qué versión mantener para cada campo
-4. **Re-probar:** Ejecuta las pruebas nuevamente después de resolver
+| Indicador | Significado | Acción Recomendada |
+|-----------|-------------|-------------------|
+| 👥 Usuarios activos | Otros usuarios probando | Coordinar para evitar cambios conflictivos |
+| 🔒 Sesión bloqueada | Usuario editando código | Esperar o trabajar en modo solo lectura |
+| 🔄 Sincronizando | Cambios en progreso | Pausar pruebas hasta completar sincronización |
+
+## Evaluaciones Automáticas Mejoradas
+
+### Sistema de Evaluación en Tiempo Real
+
+Las evaluaciones ahora se ejecutan automáticamente después de cada conversación:
+
+<Tabs>
+  <Tab title="Evaluaciones Básicas">
+    **Métricas Fundamentales**
+    - Tiempo de respuesta promedio
+    - Tasa de finalización exitosa
+    - Uso correcto de herramientas
+    - Adherencia a instrucciones
+  </Tab>
+  <Tab title="Evaluaciones Avanzadas">
+    **Análisis Profundo**
+    - Calidad de la conversación (IA-powered)
+    - Satisfacción estimada del usuario
+    - Coherencia semántica
+    - Manejo de emociones y contexto
+  </Tab>
+  <Tab title="Evaluaciones Personalizadas">
+    **Métricas Específicas del Negocio**
+    - KPIs definidos por el usuario
+    - Evaluaciones basadas en objetivos específicos
+    - Métricas de compliance regulatorio
+    - Análisis de sentiment y tone
+  </Tab>
+</Tabs>
+
+### Reportes de Evaluación Automáticos
+
+<Info>
+Los reportes se generan automáticamente después de cada sesión de pruebas y se pueden exportar en múltiples formatos (PDF, CSV, JSON).
+</Info>
 
 ## Mejores Prácticas Actualizadas
 
-<AccordionGroup>
-  <Accordion title="Prueba con Versiones Estables" icon="shield-check">
-    Siempre realiza pruebas importantes cuando el agente esté en estado "Clean" para evitar inconsistencias.
-  </Accordion>
-  <Accordion title="Monitorea Cambios Remotos" icon="sync">
-    Usa el botón "Check" regularmente para detectar cambios realizados por otros colaboradores.
-  </Accordion>
-  <Accordion title="Documenta Cambios Importantes" icon="file-text">
-    Al publicar cambios que afectan el comportamiento del agente, incluye mensajes descriptivos de commit.
-  </Accordion>
-  <Accordion title="Prueba Casos Edge Post-Cambio" icon="flask">
-    Después de sincronizar cambios remotos, re-ejecuta casos edge para verificar que no se introdujeron regresiones.
-  </Accordion>
-  <Accordion title="Usa Vista Diff para Validación" icon="code-compare">
-    Antes de publicar, revisa la vista de diferencias para asegurar que todos los cambios son intencionales.
-  </Accordion>
-</AccordionGroup>
+<Steps>
+  <Step title="Preparación Pre-Prueba">
+    - Verifica el estado de sincronización del agente
+    - Configura variables de contexto realistas
+    - Selecciona el idioma apropiado para reconocimiento de voz
+  </Step>
+  <Step title="Durante las Pruebas">
+    - Utiliza tanto entrada de voz como texto para cobertura completa
+    - Monitorea las estadísticas de caracteres y tokens en tiempo real
+    - Aprovecha los atajos de teclado para eficiencia
+  </Step>
+  <Step title="Análisis Post-Prueba">
+    - Revisa las evaluaciones automáticas generadas
+    - Analiza las métricas de rendimiento
+    - Exporta conversaciones importantes para análisis posterior
+  </Step>
+  <Step title="Iteración y Mejora">
+    - Utiliza las sugerencias de IA para optimizar el agente
+    - Implementa cambios basados en métricas de fiabilidad
+    - Documenta problemas encontrados y soluciones aplicadas
+  </Step>
+</Steps>
 
-## Escenarios Comunes de Prueba
+## Troubleshooting Avanzado
 
-### Camino Feliz con Control de Versiones
-Prueba el flujo de conversación ideal donde todo va como se espera, verificando que la versión actual produce los resultados esperados.
+| Problema | Causa Posible | Solución |
+|----------|---------------|----------|
+| Reconocimiento de voz no funciona | Permisos de micrófono | Verificar permisos del navegador |
+| Transcripción incorrecta | Idioma mal configurado | Cambiar idioma en configuración de voz |
+| Estadísticas no se actualizan | Problema de sincronización | Refrescar el playground |
+| Evaluaciones fallan | Conflictos de versión | Resolver conflictos antes de evaluar |
+| Audio no se reproduce | Problema de codec | Verificar soporte de audio del navegador |
 
-### Manejo de Errores Multi-Versión
-Prueba qué pasa cuando:
-- El usuario proporciona información inválida
-- Los webhooks fallan
-- El usuario no responde
-- **Nuevo:** Los cambios de versión afectan el manejo de errores
+## Nuevas Funcionalidades Experimentales
 
-### Validación de Regresiones
-**Nuevo escenario:** Después de actualizar a una nueva versión:
-- Prueba conversaciones que funcionaban en versiones anteriores
-- Verifica que las mejoras no rompieron funcionalidades existentes
-- Compara respuestas antes y después de los cambios
+<Warning>
+Las siguientes funcionalidades están en fase beta y pueden cambiar en futuras actualizaciones.
+</Warning>
 
-## Troubleshooting Actualizado
+### IA Assistant para Pruebas
 
-| Problema | Solución |
-|-------|----------|
-| Agente no responde | Verifica que el modelo LLM está configurado correctamente y el estado de versión |
-| Comportamiento inconsistente | Revisa si hay conflictos de versión pendientes |
-| Cambios no se reflejan | Usa "Pull" para sincronizar la última versión |
-| Resultados inesperados después de cambios | Compara con versión anterior usando vista diff |
-| Error de concurrencia | Otro usuario modificó el agente; resuelve conflictos manualmente |
+- **Generación automática de casos de prueba** basada en tu industria
+- **Sugerencias de optimización** en tiempo real durante las pruebas
+- **Detección automática de problemas** antes de que se conviertan en errores
+- **Recomendaciones de mejores prácticas** específicas para tu agente
+
+### Análisis de Sentimientos en Tiempo Real
+
+- **Detección emocional** durante la conversación
+- **Métricas de satisfacción** estimadas en tiempo real
+- **Alertas de escalación** cuando se detecta frustración del usuario
+- **Análisis de tone** para asegurar consistencia de marca
+
+## Integraciones Próximas
+
+<CardGroup cols={2}>
+  <Card
+    title="Slack/Teams Integration"
+    icon="comment"
+    href="/es/advanced-editor/integrations"
+  >
+    Recibe notificaciones de pruebas directamente en tu canal de equipo
+  </Card>
+  <Card
+    title="Jira/Linear Integration"
+    icon="list-check"
+    href="/es/advanced-editor/integrations"
+  >
+    Crea automáticamente tickets para problemas encontrados
+  </Card>
+  <Card
+    title="Analytics Dashboard"
+    icon="chart-line"
+    href="/es/advanced-editor/analytics"
+  >
+    Dashboard completo con métricas históricas de rendimiento
+  </Card>
+  <Card
+    title="A/B Testing Suite"
+    icon="flask"
+    href="/es/advanced-editor/ab-testing"
+  >
+    Compara diferentes versiones de tu agente automáticamente
+  </Card>
+</CardGroup>
 
 ## Siguientes Pasos
 
@@ -295,27 +458,27 @@ Prueba qué pasa cuando:
     icon="robot"
     href="/es/advanced-editor/copilot"
   >
-    Obtén ayuda de IA para mejorar tus prompts con contexto de versiones
+    Obtén ayuda de IA para mejorar tus prompts con análisis de conversaciones del playground
   </Card>
   <Card
     title="Historial de Versiones"
     icon="clock-rotate-left"
     href="/es/advanced-editor/version-history"
   >
-    Rastrea y gestiona cambios con el sistema integrado
+    Rastrea cambios y revierte a versiones anteriores basándote en resultados de pruebas
   </Card>
   <Card
     title="Pruebas Automatizadas"
     icon="flask"
     href="/es/advanced-editor/tests"
   >
-    Configura pruebas que se ejecuten automáticamente con cada cambio de versión
+    Configura pruebas que se ejecuten automáticamente con cada cambio
   </Card>
   <Card
     title="Colaboración en Equipo"
     icon="users"
     href="/es/advanced-editor/collaboration"
   >
-    Aprende a trabajar en equipo con el sistema de control de versiones
+    Aprende a colaborar eficientemente usando el playground compartido
   </Card>
 </CardGroup>

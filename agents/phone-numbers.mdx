@@ -1,6 +1,7 @@
 ---
 title: 'Configure Phone Numbers'
 description: 'Learn how to assign, manage, and swap phone numbers for your Meetzy agents'
+icon: 'phone'
 ---
 
 ## Phone Numbers in Meetzy
@@ -11,9 +12,198 @@ Each Meetzy agent needs at least one phone number to:
 - **Make outbound calls**
 - **Identify itself** (caller ID)
 
-<Note>
+<Info>
   Phone numbers are exclusive resources. Each number can only be assigned to one agent at a time.
-</Note>
+</Info>
+
+## Phone Number Types
+
+Meetzy supports two types of phone numbers for your agents:
+
+### Twilio Phone Numbers
+Standard phone numbers managed through your Twilio account:
+- Automatically provisioned and configured
+- Support both inbound and outbound calls
+- Can be swapped and reassigned automatically
+- Managed through Meetzy's interface
+
+### Verified Caller IDs
+Client-owned phone numbers verified for outbound calling:
+- Numbers you already own and want to use as caller ID
+- Must be verified through Twilio's verification process
+- Appear with a special verification badge in the interface
+- Cannot be swapped automatically (manual process required)
+
+<Warning>
+  Caller IDs are for outbound calling only and cannot be automatically rotated like Twilio numbers. They require manual management for spam protection.
+</Warning>
+
+## Visual Identification
+
+In the Meetzy interface, you can distinguish between phone number types:
+
+| Type | Visual Indicator | Description |
+|------|------------------|-------------|
+| **Twilio Number** | Standard format with swap controls | Fully managed by Meetzy |
+| **Verified Caller ID** | 🔒 Lock icon with verification badge | Client-owned verified number |
+
+<Info>
+  Verified Caller IDs show verification status badges (pending, verified, disabled) to help you track their state.
+</Info>
+
+## Multi-Subaccount Phone Number Management
+
+Meetzy now supports managing phone numbers across multiple Twilio subaccounts with enhanced assignment states and improved management features.
+
+### Assignment States
+
+Phone numbers can have three distinct assignment states:
+
+| State | Description | Visual Indicator |
+|-------|-------------|------------------|
+| **Assigned** | Fully assigned to an agent and active | 🟢 Green badge |
+| **Partial** | Partially assigned or pending configuration | 🟡 Yellow badge |
+| **Unassigned** | Available for assignment | ⚪ Gray badge |
+
+### Subaccount Credentials Management
+
+Each Twilio subaccount can have its own set of credentials configured independently:
+
+<Tabs>
+  <Tab title="Main Account">
+    Your primary Twilio account with full management capabilities
+  </Tab>
+  <Tab title="Configured Subaccounts">
+    Subaccounts with proper credentials - full management available
+  </Tab>
+  <Tab title="Unconfigured Subaccounts">
+    Subaccounts without credentials - view-only access
+  </Tab>
+</Tabs>
+
+<Warning>
+  To fully manage phone numbers in a subaccount, you need to configure the subaccount credentials in your settings.
+</Warning>
+
+## Twilio Subaccount Navigation
+
+The phone numbers interface includes a tabbed navigation system to manage numbers across different Twilio subaccounts:
+
+### How to Navigate Between Subaccounts
+
+<Steps>
+  <Step title="View Available Subaccounts">
+    Look for the tab interface at the top of the phone numbers page.
+  </Step>
+  <Step title="Select Subaccount">
+    Click on any tab to switch to that subaccount's phone numbers.
+  </Step>
+  <Step title="Wait for Loading">
+    The system will load numbers for the selected subaccount automatically.
+  </Step>
+  <Step title="Check Credential Status">
+    Look for the credential status badge on each subaccount tab.
+  </Step>
+</Steps>
+
+<Info>
+  Phone numbers are cached per subaccount to improve performance when switching between tabs.
+</Info>
+
+## Enhanced Phone Number Filtering
+
+The interface provides several filtering options to help you manage large numbers of phone numbers:
+
+### Filter Options
+
+| Filter | Description | Use Case |
+|--------|-------------|----------|
+| **All** | Shows all phone numbers regardless of status | Complete overview |
+| **Assigned** | Shows only numbers assigned to agents | Review active assignments |
+| **Unassigned** | Shows only unassigned numbers | Find available numbers |
+
+### Visual Status Indicators
+
+Each phone number displays color-coded status indicators based on the new assignment states:
+
+- 🟢 **Green**: Fully assigned and active
+- 🟡 **Yellow**: Partially assigned or pending
+- ⚪ **Gray**: Unassigned and available
+
+## Direct Agent Assignment System
+
+The new assignment system allows you to directly assign phone numbers to agents with improved feedback:
+
+<Steps>
+  <Step title="Locate Available Number">
+    Find an unassigned number in the list.
+  </Step>
+  <Step title="Click Assign">
+    Click the "Assign" button next to the phone number.
+  </Step>
+  <Step title="Select Agent">
+    Choose an agent from the dropdown list of available agents.
+  </Step>
+  <Step title="Confirm Assignment">
+    Click confirm to complete the assignment with automatic state updates.
+  </Step>
+</Steps>
+
+### Assignment Process
+
+When you assign a number:
+1. The number's status changes to **assigned**
+2. The agent's configuration is updated
+3. The cache is refreshed for real-time updates
+4. Assignment status is reflected across all relevant interfaces
+
+<Warning>
+  Once assigned directly, the number will become unavailable for other agents until reassigned, reset, or returned.
+</Warning>
+
+## Advanced Number Management Operations
+
+### Reset Numbers
+
+The reset function allows you to clear a number's configuration while keeping it in your account:
+
+<Steps>
+  <Step title="Select Number to Reset">
+    Find the phone number you want to reset.
+  </Step>
+  <Step title="Click Reset">
+    Use the reset option in the number's actions menu.
+  </Step>
+  <Step title="Confirm Reset">
+    Confirm the reset operation - this will clear webhooks and assignments.
+  </Step>
+  <Step title="Verify Status">
+    The number will return to **unassigned** status and be available for new assignments.
+  </Step>
+</Steps>
+
+### Return Numbers
+
+The return function removes numbers from your account completely:
+
+<Steps>
+  <Step title="Select Number to Return">
+    Find the phone number you want to return to Twilio's pool.
+  </Step>
+  <Step title="Click Return">
+    Use the return option in the number's actions menu.
+  </Step>
+  <Step title="Confirm Return">
+    Confirm the return operation - this action cannot be undone.
+  </Step>
+  <Step title="Number Released">
+    The number is returned to Twilio and removed from your account.
+  </Step>
+</Steps>
+
+<Warning>
+  Returned numbers cannot be recovered. They may be assigned to other customers.
+</Warning>
 
 ## Assign a Number When Creating an Agent
 
@@ -34,6 +224,7 @@ All numbers are assigned or configured.
 
 **Options:**
 - Release a number from another agent
+- Reset unused numbers
 - Request new numbers via the "Request more numbers" link
 
 ## View Assigned Numbers
@@ -48,6 +239,47 @@ Phone number assigned to this agent
 <Warning>
   The phone number cannot be changed directly once assigned. To change it, use the Swap function from Phone Health.
 </Warning>
+
+## Caller ID Management
+
+Verified Caller IDs provide additional flexibility for outbound calling with your own phone numbers.
+
+### Adding a Caller ID
+
+<Steps>
+  <Step title="Navigate to Agent Settings">
+    Open the agent configuration in the Advanced Editor.
+  </Step>
+  <Step title="Add Caller ID">
+    In the Caller IDs section, enter your phone number.
+  </Step>
+  <Step title="Start Verification">
+    Twilio will initiate the verification process.
+  </Step>
+  <Step title="Complete Verification">
+    Follow the verification steps provided by Twilio.
+  </Step>
+</Steps>
+
+### Caller ID Limitations
+
+<Warning>
+  Verified Caller IDs have specific limitations compared to Twilio numbers:
+  - Cannot be automatically swapped for spam protection
+  - Require manual management if flagged
+  - Only support outbound calls as caller ID
+  - Must be verified through Twilio's process
+</Warning>
+
+### Managing Caller ID Status
+
+Caller IDs can have different verification states:
+
+| Status | Description | Actions Available |
+|--------|-------------|-------------------|
+| **Pending** | Verification in progress | Complete verification process |
+| **Verified** | Ready for use | Use for outbound calls |
+| **Disabled** | Verification failed or revoked | Re-verify or remove |
 
 ## Multiple Numbers per Agent
 
@@ -87,8 +319,13 @@ You can swap a problematic number for a new one from the Phone Health report:
 
 ### What Happens During a Swap
 
-1. **Old number** is unlinked and marked as "RETURN"
-2. **New number** is assigned and immediately active
+1. **Old number** is unlinked and marked for return
+2. **New number** is assigned with **assigned** status
+3. Assignment states are updated in real-time
+
+<Info>
+  Only Twilio numbers can be swapped automatically. Verified Caller IDs must be managed manually.
+</Info>
 
 ## Disconnect a Number
 
@@ -125,51 +362,92 @@ Meetzy supports phone numbers in multiple countries:
 | Colombia | +57 | Available |
 | United Kingdom | +44 | Available |
 
-<Tip>
+<Info>
   Use local numbers from your customers' country to increase answer rates. Customers are more likely to answer calls from local numbers.
-</Tip>
+</Info>
 
 ## Best Practices
+
+### Number Management Workflow
+
+For efficient number management:
+
+<Steps>
+  <Step title="Regular Monitoring">
+    Check assignment states regularly across all subaccounts.
+  </Step>
+  <Step title="Credential Management">
+    Ensure all subaccounts have proper credentials configured.
+  </Step>
+  <Step title="Assignment Tracking">
+    Use the new assignment states to track number utilization.
+  </Step>
+  <Step title="Cleanup Operations">
+    Use reset and return functions to manage unused numbers.
+  </Step>
+</Steps>
 
 ### Number Rotation
 
 For high-volume campaigns:
 
 1. Assign multiple numbers to the agent
-2. The system rotates automatically
+2. The system rotates automatically based on assignment status
 3. Monitor Phone Health regularly
 4. Swap numbers before they reach "Spam" status
 
-### Number Identification
+### Caller ID Strategy
 
-Each number has a **Friendly Name** for identification:
+For verified Caller IDs:
 
-```
-+1 555 123 4567 (Sales Team)
-       │              │
-       │              └── Friendly Name
-       └── Number
-```
+1. Use for brand recognition and customer trust
+2. Monitor spam reports manually
+3. Have backup Twilio numbers ready
+4. Keep verification status current
 
-Use descriptive names like:
-- "Sales Team"
-- "Support Line"
-- "Campaign Q1"
+### Subaccount Organization
+
+- Use the main account for primary business numbers
+- Organize specialized campaigns in separate subaccounts
+- Apply consistent naming conventions across subaccounts
+- Configure credentials for full management capabilities
+- Regularly review and clean up unused numbers using reset/return functions
 
 ## FAQ
 
 <AccordionGroup>
-  <Accordion title="Can I use my own phone number?">
-    Currently, Meetzy only supports numbers provided through the platform. Number portability is under development.
+  <Accordion title="What's the difference between Twilio numbers and Caller IDs?">
+    **Twilio numbers** are fully managed by Meetzy and can be automatically swapped. **Verified Caller IDs** are your own phone numbers that require verification and manual management.
   </Accordion>
-  <Accordion title="What happens if I run out of numbers?">
-    Outbound calls will fail and inbound calls will go to an error mailbox. Request more numbers before this happens.
+  <Accordion title="Can Caller IDs be swapped automatically?">
+    No, verified Caller IDs cannot be swapped automatically like Twilio numbers. They require manual management if they become flagged for spam.
+  </Accordion>
+  <Accordion title="How do I identify Caller IDs in the interface?">
+    Caller IDs appear with a 🔒 lock icon and verification status badge, while Twilio numbers show standard management controls.
+  </Accordion>
+  <Accordion title="What's the difference between reset and return?">
+    **Reset** clears a number's configuration but keeps it in your account as unassigned. **Return** completely removes the number from your account and returns it to Twilio's pool.
+  </Accordion>
+  <Accordion title="Can I recover a returned number?">
+    No, returned numbers cannot be recovered. They become available to other Twilio customers.
+  </Accordion>
+  <Accordion title="What happens if I don't configure subaccount credentials?">
+    You can view phone numbers in unconfigured subaccounts but cannot perform management operations like assign, reset, or return.
+  </Accordion>
+  <Accordion title="How do assignment states help with management?">
+    Assignment states provide clear visibility into number utilization and help identify numbers that need attention or can be reset/returned.
   </Accordion>
   <Accordion title="Are numbers exclusive or shared?">
     Each number is exclusive to your account. It's not shared between different Meetzy customers.
   </Accordion>
   <Accordion title="Can I have numbers from different countries on one agent?">
     Yes, you can assign numbers from multiple countries to the same agent.
+  </Accordion>
+  <Accordion title="Do subaccounts share phone numbers?">
+    No, each subaccount maintains its own pool of phone numbers that cannot be shared with other subaccounts.
+  </Accordion>
+  <Accordion title="How do I move a number between subaccounts?">
+    Numbers cannot be moved between subaccounts. You would need to return the number and request a new one in the target subaccount.
   </Accordion>
 </AccordionGroup>
 

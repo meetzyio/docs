@@ -1,195 +1,535 @@
 ---
 title: 'Historial de Llamadas'
-description: 'Busca, filtra y revisa todas las llamadas de tus agentes de IA'
+description: 'Busca, filtra y revisa todas las llamadas de tus agentes de IA con herramientas avanzadas de análisis'
 icon: 'phone'
 ---
 
 # Historial de Llamadas
 
-La sección de Historial de Llamadas proporciona una vista completa de todas las llamadas realizadas por tus agentes de IA. Puedes buscar, filtrar y analizar datos de llamadas para monitorear el rendimiento e identificar insights.
+La sección de Historial de Llamadas proporciona una vista completa y detallada de todas las llamadas realizadas por tus agentes de IA. Con herramientas avanzadas de filtrado, búsqueda y análisis, puedes monitorear el rendimiento e identificar insights valiosos para optimizar tus operaciones telefónicas.
+
+<Info>
+**Disponibilidad de la nueva vista mejorada de llamadas**: la vista renovada del historial de llamadas ya está disponible para todas las cuentas en la ruta `/calls-v2`, accesible directamente desde **Calls** en el menú principal. Esta misma página documenta en detalle esa vista avanzada actualizada; consulta especialmente la sección [Vista General de la Interfaz](#vista-general-de-la-interfaz) para un resumen visual de todas sus funcionalidades: columnas configurables y ancladas, columnas dinámicas, vistas guardadas, tarjetas resumen con métricas agregadas, métricas reales de latencia, reproductor de grabaciones con forma de onda, etiquetas editables directamente en la tabla, revisión OK/KO con nota de auditoría, detección de llamadas sospechosas y exportación mejorada a Excel (incluida la exportación selectiva).
+</Info>
 
 ## Acceder al Historial
 
-Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas.
+Navega a **Calls** en el menú principal para acceder a tu historial completo de llamadas con la nueva interfaz mejorada.
+
+<Info>
+Esta página se mantiene sincronizada con la versión en inglés de la documentación. Si notas que un filtro se comporta distinto a como está descrito aquí, revisa primero el **panel de configuración de filtros** (icono de engranaje ⚙️) antes de reportarlo como un error: es muy probable que el filtro simplemente esté oculto, no desactivado.
+</Info>
+
+<Info>
+**Nueva vista de llamadas (Calls v2)**: Meetzy ha renovado por completo la tabla de historial con columnas totalmente configurables y ancladas, columnas dinámicas generadas a partir de los datos de entrada y salida de cada agente, vistas guardadas, tarjetas resumen con métricas agregadas de todo el rango filtrado, métricas reales de latencia de IA, un reproductor de grabaciones con forma de onda interactiva, etiquetas que puedes añadir o quitar directamente desde la tabla, una columna de **Revisión/Auditoría** con estado **OK / KO** y nota, detección de **llamadas sospechosas** y una exportación a Excel mejorada (incluyendo exportación selectiva). Todo lo que verás en esta guía refleja ese nuevo comportamiento.
+</Info>
+
+<Info>
+**Un pequeño aviso, por si acaso**: justo encima del encabezado de esta página notarás un discreto banner ámbar que te recuerda que estás usando la nueva vista de Calls y te ofrece un enlace para **volver a la vista clásica**. No es un mensaje de error ni una señal de que algo esté roto: es, sencillamente, una vía de escape cortésmente puesta a tu disposición mientras esta nueva interfaz termina de demostrar, llamada tras llamada, que merece tu confianza. Si en algún momento algo aquí no se comporta como esperas, ese enlace te devolverá de inmediato a la tabla de toda la vida, sin que se pierda ni un solo dato de tu historial.
+</Info>
+
+<Info>
+**Migración automática desde el historial anterior**: la primera vez que abras esta nueva vista, Meetzy detecta automáticamente la configuración de columnas que tenías guardada en la página clásica de Calls (visibilidad, orden, columnas dinámicas de Input/Output, ordenamiento y tamaño de página) y la importa como tu configuración inicial en Calls v2. Este proceso ocurre una sola vez, es de solo lectura sobre tu configuración anterior (no la modifica ni la borra) y, a partir de ese momento, tus cambios en Calls v2 se guardan de forma independiente. Si nunca habías personalizado columnas antes, simplemente verás el conjunto de columnas por defecto.
+</Info>
 
 ## Vista General de la Interfaz
 
-La interfaz de llamadas consiste en:
+La interfaz renovada del historial de llamadas incluye:
 
 | Sección | Descripción |
 |---------|-------------|
-| 📊 Cabecera | Título, descripción y estado de selección |
-| 🔍 Barra de Filtros | Controles avanzados de filtrado |
-| 📋 Tabla de Llamadas | Lista de todas las llamadas con información clave |
-| 📄 Modal de Detalles | Vista detallada de llamadas individuales |
+| 📊 **Cabecera Expandida** | Título, descripción detallada, menú de **Views**, gestor de columnas y acciones de exportación |
+| 🧮 **Tarjetas Resumen** | Métricas agregadas de todo el rango filtrado: total de llamadas, cerradas, buzón de voz, duración media, latencia media/p90 y tiempo de transferencia |
+| 🔍 **Barra de Filtros Avanzada** | Sistema de filtrado modular con presets, tags, estado, latencia y llamadas sospechosas |
+| 🆔 **Búsqueda por Call ID** | Campo dedicado para localizar una llamada exacta por su identificador |
+| 📋 **Tabla de Llamadas** | Lista interactiva con información clave, columnas configurables, columnas ancladas y métricas de latencia |
+| 🏷️ **Etiquetas Inline** | Añade o elimina tags directamente desde la columna Tags de cada fila, sin abrir el detalle de la llamada |
+| ⚙️ **Panel de Columnas** | Gestor de columnas con arrastrar y soltar, visibilidad, columnas ancladas, vistas guardadas y descubrimiento de columnas dinámicas |
+| 👁️ **Menú de Views** | Guarda, aplica y elimina combinaciones completas de columnas como vistas reutilizables |
+| ✅ **Columna de Revisión/Auditoría** | Marca llamadas como **OK** o **KO** y añade una nota de auditoría, con la columna siempre visible a la derecha |
+| 🎧 **Reproductor de Grabaciones** | Modal con forma de onda real, transcripción enriquecida turno a turno y controles de velocidad |
+| 📄 **Modal de Detalles** | Vista detallada de llamadas individuales con transcripciones y gráfico de latencia |
 
-## Filtrar Llamadas
+## Tarjetas Resumen
 
-### Filtro de Rango de Fechas
+Justo debajo de la cabecera, antes de la barra de filtros, encontrarás un conjunto de **tarjetas resumen** con las métricas agregadas de todas las llamadas del rango de fechas y filtros activos, no solo de las llamadas actualmente cargadas en la página.
 
-Filtra llamadas por períodos predefinidos o rangos personalizados:
-
-- **Today** - Llamadas del día actual
-- **Yesterday** - Llamadas del día anterior
-- **Last 7 Days** - Llamadas de la última semana
-- **Last 30 Days** - Llamadas del último mes
-- **Custom Range** - Selecciona fechas y horas específicas
-
-<Info>
-Usa el selector de fecha y hora para establecer rangos precisos en tus búsquedas.
-</Info>
-
-### Filtro de Agente
-
-Filtra llamadas por agentes específicos:
-
-1. Haz clic en el dropdown **Agents**
-2. Selecciona uno o varios agentes
-3. El filtro muestra "X agents selected" cuando está activo
-
-### Filtro de Estado
-
-Filtra por estado de la llamada:
-
-| Estado | Descripción |
-|--------|-------------|
-| 🟢 Completed | Llamada finalizada correctamente |
-| 🟡 In Progress | Llamada actualmente activa |
-| 🔴 Failed | Llamada con error |
-| ⚪ No Answer | El destinatario no contestó |
-| 🔵 Transferred | Llamada transferida |
-
-### Filtro de Dirección
-
-- **Inbound** - Llamadas recibidas por tus agentes
-- **Outbound** - Llamadas iniciadas por tus agentes
-- **All** - Ambas direcciones
-
-### Filtro de Éxito
-
-Filtra por resultado de la llamada:
-
-- **Successful** - Llamadas marcadas como exitosas
-- **Unsuccessful** - Llamadas que no cumplieron los criterios
-- **All** - Todas las llamadas
-
-### Buscar por Call ID
-
-Cuando tienes un ID de llamada específico:
-
-1. Ingresa el call ID en el campo de búsqueda
-2. Los otros filtros se desactivan temporalmente
-3. Se muestra la llamada exacta con ese ID
-
-<Info>
-La búsqueda por Call ID tiene prioridad sobre todos los demás filtros para búsquedas precisas.
-</Info>
-
-## Tabla de Llamadas
-
-La tabla muestra información clave de cada llamada:
-
-| Columna | Descripción |
+| Tarjeta | Descripción |
 |---------|-------------|
-| Selección | Checkbox para seleccionar llamadas |
-| Status | Badge de estado de la llamada |
-| Success | Indicador ✓ o ✗ |
-| Agent | Nombre del agente que manejó la llamada |
-| Direction | 📞 Inbound o 📲 Outbound |
-| From | Número de teléfono origen |
-| To | Número de teléfono destino |
-| Duration | Duración en minutos:segundos |
-| Date | Cuándo ocurrió la llamada |
+| **Total calls** | Número total de llamadas que cumplen los filtros activos |
+| **Closed** | Cantidad de llamadas finalizadas correctamente (`closed`) |
+| **Voicemail** | Cantidad de llamadas que terminaron en buzón de voz |
+| **Avg duration** | Duración media de las llamadas, en formato mm:ss |
+| **Avg latency** | Latencia media de respuesta de la IA, en milisegundos |
+| **P90 latency** | Percentil 90 de latencia: el 90% de los turnos respondieron por debajo de este valor |
+| **Transfer time** | Tiempo total acumulado en transferencias, separado en entrantes y salientes |
 
-### Acciones en Lote
+<Info>
+Estas métricas se calculan en el backend sobre **todo** el conjunto de llamadas que cumple los filtros aplicados (rango de fecha, agentes, tags, estado, etc.), y no se limitan al tamaño de página seleccionado. Por eso pueden tardar un instante adicional en actualizarse justo después de cambiar un filtro; mientras se recalculan, verás un pequeño indicador de carga sobre las tarjetas.
+</Info>
 
-Cuando seleccionas múltiples llamadas:
+<Info>
+El **Total calls** de las tarjetas resumen puede no coincidir exactamente con el número de filas visibles en la tabla cuando tienes activado el interruptor **Suspicious calls**, ya que ese filtro se aplica en el cliente sobre las llamadas ya cargadas (ver la sección [Llamadas Sospechosas](#llamadas-sospechosas)), mientras que las tarjetas reflejan el total real en el backend antes de ese filtrado adicional.
+</Info>
 
-1. Aparece un indicador de selección mostrando "X selected"
-2. Haz clic en **Clear Selection** para deseleccionar
-3. Las opciones de exportación en lote se activan
+## Sistema de Filtrado Avanzado
 
-### Ordenamiento
+### Filtro de Rango de Fechas Mejorado
 
-Haz clic en los encabezados de columna para ordenar:
-
-- Un clic para orden ascendente
-- Otro clic para orden descendente
-- Una flecha indica la dirección actual
-
-## Paginación
-
-- Usa los botones **Previous** y **Next** para navegar
-- Cambia el tamaño de página (10, 25, 50, 100 llamadas)
-- La posición actual muestra "Showing X to Y of Z calls"
-
-## Acciones Rápidas
-
-Para cada fila de llamada:
-
-| Acción | Descripción |
-|--------|-------------|
-| 👁️ View | Abrir modal de detalles |
-| 📋 Copy ID | Copiar ID de llamada al portapapeles |
-
-## Tendencias de Evaluaciones
-
-El historial de llamadas ahora incluye acceso directo a las tendencias de evaluaciones de tus agentes:
+El nuevo selector de fechas ofrece mayor flexibilidad y precisión:
 
 <Steps>
-  <Step title="Acceder a las Tendencias">
-    Desde el historial de llamadas, haz clic en **"View Evaluation Trends"** para un agente específico
+  <Step title="Presets Rápidos">
+    Accede a rangos predefinidos optimizados, desde ventanas muy cortas hasta meses completos:
+    - **Last 15/30 minutes**, **Last 1/2/4/8 hours** - Ideal para monitoreo casi en tiempo real
+    - **Today** - Llamadas del día actual
+    - **Yesterday** - Llamadas del día anterior
+    - **Last 7 Days** - Llamadas de la última semana
+    - **Last 30 Days** - Llamadas del último mes
+    - **This Month** - Mes actual completo
+    - **Last Month** - Mes anterior completo
   </Step>
-  
-  <Step title="Analizar el Rendimiento">
-    Revisa las métricas de evaluación a lo largo del tiempo para identificar patrones y mejoras
-  </Step>
-  
-  <Step title="Filtrar por Período">
-    Usa los controles de fecha para enfocar en períodos específicos de análisis
+
+  <Step title="Rango Personalizado">
+    Define períodos específicos con precisión horaria:
+    - Selector de fecha y hora inicial
+    - Selector de fecha y hora final
+    - Validación automática de rangos válidos
+    - Aplicación inmediata con un clic
   </Step>
 </Steps>
 
-### Métricas de Evaluación Disponibles
-
-Las tendencias de evaluaciones proporcionan insights sobre:
-
-- **Tasa de Éxito Global** - Porcentaje general de evaluaciones exitosas
-- **Evaluaciones Totales** - Número total de evaluaciones realizadas  
-- **Llamadas Evaluadas** - Cantidad de llamadas que han pasado por evaluaciones
-- **Tendencias Temporales** - Evolución del rendimiento a lo largo del tiempo
-
 <Info>
-Las evaluaciones se actualizan automáticamente y reflejan el rendimiento más reciente de tus agentes de IA.
+Los presets basados en días (Today, Yesterday, Last 7 Days, etc.) terminan a las 23:59:59 del último día del rango, en lugar de extenderse hasta la medianoche del día siguiente. Esto evita incluir accidentalmente llamadas del día posterior al filtrar por "ayer" o "esta semana".
 </Info>
 
-## Consejos para Búsquedas Eficientes
+<Info>
+El selector de fechas se desactiva automáticamente cuando usas la búsqueda por Call ID para evitar conflictos de filtros. Esto es intencional y no significa que hayas perdido tu configuración: en cuanto borres el Call ID, tu rango de fechas vuelve a aparecer tal cual lo dejaste.
+</Info>
 
-<CardGroup cols={2}>
-  <Card title="Usa Presets de Fecha" icon="calendar">
-    Comienza con presets como "Last 7 Days" para búsquedas rápidas.
-  </Card>
-  <Card title="Combina Filtros" icon="filter">
-    Combina múltiples filtros para encontrar llamadas específicas rápidamente.
-  </Card>
-  <Card title="Exporta Resultados" icon="download">
-    Exporta resultados filtrados para análisis offline o reportes.
-  </Card>
-  <Card title="Usa Call ID" icon="hashtag">
-    Cuando debuguees un problema específico, usa el call ID exacto.
-  </Card>
-</CardGroup>
+### Filtro de Agentes con Búsqueda
 
-## Siguientes Pasos
+Sistema mejorado de selección de agentes, pensado para cuentas con decenas o cientos de agentes, y ahora con **selección múltiple** mediante chips:
 
-<CardGroup cols={3}>
-  <Card title="Detalles de Llamada" icon="info-circle" href="/es/calls/call-details">
-    Aprende sobre la información detallada disponible para cada llamada.
-  </Card>
-  <Card title="Reportes" icon="chart-line" href="/es/calls/reporting">
-    Genera reportes completos de tus datos de llamadas.
-  </Card>
-  <Card title="Tendencias de Evaluaciones" icon="trending-up" href="/es/calls/evaluation-trends">
-    Analiza el rendimiento de tus agentes a lo largo del tiempo.
-  </Card>
-</CardGroup>
+| Funcionalidad | Descripción |
+|---------------|-------------|
+| **Campo de Búsqueda** | Escribe el nombre del agente y selecciónalo de la lista desplegable |
+| **Selección Múltiple** | Cada agente elegido se añade como un chip dentro del mismo campo; puedes combinar varios agentes en un solo filtro |
+| **Filtrado en Vivo** | La lista se reduce automáticamente a medida que escribes, sin distinguir mayúsculas/minúsculas |
+| **Límite de Resultados** | Muestra hasta 50 coincidencias para mantener el rendimiento en cuentas con muchos agentes; sigue escribiendo para acotar aún más la búsqueda |
+| **Apertura al Enfocar** | El listado se despliega automáticamente al hacer clic o entrar al campo, incluso sin haber escrito nada |
+| **Quitar un Agente** | Botón ✕ dentro de cada chip para eliminar ese agente específico de la selección |
+| **Limpieza Rápida** | Botón ✕ general junto al campo para borrar toda la selección de agentes de un clic |
+
+<Info>
+El campo de agente reemplaza al antiguo selector desplegable simple (`<select>`). Si tu cuenta tiene muchos agentes, escribir al menos dos o tres letras del nombre suele ser la forma más rápida de encontrar el que buscas.
+</Info>
+
+### Filtro de Tags
+
+Al igual que el filtro de agentes, el filtro de **Tags** funciona con chips y búsqueda en vivo:
+
+- Escribe para buscar entre las etiquetas ya utilizadas en tus llamadas.
+- Selecciona una o varias etiquetas; cada una se añade como un chip independiente.
+- Usa el botón ✕ de cada chip, o el botón general de limpieza, para quitar etiquetas del filtro.
+
+<Info>
+Las etiquetas disponibles para buscar se generan a partir de las llamadas ya cargadas, por lo que si acabas de crear una etiqueta completamente nueva, es posible que debas ajustar primero el rango de fechas para que aparezca en el listado de sugerencias.
+</Info>
+
+<Info>
+No confundas este filtro de la barra superior con las **etiquetas inline** de la columna Tags dentro de la tabla: el filtro decide qué llamadas se muestran, mientras que la edición inline te permite crear o quitar etiquetas directamente sobre una llamada concreta. Consulta la sección [Etiquetas Inline en la Tabla](#etiquetas-inline-en-la-tabla) más abajo.
+</Info>
+
+### Filtros de Estado y Latencia
+
+Filtra con precisión por diferentes criterios:
+
+#### Estados de Llamada
+| Estado | Descripción |
+|--------|-------------|
+| 🟢 **Open** | Llamada finalizada correctamente |
+| 🔴 **Closed** | Llamada cerrada |
+| ⚪ **No answer** | El destinatario no contestó |
+| 📼 **Voicemail** | La llamada terminó en buzón de voz |
+| 📵 **Busy** | Línea ocupada |
+| ⚠️ **Failed** | Llamada con error o fallo técnico |
+| 🔵 **Transfer** | Llamada transferida a humano |
+| 🚫 **Blocked** | Llamada bloqueada |
+
+Puedes activar varios estados a la vez haciendo clic sobre cada etiqueta; los estados seleccionados se resaltan en verde.
+
+#### Filtro de Latencia (ms)
+
+<Info>
+Los campos **Min latency (ms)** y **Max latency (ms)** te permiten acotar la búsqueda a llamadas donde la IA respondió dentro de (o fuera de) un rango de tiempo específico. Son especialmente útiles para detectar llamadas con respuestas lentas que podrían haber afectado la experiencia del usuario.
+</Info>
+
+#### Búsqueda de Texto Libre
+
+El campo **Search** realiza una búsqueda combinada sobre teléfono, agente, resumen y etiquetas, con un pequeño retraso (debounce) para no disparar peticiones en cada tecla.
+
+### Llamadas Sospechosas
+
+<Info>
+El interruptor **Suspicious calls** activa un filtro especial que combina varias condiciones con lógica **OR** (no todas a la vez, sino cualquiera de ellas), pensado para ayudarte a priorizar qué llamadas revisar primero en una auditoría:
+- Latencia promedio de IA superior a 3000 ms
+- Estado de la llamada en `no-answer`, `failed` o `blocked`
+- Objetivo (Goal) no cumplido
+- Llamada sin transcripción disponible
+</Info>
+
+<Warning>
+A diferencia del resto de filtros de la barra (fecha, agente, estado, latencia), que el backend combina siempre con lógica **AND**, el filtro de llamadas sospechosas se calcula **en el cliente** sobre las llamadas ya cargadas, precisamente porque necesita una lógica OR que el resto de filtros no soporta. Si activas "Suspicious calls" junto con otros filtros muy restrictivos, es posible que veas menos resultados de los esperados: prueba a ampliar el rango de fechas o relajar el resto de filtros.
+</Warning>
+
+### Búsqueda por Call ID con Modo Exclusivo
+
+<Warning>
+Cuando introduces un Call ID específico, todos los demás filtros se desactivan temporalmente para mostrar únicamente la llamada exacta correspondiente a ese identificador.
+</Warning>
+
+El campo de **búsqueda por Call ID** está ubicado junto al resto de los controles de filtrado, con la etiqueta **Call ID**. Es útil pensarlo como un "modo de búsqueda exacta" que se activa apenas empiezas a escribir un identificador.
+
+Características de la búsqueda por ID:
+
+1. **Entrada de ID Específico** - Campo de texto para el identificador único
+2. **Búsqueda Exacta** - Coincidencia precisa sin aproximaciones
+3. **Prioridad Absoluta** - Override de todos los demás filtros activos
+4. **Restauración Automática** - Los filtros se reactivan al limpiar el campo
+
+<Info>
+La forma más rápida de obtener un Call ID es usando el botón de copiar disponible junto al identificador en la tabla (ver la sección de columnas **Agent ID** y **Call ID** más abajo), o desde el menú de acciones de cada fila con **Copy Call ID**, y luego pegarlo directamente en este campo.
+</Info>
+
+## Menú de Views (Vistas Guardadas)
+
+Junto al botón de **Columns**, el botón **Views** (👁️) abre un menú desplegable independiente para gestionar tus combinaciones favoritas de columnas sin necesidad de abrir el panel completo de configuración.
+
+<Steps>
+  <Step title="Ver Vistas Existentes">
+    El menú lista todas tus vistas guardadas por nombre, incluidas las vistas predefinidas del sistema. Haz clic sobre cualquiera para aplicarla de inmediato, reemplazando la configuración actual de columnas, orden, ordenamiento y tamaño de página.
+  </Step>
+
+  <Step title="Guardar la Configuración Actual">
+    Escribe un nombre en el campo **New view name…**, en la parte inferior del menú, y pulsa **Save current** para almacenar tu configuración de columnas tal como está en ese momento.
+  </Step>
+
+  <Step title="Eliminar una Vista">
+    Usa el botón ✕ junto al nombre de cualquier vista guardada para eliminarla de forma permanente.
+  </Step>
+
+  <Step title="Sin Vistas Guardadas">
+    Si todavía no has guardado ninguna vista propia, el menú mostrará el mensaje **"No saved views yet."** junto a las vistas predefinidas del sistema, si existen.
+  </Step>
+</Steps>
+
+<Info>
+El botón **Views** muestra siempre el nombre de la vista actualmente aplicada junto a su icono, para que sepas de un vistazo qué configuración de columnas estás usando en cada momento.
+</Info>
+
+<Info>
+Esta misma funcionalidad de vistas guardadas también está disponible dentro del panel de **Columns** (⚙️), en su sección superior. El menú **Views** es simplemente un acceso más rápido para aplicar o guardar vistas sin necesidad de abrir el panel completo de gestión de columnas.
+</Info>
+
+## Panel de Configuración de Columnas (Icono de Engranaje ⚙️)
+
+El botón **Columns** en la parte superior de la tabla abre un panel lateral deslizante desde el que puedes controlar completamente qué información se muestra, en qué orden, cuáles columnas quedan ancladas, y guardar tus combinaciones favoritas como vistas reutilizables.
+
+<Info>
+Este panel reemplaza a los antiguos selectores de columnas independientes: ahora concentra en un mismo lugar la visibilidad de columnas fijas, el reordenamiento por arrastre, el anclaje de columnas al borde de la tabla, el descubrimiento de columnas dinámicas de entrada y salida, y la gestión de vistas guardadas.
+</Info>
+
+<Tabs>
+  <Tab title="Vistas Guardadas">
+    Sección superior del panel que te permite almacenar y reutilizar combinaciones completas de columnas:
+    - Muestra la lista de vistas guardadas junto con un contador (por ejemplo, `Saved views (3)`).
+    - Escribe un nombre en el campo **New view name…** y pulsa **Save** para guardar la configuración actual de columnas, orden, ordenamiento y tamaño de página bajo ese nombre.
+    - Haz clic sobre el nombre de una vista guardada para **aplicarla** de inmediato, reemplazando la configuración actual de la tabla.
+    - Usa el botón ✕ junto a cada vista para eliminarla de forma permanente.
+    - Si aún no has guardado ninguna vista propia, verás el mensaje **"No saved views yet."**.
+  </Tab>
+
+  <Tab title="Columnas">
+    Sección central del panel con todas las columnas actualmente disponibles:
+    - Cada fila tiene un checkbox para mostrar/ocultar la columna (las columnas no configurables, como la de acciones, aparecen atenuadas y no se pueden ocultar).
+    - Arrastra el icono ⠿ para **reordenar** las columnas; el nuevo orden se aplica de inmediato a la tabla.
+    - Un icono de **pin** 📌 junto a cada columna permite **anclarla** al borde derecho de la tabla, para que permanezca siempre visible al desplazarte horizontalmente (ver [Columnas Ancladas](#columnas-ancladas-pinned)).
+    - Las columnas dinámicas (añadidas desde Input o Output) muestran una etiqueta `INPUT` u `OUTPUT` y un botón ✕ para eliminarlas por completo.
+  </Tab>
+
+  <Tab title="Columnas de Entrada (Input)">
+    Sección desplegable que descubre automáticamente los campos disponibles en los datos de entrada (`call.data`) de las llamadas cargadas, agrupados por agente:
+    - Cada campo muestra su etiqueta y la ruta exacta del dato (por ejemplo `contact.email`).
+    - Pulsa **Add** para agregarlo como nueva columna; el botón cambia a **Added** una vez incluido.
+    - Cada grupo de agente puede expandirse o contraerse de forma independiente, útil cuando manejas cuentas con muchos agentes y decenas de campos.
+    - Si no hay campos detectados, es porque las llamadas cargadas actualmente no incluyen datos de entrada personalizados.
+  </Tab>
+
+  <Tab title="Columnas de Salida (Output)">
+    Igual que la sección de entrada, pero para los datos devueltos por el agente en `call.output` (por ejemplo, campos extraídos por la IA durante la conversación). También se agrupan por agente, con expansión/contracción independiente, y se agregan con el mismo botón **Add**.
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Abrir el Panel">
+    Haz clic en el botón **Columns** (⚙️) ubicado en la esquina superior derecha, junto al botón de **Views** y al de exportar a Excel.
+  </Step>
+
+  <Step title="Elegir Columnas Fijas o Dinámicas">
+    Activa o desactiva columnas fijas desde la sección **Columns**, o explora **Input columns** / **Output columns** para descubrir y añadir campos específicos de tus agentes.
+  </Step>
+
+  <Step title="Reordenar por Arrastre">
+    Mantén presionado el icono ⠿ de cualquier columna y suéltala en la posición deseada. El cambio se refleja de inmediato en la tabla.
+  </Step>
+
+  <Step title="Anclar Columnas Clave">
+    Usa el icono de pin 📌 en cualquier columna que quieras tener siempre visible (por ejemplo, **Status** o **Tags**) mientras desplazas la tabla horizontalmente. Las columnas ancladas se agrupan automáticamente en el borde derecho, junto a **Reviewed** y **Actions**.
+  </Step>
+
+  <Step title="Guardado Automático">
+    Cada cambio (visibilidad, orden, anclaje, columnas añadidas o eliminadas) se guarda automáticamente como tu preferencia personal para esta tabla. La próxima vez que entres a Calls, verás la misma configuración.
+  </Step>
+
+  <Step title="Guardar como Vista">
+    Si sueles alternar entre distintas combinaciones de columnas según el contexto (por ejemplo, una vista para soporte y otra para análisis de latencia), escribe un nombre en **New view name…**, dentro de la sección **Saved views** (o desde el menú **Views** en la cabecera), y pulsa **Save**. Podrás volver a aplicarla en un clic cuando la necesites.
+  </Step>
+
+  <Step title="Restablecer a Valores por Defecto">
+    Si quieres volver al conjunto de columnas original, usa el botón **Reset to default columns** ubicado al pie del panel.
+  </Step>
+</Steps>
+
+<Warning>
+Eliminar una columna dinámica (Input/Output) desde el panel la borra por completo de tu vista guardada. Si quieres recuperarla más adelante, deberás volver a añadirla desde la sección correspondiente de Input o Output columns.
+</Warning>
+
+<Info>
+Guardar una vista con **Saved views** captura una "foto" de tu configuración de columnas en ese momento (incluyendo columnas dinámicas, orden, anclaje, ordenamiento y tamaño de página). Los cambios que hagas después en el panel de Columns no modifican automáticamente las vistas ya guardadas; para actualizar una vista existente, guárdala nuevamente con el mismo nombre o crea una nueva.
+</Info>
+
+## Columnas Disponibles
+
+### Columnas por Defecto
+
+| Columna | Descripción | Configurable |
+|---------|-------------|--------------|
+| **Selección** | Checkbox para seleccionar llamadas | No |
+| **Date** | Fecha y hora de la llamada | Sí |
+| **Agent** | Nombre del agente que manejó la llamada | Sí |
+| **Agent ID** | Identificador único del agente, mostrado en formato compacto con botón de copia | Sí |
+| **Call ID** | Identificador único de la llamada, mostrado en formato compacto con botón de copia | Sí |
+| **From** | Número de teléfono origen | Sí |
+| **To** | Número de teléfono destino (oculta por defecto) | Sí |
+| **Status** | Badge visual del estado de la llamada | Sí |
+| **Goal** | Indicador Sí/No de éxito de la llamada | Sí |
+| **Duration** | Duración en formato mm:ss | Sí |
+| **Avg AI latency** | Latencia promedio de respuesta de la IA (ms) | Sí |
+| **Latency (turns)** | Mini gráfico (sparkline) de la latencia turno a turno | Sí |
+| **Max latency** | Latencia máxima registrada en la llamada (oculta por defecto) | Sí |
+| **Tags** | Etiquetas personalizadas, editables directamente desde la fila (ver [Etiquetas Inline](#etiquetas-inline-en-la-tabla)) | Sí |
+| **Company** | Empresa asociada al agente (oculta por defecto) | Sí |
+| **Email** | Email asociado a la llamada (oculta por defecto) | Sí |
+| **Summary** | Resumen generado por la IA (oculta por defecto) | Sí |
+| **Type** | Tipo de llamada (oculta por defecto) | Sí |
+| **Hung up by** | Quién colgó la llamada (oculta por defecto) | Sí |
+| **Transferred** | Indicador de transferencia a humano (oculta por defecto) | Sí |
+| **Agent duration** | Duración específica de la parte del agente (oculta por defecto) | Sí |
+| **Recording** | Acceso al reproductor de la grabación | Sí |
+| **Reviewed** | Estado de revisión/auditoría de la llamada (**OK** / **KO**) con nota opcional. Anclada a la derecha | Sí |
+| **Actions** | Menú de acciones rápidas por fila. Anclada a la derecha | No |
+
+<Info>
+Las columnas marcadas como "oculta por defecto" no aparecen la primera vez que usas la tabla, pero pueden activarse en cualquier momento desde el panel de **Columns**.
+</Info>
+
+<Info>
+Las columnas **Agent ID** y **Call ID** muestran únicamente los últimos 10 caracteres del identificador (por ejemplo, `…a1b2c3d4e5`) para no ocupar demasiado espacio horizontal con un UUID completo. Pasa el cursor sobre el valor para ver el identificador completo en un tooltip, o pulsa el icono de portapapeles junto a él para copiarlo al instante; el botón mostrará brevemente **"Copied"** como confirmación.
+</Info>
+
+### Columnas Ancladas (Pinned)
+
+<Info>
+Cualquier columna puede anclarse desde el panel de **Columns** usando el icono de pin 📌, y **Reviewed** y **Actions** vienen ancladas por defecto al borde derecho de la tabla. Las columnas ancladas permanecen visibles y agrupadas visualmente incluso cuando desplazas la tabla horizontalmente para ver columnas dinámicas u otras columnas menos frecuentes. Esto garantiza que siempre tengas acceso inmediato a la información y a las acciones más importantes de cada llamada, sin importar cuántas columnas hayas añadido.
+</Info>
+
+<Info>
+El orden de las columnas ancladas se respeta de izquierda a derecha según cómo las hayas colocado en el panel de Columns; **Reviewed** y **Actions** siempre ocupan las últimas posiciones, ya que no pueden desancladas.
+</Info>
+
+### Columnas Dinámicas de Entrada y Salida
+
+Además de las columnas fijas, puedes agregar **columnas dinámicas** basadas en los datos reales que maneja cada uno de tus agentes:
+
+| Tipo | Origen del Dato | Ejemplo |
+|------|-------------------|---------|
+| **Input** | Campos de `call.data`, es decir, los parámetros de entrada usados para iniciar la llamada | `contact.name`, `order_id`, `email` |
+| **Output** | Campos de `call.output`, es decir, la información extraída o generada por la IA durante la conversación | `intent_detected`, `satisfaction_score` |
+
+<Info>
+Estas columnas se descubren automáticamente analizando las llamadas ya cargadas en la tabla. Si tu agente usa un campo nuevo que aún no aparece en el panel, carga o filtra hasta que una llamada con ese campo esté visible y luego vuelve a abrir el panel de Columns.
+</Info>
+
+Las columnas dinámicas se identifican con el prefijo `[Input]` en el caso de las columnas de entrada, y se agregan automáticamente junto a las demás columnas configurables, justo antes de las columnas ancladas de **Reviewed** y **Actions** (a menos que tú mismo las anclas manualmente).
+
+<Info>
+Si un valor dinámico tiene aspecto de identificador largo (UUID o hash), se muestra automáticamente con el mismo formato compacto y botón de copia que usan las columnas **Agent ID** y **Call ID**, en lugar de mostrar el texto completo sin recortar.
+</Info>
+
+## Etiquetas Inline en la Tabla
+
+La columna **Tags** ya no es solo de lectura: puedes crear, añadir y quitar etiquetas directamente sobre cada llamada sin abrir el modal de detalles.
+
+<Steps>
+  <Step title="Abrir el Editor de Etiquetas">
+    Haz clic sobre la celda de **Tags** de cualquier fila (o sobre el icono de edición ✎ que aparece al pasar el cursor) para abrir un pequeño popover de edición.
+  </Step>
+
+  <Step title="Añadir una Etiqueta Existente">
+    Escribe para buscar entre las etiquetas ya usadas en tu cuenta y selecciónala de la lista, igual que en el filtro de Tags de la barra de filtros.
+  </Step>
+
+  <Step title="Crear una Etiqueta Nueva">
+    Si el texto que escribes no coincide con ninguna etiqueta existente, aparecerá la opción de **crearla** directamente desde el mismo campo y asignarla a esa llamada en un solo paso.
+  </Step>
+
+  <Step title="Quitar una Etiqueta">
+    Pulsa el botón ✕ dentro de cualquier chip de etiqueta ya asignada a la llamada para eliminarla.
+  </Step>
+</Steps>
+
+<Info>
+Los cambios de etiquetas se guardan de inmediato al añadir o quitar un tag, sin necesidad de un botón de confirmación adicional. Una vez cerrado el popover, la celda de la fila refleja el nuevo conjunto de etiquetas al instante.
+</Info>
+
+<Info>
+Solo puede haber un editor de etiquetas abierto a la vez: si haces clic en la celda de Tags de otra fila, el popover anterior se cierra automáticamente.
+</Info>
+
+## Revisión y Auditoría de Llamadas
+
+La columna **Reviewed** convierte el historial de llamadas en una herramienta de auditoría de calidad, permitiendo marcar cada llamada como **OK** o **KO** y dejar constancia de esa revisión con una nota.
+
+<Steps>
+  <Step title="Marcar como OK o KO">
+    Haz clic sobre el indicador de estado en la columna **Reviewed** de cualquier fila para abrir el selector y elegir entre **OK** (llamada revisada y correcta) o **KO** (llamada revisada, pero con algún problema detectado). Puedes cambiar el veredicto en cualquier momento.
+  </Step>
+
+  <Step title="Añadir una Nota de Auditoría">
+    Dentro del mismo popover, escribe una nota breve sobre por qué la llamada fue marcada como OK o KO (por ejemplo, "Respuesta correcta, tono adecuado" o "KO: la IA no entendió la consulta, escalar a soporte"). La nota se guarda automáticamente con un pequeño retraso mientras escribes, sin necesidad de un botón de guardar explícito.
+  </Step>
+
+  <Step title="Ver Quién Revisó y Cuándo">
+    Cada registro de revisión conserva el veredicto (OK/KO), quién marcó la llamada y la fecha de la última actualización, para mantener trazabilidad en procesos de auditoría de equipo.
+  </Step>
+</Steps>
+
+<Info>
+El estado de revisión (OK/KO, la nota y quién la registró) se guarda de forma independiente al resto de los datos de la llamada y se combina automáticamente con cada fila al cargar la tabla. Esto significa que auditar llamadas no modifica ni sobrescribe ningún dato original de la llamada en sí.
+</Info>
+
+<Info>
+Solo puede haber un popover de revisión abierto a la vez: si haces clic en la revisión de otra fila, el anterior se cierra automáticamente.
+</Info>
+
+<Info>
+Al exportar tu selección a Excel (ver [Exportación de Datos Avanzada](#exportación-de-datos-avanzada)), el veredicto OK/KO y la nota de auditoría de cada llamada se incluyen automáticamente en el archivo generado.
+</Info>
+
+## Métricas de Latencia de IA
+
+Una de las incorporaciones más importantes de la nueva vista es la medición real del tiempo de respuesta de la inteligencia artificial durante cada llamada.
+
+<Tabs>
+  <Tab title="Avg AI latency">
+    Muestra el promedio de latencia (en milisegundos) entre el silencio del usuario y el inicio del audio de respuesta de la IA, calculado sobre todos los turnos de la llamada. Es la métrica más representativa para detectar si un agente en general responde con fluidez o con retrasos perceptibles.
+  </Tab>
+
+  <Tab title="Latency (turns) — Sparkline">
+    Un mini gráfico ligero (SVG puro, sin librerías pesadas) que muestra de un vistazo la evolución de la latencia turno a turno dentro de la misma llamada. Es ideal para detectar rápidamente si hubo un pico de lentitud puntual en medio de una conversación que, de otro modo, fue fluida.
+  </Tab>
+
+  <Tab title="Max latency">
+    Latencia máxima registrada en un solo turno durante la llamada. Útil para identificar el "peor caso" y decidir si vale la pena investigar esa llamada en detalle.
+  </Tab>
+</Tabs>
+
+<Info>
+Puedes usar los filtros **Min latency (ms)** y **Max latency (ms)** de la barra de filtros para acotar la búsqueda únicamente a llamadas cuya latencia promedio caiga dentro (o fuera) de un rango específico, sin necesidad de revisar llamada por llamada. Además, el interruptor **Suspicious calls** incluye automáticamente las llamadas con latencia superior a 3000 ms dentro de sus criterios de detección, y las tarjetas resumen muestran la latencia media y el percentil 90 de todo el rango filtrado.
+</Info>
+
+### Gráfico Detallado de Latencia
+
+Al abrir el detalle de una llamada, encontrarás un gráfico de línea completo con la evolución de la latencia turno a turno, mostrando el segundo exacto de la conversación en el eje horizontal y los milisegundos de respuesta en el eje vertical. Este gráfico es la versión ampliada del sparkline de la tabla y resulta muy útil para depurar por qué una respuesta específica se sintió lenta. Puedes abrirlo directamente desde la acción **View Latency** en el menú de cada fila.
+
+<Warning>
+Las métricas de latencia dependen de que ElevenLabs haya reportado los tiempos de respuesta (`convai_ttf_audio_since_silence`) para esa llamada. En integraciones o proveedores de voz distintos, estos campos podrían no estar disponibles y las columnas de latencia aparecerán vacías.
+</Warning>
+
+## Reproductor de Grabaciones con Forma de Onda y Transcripción Enriquecida
+
+La columna **Recording** abre un reproductor de audio avanzado en un modal, mucho más completo que un simple `<audio>` embebido.
+
+<Steps>
+  <Step title="Carga y Decodificación">
+    Al abrir el modal, la grabación se descarga y se decodifica con la Web Audio API del navegador para generar una **forma de onda real** basada en el audio, en lugar de una barra de progreso genérica.
+  </Step>
+
+  <Step title="Reproducción y Navegación">
+    - Haz clic directamente sobre la forma de onda para saltar a cualquier punto exacto de la llamada.
+    - Usa los botones **«10** y **10»** para retroceder o avanzar 10 segundos.
+    - El botón central alterna entre reproducir (▶) y pausar (⏸).
+  </Step>
+
+  <Step title="Velocidad de Reproducción">
+    Elige entre las velocidades 0.5x, 0.75x, 1x, 1.25x, 1.5x y 2x para escuchar la llamada más rápido o más despacio según lo necesites.
+  </Step>
+
+  <Step title="Transcripción Enriquecida Turno a Turno">
+    A la derecha del reproductor se muestra la transcripción completa de la conversación, con los mensajes del agente y del usuario diferenciados visualmente. Cada turno incluye, cuando está disponible:
+    - El segundo exacto de la conversación en el que ocurrió.
+    - Latencia de **ASR** (reconocimiento de voz) en los turnos del usuario.
+    - Latencia de **TTS** (síntesis de voz) en los turnos del agente.
+    - Un badge expandible de **LLM** con el modelo utilizado y sus métricas de tiempo de respuesta.
+    - Badges de **🔧 herramientas (tool calls)** cuando el agente invocó una función durante ese turno, expandibles para ver los parámetros enviados y la respuesta recibida.
+  </Step>
+
+  <Step title="Transcripción de Respaldo">
+    Si el detalle enriquecido turno a turno ya no está disponible en ElevenLabs (por ejemplo, en conversaciones muy antiguas), el modal recurre automáticamente a una transcripción de texto plano, indicando claramente que las métricas detalladas no están disponibles para esa llamada.
+  </Step>
+
+  <Step title="Descarga">
+    El botón **Download** te permite guardar el archivo de audio de la llamada directamente en tu equipo.
+  </Step>
+</Steps>
+
+<Info>
+La forma de onda se colorea progresivamente a medida que avanza la reproducción: la parte ya reproducida se muestra en color (violeta) y la parte pendiente en gris, dándote una referencia visual instantánea del punto exacto en el que te encuentras.
+</Info>
+
+<Info>
+Los badges de **LLM** y **🔧 herramientas** son expandibles: haz clic sobre cualquiera de ellos para ver el detalle completo (modelo usado, métricas de tiempo, parámetros enviados a la herramienta y su respuesta) sin salir del reproductor. Solo un detalle puede estar expandido a la vez.
+</Info>
+
+## Selección Masiva y Ordenamiento
+
+### Selección de Llamadas
+
+<Steps>
+  <Step title="Seleccionar Llamadas">
+    - Checkbox individual en cada fila
+    - "Seleccionar todo" en el header de la tabla para marcar todas las llamadas de la página actual
+    - Indicador de selección disponible para acciones posteriores
+  </Step>
+
+  <Step title="Acciones Disponibles">
+    Con llamadas seleccionadas, aparece el botón **Export selection (N)** junto al botón de exportación general, que te permite generar un Excel únicamente con las filas marcadas, además de otras acciones en lote como etiquetar o generar reportes específicos sobre ese subconjunto.
+  </Step>
+</Steps>
+
+### Ordenamiento por Columna
+
+Haz clic en el encabezado de cualquier columna marcada como ordenable para alternar entre orden ascendente y descendente. Una flecha (▲ o ▼) junto al nombre de la columna indica la dirección actual del ordenamiento aplicado. Tu ordenamiento preferido también se guarda junto con tus preferencias de columnas y, opcionalmente, dentro de cada vista guardada.
+
+## Paginación

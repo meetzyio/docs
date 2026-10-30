@@ -1,70 +1,269 @@
 ---
 title: 'Acciones y Herramientas'
-description: 'Configura transferencias, finalización de llamadas, webhooks y automatizaciones avanzadas'
+description: 'Configura transferencias con reglas múltiples y modo de ejecución configurable, detección de contestador en dos niveles (Agente/Operadora con submodos Gate y Live), sonidos de escucha activa para voces v3, finalización de llamadas, webhooks, recall automático, horarios de atención, comunicación multicanal y dominios de email propios'
 icon: 'wrench'
 ---
 
 ## Resumen
 
-La sección de Acciones y Herramientas te permite configurar qué puede hacer tu agente durante y después de las llamadas. Esto incluye transferir llamadas por teléfono o SIP, finalizar conversaciones automáticamente, crear webhooks personalizados y configurar protocolos de seguimiento automatizado.
+La sección de Acciones y Herramientas permite configurar funcionalidades avanzadas que potencian las capacidades de tu agente conversacional durante y después de las llamadas. Incluye transferencias telefónicas con reglas múltiples (Transfer v2 Beta) y modo de ejecución configurable, detección de contestador reorganizada en dos niveles (Agente/Operadora), sonidos de escucha activa para voces v3, webhooks personalizados, protocolos de rellamada, el **Schedule Controller (Beta)** para horarios de atención, integración de calendario y comunicación multicanal con Email, SMS y WhatsApp, incluyendo la vinculación de tu propio dominio de email.
 
 <Info>
-Esta sección incluye funcionalidades avanzadas que potencian significativamente las capacidades de tu agente conversacional.
+Las funcionalidades configuradas aquí son clave para crear experiencias conversacionales fluidas y automatizaciones poderosas que integren con tus sistemas existentes, maximizando la eficiencia operacional y la satisfacción del cliente.
 </Info>
 
 ## Transferencia de Llamadas
 
-Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos.
+Configura cómo tu agente maneja las transferencias de llamada a agentes humanos, extensiones internas o sistemas telefónicos externos con plantillas multiidioma optimizadas.
 
-### Tipos de Transferencia
+<Info>
+Meetzy ofrece dos versiones del sistema de transferencia: la versión clásica **v1** (destino único) y la nueva **Transfer v2 (Beta)**, que permite definir múltiples reglas de transferencia (`TransferRule`) con condiciones independientes. Puedes alternar entre ambas desde el interruptor "Transfer to multiple destinations (Beta)" en el panel de configuración; internamente esto se controla mediante la propiedad `transferConfigVersion` (`'v1' | 'v2'`), que por defecto es `'v1'` para no alterar el comportamiento de agentes ya existentes.
+</Info>
 
-Meetzy soporta dos tipos principales de transferencia:
+### Tipos de Transferencia Disponibles
+
+Meetzy soporta dos métodos principales de transferencia con configuración flexible:
 
 <Tabs>
   <Tab title="Número de Teléfono">
-    Transferir a números de teléfono tradicionales (móvil, fijo, internacional).
+    Transferir a números telefónicos tradicionales (móvil, fijo, internacional).
     
-    **Formato**: `+1234567890`
+    **Formato requerido**: `+34600123456`
     
-    **Casos de uso**:
-    - Transferir a agentes de soporte
+    **Casos de uso comunes**:
+    - Escalar a agentes de soporte humano
     - Conectar con departamentos específicos
-    - Escalar a supervisores
+    - Transferir a supervisores o especialistas
+    - Dirigir a líneas de emergencia
+    - Routing geográfico por ubicación del cliente
   </Tab>
   <Tab title="SIP Trunk">
-    Transferir a través de protocolo SIP para sistemas telefónicos empresariales.
+    Transferir a través del protocolo SIP para sistemas telefónicos empresariales.
     
-    **Formato**: `sip:extensión@gateway_ip:puerto`
+    **Formato requerido**: `sip:extensión@gateway_ip:puerto`
     
     **Ejemplo**: `sip:100@78.136.102.246:5060`
     
-    **Casos de uso**:
-    - Transferir a extensiones internas
-    - Conectar con sistemas PBX
-    - Integrar con infraestructura VoIP existente
+    **Casos de uso comunes**:
+    - Transferir a extensiones internas de PBX
+    - Conectar con sistemas VoIP empresariales
+    - Integrar con infraestructura telefónica existente
+    - Enrutar a grupos de agentes específicos
+    - Queue management inteligente
   </Tab>
 </Tabs>
 
-### Configuración de Transferencia
+### Proceso de Configuración
 
 <Steps>
   <Step title="Activar Transferencia">
-    Habilita la opción de transferencia de llamadas usando el toggle en la interfaz.
+    Habilita la opción de transferencia de llamadas usando el interruptor en la interfaz de usuario.
   </Step>
-  <Step title="Seleccionar Tipo">
-    Elige entre "Número de Teléfono" o "SIP Trunk" según tu infraestructura.
+  <Step title="Elegir Versión del Sistema de Transferencia">
+    Decide si usarás el modo clásico (`transferConfigVersion: 'v1'`, un único destino) o **Transfer v2 (Beta)** (`transferConfigVersion: 'v2'`), que permite configurar múltiples reglas con condiciones distintas.
+  </Step>
+  <Step title="Seleccionar Tipo de Transferencia">
+    Elige entre "Número de Teléfono" o "SIP Trunk" según tu infraestructura de comunicaciones (esta elección se hace por cada regla en v2).
   </Step>
   <Step title="Configurar Destino">
-    Introduce el número de teléfono o URI SIP de destino.
+    - Para números telefónicos: Introduce el número en formato E.164 (+país + número)
+    - Para SIP: Especifica la URI completa con extensión, IP y puerto
   </Step>
-  <Step title="Definir Prompt">
-    Establece las condiciones que deben activar la transferencia.
+  <Step title="Definir Plantilla de Transferencia">
+    Selecciona una plantilla predefinida optimizada para tu idioma o crea una personalizada.
+  </Step>
+  <Step title="Elegir el Modo de Ejecución">
+    Define si la transferencia debe ejecutarse de inmediato o tras que el agente termine de hablar (ver sección "Modo de Ejecución de la Transferencia" más abajo).
+  </Step>
+  <Step title="Validar Configuración">
+    Prueba la configuración con llamadas de test para verificar conectividad.
   </Step>
 </Steps>
 
-### Plantillas de Transferencia
+### Modo de Ejecución de la Transferencia
 
-El sistema incluye plantillas predefinidas para diferentes idiomas:
+<Info>
+La propiedad `execution_mode` (`'immediate' | 'post_tool_speech' | 'async'`) determina en qué momento exacto se ejecuta la transferencia una vez que la IA decide activarla. Para la herramienta de transferencia (`transfer_call`), el valor por defecto es `'post_tool_speech'`, lo que garantiza que el agente termine de comunicar su mensaje de aviso antes de que la llamada se transfiera realmente, evitando cortes abruptos en mitad de una frase.
+</Info>
+
+| Modo | Cuándo se ejecuta | Recomendado para |
+|------|--------------------|-------------------|
+| **Immediate** (`immediate`) | La transferencia se ejecuta en el instante en que la IA decide transferir, sin esperar a que el agente termine de hablar | Casos donde la velocidad de conexión es crítica, como líneas de emergencia |
+| **Post Tool Speech** (`post_tool_speech`) — Recomendado | La transferencia se ejecuta justo después de que el agente termine de pronunciar su mensaje de transferencia (ej. "Un momento, te transfiero con...") | La gran mayoría de los casos de uso; evita cortar la voz del agente a mitad de frase |
+| **Async** (`async`) | Modo reservado para herramientas asíncronas de tipo webhook; no aplica de forma nativa a Call Transfer | Otras herramientas configuradas como webhooks personalizados |
+
+<Steps>
+  <Step title="Localizar el Selector de Modo de Ejecución">
+    Dentro de la sección "Call Transfer", busca el selector "Execution Mode" que aparece junto a la configuración de destino.
+  </Step>
+  <Step title="Elegir Immediate o Post Tool Speech">
+    Selecciona `immediate` si necesitas que la transferencia ocurra sin demora, o mantén `post_tool_speech` (recomendado) para que el agente termine su frase antes de transferir.
+  </Step>
+  <Step title="Probar el Comportamiento">
+    Realiza una llamada de prueba y verifica que el mensaje de transferencia se escucha completo (modo `post_tool_speech`) o que la conexión ocurre de forma inmediata (modo `immediate`).
+  </Step>
+</Steps>
+
+<Warning>
+Un valor heredado vacío (`''`) para el modo de ejecución de la transferencia se normaliza automáticamente a `post_tool_speech`, el comportamiento recomendado por defecto. Cambia a `immediate` únicamente si tu caso de uso requiere priorizar la velocidad de conexión por encima de la naturalidad conversacional.
+</Warning>
+
+### Transfer v2 (Beta): Reglas Múltiples de Transferencia
+
+<Info>
+**Transfer v2 (Beta)** es la evolución del sistema de transferencia clásico. En lugar de definir un único destino y una única plantilla de condiciones, permite crear **múltiples reglas independientes** (representadas internamente por la interfaz `TransferRule`), cada una con su propia condición de activación, su propio destino y su propio tipo de transferencia (Blind o Conference). Esto es ideal para agentes que deben enrutar llamadas a distintos departamentos, idiomas o niveles de prioridad según el motivo de la consulta.
+</Info>
+
+Para activar esta funcionalidad, utiliza el interruptor **"Transfer to multiple destinations (Beta)"** que aparece al habilitar la transferencia de llamadas. Al activarlo, la interfaz cambia de un formulario de destino único a una lista dinámica de reglas (`transferRules: TransferRule[]`).
+
+#### Cómo Funciona una Regla de Transferencia
+
+Cada regla (`TransferRule`) se compone de los siguientes elementos:
+
+| Componente | Descripción | Ejemplo |
+|-----------|-------------|---------|
+| **Condición** (`condition`) | Frase en lenguaje natural que describe cuándo debe aplicarse la regla. La IA evalúa esta condición durante la conversación. | "el cliente pregunta por facturación o pagos" |
+| **Destino** (`destination`) | Número de teléfono o URI SIP al que se transferirá la llamada cuando se cumpla la condición | `+34911234567` o `sip:200@gateway.empresa.com:5060` |
+| **Tipo de transferencia** (`transfer_type`) | Define si la transferencia es directa (`blind`) o acompañada (`conference`) | `blind` o `conference` |
+
+#### Tipos de Transferencia por Regla: Blind vs Conference
+
+<Info>
+Cada regla de Transfer v2 permite elegir de forma independiente entre una transferencia **Blind** (directa) y una transferencia **Conference** (acompañada), controlado por el campo `transfer_type`. Esto permite, por ejemplo, transferir de forma directa a un departamento de baja criticidad mientras se usa una transferencia acompañada con briefing para casos que requieren contexto previo, como reclamaciones complejas o clientes VIP.
+</Info>
+
+<Tabs>
+  <Tab title="Blind (Directa)">
+    La transferencia **Blind** conecta al cliente inmediatamente con el destino configurado, sin pasos intermedios. Es el comportamiento equivalente al de Transfer v1.
+
+    **Características**:
+    - No requiere campos adicionales
+    - Es la opción más rápida y sencilla
+    - Ideal cuando el destino no necesita contexto previo de la llamada
+
+    **Casos de uso**: líneas de soporte general, extensiones ya preparadas para recibir cualquier tipo de consulta.
+  </Tab>
+  <Tab title="Conference (Acompañada)">
+    La transferencia **Conference** mantiene al cliente en espera mientras el sistema llama por separado al humano de destino, quien puede recibir un resumen (briefing) de la conversación antes de unirse a la llamada.
+
+    **Campos adicionales disponibles**:
+
+    | Campo | Descripción |
+    |-------|-------------|
+    | `client_message` | Frase corta que el agente le dice al cliente mientras se realiza la transferencia (ej. "Un momento por favor, te conecto con nuestro especialista") |
+    | `agent_message` | Resumen o briefing que se comunica al humano de destino antes de que se una a la llamada (ej. "El cliente llama por un problema de facturación relacionado con su factura de octubre") |
+
+    **Casos de uso**: departamentos donde el humano necesita contexto antes de atender (soporte técnico especializado, reclamaciones, ventas consultivas).
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Activar Transfer v2">
+    Activa el interruptor "Transfer to multiple destinations (Beta)" dentro de la sección de Call Transfer. Esto fija `transferConfigVersion` a `'v2'`.
+  </Step>
+  <Step title="Añadir Reglas">
+    Haz clic en "Añadir Regla" para crear un nuevo elemento en el array `transferRules`. Puedes crear tantas reglas como necesites.
+  </Step>
+  <Step title="Definir la Condición">
+    Escribe en el campo "When should this be used?" una descripción clara de la situación que debe activar esta regla (ej. "el cliente solicita cancelar su suscripción").
+  </Step>
+  <Step title="Elegir Tipo de Destino">
+    Selecciona "Phone" o "SIP" para cada regla de forma independiente.
+  </Step>
+  <Step title="Configurar el Valor de Destino">
+    Introduce el número en formato E.164 o la URI SIP completa según el tipo seleccionado.
+  </Step>
+  <Step title="Elegir Blind o Conference">
+    Selecciona el tipo de transferencia (`transfer_type`) para esta regla. Si eliges "Conference", completa opcionalmente `client_message` y `agent_message`.
+  </Step>
+  <Step title="Priorizar y Ordenar Reglas">
+    Ordena las reglas de mayor a menor prioridad; la IA evaluará las condiciones en el orden establecido dentro del array `transferRules` y aplicará la primera que coincida.
+  </Step>
+  <Step title="Eliminar o Editar Reglas">
+    Usa el botón "Remove" en cada tarjeta de regla para eliminarla, o edita directamente los campos para actualizarla.
+  </Step>
+</Steps>
+
+#### Ejemplo de Configuración con Múltiples Reglas
+
+```json
+{
+  "transferConfigVersion": "v2",
+  "transferEnabled": true,
+  "transferExecutionMode": "post_tool_speech",
+  "transferRules": [
+    {
+      "id": "rule-billing",
+      "condition": "El cliente pregunta por facturación, pagos o cargos duplicados",
+      "destination": {
+        "type": "phone",
+        "value": "+34911234567"
+      },
+      "transfer_type": "blind"
+    },
+    {
+      "id": "rule-support",
+      "condition": "El cliente solicita soporte técnico o reporta un problema con el producto",
+      "destination": {
+        "type": "sip",
+        "value": "sip:200@gateway.empresa.com:5060"
+      },
+      "transfer_type": "conference",
+      "client_message": "Un momento por favor, te conecto con nuestro equipo técnico.",
+      "agent_message": "El cliente reporta un fallo con el producto y ya ha intentado reiniciar el dispositivo."
+    },
+    {
+      "id": "rule-supervisor",
+      "condition": "El cliente pide expresamente hablar con un supervisor o gerente",
+      "destination": {
+        "type": "phone",
+        "value": "+34911234568"
+      },
+      "transfer_type": "conference",
+      "agent_message": "El cliente ha solicitado explícitamente escalar con un supervisor."
+    },
+    {
+      "id": "rule-urgent",
+      "condition": "El cliente muestra alta frustración o el caso requiere atención urgente",
+      "destination": {
+        "type": "sip",
+        "value": "sip:911@gateway.empresa.com:5060"
+      },
+      "transfer_type": "blind"
+    }
+  ]
+}
+```
+
+#### Transfer v1 vs Transfer v2 (Beta): Comparativa
+
+| Característica | Transfer Clásico (v1) | Transfer v2 (Beta) |
+|----------------|------------------------|---------------------|
+| **Número de destinos** | Uno único | Múltiples, sin límite práctico (`TransferRule[]`) |
+| **Condiciones** | Una plantilla general multiidioma | Una condición independiente por regla |
+| **Tipo de transferencia** | Siempre directa (equivalente a Blind) | Elegible por regla: Blind o Conference con briefing |
+| **Enrutamiento por departamento** | No soportado nativamente | Soportado de forma nativa |
+| **Priorización de reglas** | No aplica | Sí, orden configurable según posición en el array |
+| **Complejidad de configuración** | Baja | Media (requiere definir cada regla) |
+| **Casos de uso ideales** | Agentes con un único punto de escalado | Contact centers con múltiples departamentos o niveles de servicio |
+
+<Warning>
+Transfer v2 se encuentra en fase **Beta**. Es recomendable probar exhaustivamente cada regla con llamadas de test antes de desplegar en producción, especialmente cuando existen condiciones que podrían solaparse entre sí o cuando se usan reglas con transferencia Conference. En caso de solapamiento de condiciones, la IA aplicará la primera regla que coincida según el orden configurado en `transferRules`.
+</Warning>
+
+#### Buenas Prácticas para Reglas de Transferencia
+
+- **Condiciones mutuamente excluyentes**: Redacta las condiciones de forma que no se superpongan entre sí para evitar ambigüedad en el enrutamiento
+- **Orden por especificidad**: Coloca las reglas más específicas primero y las más genéricas al final como fallback
+- **Regla de respaldo (fallback)**: Considera añadir siempre una última regla genérica ("cualquier otra situación que requiera atención humana") apuntando a un destino general
+- **Nombres descriptivos en la condición**: Usa lenguaje natural claro y verbos de acción ("el cliente solicita...", "el cliente pregunta por...") para maximizar la precisión de detección de la IA
+- **Usa Conference cuando el contexto importa**: Reserva la transferencia acompañada (`conference`) con `agent_message` para los casos donde el humano se beneficia de un resumen previo; para el resto, `blind` es más rápido y sencillo
+- **Pruebas por regla**: Valida cada regla individualmente con llamadas de test simulando distintos escenarios de conversación
+- **No mezclar versiones**: Si migras de v1 a v2, revisa que la plantilla de condición clásica quede reflejada como una o varias reglas equivalentes en `transferRules` antes de desactivar el modo clásico
+
+### Plantillas de Transferencia Multiidioma
+
+El sistema incluye plantillas predefinidas optimizadas para diferentes idiomas y contextos culturales:
 
 <Tabs>
   <Tab title="Español">
@@ -76,6 +275,11 @@ El sistema incluye plantillas predefinidas para diferentes idiomas:
     - El usuario muestra desconfianza hacia el asistente virtual
     - Se necesita información específica no disponible en el sistema
     - Se requiere autorización o gestión de datos personales sensibles
+    - El cliente expresa frustración o necesita atención personalizada
+    - La consulta requiere conocimiento técnico especializado
+    - Se solicita hablar con un supervisor o responsable
+    - El caso requiere decisiones comerciales o excepciones
+    - Se detecta alta complejidad emocional o sensibilidad
     ```
   </Tab>
   <Tab title="Inglés">
@@ -86,398 +290,357 @@ El sistema incluye plantillas predefinidas para diferentes idiomas:
     - The user expressly requests to speak with a human person
     - The user shows distrust towards the virtual assistant
     - Specific information is needed that is not available in the system
-    - User requires authorization or management of sensitive personal data
+    - Authorization or management of sensitive personal data is required
+    - The client expresses frustration or needs personalized attention
+    - The query requires specialized technical knowledge
+    - Request to speak with a supervisor or manager
+    - The case requires business decisions or exceptions
+    - High emotional complexity or sensitivity is detected
     ```
   </Tab>
   <Tab title="Francés">
     ```text
-    Utilisé pour transférer l'appel à une personne dans les cas suivants:
+    Utilisé pour transférer l'appel à une personne dans les cas indiqués :
     
     - L'utilisateur rejette directement la proposition ou le service
     - L'utilisateur demande expressément à parler avec une personne humaine
     - L'utilisateur montre de la méfiance envers l'assistant virtuel
     - Des informations spécifiques sont nécessaires qui ne sont pas disponibles
     - L'utilisateur nécessite une autorisation ou gestion de données sensibles
+    - Le client exprime sa frustration ou a besoin d'attention personnalisée
+    - La demande nécessite des connaissances techniques spécialisées
+    - Demande de parler avec un superviseur ou responsable
+    - Le cas nécessite des décisions commerciales ou des exceptions
+    - Une complexité émotionnelle élevée ou sensibilité est détectée
+    ```
+  </Tab>
+  <Tab title="Alemán">
+    ```text
+    Wird verwendet, um das Gespräch in folgenden Fällen an eine Person zu übertragen:
+    
+    - Der Benutzer lehnt den Vorschlag oder Service direkt ab
+    - Der Benutzer möchte ausdrücklich mit einer echten Person sprechen
+    - Der Benutzer zeigt Misstrauen gegenüber dem virtuellen Assistenten
+    - Spezifische Informationen werden benötigt, die nicht verfügbar sind
+    - Der Benutzer benötigt Autorisierung oder sensible Datenverwaltung
+    - Der Kunde äußert Frustration oder benötigt persönliche Betreuung
+    - Die Anfrage erfordert spezialisiertes technisches Wissen
+    - Anfrage, mit einem Supervisor oder Manager zu sprechen
+    - Der Fall erfordert Geschäftsentscheidungen oder Ausnahmen
+    - Hohe emotionale Komplexität oder Sensibilität wird erkannt
+    ```
+  </Tab>
+  <Tab title="Italiano">
+    ```text
+    Si usa per trasferire la chiamata a una persona nei casi indicati:
+    
+    - L'utente rifiuta direttamente la proposta o il servizio
+    - L'utente richiede espressamente di parlare con una persona umana
+    - L'utente mostra sfiducia verso l'assistente virtuale
+    - Sono necessarie informazioni specifiche non disponibili nel sistema
+    - L'utente richiede autorizzazione o gestione di dati personali sensibili
+    - Il cliente esprime frustrazione o necessita di attenzione personalizzata
+    - La richiesta richiede conoscenza tecnica specializzata
+    - Si richiede di parlare con un supervisore o responsabile
+    - Il caso richiede decisioni commerciali o eccezioni
+    - Viene rilevata alta complessità emotiva o sensibilità
+    ```
+  </Tab>
+  <Tab title="Portugués">
+    ```text
+    É usado para transferir a chamada para uma pessoa nos casos indicados:
+    
+    - O usuário rejeita diretamente a proposta ou serviço
+    - O usuário solicita expressamente falar com uma pessoa humana
+    - O usuário mostra desconfiança em relação ao assistente virtual
+    - São necessárias informações específicas não disponíveis no sistema
+    - O usuário requer autorização ou gestão de dados pessoais sensíveis
+    - O cliente expressa frustração ou precisa de atenção personalizada
+    - A consulta requer conhecimento técnico especializado
+    - Solicita falar com um supervisor ou responsável
+    - O caso requer decisões comerciais ou exceções
+    - É detectada alta complexidade emocional ou sensibilidade
     ```
   </Tab>
 </Tabs>
 
 ## Estrategia de Finalización de Llamada
 
-Configura cómo y cuándo tu agente debe finalizar automáticamente las conversaciones.
+Configura cómo y cuándo tu agente debe finalizar automáticamente las conversaciones para optimizar recursos y mejorar la experiencia del usuario con detección inteligente multiidioma.
 
-### Detección de Contestador Automático
+### Detección Automática de Contestadores
 
-Una funcionalidad clave es la detección automática de contestadores telefónicos:
+Una funcionalidad crítica es la detección automática de contestadores telefónicos para evitar conversaciones con sistemas automatizados:
 
 <Warning>
-La detección de contestadores automáticos es crucial para evitar conversaciones innecesarias y optimizar recursos.
+La detección de contestadores automáticos es esencial para evitar conversaciones innecesarias y optimizar costos operacionales. Esta funcionalidad previene la frustración de interacciones con buzones de voz y sistemas automatizados, mejorando significativamente el ROI de campañas.
 </Warning>
 
-#### Frases Detectadas Comunes
+#### Frases de Detección por Idioma
 
-El sistema reconoce estas frases típicas de contestadores:
-
-- "En este momento no podemos atenderle"
-- "Deje su mensaje después de la señal"
-- "El número al que llama..."
-- "Ha llamado al..."
-- "Este es el contestador de..."
-- "Gracias por llamar, en estos momentos..."
-- "Bienvenido al buzón de voz de..."
-
-### Otras Condiciones de Finalización
-
-Además de contestadores automáticos, el agente finalizará llamadas cuando:
-
-- El usuario se despida de forma clara
-- El agente complete su despedida
-- Se cumplan objetivos específicos de la conversación
-- Se agote el tiempo máximo configurado
-
-### Plantillas de Finalización por Idioma
+El sistema AI reconoce patrones específicos en cada idioma con alta precisión:
 
 <Tabs>
   <Tab title="Español">
-    Incluye detección específica de frases como:
+    ```text
+    Frases detectadas automáticamente:
+    - "En este momento no podemos atenderle"
+    - "Deje su mensaje después de la señal"
+    - "El número al que llama no está disponible"
+    - "Ha llamado al buzón de..."
+    - "Este es el contestador automático de..."
+    - "Gracias por llamar, en estos momentos..."
+    - "Bienvenido al buzón de voz de..."
     - "Puedes dejar tu mensaje al oír la señal"
     - "Lo sentimos, pero en estos momentos..."
     - "Por favor, inténtelo de nuevo más tarde"
+    - "No podemos atender su llamada ahora"
+    - "Ha contactado con el servicio de..."
+    - "Este es el servicio de mensajería de..."
+    - "Deje su recado después del pitido"
+    ```
   </Tab>
   <Tab title="Inglés">
-    Detecta frases como:
+    ```text
+    Frases detectadas automáticamente:
     - "Please leave your message after the tone"
-    - "We're sorry, but at this time..."
-    - "Please try again later"
+    - "We're sorry, but we cannot take your call..."
+    - "The person you're calling is not available"
+    - "You have reached the voicemail of..."
+    - "Thank you for calling, we are currently..."
+    - "Your call is important to us, please hold..."
+    - "We cannot take your call right now"
+    - "Leave your message at the sound of the beep"
+    - "This is the answering machine of..."
+    - "Please try your call again later"
+    - "You've reached the voice mailbox of..."
+    - "The number you have dialed is not available"
+    ```
   </Tab>
-  <Tab title="Otros Idiomas">
-    Soporta detección en francés, alemán, italiano y portugués con patrones específicos para cada idioma.
+  <Tab title="Francés">
+    ```text
+    Frases detectadas automáticamente:
+    - "Veuillez laisser votre message après le signal"
+    - "Nous sommes désolés, mais en ce moment..."
+    - "La personne que vous appelez n'est pas disponible"
+    - "Vous avez joint la messagerie vocale de..."
+    - "Merci d'avoir appelé, nous sommes actuellement..."
+    - "Bienvenue sur le répondeur de..."
+    - "Laissez votre message après le bip"
+    - "Vous êtes bien sur la messagerie de..."
+    - "Veuillez rappeler plus tard"
+    - "Ce numéro n'est pas disponible actuellement"
+    ```
+  </Tab>
+  <Tab title="Alemán">
+    ```text
+    Frases detectadas automáticamente:
+    - "Bitte hinterlassen Sie Ihre Nachricht nach dem Ton"
+    - "Es tut uns leid, aber zur Zeit können wir..."
+    - "Die Person, die Sie anrufen, ist nicht verfügbar"
+    - "Sie haben die Mailbox von... erreicht"
+    - "Vielen Dank für Ihren Anruf, wir sind derzeit..."
+    - "Willkommen beim Anrufbeantworter von..."
+    - "Hinterlassen Sie Ihre Nachricht nach dem Piepton"
+    - "Sie sind mit der Sprachnachricht von... verbunden"
+    - "Bitte versuchen Sie es später erneut"
+    ```
+  </Tab>
+  <Tab title="Italiano">
+    ```text
+    Frases detectadas automáticamente:
+    - "Per favore lasci il suo messaggio dopo il tono"
+    - "Ci dispiace, ma al momento non possiamo..."
+    - "La persona che sta chiamando non è disponibile"
+    - "Ha raggiunto la segreteria di..."
+    - "Grazie per aver chiamato, al momento siamo..."
+    - "Benvenuto alla segreteria telefonica di..."
+    - "Lasci il suo messaggio dopo il segnale acustico"
+    - "È collegato con la segreteria di..."
+    - "La preghiamo di richiamare più tardi"
+    ```
+  </Tab>
+  <Tab title="Portugués">
+    ```text
+    Frases detectadas automáticamente:
+    - "Por favor deixe sua mensagem após o sinal"
+    - "Lamentamos, mas no momento não podemos..."
+    - "A pessoa que você está ligando não está disponível"
+    - "Você chegou à caixa postal de..."
+    - "Obrigado por ligar, no momento estamos..."
+    - "Bem-vindo à secretária eletrônica de..."
+    - "Deixe sua mensagem após o bip"
+    - "Você está conectado com a caixa postal de..."
+    - "Por favor, tente ligar novamente mais tarde"
+    ```
   </Tab>
 </Tabs>
 
-## Herramientas Webhook Personalizadas
-
-Crea integraciones personalizadas con sistemas externos mediante webhooks que tu agente puede activar durante las conversaciones.
-
-### Creando una Herramienta Webhook
-
-<Steps>
-  <Step title="Añadir Nueva Herramienta">
-    Haz clic en "Añadir Herramienta Webhook" para crear una nueva integración personalizada.
-  </Step>
-  <Step title="Configurar Información Básica">
-    - **Nombre**: Identificador único de la herramienta
-    - **Descripción**: Explica cuándo y por qué la IA debe usar esta herramienta
-  </Step>
-  <Step title="Establecer Endpoint">
-    - **URL**: Endpoint que recibirá la petición HTTP
-    - **Método**: Selecciona GET, POST, PUT, PATCH o DELETE
-  </Step>
-  <Step title="Configurar Parámetros">
-    Define parámetros de query string y/o campos del cuerpo de la petición.
-  </Step>
-  <Step title="Ajustar Configuración Avanzada">
-    Configura timeouts, interrupciones y modo de ejecución.
-  </Step>
-</Steps>
-
-### Tipos de Parámetros
-
-Cada parámetro webhook puede configurarse con:
-
-| Propiedad | Descripción | Opciones |
-|----------|-------------|----------|
-| Identificador | Nombre del parámetro | string único |
-| Tipo de Dato | Formato del valor | string, number, boolean, integer, array, object |
-| Requerido | Si es obligatorio | true/false |
-| Descripción | Contexto para la IA | texto descriptivo |
-| Tipo de Valor | Origen del dato | llm_prompt (IA genera), static (valor fijo) |
-
-### Configuración Avanzada de Webhooks
-
-#### Control de Interrupciones
+### Detección de Contestador Automático en Dos Niveles: Agente y Operadora
 
 <Info>
-Controla si el agente puede ser interrumpido mientras espera la respuesta del webhook.
+La detección de contestadores automáticos de Meetzy está reorganizada en **dos niveles complementarios**: el nivel **Agente** (detección nativa realizada por la propia IA durante la conversación) y el nivel **Operadora** (detección técnica realizada por el proveedor de telefonía/carrier antes de que el agente empiece a hablar, o en paralelo mientras lo hace). Esta funcionalidad se controla mediante la propiedad `amd_mode` (`'' | 'off' | 'native' | 'live' | 'gate'`) y se expone en la interfaz como un interruptor **"Voicemail Detection"** junto a un selector de nivel y, si corresponde, de submodo.
 </Info>
 
-- **Deshabilitar Interrupciones**: El agente no puede ser interrumpido durante la ejecución
-- **Permitir Interrupciones**: El usuario puede interrumpir mientras se procesa la petición
+#### Nivel 1: Agente (Detección Nativa)
 
-#### Modo de Ejecución
+El nivel **Agente** corresponde al valor `amd_mode: 'native'`. En este nivel, la propia IA analiza el contenido semántico de lo que escucha y reconoce frases típicas de contestadores (ver listado de frases por idioma más arriba) durante el transcurso natural de la conversación.
 
-| Modo | Descripción | Caso de Uso |
-|------|-------------|-------------|
-| **Inmediato** | Ejecuta durante la conversación | Consultas de datos, validaciones |
-| **Diferido** | Ejecuta después de la llamada | Logs, notificaciones, actualizaciones CRM |
+- **Cuándo actúa**: Una vez que el agente ya ha empezado a interactuar y el contestador reproduce su mensaje habitual
+- **Ventaja principal**: No depende de las capacidades técnicas del operador telefónico; funciona con cualquier proveedor
+- **Consideración**: Requiere que el contestador llegue a reproducir parte de su mensaje antes de poder detectarlo
 
-#### Configuración de Audio
+#### Nivel 2: Operadora (Detección a Nivel de Carrier)
 
-- **Sonido de Herramienta**: Reproduce sonido de "tecleado" durante la ejecución
-- **Comportamiento**: Automático o manual
-- **Forzar Síntesis Previa**: Asegura que el agente termine de hablar antes de ejecutar
-
-### Ejemplos Prácticos de Webhooks
+El nivel **Operadora** corresponde a los valores `amd_mode: 'gate'` o `amd_mode: 'live'`. En este nivel, el propio proveedor de telefonía analiza señales técnicas de la llamada (tonos, patrones de silencio, señal de "beep") para determinar si es un contestador, actuando al inicio de la llamada, antes o en paralelo al primer mensaje del agente. Dentro de este nivel existen dos submodos:
 
 <Tabs>
-  <Tab title="Integración CRM">
-    ```json
-    {
-      "name": "crear_lead_salesforce",
-      "description": "Crear lead en Salesforce cuando cliente muestra interés en producto",
-      "api_schema": {
-        "url": "https://api.salesforce.com/leads",
-        "method": "POST",
-        "request_body_schema": {
-          "type": "object",
-          "required": ["email", "company"],
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "Email del prospecto"
-            },
-            "company": {
-              "type": "string", 
-              "description": "Nombre de la empresa"
-            },
-            "phone": {
-              "type": "string",
-              "description": "Teléfono de contacto"
-            },
-            "interest_level": {
-              "type": "string",
-              "enum": ["Alto", "Medio", "Bajo"]
-            }
-          }
-        }
-      },
-      "response_timeout_secs": 15,
-      "execution_mode": "immediate"
-    }
-    ```
+  <Tab title="Gate (Puerta de Espera)">
+    En el submodo **Gate** (`amd_mode: 'gate'`), el sistema **retiene la voz del agente** hasta que el operador telefónico confirma si la llamada fue contestada por una persona o por un contestador automático. Solo cuando se confirma que hay una persona al otro lado, el agente comienza a hablar.
+
+    **Ventajas**:
+    - Máxima precisión: el agente nunca "malgasta" su primer mensaje hablándole a un contestador
+    - Ideal para mensajes de apertura largos o con información sensible
+
+    **Consideraciones**:
+    - Introduce una pequeña latencia inicial mientras se espera la confirmación del operador
+    - Recomendado para campañas salientes de alto volumen donde el coste de "desperdiciar" aperturas es alto
   </Tab>
-  <Tab title="Consulta de Inventario">
-    ```json
-    {
-      "name": "consultar_inventario",
-      "description": "Verificar disponibilidad de productos en tiempo real",
-      "api_schema": {
-        "url": "https://api.mitienda.com/inventory/check",
-        "method": "GET",
-        "query_params_schema": {
-          "properties": {
-            "product_id": {
-              "type": "string",
-              "description": "ID del producto a consultar"
-            },
-            "location": {
-              "type": "string", 
-              "description": "Código de sucursal"
-            }
-          },
-          "required": ["product_id"]
-        }
-      },
-      "disable_interruptions": true,
-      "execution_mode": "immediate"
-    }
-    ```
-  </Tab>
-  <Tab title="Programar Cita">
-    ```json
-    {
-      "name": "programar_cita_medica",
-      "description": "Programar cita médica con disponibilidad en tiempo real",
-      "api_schema": {
-        "url": "https://api.clinica.com/appointments",
-        "method": "POST",
-        "request_body_schema": {
-          "type": "object",
-          "required": ["patient_name", "preferred_date", "service_type"],
-          "properties": {
-            "patient_name": {
-              "type": "string",
-              "description": "Nombre completo del paciente"
-            },
-            "patient_phone": {
-              "type": "string",
-              "description": "Teléfono del paciente"
-            },
-            "preferred_date": {
-              "type": "string",
-              "description": "Fecha preferida formato YYYY-MM-DD"
-            },
-            "service_type": {
-              "type": "string",
-              "enum": ["Consulta General", "Especialidad", "Urgencia"]
-            }
-          }
-        }
-      },
-      "response_timeout_secs": 20,
-      "tool_call_sound": "typing"
-    }
-    ```
+  <Tab title="Live (Habla en Vivo)">
+    En el submodo **Live** (`amd_mode: 'live'`), el agente **comienza a hablar de inmediato** al descolgarse la llamada, sin esperar confirmación del operador. En paralelo, el sistema monitoriza la transcripción de la llamada y, si detecta que se trata de un contestador automático, puede finalizar la llamada automáticamente.
+
+    **Ventajas**:
+    - Sin latencia inicial: la conversación se siente más natural y humana desde el primer segundo
+    - Ideal para llamadas entrantes donde la inmediatez es crítica para la experiencia del usuario
+
+    **Consideraciones**:
+    - Existe una pequeña ventana de tiempo donde el agente podría empezar a hablar antes de que se confirme que es un contestador
+    - Se recomienda combinar con la detección nativa (Nivel Agente) como capa de respaldo
   </Tab>
 </Tabs>
 
-## Protocolo de Rellamada (Recall)
-
-Configura llamadas de seguimiento automáticas cuando no se cumplen ciertas condiciones o objetivos de la conversación inicial.
-
-### Configuración de Recall
+#### Proceso de Configuración
 
 <Steps>
-  <Step title="Habilitar Protocolo">
-    Activa el sistema de rellamadas automáticas desde la interfaz.
+  <Step title="Activar Voicemail Detection">
+    Habilita el interruptor "Voicemail Detection" en la sección de Acciones y Herramientas (`voicemailDetectionEnabled: true`).
   </Step>
-  <Step title="Definir Intentos Máximos">
-    Establece el número máximo de intentos de rellamada (recomendado: 2-3).
+  <Step title="Elegir el Nivel de Detección">
+    Selecciona entre "Agent" (nivel Agente, `amd_mode: 'native'`, detección semántica realizada por la IA durante la conversación) o "Carrier" (nivel Operadora, detección técnica a nivel de proveedor telefónico).
   </Step>
-  <Step title="Configurar Intervalos">
-    Define los intervalos entre cada intento de rellamada.
+  <Step title="Configurar Submodo de Operadora (si aplica)">
+    Si eliges el nivel "Carrier"/Operadora, selecciona entre "Gate" (`amd_mode: 'gate'`, esperar confirmación antes de hablar) o "Live" (`amd_mode: 'live'`, hablar de inmediato y monitorizar en paralelo).
   </Step>
-  <Step title="Establecer Condiciones">
-    Especifica qué condiciones deben activar una rellamada.
+  <Step title="Validar con Llamadas de Prueba">
+    Realiza llamadas de test tanto a números que sean contestados por personas como a números con contestador automático para verificar el comportamiento esperado en cada escenario.
   </Step>
 </Steps>
 
-### Intervalos de Rellamada
+<Info>
+El sistema recuerda automáticamente el último submodo de Operadora utilizado (`lastCarrierVoicemailMode: 'gate' | 'live'`). Así, si cambias temporalmente al nivel "Agent" y luego regresas al nivel "Carrier"/Operadora, la interfaz restaura el submodo que tenías configurado previamente, evitando que tengas que reconfigurarlo cada vez.
+</Info>
 
-| Intervalo | Caso de Uso | Ejemplo |
-|-----------|-------------|---------|
-| **5-15 minutos** | Línea ocupada, respuesta inmediata necesaria | Emergencias, confirmaciones urgentes |
-| **30 minutos - 1 hora** | No contestó, seguimiento en mismo día | Citas médicas, servicios urgentes |
-| **2-4 horas** | Seguimiento comercial | Ventas, ofertas con tiempo limitado |
-| **Siguiente día hábil** | Seguimiento profesional | Propuestas comerciales, información general |
+#### Comparativa de Niveles y Submodos de Detección
 
-### Condiciones de Recall
-
-Ejemplos de condiciones que pueden activar rellamadas:
-
-- No se obtuvo respuesta (contestador o sin respuesta)
-- Línea ocupada
-- No se completó el objetivo de la conversación
-- Cliente solicitó ser contactado más tarde
-- Información pendiente de confirmación
+| Nivel / Submodo | Valor de `amd_mode` | Momento de Detección | Latencia Inicial | Precisión | Recomendado Para |
+|-----------------|----------------------|------------------------|-------------------|-----------|-------------------|
+| **Agente (Native)** | `native` | Durante la conversación, vía análisis semántico de la IA | Ninguna | Alta, pero requiere que el contestador haya reproducido su mensaje | Llamadas entrantes y salientes con mensajes de apertura cortos |
+| **Operadora - Gate** | `gate` | Antes de que el agente hable, vía señal técnica del operador | Baja a moderada | Muy alta | Campañas salientes masivas con mensajes de apertura largos o sensibles |
+| **Operadora - Live** | `live` | En paralelo al primer mensaje del agente | Ninguna | Alta, con posible margen de error mínimo al inicio | Llamadas entrantes o campañas donde la inmediatez conversacional es prioritaria |
+| **Desactivado** | `off` | No se realiza ninguna detección | Ninguna | No aplica | Casos donde ya se filtra el contestador en un paso previo del flujo de llamada |
 
 <Warning>
-Usa protocolos de rellamada responsablemente. Demasiados callbacks pueden molestar a los clientes y violar regulaciones de telecomunicaciones. Siempre respeta las listas de "No Llamar" y las preferencias del cliente.
+Un valor heredado vacío (`''`) en `amd_mode` se interpreta como la configuración por defecto de la cuenta (legacy) y no activa ninguno de los dos niveles de forma explícita. Si necesitas un comportamiento predecible, configura siempre de forma explícita el nivel "Agent" o "Carrier" (con su submodo) en lugar de dejar el campo vacío.
 </Warning>
 
-### Mejores Prácticas para Recall
+<Warning>
+Los submodos **Gate** y **Live** dependen de las capacidades técnicas del proveedor de telefonía (carrier) configurado para el número saliente. Antes de desplegar en producción, verifica con el equipo de soporte de Meetzy que tu proveedor soporta la detección de contestador a nivel de operadora para la región y el tipo de número que estás utilizando.
+</Warning>
 
-1. **Límite de Intentos**: No más de 3 intentos para evitar molestias
-2. **Intervalos Progresivos**: Aumenta el tiempo entre intentos
-3. **Horarios Apropiados**: Respeta horarios comerciales y zonas horarias
-4. **Condiciones Claras**: Define exactamente cuándo activar recalls
-5. **Registro de Intentos**: Mantén log de todos los intentos realizados
-
-## Próximamente
-
-Nuevas integraciones y funcionalidades en desarrollo:
-
-<Tabs>
-  <Tab title="Comunicación">
-    | Característica | Descripción | Estado |
-    |---------|-------------|--------|
-    | 📧 **Envío de Email** | Enviar emails durante o después de llamadas | Próximamente |
-    | 💬 **SMS Automático** | Enviar mensajes de texto a clientes | Próximamente |
-    | 📱 **WhatsApp Business** | Integración con WhatsApp Business API | Próximamente |
-  </Tab>
-  <Tab title="Integraciones">
-    | Característica | Descripción | Estado |
-    |---------|-------------|--------|
-    | 🏢 **CRM Nativo** | Conectores directos para CRMs populares | Próximamente |
-    | 📊 **Analytics Avanzado** | Dashboards y métricas detalladas | Próximamente |
-    | 🔐 **SSO Enterprise** | Single Sign-On para empresas | Próximamente |
-  </Tab>
-  <Tab title="IA Avanzada">
-    | Característica | Descripción | Estado |
-    |---------|-------------|--------|
-    | 🧠 **Análisis de Sentimiento** | Detección automática de emociones | Próximamente |
-    | 🎯 **Personalización IA** | Adaptación automática por cliente | Próximamente |
-    | 📈 **Optimización Predictiva** | Mejoras automáticas de rendimiento | Próximamente |
-  </Tab>
-</Tabs>
-
-## Mejores Prácticas Generales
-
-### Para Webhooks
-
-1. **Descripciones Detalladas**: Escribe descripciones claras para que la IA sepa exactamente cuándo usar cada herramienta
-2. **Manejo de Errores**: Implementa respuestas de error apropiadas que el agente pueda comunicar al usuario
-3. **Timeouts Realistas**: Configura timeouts apropiados para tu infraestructura (15-30 segundos)
-4. **Seguridad**: Usa autenticación y headers seguros para APIs sensibles
-5. **Testing**: Prueba exhaustivamente cada webhook antes del despliegue
-
-### Para Transferencias
-
-1. **Números de Backup**: Configura números alternativos por si la línea principal está ocupada
-2. **Contexto Claro**: Asegúrate de que el agente receptor tenga toda la información necesaria
-3. **Horarios de Atención**: Considera los horarios de disponibilidad de agentes humanos
-4. **Escalación Gradual**: Define niveles de escalación (soporte → supervisor → gerente)
-
-### Para Recalls
-
-1. **Cumplimiento Legal**: Respeta todas las regulaciones locales de telecomunicaciones
-2. **Opt-out Fácil**: Permite que los usuarios se den de baja fácilmente
-3. **Segmentación**: Usa diferentes estrategias según el tipo de cliente o propósito
-4. **Monitoreo**: Rastrea tasas de éxito y ajusta estrategias según resultados
-
-## Solución de Problemas Comunes
-
-<Tabs>
-  <Tab title="Transferencias">
-    **Problema**: La transferencia no se ejecuta
-    
-    **Soluciones**:
-    - Verificar formato del número o URI SIP
-    - Confirmar que el destino está disponible
-    - Revisar permisos de transferencia
-    - Validar configuración del prompt de transferencia
-  </Tab>
-  <Tab title="Webhooks">
-    **Problema**: El webhook no responde
-    
-    **Soluciones**:
-    - Verificar conectividad del endpoint
-    - Revisar autenticación y headers
-    - Comprobar formato de parámetros
-    - Aumentar timeout si es necesario
-    - Validar certificados SSL
-  </Tab>
-  <Tab title="Recalls">
-    **Problema**: Las rellamadas no se ejecutan
-    
-    **Soluciones**:
-    - Verificar condiciones de activación
-    - Confirmar configuración de intervalos
-    - Revisar límites de intentos
-    - Validar números de teléfono
-    - Comprobar horarios permitidos
-  </Tab>
-</Tabs>
-
-## Siguientes Pasos
+## Sonidos de Escucha Activa (Backchannel) para Voces v3
 
 <Info>
-Una vez configuradas las acciones y herramientas, puedes personalizar aún más tu agente con parámetros dinámicos y configuración de salida avanzada.
+Los **sonidos de escucha activa** (o *backchannels*) son las pequeñas interjecciones que un agente pronuncia mientras el interlocutor está hablando —como "mm-hmm", "ya veo", "claro"— para transmitir que está escuchando activamente, igual que haría una persona real en una llamada telefónica. Esta funcionalidad se controla mediante la propiedad `backchannel_mode` (`'' | 'off' | 'low' | 'normal' | 'expressive'`) y **solo está disponible en agentes configurados con el modelo de voz `eleven_v3_conversational`**.
 </Info>
 
-<CardGroup cols={2}>
-  <Card
-    title="Parámetros de Entrada"
-    icon="arrow-right-to-bracket"
-    href="/es/advanced-editor/input-params"
-  >
-    Configura variables dinámicas y personalización
-  </Card>
-  <Card
-    title="Configuración de Salida"
-    icon="arrow-right-from-bracket"
-    href="/es/advanced-editor/output-settings"
-  >
-    Define extracción de datos y webhooks de salida
-  </Card>
-</CardGroup>
+<Warning>
+Si tu agente utiliza el modelo `eleven_flash_v2_5` u otro modelo distinto a `eleven_v3_conversational`, esta configuración no tendrá ningún efecto audible, ya que los sonidos de escucha activa son una capacidad exclusiva de las voces v3.
+</Warning>
+
+### Niveles de Escucha Activa Disponibles
+
+<Tabs>
+  <Tab title="Off (Desactivado)">
+    El agente no emite ningún sonido ni interjección mientras el usuario habla. La conversación se mantiene en silencio de parte del agente hasta que le toca su turno.
+
+    **Recomendado para**: agentes muy formales, grabaciones donde se requiere un audio limpio sin solapamientos, o casos donde las interjecciones podrían interferir con sistemas de transcripción automática.
+  </Tab>
+  <Tab title="Low (Bajo)">
+    El agente emite asentimientos neutros y poco frecuentes (como "mm-hmm" o "ajá") mientras el usuario habla, con una cadencia discreta que no interrumpe el flujo natural de la conversación.
+
+    **Recomendado para**: entornos profesionales donde se busca un equilibrio entre naturalidad y sobriedad, como soporte técnico o gestiones administrativas.
+  </Tab>
+  <Tab title="Normal (Por Defecto)">
+    El agente utiliza una frecuencia estándar de interjecciones de escucha activa, similar a la de una conversación telefónica humana habitual. Es el comportamiento equivalente al valor heredado (`''`) en agentes v3.
+
+    **Recomendado para**: la mayoría de los casos de uso conversacionales, donde se busca naturalidad sin perder profesionalidad.
+  </Tab>
+  <Tab title="Expressive (Expresivo)">
+    El agente añade, además de los asentimientos habituales, exclamaciones con mayor carga emocional (como "¡vaya!", "¡genial!") cuando el contexto lo amerita, aportando un tono más cercano y expresivo a la conversación.
+
+    **Recomendado para**: agentes orientados a ventas, atención al cliente con enfoque cercano, o marcas que buscan una personalidad conversacional más viva y humana.
+  </Tab>
+</Tabs>
+
+### Proceso de Configuración
+
+<Steps>
+  <Step title="Verificar el Modelo de Voz">
+    Confirma que tu agente tiene seleccionado el modelo `eleven_v3_conversational` en la configuración de voz; de lo contrario, esta opción no tendrá efecto.
+  </Step>
+  <Step title="Activar Active Listening Sounds">
+    Habilita el interruptor correspondiente a los sonidos de escucha activa en la sección de Acciones y Herramientas (`backchannelEnabled: true`).
+  </Step>
+  <Step title="Elegir el Nivel de Intensidad">
+    Selecciona entre "Low", "Normal" (recomendado por defecto) o "Expressive" según el tono de marca y el contexto de tus llamadas.
+  </Step>
+  <Step title="Probar con una Llamada Real">
+    Realiza una llamada de prueba manteniendo pausas y respuestas largas para verificar que las interjecciones se sienten naturales y no resultan intrusivas.
+  </Step>
+</Steps>
+
+<Warning>
+Un valor heredado vacío (`''`) en `backchannel_mode` equivale a `normal` en agentes con voz `eleven_v3_conversational`. Si desactivas el interruptor "Active Listening Sounds", el valor se guarda como `off`, agrupando internamente ese estado con cualquier configuración previa distinta de `low`, `normal` o `expressive`.
+</Warning>
+
+### Comparativa de Niveles de Backchannel
+
+| Nivel | Valor de `backchannel_mode` | Frecuencia de Interjecciones | Carga Emocional | Recomendado Para |
+|-------|------------------------------|-------------------------------|------------------|-------------------|
+| **Off** | `off` | Ninguna | Ninguna | Entornos formales o con transcripción automática sensible |
+| **Low** | `low` | Baja, solo asentimientos neutros | Baja | Soporte técnico, gestiones administrativas |
+| **Normal** | `normal` (o `''` heredado) | Estándar, similar a una llamada humana habitual | Media | La mayoría de los casos de uso conversacionales |
+| **Expressive** | `expressive` | Estándar + exclamaciones adicionales | Alta | Ventas, atención cercana, marcas con personalidad expresiva |
+
+## Estrategia de Finalización de Llamada: Configuración del Prompt
+
+Además de la detección automática de contestadores a nivel de Agente y Operadora, puedes definir un prompt personalizado (`endCallPrompt`) que describa explícitamente a la IA en qué otras circunstancias debe finalizar la llamada, como despedidas claras del usuario o del propio agente.
+
+<Steps>
+  <Step title="Activar End Call Strategy">
+    Habilita el interruptor de finalización de llamada (`endCallEnabled: true`).
+  </Step>
+  <Step title="Seleccionar o Personalizar la Plantilla">
+    Usa el botón "Add Template" para insertar una plantilla predefinida en tu idioma, o redacta tu propio criterio de finalización.
+  </Step>
+  <Step title="Combinar con Voicemail Detection">
+    Ten en cuenta que la lógica del prompt (`endCallPrompt`) y la detección técnica de contestadores (`amd_mode`) son complementarias: el prompt cubre casos semánticos generales (despedidas, contestadores no cubiertos por el nivel Operadora), mientras que `amd_mode` cubre la detección temprana y técnica antes o durante el inicio de la llamada.
+  </Step>
+</Steps>
+
+## Webhooks Personalizados
+
+Meetzy permite definir herramientas (`WebhookTool`) que conectan tu agente con sistemas externos mediante llamadas HTTP durante la conversación, ideales para consultar bases de datos, CRMs o disparar automatizaciones.
+
+<Info>
+Cada webhook se configura con un esquema de API (`api_schema`) que define la URL, el método HTTP, los parámetros de consulta o de cuerpo, y las cabeceras necesarias. Puedes controlar el modo de ejecución (`execution_mode`) de cada webhook igual que en la transferencia de llamadas, elig

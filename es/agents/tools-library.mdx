@@ -1,0 +1,68 @@
+---
+title: "Biblioteca de Tools"
+description: "Consulta de un vistazo todas las tools personalizadas configuradas en tus agentes y descubre en qué agentes se están usando"
+icon: "toolbox"
+---
+
+## ¿Qué es la Biblioteca de Tools?
+
+La **Biblioteca de Tools** es un catálogo centralizado, de solo lectura, de todas las tools personalizadas (webhooks) que ya tienes configuradas en los agentes de tu cuenta. En lugar de entrar agente por agente para saber qué tools existen, esta vista te da una foto completa en un único lugar.
+
+<Info>
+  En esta primera versión, la Biblioteca de Tools es **solo de consulta**. No podrás crear, editar ni eliminar tools desde aquí: para eso, sigue haciéndolo desde la configuración de cada agente en la sección **Actions & Tools**.
+</Info>
+
+## ¿Para qué sirve?
+
+Cuando gestionas varios agentes, es habitual perder de vista qué tools ya existen y dónde se usan. La Biblioteca de Tools resuelve justo eso:
+
+- **Visibilidad total**: ves de un vistazo todas las tools configuradas en tu cuenta, sin tener que abrir cada agente.
+- **Evita duplicados**: antes de crear una tool nueva, comprueba si ya existe una similar en otro agente.
+- **Detecta reutilización**: identifica qué tools están compartidas entre varios agentes y cuáles son exclusivas de uno solo.
+
+## Cómo usarla
+
+<Steps>
+  <Step title="Accede a la Biblioteca de Tools">
+    Desde el menú principal, entra en la sección **Tools Library**. Verás cargar automáticamente el listado de tools detectadas en tus agentes.
+  </Step>
+  <Step title="Explora el listado">
+    Cada tool aparece en una tarjeta con su **nombre**, su **descripción** y un contador que indica en cuántos agentes está configurada (por ejemplo, "3 agents").
+  </Step>
+  <Step title="Consulta qué agentes la usan">
+    Pulsa en **"Show agents using this tool"** dentro de cualquier tarjeta para desplegar la lista de agentes que tienen esa tool configurada. Vuelve a pulsar para ocultarla.
+  </Step>
+  <Step title="Busca una tool concreta">
+    Usa el buscador superior para filtrar por **nombre de la tool**, **descripción** o **nombre del agente**. Los resultados se actualizan automáticamente mientras escribes.
+  </Step>
+</Steps>
+
+## Estados de la vista
+
+<Tabs>
+  <Tab title="Cargando">
+    Mientras se recopila la información de tus agentes, verás un indicador de carga giratorio. Este proceso suele ser rápido, pero puede tardar algo más si tu cuenta tiene muchos agentes configurados.
+  </Tab>
+  <Tab title="Sin resultados">
+    Si tu cuenta todavía no tiene ninguna tool personalizada configurada, verás un mensaje indicándolo. Si has hecho una búsqueda y no hay coincidencias, el mensaje te avisará de que ninguna tool cumple con el filtro aplicado.
+  </Tab>
+  <Tab title="Error">
+    Si algo falla al cargar el listado, se mostrará un mensaje de error. Simplemente recarga la página o vuelve a intentarlo más tarde.
+  </Tab>
+</Tabs>
+
+<Warning>
+  En algunos casos puede aparecer un aviso (warning) en la parte superior del listado. Esto suele indicar que alguna tool no ha podido recuperarse correctamente para uno o varios agentes, pero no afecta al resto de la información mostrada.
+</Warning>
+
+## Preguntas frecuentes
+
+<Info>
+  **¿Puedo editar una tool desde la Biblioteca?**
+  No. Esta vista es únicamente de consulta. Para modificar una tool, dirígete al agente correspondiente y entra en la pestaña **Actions & Tools**.
+</Info>
+
+<Info>
+  **¿Por qué una tool aparece asociada a varios agentes?**
+  Cuando la misma tool (mismo `tool_id` de ElevenLabs) está configurada en más de un agente, la Biblioteca la agrupa en una sola tarjeta y lista todos los agentes que la utilizan, evitando así entradas duplicadas.
+</Info>

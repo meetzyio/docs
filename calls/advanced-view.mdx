@@ -1,0 +1,448 @@
+---
+title: "Advanced Calls View"
+description: "Explore the new Calls page with a pinnable column manager, predefined and custom saved views, date/agent/company/tag/evaluation/status filters with chips, suspicious-call detection, an OK/KO review verdict filter, summary cards with inbound/outbound transfer time and real AI latency, inline tag editing, per-call audit notes, per-turn latency detail, admin links to Twilio/ElevenLabs, deep links with pre-applied filters, and Excel exports."
+icon: "table-list"
+---
+
+The **Advanced Calls View** (`/calls-v2`) is the new version of the Calls page, built for teams that need deeper control over how call data is displayed, filtered, and audited. It introduces a fully configurable column manager (including dynamic input/output columns discovered per agent, right-edge pinning, and a recovered **Evaluations** column), a **Views** menu with both predefined and custom saved views, a two-row filter bar covering date range, agents, company, tags, evaluations, call ID, and status, along with a dedicated suspicious-call filter and an OK/KO verdict filter, a set of summary cards covering volume, latency, review progress, and inbound/outbound transfer time, a manual refresh control, an OK/KO review workflow with per-call audit notes, inline tag editing, per-turn latency detail, admin-only links to Twilio and ElevenLabs, shareable deep links that pre-apply filters via query parameters, full or selective Excel exports, pagination controls at both the top and bottom of the table, and a built-in recording player with a real waveform and previous/next navigation between calls.
+
+<Info>
+The Advanced Calls View is rolling out alongside the classic Calls page. You can switch between the two at any time using the banner at the top of the page.
+</Info>
+
+## Switching between views
+
+When you open the Advanced Calls View, you'll see a migration banner at the top of the page confirming you're on the new experience.
+
+- The banner reads **"You're viewing the new Calls page."**, with a **Switch back to the classic view** link right next to it — click it to return to the original Calls page (`/calls-old`) at any time.
+- The banner is always visible at the top of the page, so you're never in doubt about which version of the Calls page you're looking at.
+- Your filters, column layout, and saved views on the Advanced Calls View are stored independently, so switching back and forth won't affect either page.
+
+<Warning>
+The Advanced Calls View is under active development. If something doesn't behave as expected, use the classic view as a fallback while we continue improving it.
+</Warning>
+
+## Configurable and pinnable columns
+
+Unlike the classic Calls page, the Advanced Calls View lets you fully customize which columns appear in the table, in what order, and which ones stay anchored in place. It also includes a dedicated discovery experience for turning any input or output field captured by your agents into a real column.
+
+<Steps>
+  <Step title="Open the Columns panel">
+    Click the **⚙️ Columns** button in the top-right corner of the page to open the column manager.
+  </Step>
+  <Step title="Search for a field">
+    Use the search box at the top of the panel to look up a specific input or output field by name — for example, typing "lead qualification" filters the discovery panels down to any field whose label or path matches, across every agent, instead of making you scroll through every field manually.
+  </Step>
+  <Step title="Browse input and output fields by agent">
+    Click **Input columns** or **Output columns** to open the corresponding discovery panel — each shows a running count of how many fields were found. Fields are grouped by the **agent** that produced them, with each agent's group collapsed by default; click a group's header to expand or collapse it and reveal the individual fields inside. Opening the input panel automatically closes the output panel (and vice versa), keeping the manager focused on one discovery list at a time.
+  </Step>
+  <Step title="Add a field as a column">
+    Inside an expanded agent group, click **Add** next to any field to turn it into a column immediately. Once added, the button switches to a disabled **Added** state, so you always know at a glance which fields from that agent are already on the table.
+  </Step>
+  <Step title="Show or hide columns">
+    In the **Columns** list below the discovery panels, toggle any column on or off. This includes standard fields (status, duration, agent, company, tags, evaluations) as well as any dynamic input/output columns you've added.
+  </Step>
+  <Step title="Reorder columns">
+    Drag any row in the **Columns** list — using the ⠿ handle — up or down to drop it into the position that makes the most sense for your workflow. The reordering works the same for standard and dynamic columns alike.
+  </Step>
+  <Step title="Remove a dynamic column">
+    Dynamic columns (labeled `input` or `output`) show a small **✕** next to them in the **Columns** list. Click it to remove that column from your layout entirely — this only removes it from view, it doesn't affect the underlying call data, and the field remains available to add again later from the discovery panel.
+  </Step>
+  <Step title="Pin important columns">
+    Click the **pin** icon next to any column to anchor it. Pinned columns are grouped together and stuck to the **right edge** of the table, so they stay visible no matter how many other columns you add or how far you scroll horizontally. **Reviewed** and **Actions** are pinned by default, and you can pin any additional column — such as **Tags** or a dynamic output field you check on every call — the same way. Pinned columns are stacked in order from the right edge inward, and the table automatically measures each one's rendered width so neighboring pinned columns never overlap, even when a pinned column's content varies in length between rows.
+  </Step>
+  <Step title="Reset to defaults">
+    If you want to start over, click **Reset to default** inside the column manager to discard your custom visibility, order, and pinning, restoring the platform's original column layout.
+  </Step>
+</Steps>
+
+<Info>
+Both discovery panels scroll independently of the field search box and the toggle buttons above them, so you can search or switch between input and output while keeping your place in a long list of agent groups.
+</Info>
+
+### Evaluations column
+
+The **Evaluations** column shows which evaluation criteria a call met, mirroring the column that already existed on the classic Calls page.
+
+<Info>
+Evaluations previously existed in the classic view but hadn't been migrated to the Advanced Calls View, so it was missing here and couldn't even be turned on from the column manager. It's now available like any other column and, since it's information many teams audit daily, it's **enabled by default** — including for anyone who already had a saved column layout from before this fix, which is automatically upgraded to include it.
+</Info>
+
+### Dynamic columns from inputs and outputs
+
+The Advanced Calls View scans a batch of your loaded calls and automatically discovers structured fields captured on each call's **input parameters** and **agent output**, surfacing them inside the **Input columns** and **Output columns** discovery panels described above, grouped by the agent they came from.
+
+- Every dynamic column is clearly labeled with its **source** — `input` or `output` — so you always know where the value comes from, and which agent it belongs to when relevant.
+- Fields are grouped **per agent** in the discovery panel, with each group showing a field count and collapsing by default — handy when several agents each expose dozens of fields and you only need to browse one at a time.
+- Use the field search box to jump straight to a known field name without expanding every agent group manually; the search matches against both the field's label and its underlying path.
+- Clicking **Add** on a field immediately creates the column and switches the button to **Added**; clicking the **✕** next to that column later removes it from your layout, and it becomes addable again from the discovery panel.
+- A handful of internal input fields (like `playbook_id`, `voice_id`, `temperature`, or `record`) are excluded automatically, since they're configuration details rather than meaningful call data.
+- Nested objects and arrays are inspected up to a couple of levels deep, so fields buried inside a JSON output (for example inside a `metadata` object) can still surface as their own columns.
+- If the same field appears at different paths across calls — for example an agent update that moved a field from the root of the output into a `metadata` object — the column still resolves and displays the value correctly for both older and newer calls, so you don't end up with the value silently missing or duplicated near-identical columns for what's really the same field.
+
+<Info>
+Dynamic fields are re-discovered as new calls load, so new fields introduced by an updated agent version show up as selectable columns automatically, without needing a page refresh or manual configuration.
+</Info>
+
+<Warning>
+Resetting columns cannot be undone. If you rely on a custom layout, consider saving it as a view first (see below) before resetting.
+</Warning>
+
+## Views
+
+The **👁️ Views** menu in the top-right corner is where you switch between different column-and-filter layouts. It's split into two sections: a set of **predefined views** maintained by Meetzy, and **My views** — the layouts you save yourself. The name of whichever view is currently active is always shown next to the **Views** button, so you know at a glance which layout you're on.
+
+### Predefined views
+
+Predefined views are ready-made layouts covering common review tasks, so you don't have to build a configuration from scratch for everyday use cases:
+
+- **Call audit** — a review-focused layout showing the call date, agent, caller, status, duration, tags, and recording, sorted by most recent first. Ideal for day-to-day quality checks.
+- **Latency monitoring** — surfaces the average and maximum AI response latency alongside a latency sparkline, sorted by average latency descending, so the slowest calls float to the top.
+- **Compact overview** — a stripped-down layout with just the date, agent, caller, status, and duration, for quickly scanning volume without the extra detail.
+- **Transfers & escalations** — highlights transferred and ended calls together with tags and the call summary, useful for reviewing how escalations were handled.
+
+Click any predefined view's name to apply it instantly.
+
+<Info>
+Predefined views can be applied as many times as you like, but they can't be renamed or deleted — they're shared starting points, not personal views. If you want to tweak one, apply it first and then save your adjusted version under a new name in **My views**.
+</Info>
+
+### Custom saved views
+
+Once you've configured your columns, pins, and filters the way you like, you can save that configuration as a **named view** and switch back to it whenever you need.
+
+<Steps>
+  <Step title="Configure your table">
+    Set up your columns, pinning, filters, and sorting exactly how you want them — starting from scratch or from a predefined view.
+  </Step>
+  <Step title="Open the Views menu">
+    Click **👁️ Views** in the top-right corner.
+  </Step>
+  <Step title="Save the current configuration">
+    Type a name for your view in the input field and click **Save current**. Give it something memorable, like "Suspicious calls this week" or "My agent's calls".
+  </Step>
+  <Step title="Apply a saved view">
+    Open the Views menu at any time and click a view's name — predefined or your own — to instantly apply it. The active view is highlighted in green with a checkmark next to it, and its name appears next to the **Views** button. Use the **✕** icon next to one of your own views to delete it.
+  </Step>
+</Steps>
+
+<Info>
+Saved views are stored per user, so each teammate can build their own set of named views — on top of the same shared predefined views — without affecting anyone else's setup. If you don't have any saved views yet, the **My views** section simply shows a short note letting you know the list is empty.
+</Info>
+
+## Filtering calls
+
+The filter bar is organized into two clearly separated rows: a top row holding **Date range**, **Company** (administrator accounts only), **Agents**, **Tags**, **Evaluations**, and **Call ID**, all given equal width so the row stays evenly balanced — and a second, full-width row dedicated entirely to the **Status** chips (plus the **Suspicious calls** and **Review verdict** controls described below). Splitting status onto its own row keeps the chips from wrapping awkwardly next to the other inputs and gives them room to breathe as more statuses (like **Silence**) are added.
+
+### Date range
+
+Choose from common presets (Today, Yesterday, Last 7 days, This month, etc.) or define a fully custom start and end date and time.
+
+<Info>
+Day-based presets here (such as "Today" or "Last 7 days") end at 23:59:59 of the last day, instead of rolling into 00:00 of the following day.
+</Info>
+
+### Company
+
+For administrator accounts, a **Company** filter narrows the table down to calls belonging to one or more specific companies — useful when reviewing calls across several accounts at once instead of switching between them one by one.
+
+- Start typing a company name to search, then click it to add it as a chip — you can select several companies at once, the same way the Agents and Tags filters work.
+- Remove a chip by clicking the **✕** on it, or clear the whole selection at once using the **✕** at the end of the field.
+- Combine it with **Agents**, **Tags**, or **Evaluations** to zero in on, for example, a single agent that belongs to a specific company.
+- This filter is only visible to administrator accounts; regular accounts already see calls scoped to their own company and don't need it.
+
+<Info>
+The Company filter reads from the same `playbook_company` data already shown by the optional **Company** column, so the two stay consistent with each other. Selecting a company also narrows the calls available to the **Agents** and **Evaluations** filters accordingly.
+</Info>
+
+### Agents
+
+The agent filter uses a chip-based multi-select:
+
+- Start typing an agent's name to search.
+- Click an agent from the dropdown to add it as a chip.
+- Remove a chip by clicking the **✕** on it, or clear all selected agents at once.
+- Leaving the filter empty shows calls from all agents.
+
+### Tags
+
+Tags work the same way as agents — search, select, and manage them as chips. This makes it easy to combine multiple tags to narrow down a specific segment of calls.
+
+- The tag suggestions dropdown is populated from every tag currently used across your calls, so it stays in sync as new tags are created.
+- You can combine several tags at once — a call matching **any** of the selected tags is included, making it easy to group related segments (for example, several campaign tags) into a single filtered view.
+- Tags added, renamed, or removed through the inline tag editor (see below) are reflected in this filter's suggestions right away.
+
+### Evaluations
+
+The **Evaluations** filter lets you narrow the table down using the same evaluation criteria surfaced in the **Evaluations** column, without having to scan every row manually.
+
+- Filter **by name** to isolate calls that were checked against a specific evaluation criterion — for example, only calls evaluated for "asked for consent" or "confirmed appointment date".
+- Filter **by result** to further narrow those calls down to only the ones that **passed**, only the ones that **failed**, or the ones where that evaluation wasn't applicable to the call.
+- Combining a criterion name with a result is the fastest way to answer questions like "which calls failed the identity-verification check this week", instead of opening each call individually to check its evaluations.
+
+<Info>
+Like Tags, the list of evaluation names offered in this filter is drawn from the evaluations actually recorded across your calls, so it stays in sync as agents' evaluation criteria evolve.
+</Info>
+
+### Call ID
+
+The **Call ID** field lets you jump straight to a single call when you already know its identifier — for example, one referenced in a support ticket or shared by a teammate.
+
+- Paste or type a full or partial call ID to narrow the table down to matching calls.
+- This filter combines with the others, so you can also use it to double-check that a specific call falls within a given agent, tag, or date range.
+- Clear the field to remove the filter and go back to your broader result set.
+
+### Status
+
+Filter by one or more call statuses, including Open, Closed, No answer, Voicemail, **Silence**, Busy, Failed, Transferred, and Blocked. These chips now sit on their own dedicated row below the other filters, so selecting several statuses at once never crowds the row above.
+
+<Info>
+**Silence** identifies calls where the line connected but no real conversation took place — the call ended without a transcript worth reviewing. It's surfaced as its own selectable status chip, separate from Failed or No answer, so you can isolate these calls specifically instead of digging for them inside a broader status group.
+</Info>
+
+### Suspicious calls
+
+The **Suspicious calls** filter is a one-click way to surface calls that are worth a closer look. It's a client-side filter that flags a call as suspicious if **any** of the following are true:
+
+- The AI response latency was unusually high.
+- The call ended with a problematic status (`no-answer`, `failed`, or `blocked`).
+- The call has no transcript at all.
+
+<Info>
+This is intentionally an **OR** condition rather than an **AND** condition. Combining several individual filters (like status) would only show calls matching *all* conditions, which tends to under-match what auditors actually want to review first. The Suspicious calls filter is designed to catch anything that looks off, from any angle.
+</Info>
+
+<Info>
+Because calls with the **Silence** status have no meaningful transcript by definition, they're naturally caught by the "no transcript at all" condition above — so turning on **Suspicious calls** is also a quick way to spot silent calls without setting up a status filter first.
+</Info>
+
+The suspicious filter is a single toggle placed alongside the rest of the filter bar — it doesn't require selecting a status or configuring anything else first. Turn it on to instantly narrow the table down to calls worth a closer look, and turn it off to go back to your regular filtered view. It also combines cleanly with the other filters: for example, enabling **Suspicious calls** together with an **Agent** filter shows you only that agent's calls that need attention, without having to build a multi-condition filter manually. A small badge on the toggle reflects how many currently loaded calls match, giving you an immediate sense of scale before you even open the table.
+
+### Review verdict (OK/KO)
+
+A dedicated verdict filter lets you narrow the table down to only the calls your team has already reviewed and marked with an outcome:
+
+- Select **OK** to see everything approved during review.
+- Select **KO** to pull up everything flagged as problematic.
+- Leave it unset to show calls regardless of verdict, including calls that haven't been reviewed at all.
+
+This is especially handy at the end of a review session — quickly pull up every call marked **KO** to make sure each one has a follow-up note, or check every **OK** call before sharing a "clean" batch with a manager or client. It also combines with the other filters, for example to check the **KO** calls for a single agent, tag, or evaluation result.
+
+## Summary cards
+
+Above the table, a row of summary cards shows aggregate statistics computed **server-side** across **every call matching your current filters and date range** — not just the calls currently loaded on screen. This makes it a reliable, at-a-glance health check even before you scroll through a single row.
+
+The cards include:
+
+- **Volume** — the total number of calls matching your current filters, giving you an immediate sense of scale before diving into the table.
+- **Average latency** — the real AI response latency averaged across matching calls, computed from actual turn-by-turn response times rather than an estimate, useful for spotting whether your agents are responding promptly overall.
+- **Average duration** — how long matching calls last on average, handy for comparing campaigns or agents against each other.
+- **Reviewed** — how many of the matching calls already have a review recorded, so you can track audit progress for a given segment at a glance.
+- **Transfer time** — a dedicated card that splits total transfer time into **inbound** and **outbound** totals side by side, so you can see how much time each direction is costing you at a glance, without adding two separate cards to the row.
+
+<Info>
+Because these cards respect your active filters, you can combine them with the **Agents**, **Company**, **Tags**, **Evaluations**, or **Status** filters to check, for example, the average latency for a single agent, or the reviewed count for only the calls tagged as escalations.
+</Info>
+
+<Info>
+The transfer time card only accounts for time spent in the transferred portion of a call, and reports inbound and outbound totals separately since the two typically have very different transfer patterns and costs. It's calculated server-side across the full filtered date range, so the numbers stay accurate even when you're only looking at a page of 50 or 100 loaded calls.
+</Info>
+
+## Refreshing the table
+
+The table is refreshed **manually**, using a dedicated **↻ Refresh** button near the top of the table.
+
+- Click **Refresh** whenever you want to pull in the newest calls matching your current filters, date range, and sort order.
+- Newly arrived calls that weren't in the table before are briefly highlighted, so they're easy to spot right after a refresh.
+- Refreshing respects your current filters, sort order, and scroll position — it won't reset or jump you back to the top of the table.
+
+<Info>
+This replaces the previous automatic **Live** polling toggle. Rather than the table quietly refreshing itself in the background at adaptive intervals, you're now fully in control of when the table updates — click **Refresh** whenever you want the latest calls, and the table stays perfectly still in between clicks. This also removes any risk of a background refresh interrupting an in-progress edit, like a review note or tag you're in the middle of typing.
+</Info>
+
+<Tabs>
+  <Tab title="When to refresh">
+    Click **Refresh** right before starting a review session to make sure you're looking at the latest calls, or periodically while monitoring an ongoing campaign to check for new activity — especially combined with the **Suspicious calls** filter to catch anything that needs attention as soon as it shows up.
+  </Tab>
+  <Tab title="Why manual instead of automatic">
+    A manual refresh keeps the table predictable while you work: your scroll position, open editors, and in-progress filters are never disturbed by a refresh you didn't ask for. You decide exactly when new data comes in.
+  </Tab>
+</Tabs>
+
+## Pagination
+
+To avoid forcing you to scroll all the way down just to move to the next page (and then back up to reach the filters again), pagination controls are shown **twice**: once directly above the table, right next to the refresh control, and again below the table after the last row.
+
+- Both pagination bars stay in sync — changing the page size or moving to another page from either one updates the table and both bars together.
+- The top bar is convenient when you've just adjusted a filter and want to immediately move through pages without scrolling.
+- The bottom bar is convenient after scanning a full page of results top to bottom, letting you jump to the next page right where you left off.
+
+<Info>
+Both pagination bars always reflect the same total-row count for your current filters, so there's no risk of the top and bottom controls disagreeing on how many pages are available.
+</Info>
+
+## Deep links with pre-applied filters
+
+The Advanced Calls View can be opened with filters already applied, using standard URL query parameters. This makes it easy to share a specific, filtered slice of the table with a teammate, or to link out to it from another part of the platform — a dashboard widget, an alert email, or an external report — without asking the recipient to rebuild the filters by hand.
+
+- Supported query params mirror the filter bar itself, including **date range**, **agent**, **company** (for administrators), **tag**, **evaluation** (name and/or result), **status**, **suspicious calls**, and **review verdict**.
+- Multiple values for a repeatable filter (such as agents or tags) can be passed together, and are applied as if you had added each one as a chip yourself.
+- Opening a deep link populates the filter bar visibly, so you can see exactly which filters were pre-applied and adjust or clear any of them afterward — a deep link is just a starting point, not a locked-down view.
+- Deep links combine cleanly with your saved views and column layout: the query-param filters are layered on top of whatever columns and pinning you already have configured, rather than replacing them.
+
+<Info>
+Deep links are especially handy for recurring workflows — for example, bookmarking a link that always opens the table filtered to **Suspicious calls** for a specific agent, or sharing a link to a company's **KO**-verdict calls from the last 7 days directly with that company's account manager.
+</Info>
+
+<Warning>
+Query params that reference an agent, company, or tag you don't have access to are simply ignored rather than causing an error, so a mistyped or stale deep link degrades gracefully back to an unfiltered (or partially filtered) view instead of failing to load.
+</Warning>
+
+## Review and audit workflow
+
+Each row in the table includes a **Reviewed** control that lets your team track which calls have already been checked, an **OK/KO verdict**, and an optional per-call audit note — all editable directly inline, without opening a separate modal. This column is pinned to the right edge of the table by default, so it stays visible no matter how many columns you've added.
+
+<Steps>
+  <Step title="Mark a call as reviewed">
+    Click the review indicator on a call's row to toggle its reviewed status inline.
+  </Step>
+  <Step title="Set an OK/KO verdict">
+    Once you've listened to or read through a call, click **OK** or **KO** to record your audit verdict. Clicking the same verdict again clears it. Setting a verdict automatically marks the call as reviewed; clearing the reviewed toggle also clears the verdict.
+  </Step>
+  <Step title="Add an audit note">
+    Click the note icon to open a small inline editor and write context about why the call was flagged, resolved, or worth revisiting — for example, explaining why a call was marked KO. The note is stored per call, so it stays attached to that specific call for anyone reviewing the history later.
+  </Step>
+  <Step title="Save automatically">
+    The reviewed toggle, the verdict, and the note text are all saved automatically a moment after you stop interacting — no need to click a separate save button.
+  </Step>
+</Steps>
+
+<Info>
+Only one review note editor can be open at a time. Clicking outside the editor, or opening a note on another row, will close the current one.
+</Info>
+
+Use the **Review verdict (OK/KO)** filter described above to pull up everything you've already flagged during a session, or to double-check a batch of approvals before sharing them. The **Reviewed** summary card also gives you a quick sense of how much of your current filtered segment still needs attention.
+
+This review workflow is especially useful when combined with the **Suspicious calls** filter: click **Refresh** to catch new calls as they come in, flag the suspicious ones, review them one by one, record an OK/KO verdict with a note explaining the outcome, and mark them as reviewed once resolved. Save that exact combination of filters and columns as a custom view under **My views** — or share it as a deep link — so your team can jump straight back into it later.
+
+<Info>
+This same reviewed toggle, OK/KO verdict, and note editor are also available directly inside the recording player modal, so you can record your audit verdict right after listening to a call without switching back to the table.
+</Info>
+
+## Inline tag editing
+
+The **Tags** column lets you manage a call's tags directly from the table, without opening the call's detail view.
+
+<Steps>
+  <Step title="Open the tag editor">
+    Click into the Tags cell on any row to reveal the inline tag editor.
+  </Step>
+  <Step title="Add a tag">
+    Start typing to search existing tags — an autocomplete dropdown suggests matching tags already used across your calls, so you can stay consistent instead of creating near-duplicate tags. Press **Enter** or select a suggestion to add it.
+  </Step>
+  <Step title="Rename a tag">
+    Renaming isn't a separate action — remove the old tag chip and add the new one in its place. Since tag suggestions are shared across calls, the new name immediately becomes available as a suggestion for every other call going forward.
+  </Step>
+  <Step title="Remove a tag">
+    Click the **✕** on any tag chip to remove it from the call.
+  </Step>
+  <Step title="Save automatically">
+    Tag changes are saved as soon as you add or remove a chip — there's nothing else to confirm.
+  </Step>
+</Steps>
+
+<Info>
+Tags added or removed inline are immediately reflected in the **Tags** filter's suggestions, so newly created or renamed tags become searchable right away. The same add/remove tag editor is also available inside the recording player modal.
+</Info>
+
+## Per-turn latency detail
+
+Beyond the aggregate latency numbers shown in the summary cards, you can drill into a single call to see exactly how its real AI response latency evolved turn by turn.
+
+- Opening a call's latency detail breaks down the response time for each individual agent turn in the conversation, rather than just showing a single average for the whole call.
+- This makes it easy to spot whether a high average latency came from one slow turn — for example, a moment where the agent had to call an external tool — or from consistently sluggish responses throughout the call.
+- Turn-by-turn latency pairs naturally with the transcript, so you can line up a slow response with exactly what was being discussed at that point in the call.
+
+<Info>
+Use per-turn latency detail together with the **Latency monitoring** predefined view: sort by average latency to find the slowest calls first, then open each one to see precisely which turn is dragging the average up.
+</Info>
+
+## Admin links
+
+For users with administrator access, each call includes quick links out to the underlying infrastructure providers, so you don't have to leave the page to cross-reference a call.
+
+- A **Twilio** link opens the corresponding call record directly in the Twilio console, useful for checking carrier-level details like call routing or SIP diagnostics.
+- An **ElevenLabs** link opens the corresponding conversation directly in the ElevenLabs dashboard, useful for checking voice generation details or debugging the underlying AI conversation.
+
+<Warning>
+These links, along with the **Company** filter, are only visible to administrator accounts. If you don't see them, your role doesn't currently have access to the underlying provider dashboards or cross-company data.
+</Warning>
+
+## Recording player
+
+Clicking a call's recording opens a dedicated player modal built specifically for reviewing audio quickly, with a real waveform rendered from the decoded audio rather than a generic progress bar.
+
+<Tabs>
+  <Tab title="Waveform & seeking">
+    The waveform is built client-side from the actual audio data using the Web Audio API, so its shape reflects the real volume of the call rather than a placeholder animation. Click anywhere on the waveform to seek directly to that point in the recording.
+  </Tab>
+  <Tab title="Skip ±10s">
+    Use the skip-back and skip-forward controls to jump exactly 10 seconds backward or forward — handy for re-listening to a specific exchange without scrubbing manually.
+  </Tab>
+  <Tab title="Playback speed">
+    Choose a playback speed — 0.5×, 0.75×, 1×, 1.25×, 1.5×, or 2× — to slow down a tricky passage or speed through a long, uneventful call.
+  </Tab>
+</Tabs>
+
+### Navigating between calls
+
+Instead of closing the modal to move to another row, the player lets you step through calls directly from within it.
+
+<Steps>
+  <Step title="Use the arrow buttons">
+    Click the **‹** and **›** icons in the modal header to jump to the previous or next call in your current filtered and sorted list.
+  </Step>
+  <Step title="Or use your keyboard">
+    Press the **←** and **→** arrow keys to move between calls without touching the mouse — handy for quickly moving through a batch of flagged calls.
+  </Step>
+  <Step title="Reach the edges">
+    The **‹** and **›** buttons are automatically disabled once you reach the first or last call in the list, so you always know when you've reviewed everything currently loaded.
+  </Step>
+</Steps>
+
+<Info>
+Moving to the next or previous call keeps the same modal open — the recording, transcript, and review controls all update in place, with a short slide transition indicating which direction you moved.
+</Info>
+
+<Info>
+Keyboard shortcuts for navigating between calls are disabled automatically while you're typing in the note or tag input, so arrow keys behave normally while you're writing.
+</Info>
+
+<Info>
+The player modal also includes the same **Reviewed**/**OK**/**KO** review controls, per-call audit note, and per-turn latency detail found in the table, plus inline tag management — so you can complete most of a review session, including moving on to the next call, without ever leaving the recording view.
+</Info>
+
+## Exporting to Excel
+
+The Advanced Calls View supports two export modes:
+
+<Tabs>
+  <Tab title="Export all filtered calls">
+    Click **Export to Excel** to export every call currently matching your active filters, respecting your selected columns.
+  </Tab>
+  <Tab title="Export selected rows only">
+    Select one or more rows using the row checkboxes, then click **Export selection (N)**. This exports only the calls you've selected, and always includes the **Reviewed** status, the **OK/KO verdict**, and the **audit note**, regardless of whether those columns are currently visible in the table.
+  </Tab>
+</Tabs>
+
+<Info>
+Selective export is ideal for sharing a curated set of reviewed or suspicious calls with a manager or client, without exposing your entire filtered dataset. Because the review status, verdict, and audit note are always included in this export, it doubles as a ready-made audit trail you can hand off as-is.
+</Info>
+
+<Info>
+The **Export selection (N)** button only appears once you've selected at least one row, with the count updating live as you check or uncheck rows — so you always know exactly how many calls will be included before you export.
+</Info>
+
+<Warning>
+Both export modes generate the file client-side based on the calls currently loaded in the table. If you're exporting all filtered calls, make sure you've loaded as many pages as you need before exporting, since the export won't reach beyond what's already been fetched into the table.
+</Warning>

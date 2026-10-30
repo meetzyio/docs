@@ -1,0 +1,207 @@
+---
+title: "WhatsApp Templates"
+description: "Create and manage message templates for WhatsApp Business API campaigns"
+icon: "message-circle"
+---
+
+# WhatsApp Templates
+
+WhatsApp Business API templates are pre-approved message formats required for sending notifications, marketing messages, and other business communications to customers. These templates must be approved by Meta before they can be used in campaigns.
+
+<Info>
+Templates are required for all outbound WhatsApp messages that are not responses to customer inquiries within the 24-hour customer service window.
+</Info>
+
+## Template Components
+
+WhatsApp templates can include the following components:
+
+### Header (Optional)
+- **Text Header**: Static text or text with variables
+- **Media Header**: Images, videos, or documents (not covered in this interface)
+
+### Body (Required)
+The main message content that customers will see. This is the only required component.
+
+### Footer (Optional)
+Small text that appears at the bottom of the message, typically used for disclaimers or additional context.
+
+### Quick Reply Buttons (Optional)
+Up to 3 buttons that customers can tap to respond quickly.
+
+## Dynamic Variables
+
+Templates support dynamic variables using the `{{1}}`, `{{2}}`, `{{3}}` syntax. These placeholders will be replaced with actual values when sending the message.
+
+<Warning>
+Variables must be numbered sequentially starting from 1. You cannot skip numbers (e.g., using `{{1}}` and `{{3}}` without `{{2}}`).
+</Warning>
+
+### Example with Variables
+
+```
+Header: Welcome {{1}}!
+Body: Hi {{1}}, your appointment on {{2}} has been confirmed. Please arrive 15 minutes early at {{3}}.
+Footer: Reply STOP to unsubscribe
+```
+
+When sending, you would provide:
+- `{{1}}` = Customer name
+- `{{2}}` = Appointment date
+- `{{3}}` = Address
+
+## Template Categories
+
+<Tabs>
+  <Tab title="Marketing">
+    Used for promotional messages, offers, and marketing campaigns. These templates have stricter approval requirements and quality scoring.
+  </Tab>
+  <Tab title="Utility">
+    Used for account updates, order confirmations, and other transactional messages. Generally easier to get approved.
+  </Tab>
+  <Tab title="Authentication">
+    Used for sending verification codes and authentication messages. Has the fastest approval process.
+  </Tab>
+</Tabs>
+
+## Template Status
+
+### PENDING
+The template has been submitted to Meta for review. This process typically takes 24-48 hours.
+
+### APPROVED
+The template has been approved and can be used in campaigns. Approved templates receive a quality score from Meta.
+
+### REJECTED
+The template was rejected by Meta. Check the rejection reason and modify the template accordingly before resubmitting.
+
+<Steps>
+  <Step title="Common Rejection Reasons">
+    - Contains promotional content in a UTILITY template
+    - Uses placeholder text like "Insert name here"
+    - Violates WhatsApp Business Policy
+    - Contains spelling or grammar errors
+  </Step>
+</Steps>
+
+### PAUSED
+The template was automatically paused due to low quality scores or policy violations.
+
+## Creating Templates
+
+<Steps>
+  <Step title="Template Name">
+    Choose a unique name using lowercase letters, numbers, and underscores only. Example: `appointment_reminder` or `order_confirmation_v2`
+  </Step>
+  
+  <Step title="Select Category">
+    Choose the appropriate category based on your message purpose:
+    - **MARKETING**: Promotions, offers, newsletters
+    - **UTILITY**: Notifications, confirmations, updates  
+    - **AUTHENTICATION**: OTP codes, login verification
+  </Step>
+  
+  <Step title="Choose Language">
+    Select the language for your template. You can create multiple templates in different languages with the same name.
+  </Step>
+  
+  <Step title="Compose Message">
+    Write your message components:
+    - Header (optional): Keep it short and engaging
+    - Body (required): Clear, concise message with variables if needed
+    - Footer (optional): Disclaimers, unsubscribe info, etc.
+  </Step>
+  
+  <Step title="Add Quick Reply Buttons (Optional)">
+    Add up to 3 buttons for quick customer responses like "Yes", "No", "More Info"
+  </Step>
+  
+  <Step title="Submit for Review">
+    Submit your template to Meta for approval. The review process typically takes 24-48 hours.
+  </Step>
+</Steps>
+
+## Template Management
+
+### Editing Templates
+You can edit APPROVED templates, but any changes will require re-approval from Meta. The template status will change back to PENDING.
+
+<Warning>
+Editing an approved template will pause any active campaigns using that template until it's re-approved.
+</Warning>
+
+### Deleting Templates
+Templates can be deleted, but this action cannot be undone. Make sure the template is not being used in any active campaigns.
+
+### Quality Scores
+Approved templates receive quality scores from Meta based on:
+- Customer engagement rates
+- Block and report rates
+- Message relevance and usefulness
+
+## Best Practices
+
+<Steps>
+  <Step title="Clear and Concise">
+    Keep messages short and to the point. Customers should immediately understand the purpose.
+  </Step>
+  
+  <Step title="Proper Category Selection">
+    Choose the correct category. Using UTILITY for marketing messages will likely result in rejection.
+  </Step>
+  
+  <Step title="Meaningful Variables">
+    Use variables that add real value. Avoid placeholder text like "{{name}}" in your examples.
+  </Step>
+  
+  <Step title="Professional Tone">
+    Maintain a professional, helpful tone. Avoid excessive use of emojis or casual language.
+  </Step>
+  
+  <Step title="Compliance">
+    Ensure your templates comply with WhatsApp Business Policy and local regulations.
+  </Step>
+</Steps>
+
+## Variable Limits
+
+Different template categories have different variable limits:
+
+- **Header**: Up to 1 variable
+- **Body**: Up to 10 variables  
+- **Footer**: No variables allowed
+- **Buttons**: No variables allowed
+
+## Language Support
+
+Templates can be created in multiple languages including:
+- Spanish (es)
+- English (en_US)
+- Portuguese (pt_BR)
+- French (fr)
+- German (de)
+- Italian (it)
+- And many more...
+
+<Info>
+You can create the same template in multiple languages by using the same template name with different language codes.
+</Info>
+
+## Troubleshooting
+
+### Template Rejected
+1. Review the rejection reason provided by Meta
+2. Check for compliance with WhatsApp Business Policy
+3. Ensure proper category selection
+4. Fix any spelling or formatting issues
+5. Resubmit the corrected template
+
+### Variables Not Working
+- Ensure variables are numbered sequentially ({{1}}, {{2}}, {{3}})
+- Don't skip numbers in the sequence
+- Variables are case-sensitive
+
+### Approval Taking Too Long
+- Standard approval time is 24-48 hours
+- Authentication templates are usually approved faster
+- Marketing templates may take longer due to stricter review

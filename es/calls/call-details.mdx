@@ -70,6 +70,60 @@ El panel central muestra metadatos clave:
 | transferred | 🟣 Morado | Llamada transferida |
 | no-answer | ⚪ Gris | El destinatario no contestó |
 
+## Bloque LLM
+
+<Info>
+Este bloque solo aparece si la llamada tiene datos de uso de modelos LLM registrados. Las llamadas anteriores al 29 de julio de 2026 pueden mostrar un único modelo mediante un campo de compatibilidad.
+</Info>
+
+El panel central incluye una sección **LLM** que muestra qué modelo (o modelos) de lenguaje procesó la conversación. Meetzy utiliza un sistema de cascada de proveedores (por ejemplo, ElevenLabs) que puede degradar automáticamente a un modelo alternativo si el modelo principal no está disponible o presenta latencia elevada.
+
+### Qué muestra
+
+| Elemento | Descripción |
+|----------|-------------|
+| Modelos usados | Lista de los modelos distintos utilizados durante la llamada, en orden de aparición |
+| Indicador de degradación | Se activa cuando se detecta más de un modelo distinto en la misma llamada |
+| Detalle por turno | Desglose opcional que muestra qué modelo respondió en cada turno de la conversación |
+
+### Indicador de Degradación
+
+<Warning>
+Cuando una llamada usa más de un modelo LLM, se considera que hubo una **degradación del cascade**: el modelo principal no pudo atender la solicitud en algún punto y el sistema recurrió a un modelo alternativo para mantener la llamada en curso.
+</Warning>
+
+Este indicador te ayuda a identificar rápidamente llamadas que pudieron verse afectadas por cambios de modelo, útil para:
+
+- Detectar problemas de disponibilidad con un proveedor específico
+- Correlacionar degradaciones con caídas de calidad en la conversación
+- Priorizar la revisión manual de llamadas con cascade activo
+
+### Detalle por Turno
+
+Por defecto, el detalle por turno aparece **plegado**. Al expandirlo, verás una tabla con:
+
+| Campo | Descripción |
+|-------|-------------|
+| Turno | Marca de tiempo (en segundos) dentro de la llamada |
+| Modelo(s) | Modelo o combinación de modelos usados en ese turno |
+| Tokens de salida | Cantidad de tokens generados por el modelo en ese turno |
+
+<Steps>
+<Step title="Localiza el bloque LLM">
+En el panel central del modal de detalles, busca la sección **LLM** debajo de la información básica de la llamada.
+</Step>
+<Step title="Revisa los modelos usados">
+Verás la lista de modelos distintos detectados en la llamada. Si hay más de uno, aparecerá el indicador de degradación.
+</Step>
+<Step title="Expande el detalle por turno">
+Haz clic para desplegar la tabla de turnos y ver exactamente en qué momento ocurrió el cambio de modelo.
+</Step>
+</Steps>
+
+<Info>
+Esta información es especialmente útil junto con el botón **"Analyze with AI"**: puedes pedirle al Copilot que correlacione una degradación de modelo con caídas de sentimiento o errores en la conversación.
+</Info>
+
 ## Respuesta de Salida
 
 El panel derecho muestra el JSON de salida con todos los datos capturados:
@@ -111,6 +165,54 @@ El panel derecho muestra el JSON de salida con todos los datos capturados:
   </Accordion>
 </AccordionGroup>
 
+## Navegación al Copilot
+
+<Info>
+Desde los detalles de cualquier llamada, puedes navegar directamente al Copilot de IA con el contexto de la conversación precargado.
+</Info>
+
+### Acceso Contextual
+
+En el panel central de información de la llamada, encontrarás un botón **"Analyze with AI"** que te permite:
+
+<Steps>
+<Step title="Navegación Contextual">
+Haz clic en **"Analyze with AI"** para abrir el Copilot con el contexto de la llamada
+</Step>
+<Step title="Contexto Precargado">
+El Copilot se abrirá automáticamente con referencia `@call:<id>` que incluye toda la transcripción
+</Step>
+<Step title="Análisis Inteligente">
+Realiza consultas como "Analiza el sentimiento de esta llamada" o "Genera un resumen ejecutivo"
+</Step>
+</Steps>
+
+### Casos de Uso del Copilot
+
+<CardGroup cols={2}>
+  <Card title="Análisis de Sentimiento" icon="heart">
+    Evalúa el tono emocional de la conversación y la satisfacción del cliente
+  </Card>
+  <Card title="Extracción de Insights" icon="lightbulb">
+    Identifica patrones, objeciones comunes y oportunidades de mejora
+  </Card>
+  <Card title="Optimización de Prompts" icon="wand-magic-sparkles">
+    Mejora los prompts del agente basándose en conversaciones reales
+  </Card>
+  <Card title="Generación de Reportes" icon="chart-bar">
+    Crea resúmenes ejecutivos y análisis detallados de rendimiento
+  </Card>
+</CardGroup>
+
+### Flujo de Trabajo Integrado
+
+El sistema proporciona una experiencia fluida entre el análisis de llamadas y la optimización de agentes:
+
+1. **Revisar Llamada** - Examina transcripción y métricas en el modal de detalles
+2. **Analizar con IA** - Un clic te lleva al Copilot con contexto completo
+3. **Optimizar Agente** - Aplica mejoras directamente al agente desde el Copilot
+4. **Validar Cambios** - Regresa al historial para verificar el impacto
+
 ## Información de Webhook
 
 Si tu agente tiene un webhook configurado, la parte inferior del panel derecho muestra:
@@ -125,17 +227,231 @@ Si tu agente tiene un webhook configurado, la parte inferior del panel derecho m
 La sección de webhook solo aparece si se configuró y ejecutó un webhook para esta llamada.
 </Info>
 
-## Reproducción de Grabación
+## Reproductor de Grabación y Transcripción Enriquecida
 
-Si la grabación de llamadas está habilitada:
+Si la grabación de llamadas está habilitada, desde la columna **Recording** de la tabla de llamadas (o desde el botón correspondiente en los Detalles de Llamada) puedes abrir un reproductor avanzado con la grabación y, junto a ella, una vista enriquecida de la transcripción turno por turno.
 
-1. Aparece un reproductor de audio en la parte superior del modal
-2. Controles incluyen play/pause, seek y volumen
-3. Opción de descarga disponible para acceso offline
+El modal se organiza en dos bloques principales:
+
+| Zona | Contenido |
+|------|-----------|
+| 🎧 Superior | Reproductor de audio con forma de onda, a todo el ancho |
+| 💬 Inferior | Transcripción turno por turno (izquierda) y panel de revisión, veredicto y etiquetas (derecha) |
+
+<Info>
+La forma de onda se dibuja a partir del **audio real**, decodificado en el navegador con la Web Audio API a partir del archivo descargado — no es una animación genérica. Esto te permite ubicar visualmente silencios, picos de voz y pausas antes incluso de reproducir el audio.
+</Info>
+
+### Reproductor de Audio
+
+El reproductor dibuja la **forma de onda real** del audio (decodificada con la Web Audio API a partir del archivo descargado, no una animación genérica), lo que te permite ubicar visualmente silencios, picos de voz y pausas. A medida que la llamada avanza, la parte ya reproducida de la forma de onda se resalta en color para indicar el progreso.
+
+<Steps>
+<Step title="Reproduce o pausa">
+Usa el botón central de play/pause, o haz clic directamente sobre la forma de onda para saltar a ese punto exacto de la llamada.
+</Step>
+<Step title="Salta 10 segundos">
+Los botones ⏪ y ⏩ retroceden o avanzan 10 segundos, útiles para revisar rápidamente un momento específico.
+</Step>
+<Step title="Ajusta la velocidad">
+Elige entre 0.5x, 0.75x, 1x, 1.25x, 1.5x o 2x para escuchar la llamada más rápido o más despacio.
+</Step>
+<Step title="Descarga la grabación">
+Usa el enlace **"Download recording"** para guardar el archivo de audio localmente.
+</Step>
+</Steps>
 
 <Warning>
 Las grabaciones de llamadas se almacenan por tiempo limitado según tu plan. Descarga grabaciones importantes para almacenamiento permanente.
 </Warning>
+
+### Navegación entre Llamadas
+
+<Info>
+El reproductor de grabación no es una ventana aislada por llamada: puedes moverte a la llamada anterior o siguiente de la lista filtrada sin cerrar el modal ni perder tu posición en la tabla. Los controles de navegación viven en la cabecera del modal, no flotan sobre el contenido, así que nunca tapan la forma de onda ni la transcripción.
+</Info>
+
+En la cabecera del modal, junto al nombre y los números de origen/destino de la llamada, aparecen dos flechas de navegación seguidas del botón de cerrar:
+
+| Control | Acción |
+|---------|--------|
+| ⬅️ Flecha izquierda | Abre la grabación y transcripción de la **llamada anterior** en la lista actual |
+| ➡️ Flecha derecha | Abre la grabación y transcripción de la **siguiente llamada** en la lista actual |
+
+<Steps>
+<Step title="Navega con los botones de cabecera">
+Haz clic en ⬅️ o ➡️ para cargar la llamada anterior o siguiente respecto a la que tenías abierta, respetando el orden y los filtros aplicados en la tabla.
+</Step>
+<Step title="O usa las flechas del teclado">
+Con el modal abierto, presiona `←` o `→` para navegar sin soltar el mouse. Esto no funciona mientras estás escribiendo dentro de un campo de texto, como la nota de revisión o el input de etiquetas.
+</Step>
+<Step title="Observa la transición">
+Al cambiar de llamada, el contenido se desliza suavemente en la dirección correspondiente (hacia la izquierda o la derecha según el sentido de la navegación), confirmando visualmente que se cargó una llamada distinta.
+</Step>
+</Steps>
+
+<Info>
+Las flechas se deshabilitan automáticamente cuando no hay una llamada anterior o siguiente disponible (por ejemplo, en el primer o último registro de la página actual).
+</Info>
+
+Esta navegación es especialmente útil para sesiones de **control de calidad**: puedes revisar de forma continua un lote de llamadas —escuchando audio, leyendo la transcripción, marcando como revisada y agregando notas o etiquetas— sin volver constantemente a la tabla principal.
+
+### Veredicto OK/KO
+
+<Info>
+Además de navegar entre llamadas, puedes emitir un veredicto rápido de control de calidad —**OK** o **KO**— directamente desde el reproductor, sin necesidad de abrir el modal de detalles ni volver a la tabla principal.
+</Info>
+
+Junto al panel de revisión y etiquetas encontrarás dos botones de veredicto:
+
+| Control | Acción |
+|---------|--------|
+| ✅ OK | Marca la llamada actual como correcta |
+| ❌ KO | Marca la llamada actual como incorrecta |
+
+<Steps>
+<Step title="Escucha y revisa la llamada">
+Reproduce el audio y repasa la transcripción enriquecida para formarte un criterio sobre el resultado de la llamada.
+</Step>
+<Step title="Emite tu veredicto">
+Haz clic en ✅ **OK** o ❌ **KO** según tu evaluación. El botón seleccionado queda resaltado y el veredicto se asocia a la llamada de inmediato.
+</Step>
+<Step title="Avanza automáticamente">
+Tras marcar un veredicto, el modal salta automáticamente a la siguiente llamada de la lista, permitiéndote enlazar una revisión tras otra sin interrupciones.
+</Step>
+</Steps>
+
+<Info>
+El veredicto es **deseleccionable**: si haces clic de nuevo sobre el botón ya activo (por ejemplo, vuelves a pulsar ✅ OK cuando ya estaba marcado), el veredicto se elimina y la llamada regresa al estado sin revisar. Esto es útil para corregir un clic accidental sin tener que buscar otra forma de "deshacer" la calificación.
+</Info>
+
+<Info>
+Desmarcar el checkbox **Reviewed** también limpia automáticamente el veredicto OK/KO asociado, para que ambos estados —revisada y veredicto— se mantengan siempre coherentes.
+</Info>
+
+<Info>
+El veredicto OK/KO queda disponible como filtro en la tabla de llamadas, lo que te permite, por ejemplo, listar únicamente las llamadas marcadas como KO para priorizar su revisión o escalarlas al equipo correspondiente, o las llamadas sin veredicto para saber qué falta por revisar.
+</Info>
+
+### Revisión y Etiquetas desde el Reproductor
+
+<Info>
+No necesitas cerrar el reproductor ni volver a la tabla para marcar una llamada como revisada, escribir una nota de auditoría o gestionar sus etiquetas: todo está disponible en el propio modal de grabación, junto a la transcripción, y los cambios se guardan sobre la misma llamada que ves en la tabla de fondo.
+</Info>
+
+Junto a la transcripción encontrarás los controles de revisión y etiquetas:
+
+| Control | Acción |
+|---------|--------|
+| Checkbox **Reviewed** | Marca o desmarca la llamada como revisada |
+| Campo de nota | Texto libre para dejar constancia de por qué se marcó así la llamada |
+| Input de etiquetas | Escribe una etiqueta y presiona `Enter` para añadirla |
+| ✕ en cada etiqueta | Elimina esa etiqueta de la llamada |
+
+<Steps>
+<Step title="Marca la llamada como revisada">
+Activa el checkbox **Reviewed**. Si la desmarcas, el veredicto OK/KO asociado también se limpia automáticamente.
+</Step>
+<Step title="Escribe una nota (opcional)">
+Añade contexto sobre la revisión en el campo de texto. La nota se guarda automáticamente unos instantes después de dejar de escribir, sin necesidad de un botón de guardar.
+</Step>
+<Step title="Añade o elimina etiquetas">
+Escribe el texto de la etiqueta y presiona `Enter` para agregarla, o haz clic en la ✕ junto a una etiqueta existente para quitarla.
+</Step>
+</Steps>
+
+<Info>
+Mientras el foco esté dentro del campo de nota o del input de etiquetas, las flechas `←` y `→` del teclado **no** navegan entre llamadas: se usan con normalidad para mover el cursor de texto. Esto evita que, al escribir una nota larga, un `←` accidental te saque de la llamada que estás documentando.
+</Info>
+
+### Transcripción Enriquecida por Turno
+
+<Info>
+Encima de la transcripción, junto al título **"Transcript"**, aparece un badge con el **ID de la llamada** en formato monoespaciado y copiable con un clic. Esto es especialmente útil en sesiones de control de calidad, donde necesitas referenciar rápidamente una llamada concreta (por ejemplo, al reportar un caso al equipo técnico) sin tener que volver a la tabla principal para localizar su identificador.
+</Info>
+
+Junto al reproductor, cada turno de la conversación (agente o usuario) se muestra como una burbuja de chat, con indicadores debajo que resumen lo que ocurrió técnicamente en ese turno:
+
+| Indicador | Aparece en | Descripción |
+|-----------|------------|--------------|
+| Marca de tiempo | Todos los turnos | Minuto:segundo dentro de la llamada |
+| `Transcribed in Xms` | Turnos del usuario | Latencia del reconocimiento de voz (ASR / speech-to-text) |
+| `Replied in Xs` | Turnos del agente | Tiempo total de respuesta del agente, expandible en un desglose de latencia |
+| 🔧 Nombre de herramienta | Turnos del agente con tool calls | Una por cada herramienta invocada en ese turno, expandible |
+
+Si un turno del usuario no contiene voz detectada, la burbuja se reemplaza por el texto en cursiva *"(no speech detected)"*, sin que esto interrumpa el resto de indicadores del turno.
+
+<Info>
+Estos datos provienen directamente de la conversación original en ElevenLabs (`conversation_turn_metrics`, `llm_usage`, `tool_calls` y `tool_results`), replicando el nivel de detalle que verías en la consola del proveedor, ya que Meetzy no persiste esta granularidad turno por turno en su propia base de datos.
+</Info>
+
+#### Desglose de latencia por turno ("Replied in")
+
+Al hacer clic en el indicador **"Replied in Xs"** de un turno del agente, se despliega un panel visual que responde a la pregunta "¿en qué se fue ese tiempo?" en lugar de mostrar métricas crudas sin contexto. En lugar de exponer jerga cruda de TTS/LLM, el modal resume el resultado en un único titular claro —cuánto tardó el agente en responder— y lo deja expandible hacia el detalle:
+
+- **Tiempo de respuesta total** - el número principal, destacado en grande
+- **Modelo** - el modelo de lenguaje que generó la respuesta en ese turno
+- **Barra apilada de composición** - una barra de progreso dividida en segmentos de color, cada uno proporcional al tiempo que ocupó dentro del total
+- **Lista de segmentos** - el detalle de cada etapa, con su duración exacta y su porcentaje sobre el total:
+
+| Segmento | Color | Descripción |
+|----------|-------|--------------|
+| Understanding speech (ASR) | 🔵 Azul | Tiempo del motor de reconocimiento de voz en transcribir lo que dijo el usuario |
+| Model thinking (LLM) | 🟣 Morado | Tiempo hasta el primer byte generado por el modelo de lenguaje |
+| Generating voice (TTS) | 🟢 Verde | Tiempo del servicio de texto a voz en producir el audio de la respuesta |
+| Other overhead | ⚪ Gris | Diferencia residual entre la suma de etapas y el tiempo total medido |
+| Waiting on purpose | ⚫ Gris oscuro | Tiempo que el agente esperó deliberadamente antes de hablar (por ejemplo, antes de preguntar "¿sigues ahí?") |
+
+<Info>
+El segmento **"Waiting on purpose"** no representa lentitud del sistema: es una pausa intencional del agente. Por eso se muestra por separado, en una nota debajo del desglose, en lugar de sumarse al tiempo de respuesta destacado. Esto evita que una espera deliberada de varios segundos haga parecer que la latencia real del pipeline es mucho peor de lo que es.
+</Info>
+
+<Steps>
+<Step title="Ubica el turno del agente">
+En la transcripción, busca el indicador **"Replied in Xs"** debajo del mensaje del agente que quieres analizar.
+</Step>
+<Step title="Expande el desglose">
+Haz clic en el indicador para desplegar el panel con el titular del tiempo de respuesta, el modelo usado, la barra apilada y la lista de segmentos.
+</Step>
+<Step title="Identifica el cuello de botella">
+Compara los porcentajes de cada segmento (ASR, LLM, TTS, overhead) para saber en qué etapa se concentró la mayor parte del tiempo de respuesta, sin dejar que una espera intencional distorsione la lectura.
+</Step>
+</Steps>
+
+#### Detalle de Tool Calls por turno
+
+Cada chip 🔧 se muestra en **ámbar**, siguiendo el mismo código de color en todo el reproductor: ámbar identifica una invocación de herramienta. Al hacer clic en el indicador, se despliega un panel con dos tarjetas diferenciadas por color para que puedas distinguir de un vistazo la petición de la respuesta:
+
+<CardGroup cols={2}>
+  <Card title="Parámetros" icon="arrow-up-right-from-square">
+    Tarjeta en **ámbar** con el JSON exacto que se envió a la herramienta en el momento de la invocación.
+  </Card>
+  <Card title="Respuesta" icon="arrow-down-left">
+    Tarjeta en **azul** con el JSON devuelto por la herramienta. Si la ejecución falló, la tarjeta cambia a **rojo** para que el error salte a la vista de inmediato.
+  </Card>
+</CardGroup>
+
+<Info>
+Este mismo código de color (ámbar = petición, azul = respuesta correcta, rojo = respuesta con error) se mantiene consistente en toda la transcripción enriquecida, así que después de revisar un par de turnos puedes identificar el estado de cada tool call sin necesidad de leer el JSON completo.
+</Info>
+
+<Steps>
+<Step title="Abre el reproductor">
+Haz clic en el ícono de reproducción en la columna **Recording**, o desde el botón de grabación dentro de los Detalles de Llamada.
+</Step>
+<Step title="Ubica el turno de interés">
+Desplázate por la transcripción mientras escuchas el audio en la parte superior del modal.
+</Step>
+<Step title="Expande el desglose">
+Haz clic en **"Replied in Xs"** o en cualquier chip 🔧 de tool call para ver el detalle completo de ese turno, incluyendo las tarjetas de color de parámetros y respuesta.
+</Step>
+</Steps>
+
+### Transcripción de Respaldo
+
+<Info>
+Si la conversación original en ElevenLabs ya no está disponible (por ejemplo, llamadas muy antiguas), el modal muestra automáticamente una **transcripción de texto plano**, sin los indicadores de latencia ni el desglose por turno, indicando que las métricas detalladas ya no pueden recuperarse.
+</Info>
 
 ## Copiar Datos
 
@@ -158,7 +474,7 @@ Cuando copias datos:
     Revisa params de entrada y salida para diagnosticar problemas.
   </Card>
   <Card title="Control de Calidad" icon="check-double">
-    Escucha grabaciones y verifica transcripciones para asegurar calidad.
+    Escucha grabaciones, verifica transcripciones y marca cada llamada con un veredicto OK/KO para asegurar calidad.
   </Card>
   <Card title="Verificación de Integración" icon="plug">
     Verifica que los datos del webhook se enviaron correctamente.
@@ -170,10 +486,24 @@ Cuando copias datos:
 
 ## Atajos de Teclado
 
+### Modal de Detalles
+
 | Atajo | Acción |
 |-------|--------|
 | `Esc` | Cerrar el modal |
 | Clic fuera | Cerrar el modal |
+
+### Modal de Grabación
+
+| Atajo | Acción |
+|-------|--------|
+| `←` | Ir a la llamada anterior de la lista |
+| `→` | Ir a la siguiente llamada de la lista |
+| `Esc` | Cerrar el modal |
+
+<Info>
+Los atajos de flecha izquierda/derecha no se activan mientras el foco está en un campo de texto (por ejemplo, al escribir una nota de revisión o una etiqueta).
+</Info>
 
 ## Siguientes Pasos
 

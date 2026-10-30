@@ -12,6 +12,10 @@ Every call generates detailed data that helps you understand what happened durin
 
 Click on any call row in the Call History table, or click the **View** button to open the details modal.
 
+<Info>
+The recording player described below (waveform, navigation, review, and tags) is a single shared component. It now also powers the recording modal in the **advanced Calls view**, so whichever screen you review calls from, the behavior and shortcuts documented here are identical.
+</Info>
+
 ## Modal Layout
 
 The Call Details modal is organized in a three-column layout:
@@ -70,6 +74,82 @@ The center panel shows key metadata about the call:
 | transferred | 🟣 Purple | Call was transferred |
 | no-answer | ⚪ Gray | Recipient didn't answer |
 
+### Analyze with Copilot
+
+A new **Analyze with Copilot** button is available in the call information section that allows you to dive deeper into the conversation:
+
+<Steps>
+  <Step title="Open Copilot Analysis">
+    Click the "Analyze with Copilot" button to navigate to the agent editor with this call's context pre-loaded
+  </Step>
+  <Step title="Automatic Context Loading">
+    The system automatically loads the call's transcription and metadata into Copilot for immediate analysis
+  </Step>
+  <Step title="Ask Questions">
+    You can now ask Copilot questions about this specific call, such as:
+    - "What were the key topics discussed in this call?"
+    - "How could the agent's response be improved?"
+    - "What patterns do you see in the customer's behavior?"
+  </Step>
+</Steps>
+
+<Info>
+The Copilot analysis maintains full context of the call, including transcript, input parameters, and output data for comprehensive insights.
+</Info>
+
+## LLM Model Usage
+
+Meetzy runs on ElevenLabs' LLM cascade, which can automatically fall back to a different model mid-call if the primary model is slow or unavailable. The **LLM** block in the Call Information panel gives you visibility into exactly which models handled the conversation.
+
+### Models Used
+
+At the top of the block, you'll see a list of every distinct model that participated in the call, in the order they were first used:
+
+```
+gpt-4o-mini → gpt-4o → claude-3-5-sonnet
+```
+
+<Info>
+If only one model appears, the cascade never needed to fall back — the primary model handled the entire call. If more than one model appears, ElevenLabs degraded to a secondary model at some point during the conversation.
+</Info>
+
+<Warning>
+For calls made before **July 29, 2026**, this list falls back to the single `model_used` field, since per-turn tracking wasn't available yet. In that case, you'll only see one model, even though a cascade may still have been active behind the scenes.
+</Warning>
+
+### Per-Turn Breakdown (Cascade Detail)
+
+Below the model list, click **Show Detail** to expand a collapsible, second-by-second breakdown of the cascade. This detail is collapsed by default to keep the modal compact.
+
+Each row in the expanded view represents one conversational turn and shows:
+
+| Column | Description |
+|--------|-------------|
+| Time | Elapsed seconds (`t`) since the call started |
+| Model(s) | Which model(s) generated output for that turn |
+| Tokens | Output tokens produced by each model at that turn |
+
+If a turn used more than one model — for example, the primary model started responding but was interrupted by a fallback — both models are listed together, joined with `+`.
+
+<Steps>
+  <Step title="Locate the LLM block">
+    Open any completed call's details and find the **LLM** section in the center panel, below the core call metadata.
+  </Step>
+  <Step title="Review the models used">
+    Check the summary list to quickly spot whether the cascade degraded during the call.
+  </Step>
+  <Step title="Expand the detail">
+    Click **Show Detail** to reveal the per-turn table and identify exactly when the switch happened.
+  </Step>
+  <Step title="Collapse when done">
+    Click **Hide Detail** to collapse the breakdown again and keep the modal easy to scan.
+  </Step>
+</Steps>
+
+<Info>
+Cascade degradation is not necessarily an error — it means ElevenLabs automatically routed the conversation to keep latency low. Use this data to spot patterns (e.g., a model that degrades frequently) and adjust your agent configuration if needed.
+</Info>
+
 ## Output Response
 
 The right panel displays the output JSON containing all data captured during the call:
@@ -127,15 +207,242 @@ The webhook section only appears if a webhook was configured and triggered for t
 
 ## Recording Playback
 
-If call recording is enabled:
+If call recording is enabled, clicking the recording icon opens a dedicated **Call Recording** modal with a full-featured player on one side and a rich, per-turn transcript on the other.
 
-1. An audio player appears at the top of the modal
-2. Controls include play/pause, seek, and volume
-3. Download option available for offline access
+<Info>
+This is the same recording modal used across Meetzy — including the **advanced Calls view** — so the waveform player, keyboard navigation, and review/tag editing described below all work identically no matter which list you opened it from.
+</Info>
+
+### Navigating Between Calls
+
+The recording modal no longer traps you on a single call. When you open a recording from a filtered list (for example, from Call History), the modal knows about the calls immediately before and after the one you're viewing, and lets you move between them without closing the modal and reopening a different row.
+
+<CardGroup cols={2}>
+  <Card title="Previous / Next buttons" icon="arrow-right-arrow-left">
+    Two chevron buttons sit in the modal header, right next to the close button, so they're always visible and never overlap the waveform or transcript below. Click **‹** to load the previous call's recording and transcript, or **›** to load the next one, all without leaving the modal.
+  </Card>
+  <Card title="Keyboard shortcuts" icon="keyboard">
+    Press **←** to go to the previous call and **→** to go to the next call, without touching the mouse. Hovering the header buttons also shows these shortcuts as tooltips ("Previous call (←)" / "Next call (→)").
+  </Card>
+</CardGroup>
+
+<Info>
+The previous/next buttons are automatically disabled (dimmed, non-clickable) at either end of the list — for example, if you're already viewing the first call, the "previous" button (and the ← shortcut) has no effect. The buttons only render at all when at least one adjacent call is available.
+</Info>
+
+<Info>
+Arrow key navigation is automatically disabled while you're typing in the review note or tag input fields inside the modal, so pressing ← or → to move the cursor in a text field never accidentally jumps to another call.
+</Info>
+
+Switching calls triggers a short slide transition (the content pane animates left or right depending on the direction you navigated) so it's clear a new recording has loaded, and reloads the waveform, audio, transcript, review status, and tags for the newly selected call.
+
+### Call ID Badge Next to the Transcript
+
+To make it easy to reference a specific call while reviewing recordings — for example, when filing a bug report or pasting the ID into a support ticket — the **Call ID** is now shown as a small badge right above the transcript panel, next to the "Transcript" heading.
+
+<CardGroup cols={2}>
+  <Card title="Always visible" icon="id-badge">
+    You no longer need to scroll back up to the Call Information panel or return to the table to find the ID of the call you're currently listening to — it's shown directly next to the transcript.
+  </Card>
+  <Card title="One-click copy" icon="copy">
+    Click the badge to copy the Call ID to your clipboard, exactly like the copy buttons elsewhere in the modal.
+  </Card>
+</CardGroup>
+
+<Info>
+Because the badge reloads together with the rest of the panel, navigating to the previous/next call with the header buttons or arrow keys automatically updates it to the new call's ID — you'll never accidentally copy the wrong one.
+</Info>
+
+### Quick Verdict (Pending / OK / KO)
+
+Reviewing a batch of recordings usually ends with the same decision for each call: was this a good call or not? Instead of closing the modal and marking the call from the table, you can now record that verdict right from the recording player.
+
+The verdict control is **tri-state**, not a simple on/off toggle:
+
+| State | Meaning |
+|-------|---------|
+| Pending | Default state — the call has not been reviewed yet, or the verdict was cleared |
+| OK | The call was handled correctly by the agent |
+| KO | The call needs attention (bad handling, missed data, wrong tone, etc.) |
+
+<CardGroup cols={2}>
+  <Card title="OK / KO control" icon="thumbs-up">
+    A three-way control in the modal, next to the review checkbox, lets you mark the call currently loaded as **OK** or **KO**, with the active option visually highlighted.
+  </Card>
+  <Card title="Click again to deselect" icon="rotate-left">
+    Clicking the currently active option a second time clears it, returning the call to **Pending** — there's no need to hunt for a separate "clear" or "undo" action.
+  </Card>
+</CardGroup>
+
+<Info>
+The verdict is saved against the call you're viewing and travels with it — navigating to the previous/next call loads that call's own verdict state (Pending, OK, or KO); it never carries over from the call you just left.
+</Info>
+
+<Steps>
+  <Step title="Open a recording">
+    Open any call's recording from Call History or another filtered list. Its verdict starts at whatever state was last saved for it — commonly **Pending** if it hasn't been reviewed yet.
+  </Step>
+  <Step title="Review the call">
+    Listen to the audio and read the transcript to judge whether the agent handled the call well.
+  </Step>
+  <Step title="Set the verdict">
+    Click **OK** or **KO** in the modal to record your judgment for this call. Click the same button again to reset the verdict back to **Pending** if you change your mind.
+  </Step>
+  <Step title="Move to the next call">
+    Use the **›** button or the **→** key to jump straight to the next call in the list and repeat the process — no need to reopen the modal.
+  </Step>
+</Steps>
+
+<Info>
+Combining the tri-state verdict with previous/next navigation and the arrow-key shortcuts turns batch call review into a fast, keyboard-friendly workflow: listen, judge, move on. The **Pending** state also makes it easy to filter for calls that still need a human decision.
+</Info>
+
+<Warning>
+Setting a verdict updates the call's review status immediately. If you need to also leave a written explanation, use the review note field alongside the verdict control — the two are independent and both persist with the call.
+</Warning>
+
+### Reviewed Status, Notes, and Tags — Right From the Modal
+
+Full review editing now lives inside the recording modal itself, so you don't need to go back to the table row to finish reviewing a call.
+
+<CardGroup cols={2}>
+  <Card title="Reviewed checkbox" icon="check-double">
+    A **Reviewed** checkbox marks the call as looked-at, independent of the OK/KO verdict. Unchecking it also clears the verdict back to Pending, keeping the two fields consistent — the same behavior as the checkbox in the calls table.
+  </Card>
+  <Card title="Review note" icon="pen">
+    A text field lets you type a free-form note explaining your verdict (e.g. "Agent missed the callback time"). It saves automatically a moment after you stop typing, so there's no separate save button to remember.
+  </Card>
+  <Card title="Tags" icon="tag">
+    Add or remove tags for the call directly in the modal footer — press **Enter** after typing a tag to add it, or click the **✕** on an existing tag chip to remove it. Changes apply immediately and are reflected back in the calls table.
+  </Card>
+  <Card title="Follows the call" icon="arrow-right-arrow-left">
+    Just like the verdict, the Reviewed checkbox, note, and tags all reload for whichever call you navigate to with the previous/next controls — nothing is carried over between calls.
+  </Card>
+</CardGroup>
+
+<Info>
+Because tags and review fields are edited on the same object the table row displays, updates made in the modal show up in the calls list the moment you close it — no manual refresh needed.
+</Info>
+
+### Waveform Player
+
+Unlike a plain `<audio>` progress bar, the player renders a **real, interactive waveform** generated directly from the decoded audio — not a placeholder animation. When the recording loads, the audio is decoded via the Web Audio API and sampled into 100 amplitude bars, so the shape you see actually reflects the call's audio (silences, loud segments, etc.).
+
+<CardGroup cols={2}>
+  <Card title="Click-to-seek" icon="hand-pointer">
+    Click anywhere on the waveform to jump to that point in the call. The played portion is highlighted in a different color as the call progresses.
+  </Card>
+  <Card title="+/-10s skip" icon="rotate">
+    Use the back/forward buttons to jump exactly 10 seconds, ideal for re-listening to a specific exchange without scrubbing manually.
+  </Card>
+  <Card title="Playback speed" icon="gauge">
+    Choose between 0.5x, 0.75x, 1x, 1.25x, 1.5x, and 2x to review calls faster or slow down a hard-to-understand segment.
+  </Card>
+  <Card title="Download" icon="arrow-down-to-line">
+    Download the original recording file for offline access, sharing, or permanent storage.
+  </Card>
+</CardGroup>
+
+<Info>
+The waveform is computed once per call and cached for the session — reopening the same recording doesn't require re-decoding the audio.
+</Info>
+
+### Enriched Transcript
+
+Next to the player, the transcript is rendered turn-by-turn (not as a single wall of text), with the [Call ID badge](#call-id-badge-next-to-the-transcript) sitting right next to the "Transcript" heading. Each turn shows its elapsed time in the call, and agent turns carry two kinds of expandable detail sourced directly from the underlying ElevenLabs conversation: a **response time breakdown** and, when applicable, **tool call details**.
+
+#### Turn Latency Breakdown
+
+Every agent turn shows a **"Replied in Xs"** summary next to its message. Clicking it expands a per-turn latency breakdown that answers the question auditors actually care about: *the agent took this long to answer — where did that time go?*
+
+The breakdown splits the response time into a stacked bar with the following stages, shown in the order they occur in the pipeline:
+
+| Stage | Meaning |
+|-------|---------|
+| Understanding speech | Speech-to-text (ASR) latency — how long it took to transcribe what the caller said |
+| Model thinking | Time to first byte from the LLM — how long the language model took to start generating a response |
+| Generating voice | Text-to-speech (TTS) latency — how long it took to synthesize the agent's audio |
+| Other overhead | Any small residual not accounted for by the stages above, rather than being silently dropped |
+
+<Info>
+A separate **"Waiting on purpose"** segment may also appear below the stacked bar. This is not slowness — it's the agent deliberately holding back before speaking (for example, waiting a few seconds before asking "are you still there?" or pausing to let the caller finish a thought). It's called out separately, with an explanatory note, so a deliberate pause isn't mistaken for a performance problem. The headline **"Replied in Xs"** always excludes this deliberate wait time, so it reflects only actual processing latency.
+</Info>
+
+Each stage in the breakdown shows its duration and percentage of the total, along with the LLM model that generated the response for that turn. This turns a single opaque latency number into an actionable diagnosis:
+
+- A response dominated by **Understanding speech** may point to background noise or a caller who talks quickly.
+- A response dominated by **Model thinking** may point to a slow or overloaded LLM — worth checking against the [LLM Model Usage](#llm-model-usage) section above to see if a cascade fallback happened on that same turn.
+- A response dominated by **Generating voice** may point to a longer-than-usual agent reply that takes more time to synthesize.
+- A visible **Waiting on purpose** segment simply confirms the agent chose to pause — no action needed.
+
+<Steps>
+  <Step title="Scan the turn">
+    Each message bubble shows its elapsed time in the call, plus a "Replied in Xs" summary on agent turns.
+  </Step>
+  <Step title="Expand the latency breakdown">
+    Click **Replied in Xs** to reveal the stacked bar showing how the response time splits across understanding speech, model thinking, generating voice, and any deliberate wait.
+  </Step>
+  <Step title="Check for deliberate waits">
+    If a **Waiting on purpose** segment is shown, treat it as intentional agent behavior rather than latency to fix.
+  </Step>
+  <Step title="Expand tool calls">
+    Click a **🔧 tool name** badge to reveal the exact parameters sent to the tool and the result (or error) it returned.
+  </Step>
+</Steps>
+
+#### Tool Call Details
+
+If the agent invoked a tool or function during a turn, a **🔧 tool name** badge appears next to that turn. Expanding it shows:
+
+- **Parameters** — the exact JSON payload sent to the tool for that call
+- **Result** — the value the tool returned, or the error details if the call failed
+
+This lets you verify not just *that* a tool was called, but exactly *what* was sent and *what* came back, without leaving the recording view.
+
+#### Color-Coded Tool Activity
+
+To make tool activity scannable at a glance, the transcript now uses a consistent color code for anything related to tools — both in the badges next to a turn and in the expanded detail cards below it:
+
+| Color | Meaning |
+|-------|---------|
+| 🟠 Amber | A tool call — the request the agent sent to a tool, with the tool name and parameters |
+| 🔵 Blue | A tool response — the result the tool returned for that call |
+| 🔴 Red | A tool error — the call failed, and the card shows the error details instead of a result |
+
+<Info>
+This color coding is applied consistently across the modal: the small **🔧 tool name** badge next to a turn, and the expanded parameters/result card underneath it, both use the same amber/blue/red scheme. A quick glance down the transcript is enough to spot which turns involved tools and whether any of those calls failed.
+</Info>
+
+<Info>
+This view mirrors what ElevenLabs' own conversation view shows, since this per-turn detail (latency metrics, model attribution, tool payloads) isn't persisted in Meetzy's database — it's fetched live from ElevenLabs when you open the recording.
+</Info>
+
+<Warning>
+If the underlying ElevenLabs conversation is no longer available (for example, an old or purged call), the modal automatically falls back to a **plain transcript** view — the message bubbles are still shown, but without latency breakdowns, model detail, or expandable tool call/result cards. A short notice appears above the transcript in this case. The same amber/blue/red color coding for tool calls, responses, and errors is preserved in this fallback mode wherever that information is still present in the raw transcript, so tool activity remains easy to spot even without the rich per-turn metrics.
+</Warning>
 
 <Warning>
 Call recordings are stored for a limited time based on your plan. Download important recordings for permanent storage.
 </Warning>
+
+## Enhanced Analytics Workflow
+
+The new Copilot integration streamlines your analysis workflow:
+
+<CardGroup cols={2}>
+  <Card title="Quick Analysis" icon="bolt">
+    Jump directly from call details to Copilot analysis without losing context
+  </Card>
+  <Card title="Contextual Insights" icon="brain">
+    Get AI-powered insights based on the specific call's transcription and data
+  </Card>
+  <Card title="Pattern Recognition" icon="chart-line">
+    Identify trends and patterns across similar calls using Copilot's analytical capabilities
+  </Card>
+  <Card title="Agent Improvement" icon="arrow-up-right">
+    Use call-specific analysis to refine agent prompts and behaviors
+  </Card>
+</CardGroup>
 
 ## Copying Data
 
@@ -155,16 +462,16 @@ When you copy data:
 
 <CardGroup cols={2}>
   <Card title="Debugging" icon="bug">
-    Review input params and output to diagnose why a call didn't perform as expected.
+    Review input params and output to diagnose why a call didn't perform as expected. Use the color-coded tool cards in the transcript to quickly spot which tool call failed.
   </Card>
   <Card title="Quality Assurance" icon="check-double">
-    Listen to recordings and check transcriptions to ensure agent quality.
+    Listen to recordings, check transcriptions, and mark each call Pending/OK/KO — plus add a note and tags — to build a fast, keyboard-driven QA workflow entirely inside the recording modal.
   </Card>
   <Card title="Integration Verification" icon="plug">
     Verify that webhook data was sent correctly and contains expected values.
   </Card>
-  <Card title="Training Data" icon="graduation-cap">
-    Export call details to improve agent prompts based on real conversations.
+  <Card title="AI-Powered Analysis" icon="robot">
+    Use Copilot to analyze call transcriptions and generate improvement recommendations.
   </Card>
 </CardGroup>
 
@@ -174,12 +481,25 @@ When you copy data:
 |----------|--------|
 | `Esc` | Close the modal |
 | Click outside | Close the modal |
+| `←` | In the recording modal: jump to the previous call |
+| `→` | In the recording modal: jump to the next call |
+
+<Info>
+The ← and → shortcuts only apply while the Call Recording modal is open, and are automatically ignored while typing in a text field (such as the review note or tag input).
+</Info>
+
+<Info>
+There is no dedicated shortcut for the verdict control, the Reviewed checkbox, or tags — use the on-screen controls in the modal. This keeps review edits a deliberate click/keystroke rather than something that could be triggered accidentally while navigating between calls with the arrow keys. Clicking an already-selected OK or KO button deselects it back to Pending.
+</Info>
 
 ## Next Steps
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card title="Call History" icon="list" href="/calls/call-history">
     Return to searching and filtering calls.
+  </Card>
+  <Card title="Copilot Analysis" icon="brain" href="/agents/copilot">
+    Analyze calls with AI-powered insights.
   </Card>
   <Card title="Reporting" icon="chart-line" href="/calls/reporting">
     Generate reports from your call data.

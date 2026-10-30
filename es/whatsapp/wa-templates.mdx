@@ -1,0 +1,275 @@
+---
+title: "Plantillas de WhatsApp"
+description: "Gestiona y crea plantillas de mensajes para campañas de WhatsApp Business con Meetzy"
+icon: "message-circle"
+---
+
+# Plantillas de WhatsApp
+
+Las plantillas de WhatsApp son mensajes preaprobados por Meta que permiten a las empresas iniciar conversaciones con usuarios fuera de la ventana de 24 horas. Meetzy facilita la gestión completa de estas plantillas para tus campañas de marketing y comunicación.
+
+<Info>
+Las plantillas deben ser aprobadas por Meta antes de poder utilizarse. Este proceso puede tardar hasta 24-48 horas.
+</Info>
+
+## ¿Qué son las plantillas de WhatsApp?
+
+Las plantillas de WhatsApp Business son mensajes estructurados que:
+- Permiten iniciar conversaciones con usuarios
+- Deben cumplir las políticas de Meta
+- Pueden incluir variables dinámicas
+- Soportan botones de acción
+- Requieren aprobación previa
+
+## Tipos de plantillas
+
+### Marketing
+Para promociones, ofertas especiales y campañas publicitarias.
+
+**Ejemplo:**
+```
+¡Hola {{1}}! 🎉
+
+Tenemos una oferta especial solo para ti:
+{{2}} con {{3}}% de descuento.
+
+¡No te lo pierdas!
+```
+
+### Utilidad
+Para notificaciones transaccionales, confirmaciones y actualizaciones de servicios.
+
+**Ejemplo:**
+```
+Hola {{1}},
+
+Tu pedido #{{2}} ha sido enviado y llegará el {{3}}.
+
+Número de seguimiento: {{4}}
+```
+
+### Autenticación
+Para códigos de verificación y confirmaciones de seguridad.
+
+**Ejemplo:**
+```
+Tu código de verificación es: {{1}}
+
+No compartas este código con nadie.
+Válido por 10 minutos.
+```
+
+## Gestión de plantillas
+
+### Crear nueva plantilla
+
+<Steps>
+<Step title="Acceder al gestor">
+Ve a **WhatsApp** → **Plantillas** en el panel de Meetzy
+</Step>
+
+<Step title="Configurar plantilla">
+Haz clic en **Nueva plantilla** y completa:
+- **Nombre**: Identificador único (solo letras minúsculas y guiones bajos)
+- **Categoría**: Marketing, Utilidad o Autenticación
+- **Idioma**: Idioma principal del mensaje
+</Step>
+
+<Step title="Definir contenido">
+- **Encabezado** (opcional): Texto o imagen de introducción
+- **Cuerpo**: Mensaje principal con variables {{1}}, {{2}}, etc.
+- **Pie** (opcional): Texto adicional al final
+- **Botones** (opcional): Hasta 3 botones de acción
+</Step>
+
+<Step title="Enviar para aprobación">
+La plantilla se enviará automáticamente a Meta para revisión
+</Step>
+</Steps>
+
+### Variables dinámicas
+
+Usa variables para personalizar mensajes:
+
+```
+Hola {{1}}, tu cita con {{2}} está programada para el {{3}} a las {{4}}.
+
+¿Necesitas hacer algún cambio?
+```
+
+<Warning>
+Las variables deben numerarse consecutivamente empezando por {{1}}. El orden es importante para la integración con campañas.
+</Warning>
+
+### Estados de plantilla
+
+| Estado | Descripción |
+|--------|-------------|
+| **Pendiente** | Enviada a Meta, esperando revisión |
+| **Aprobada** | Lista para usar en campañas |
+| **Rechazada** | No cumple políticas, requiere modificaciones |
+| **Pausada** | Temporalmente desactivada |
+
+## Mejores prácticas
+
+### Contenido efectivo
+
+1. **Sé claro y conciso**
+   - Mensaje directo al punto
+   - Información relevante para el usuario
+   - Call-to-action claro
+
+2. **Personalización apropiada**
+   - Usa el nombre del cliente
+   - Incluye información específica
+   - Mantén un tono profesional
+
+3. **Cumple las políticas**
+   - No contenido engañoso
+   - Respeta las regulaciones locales
+   - Proporciona valor al usuario
+
+### Estructura recomendada
+
+```
+[SALUDO PERSONALIZADO]
+[MENSAJE PRINCIPAL/OFERTA]
+[CALL-TO-ACTION]
+[INFORMACIÓN DE CONTACTO]
+```
+
+**Ejemplo práctico:**
+```
+¡Hola {{1}}! 👋
+
+Tu seguro de {{2}} vence el {{3}}.
+
+Renueva ahora con 15% de descuento usando el código: RENUEVA15
+
+¿Tienes preguntas? Responde a este mensaje.
+```
+
+## Botones de acción
+
+Añade hasta 3 botones para facilitar la interacción:
+
+### Botón de respuesta rápida
+```
+Texto del botón: "Más información"
+```
+
+### Botón de sitio web
+```
+Texto del botón: "Ver ofertas"
+URL: https://tuempresa.com/ofertas
+```
+
+### Botón de llamada
+```
+Texto del botón: "Llamar ahora"
+Número: +34600123456
+```
+
+## Problemas comunes
+
+### Plantilla rechazada
+
+<Tabs>
+<Tab title="Razones frecuentes">
+- Contenido promocional excesivo
+- Falta de información de contacto
+- Variables mal estructuradas
+- Contenido engañoso
+- No cumple políticas locales
+</Tab>
+
+<Tab title="Soluciones">
+- Revisa las políticas de WhatsApp Business
+- Reduce contenido promocional
+- Añade información de empresa
+- Corrige formato de variables
+- Incluye opción de cancelar suscripción
+</Tab>
+</Tabs>
+
+### Variables no funcionan
+
+1. **Verifica numeración**: {{1}}, {{2}}, {{3}}... sin saltos
+2. **Revisa sintaxis**: Doble llave de apertura y cierre
+3. **Cuenta límite**: Máximo 10 variables por plantilla
+
+## Integración con campañas
+
+Una vez aprobadas, las plantillas se pueden usar en:
+
+- **Campañas masivas**: Envíos programados
+- **Flujos automáticos**: Respuestas basadas en eventos
+- **API de Meetzy**: Integración personalizada
+
+<Info>
+Para usar plantillas en campañas, ve a **WhatsApp** → **Campañas** y selecciona tu plantilla aprobada.
+</Info>
+
+## API de plantillas
+
+### Listar plantillas
+```bash
+GET /api/whatsapp/templates
+Authorization: Bearer tu_token_api
+```
+
+### Crear plantilla
+```bash
+POST /api/whatsapp/templates
+Content-Type: application/json
+Authorization: Bearer tu_token_api
+
+{
+  "name": "bienvenida_cliente",
+  "category": "MARKETING",
+  "language": "es",
+  "body_text": "¡Hola {{1}}! Bienvenido a {{2}}. ¿En qué podemos ayudarte?",
+  "footer_text": "Equipo de Atención al Cliente"
+}
+```
+
+### Actualizar plantilla
+```bash
+PUT /api/whatsapp/templates/{template_id}
+Content-Type: application/json
+Authorization: Bearer tu_token_api
+
+{
+  "body_text": "Nuevo contenido del mensaje con {{1}}"
+}
+```
+
+## Monitoreo y análisis
+
+### Métricas importantes
+
+- **Tasa de aprobación**: Porcentaje de plantillas aprobadas
+- **Tiempo de revisión**: Duración promedio de aprobación
+- **Uso en campañas**: Plantillas más utilizadas
+- **Rendimiento**: Tasas de apertura y respuesta
+
+### Optimización continua
+
+1. **Analiza rendimiento**
+   - Revisa métricas de cada plantilla
+   - Identifica patrones de éxito
+   - Ajusta contenido según resultados
+
+2. **A/B Testing**
+   - Crea variaciones de plantillas
+   - Compara rendimiento
+   - Implementa mejores versiones
+
+3. **Actualización regular**
+   - Mantén contenido actual
+   - Adapta a cambios en políticas
+   - Incorpora feedback de usuarios
+
+<Warning>
+Los cambios en plantillas aprobadas requieren nueva aprobación de Meta. Planifica las actualizaciones considerando el tiempo de revisión.
+</Warning>

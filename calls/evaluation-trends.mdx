@@ -1,121 +1,241 @@
 ---
 title: "Evaluation Trends"
-description: "Track how your agents' evaluations evolve over time to discover patterns and identify areas for improvement"
+description: "Track how your agents' evaluations evolve over time, understand the impact of every version you ship, and see external context that helps explain the numbers"
 icon: "trending-up"
 ---
 
-The **Evaluation Trends** page provides comprehensive insights into how your agents' performance evolves over time. Monitor evaluation patterns, celebrate improvements, and identify areas that need attention through interactive charts and detailed analytics.
+The **Evaluation Trends** page is where you go to answer the question "is this agent actually getting better?" with something more rigorous than a gut feeling. It combines historical evaluation data, deployment history, and external context signals (weather, holidays, exchange rate) into a single view, so you can separate genuine regressions from noise.
+
+<Info>
+This page requires at least one completed evaluation run for an agent. If your agent has no evaluation history yet, start by running evaluations from the [Evaluations](/calls/evaluations) section.
+</Info>
 
 ## Getting Started
 
 <Steps>
 <Step title="Select an Agent">
-Use the agent search field to find and select the agent you want to analyze. The search supports partial name matching for easy navigation.
+  Use the searchable agent field to find the agent you want to analyze. Start typing any part of the agent's name — the dropdown filters results as you type and shows a small avatar next to each match. Click a result to select it, or click the clear button to reset your search.
+
+  <Info>
+  You can deep-link directly to an agent's trends by passing an `agent` query parameter in the URL (for example `?agent=<agent_id>`). The page will auto-select that agent and load its data on load.
+  </Info>
 </Step>
 
-<Step title="Configure Time Range">
-Choose from predefined time ranges (7 days, 30 days, 90 days, 6 months, 1 year) or set a custom date range to focus on specific periods.
+<Step title="Load the Evaluations">
+  With an agent selected, click **View evaluations**. The button stays disabled until an agent is chosen, so there's no way to accidentally query an empty state. This reveals the controls bar, the summary cards, the trend charts, the Version Impact table, and the insight cards.
 </Step>
 
-<Step title="Set Grouping Period">
-Select how to group your data - by day, week, or month - depending on your analysis needs and the selected time range.
+<Step title="Configure the Date Range">
+  Pick one of the preset ranges — **7, 14, 30 days**, **3 or 6 months** — or switch to **Custom range** to set an explicit start and end date. Changing the range immediately reloads all data on the page, including the comparison against the previous period.
 </Step>
 
-<Step title="View Evaluations">
-Click "View evaluations" to load the trend analysis and detailed metrics for your selected agent.
+<Step title="Choose a Grouping Period">
+  Select **day**, **week**, or **month** to control how evaluation results are bucketed on the charts and tables. Presets pick a sensible default automatically (short ranges group by day, medium ranges by week, long ranges by month), but you can override it at any time.
 </Step>
 </Steps>
 
-## Key Metrics Overview
+## Agent Selector
 
-Once you've selected an agent and loaded the evaluation data, you'll see three main summary cards:
+The agent selector is a search-first control, not a plain dropdown — useful once you have more than a handful of agents.
 
-### Total Evaluations
-The total number of evaluations conducted for the selected agent within your chosen time range. This gives you a quick overview of evaluation activity volume.
-
-### Overall Success Rate
-The average success rate across all evaluations, displayed as a percentage. This metric helps you understand the general performance level of your agent.
-
-### Calls Evaluated  
-The number of individual calls that have been evaluated, providing context for the total evaluation count.
+- **Type-ahead filtering**: matches are case-insensitive and match on any substring of the agent's name, not just the beginning.
+- **Visual identity**: each result shows a colored avatar with the agent's initial, making it faster to scan a long list.
+- **Selection state**: the currently selected agent is highlighted with a check mark inside the dropdown.
+- **Empty state**: if your search doesn't match anything, the dropdown clearly states "No agents found" instead of showing a blank panel.
 
 <Info>
-These summary metrics update automatically when you change your time range or grouping period, giving you real-time insights into different aspects of your agent's performance.
+Clicking outside the search field or picking an agent closes the dropdown automatically. If your workspace has no agents at all, the page shows an explicit empty state instead of an unusable search box.
 </Info>
 
-## Interactive Trend Charts
+## Date Range & Grouping Panel
 
-### Agent Performance Cards
-Each agent is displayed in an expandable card format that includes:
-
-- **Agent avatar** with the first letter of the agent's name
-- **Summary metrics** for quick reference
-- **Expandable detailed view** with interactive charts
-
-### Chart Features
-
-The trend charts provide several interactive capabilities:
+Once evaluations are loaded, the controls bar exposes two independent settings:
 
 <Tabs>
-<Tab title="Zoom & Pan">
-- **Zoom in/out** using mouse wheel or trackpad gestures
-- **Pan horizontally** by clicking and dragging across the chart
-- **Reset view** using the reset button in the chart toolbar
-</Tab>
+<Tab title="Time Range">
+Six options are available as pill buttons:
 
-<Tab title="Data Points">
-- **Hover tooltips** show exact values and dates
-- **Trend indicators** display whether metrics are improving or declining
-- **Data granularity** adjusts based on your selected grouping period
-</Tab>
+| Option | Typical use case |
+|---|---|
+| Last 7 days | Sanity-checking a change you shipped this week |
+| Last 14 days | Short sprints, quick before/after comparisons |
+| Last 30 days | Default view, monthly performance review |
+| Last 3 months | Quarterly trend spotting |
+| Last 6 months | Seasonal patterns, long-lived agents |
+| Custom range | Campaigns, incidents, or any arbitrary window |
 
-<Tab title="Visual Elements">
-- **Gradient fills** under trend lines for better visual impact
-- **Grid lines** for easier value reading
-- **Responsive design** that adapts to different screen sizes
+Selecting **Custom range** reveals **From** and **To** date pickers. Both dates must be set before the page reloads data — there's no need to click a separate "apply" button.
+</Tab>
+<Tab title="Grouping">
+Grouping controls how individual evaluation timestamps are bucketed into the data points you see on charts and tables:
+
+- **Day** — most granular, best for short ranges and diagnosing a specific incident.
+- **Week** — smooths out day-to-day noise, good default for 1–3 month ranges.
+- **Month** — best for long-running agents where you care about the big picture rather than daily fluctuations.
+
+Switching grouping re-aggregates the same underlying evaluations — it does not change the selected date range.
 </Tab>
 </Tabs>
 
+<Warning>
+Every time you change the time range, the grouping period, or the custom dates, **all sections of the page reload**: summary cards, charts, the Version Impact table, and the insight cards. Rapid successive changes will trigger rapid successive requests — wait for the loading state to clear before drawing conclusions from what's on screen.
+</Warning>
+
+## External Context Sources
+
+Evaluation Trends can overlay non-agent signals on top of your evaluation data. These are opt-in toggles, since not every agent's performance is meaningfully affected by them — a technical support bot in Spain might care about holidays, an FX-related use case obviously cares about EUR/USD.
+
+<Tabs>
+<Tab title="Weather">
+Enable **Weather** to pull daily temperature and precipitation data for a selectable Spanish city (Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga, or Zaragoza). Weather is sourced from a public, key-free provider and is most useful when you suspect that call volume or evaluation success correlates with extreme weather (e.g. storms affecting call center staffing, or seasonal demand).
+</Tab>
+<Tab title="National Holidays">
+Enabled by default. Overlays Spanish national holidays (Año Nuevo, Epifanía, Semana Santa, Día del Trabajador, Asunción, Fiesta Nacional, Inmaculada, Navidad, etc.) on the relevant dates. This is often the fastest explanation for a sudden drop in evaluation volume or an unusual spike in failure rate — low call volume on a holiday can distort success rate percentages.
+
+<Info>
+Holiday data is fetched from a public holiday calendar API on a per-year basis. If that source is unavailable, the page falls back to a locally bundled holiday list so the overlay never silently disappears.
+</Info>
+</Tab>
+<Tab title="EUR/USD Exchange Rate">
+Enable **FX (EUR/USD)** if your agent's domain has any sensitivity to currency movement — for example, agents that discuss pricing, international orders, or anything quoted in a foreign currency. This overlays the daily EUR/USD rate alongside your evaluation trend.
+</Tab>
+</Tabs>
+
+<Warning>
+External context sources are informational overlays, not causal proof. A holiday coinciding with a dip in evaluations is a hypothesis worth investigating — not a guaranteed explanation. Always cross-check with the actual call transcripts and evaluation reasoning before writing off a bad result as "just a holiday."
+</Warning>
+
+## Summary Cards
+
+Right below the controls bar, three summary cards give you the headline numbers for the selected agent and time range:
+
+### Total Evaluations
+The total count of evaluations run within the selected window.
+
+### Overall Success Rate
+The average success rate across all evaluations in the window, shown as a percentage.
+
+### Calls Evaluated
+The number of distinct calls that were evaluated — useful context for interpreting the total evaluation count (an agent can have multiple evaluation criteria run against the same call).
+
+<Info>
+**Delta against the previous period**: each summary card also shows a comparison against an equally-sized preceding window. If you're looking at the last 30 days, the delta compares against the 30 days before that. This is computed automatically — you don't need to manually select a comparison range. Deltas are shown with a directional indicator (up/down) and are colored to reflect whether the change is favorable (e.g. success rate up, or evaluation volume up) or unfavorable.
+</Info>
+
+<Warning>
+The comparison period uses the same span length ending exactly where your selected range begins. If your agent had little or no evaluation activity in that prior window, the delta may be based on a very small sample — treat large percentage swings with caution when the previous period's volume was low.
+</Warning>
+
+## Interactive Trend Charts
+
+Each agent is rendered as an expandable card containing an avatar, quick summary metrics, and a detailed chart view.
+
+### Chart Features
+
+<Tabs>
+<Tab title="Zoom & Pan">
+- **Zoom** with mouse wheel or trackpad pinch gesture.
+- **Pan** by clicking and dragging horizontally across the chart area.
+- **Reset** the zoom/pan state using the reset control in the chart toolbar.
+</Tab>
+<Tab title="Data Points & Tooltips">
+- **Hover** any point to see its exact date, success rate, and volume.
+- Data granularity reflects your selected grouping period (day/week/month).
+- When context overlays are enabled, tooltips also surface the relevant weather, holiday, or FX value for that date.
+</Tab>
+<Tab title="Version Markers">
+- **Created** and **deployed** version events are plotted as markers directly on the timeline, so you can visually align a change in trend with the moment a new prompt version went live.
+- Hovering a marker shows the version number and its commit message.
+</Tab>
+</Tabs>
+
+### Color Palette
+
+Each evaluation series is assigned a distinct, accessible color from a palette that has been separately tuned for light and dark themes — colors that read clearly on a white background are adjusted in dark mode so they don't wash out against a dark surface. You don't need to configure this; it adapts automatically when you toggle the app's theme.
+
 ## Trend Indicators
 
-Look for visual trend indicators throughout the interface:
+Throughout the page, small directional indicators summarize whether a metric is moving the right way:
 
-- **Green upward arrows** (📈) indicate improving performance
-- **Red downward arrows** (📉) indicate declining performance  
-- **Neutral indicators** show stable performance
+- 📈 **Improving** — success rate or relevant metric trending upward.
+- 📉 **Declining** — metric trending downward, worth investigating.
+- **Neutral** — performance is stable within the selected window.
 
-These indicators help you quickly identify which aspects of your agent's performance are trending in the right direction.
+## Version Impact Table
+
+This is the table built specifically to answer: *"Did shipping version N actually help?"*
+
+For every version **created** or **deployed** during the selected time range, the table shows:
+
+| Column | Meaning |
+|---|---|
+| **Version** | Version number and type of event (created vs. deployed) |
+| **Date** | When the event occurred |
+| **Commit Message** | The change description associated with that version |
+| **Before** | Average success rate in the window immediately preceding the event |
+| **After** | Average success rate in the window immediately following the event |
+| **Delta** | The difference between After and Before, with directional coloring |
+| **Sample sizes** | Number of evaluations used to compute the Before and After averages |
+
+<Warning>
+A version's "Before" and "After" averages are only as reliable as the number of evaluations available around that date. If a version was deployed only a day before your selected range ends, the "After" figure may be based on very few evaluations — check the sample size column before drawing conclusions, especially when a delta looks dramatic.
+</Warning>
+
+<Info>
+If a version was created but never deployed, it still appears in the table (marked as **created**) so you can track prompt iteration even before it reaches production traffic.
+</Info>
+
+## Automatic Insight Cards
+
+Below the Version Impact table, Evaluation Trends surfaces a set of **auto-generated insight cards** — short, plain-language observations derived from the same underlying data, so you don't have to eyeball every chart yourself.
+
+Insights are tagged with a tone to help you triage them at a glance:
+
+- **Good** — a positive signal, such as a sustained improvement in success rate or a version that measurably helped.
+- **Bad** — a negative signal, such as a declining trend or a version correlated with a drop in performance.
+- **Warning** — something worth a second look, such as low evaluation volume in a recent period or a metric based on a small sample.
+- **Neutral** — informational context, such as a holiday or weather event coinciding with a change in volume.
+
+<Info>
+Insight cards are generated from statistical comparisons (period-over-period averages, before/after version deltas, and volume checks) — they are a starting point for investigation, not a final verdict. Always validate a flagged insight against the actual evaluation table and call transcripts before acting on it.
+</Info>
 
 ## Detailed Evaluation Tables
 
-Below the trend charts, you'll find comprehensive tables that include:
+Below the charts and insight cards, a detailed table lists individual evaluation records for deeper inspection:
 
-- **Individual evaluation records** with timestamps
-- **Success/failure status** for each evaluation
-- **Mini sparkline charts** showing recent performance trends
-- **Sortable columns** for custom data organization
+- **Timestamps** for each evaluation run.
+- **Success/failure status** per evaluation.
+- **Mini sparkline charts** giving a compact view of recent performance without needing to open the full chart.
+- **Sortable columns** so you can reorder by date, status, or success rate.
 
 <Warning>
-The evaluation trends are calculated based on available data within your selected time range. Ensure you have sufficient evaluation history for meaningful trend analysis.
+Trend calculations depend entirely on the evaluation data available within your selected range. A short range with sparse evaluation activity will produce charts and insights with low statistical confidence — widen the range or check evaluation coverage before treating a trend as conclusive.
 </Warning>
 
 ## Best Practices
 
 ### Analyzing Trends
-- **Compare different time periods** to understand seasonal patterns
-- **Look for correlation** between evaluation frequency and success rates
-- **Monitor trends after making agent improvements** to measure impact
+- **Compare equivalent periods** (the automatic previous-period delta on summary cards does this for you).
+- **Enable holiday context** when investigating unexplained drops in volume or success rate.
+- **Cross-reference Version Impact** whenever a trend inflection point appears — check whether a version event lines up with it before assuming a cause.
 
-### Optimal Time Ranges
-- Use **shorter periods (7-30 days)** for recent performance monitoring
-- Use **longer periods (3-12 months)** for strategic planning and pattern recognition
-- **Custom ranges** work well for analyzing specific campaigns or time periods
+### Choosing a Time Range
+- **7–14 days** for verifying the immediate effect of a recent change.
+- **30 days** as the default operational check-in.
+- **3–6 months** for spotting seasonal patterns or validating long-term strategy.
+- **Custom ranges** for isolating a specific campaign, incident, or marketing push.
 
-### Grouping Recommendations
-- **Daily grouping** for detailed short-term analysis
-- **Weekly grouping** for medium-term trend identification  
-- **Monthly grouping** for long-term strategic insights
+### Choosing a Grouping Period
+- **Day** for granular, short-window debugging.
+- **Week** for medium-term pattern recognition without daily noise.
+- **Month** for executive-level, long-horizon reporting.
+
+### Using External Context Responsibly
+- Treat weather, holidays, and FX overlays as **explanatory candidates**, not root causes.
+- Use the sample-size figures in the Version Impact table and summary deltas to judge how much weight a comparison deserves.
+- Validate auto-generated insights against raw evaluation records before communicating conclusions to stakeholders.
 
 <Info>
-Trend data updates in real-time as new evaluations are completed, so you can monitor improvements immediately after implementing changes to your agents.
+All data on this page — summary cards, charts, the Version Impact table, and insight cards — refreshes as new evaluations complete, so you can observe the effect of a change shortly after deploying it.
 </Info>

@@ -1,139 +1,827 @@
 ---
 title: 'Configuración Básica'
-description: 'Configura nombre del agente, idioma, voz y modelo de IA'
+description: 'Gestiona cuentas Twilio, números de teléfono, caller IDs y configura componentes fundamentales como agentes de voz especializados, componentes base de Meetzy y modelos de IA'
 icon: 'gear'
 ---
 
 ## Resumen
 
-Configuración Básica es la primera sección en el Editor Avanzado donde configuras las propiedades fundamentales de tu agente de IA. Estos ajustes definen cómo suena tu agente, qué idioma habla y qué modelo de IA impulsa su inteligencia.
-
-## Opciones de Configuración
-
-### Nombre del Agente
-
-Dale a tu agente un nombre descriptivo que te ayude a identificarlo en tu panel.
-
-<Tip>
-Usa convenciones de nombres claras como "Soporte Cliente - Español" o "Ventas Outbound - Inglés" para gestionar fácilmente múltiples agentes.
-</Tip>
-
-### Idioma
-
-Selecciona el idioma principal que tu agente hablará y entenderá. El ajuste de idioma afecta:
-
-- Pronunciación de síntesis de voz
-- Precisión del reconocimiento de voz
-- Disponibilidad de plantillas de saludo
-
-**Idiomas Soportados:**
-- 🇺🇸 Inglés
-- 🇪🇸 Español
-- 🇫🇷 Francés
-- 🇩🇪 Alemán
-- 🇮🇹 Italiano
-- 🇵🇹 Portugués
-- Y más...
-
-### Selección de Voz
-
-Elige la voz que representa a tu agente. Puedes:
-
-1. **Seleccionar de la Biblioteca de Voces** - Explorar voces preconfiguradas
-2. **Previsualizar voces** - Escuchar muestras antes de seleccionar
-3. **Usar voces personalizadas** - Seleccionar voces creadas en Voice Designer
+La Configuración Básica establece los **Componentes Fundacionales** de tu agente conversacional de IA, incluyendo la configuración de infraestructura telefónica con cuentas Twilio, gestión de números de teléfono y caller IDs, así como la personalización con agentes de voz especializados por industria, componentes base de seguridad y capacidades conversacionales avanzadas.
 
 <Info>
-Características de voz como velocidad, naturalidad y consistencia pueden ajustarse en la Biblioteca de Voces antes de asignarlas a tu agente.
+Los controles de **Temperature**, **grabación de llamadas** y los **toggles de Meetzy Foundation Components** viven todos dentro de la sección **Intelligence** del editor avanzado. Esta guía documenta cada uno en detalle para que puedas ajustar el nivel de creatividad, cumplimiento y calidad conversacional de tu agente.
 </Info>
 
-### Modelo de IA (LLM)
+## Sección Intelligence
 
-Selecciona el Modelo de Lenguaje Grande que impulsa la inteligencia de tu agente. Diferentes modelos ofrecen diferentes equilibrios entre velocidad, costo y capacidad.
+La sección **Intelligence** agrupa todos los controles que definen la "mente" de tu agente: el modelo de IA que utiliza, cuánta creatividad se le permite (Temperature), si sus conversaciones se grabarán, y qué Componentes Fundacionales de Meetzy están activos. Todos estos controles se encuentran en el mismo panel para que puedas ajustarlos de forma conjunta y coherente.
 
-#### Modelos Disponibles
+### Temperature (Creatividad del Modelo)
+
+<Info>
+**Valor por defecto**: 0.7 — un balance óptimo entre respuestas consistentes y naturalidad conversacional, validado en miles de agentes en producción.
+</Info>
+
+El control de **Temperature** determina cuánta variabilidad y creatividad tiene el modelo de IA al generar sus respuestas. Es uno de los parámetros más importantes para ajustar la personalidad y previsibilidad de tu agente.
 
 <Tabs>
-  <Tab title="Anthropic">
-    | Modelo | Mejor Para |
-    |-------|----------|
-    | Claude Haiku 4.5 | Respuestas rápidas, rentable |
+  <Tab title="¿Cómo funciona?">
+    **Temperature baja (0.0 - 0.3)**
+    - Respuestas más deterministas, consistentes y predecibles
+    - El agente tiende a repetir patrones y frases similares ante situaciones parecidas
+    - Ideal cuando necesitas máxima precisión y control sobre el mensaje
+    - Reduce el riesgo de respuestas inesperadas o "creativas" en exceso
+
+    **Temperature media (0.4 - 0.7)**
+    - Balance entre consistencia y naturalidad conversacional
+    - El agente varía su fraseo sin perder coherencia ni precisión
+    - Recomendado para la gran mayoría de casos de uso empresariales
+
+    **Temperature alta (0.8 - 1.0)**
+    - Respuestas más creativas, variadas y espontáneas
+    - Mayor riesgo de desviaciones del guion o inconsistencias
+    - Útil en contextos donde se busca una conversación más humana y menos "robotizada"
   </Tab>
-  <Tab title="OpenAI">
-    | Modelo | Mejor Para |
-    |-------|----------|
-    | GPT-4o | Alta inteligencia, velocidad equilibrada |
-    | GPT-4.1 | Últimas capacidades |
-    | GPT-4.1 Mini | Más rápido, rentable |
-    | GPT-4.1 Nano | Opción más rápida de OpenAI |
+
+  <Tab title="Recomendaciones por Caso de Uso">
+    | Caso de Uso | Temperature Sugerida | Razón |
+    |-------------|----------------------|-------|
+    | Soporte técnico y troubleshooting | 0.2 - 0.4 | Precisión y consistencia en instrucciones |
+    | Atención al cliente estándar | 0.5 - 0.7 | Naturalidad sin perder control del mensaje |
+    | Ventas y negociación | 0.6 - 0.8 | Espontaneidad para adaptarse al interlocutor |
+    | Compliance y sector regulado (salud, finanzas) | 0.1 - 0.3 | Máxima previsibilidad y control de riesgo |
+    | Agentes conversacionales generales | 0.5 - 0.65 | Balance recomendado por defecto |
   </Tab>
-  <Tab title="Google">
-    | Modelo | Mejor Para |
-    |-------|----------|
-    | Gemini 3 Flash Preview | Último modelo de Google |
-    | Gemini 2.5 Flash | Alto rendimiento |
-    | Gemini 2.5 Flash Lite | Opción equilibrada |
-    | Gemini 2.0 Flash | Respuestas rápidas |
-    | Gemini 2.0 Flash Lite | Rentable |
-    | Gemini 1.5 Pro | Razonamiento complejo |
-    | Gemini 1.5 Flash | Procesamiento rápido |
+
+  <Tab title="Buenas Prácticas">
+    - **Empieza siempre con el valor por defecto** (0.7) y ajusta gradualmente según los resultados observados en el Playground
+    - **Baja el valor** si notas que el agente se desvía del guion, inventa información o suena inconsistente entre llamadas
+    - **Sube el valor** si el agente suena demasiado robótico, repetitivo o poco natural
+    - **Documenta los cambios** de Temperature junto con el motivo, para poder revertir fácilmente si el rendimiento empeora
+    - **Prueba en A/B** diferentes valores de Temperature antes de aplicar cambios masivos en producción
   </Tab>
 </Tabs>
 
-#### Guía de Selección de Modelo
-
-<AccordionGroup>
-  <Accordion title="Priorizar Velocidad" icon="bolt">
-    Elige modelos ligeros como **GPT-4.1 Nano**, **Gemini 2.0 Flash Lite**, o **Claude Haiku 4.5** para tiempos de respuesta más rápidos.
-  </Accordion>
-  <Accordion title="Priorizar Inteligencia" icon="brain">
-    Para conversaciones complejas que requieren comprensión matizada, usa **GPT-4.1**, **Gemini 1.5 Pro**, o **Gemini 2.5 Flash**.
-  </Accordion>
-  <Accordion title="Equilibrar Costo y Calidad" icon="scale-balanced">
-    Modelos como **GPT-4.1 Mini** y **Gemini 2.5 Flash Lite** ofrecen un buen equilibrio entre capacidad y costo.
-  </Accordion>
-</AccordionGroup>
-
-## Mejores Prácticas
-
 <Warning>
-Cambiar el modelo de IA puede afectar el comportamiento de tu agente. Siempre prueba en el Playground después de cambiar modelos.
+Valores de Temperature muy altos (cercanos a 1.0) pueden hacer que el agente genere respuestas incoherentes, se desvíe de las instrucciones del sistema o incumpla políticas de la empresa. En sectores regulados, se recomienda mantener valores bajos y validar exhaustivamente en Playground antes de producción.
 </Warning>
 
-1. **Prueba Múltiples Modelos** - Diferentes modelos pueden funcionar mejor para casos de uso específicos
-2. **Considera la Latencia** - Modelos más rápidos proporcionan mejor experiencia de usuario en llamadas telefónicas
-3. **Monitorea Costos** - Modelos más capaces típicamente cuestan más por llamada
-4. **Coincide Idioma** - Asegúrate de que los ajustes de voz e idioma sean compatibles
+### Grabación de Llamadas (Toggle en Intelligence)
 
-## Parámetros de Configuración de Voz
+El toggle de **grabación de llamadas** se encuentra en la sección Intelligence, junto a la selección de modelo y el control de Temperature. Está **habilitado por defecto** en todos los agentes nuevos.
 
-Cuando seleccionas una voz, estos parámetros pueden ajustarse:
+<Steps>
+  <Step title="Localizar el toggle">
+    Dentro del panel Intelligence, busca el interruptor "Grabar llamadas" junto a los controles de modelo y Temperature
+  </Step>
+  <Step title="Revisar el estado actual">
+    Un toggle en verde/activado indica que la grabación está habilitada; en gris/desactivado, deshabilitada
+  </Step>
+  <Step title="Activar o desactivar según necesidad">
+    Haz clic sobre el toggle para cambiar el estado. El cambio se aplica de inmediato a partir de la próxima llamada
+  </Step>
+  <Step title="Confirmar el cambio">
+    Guarda la configuración del agente para persistir el nuevo estado del toggle
+  </Step>
+</Steps>
 
-| Parámetro | Rango | Descripción |
-|-----------|-------|-------------|
-| Velocidad | 0.70x - 1.20x | Controla qué tan rápido habla el agente |
-| Naturalidad | 0.0 - 1.0 | Menor = sonido más natural |
-| Consistencia | 0.0 - 1.0 | Valores altos pueden causar artefactos |
+Para conocer en profundidad los beneficios, características avanzadas y opciones de configuración de la grabación (retención, selectividad, seguridad), consulta la sección [Configuración de Grabación de Llamadas](#configuración-de-grabación-de-llamadas) más abajo en esta misma página.
 
-<Tip>
-Comienza con valores por defecto y ajusta basándote en pruebas. Una velocidad de 1.0x y naturalidad de 0.3 funciona bien para la mayoría de casos.
-</Tip>
+### Toggles de Meetzy Foundation Components
 
-## Siguientes Pasos
+<Info>
+Los tres Componentes Fundacionales de Meetzy —**Guardrails de Seguridad**, **Aspectos Conversacionales** y **Skills de Agente**— ahora se controlan de forma **independiente** mediante toggles individuales dentro de la sección Intelligence. Esto te da control granular total sobre qué fundamentos del sistema se aplican a tu agente.
+</Info>
 
-<CardGroup cols={2}>
-  <Card
-    title="Saludos"
-    icon="hand-wave"
-    href="/es/advanced-editor/greetings"
-  >
-    Configura mensajes de bienvenida
-  </Card>
-  <Card
-    title="Prompt del Sistema"
-    icon="file-lines"
-    href="/es/getting-started/create-agent#prompt-del-sistema"
-  >
-    Define personalidad del agente
-  </Card>
-</CardGroup>
+Cada Componente Fundacional tiene su propio interruptor on/off. Por defecto, **los tres toggles están activados** en agentes nuevos para garantizar conversaciones de alta calidad desde el primer momento.
+
+<Steps>
+  <Step title="Abrir la sección Intelligence">
+    Ve al panel Intelligence dentro del editor avanzado de tu agente
+  </Step>
+  <Step title="Localizar los tres toggles de Foundation Components">
+    Verás tres interruptores independientes, uno por cada componente: 🛡️ Guardrails de Seguridad, 🎭 Aspectos Conversacionales y 💼 Skills de Agente
+  </Step>
+  <Step title="Activar o desactivar individualmente">
+    Cada toggle puede activarse o desactivarse sin afectar a los otros dos, permitiendo combinaciones personalizadas
+  </Step>
+  <Step title="Revisar el efecto en el prompt">
+    Al desactivar un componente, su contenido correspondiente se elimina automáticamente del prompt del sistema del asistente
+  </Step>
+  <Step title="Guardar y validar en Playground">
+    Guarda los cambios y prueba exhaustivamente en el Playground antes de aplicar en producción
+  </Step>
+</Steps>
+
+#### Detalle de cada Toggle
+
+<Tabs>
+  <Tab title="🛡️ Guardrails de Seguridad">
+    **Toggle independiente** — Activado por defecto
+
+    Controla la inclusión de:
+    - Restricciones éticas y de comportamiento rigurosas
+    - Mantenimiento del contexto profesional en toda interacción
+    - Prevención automática de temas inapropiados o sensibles
+    - Límites de conversación seguros y apropiados
+    - Protocolos de escalación automática ante situaciones complejas
+    - Filtros de contenido y moderación preventiva
+
+    <Warning>
+    Desactivar este toggle elimina las protecciones de comportamiento del prompt base. Solo recomendado si cuentas con tus propios guardrails personalizados, ya probados y validados.
+    </Warning>
+  </Tab>
+
+  <Tab title="🎭 Aspectos Conversacionales">
+    **Toggle independiente** — Activado por defecto
+
+    Controla la inclusión de:
+    - Manejo inteligente de interrupciones del interlocutor
+    - Gestión profesional de silencios y pausas conversacionales
+    - Transiciones conversacionales fluidas y naturales
+    - Técnicas de clarificación activa y confirmación
+    - Adaptación dinámica al ritmo del interlocutor
+    - Reconocimiento y manejo de emociones básicas
+    - Estrategias de re-engagement para conversaciones estancadas
+
+    <Info>
+    Desactivar este toggle puede hacer que el agente suene menos natural en el manejo de silencios, interrupciones y transiciones. Útil solo si tienes lógica conversacional propia ya implementada.
+    </Info>
+  </Tab>
+
+  <Tab title="💼 Skills de Agente (Background Laboral)">
+    **Toggle independiente** — Activado por defecto
+
+    Controla la inclusión de:
+    - Conocimiento profundo de protocolos telefónicos empresariales
+    - Mejores prácticas del sector de atención al cliente
+    - Experiencia en comunicación corporativa multicanal
+    - Estándares internacionales de servicio al cliente
+    - Competencias profesionales transversales certificadas
+    - Técnicas de resolución de conflictos y mediación
+    - Conocimiento de compliance y regulaciones básicas
+
+    <Info>
+    Este toggle es independiente de la selección de un Agente de Voz Especializado (ver sección más abajo). Puedes desactivarlo si prefieres definir tú mismo el background profesional del agente en un prompt personalizado.
+    </Info>
+  </Tab>
+</Tabs>
+
+<Warning>
+**Importante**: Desactivar cualquiera de los tres toggles puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado, probado y validado en producción. Recomendamos desactivar un solo toggle a la vez y validar en Playground antes de continuar.
+</Warning>
+
+## Componentes Base de Meetzy
+
+<Info>
+Los Componentes Base están habilitados por defecto en nuevos agentes para asegurar conversaciones de alta calidad desde el primer momento. Su activación individual se gestiona mediante los **toggles de Meetzy Foundation Components** descritos en la sección Intelligence más arriba.
+</Info>
+
+Los Componentes Base de Meetzy proporcionan la fundación para agentes conversacionales profesionales y consistentes. Esta funcionalidad permite un control granular sobre qué elementos base del sistema Meetzy se incluyen en el prompt del asistente.
+
+### 🛡️ Guardrails de Seguridad
+**Protección y Límites Profesionales:**
+- Restricciones éticas y de comportamiento rigurosas
+- Mantenimiento del contexto profesional en toda interacción
+- Prevención automática de temas inapropiados o sensibles
+- Límites de conversación seguros y apropiados
+- Protocolos de escalación automática ante situaciones complejas
+- Filtros de contenido y moderación preventiva
+
+### 🎭 Aspectos Conversacionales
+**Habilidades de Comunicación Natural:**
+- Manejo inteligente de interrupciones del interlocutor
+- Gestión profesional de silencios y pausas conversacionales
+- Transiciones conversacionales fluidas y naturales
+- Técnicas de clarificación activa y confirmación
+- Adaptación dinámica al ritmo del interlocutor
+- Reconocimiento y manejo de emociones básicas
+- Estrategias de re-engagement para conversaciones estancadas
+
+### 💼 Skills de Agente (Background Laboral)
+**Experiencia Profesional Integrada:**
+- Conocimiento profundo de protocolos telefónicos empresariales
+- Mejores prácticas del sector de atención al cliente
+- Experiencia en comunicación corporativa multicanal
+- Estándares internacionales de servicio al cliente
+- Competencias profesionales transversales certificadas
+- Técnicas de resolución de conflictos y mediación
+- Conocimiento de compliance y regulaciones básicas
+
+<Warning>
+**Importante**: Deshabilitar los Componentes Base puede resultar en conversaciones menos naturales o comportamientos impredecibles. Solo desactívalos si tienes un sistema de prompts personalizado completamente desarrollado, probado y validado en producción.
+</Warning>
+
+## Skills de Agente - Selector de Expertise
+
+### Sistema de Agentes de Voz Especializados
+
+En lugar de configurar voces individuales, selecciona un **Agente de Voz Especializado** que combina voz optimizada, personalidad profesional y conocimiento específico del sector. El sistema de Skills de Agente permite añadir expertise profesional específico a tu agente.
+
+<Steps>
+  <Step title="Abrir selector modal">
+    Haz clic en "Seleccionar Skills de Agente" para acceder a la biblioteca completa de especialidades profesionales
+  </Step>
+  <Step title="Explorar categorías de expertise">
+    Navega por las diferentes categorías: Ventas, Soporte, Inmobiliaria, Salud, Educación y General
+  </Step>
+  <Step title="Filtrar por especialidad">
+    Usa los filtros de industria para encontrar agentes con expertise específico que coincida con tu sector
+  </Step>
+  <Step title="Buscar características específicas">
+    Utiliza la barra de búsqueda para encontrar voces, habilidades y competencias particulares
+  </Step>
+  <Step title="Previsualizar agente especializado">
+    Escucha muestras de audio, revisa las competencias profesionales y valida la compatibilidad con tu caso de uso
+  </Step>
+  <Step title="Confirmar selección">
+    El agente seleccionado aplicará automáticamente su configuración optimizada incluyendo voz, personalidad y knowledge base
+  </Step>
+</Steps>
+
+### Especialidades y Skills Disponibles
+
+<Tabs>
+  <Tab title="Ventas 💼">
+    **Agentes optimizados para procesos comerciales y cierres:**
+    - Técnicas avanzadas de persuasión y influencia
+    - Manejo profesional de objeciones complejas
+    - Estrategias de cierre de ventas multinivel  
+    - Prospección telefónica efectiva y cualificada
+    - Follow-up automatizado y nurturing de leads
+    - Análisis de necesidades y pain points
+    - Cross-selling y up-selling inteligente
+    
+    **Ejemplos de Agentes Especializados:**
+    - **Sales Representative** - Energético y persuasivo para ventas directas
+    - **Business Development** - Consultor estratégico para partnerships
+    - **Real Estate Sales** - Especialista inmobiliario certificado
+    - **Insurance Sales** - Experto en productos aseguradores
+    - **B2B Sales Manager** - Ventas corporativas y empresariales
+  </Tab>
+  
+  <Tab title="Soporte al Cliente 🎧">
+    **Especialistas en atención y servicio premium:**
+    - Resolución empática de incidencias complejas
+    - Soporte técnico especializado multinivel
+    - Atención post-venta premium y seguimiento
+    - Gestión avanzada de escalaciones críticas
+    - Satisfacción del cliente y loyalty programs
+    - Troubleshooting técnico paso a paso
+    - Manejo de quejas y reclamaciones
+    
+    **Ejemplos de Agentes Especializados:**
+    - **Customer Success** - Orientado a soluciones proactivas
+    - **Technical Support** - Experto en troubleshooting avanzado
+    - **Billing Support** - Especialista en facturación y pagos
+    - **Product Expert** - Conocimiento profundo de productos
+    - **VIP Support** - Atención premium para clientes estratégicos
+  </Tab>
+  
+  <Tab title="Inmobiliaria 🏠">
+    **Expertos en transacciones inmobiliarias certificados:**
+    - Valoraciones profesionales de propiedades
+    - Procesos completos de compra-venta residencial y comercial
+    - Asesoramiento hipotecario y financiación especializada
+    - Análisis de mercado inmobiliario actualizado
+    - Gestión y coordinación de visitas virtuales y presenciales
+    - Conocimiento de legislación inmobiliaria vigente
+    - Evaluación de inversiones inmobiliarias
+    
+    **Ejemplos de Agentes Especializados:**
+    - **Property Advisor** - Consultor inmobiliario certificado
+    - **Mortgage Specialist** - Experto en financiación hipotecaria
+    - **Investment Consultant** - Asesor de inversiones inmobiliarias
+    - **Commercial Real Estate** - Especialista en inmuebles comerciales
+    - **Rental Manager** - Gestor de propiedades de alquiler
+  </Tab>
+  
+  <Tab title="Salud 🏥">
+    **Agentes especializados en sector salud y wellness:**
+    - Programación inteligente de citas médicas
+    - Información médica básica validada y segura
+    - Seguimiento personalizado de pacientes
+    - Coordinación de tratamientos multidisciplinares
+    - Soporte administrativo sanitario especializado
+    - Gestión de historiales clínicos básicos
+    - Protocolos de emergencia y derivación
+    
+    **Ejemplos de Agentes Especializados:**
+    - **Medical Receptionist** - Coordinador de citas especializado
+    - **Patient Care** - Seguimiento personalizado de pacientes
+    - **Health Information** - Asesor médico y wellness
+    - **Dental Assistant** - Especialista en servicios dentales
+    - **Mental Health Support** - Apoyo en salud mental y bienestar
+  </Tab>
+  
+  <Tab title="Educación 🎓">
+    **Especialistas en consultas educativas y académicas:**
+    - Información detallada de cursos y programas educativos
+    - Procesos completos de admisión y matriculación
+    - Soporte académico personalizado por nivel
+    - Orientación educativa y vocacional profesional
+    - Gestión de matrículas y documentación académica
+    - Asesoramiento en becas y financiación estudiantil
+    - Seguimiento del progreso académico
+    
+    **Ejemplos de Agentes Especializados:**
+    - **Academic Advisor** - Consejero académico especializado
+    - **Admissions Specialist** - Experto en procesos de admisión
+    - **Student Support** - Asistente estudiantil integral
+    - **Financial Aid** - Especialista en ayuda financiera estudiantil
+    - **Career Counselor** - Orientador vocacional y profesional
+  </Tab>
+  
+  <Tab title="General 🌐">
+    **Agentes versátiles para múltiples propósitos empresariales:**
+    - Adaptabilidad a diversos contextos y sectores
+    - Comunicación profesional general de alto nivel
+    - Flexibilidad conversacional avanzada
+    - Skills transversales aplicables universalmente
+    - Personalización avanzada según necesidades específicas
+    - Gestión de múltiples canales de comunicación
+    - Integración con sistemas empresariales diversos
+    
+    **Ejemplos de Agentes Especializados:**
+    - **Professional Assistant** - Asistente ejecutivo multicompetente
+    - **General Support** - Soporte multipropósito empresarial
+    - **Business Coordinator** - Coordinador empresarial integral
+    - **Reception Specialist** - Recepcionista virtual profesional
+    - **Information Hub** - Centro de información empresarial
+  </Tab>
+</Tabs>
+
+### Características de los Agentes Especializados
+
+<Info>
+Cada Agente de Voz incluye configuración optimizada de voz, personalidad profesional específica y knowledge base especializado que mejora significativamente la calidad, naturalidad y efectividad de las conversaciones empresariales.
+</Info>
+
+#### Componentes de Especialización Integrados
+
+**🎭 Personalidad Profesional Definida**
+- Tono y estilo de comunicación específico del sector
+- Vocabulario técnico y terminología especializada certificada
+- Protocolos de interacción apropiados para cada contexto
+- Nivel de formalidad adaptado al público objetivo
+- Empatía y soft skills calibradas por industria
+
+**🧠 Knowledge Base Especializado**
+- Procesos y procedimientos estándar de la industria
+- Mejores prácticas profesionales actualizadas
+- Comprensión profunda de necesidades específicas del cliente
+- Base de conocimientos técnicos y regulatorios
+- Casos de uso comunes y soluciones probadas
+
+**🎵 Voz y Prosodia Optimizada**
+- Características vocales ideales para el contexto específico
+- Velocidad y entonación apropiadas para cada sector
+- Claridad y profesionalismo adaptados al público
+- Inflexiones y énfasis estratégicos
+- Calidad de audio premium para máxima claridad
+
+**⚡ Integración de Capacidades Avanzadas**
+- APIs y herramientas específicas del sector preconfiguradas
+- Workflows automatizados según mejores prácticas
+- Métricas y KPIs relevantes para cada especialidad
+- Compliance automático con regulaciones del sector
+- Escalación inteligente basada en expertise
+
+## Voz e Idioma
+
+### Configuración de Idioma Principal
+
+<Info>
+**Idioma por defecto**: El español está configurado como idioma principal para asegurar una experiencia conversacional natural en español latinoamericano neutral, optimizado para máxima comprensión internacional.
+</Info>
+
+Selecciona el idioma principal que utilizará tu agente especializado para todas las interacciones. El sistema está optimizado para proporcionar experiencias nativas en cada idioma soportado.
+
+<Tabs>
+  <Tab title="Idiomas Principales">
+    **Idiomas más utilizados con soporte premium:**
+    - **Español** ⭐ (por defecto) - Español latinoamericano neutro, optimizado para toda Hispanoamérica
+    - **English** - Inglés estadounidense con soporte británico
+    - **Français** - Francés metropolitano y canadiense
+    - **Português** - Portugués brasileño y europeo
+    - **Deutsch** - Alemán estándar con variantes regionales
+    - **Italiano** - Italiano estándar optimizado
+    - **Nederlands** - Holandés moderno
+    - **Polski** - Polaco estándar contemporáneo
+  </Tab>
+  
+  <Tab title="Idiomas Asiáticos">
+    **Soporte especializado para mercados asiáticos:**
+    - **中文** - Chino mandarín simplificado y tradicional
+    - **日本語** - Japonés moderno con niveles de cortesía
+    - **한국어** - Coreano estándar empresarial
+    - **हिन्दी** - Hindi con soporte para dialectos principales
+    - **العربية** - Árabe moderno estándar
+    - **ไทย** - Tailandés central estándar
+    - **Tiếng Việt** - Vietnamita del norte y sur
+    - **தமிழ்** - Tamil contemporáneo
+    - **Bahasa Indonesia** - Indonesio estándar
+    - **Tagalog** - Filipino/Tagalog moderno
+  </Tab>
+  
+  <Tab title="Idiomas Europeos">
+    **Idiomas adicionales europeos con soporte completo:**
+    - **Русский** - Ruso estándar moderno
+    - **Svenska** - Sueco contemporáneo
+    - **Ελληνικά** - Griego moderno
+    - **Čeština** - Checo estándar
+    - **Dansk** - Danés moderno
+    - **Suomi** - Finlandés estándar
+    - **Български** - Búlgaro contemporáneo
+    - **Hrvatski** - Croata estándar
+    - **Slovenčina** - Eslovaco moderno
+    - **Română** - Rumano estándar
+    - **Українська** - Ucraniano contemporáneo
+    - **Magyar** - Húngaro moderno
+    - **Norsk** - Noruego bokmål y nynorsk
+    - **Lietuvių** - Lituano estándar
+    - **Latviešu** - Letón contemporáneo
+    - **Eesti** - Estonio moderno
+  </Tab>
+</Tabs>
+
+### Configuración Avanzada de Voz
+
+<Tabs>
+  <Tab title="Velocidad de Habla">
+    **Control preciso del ritmo conversacional:**
+    - **Rango disponible**: 0.70x - 1.20x (por defecto: 1.06x optimizado)
+    - **Lenta** (0.70-0.85): Ideal para explicaciones complejas, públicos senior o contenido técnico
+    - **Normal** (0.90-1.10): Conversación empresarial estándar y profesional
+    - **Rápida** (1.15-1.20): Dinámicas comerciales ágiles o soporte técnico eficiente
+    
+    <Info>
+    La velocidad ligeramente acelerada (1.06x) mejora la percepción de profesionalismo y eficiencia sin comprometer la claridad o comprensión, basado en estudios de usabilidad.
+    </Info>
+    
+    **Guías por Especialidad:**
+    - **Ventas**: 1.10-1.15x para transmitir energía y dinamismo
+    - **Soporte Técnico**: 0.95-1.05x para claridad en instrucciones
+    - **Salud**: 0.85-0.95x para transmitir calma y confianza
+    - **Educación**: 0.90-1.00x para facilitar comprensión
+  </Tab>
+  
+  <Tab title="Estabilidad Vocal">
+    **Consistencia y variabilidad de la voz:**
+    - **Rango disponible**: 0.00 - 1.00 (por defecto: 0.15 optimizado)
+    - **Baja** (0.00-0.30): Voz más expresiva, variable y emocional
+    - **Media** (0.31-0.70): Balance entre expresividad y consistencia profesional
+    - **Alta** (0.71-1.00): Voz muy consistente, predecible y uniforme
+    
+    <Warning>
+    Valores muy altos de estabilidad (>0.80) pueden resultar en voces monótonas y poco naturales que afecten negativamente la experiencia del usuario.
+    </Warning>
+    
+    **Recomendaciones por Contexto:**
+    - **Atención al Cliente**: 0.10-0.25 para expresividad empática
+    - **Ventas**: 0.15-0.35 para variabilidad persuasiva
+    - **Soporte Técnico**: 0.05-0.20 para claridad con expresividad
+    - **Servicios Médicos**: 0.20-0.40 para transmitir calma consistente
+  </Tab>
+  
+  <Tab title="Similitud al Modelo">
+    **Fidelidad al modelo vocal seleccionado:**
+    - **Rango disponible**: 0.00 - 1.00 (por defecto: 0.65 optimizado)
+    - **Baja** (0.00-0.40): Mayor creatividad vocal y variabilidad natural
+    - **Media** (0.41-0.80): Balance óptimo entre fidelidad y naturalidad
+    - **Alta** (0.81-1.00): Máxima fidelidad al modelo original seleccionado
+    
+    <Info>
+    El valor por defecto de 0.65 proporciona el mejor balance entre naturalidad conversacional y fidelidad vocal para contextos empresariales, validado en miles de interacciones.
+    </Info>
+    
+    **Optimización Estratégica:**
+    - **Branding Vocal Fuerte**: 0.75-0.90 para consistencia de marca
+    - **Conversaciones Naturales**: 0.55-0.70 para máxima fluidez
+    - **Aplicaciones Técnicas**: 0.65-0.80 para claridad y precisión
+    - **Uso Creativo**: 0.30-0.55 para mayor expresividad
+  </Tab>
+  
+  <Tab title="Configuraciones Predefinidas">
+    **Presets optimizados por caso de uso:**
+    
+    **🎯 Profesional Estándar** (Recomendado)
+    - Velocidad: 1.06x | Estabilidad: 0.15 | Similitud: 0.65
+    - Ideal para la mayoría de aplicaciones empresariales
+    
+    **⚡ Dinámico Comercial**
+    - Velocidad: 1.12x | Estabilidad: 0.25 | Similitud: 0.60
+    - Optimizado para ventas y presentaciones dinámicas
+    
+    **🔧 Soporte Técnico**
+    - Velocidad: 0.98x | Estabilidad: 0.10 | Similitud: 0.70
+    - Claridad máxima para instrucciones técnicas
+    
+    **🏥 Cuidado Médico**
+    - Velocidad: 0.90x | Estabilidad: 0.30 | Similitud: 0.75
+    - Transmite calma y confiabilidad profesional
+    
+    **🎓 Educativo**
+    - Velocidad: 0.95x | Estabilidad: 0.20 | Similitud: 0.65
+    - Facilita comprensión y retención de información
+  </Tab>
+</Tabs>
+
+## Gestión de Infraestructura Telefónica
+
+### Cuentas Twilio
+
+<Info>
+**Solo usuarios administradores**: La selección de cuentas Twilio está disponible únicamente para usuarios con permisos administrativos avanzados para mantener la seguridad y control de recursos.
+</Info>
+
+Los administradores pueden seleccionar y gestionar diferentes cuentas Twilio para organizar y distribuir recursos telefónicos de manera estratégica según proyectos, departamentos o regiones:
+
+<Steps>
+  <Step title="Seleccionar cuenta Twilio">
+    Elige la cuenta Twilio específica que proporcionará los recursos telefónicos para este agente
+  </Step>
+  <Step title="Cargar números disponibles">
+    Los números de teléfono se actualizarán automáticamente según la cuenta seleccionada y su disponibilidad
+  </Step>
+  <Step title="Verificar capacidad y límites">
+    Asegúrate de que la cuenta tenga números disponibles y capacidad suficiente para las operaciones planificadas
+  </Step>
+  <Step title="Validar configuración regional">
+    Confirma que la cuenta seleccionada tenga números apropiados para tu región geográfica objetivo
+  </Step>
+</Steps>
+
+#### Beneficios de la Gestión Multi-Cuenta
+- **Segmentación por Proyectos**: Separar recursos por diferentes iniciativas empresariales
+- **Control de Costos**: Asignación y tracking de gastos por departamento o región
+- **Compliance Regional**: Cumplimiento con regulaciones específicas por país
+- **Escalabilidad**: Distribución de carga entre múltiples cuentas para alta disponibilidad
+- **Backup y Redundancia**: Failover automático entre cuentas para máxima disponibilidad
+
+### Gestión Avanzada de Números de Teléfono
+
+<Tabs>
+  <Tab title="Agentes Nuevos">
+    <Steps>
+      <Step title="Seleccionar número disponible">
+        Elige de la lista filtrada de números no asignados del menú desplegable
+      </Step>
+      <Step title="Verificar disponibilidad en tiempo real">
+        Solo se muestran números que no están en uso por otros agentes activos
+      </Step>
+      <Step title="Validar capacidades del número">
+        Confirma que el número soporte voz, SMS y MMS según tus necesidades
+      </Step>
+      <Step title="Solicitar números adicionales">
+        Usa "Request more numbers" si necesitas más opciones o números específicos de otras regiones
+      </Step>
+      <Step title="Confirmar asignación">
+        La asignación se realiza automáticamente al guardar la configuración del agente
+      </Step>
+    </Steps>
+    
+    **Información Mostrada por Número:**
+    - Número telefónico en formato internacional
+    - Región geográfica y operador
+    - Capacidades (Voz, SMS, MMS)
+    - Friendly name personalizable
+    - Estado de verificación y compliance
+  </Tab>
+  
+  <Tab title="Agentes Existentes">
+    El número asignado se muestra como solo lectura y **no puede modificarse** después de la creación del agente para mantener la consistencia de la experiencia del cliente.
+    
+    **Información Visible:**
+    - Número completo en formato E.164
+    - Friendly name asignado durante la creación
+    - Fecha de asignación
+    - Historial de uso básico
+    - Estado de salud de la línea
+    
+    <Warning>
+    **Cambio de Números**: Modificar números en agentes existentes requiere crear un nuevo agente o contactar soporte técnico especializado. Esta restricción protege la continuidad del servicio y evita confusión en clientes establecidos.
+    </Warning>
+    
+    **Alternativas para Cambio de Número:**
+    - Crear nuevo agente con número deseado
+    - Contactar soporte para migración asistida
+    - Configurar forwarding temporal durante transición
+    - Usar múltiples agentes con diferentes números
+  </Tab>
+  
+  <Tab title="Gestión de Inventario">
+    **Monitoreo de Recursos Telefónicos:**
+    - Vista consolidada de todos los números asignados
+    - Números disponibles por cuenta Twilio
+    - Uso y estadísticas por número
+    - Costos asociados y optimización
+    - Planificación de capacidad futura
+    
+    **Optimización de Asignaciones:**
+    - Reutilización inteligente de números liberados
+    - Balanceado de carga entre números activos
+    - Análisis de patrones de uso
+    - Recommendations para eficiencia de costos
+    - Alertas de límites y umbrales
+  </Tab>
+</Tabs>
+
+### Números de Salida (Outbound Numbers)
+
+<Info>
+Esta sección del panel **Basic Settings** controla con qué número o números sale realmente la llamada de tu agente. A diferencia de otros campos del editor, **los cambios se aplican al instante**: no forman parte de la versión guardada del agente, sino que se gestionan y persisten de inmediato porque determinan en vivo el origen real de cada llamada saliente.
+</Info>
+
+A diferencia del número de entrada (Inbound), que es fijo por agente, los **números de salida** admiten una lista de uno o varios números: caller IDs verificados y, en algunos casos, líneas 400 asignadas por el equipo de Meetzy. El sistema decide automáticamente el modo de marcado según lo que haya en esa lista.
+
+#### ¿Cómo se decide desde qué número llama el agente?
+
+<Steps>
+  <Step title="Agente sin número 400 en su lista">
+    El agente llama rotando entre los caller IDs que tenga asignados (modo "any"), igual que siempre
+  </Step>
+  <Step title="Agente con al menos un número 400 en su lista">
+    El sistema cambia automáticamente a modo **"solo 400"**: el agente llamará únicamente desde números 400, ignorando otros caller IDs mientras los 400 sigan en la lista
+  </Step>
+  <Step title="Cuenta con el interruptor 'solo 400' activado">
+    Si el equipo de Meetzy activa la política de cuenta **"solo 400"**, todos los agentes de esa cuenta quedan forzados a llamar únicamente desde números 400, sin importar qué caller IDs tengan asignados individualmente
+  </Step>
+  <Step title="Agentes de atención al cliente bloqueados">
+    Los agentes que Meetzy configuró específicamente para atención al cliente tienen el propósito de llamada bloqueado y **no admiten números 400**; siempre llaman desde líneas geográficas normales
+  </Step>
+</Steps>
+
+<Info>
+Un banner de estado en la parte superior de esta sección te indica en todo momento, en una sola frase, desde qué tipo de número está llamando el agente ahora mismo: por ejemplo, "Llama solo desde números 400", "Llama desde los números de abajo" o un aviso si el agente todavía no puede hacer llamadas porque no tiene ningún número disponible.
+</Info>
+
+#### Añadir números a un agente
+
+<Steps>
+  <Step title="Pulsar 'Add numbers'">
+    Abre el selector de números disponibles para añadir a este agente
+  </Step>
+  <Step title="Revisar la lista de candidatos">
+    Verás únicamente los caller IDs verificados que tu cuenta puede asignar a este agente; los que ya están en uso por otro agente se muestran atenuados junto con el motivo por el que no están disponibles
+  </Step>
+  <Step title="Seleccionar uno o varios números">
+    Marca las casillas de los números que quieras añadir. Si hay varios números 400 disponibles, puedes usar "Seleccionar todos los números 400 disponibles" para marcarlos de una sola vez
+  </Step>
+  <Step title="Confirmar la adición">
+    Al confirmar, los números se añaden de inmediato a la lista del agente. Si alguno no pudo añadirse (por ejemplo, por estar ya asignado), verás un detalle con el número afectado y el motivo
+  </Step>
+</Steps>
+
+<Warning>
+Añadir el primer número 400 a un agente que antes llamaba desde caller IDs normales **cambia automáticamente su modo de marcado** a "solo 400". A partir de ese momento, los caller IDs anteriores dejan de usarse mientras el agente conserve números 400 en su lista, aunque siguen apareciendo en la lista como "no usados" por si decides quitarlos o reactivarlos más adelante quitando los 400.
+</Warning>
+
+#### Quitar números de un agente
+
+<Steps>
+  <Step title="Localizar el número en la lista">
+    En la lista de números asignados al agente, identifica el caller ID que quieras retirar
+  </Step>
+  <Step title="Pulsar 'Remove'">
+    Haz clic en el botón "Remove" junto al número. Esta acción solo está disponible para caller IDs; las líneas de teléfono normales (number) se gestionan desde la configuración telefónica general del agente, no desde aquí
+  </Step>
+  <Step title="Confirmar la eliminación">
+    El número se retira de inmediato de la lista del agente. Si era el último número 400 asignado, el agente podría quedarse sin ningún número disponible para llamar: revisa el banner de estado tras la operación
+  </Step>
+</Steps>
+
+<Warning>
+Si quitas todos los números de un agente, el banner de estado te avisará de que **el agente todavía no puede hacer llamadas** hasta que añadas al menos un número de salida.
+</Warning>
+
+#### Copiar números de salida a otros agentes
+
+Si gestionas varios agentes dentro de la misma cuenta, puedes copiar rápidamente la configuración de números de salida de uno a otros, sin tener que repetir el proceso de verificación manualmente en cada uno.
+
+<Steps>
+  <Step title="Pulsar 'Copy to other agents'">
+    Este botón solo está disponible si el agente actual tiene al menos un caller ID verificado en su lista de números de salida
+  </Step>
+  <Step title="Elegir los agentes de destino">
+    Se muestra la lista de otros agentes de tu misma cuenta, indicando cuántos números de salida tiene cada uno y si ya cuenta con algún número 400
+  </Step>
+  <Step title="Seleccionar uno, varios o todos">
+    Marca individualmente los agentes de destino o usa la opción para seleccionarlos todos de una vez
+  </Step>
+  <Step title="Confirmar la copia">
+    Al confirmar, Meetzy intenta añadir los mismos números a cada agente seleccionado y te muestra un resultado por agente: copiado correctamente, sin cambios (si ya los tenía), no permitido o error
+  </Step>
+</Steps>
+
+<Info>
+La copia respeta las mismas reglas de disponibilidad que añadir números manualmente: si un número ya está en uso de forma exclusiva por otro agente, o si el agente de destino tiene el propósito de llamada bloqueado por Meetzy (por ejemplo, un agente de atención al cliente que no admite 400), esa copia concreta no se aplicará y se indicará el motivo en el resultado.
+</Info>
+
+#### Interruptor de cuenta "solo 400" (equipo de Meetzy)
+
+<Warning>
+Este control de política a nivel de cuenta **no está disponible para usuarios finales**; lo gestiona exclusivamente el equipo de Meetzy desde herramientas internas, generalmente a petición del cliente o como parte de una estrategia de deliverability.
+</Warning>
+
+Cuando el equipo de Meetzy activa el interruptor **"solo 400"** para una cuenta completa, todos los agentes de esa cuenta quedan forzados a llamar únicamente desde números 400, independientemente de los caller IDs que tengan configurados individualmente. Esto es útil para:
+
+- Garantizar consistencia de marca en todas las llamadas salientes de un cliente
+- Cumplir con políticas internas de uso exclusivo de líneas 400
+- Simplificar la gestión de reputación telefónica a nivel de cuenta
+
+Cuando un miembro del equipo de Meetzy está viendo la configuración de números de salida de un agente que no pertenece a su propia cuenta (por ejemplo, para dar soporte), la interfaz muestra un aviso identificando claramente la cuenta propietaria del agente, de modo que quede claro que se está actuando como soporte y no como el cliente final.
+
+<Info>
+Todo lo que ves en esta sección —números candidatos, estados de disponibilidad, motivos de bloqueo— lo filtra y calcula el servidor específicamente para la cuenta del agente. No existe un campo de texto libre para introducir números manualmente ni forma de solicitar números pertenecientes a otra cuenta desde esta pantalla.
+</Info>
+
+### Gestión Completa de Caller IDs (Números de Salida)
+
+Los Caller IDs permiten configurar números específicos para llamadas salientes, mejorando significativamente la confianza del destinatario y las tasas de respuesta:
+
+#### Añadir Nuevo Caller ID - Proceso Detallado
+
+<Steps>
+  <Step title="Abrir modal de adición">
+    Haz clic en "Add Caller ID" para iniciar el proceso de verificación segura
+  </Step>
+  <Step title="Introducir información completa">
+    - **Nombre descriptivo**: Identificación clara para gestión interna
+    - **Número telefónico**: En formato E.164 internacional (+1234567890)
+    - **Propósito de uso**: Descripción del uso previsto del número
+  </Step>
+  <Step title="Iniciar validación automática">
+    Twilio enviará inmediatamente una llamada automática con código de verificación de 6 dígitos
+  </Step>
+  <Step title="Responder y verificar">
+    - Responde la llamada en el número proporcionado
+    - Escucha el mensaje automático con el código
+    - Introduce el código en la interfaz dentro de 5 minutos
+  </Step>
+  <Step title="Completar verificación">
+    El número queda inmediatamente disponible para llamadas salientes una vez verificado exitosamente
+  </Step>
+  <Step title="Configurar preferencias">
+    - Establecer como número principal (opcional)
+    - Configurar horarios de uso específicos
+    - Asignar a agentes o campañas específicas
+  </Step>
+</Steps>
+
+#### Estados y Gestión de Caller IDs
+
+<Tabs>
+  <Tab title="✅ Verificado">
+    **Estado**: Completamente operativo
+    **Disponibilidad**: Listo para usar inmediatamente en llamadas salientes
+    **Capacidades**: 
+    - Llamadas salientes ilimitadas
+    - Integración con campañas automáticas
+    - Análisis de rendimiento disponible
+    - Configuración de horarios personalizados
+    
+    **Acciones Disponibles**: 
+    - Editar nombre descriptivo y configuraciones
+    - Ver estadísticas de uso y rendimiento
+    - Configurar como número principal
+    - Eliminar (requiere confirmación administrativa)
+    - Pausar temporalmente sin eliminar
+  </Tab>
+  
+  <Tab title="⏳ Pendiente">
+    **Estado**: En proceso de verificación activa
+    **Disponibilidad**: No disponible hasta completar verificación
+    **Tiempo límite**: 30 minutos para completar verificación
+    
+    **Acciones Disponibles**:
+    - **Reenviar código**: Solicitar nueva llamada de verificación
+    - **Cambiar número**: Modificar número si hay error de tipeo
+    - **Eliminar**: Cancelar proceso de verificación
+    - **Soporte**: Contactar asistencia técnica para problemas
+    
+    **Troubleshooting Común**:
+    - Verificar que el número puede recibir llamadas
+    - Confirmar formato internacional correcto
+    - Revisar configuración de operador telefónico
+  </Tab>
+  
+  <Tab title="❌ Fallido">
+    **Estado**: Verificación fallida por diversos motivos
+    **Disponibilidad**: Requiere nueva verificación completa
+    
+    **Causas Comunes de Fallo**:
+    - Número no contesta llamada de verificación
+    - Código introducido incorrectamente
+    - Tiempo de verificación expirado (>5 minutos)
+    - Número bloqueado por operador
+    - Formato de número incorrecto
+    
+    **Acciones de Recuperación**:
+    - **Reintentar verificación**: Nueva llamada inmediata
+    - **Corregir número**: Modificar si hay errores
+    - **Soporte técnico**: Asistencia especializada
+    - **Eliminar y recrear**: Proceso completo desde cero
+  </Tab>
+  
+  <Tab title="

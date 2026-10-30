@@ -1,6 +1,6 @@
 ---
 title: 'Saludos'
-description: 'Configura mensajes de bienvenida para llamadas entrantes y salientes'
+description: 'Configura mensajes de bienvenida para llamadas entrantes y salientes con templates multiidioma y parámetros dinámicos'
 icon: 'hand-wave'
 ---
 
@@ -12,188 +12,362 @@ Los Saludos son los mensajes iniciales que tu agente dice cuando comienza una ll
 Un saludo bien elaborado establece el tono para toda la conversación y ayuda a establecer confianza con los llamantes.
 </Info>
 
-## Tipos de Saludos
+## Sistema de Templates Multiidioma
 
-### Saludo Entrante
-
-Se usa cuando un cliente llama a tu número de teléfono. El agente debe:
-- Identificar la empresa
-- Dar la bienvenida al llamante
-- Ofrecer asistencia
-
-**Ejemplo:**
-```
-Hola, gracias por llamar a Acme Corp. Mi nombre es Sara, 
-¿en qué puedo ayudarle hoy?
-```
-
-### Saludo Saliente
-
-Se usa cuando tu agente inicia una llamada a un cliente. El agente debe:
-- Presentarse
-- Indicar el propósito de la llamada
-- Verificar que está hablando con la persona correcta
-
-**Ejemplo:**
-```
-Hola, ¿hablo con {{nombre_cliente}}? 
-Hola, soy Sara de Acme Corp. Le llamo sobre 
-su consulta reciente respecto a nuestros servicios.
-```
-
-## Configurando Saludos
-
-<Steps>
-  <Step title="Abrir Sección de Saludos">
-    Navega a la sección de Saludos en el panel izquierdo (icono 👋).
-  </Step>
-  <Step title="Ingresar Saludo Entrante">
-    Escribe tu mensaje de bienvenida para llamadas entrantes.
-  </Step>
-  <Step title="Ingresar Saludo Saliente">
-    Escribe tu introducción para llamadas salientes.
-  </Step>
-  <Step title="Guardar Cambios">
-    Haz clic en Guardar para aplicar tus saludos.
-  </Step>
-</Steps>
-
-## Usando Parámetros de Entrada
-
-Personaliza los saludos incluyendo parámetros de entrada:
-
-```
-Hola {{nombre_cliente}}, soy Sara de Acme Corp. 
-Le llamo sobre su pedido {{numero_pedido}} que está 
-programado para entrega el {{fecha_entrega}}.
-```
-
-<Tip>
-Los saludos personalizados mejoran significativamente el engagement del cliente y las tasas de éxito de las llamadas.
-</Tip>
-
-## Plantillas de Idioma
-
-El Editor Avanzado proporciona plantillas de saludo predefinidas para múltiples idiomas:
+El nuevo sistema de templates de Meetzy ofrece saludos predefinidos en múltiples idiomas con contextos culturales apropiados. Esto facilita la configuración rápida de agentes para diferentes mercados internacionales.
 
 ### Idiomas Disponibles
 
 <Tabs>
   <Tab title="Español">
     **Entrante:**
-    - "Gracias por llamar a [Empresa]. ¿En qué puedo ayudarle?"
-    - "Hola, ha contactado con [Empresa]. ¿Cómo puedo asistirle?"
+    - "Gracias por llamar a {{empresa}}. ¿En qué puedo ayudarle?"
+    - "Hola, ha contactado con {{empresa}}. ¿Cómo puedo asistirle?"
     
     **Saliente:**
-    - "Hola, ¿hablo con [Nombre]? Soy [Agente] de [Empresa]."
-    - "Hola [Nombre], le llamo de [Empresa] en relación a..."
+    - "Hola, ¿hablo con {{nombre}}? Soy {{agente}} de {{empresa}}."
+    - "Hola {{nombre}}, le llamo de {{empresa}} en relación a {{motivo}}."
   </Tab>
   <Tab title="Inglés">
     **Entrante:**
-    - "Thank you for calling [Company]. How may I help you today?"
-    - "Hello, you've reached [Company]. How can I assist you?"
+    - "Thank you for calling {{company}}. How may I help you today?"
+    - "Hello, you've reached {{company}}. How can I assist you?"
     
     **Saliente:**
-    - "Hello, may I speak with [Name]? This is [Agent] from [Company]."
-    - "Hi [Name], this is [Agent] calling from [Company] regarding..."
+    - "Hello, may I speak with {{name}}? This is {{agent}} from {{company}}."
+    - "Hi {{name}}, this is {{agent}} calling from {{company}} regarding {{reason}}."
   </Tab>
   <Tab title="Francés">
     **Entrante:**
-    - "Merci d'appeler [Entreprise]. Comment puis-je vous aider?"
-    - "Bonjour, vous avez joint [Entreprise]. Comment puis-je vous assister?"
+    - "Merci d'appeler {{entreprise}}. Comment puis-je vous aider?"
+    - "Bonjour, vous avez joint {{entreprise}}. Comment puis-je vous assister?"
     
     **Saliente:**
-    - "Bonjour, puis-je parler à [Nom]? Je suis [Agent] de [Entreprise]."
-    - "Bonjour [Nom], je vous appelle de [Entreprise] concernant..."
+    - "Bonjour, puis-je parler à {{nom}}? Je suis {{agent}} de {{entreprise}}."
+    - "Bonjour {{nom}}, je vous appelle de {{entreprise}} concernant {{motif}}."
+  </Tab>
+  <Tab title="Alemán">
+    **Entrante:**
+    - "Vielen Dank für Ihren Anruf bei {{unternehmen}}. Wie kann ich Ihnen helfen?"
+    - "Hallo, Sie haben {{unternehmen}} erreicht. Wie kann ich Sie unterstützen?"
+    
+    **Saliente:**
+    - "Hallo, kann ich mit {{name}} sprechen? Hier ist {{agent}} von {{unternehmen}}."
+    - "Hallo {{name}}, ich rufe von {{unternehmen}} bezüglich {{grund}} an."
+  </Tab>
+  <Tab title="Italiano">
+    **Entrante:**
+    - "Grazie per aver chiamato {{azienda}}. Come posso aiutarla?"
+    - "Salve, ha contattato {{azienda}}. Come posso assisterla?"
+    
+    **Saliente:**
+    - "Salve, posso parlare con {{nome}}? Sono {{agente}} di {{azienda}}."
+    - "Ciao {{nome}}, la chiamo da {{azienda}} riguardo {{motivo}}."
+  </Tab>
+  <Tab title="Portugués">
+    **Entrante:**
+    - "Obrigado por ligar para {{empresa}}. Como posso ajudá-lo?"
+    - "Olá, você entrou em contato com {{empresa}}. Como posso auxiliá-lo?"
+    
+    **Saliente:**
+    - "Olá, posso falar com {{nome}}? Sou {{agente}} da {{empresa}}."
+    - "Oi {{nome}}, estou ligando da {{empresa}} sobre {{motivo}}."
   </Tab>
 </Tabs>
 
-### Usando Plantillas
+## Tipos de Saludos
+
+### Saludo Entrante (Determinístico)
+
+Se usa cuando un cliente llama a tu número de teléfono. Este saludo se pronuncia exactamente como está escrito, sin generación de IA.
+
+**Características:**
+- Es una frase fija y consistente
+- No varía entre llamadas
+- Se puede personalizar con parámetros dinámicos
+- Incluye opción de frase de fallback
+
+**Ejemplo:**
+```
+Gracias por llamar a {{empresa}}. Mi nombre es {{nombre_agente}}, 
+¿en qué puedo ayudarle hoy?
+```
+
+### Saludo Saliente (Determinístico)
+
+Se usa cuando tu agente inicia una llamada a un cliente. También es una frase fija que se pronuncia exactamente como está configurada.
+
+**Características:**
+- Mensaje consistente para todas las llamadas salientes
+- Debe incluir identificación y verificación
+- Puede usar parámetros para personalización
+- Incluye sistema de fallback
+
+**Ejemplo:**
+```
+Hola, ¿hablo con {{nombre_cliente}}? 
+Soy {{nombre_agente}} de {{empresa}}. Le llamo sobre 
+{{motivo_llamada}}.
+```
+
+## Configurando Saludos
 
 <Steps>
-  <Step title="Hacer Clic en Plantillas">
-    Haz clic en el botón "Plantillas" en la sección de Saludos.
+  <Step title="Acceder a la Sección de Saludos">
+    Navega a la sección de Saludos en el panel izquierdo (icono 👋).
   </Step>
-  <Step title="Seleccionar Idioma">
-    Elige el idioma que coincide con la configuración de tu agente.
+  <Step title="Seleccionar Template (Opcional)">
+    Haz clic en "Templates" y elige un template predefinido según tu idioma objetivo.
   </Step>
-  <Step title="Seleccionar Plantilla">
-    Elige una plantilla para llamadas entrantes o salientes.
+  <Step title="Configurar Saludo Entrante">
+    Ingresa tu mensaje de bienvenida para llamadas entrantes o personaliza el template seleccionado.
   </Step>
-  <Step title="Personalizar">
-    Modifica la plantilla para que coincida con el estilo de tu empresa.
+  <Step title="Configurar Saludo Saliente">
+    Escribe tu introducción para llamadas salientes con verificación de identidad.
+  </Step>
+  <Step title="Configurar Frases de Fallback">
+    Opcionalmente, añade frases alternativas para cuando falten parámetros.
+  </Step>
+  <Step title="Guardar Cambios">
+    Haz clic en Guardar para aplicar tus saludos.
   </Step>
 </Steps>
 
-## Consejos para Saludos
+## Usando Templates Predefinidos
 
-<AccordionGroup>
-  <Accordion title="Mantén Brevedad" icon="hourglass-half">
-    Saludos largos pueden frustrar a los llamantes. Apunta a 2-3 frases máximo.
-  </Accordion>
-  <Accordion title="Sé Profesional" icon="user-tie">
-    Usa lenguaje profesional que coincida con la voz de tu marca.
-  </Accordion>
-  <Accordion title="Indica Tu Propósito" icon="bullseye">
-    Para llamadas salientes, explica rápidamente por qué estás llamando.
-  </Accordion>
-  <Accordion title="Verifica Identidad" icon="id-card">
-    Para llamadas salientes, confirma que estás hablando con la persona correcta.
-  </Accordion>
-  <Accordion title="Coincide el Idioma" icon="language">
-    Asegúrate de que tu saludo coincide con el idioma configurado en tu agente.
-  </Accordion>
-</AccordionGroup>
+### Aplicar un Template
 
-## Mejores Prácticas
+<Steps>
+  <Step title="Abrir Selector de Templates">
+    Haz clic en el botón "Templates" junto a cada tipo de saludo.
+  </Step>
+  <Step title="Elegir Idioma">
+    Selecciona el template del idioma que coincida con tu mercado objetivo.
+  </Step>
+  <Step title="Aplicar Template">
+    El template se insertará automáticamente en el campo de texto.
+  </Step>
+  <Step title="Personalizar">
+    Modifica el template según las necesidades específicas de tu empresa.
+  </Step>
+</Steps>
 
-### Lo que SÍ hacer
+<Warning>
+Asegúrate de que el idioma del template coincida con la configuración de idioma de tu agente para mantener coherencia.
+</Warning>
 
-- ✅ Identifica tu empresa inmediatamente
-- ✅ Mantén saludos concisos
-- ✅ Usa lenguaje natural y conversacional
-- ✅ Incluye personalización cuando sea posible
-- ✅ Coincide el tono con tu marca
+## Parámetros Dinámicos
 
-### Lo que NO hacer
+Los parámetros dinámicos permiten personalizar los saludos con información específica de cada llamada.
 
-- ❌ Usar lenguaje demasiado formal o robótico
-- ❌ Hacer saludos demasiado largos
-- ❌ Incluir información innecesaria
-- ❌ Olvidar identificarte (saliente)
-- ❌ Saltar verificación (saliente)
+### Sintaxis de Parámetros
 
-## Ejemplos de Saludos por Industria
+Usa la sintaxis `{{nombre_parametro}}` para incluir parámetros dinámicos:
+
+```
+Hola {{nombre_cliente}}, soy {{nombre_agente}} de {{empresa}}. 
+Le llamo sobre su pedido {{numero_pedido}} que está 
+programado para entrega el {{fecha_entrega}}.
+```
+
+### Parámetros Comunes por Contexto
+
+#### Contexto Empresarial
+- `{{empresa}}` - Nombre de la empresa
+- `{{nombre_agente}}` - Nombre del agente
+- `{{departamento}}` - Departamento específico
+- `{{horario_atencion}}` - Horarios de atención
+
+#### Contexto de Cliente
+- `{{nombre_cliente}}` - Nombre del contacto
+- `{{apellido_cliente}}` - Apellido del contacto
+- `{{numero_cliente}}` - ID del cliente
+- `{{tipo_plan}}` - Plan contratado
+
+#### Contexto de Servicios
+- `{{servicio}}` - Servicio específico
+- `{{numero_ticket}}` - Número de ticket de soporte
+- `{{fecha_cita}}` - Fecha de cita programada
+- `{{motivo_llamada}}` - Razón de la llamada
+
+## Sistema de Frases de Fallback
+
+Las frases de fallback se utilizan cuando algún parámetro dinámico está vacío o no disponible, garantizando que la conversación fluya naturalmente.
+
+### Configurar Fallbacks
+
+<Steps>
+  <Step title="Activar Fallback">
+    Haz clic en "Fallback phrase (optional)" bajo cada tipo de saludo.
+  </Step>
+  <Step title="Escribir Frase Alternativa">
+    Ingresa una versión del saludo sin parámetros dinámicos o con parámetros genéricos.
+  </Step>
+  <Step title="Probar Escenarios">
+    Asegúrate de que el fallback funcione en diferentes situaciones.
+  </Step>
+</Steps>
+
+**Ejemplo de Fallback:**
+
+**Saludo principal:**
+```
+Hola {{nombre_cliente}}, soy {{nombre_agente}} de {{empresa}}.
+```
+
+**Saludo de fallback:**
+```
+Hola, soy el asistente virtual de {{empresa}}. ¿En qué puedo ayudarle?
+```
+
+<Info>
+El sistema automáticamente usa el fallback cuando detecta que algún parámetro requerido está vacío.
+</Info>
+
+## Consideraciones Culturales por Idioma
+
+### Español (Contexto Hispanoamericano)
+- Usa formas de cortesía apropiadas ("¿En qué puedo ayudarle?")
+- Incluye identificación clara de la empresa
+- Mantén un tono formal pero cordial
+
+### Inglés (Contexto Internacional)
+- Sé directo pero profesional
+- Usa "How may I help you?" para soporte
+- Incluye verificación clara en llamadas salientes
+
+### Francés (Contexto Francófono)
+- Respeta las formas de cortesía francesas
+- Usa "Comment puis-je vous aider?" estándar
+- Mantén estructura formal en presentaciones
+
+### Alemán (Contexto Alemán/Austriaco)
+- Usa formas de tratamiento apropiadas (Sie/Du)
+- Estructura formal en presentaciones empresariales
+- Claridad en identificación y propósito
+
+### Italiano (Contexto Italiano)
+- Balance entre cordialidad y profesionalismo
+- Uso apropiado de "Lei" formal
+- Presentación clara del agente y empresa
+
+### Portugués (Brasil/Portugal)
+- Adapta según región (Brasil vs Portugal)
+- Cordialidad característica de la cultura
+- Identificación clara y propósito específico
+
+## Mejores Prácticas por Industria
 
 ### Soporte al Cliente
-**Entrante:**
-```
-Gracias por llamar al Soporte de Acme. Mi nombre es Sara. 
-¿En qué puedo ayudarle hoy?
-```
+<Tabs>
+  <Tab title="Entrante">
+    ```
+    Gracias por contactar el soporte de {{empresa}}. 
+    Soy {{nombre_agente}}, ¿en qué puedo ayudarle con su consulta hoy?
+    ```
+  </Tab>
+  <Tab title="Saliente">
+    ```
+    Hola {{nombre_cliente}}, le llamo del soporte técnico de {{empresa}} 
+    para hacer seguimiento a su ticket {{numero_ticket}}.
+    ```
+  </Tab>
+</Tabs>
 
 ### Ventas
-**Saliente:**
-```
-Hola, ¿hablo con {{nombre_cliente}}? ¡Genial! Soy Sara 
-de Acme Corp. Le contacto porque recientemente mostró 
-interés en nuestros servicios. ¿Tiene un momento para hablar?
-```
+<Tabs>
+  <Tab title="Entrante">
+    ```
+    Hola, gracias por su interés en {{empresa}}. 
+    Soy {{nombre_agente}}, ¿cómo puedo ayudarle a encontrar la solución perfecta?
+    ```
+  </Tab>
+  <Tab title="Saliente">
+    ```
+    Hola {{nombre_cliente}}, soy {{nombre_agente}} de {{empresa}}. 
+    Le contacto porque mostró interés en {{servicio}}. ¿Tiene un momento para hablar?
+    ```
+  </Tab>
+</Tabs>
 
-### Citas
-**Saliente:**
-```
-Hola {{nombre_cliente}}, soy Sara llamando de la 
-consulta del Dr. García. Le llamo para confirmar su 
-cita del {{fecha_cita}} a las {{hora_cita}}.
-```
+### Servicios de Salud
+<Tabs>
+  <Tab title="Entrante">
+    ```
+    Gracias por llamar a {{clinica}}. Soy {{nombre_agente}}, 
+    ¿en qué puedo ayudarle con su consulta médica hoy?
+    ```
+  </Tab>
+  <Tab title="Saliente">
+    ```
+    Hola {{nombre_paciente}}, le llamo de {{clinica}} 
+    para confirmar su cita del {{fecha_cita}} con {{doctor}}.
+    ```
+  </Tab>
+</Tabs>
 
-### Cobros
-**Saliente:**
-```
-Hola, ¿puedo hablar con {{nombre_cliente}}? Esta es 
-una llamada de cortesía de Acme Financiera respecto a su cuenta.
-```
+### Servicios Financieros
+<Tabs>
+  <Tab title="Entrante">
+    ```
+    Gracias por contactar {{banco}}. Soy {{nombre_agente}}, 
+    ¿cómo puedo asistirle con sus necesidades financieras?
+    ```
+  </Tab>
+  <Tab title="Saliente">
+    ```
+    Hola {{nombre_cliente}}, le llamo de {{banco}} 
+    respecto a su consulta sobre {{producto_financiero}}.
+    ```
+  </Tab>
+</Tabs>
+
+## Optimización y Testing
+
+### Testeo de Parámetros
+
+<Steps>
+  <Step title="Verificar Disponibilidad">
+    Asegúrate de que todos los parámetros usados estén disponibles en tu sistema.
+  </Step>
+  <Step title="Probar Escenarios Vacíos">
+    Testa qué sucede cuando algunos parámetros están vacíos.
+  </Step>
+  <Step title="Validar Fallbacks">
+    Confirma que las frases de fallback suenan naturales.
+  </Step>
+  <Step title="Revisar Coherencia">
+    Verifica que el tono sea consistente entre saludo principal y fallback.
+  </Step>
+</Steps>
+
+### Monitoreo de Efectividad
+
+Revisa regularmente:
+- Tasas de respuesta positiva
+- Tiempo hasta primera interacción significativa
+- Feedback de clientes sobre claridad
+- Efectividad por idioma/región
+
+## Lo que SÍ hacer
+
+- ✅ Usar templates como punto de partida
+- ✅ Configurar frases de fallback robustas
+- ✅ Adaptar el tono al contexto cultural
+- ✅ Incluir verificación en llamadas salientes
+- ✅ Testear con parámetros vacíos
+- ✅ Mantener consistencia de marca
+- ✅ Usar parámetros para personalización
+
+## Lo que NO hacer
+
+- ❌ Omitir configuración de fallbacks
+- ❌ Usar parámetros no disponibles
+- ❌ Mezclar idiomas en un mismo saludo
+- ❌ Hacer saludos excesivamente largos
+- ❌ Ignorar diferencias culturales
+- ❌ Saltar verificación de identidad (saliente)
+- ❌ Usar jerga inapropiada para el contexto
 
 ## Siguientes Pasos
 
@@ -201,9 +375,16 @@ una llamada de cortesía de Acme Financiera respecto a su cuenta.
   <Card
     title="Prompt del Sistema"
     icon="file-lines"
-    href="/es/getting-started/create-agent#prompt-del-sistema"
+    href="/es/advanced-editor/system-prompt"
   >
     Define la personalidad del agente
+  </Card>
+  <Card
+    title="Parámetros de Entrada"
+    icon="sliders"
+    href="/es/advanced-editor/input-parameters"
+  >
+    Configura datos dinámicos
   </Card>
   <Card
     title="Evaluaciones"
@@ -211,5 +392,12 @@ una llamada de cortesía de Acme Financiera respecto a su cuenta.
     href="/es/advanced-editor/evaluations"
   >
     Prueba efectividad de saludos
+  </Card>
+  <Card
+    title="Configuración Avanzada"
+    icon="gear"
+    href="/es/advanced-editor/advanced-configuration"
+  >
+    Ajustes adicionales del agente
   </Card>
 </CardGroup>

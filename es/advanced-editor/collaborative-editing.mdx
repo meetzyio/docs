@@ -1,0 +1,604 @@
+---
+title: "Edición Colaborativa"
+description: "Trabaja en equipo en tiempo real con control de versiones similar a Git"
+icon: "users"
+---
+
+La edición colaborativa de Meetzy permite que múltiples miembros del equipo trabajen simultáneamente en el mismo agente, con un sistema de control de versiones robusto que previene conflictos y mantiene un historial completo de cambios.
+
+## Cómo Funciona
+
+<Info>
+El sistema de colaboración utiliza conceptos similares a Git para manejar cambios locales, remotos y resolver conflictos automáticamente.
+</Info>
+
+### Estados de Colaboración
+
+El editor muestra diferentes estados que indican el estado actual de colaboración:
+
+- **Clean**: No hay cambios locales ni remotos pendientes
+- **Modified**: Tienes cambios locales sin publicar
+- **Conflict**: Hay conflictos que requieren resolución manual
+- **Syncing**: Sincronizando cambios con el servidor
+- **Locked**: Otro usuario está editando activamente
+
+### Indicadores Visuales
+
+El header del editor muestra información de estado en tiempo real:
+
+```tsx
+// Estado actual mostrado en la interfaz
+<div class="git-status-indicator">
+  <div class="status-badge">
+    Modified (3) // Número de campos modificados
+  </div>
+  <span class="version-info">v12</span> // Versión local
+</div>
+```
+
+## Flujo de Trabajo Colaborativo
+
+<Steps>
+<Step title="Realizar Cambios Localmente">
+Edita cualquier campo del agente. Los cambios se rastrean automáticamente y se marcan como "modificados".
+
+```tsx
+// Cambios rastreados automáticamente
+private trackChange(field: string, value: any): void {
+  this.localChanges.set(field, value);
+  this.updateGitStatus();
+}
+```
+</Step>
+
+<Step title="Verificar Actualizaciones Remotas">
+Usa el botón "Check" para verificar si otros usuarios han realizado cambios.
+
+```tsx
+async checkForUpdates(): Promise<void> {
+  this.gitStatus = 'syncing';
+  const remoteVersion = await this.fetchRemoteVersion();
+  
+  if (remoteVersion > this.localVersion) {
+    this.hasRemoteChanges = true;
+    this.showConflictResolution();
+  }
+}
+```
+</Step>
+
+<Step title="Sincronizar Cambios">
+Utiliza "Pull" para obtener cambios remotos o "Commit" para publicar tus cambios locales.
+</Step>
+
+<Step title="Resolver Conflictos">
+Si hay conflictos, el sistema te guiará a través del proceso de resolución.
+</Step>
+</Steps>
+
+## Detección de Conflictos Avanzada
+
+### Análisis de Dependencias de Campo
+
+El sistema ahora detecta automáticamente qué campos están relacionados para prevenir conflictos sutiles:
+
+<Warning>
+Los conflictos de dependencia pueden ocurrir cuando cambios aparentemente independientes afectan la funcionalidad del agente.
+</Warning>
+
+```typescript
+interface FieldDependency {
+  sourceField: string;
+  dependentFields: string[];
+  conflictType: 'semantic' | 'structural' | 'functional';
+}
+
+// Ejemplo de detección de dependencias
+const promptDependencies: FieldDependency[] = [
+  {
+    sourceField: 'instructions',
+    dependentFields: ['greeting_inbound_prompt', 'greeting_outbound_prompt'],
+    conflictType: 'semantic'
+  },
+  {
+    sourceField: 'input_schema',
+    dependentFields: ['instructions', 'output_schema'],
+    conflictType: 'structural'
+  }
+];
+```
+
+### Validación Semántica en Tiempo Real
+
+<Tabs>
+<Tab title="Análisis de Coherencia">
+El sistema valida que los cambios mantengan coherencia semántica:
+
+```typescript
+interface SemanticValidation {
+  field: string;
+  content: string;
+  conflicts: SemanticConflict[];
+  suggestions: string[];
+}
+
+interface SemanticConflict {
+  type: 'contradiction' | 'inconsistency' | 'ambiguity';
+  description: string;
+  severity: 'high' | 'medium' | 'low';
+  affectedFields: string[];
+}
+
+// Ejemplo de validación
+async validateSemanticCoherence(changes: Map<string, any>): Promise<SemanticValidation[]> {
+  const validations: SemanticValidation[] = [];
+  
+  // Verificar coherencia entre instrucciones y prompts
+  if (changes.has('instructions') && changes.has('greeting_inbound_prompt')) {
+    const instructions = changes.get('instructions');
+    const greeting = changes.get('greeting_inbound_prompt');
+    
+    const conflicts = await this.detectSemanticConflicts(instructions, greeting);
+    if (conflicts.length > 0) {
+      validations.push({
+        field: 'greeting_inbound_prompt',
+        content: greeting,
+        conflicts,
+        suggestions: await this.generateCoherenceSuggestions(instructions, greeting)
+      });
+    }
+  }
+  
+  return validations;
+}
+```
+</Tab>
+
+<Tab title="Detección de Contradicciones">
+Identifica automáticamente instrucciones contradictorias entre cambios:
+
+```typescript
+class ContradictionDetector {
+  async detectContradictions(localChanges: Map<string, any>, remoteChanges: Map<string, any>): Promise<Contradiction[]> {
+    const contradictions: Contradiction[] = [];
+    
+    // Analizar cambios en instrucciones
+    if (localChanges.has('instructions') && remoteChanges.has('instructions')) {
+      const localInstructions = localChanges.get('instructions');
+      const remoteInstructions = remoteChanges.get('instructions');
+      
+      const semanticAnalysis = await this.analyzeSemanticDifference(
+        localInstructions, 
+        remoteInstructions
+      );
+      
+      if (semanticAnalysis.hasContradiction) {
+        contradictions.push({
+          type: 'semantic',
+          field: 'instructions',
+          localValue: localInstructions,
+          remoteValue: remoteInstructions,
+          contradictionReason: semanticAnalysis.reason,
+          severity: 'high',
+          resolutionSuggestions: semanticAnalysis.suggestions
+        });
+      }
+    }
+    
+    return contradictions;
+  }
+}
+```
+</Tab>
+</Tabs>
+
+## Sincronización Inteligente
+
+### Merge Automático Contextual
+
+El sistema ahora puede fusionar automáticamente cambios compatibles usando contexto semántico:
+
+```typescript
+interface IntelligentMerge {
+  canAutoMerge: boolean;
+  mergeStrategy: 'append' | 'prepend' | 'interleave' | 'semantic_merge';
+  mergedContent: string;
+  confidence: number; // 0-1
+  humanReviewRequired: boolean;
+}
+
+class SmartMergeEngine {
+  async attemptIntelligentMerge(
+    baseValue: string,
+    localValue: string, 
+    remoteValue: string,
+    fieldType: 'instructions' | 'prompt' | 'schema'
+  ): Promise<IntelligentMerge> {
+    
+    // Análisis contextual del contenido
+    const localChanges = await this.extractSemanticChanges(baseValue, localValue);
+    const remoteChanges = await this.extractSemanticChanges(baseValue, remoteValue);
+    
+    // Verificar compatibilidad
+    const compatibility = await this.checkChangeCompatibility(localChanges, remoteChanges);
+    
+    if (compatibility.score > 0.8) {
+      // Intentar merge automático
+      const mergedContent = await this.performSemanticMerge(
+        baseValue, 
+        localChanges, 
+        remoteChanges,
+        fieldType
+      );
+      
+      return {
+        canAutoMerge: true,
+        mergeStrategy: compatibility.recommendedStrategy,
+        mergedContent,
+        confidence: compatibility.score,
+        humanReviewRequired: compatibility.score < 0.95
+      };
+    }
+    
+    return {
+      canAutoMerge: false,
+      mergeStrategy: 'manual',
+      mergedContent: baseValue,
+      confidence: 0,
+      humanReviewRequired: true
+    };
+  }
+}
+```
+
+### Propagación de Cambios Relacionados
+
+<Info>
+Como la segunda ley de la termodinámica: la información sobre cambios debe propagarse uniformemente a través de campos relacionados.
+</Info>
+
+```typescript
+interface ChangePropagatIon {
+  sourceChange: FieldChange;
+  propagatedChanges: PropagatedChange[];
+  propagationRules: PropagationRule[];
+}
+
+interface PropagatedChange {
+  targetField: string;
+  suggestedValue: any;
+  reason: string;
+  confidence: number;
+  autoApply: boolean;
+}
+
+class ChangePropagationEngine {
+  async propagateChange(change: FieldChange): Promise<ChangePropagatIon> {
+    const propagationRules = this.getApplicableRules(change.field);
+    const propagatedChanges: PropagatedChange[] = [];
+    
+    for (const rule of propagationRules) {
+      const suggestion = await this.generatePropagationSuggestion(change, rule);
+      if (suggestion.confidence > 0.7) {
+        propagatedChanges.push(suggestion);
+      }
+    }
+    
+    return {
+      sourceChange: change,
+      propagatedChanges,
+      propagationRules
+    };
+  }
+  
+  // Ejemplo: cambios en input_schema deben reflejarse en instructions
+  private getApplicableRules(field: string): PropagationRule[] {
+    const rules: Record<string, PropagationRule[]> = {
+      'input_schema': [
+        {
+          targetField: 'instructions',
+          type: 'parameter_update',
+          description: 'Actualizar instrucciones para reflejar nuevos parámetros',
+          autoApply: false
+        }
+      ],
+      'tools': [
+        {
+          targetField: 'instructions',
+          type: 'tool_integration',
+          description: 'Incorporar nuevas herramientas en las instrucciones',
+          autoApply: false
+        }
+      ]
+    };
+    
+    return rules[field] || [];
+  }
+}
+```
+
+## Gestión de Conflictos Avanzada
+
+### Resolución Asistida por IA
+
+El sistema ahora ofrece sugerencias inteligentes para resolver conflictos:
+
+<Steps>
+<Step title="Análisis Contextual del Conflicto">
+```typescript
+interface ConflictAnalysis {
+  conflictType: 'semantic' | 'structural' | 'functional' | 'stylistic';
+  severity: 'critical' | 'important' | 'minor';
+  affectedFunctionality: string[];
+  resolutionOptions: ResolutionOption[];
+}
+
+interface ResolutionOption {
+  type: 'accept_local' | 'accept_remote' | 'merge_intelligent' | 'custom';
+  description: string;
+  pros: string[];
+  cons: string[];
+  confidence: number;
+  previewContent?: string;
+}
+```
+</Step>
+
+<Step title="Generación de Opciones de Resolución">
+```typescript
+async generateResolutionOptions(conflict: SemanticConflict): Promise<ResolutionOption[]> {
+  const options: ResolutionOption[] = [];
+  
+  // Opción 1: Mantener cambios locales
+  options.push({
+    type: 'accept_local',
+    description: 'Conservar tus cambios y descartar los remotos',
+    pros: ['Mantiene tu trabajo actual', 'Sin pérdida de progreso local'],
+    cons: ['Puede sobrescribir mejoras importantes de otros'],
+    confidence: 0.6
+  });
+  
+  // Opción 2: Aceptar cambios remotos
+  options.push({
+    type: 'accept_remote',
+    description: 'Adoptar los cambios del equipo y descartar los tuyos',
+    pros: ['Mantiene coherencia con el equipo', 'Incorpora últimas mejoras'],
+    cons: ['Pérdida de tu trabajo actual'],
+    confidence: 0.7
+  });
+  
+  // Opción 3: Merge inteligente (si es posible)
+  const smartMerge = await this.attemptIntelligentMerge(
+    conflict.baseValue,
+    conflict.localValue,
+    conflict.remoteValue
+  );
+  
+  if (smartMerge.canAutoMerge) {
+    options.push({
+      type: 'merge_intelligent',
+      description: 'Fusión automática inteligente de ambos cambios',
+      pros: ['Preserva lo mejor de ambas versiones', 'Resolución automática'],
+      cons: ['Requiere validación manual', 'Puede introducir inconsistencias'],
+      confidence: smartMerge.confidence,
+      previewContent: smartMerge.mergedContent
+    });
+  }
+  
+  return options;
+}
+```
+</Step>
+
+<Step title="Vista Previa de Resolución">
+```typescript
+interface ConflictPreview {
+  resolvedContent: string;
+  highlightedChanges: ChangeHighlight[];
+  impactAssessment: ImpactAssessment;
+}
+
+interface ChangeHighlight {
+  type: 'addition' | 'deletion' | 'modification';
+  lineStart: number;
+  lineEnd: number;
+  content: string;
+  source: 'local' | 'remote' | 'merged';
+}
+
+interface ImpactAssessment {
+  affectedFeatures: string[];
+  riskLevel: 'low' | 'medium' | 'high';
+  validationRequired: boolean;
+  testSuggestions: string[];
+}
+```
+</Step>
+</Steps>
+
+### Validación Post-Resolución
+
+<Warning>
+Después de resolver conflictos, se ejecuta automáticamente una validación integral para asegurar la coherencia del agente.
+</Warning>
+
+```typescript
+class PostResolutionValidator {
+  async validateResolution(resolvedAssistant: Assistant): Promise<ValidationResult> {
+    const validations = await Promise.all([
+      this.validateSemanticCoherence(resolvedAssistant),
+      this.validateStructuralIntegrity(resolvedAssistant),
+      this.validateFunctionalCompatibility(resolvedAssistant),
+      this.validatePromptConsistency(resolvedAssistant)
+    ]);
+    
+    return {
+      isValid: validations.every(v => v.isValid),
+      errors: validations.flatMap(v => v.errors),
+      warnings: validations.flatMap(v => v.warnings),
+      suggestions: validations.flatMap(v => v.suggestions),
+      autoFixAvailable: validations.some(v => v.autoFixAvailable)
+    };
+  }
+  
+  private async validateSemanticCoherence(assistant: Assistant): Promise<ValidationResult> {
+    // Validar que instructions, prompts y schema sean coherentes
+    const coherenceIssues = await this.analyzeSemanticCoherence({
+      instructions: assistant.instructions,
+      greeting_inbound: assistant.greeting_inbound_prompt,
+      greeting_outbound: assistant.greeting_outbound_prompt,
+      input_schema: assistant.input_schema,
+      output_schema: assistant.output_schema
+    });
+    
+    return {
+      isValid: coherenceIssues.length === 0,
+      errors: coherenceIssues.filter(i => i.severity === 'critical'),
+      warnings: coherenceIssues.filter(i => i.severity === 'warning'),
+      suggestions: coherenceIssues.map(i => i.suggestion),
+      autoFixAvailable: coherenceIssues.some(i => i.autoFixable)
+    };
+  }
+}
+```
+
+## Mejores Prácticas Avanzadas
+
+### Estrategias de Colaboración Efectiva
+
+<Tabs>
+<Tab title="Flujo de Trabajo por Funcionalidad">
+Organiza el trabajo en equipo por áreas funcionales del agente:
+
+```typescript
+interface FunctionalArea {
+  name: string;
+  fields: string[];
+  owner?: string;
+  collaborators: string[];
+  dependencies: string[];
+}
+
+const functionalAreas: FunctionalArea[] = [
+  {
+    name: 'Conversación Principal',
+    fields: ['instructions', 'greeting_inbound_prompt', 'greeting_outbound_prompt'],
+    collaborators: ['conversation_designer', 'ux_writer'],
+    dependencies: ['Parámetros de Entrada', 'Herramientas']
+  },
+  {
+    name: 'Parámetros de Entrada',
+    fields: ['input_schema'],
+    owner: 'backend_developer',
+    collaborators: ['conversation_designer'],
+    dependencies: []
+  },
+  {
+    name: 'Herramientas',
+    fields: ['tools'],
+    owner: 'integration_specialist',
+    collaborators: ['backend_developer'],
+    dependencies: ['Parámetros de Entrada']
+  }
+];
+```
+</Tab>
+
+<Tab title="Control de Versiones Semántico">
+Utiliza versionado semántico para cambios del agente:
+
+```typescript
+interface SemanticVersion {
+  major: number; // Cambios incompatibles (ej: schema breaking changes)
+  minor: number; // Nueva funcionalidad compatible (ej: nuevas tools)
+  patch: number; // Correcciones y mejoras menores
+}
+
+interface VersionedChange {
+  version: SemanticVersion;
+  changeType: 'major' | 'minor' | 'patch';
+  description: string;
+  affectedFields: string[];
+  breakingChanges: string[];
+  migrationRequired: boolean;
+}
+
+function determineVersionBump(changes: Map<string, any>): VersionedChange {
+  let changeType: 'major' | 'minor' | 'patch' = 'patch';
+  const affectedFields = Array.from(changes.keys());
+  const breakingChanges: string[] = [];
+  
+  // Cambios major: modificaciones en input_schema que rompen compatibilidad
+  if (changes.has('input_schema')) {
+    const schemaChange = analyzeSchemaChange(changes.get('input_schema'));
+    if (schemaChange.isBreaking) {
+      changeType = 'major';
+      breakingChanges.push('Input schema modificado de forma incompatible');
+    }
+  }
+  
+  // Cambios minor: nuevas tools o funcionalidades
+  if (changes.has('tools') && changeType !== 'major') {
+    const toolsChange = analyzeToolsChange(changes.get('tools'));
+    if (toolsChange.hasNewTools) {
+      changeType = 'minor';
+    }
+  }
+  
+  return {
+    version: calculateNewVersion(getCurrentVersion(), changeType),
+    changeType,
+    description: generateChangeDescription(changes),
+    affectedFields,
+    breakingChanges,
+    migrationRequired: changeType === 'major'
+  };
+}
+```
+</Tab>
+</Tabs>
+
+### Monitoreo y Métricas de Colaboración
+
+```typescript
+interface CollaborationMetrics {
+  teamProductivity: {
+    conflictsPerDay: number;
+    resolutionTime: number; // minutos promedio
+    autoMergeSuccessRate: number;
+  };
+  qualityMetrics: {
+    semanticCoherenceScore: number;
+    validationErrorRate: number;
+    rollbackFrequency: number;
+  };
+  teamDynamics: {
+    contributionsPerMember: Record<string, number>;
+    conflictResolutionApproach: Record<string, number>;
+    communicationPatterns: CollaborationPattern[];
+  };
+}
+
+interface CollaborationPattern {
+  pattern: 'simultaneous_edit' | 'sequential_handoff' | 'review_based';
+  frequency: number;
+  successRate: number;
+  averageConflicts: number;
+}
+
+// Dashboard de métricas de colaboración
+class CollaborationDashboard {
+  async generateInsights(assistantId: string, timeframe: string): Promise<CollaborationInsights> {
+    const metrics = await this.collectMetrics(assistantId, timeframe);
+    
+    return {
+      recommendations: this.generateRecommendations(metrics),
+      riskAreas: this.identifyRiskAreas(metrics),
+      successPatterns: this.identifySuccessPatterns(metrics),
+      teamOptimizations: this.suggestTeamOptimizations(metrics)
+    };
+  }
+}
+```
+
+La edición colaborativa avanzada de Meetzy ahora incorpora inteligencia artificial para detectar conflictos sutiles, propagar cambios relacionados automáticamente, y asistir en la resolución de conflictos complejos. Como en la termodinámica, la información fluye naturalmente hacia un estado de equilibrio y coherencia en todo el sistema.
