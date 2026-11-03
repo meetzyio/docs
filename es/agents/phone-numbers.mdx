@@ -192,36 +192,177 @@ Un agente puede tener varios números asignados, incluyendo mezclas de números 
 2. Números Twilio con mejor Phone Health
 3. Números disponibles por orden de asignación
 
+## Panel de Números de Salida (Outbound Numbers)
+
+Dentro del Editor Avanzado, en el panel lateral izquierdo encontrarás la sección **"Outbound numbers"**: una vista centrada exclusivamente en los números desde los que el agente realiza llamadas salientes.
+
+<Info>
+  Este panel no es un campo más de la configuración del agente que se guarda y publica como una versión: los cambios se aplican **al instante**, porque determinan con qué número sale la próxima llamada real.
+</Info>
+
+### Lista en Rotación
+
+La lista principal muestra los números que el agente está usando **ahora mismo** para llamar. Para cada número verás:
+
+- **El número en formato internacional** (E.164)
+- **Una etiqueta de tipo**: por ejemplo `400`, `Móvil`, `800/900`, `Geográfico` o `Extranjero`
+- **La etiqueta "Line"** si es una línea comprada de la bolsa de Meetzy
+- **La etiqueta "Temporary use"** si es un número 400 de uso temporal que puede cambiar
+- **"Also used by N other agents"** si ese mismo número también está asignado a otros agentes de la cuenta
+
+```
++34 910 000 000  [400]  [Temporary use]
+Also used by 2 other agents
+
++34 600 000 000  [verified]
+Main office
+```
+
+<Warning>
+  Desde este panel solo puedes quitar **caller IDs** (números propios verificados). Las líneas compradas a Meetzy ("Line") se gestionan desde la configuración de teléfono del agente, no desde aquí.
+</Warning>
+
+### Banner de Estado
+
+Justo encima de la lista aparece una frase que resume, en una sola línea, cómo está llamando el agente ahora mismo:
+
+| Situación | Mensaje |
+|-----------|---------|
+| Cuenta mal configurada | "Este agente aún no tiene cuenta de teléfono configurada. Contacta con el equipo de Meetzy." |
+| Agente de atención al cliente | "Meetzy configuró este agente para llamadas de atención al cliente, así que llama desde números fijos." |
+| Modo "solo 400" activo y con número 400 | "Llamadas solo desde números 400" |
+| Modo "solo 400" activo pero sin número 400 | "Este agente todavía no puede hacer llamadas. Añade al menos un número 400." |
+| Hay números en rotación | "Llama desde los números de abajo. Si añades un número 400, llamará solo desde números 400." |
+| Sin números | "Todavía no hay números." |
+
+### Añadir Números
+
+<Steps>
+  <Step title="Abrir el selector">
+    Haz clic en **"Add numbers"** para desplegar la lista de números disponibles para añadir.
+  </Step>
+  <Step title="Seleccionar uno o varios">
+    Marca los números que quieras añadir. Solo se muestran **caller IDs** ya verificados y disponibles; las líneas de Meetzy no aparecen aquí.
+  </Step>
+  <Step title="Confirmar">
+    El sistema aplica el cambio de inmediato y muestra cuántos números se añadieron correctamente.
+  </Step>
+</Steps>
+
+<Info>
+  Si algún número no pudo añadirse (por ejemplo, porque ya no está disponible), verás el detalle junto al número y el motivo del fallo.
+</Info>
+
+### Eliminar un Número
+
+Cada caller ID de la lista en rotación tiene un botón **"Remove"** junto a él. Al eliminarlo:
+
+- Se desvincula de este agente
+- Sigue verificado en tu cuenta y disponible para asignarlo a otros agentes
+- Si era el único número en rotación, el agente deja de poder realizar llamadas salientes hasta que añadas otro
+
+### Copiar Números a Otros Agentes
+
+Puedes replicar rápidamente la configuración de números de un agente hacia otros agentes de la misma cuenta:
+
+<Steps>
+  <Step title="Abrir Copy to other agents">
+    Haz clic en el botón **"Copy to other agents"**.
+  </Step>
+  <Step title="Elegir agentes de destino">
+    Selecciona uno o varios agentes de la lista. Cada agente muestra cuántos números tiene ya asignados y si cuenta con un 400.
+  </Step>
+  <Step title="Confirmar la copia">
+    El sistema intenta añadir los mismos números a cada agente seleccionado y muestra un resultado individual por agente.
+  </Step>
+</Steps>
+
+**Resultados posibles por agente:**
+
+| Resultado | Significado |
+|-----------|--------------|
+| `ok` | Los números se añadieron correctamente |
+| `sin_cambios` | El agente ya tenía esos números |
+| `no_permitido` | La política de la cuenta o del agente impide añadir alguno de los números |
+| `error` | Ocurrió un problema al aplicar el cambio |
+
+### Verificar tu Propio Número (Add Your Own Number)
+
+Si quieres llamar desde un número que ya posees (por ejemplo, tu línea de oficina), puedes verificarlo directamente desde este panel:
+
+<Steps>
+  <Step title="Abrir el formulario">
+    Haz clic en **"Add your own number"**.
+  </Step>
+  <Step title="Introducir los datos">
+    Indica el número en formato internacional (ej. `+34910000000`) y, opcionalmente, un nombre identificativo (ej. "Oficina principal").
+  </Step>
+  <Step title="Recibir la llamada de verificación">
+    Haz clic en **"Call me with the code"**. El sistema llamará a ese número con un código de 6 dígitos.
+  </Step>
+  <Step title="Confirmar el código">
+    Contesta la llamada, anota el código y confírmalo en el panel. El número queda verificado y añadido automáticamente al agente (si es compatible con su configuración actual).
+  </Step>
+</Steps>
+
+<Warning>
+  Los números **400 no pueden verificarse** mediante este proceso de llamada, ya que no pueden recibir llamadas de verificación. Si necesitas añadir un número 400 propio, [abre una solicitud](/es/dashboard/tickets) y el equipo de Meetzy lo añadirá manualmente.
+</Warning>
+
+<Info>
+  Si el número se verifica correctamente pero no puede asignarse a este agente en concreto (por ejemplo, por una incompatibilidad de política), el panel te indicará el motivo. El número seguirá disponible para asignarlo a tus otros agentes.
+</Info>
+
+### Política de Cuenta "Solo 400"
+
+Algunas cuentas tienen activado un modo especial, gestionado por el equipo de Meetzy, llamado **"solo 400"**:
+
+- Cuando este modo está activo y el agente tiene **al menos un número 400** en su rotación, el agente **llama exclusivamente desde números 400**, aunque tenga otros caller IDs verificados asignados.
+- Los caller IDs que dejan de usarse por esta razón **no se eliminan**: siguen apareciendo en la vista de números antiguos, por si el modo cambia en el futuro.
+- Si el agente aún no tiene ningún número 400, el panel te avisará de que el agente no podrá realizar llamadas salientes hasta que se añada uno.
+
+<Info>
+  El modo "solo 400" se activa a nivel de cuenta o se marca directamente en un agente concreto. No es algo que puedas activar tú mismo desde la interfaz: contacta con el equipo de Meetzy si necesitas cambiarlo.
+</Info>
+
+#### Agentes de Atención al Cliente
+
+Algunos agentes están configurados específicamente para llamadas de **atención al cliente** por el equipo de Meetzy. En estos casos:
+
+- El agente **no admite números 400**, independientemente de la política de la cuenta
+- Siempre llama desde números fijos (geográficos)
+- Esta configuración está bloqueada y solo puede cambiarla el equipo de Meetzy
+
 ## Verificación de Caller IDs
 
 Para usar tus propios números telefónicos como Caller IDs:
 
 <Steps>
   <Step title="Acceder a Verificación">
-    En el Editor Avanzado, sección Settings, busca "Add Caller ID".
+    En el Editor Avanzado, en el panel **Outbound numbers**, haz clic en **"Add your own number"**.
   </Step>
   <Step title="Introducir Número">
-    Ingresa el número telefónico propio en formato internacional (+34612345678).
+    Ingresa el número telefónico propio en formato internacional (+34612345678) y, opcionalmente, un nombre descriptivo.
   </Step>
   <Step title="Recibir Llamada de Verificación">
-    Twilio realizará una llamada automática al número proporcionado.
+    Twilio realizará una llamada automática al número proporcionado con un código de 6 dígitos.
   </Step>
   <Step title="Introducir Código">
-    Anota el código de verificación de 6 dígitos y introdúcelo en el formulario.
+    Anota el código de verificación y confírmalo en el formulario.
   </Step>
   <Step title="Completar Verificación">
-    Una vez verificado, el número aparecerá disponible como "(verified)" en el dropdown.
+    Una vez verificado, el número queda añadido a la rotación del agente y disponible como "(verified)" en el resto de la interfaz.
   </Step>
 </Steps>
 
 ### Estados de Caller ID
 
-- **Pending**: Verificación en proceso
+- **Pending**: Verificación en proceso (esperando la llamada o el código)
 - **Verified**: Listo para usar en llamadas salientes
 - **Disabled**: Temporalmente deshabilitado
 
 <Info>
-  Los Caller IDs verificados deben ser números telefónicos reales bajo tu control. No pueden ser números gratuitos ni líneas especiales.
+  Los Caller IDs verificados deben ser números telefónicos reales bajo tu control. No pueden ser números gratuitos, líneas especiales ni números 400.
 </Info>
 
 ## Intercambiar Números (Swap)
@@ -434,17 +575,17 @@ Ordena la lista por:
 
 ## Solicitar Nuevos Números
 
-Para solicitar números Twilio adicionales:
+Para solicitar números Twilio adicionales, incluidos números 400 que no pueden verificarse por llamada:
 
 <Steps>
   <Step title="Acceder al formulario">
-    En el Editor Avanzado, sección Settings, haz clic en **"Request more numbers"**.
+    En el Editor Avanzado, sección Settings (o desde el panel Outbound numbers si es un 400), haz clic en **"Request more numbers"** o abre una solicitud.
   </Step>
   <Step title="Especificar requisitos">
-    Indica cuántos números necesitas y para qué subcuenta.
+    Indica cuántos números necesitas, el tipo (400, geográfico, etc.) y para qué subcuenta.
   </Step>
   <Step title="Enviar solicitud">
-    Serás redirigido al portal de solicitud para completar el proceso.
+    Serás redirigido al portal de solicitud (o a la sección de Tickets) para completar el proceso.
   </Step>
   <Step title="Esperar aprovisionamiento">
     Los números nuevos suelen estar disponibles en 24-48 horas.
@@ -452,7 +593,7 @@ Para solicitar números Twilio adicionales:
 </Steps>
 
 <Info>
-  Este proceso solo aplica a números Twilio administrados por Meetzy. Para usar tus propios números, utiliza el proceso de verificación de Caller ID.
+  Este proceso solo aplica a números Twilio administrados por Meetzy, incluidos los 400. Para usar tus propios números que no sean 400, utiliza el proceso de verificación de Caller ID desde el panel Outbound numbers.
 </Info>
 
 ## Mejores Prácticas
@@ -544,6 +685,13 @@ Si no ves números esperados:
 4. **Verifica Caller IDs** - Los números verificados aparecen con "(verified)"
 5. **Contacta soporte** si el problema persiste
 
+### El Panel de Outbound Numbers No Carga
+
+Si el panel muestra el aviso de cuenta mal configurada:
+
+1. **Cuenta incoherente**: Este agente no tiene una cuenta de teléfono asociada correctamente. Contacta con el equipo de Meetzy mediante un ticket.
+2. **Sin selectable disponibles**: Si no puedes añadir ni ver números para añadir, puede que todos tus caller IDs ya estén en uso en este agente.
+
 ### Problemas de Verificación de Caller ID
 
 Si falla la verificación:
@@ -551,7 +699,16 @@ Si falla la verificación:
 1. **Número incorrecto**: Verifica que el número esté en formato internacional correcto
 2. **Número ocupado**: Asegúrate de estar disponible para recibir la llamada de verificación
 3. **Código incorrecto**: Anota cuidadosamente el código de 6 dígitos
-4. **Número no válido**: Algunos tipos de números no son elegibles para verificación
+4. **Número 400**: Los números 400 no pueden verificarse por llamada; solicítalos mediante un ticket al equipo de Meetzy
+5. **Número no válido**: Algunos tipos de números no son elegibles para verificación
+
+### Problemas al Copiar Números a Otros Agentes
+
+Si la copia falla para algún agente de destino:
+
+- **`no_permitido`**: La política de ese agente (por ejemplo, ser un agente de atención al cliente bloqueado) impide añadir ese número
+- **`sin_cambios`**: El agente de destino ya tenía ese número asignado
+- **`error`**: Hubo un problema temporal; reintenta la copia
 
 ### Problemas de Swap
 
@@ -574,7 +731,7 @@ Si falla la asignación:
 
 <AccordionGroup>
   <Accordion title="¿Puedo usar mi propio número de teléfono?">
-    Sí, a través del sistema de Caller IDs verificados. Puedes verificar tus números propios y usarlos como identificación para llamadas salientes.
+    Sí, a través del sistema de Caller IDs verificados en el panel Outbound numbers. Puedes verificar tus números propios llamando con un código de 6 dígitos y usarlos como identificación para llamadas salientes.
   </Accordion>
   
   <Accordion title="¿Cuál es la diferencia entre números Twilio y Caller IDs verificados?">
@@ -582,7 +739,15 @@ Si falla la asignación:
   </Accordion>
   
   <Accordion title="¿Puedo mezclar números Twilio y Caller IDs en un mismo agente?">
-    Sí, puedes asignar ambos tipos al mismo agente. El sistema priorizará los Caller IDs verificados para llamadas salientes por su mayor confianza.
+    Sí, puedes asignar ambos tipos al mismo agente. El sistema priorizará los Caller IDs verificados para llamadas salientes por su mayor confianza, salvo que la cuenta tenga activado el modo "solo 400".
+  </Accordion>
+  
+  <Accordion title="¿Qué significa el modo 'solo 400'?">
+    Es una política de cuenta, activada por el equipo de Meetzy, que hace que un agente llame exclusivamente desde números 400 cuando tiene al menos uno en su rotación. Los demás caller IDs quedan guardados pero sin usarse mientras dure esta política.
+  </Accordion>
+  
+  <Accordion title="¿Por qué no puedo verificar un número 400 como propio?">
+    Los números 400 no pueden recibir la llamada automática de verificación. Para añadir un 400 propio, debes abrir una solicitud (ticket) y el equipo de Meetzy lo gestionará manualmente.
   </Accordion>
   
   <Accordion title="¿Por qué no puedo hacer swap de un Caller ID verificado?">
@@ -591,6 +756,10 @@ Si falla la asignación:
   
   <Accordion title="¿Qué pasa si se agotan mis números Twilio?">
     Las llamadas salientes priorizarán los Caller IDs verificados disponibles. Si no hay números disponibles, las llamadas fallarán hasta que solicites más números o liberes algunos existentes.
+  </Accordion>
+  
+  <Accordion title="¿Puedo copiar los números de un agente a varios agentes a la vez?">
+    Sí, el botón "Copy to other agents" permite seleccionar varios agentes de destino en una misma operación y verás el resultado individual de cada uno.
   </Accordion>
   
   <Accordion title="¿Los Caller IDs verificados tienen límites de uso?">

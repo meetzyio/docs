@@ -51,6 +51,108 @@ In the Meetzy interface, you can distinguish between phone number types:
   Verified Caller IDs show verification status badges (pending, verified, disabled) to help you track their state.
 </Info>
 
+## Outbound Numbers Panel
+
+Every agent in the Advanced Editor now includes an **Outbound numbers** panel in the left sidebar. This panel shows, in one place, exactly which numbers the agent calls from and lets you manage them without leaving the editor.
+
+### The Rotation List
+
+The panel displays the numbers currently **in rotation** for the agent — the ones it actually uses to place outbound calls:
+
+- Each number shows its **E.164 format**, a **type badge** (e.g. `400`, mobile, landline) and, when applicable, a **"Line"** tag for Twilio numbers.
+- Numbers marked **Temporary use** come from Meetzy's shared 400 pool and may be rotated out automatically.
+- If a number is also used by other agents, you'll see a note like *"Also used by 2 other agents"*.
+- A single status banner at the top summarizes the agent's calling behavior in plain language, for example:
+  - 🟢 *"Calls only from 400 numbers"*
+  - ⚪ *"Calls from the numbers below. When you add a 400 number, it calls only from 400 numbers."*
+  - 🔴 *"This agent can't make calls yet. Add at least one 400 number."*
+
+<Info>
+  You don't choose the call type manually anymore — it's inferred from the list. As soon as the agent has at least one 400 number in rotation, it automatically switches to calling only from 400 numbers.
+</Info>
+
+### Adding Caller IDs
+
+The **Add numbers** button opens a picker with the Caller IDs available for the agent's account:
+
+<Steps>
+  <Step title="Click Add numbers">
+    Open the picker from the Outbound numbers panel.
+  </Step>
+  <Step title="Select available numbers">
+    Check one or more available Caller IDs from the list. Unavailable numbers are shown separately with the reason they can't be added yet.
+  </Step>
+  <Step title="Confirm">
+    The selected numbers are added to the rotation immediately, and the panel reflects the new status banner.
+  </Step>
+</Steps>
+
+<Info>
+  Only Caller IDs appear in this picker. Purchased lines (Twilio numbers) are managed from the agent's phone number configuration, not from this panel.
+</Info>
+
+### Copying Numbers to Other Agents
+
+Use **Copy to other agents** to quickly replicate this agent's numbers across your account:
+
+<Steps>
+  <Step title="Click Copy to other agents">
+    This opens a list of other agents in the same account, each showing their current number count and whether they already have a 400 number.
+  </Step>
+  <Step title="Select target agents">
+    Choose one or more agents to receive this agent's numbers.
+  </Step>
+  <Step title="Confirm copy">
+    The system attempts to add the numbers to each selected agent and reports the result per agent: added, no changes needed, not allowed, or an error.
+  </Step>
+</Steps>
+
+<Warning>
+  Copying numbers may change the calling behavior of the target agent if it introduces a 400 number for the first time — the target agent will then also call only from 400 numbers.
+</Warning>
+
+### Verifying Your Own Number
+
+If you want to use a number you already own (such as your office line) as a caller ID, use **Add your own number**. Meetzy verifies ownership with a short phone call:
+
+<Steps>
+  <Step title="Open the verification form">
+    Click **Add your own number** in the Outbound numbers panel.
+  </Step>
+  <Step title="Enter the phone number">
+    Type the number you own, in international format (e.g. `+34910000000`), and optionally give it a friendly name.
+  </Step>
+  <Step title="Request the call">
+    Click **Call me with the code**. Meetzy places a call to that number.
+  </Step>
+  <Step title="Answer and enter the code">
+    Answer the call and type the **6-digit code** shown on screen using your keypad.
+  </Step>
+  <Step title="Confirm verification">
+    Once the code is entered correctly, the number is verified and, if possible, assigned to the agent automatically.
+  </Step>
+</Steps>
+
+<Warning>
+  400 numbers can't receive this verification call. If you need a 400 number added, open a request to the Meetzy team instead of using self-verification.
+</Warning>
+
+<Info>
+  If the verified number can't be assigned to this specific agent (for example, due to account rules), it still becomes available for your other agents and the panel will explain why.
+</Info>
+
+### Account-Wide "Only 400 Numbers" Toggle
+
+The Meetzy team has access to an account-level switch called **only 400 numbers**. When enabled for an account:
+
+- All agents in that account are forced to call only from 400 numbers, regardless of their individual rotation.
+- This is reflected in the status banner and overrides the per-agent behavior.
+- It's intended for accounts that require strict compliance with landline-only outbound calling policies.
+
+<Info>
+  This toggle is managed internally by the Meetzy team and is not available for self-service in the client dashboard. If your account needs this setting, contact Meetzy support.
+</Info>
+
 ## Multi-Subaccount Phone Number Management
 
 Meetzy now supports managing phone numbers across multiple Twilio subaccounts with enhanced assignment states and improved management features.
@@ -261,6 +363,10 @@ Verified Caller IDs provide additional flexibility for outbound calling with you
   </Step>
 </Steps>
 
+<Info>
+  You can also start this same verification flow directly from the **Outbound numbers** panel using **Add your own number**. See [Verifying Your Own Number](#verifying-your-own-number) above for the step-by-step call-and-code process.
+</Info>
+
 ### Caller ID Limitations
 
 <Warning>
@@ -448,6 +554,21 @@ For verified Caller IDs:
   </Accordion>
   <Accordion title="How do I move a number between subaccounts?">
     Numbers cannot be moved between subaccounts. You would need to return the number and request a new one in the target subaccount.
+  </Accordion>
+  <Accordion title="Why does my agent switch to calling only from 400 numbers?">
+    As soon as a 400 number is added to the agent's rotation (either manually or by copying from another agent), the agent automatically switches to calling only from its 400 numbers. This is not a manual setting — it's inferred from the numbers in the list.
+  </Accordion>
+  <Accordion title="Can I add a 400 number myself through self-verification?">
+    No. 400 numbers cannot receive the verification call used for self-service numbers. To add a 400 number, open a request to the Meetzy team.
+  </Accordion>
+  <Accordion title="What happens if the verification code call fails or I miss it?">
+    You can simply click **Call me with the code** again from the Outbound numbers panel to request a new call and code.
+  </Accordion>
+  <Accordion title="Who can enable the 'only 400 numbers' account toggle?">
+    This setting is managed exclusively by the Meetzy team at the account level. It is not available as a self-service option in the client dashboard.
+  </Accordion>
+  <Accordion title="If I copy numbers to another agent, will it affect that agent's calling behavior?">
+    It can. If the copied numbers include a 400 number and the target agent didn't have one before, that agent will also start calling only from 400 numbers.
   </Accordion>
 </AccordionGroup>
 
