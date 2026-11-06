@@ -1,6 +1,6 @@
 ---
 title: "Billy Consumption Panel"
-description: "Monitor and analyze your billing consumption in real-time with enhanced filtering, admin historical charts, and comprehensive cost tracking"
+description: "Monitor and analyze your billing consumption in real-time with Excel export, hierarchical breakdowns, prepaid balance status, and comprehensive cost tracking"
 icon: "chart-bar"
 ---
 
@@ -15,13 +15,15 @@ The Billy panel automatically appears when you have billing rules configured for
 The enhanced Billy consumption panel displays:
 
 - **Minutes package progress bar** for accounts with a contracted monthly allowance
-- **Rules-v2 balance block** for accounts on the newer billing engine, showing either a committed tier's progress or a prepaid bag's available units
+- **Rules-v2 balance block** for accounts on the newer billing engine, showing either a committed tier's volume progress (with billable excess detail) or a color-coded prepaid balance bar
+- **Total time consumed indicator** displayed alongside the period's total amount
 - **Real-time consumption data** with intelligent period detection
 - **Advanced filtering system** with a dropdown period selector and custom date ranges
-- **Cost breakdown grouped by agent** with an expandable accordion for detailed unit metrics
+- **Export to Excel** of the currently filtered cost breakdown
+- **Cost breakdown grouped hierarchically by project and agent**, presented as an expandable accordion for detailed unit metrics
 - **Administrative historical charts** for trend analysis, collapsible and available only in admin view
 - **Billing adjustments** including minimums and corrections
-- **Rotating message ticker** while the panel is collapsed
+- **Rotating message ticker** while the panel is collapsed, including prepaid balance status
 - **Flexible view modes** for different user types
 
 ## Panel Interface
@@ -30,6 +32,7 @@ The enhanced Billy consumption panel displays:
 
 The panel header includes:
 - **Status indicator**: Green pulse for active monitoring, amber for errors
+- **Prepaid balance indicator**: When the account runs on a rules-v2 prepaid bag, a small color-coded chip reflecting the balance status is visible even while the panel is collapsed
 - **Refresh button**: Manual data refresh with loading state
 - **Collapse/expand toggle**: Minimizes panel while keeping it accessible
 
@@ -50,8 +53,60 @@ Click the collapse button (up arrow) to minimize the panel. Your preference is a
 </Steps>
 
 <Info>
-The panel automatically saves your collapsed/expanded preference, restoring it when you return to the dashboard.
+The panel automatically saves your collapsed/expanded preference, restoring it when you return to the dashboard. The prepaid balance color indicator in the header remains visible in both states.
 </Info>
+
+## Total Time Consumed Indicator
+
+Alongside the total cost figure for the selected period, the panel now displays the **total time consumed**, summed across every billed line item that reports a time-based unit (seconds or minutes).
+
+### What It Shows
+
+- A compact label positioned next to the period's total amount, formatted as a readable duration (for example, `12h 34min` or `48 min`)
+- The figure reflects the **currently filtered period or custom range** — it recalculates automatically whenever you change periods, apply a custom range, or trigger a manual refresh
+- Only time-based billing lines contribute to this figure; line items billed purely per call do not add any duration
+
+<Info>
+This indicator gives you an at-a-glance sense of call volume in time terms, independent of cost, which is especially useful when comparing periods with different pricing or billing rule changes.
+</Info>
+
+<Warning>
+If no line item in the selected period reports a time-based unit (for example, an account billed entirely per successful call), the total time indicator is omitted rather than showing a zero value.
+</Warning>
+
+## Export to Excel
+
+The expanded panel includes an **export button** that downloads the currently filtered cost breakdown as an Excel spreadsheet, making it easy to share consumption detail outside the dashboard or archive it for accounting purposes.
+
+### How It Works
+
+<Steps>
+<Step title="Apply Your Filters">
+Select the period, custom date range, or any other filter you want reflected in the export
+</Step>
+<Step title="Click Export to Excel">
+Locate the export button in the breakdown section header and click it
+</Step>
+<Step title="File Downloads Automatically">
+A spreadsheet file generates and downloads immediately, named to reflect the account and selected period
+</Step>
+</Steps>
+
+### What's Included
+
+The exported spreadsheet mirrors exactly what the accordion breakdown currently shows for the active filter:
+
+- **One row per billed line item**, including project, agent, unit type, units consumed, unit price, and subtotal
+- **Numeric columns formatted as numbers**, not text, so totals can be summed or filtered directly inside Excel
+- **All projects and agents** included, regardless of whether their accordion groups are currently expanded or collapsed on screen
+
+<Info>
+The export always reflects the data currently loaded in the panel for the active period or custom range. Changing the filter and exporting again produces a new file matching the new selection — there's no need to expand every group first.
+</Info>
+
+<Warning>
+The export button is disabled while consumption data is loading or recalculating, to avoid generating a file from a stale or partial dataset.
+</Warning>
 
 ## Minutes Package Progress Bar
 
@@ -134,30 +189,58 @@ Unlike the minutes package card, overage on a committed tier is **not** an alert
 
 ### Prepaid Bag Variant
 
-For accounts consuming from a **prepaid bag** (a pool of pre-purchased units), the block instead shows:
+For accounts consuming from a **prepaid bag** (a pool of pre-purchased units), the block shows a dedicated **balance bar** with color-coded status, instead of the committed tier's volume progress bar:
 
-- **Available units**: The remaining balance of units left in the prepaid bag, labeled "Prepaid balance"
-- **Consumed this period**: The number of units drawn from the bag during the current billing period
+- **Available balance**: The remaining monetary balance (and approximate equivalent in units) left in the prepaid bag, labeled "Prepaid balance"
+- **Balance bar**: A horizontal bar showing what fraction of the original bag size remains available, with the fill color changing based on how depleted the balance is
+- **Consumed this period**: The monetary amount (and approximate units) drawn from the bag during the current billing period
+- **Validity date**: When the bag has an expiration date, it's shown alongside the balance detail
+
+### Color Coding
+
+The balance bar uses three status colors to make the bag's health immediately clear at a glance:
+
+| Status | Color | Meaning |
+|---|---|---|
+| **OK** | Emerald green | Healthy balance remaining, no action needed |
+| **Low** | Amber | Balance is running low; consider planning a top-up soon |
+| **Critical** | Red | Balance is nearly exhausted; a top-up is strongly recommended |
 
 <Info>
-The prepaid bag variant does not display a progress bar, since prepaid balances aren't tied to a fixed monthly allowance the way committed tiers are — the available units simply decrease as they're consumed, potentially across multiple billing periods.
+This same color coding is also reflected in a compact indicator visible in the panel's **collapsed header**, so you can gauge the prepaid balance status at a glance without expanding the panel at all.
 </Info>
+
+<Steps>
+<Step title="Balance Loads">
+When consumption data refreshes, the panel calculates the current percentage of the prepaid bag remaining
+</Step>
+<Step title="Bar Fills and Colors">
+The bar fills to match the remaining percentage and adopts the corresponding color: emerald, amber, or red
+</Step>
+<Step title="Header Indicator Syncs">
+The collapsed header's color chip updates to match, so the status is visible whether the panel is expanded or collapsed
+</Step>
+<Step title="Status Re-evaluates on Refresh">
+Every manual refresh, period change, or custom range application recalculates the percentage and may shift the color between OK, Low, and Critical
+</Step>
+</Steps>
 
 ### How the Two Variants Differ
 
 | | Committed Tier | Prepaid Bag |
 |---|---|---|
-| **Progress bar** | Yes, always emerald | Not shown |
+| **Progress bar** | Yes, always emerald | Yes, color-coded (OK / Low / Critical) |
 | **Over-allowance handling** | Billable overage at tier price, applied next period | Not applicable — consumption simply reduces available balance |
-| **Key figures** | Consumed / contracted units for the period | Available units and units consumed this period |
+| **Key figures** | Consumed / contracted units for the period | Available balance, units consumed this period, and validity date when applicable |
 | **Tier or plan name** | Shown when configured | Not applicable |
+| **Visible when collapsed** | Not applicable | Yes, as a color chip in the header |
 
 <Steps>
 <Step title="Balance Data Loads">
 When consumption data is refreshed, the panel checks whether the response includes a `balance` object and, if so, which `kind` it reports
 </Step>
 <Step title="Correct Variant Renders">
-The panel automatically renders the committed tier layout or the prepaid bag layout based on the `kind` field — no manual switching is needed
+The panel automatically renders the committed tier layout or the color-coded prepaid bag layout based on the `kind` field — no manual switching is needed
 </Step>
 <Step title="Figures Stay in Sync">
 Both variants refresh alongside the rest of the consumption data whenever you change periods, apply a custom range, or trigger a manual refresh
@@ -188,7 +271,7 @@ Click the period selector button, which displays the currently selected period l
 </Step>
 
 <Step title="Choose a Period">
-Select any period from the list. The chosen option is marked with a checkmark, the dropdown closes automatically, and consumption data refreshes for that period
+Select any option from the list. The chosen option is marked with a checkmark, the dropdown closes automatically, and consumption data refreshes for that period
 </Step>
 </Steps>
 
@@ -201,7 +284,7 @@ The dropdown behaves consistently across the panel:
 
 <Steps>
 <Step title="View Updated Data">
-Data automatically refreshes when a new period is selected, including the minutes package card, balance block, and the agent-grouped breakdown, when applicable
+Data automatically refreshes when a new period is selected, including the minutes package card, balance block, total time indicator, and the hierarchical breakdown, when applicable
 </Step>
 </Steps>
 
@@ -227,7 +310,7 @@ Click "Apply" to load consumption data for your custom date range
 Custom date ranges must have a start date before or equal to the end date. The panel will show validation errors for invalid date combinations.
 </Warning>
 
-Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type. The minutes package card, balance block, and agent-grouped breakdown, when applicable, all recalculate against whatever range is currently active.
+Once a custom range is applied, the period dropdown reflects the fact that a custom filter is active, and the panel keeps track of whether you're viewing a predefined period or a custom range so that manual refreshes reapply the correct filter type. The minutes package card, balance block, total time indicator, and hierarchical breakdown, when applicable, all recalculate against whatever range is currently active — and the Excel export reflects that same range.
 
 ### Filter Collapse and Expansion
 
@@ -260,16 +343,25 @@ The filtering system includes comprehensive validation:
 - **Error recovery**: Displays helpful error messages and retry options
 - **Auto-synchronization**: Keeps filter state, dropdown selection, and consumption data in sync
 
-## Consumption Breakdown by Agent
+## Consumption Breakdown by Project and Agent
 
-The core of the consumption panel is a detailed breakdown of usage, now **grouped by agent** and presented as an **expandable accordion** instead of a flat list. This makes it much easier to scan totals per agent first, then drill into the underlying detail only when needed.
+The core of the consumption panel is a detailed breakdown of usage, **grouped hierarchically by project and agent** and presented as an **expandable accordion**. This makes it much easier to scan totals at the project level first, then the agent level within each project, and finally drill into individual billed concepts only when needed.
 
 ### How Grouping Works
 
-Rather than listing every billed line item individually, the panel first aggregates consumption **by assistant/agent**, showing a compact summary row for each one:
+Rather than listing every billed line item individually, the panel aggregates consumption in two levels:
 
-- **Agent name** and identification
-- **Aggregated usage** for the selected period (total units consumed across all that agent's activity)
+1. **Project level**: A summary row per project, aggregating every agent that belongs to it
+2. **Agent level**: Within each project, a summary row per agent, aggregating that agent's billed concepts
+
+<Info>
+Accounts that don't organize assistants into projects simply see the agent level directly — the project level is only rendered when an account actually has agents distributed across multiple projects. When a project contains only a single agent, that agent's row is shown directly without an extra project wrapper, exactly as it appeared before this grouping was introduced.
+</Info>
+
+Each summary row, at either level, shows:
+
+- **Name** (project or agent) and identification
+- **Aggregated usage** for the selected period (total time or units consumed across everything nested underneath it)
 - **Aggregated subtotal** in the account's currency
 - **Expand indicator** (chevron) showing whether the group is currently open
 
@@ -277,42 +369,46 @@ Rather than listing every billed line item individually, the panel first aggrega
 Grouping happens entirely client-side over the consumption response for the selected period. Switching periods, applying a custom range, or refreshing manually all rebuild the groups automatically from the fresh data.
 </Info>
 
-### Expanding an Agent's Details
+### Expanding a Project or Agent
 
 <Steps>
-<Step title="Locate the Agent Row">
-In the consumption breakdown section, find the collapsed row for the agent you want to inspect
+<Step title="Locate the Project Row">
+In the consumption breakdown section, find the collapsed row for the project you want to inspect — if your account doesn't use projects, skip directly to the agent row
 </Step>
-<Step title="Click to Expand">
-Click anywhere on the agent's summary row to expand its accordion panel
+<Step title="Click to Expand the Project">
+Click anywhere on the project's summary row to reveal the agents that belong to it
+</Step>
+<Step title="Click to Expand an Agent">
+Within the expanded project (or directly, if there's no project level), click an agent's summary row to reveal its individual billed concepts
 </Step>
 <Step title="Review Line-Item Detail">
-The expanded panel reveals the individual usage lines that make up that agent's total, including unit type, unit pricing, and per-line subtotal
+The expanded agent panel reveals the individual usage lines that make up its total, including unit type, unit pricing, and per-line subtotal
 </Step>
 <Step title="Collapse When Done">
-Click the row again to collapse it and keep the overview compact
+Click any row again to collapse it and keep the overview compact
 </Step>
 </Steps>
 
-Each expanded line item shows the same level of detail previously shown per row in the flat list:
+Each expanded line item shows the same level of detail as before:
 
 - **Usage metrics** with proper unit labels (minutes, calls, etc.)
 - **Unit pricing** and subtotal calculations
 - **Billing type** information
 
 <Info>
-Multiple agent accordions can be expanded at the same time — expanding one agent does not automatically collapse another. This makes it easy to compare two or three agents side by side without losing context.
+Multiple project and agent accordions can be expanded at the same time, at any combination of levels — expanding one doesn't automatically collapse another. This makes it easy to compare several projects or agents side by side without losing context.
 </Info>
 
-### Why Grouping by Agent Helps
+### Why Hierarchical Grouping Helps
 
-- **Faster scanning**: Totals per agent are visible immediately, without needing to mentally sum multiple rows
-- **Focused drill-down**: You only load visual detail for the agents you actually care about in a given review
-- **Easier cost attribution**: Quickly spot which agent is driving the bulk of the period's cost before digging into line-item pricing
-- **Consistent with the ticker**: The "top consuming assistant" message shown in collapsed mode corresponds directly to the highest-totaled group in this breakdown
+- **Faster scanning at scale**: Accounts with many agents organized into projects can review cost by project first, without scrolling through every individual agent
+- **Focused drill-down**: You only expand the projects and agents you actually care about in a given review
+- **Easier cost attribution**: Quickly spot which project — and within it, which agent — is driving the bulk of the period's cost before digging into line-item pricing
+- **Consistent with the ticker**: The "top consuming assistant" message shown in collapsed mode corresponds directly to the highest-totaled agent group in this breakdown, regardless of which project it belongs to
+- **Matches the Excel export**: The same project/agent/line-item hierarchy shown on screen is reflected in the exported spreadsheet, so reviewing and exporting stay consistent
 
 <Warning>
-Collapsing an agent's accordion does not discard its data — all figures remain part of the overall subtotal and total cost calculations regardless of whether the group is expanded or collapsed on screen.
+Collapsing a project's or an agent's accordion does not discard its data — all figures remain part of the overall subtotal and total cost calculations regardless of whether the group is expanded or collapsed on screen.
 </Warning>
 
 ## Administrative Features
@@ -375,7 +471,7 @@ The historical chart section includes improved controls:
 
 The panel adapts its display based on user permissions:
 
-- **Client View** (`client_agents`): Shows consumption for your assistants, including the minutes package card, rules-v2 balance block, and the agent-grouped breakdown, when configured
+- **Client View** (`client_agents`): Shows consumption for your assistants, including the minutes package card, rules-v2 balance block, total time indicator, and the project/agent hierarchical breakdown, when configured
 - **Admin View** (`admin_clients`): Shows consumption across clients with additional controls, including the collapsible historical chart section
 
 ## Collapsed Mode: Rotating Message Ticker
@@ -388,15 +484,15 @@ The ticker only runs while the panel is collapsed. Expanding the panel automatic
 
 What the ticker can surface:
 
-- **Total for the period**: The current total cost for the active billing period, giving an at-a-glance summary without opening the panel
+- **Total for the period**: The current total cost for the active billing period, alongside the total time consumed, giving an at-a-glance summary without opening the panel
 - **Minutes package status**: A reminder of remaining minutes, or an over-allowance warning, whenever a legacy minutes package is configured on the account's billing profile
-- **Balance status**: For rules-v2 accounts, a message reflecting either the committed tier's remaining/overage status or the prepaid bag's available units
-- **Top consuming assistant**: The agent group with the highest aggregated consumption in the current period, matching the top row in the grouped breakdown, helping surface which assistant is driving costs at a glance
+- **Balance status**: For rules-v2 accounts, a message reflecting either the committed tier's remaining/overage status or the prepaid bag's balance status (OK, low, or critical)
+- **Top consuming assistant**: The agent with the highest aggregated consumption in the current period, matching the top agent row in the grouped breakdown regardless of which project it belongs to, helping surface which assistant is driving costs at a glance
 - **Billing period context**: Which period is currently being tracked
 - **Historical highlights**: Once historical data has been loaded for admin views, relevant trend messages may also rotate through the ticker
 
 <Info>
-Not every message type appears for every account. The ticker only includes messages relevant to the account's configuration — for example, an account without a minutes package or a balance block simply skips those messages and rotates through the ones that do apply.
+Not every message type appears for every account. The ticker only includes messages relevant to the account's configuration — for example, an account without a minutes package or a balance block simply skips those messages and rotates through the ones that do apply. Additionally, the prepaid balance color indicator in the collapsed header remains visible independently of the ticker's rotation.
 </Info>
 
 ### How the Ticker Works
@@ -409,7 +505,7 @@ As soon as you collapse the panel, the ticker starts from its first available me
 Messages rotate automatically at a fixed interval, with a brief fade transition between each message for a smooth visual effect
 </Step>
 <Step title="Data-Aware Content">
-The set of available messages is rebuilt whenever consumption data is refreshed or historical data is loaded, so the ticker always reflects your latest data — including the current period total, minutes package status, balance status, and top consuming assistant when applicable
+The set of available messages is rebuilt whenever consumption data is refreshed or historical data is loaded, so the ticker always reflects your latest data — including the current period total and time consumed, minutes package status, balance status, and top consuming assistant when applicable
 </Step>
 <Step title="Panel Expands">
 Expanding the panel stops the rotation immediately; the ticker resumes from the beginning the next time you collapse the panel
@@ -424,10 +520,10 @@ If consumption data fails to load or the panel cannot render (for example, no bi
 
 ### Cost Calculation Structure
 
-The panel displays a transparent cost breakdown, built from the sum of all expanded and collapsed agent groups:
+The panel displays a transparent cost breakdown, built from the sum of all project- and agent-grouped usage:
 
 ```
-Subtotal (sum of all agent-grouped usage)
+Subtotal (sum of all project/agent-grouped usage)
 + Minimum Applied (billing minimums)
 - Correction Amount (adjustments/credits)
 = Total Cost
@@ -441,8 +537,9 @@ The minutes package card and the rules-v2 balance block are independent of this 
 
 - **Automatic pluralization**: Units display correctly for singular/plural amounts
 - **Localized formatting**: Numbers and currency display according to your locale
-- **Consistent precision**: Monetary values show appropriate decimal places, and minutes package and balance figures use the same locale-aware number formatting
+- **Consistent precision**: Monetary values show appropriate decimal places, and minutes package, balance, and total time figures use the same locale-aware number formatting
 - **Unit-aware conversion**: Balance figures stored in seconds are automatically displayed as minutes for readability, while call-based balances display their raw call counts
+- **Excel-ready numbers**: Numeric columns in the exported spreadsheet remain true numbers rather than formatted text, preserving their ability to be summed or filtered in Excel
 
 ## Data Refresh and States
 
@@ -466,7 +563,7 @@ The refresh button intelligently reapplies whichever filter is currently active:
 - If a **predefined period** is selected, the refresh reloads data for that same period
 - If neither is set, it falls back to loading the default current-period consumption
 
-This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing, and the minutes package card, balance block, and agent-grouped breakdown (when applicable) update their figures accordingly.
+This means you never lose your place when refreshing — the panel always returns data consistent with what you were already viewing, and the minutes package card, balance block, total time indicator, and hierarchical breakdown (when applicable) update their figures accordingly.
 
 ### Smart Refresh Logic
 
@@ -475,10 +572,10 @@ The refresh system intelligently handles different scenarios:
 - **Period filters**: Refreshes data for the currently selected period
 - **Custom ranges**: Re-applies custom date filters
 - **Default mode**: Falls back to standard consumption loading
-- **State preservation**: Maintains current filter selections, dropdown state, which agent accordions are expanded, and (when applicable) the historical chart's expanded/collapsed state
+- **State preservation**: Maintains current filter selections, dropdown state, which project and agent accordions are expanded, and (when applicable) the historical chart's expanded/collapsed state
 
 <Info>
-Expanded agent accordions are preserved across a manual refresh whenever the same agent still appears in the refreshed data, so you don't lose your place mid-review.
+Expanded project and agent accordions are preserved across a manual refresh whenever the same project or agent still appears in the refreshed data, so you don't lose your place mid-review.
 </Info>
 
 ### Loading States
@@ -487,7 +584,7 @@ The panel provides clear feedback during operations:
 
 - **"Recalculating consumption..."**: Data is being refreshed
 - **"Loading billing history..."**: Historical chart data is loading
-- **Disabled controls**: Prevent multiple simultaneous requests, including the period dropdown button
+- **Disabled controls**: Prevent multiple simultaneous requests, including the period dropdown button and the Excel export button
 
 ### Error Recovery
 
@@ -498,7 +595,7 @@ When errors occur, the panel:
 - Maintains last successful data when possible
 
 <Warning>
-If consumption data fails to load, neither the minutes package card, the rules-v2 balance block, nor the agent-grouped breakdown are rendered — they do not display a stale or partial state. They reappear automatically once a successful refresh returns their respective data again.
+If consumption data fails to load, neither the minutes package card, the rules-v2 balance block, the total time indicator, nor the hierarchical breakdown are rendered — they do not display a stale or partial state. They reappear automatically once a successful refresh returns their respective data again.
 </Warning>
 
 ## Panel States and Indicators
@@ -506,7 +603,7 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 ### Normal Operation
 - **Green pulsing indicator**: Active monitoring with successful data loading
 - **Smooth transitions**: All controls respond normally
-- **Current data display**: Shows up-to-date consumption information, including an accurate minutes package or balance status when configured
+- **Current data display**: Shows up-to-date consumption information, including an accurate minutes package, balance status, and total time consumed when configured
 
 ### Error States
 - **Amber indicator**: Data loading failures or connectivity issues
@@ -531,6 +628,29 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 - Contact your administrator to configure Billy billing
 - Verify your account has consumption viewing permissions
 - Check if billing rules exist for your assistants
+</Tab>
+
+<Tab title="Export to Excel Not Working">
+**Possible causes:**
+- The export button was clicked while consumption data was still loading
+- Browser pop-up or download blocker prevented the file from saving
+- No consumption data is available for the currently selected filter
+
+**Solutions:**
+- Wait for the "Recalculating consumption..." state to finish, then try exporting again
+- Check your browser's download permissions and blocked downloads list
+- Confirm that the selected period or custom range actually has consumption data before exporting
+</Tab>
+
+<Tab title="Total Time Indicator Missing">
+**Possible causes:**
+- The selected period's billed line items are all per-call, with no time-based units
+- Consumption data has not finished loading
+
+**Solutions:**
+- Switch to a period with time-based billing lines to confirm the indicator reappears
+- Wait for the initial consumption load to complete, then check again
+- Refresh the panel manually to force a fresh data fetch
 </Tab>
 
 <Tab title="Minutes Package Not Showing">
@@ -580,35 +700,47 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 - No action is required if the overage reflects genuine, expected consumption
 </Tab>
 
-<Tab title="Prepaid Bag Available Units Look Incorrect">
+<Tab title="Prepaid Balance Bar Shows Wrong Color">
 **Possible causes:**
 - Recent top-ups or purchases not yet reflected in the cached response
 - Consumption from a previous period not yet reconciled
+- The color thresholds (OK / Low / Critical) are based on percentage remaining, which can shift quickly on smaller bags
 
 **Solutions:**
-- Trigger a manual refresh to fetch the latest prepaid balance
+- Trigger a manual refresh to fetch the latest prepaid balance and recalculate the color
 - Verify the most recent top-up transaction with your administrator
 - Compare "consumed this period" against your own call activity to sanity-check the figure
 </Tab>
 
-<Tab title="Agent Group Won't Expand">
+<Tab title="Prepaid Balance Indicator Missing from Collapsed Header">
+**Possible causes:**
+- The account is not on a rules-v2 prepaid bag contract
+- Consumption data has not loaded successfully yet
+
+**Solutions:**
+- Confirm with your administrator whether the account uses a prepaid bag under rules-v2
+- Expand the panel once to confirm the balance block loads correctly, then collapse it again
+- Refresh the panel manually if the indicator still doesn't appear
+</Tab>
+
+<Tab title="Project or Agent Group Won't Expand">
 **Possible causes:**
 - Consumption data is currently being refreshed, temporarily disabling interaction
-- The agent group has no line items for the selected period (nothing to expand)
+- The group has no line items for the selected period (nothing to expand)
 
 **Solutions:**
 - Wait for the "Recalculating consumption..." state to finish, then try again
-- Confirm the agent had actual billable activity in the selected period by checking a different period
+- Confirm the project or agent had actual billable activity in the selected period by checking a different period
 - Refresh the panel manually if the accordion appears unresponsive
 </Tab>
 
-<Tab title="Agent Totals Don't Match Expectations">
+<Tab title="Project or Agent Totals Don't Match Expectations">
 **Possible causes:**
-- Grouping aggregates all billed line items for that agent within the selected period, which may include adjustments not obvious at a glance
+- Grouping aggregates all billed line items for that project or agent within the selected period, which may include adjustments not obvious at a glance
 - A custom date range partially overlaps a billing period, splitting totals differently than expected
 
 **Solutions:**
-- Expand the agent's accordion to review the individual line items contributing to the total
+- Expand the project, then the agent's accordion, to review the individual line items contributing to the total
 - Switch to a predefined period instead of a custom range to compare against a full billing cycle
 - Cross-check the unit type and pricing shown per line item against the agent's configured billing rules
 </Tab>
@@ -667,7 +799,8 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 ### Regular Monitoring
 - **Check consumption frequently** to stay within budget limits
 - **Watch the minutes package bar** to anticipate reaching your contracted allowance before it turns red
-- **Watch the balance block** for rules-v2 accounts to track committed tier usage or prepaid bag depletion
+- **Watch the balance block** for rules-v2 accounts to track committed tier usage or the prepaid bag's color-coded status
+- **Glance at the total time indicator** for a quick sense of call volume independent of cost
 - **Use period comparisons** to identify usage trends
 - **Monitor assistant performance** to optimize resource allocation
 
@@ -677,11 +810,17 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 - **Collapse filters** when not actively adjusting to save space
 - **Combine filters** with manual refresh for most current data
 
-### Reviewing the Agent-Grouped Breakdown
-- **Scan collapsed totals first**: Use the summary row per agent to quickly spot the biggest contributors before drilling into any detail
-- **Expand selectively**: Only open the accordions for agents you actually need to investigate, keeping the panel easy to read
-- **Compare multiple agents at once**: Take advantage of independent expand/collapse state to keep two or three agents open side by side
-- **Cross-reference with the ticker**: The "top consuming assistant" ticker message should match the highest total in this breakdown — use it as a quick sanity check
+### Using the Excel Export
+- **Apply your filter first**: Select the period or custom range you need before exporting, so the spreadsheet matches exactly what you're reviewing
+- **Export regularly** for accounting or archival purposes, since the panel itself only shows the currently selected period
+- **Rely on the numeric columns**: Use Excel's own sum and filter tools on the unit and subtotal columns rather than recalculating manually
+- **Re-export after changes**: If billing rules or adjustments change, export again to capture the latest figures rather than reusing an older file
+
+### Reviewing the Hierarchical Breakdown
+- **Scan project totals first**: If your account uses projects, check the project-level summary rows before drilling into any agent
+- **Expand selectively**: Only open the projects and agents you actually need to investigate, keeping the panel easy to read
+- **Compare multiple groups at once**: Take advantage of independent expand/collapse state to keep several projects or agents open side by side
+- **Cross-reference with the ticker**: The "top consuming assistant" ticker message should match the highest total agent in this breakdown — use it as a quick sanity check
 
 ### Administrative Usage
 - **Review historical charts** for long-term planning
@@ -691,8 +830,9 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 
 ### Collapsed Mode Usage
 - **Keep the panel collapsed** during regular work to let the ticker surface key updates passively
-- **Glance at rotating messages** for a quick pulse on the period total, minutes package or balance status, and top consuming assistant without expanding the panel
-- **Expand only when you need details**, such as adjusting filters, reviewing agent-level breakdowns, or checking historical charts
+- **Watch the header's balance color chip**: For prepaid accounts, a quick glance at the collapsed header tells you if the balance is OK, low, or critical without expanding anything
+- **Glance at rotating messages** for a quick pulse on the period total, total time consumed, minutes package or balance status, and top consuming assistant without expanding the panel
+- **Expand only when you need details**, such as adjusting filters, reviewing project/agent breakdowns, exporting to Excel, or checking historical charts
 
 ### Managing a Minutes Package
 - **Treat the emerald bar as a planning tool**: use the remaining-minutes footer message to anticipate when the allowance will run out
@@ -701,13 +841,13 @@ If consumption data fails to load, neither the minutes package card, the rules-v
 
 ### Managing a Rules-v2 Balance
 - **Treat committed tier overage as billable, not urgent**: it will simply be invoiced at the tier price next period, so no immediate action is required unless the volume looks unexpected
-- **Monitor prepaid bag depletion proactively**: since there's no automatic renewal, keep an eye on available units to plan the next top-up before the balance runs out
+- **Act on amber and red prepaid colors proactively**: since there's no automatic renewal, plan the next top-up as soon as the bar shifts to amber, and treat red as a near-term priority
 - **Use the tier name to confirm the active contract**: if you expect a different tier price or volume, verify the tier name shown against what's configured on the account
 
 ### Performance Optimization
 - **Keep the panel collapsed** when not actively monitoring
 - **Collapse filter sections** when not in use
-- **Collapse agent accordions** you're no longer actively reviewing to keep the breakdown easy to scan
+- **Collapse project and agent accordions** you're no longer actively reviewing to keep the breakdown easy to scan
 - **Refresh manually** when you need the most current data
 - **Use appropriate filter periods** to avoid loading excessive data
 

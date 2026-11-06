@@ -5,7 +5,7 @@ icon: chart-bar
 ---
 
 <Info>
-El panel de consumo Billy proporciona una vista integral de tu consumo actual de minutos facturables, permitiendo el seguimiento y análisis detallado de los costos por asistente.
+El panel de consumo Billy proporciona una vista integral de tu consumo actual de minutos facturables, permitiendo el seguimiento y análisis detallado de los costos por asistente, por proyecto y la exportación de ese detalle a Excel.
 </Info>
 
 ## Descripción General
@@ -14,8 +14,9 @@ El panel de consumo Billy es un componente flotante anclado a la parte inferior 
 
 - **Seguimiento en tiempo real** del consumo de minutos
 - **Barra de progreso del paquete de minutos** contratado (cuando aplica)
-- **Balance de consumo rules-v2**, con tier comprometido o bolsa prepago
-- **Desglose detallado** por asistente
+- **Balance de consumo rules-v2**, con tier comprometido o bolsa prepago, incluyendo una barra de saldo con niveles de alerta visual
+- **Desglose detallado** por proyecto y por asistente, con el tiempo total junto al importe
+- **Exportación a Excel** del desglose completo del período
 - **Filtros flexibles** por período, con selector desplegable
 - **Ticker de mensajes** informativos cuando el panel está colapsado
 - **Gráficos históricos** de facturación para administradores
@@ -61,6 +62,10 @@ El panel utiliza indicadores de color y mensajes para mostrar el estado del serv
 
   <Step title="Filtros Avanzados">
     Sección expandible para configurar períodos personalizados con validación automática de fechas.
+  </Step>
+
+  <Step title="Exportar a Excel">
+    Botón que descarga el desglose de consumo del período actualmente filtrado, con la misma jerarquía de proyecto y asistente que se muestra en pantalla.
   </Step>
 </Steps>
 
@@ -123,15 +128,29 @@ Cuando el contrato del cliente incluye un compromiso mensual de volumen (`kind: 
 
 ### Tipo 2: Bolsa Prepago
 
-Cuando el cliente opera con saldo prepago (`kind: 'prepaid_bag'`), el panel muestra en su lugar:
+Cuando el cliente opera con saldo prepago (`kind: 'prepaid_bag'`), el panel muestra en su lugar una **barra de saldo prepago** que se vacía visualmente a medida que se consume el importe disponible:
 
 - **Etiqueta de sección**: "Saldo prepago"
-- **Contador numérico**: Unidades disponibles actualmente (`available_units`)
-- **Mensaje contextual**: Unidades consumidas durante el período actual (`consumed_period_units`)
+- **Contador numérico**: Importe disponible frente al tamaño total de la bolsa, en la divisa configurada (por ejemplo, "120,00 € de 300,00 €")
+- **Barra de progreso animada**: Representa el porcentaje de saldo restante, con `role="progressbar"` y los atributos `aria-valuemin` / `aria-valuemax` / `aria-valuenow` correspondientes
+- **Mensaje contextual** debajo de la barra, con hasta tres datos en línea:
+  - Porcentaje de saldo restante y su equivalencia aproximada en unidades (minutos o llamadas)
+  - Importe consumido durante el período actual, si está disponible
+  - Fecha de validez del saldo, si la bolsa tiene vencimiento
 
 <Info>
-La bolsa prepago no incluye barra de progreso animada, ya que representa un saldo decreciente sin un objetivo de "consumo total" contra el cual comparar visualmente.
+Cuando la API no incluye la información necesaria para calcular el indicador animado (por ejemplo, perfiles antiguos sin el importe total de la bolsa), el panel recurre automáticamente a una variante simplificada sin barra, mostrando únicamente las unidades o el importe disponible y consumido.
 </Info>
+
+#### Niveles de Alerta de la Barra
+
+<Warning>
+El color de la barra de saldo prepago cambia automáticamente según el porcentaje de saldo restante, para anticipar al cliente la necesidad de recargar antes de quedarse sin saldo:
+
+- **Verde esmeralda**: Saldo saludable, sin necesidad de acción
+- **Ámbar**: Saldo bajo, se recomienda planificar una recarga próximamente
+- **Rojo**: Saldo crítico, próximo a agotarse
+</Warning>
 
 ### Estructura de Datos
 
@@ -154,8 +173,11 @@ export type BillyBalanceInfo =
       unit: string;
       available_units: number;
       consumed_period_units: number;
+      available_eur?: number | null;
+      consumed_period_eur?: number | null;
       payment_modality: string;
       discount_percent: number;
+      valid_until?: string | null;
     };
 ```
 
@@ -313,10 +335,10 @@ La lista de períodos solo se reconstruye a partir de una respuesta de "período
 Para usuarios normales, el panel muestra:
 
 - **Barra de progreso del paquete de minutos** contratado, si está configurado
-- **Balance de consumo rules-v2** (tier comprometido o bolsa prepago), si el perfil opera bajo este motor
-- **Consumo por asistente** del cliente actual
-- **Totales del período** seleccionado
-- **Desglose de costos** detallado
+- **Balance de consumo rules-v2** (tier comprometido o bolsa prepago con su barra de niveles de alerta), si el perfil opera bajo este motor
+- **Consumo por proyecto y por asistente** del cliente actual
+- **Totales del período** seleccionado, con el tiempo total junto al importe
+- **Desglose de costos** detallado y exportable a Excel
 - **Filtros de período** disponibles
 
 ### Vista Administrador
@@ -473,18 +495,46 @@ Si el array `tickerMessages` está vacío (por ejemplo, cuando no hay datos de c
 
 ## Desglose de Consumo
 
-### Información por Asistente
+### Jerarquía por Proyecto y Agente
 
-Para cada asistente se muestra:
+<Info>
+El desglose de consumo se organiza ahora en hasta tres niveles: **proyecto**, **agente** y **concepto facturable**, en lugar de mostrarse como una lista plana de reglas.
+</Info>
 
-- **Nombre del asistente**
-- **Unidades consumidas** (con formato localizado en español)
-- **Tipo de unidad** (minutos, llamadas, etc.)
-- **Precio por unidad** en la moneda configurada
-- **Mínimo aplicable** (si corresponde)
-- **Subtotal** calculado
+El procesamiento del desglose agrupa las líneas recibidas de la API en dos pasos:
 
-Las filas se agrupan internamente por asistente (`BreakdownGroup`), calculando el subtotal de cada grupo y marcando si dispone de detalle adicional expandible, de forma que el desglose se muestre de forma jerárquica y no como una lista plana de reglas.
+<Steps>
+  <Step title="Agrupación por agente">
+    Cada línea de regla se agrupa primero por asistente (`BreakdownGroup`), calculando el subtotal del grupo, el tiempo total consumido en la unidad de sus reglas y si dispone de detalle adicional expandible.
+  </Step>
+
+  <Step title="Agrupación por proyecto">
+    Los agentes se agrupan a su vez por proyecto (`ProjectGroup`), si el cliente organiza sus asistentes en proyectos. Cada proyecto muestra su propio subtotal y tiempo total agregado.
+  </Step>
+
+  <Step title="Colapso de proyectos con un único agente">
+    Cuando un proyecto contiene un solo agente, el nivel de proyecto **no se pinta**: la fila del agente sube directamente, preservando la vista plana habitual para las cuentas que no organizan su consumo por proyectos.
+  </Step>
+</Steps>
+
+### Tiempo Total junto al Importe
+
+<Info>
+Tanto en cada agente como en los totales generales del período, el panel muestra ahora el tiempo total consumido junto al importe facturado, para dar contexto inmediato sin necesidad de expandir el detalle.
+</Info>
+
+- Si todas las reglas de un agente facturan en segundos, el tiempo se muestra como minutos (por ejemplo, "24.704 s")
+- Si el agente mezcla reglas por segundo y por minuto, se muestran ambas magnitudes (por ejemplo, "24.704 s · 90 min")
+- Si el agente no tuvo consumo medido en tiempo (por ejemplo, solo factura por llamada exitosa), el campo de tiempo queda vacío
+
+### Información por Concepto Facturable
+
+Dentro de cada agente, cada línea (`BreakdownLine`) muestra:
+
+- **Etiqueta del concepto** facturable
+- **Unidades consumidas** ya formateadas en texto legible (calculado una única vez por respuesta, no en cada ciclo de detección de cambios)
+- **Subtotal** calculado para esa línea
+- **Datos de origen** completos de la regla, usados también en la exportación a Excel
 
 ### Estructura de Datos
 
@@ -503,13 +553,35 @@ interface BillyConsumptionBreakdownItem {
   // Las reglas v2 incluyen además un código de unidad canónico y el nombre de la regla.
   unit?: 'seconds' | 'minutes' | 'calls';
   rule_name?: string | null;
+  // Identificador y nombre de proyecto, usados para la agrupación de nivel superior.
+  project_id?: string | null;
+  project_name?: string | null;
+}
+
+interface BreakdownLine {
+  key: string;
+  label: string;
+  unitsText: string;
+  subtotal: number;
+  source: BillyConsumptionBreakdownItem;
 }
 
 interface BreakdownGroup {
+  key: string;
   name: string;
   subtotal: number;
-  items: BillyConsumptionBreakdownItem[];
+  unitsText: string;
+  lines: BreakdownLine[];
   hasDetail: boolean;
+}
+
+interface ProjectGroup {
+  key: string;
+  name: string;
+  subtotal: number;
+  unitsText: string;
+  agents: BreakdownGroup[];
+  hasAgentLevel: boolean;
 }
 ```
 
@@ -517,11 +589,42 @@ interface BreakdownGroup {
 
 El panel incluye cálculos finales que muestran:
 
+- **Tiempo total** consumido en el período, junto al importe
 - **Subtotal** de todos los servicios
 - **Mínimos aplicados** (si los hay)
 - **Factor de corrección** aplicado
 - **Cantidad de corrección** calculada
 - **Total final** a facturar
+
+## Exportación a Excel
+
+<Info>
+El botón de exportación genera un archivo Excel con el desglose de consumo del período actualmente filtrado, respetando la misma jerarquía de proyecto, agente y concepto facturable visible en pantalla.
+</Info>
+
+<Steps>
+  <Step title="Respeta el filtro activo">
+    El archivo exportado corresponde siempre al período o rango de fechas que esté seleccionado en el momento de pulsar el botón, ya sea un período predefinido o un rango personalizado.
+  </Step>
+
+  <Step title="Celdas numéricas reales">
+    Los importes y las unidades se exportan como valores numéricos (`ExportCell = string | number | null`), no como texto formateado, de forma que puedan sumarse, filtrarse u ordenarse directamente desde Excel.
+  </Step>
+
+  <Step title="Jerarquía preservada">
+    El archivo incluye filas de proyecto, de agente y de concepto facturable, siguiendo la misma estructura de agrupación que se muestra en el panel.
+  </Step>
+</Steps>
+
+```typescript
+// Una fila de la hoja de Excel: texto o número. Los importes y unidades van
+// como número para que en Excel se puedan sumar y filtrar directamente.
+type ExportCell = string | number | null;
+```
+
+<Warning>
+La exportación utiliza los mismos datos ya cargados en el panel: no realiza una nueva petición a la API, por lo que el archivo generado refleja exactamente lo que el usuario está viendo en pantalla en ese momento.
+</Warning>
 
 ## Formateo y Localización Española
 
@@ -613,6 +716,7 @@ El panel cumple con estándares de accesibilidad WCAG 2.1:
 - **aria-label**: Etiquetas descriptivas para lectores de pantalla
 - **aria-expanded**: Estados de expansión claramente indicados, tanto en la sección de filtros como en el desplegable de período
 - **aria-haspopup / role="listbox" / role="option"**: Semántica correcta para el selector de período desplegable
+- **role="progressbar" / aria-valuemin / aria-valuemax / aria-valuenow**: Semántica correcta para la barra de saldo prepago
 - **focus-visible**: Indicadores visuales de foco para navegación por teclado
 - **aria-controls**: Asociación clara entre botones y contenido controlado
 
@@ -630,6 +734,7 @@ El panel cumple con estándares de accesibilidad WCAG 2.1:
     - Contenido desplazable verticalmente con altura máxima limitada (`max-h-[40vh]`)
     - Espaciado optimizado para interacción táctil
     - El menú desplegable de período se ajusta al ancho disponible del contenedor
+    - Los datos de la barra de saldo prepago se distribuyen en varias líneas cuando el ancho es reducido
   </Tab>
 </Tabs>
 
@@ -670,7 +775,7 @@ El componente maneja tres estados principales:
 
 1. **Sin permisos**: El panel no se renderiza en absoluto
 2. **Con permisos, sin datos**: Se muestra el panel con mensaje de error
-3. **Con permisos y datos**: Se muestra el panel completo con información, incluyendo la barra de paquete de minutos y/o el bloque de balance rules-v2 si aplica
+3. **Con permisos y datos**: Se muestra el panel completo con información, incluyendo la barra de paquete de minutos y/o el bloque de balance rules-v2 si aplica, el desglose jerárquico y el botón de exportación
 
 ## Persistencia de Estado
 
@@ -738,6 +843,10 @@ El panel utiliza la estrategia `ChangeDetectionStrategy.OnPush` de Angular, no c
   <Step title="Listener del desplegable de período">
     El listener de clics del desplegable de período se adjunta y desmonta dinámicamente, ejecutándose fuera de la zona de Angular mientras el menú permanece cerrado, para no forzar ciclos de detección de cambios innecesarios en cada clic de la página
   </Step>
+
+  <Step title="Textos de unidades precalculados">
+    El texto formateado de unidades de cada línea del desglose (`unitsText`) se calcula una única vez al procesar la respuesta de la API, en lugar de recalcularse en cada ciclo de detección de cambios, lo que resulta especialmente relevante en la vista de administrador con listas largas de agentes.
+  </Step>
 </Steps>
 
 ### Manejo de Errores
@@ -757,7 +866,7 @@ En contextos de navegación privada o con restricciones de almacenamiento, el pa
 
 ### Endpoints Utilizados
 
-1. **getCurrentBillyConsumption**: Obtiene el consumo actual con filtros opcionales, incluyendo la información del paquete de minutos y del balance rules-v2 cuando aplica
+1. **getCurrentBillyConsumption**: Obtiene el consumo actual con filtros opcionales, incluyendo la información del paquete de minutos, del balance rules-v2 y de la agrupación por proyecto cuando aplica
 2. **getBillyBillingHistory**: Obtiene el historial de facturación mensual para administradores
 
 ### Filtros de Consulta
@@ -780,6 +889,7 @@ export type BillyConsumptionData =
   | {
       visible: true;
       view_mode?: 'client_agents' | 'admin_clients';
+      currency?: string;
       minutes_package?: {
         consumed: number;
         contracted: number;
@@ -788,12 +898,13 @@ export type BillyConsumptionData =
         over_allowance: boolean;
       };
       balance?: BillyBalanceInfo | null;
+      breakdown?: BillyConsumptionBreakdownItem[];
       // ... datos completos de consumo
     };
 ```
 
 <Info>
-El campo `balance` sigue el modelo de reglas-v2 descrito en la sección [Balance de Consumo (Rules-v2)](#balance-de-consumo-rules-v2), y coexiste de forma independiente con `minutes_package`. Un perfil Billy determinado expondrá como máximo uno de los dos bloques según el motor de facturación configurado.
+El campo `balance` sigue el modelo de reglas-v2 descrito en la sección [Balance de Consumo (Rules-v2)](#balance-de-consumo-rules-v2), y coexiste de forma independiente con `minutes_package`. Un perfil Billy determinado expondrá como máximo uno de los dos bloques según el motor de facturación configurado. El campo `breakdown` es la fuente tanto del desglose jerárquico en pantalla como del archivo exportado a Excel.
 </Info>
 
 ## Funcionalidades de Filtrado
