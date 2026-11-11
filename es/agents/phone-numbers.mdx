@@ -229,7 +229,7 @@ Justo encima de la lista aparece una frase que resume, en una sola línea, cómo
 | Situación | Mensaje |
 |-----------|---------|
 | Cuenta mal configurada | "Este agente aún no tiene cuenta de teléfono configurada. Contacta con el equipo de Meetzy." |
-| Agente de atención al cliente | "Meetzy configuró este agente para llamadas de atención al cliente, así que llama desde números fijos." |
+| Agente de atención al cliente | "Meetzy configuró este agente para llamadas de atención al cliente, así que llama desde números fijos. Contacta con nosotros para cambiarlo." |
 | Modo "solo 400" activo y con número 400 | "Llamadas solo desde números 400" |
 | Modo "solo 400" activo pero sin número 400 | "Este agente todavía no puede hacer llamadas. Añade al menos un número 400." |
 | Hay números en rotación | "Llama desde los números de abajo. Si añades un número 400, llamará solo desde números 400." |
@@ -251,6 +251,21 @@ Justo encima de la lista aparece una frase que resume, en una sola línea, cómo
 
 <Info>
   Si algún número no pudo añadirse (por ejemplo, porque ya no está disponible), verás el detalle junto al número y el motivo del fallo.
+</Info>
+
+#### Números Ya Usados por Otros Agentes
+
+Para evitar duplicar accidentalmente el mismo caller ID en varios agentes, el selector **oculta por defecto** los números que ya están en uso por otro agente de tu cuenta.
+
+- Si quieres verlos igualmente, activa la opción **"Show numbers already in use"** en el propio selector.
+- Cada número compartido muestra una etiqueta del tipo **"Already used by [nombre del agente]"** (o "Already used by N of your agents" si son varios), para que sepas exactamente dónde más está asignado antes de añadirlo.
+
+#### Selección Rápida de Números 400
+
+Cuando tienes varios números 400 disponibles para añadir, puedes usar el botón **"Select all 400"** para marcarlos todos de una vez en lugar de seleccionarlos uno por uno.
+
+<Info>
+  Esta selección rápida solo marca números 400 que **no** estén ya en uso por otro agente, para evitar añadir accidentalmente un número compartido.
 </Info>
 
 ### Eliminar un Número
@@ -306,7 +321,7 @@ Si quieres llamar desde un número que ya posees (por ejemplo, tu línea de ofic
 </Steps>
 
 <Warning>
-  Los números **400 no pueden verificarse** mediante este proceso de llamada, ya que no pueden recibir llamadas de verificación. Si necesitas añadir un número 400 propio, [abre una solicitud](/es/dashboard/tickets) y el equipo de Meetzy lo añadirá manualmente.
+  Los números **400 no pueden verificarse** mediante este proceso de llamada, ya que no pueden recibir llamadas de verificación. El propio formulario te lo recuerda e incluye un enlace para [abrir una solicitud](/es/dashboard/tickets); el equipo de Meetzy lo añadirá manualmente.
 </Warning>
 
 <Info>
@@ -683,14 +698,15 @@ Si no ves números esperados:
 2. **Actualiza la vista** - Recarga la página o cambia de pestaña
 3. **Revisa permisos** - Confirma acceso a la subcuenta específica
 4. **Verifica Caller IDs** - Los números verificados aparecen con "(verified)"
-5. **Contacta soporte** si el problema persiste
+5. **Revisa el filtro de compartidos** - Si usas el selector de Outbound numbers, activa "Show numbers already in use" para ver también los caller IDs usados por otros agentes
+6. **Contacta soporte** si el problema persiste
 
 ### El Panel de Outbound Numbers No Carga
 
 Si el panel muestra el aviso de cuenta mal configurada:
 
 1. **Cuenta incoherente**: Este agente no tiene una cuenta de teléfono asociada correctamente. Contacta con el equipo de Meetzy mediante un ticket.
-2. **Sin selectable disponibles**: Si no puedes añadir ni ver números para añadir, puede que todos tus caller IDs ya estén en uso en este agente.
+2. **Sin selectable disponibles**: Si no puedes añadir ni ver números para añadir, puede que todos tus caller IDs ya estén en uso en este agente, o que estén ocultos por el filtro de compartidos (activa "Show numbers already in use" para comprobarlo).
 
 ### Problemas de Verificación de Caller ID
 
@@ -699,7 +715,7 @@ Si falla la verificación:
 1. **Número incorrecto**: Verifica que el número esté en formato internacional correcto
 2. **Número ocupado**: Asegúrate de estar disponible para recibir la llamada de verificación
 3. **Código incorrecto**: Anota cuidadosamente el código de 6 dígitos
-4. **Número 400**: Los números 400 no pueden verificarse por llamada; solicítalos mediante un ticket al equipo de Meetzy
+4. **Número 400**: Los números 400 no pueden verificarse por llamada; el propio formulario incluye un enlace para abrir un ticket y que el equipo de Meetzy lo añada manualmente
 5. **Número no válido**: Algunos tipos de números no son elegibles para verificación
 
 ### Problemas al Copiar Números a Otros Agentes
@@ -747,7 +763,11 @@ Si falla la asignación:
   </Accordion>
   
   <Accordion title="¿Por qué no puedo verificar un número 400 como propio?">
-    Los números 400 no pueden recibir la llamada automática de verificación. Para añadir un 400 propio, debes abrir una solicitud (ticket) y el equipo de Meetzy lo gestionará manualmente.
+    Los números 400 no pueden recibir la llamada automática de verificación. Para añadir un 400 propio, debes abrir una solicitud (ticket) desde el propio formulario y el equipo de Meetzy lo gestionará manualmente.
+  </Accordion>
+  
+  <Accordion title="¿Por qué algunos caller IDs no aparecen en el selector de añadir números?">
+    Por defecto se ocultan los caller IDs que ya están en uso por otro agente de tu cuenta, para evitar duplicados accidentales. Puedes activar "Show numbers already in use" en el propio selector para verlos y añadirlos de todas formas.
   </Accordion>
   
   <Accordion title="¿Por qué no puedo hacer swap de un Caller ID verificado?">

@@ -59,31 +59,55 @@ Every agent in the Advanced Editor now includes an **Outbound numbers** panel in
 
 The panel displays the numbers currently **in rotation** for the agent — the ones it actually uses to place outbound calls:
 
-- Each number shows its **E.164 format**, a **type badge** (e.g. `400`, mobile, landline) and, when applicable, a **"Line"** tag for Twilio numbers.
+- Each number shows its **E.164 format** and a **type badge** describing what kind of number it is.
+- If the number is a purchased line (not a caller ID), it also shows a **"Line"** tag.
 - Numbers marked **Temporary use** come from Meetzy's shared 400 pool and may be rotated out automatically.
-- If a number is also used by other agents, you'll see a note like *"Also used by 2 other agents"*.
+- If a number is also used by other agents in the same account, you'll see a note like *"Also used by 2 other agents"*.
 - A single status banner at the top summarizes the agent's calling behavior in plain language, for example:
   - 🟢 *"Calls only from 400 numbers"*
   - ⚪ *"Calls from the numbers below. When you add a 400 number, it calls only from 400 numbers."*
   - 🔴 *"This agent can't make calls yet. Add at least one 400 number."*
+  - 🟡 *"Meetzy set this agent up for customer service calls, so it calls from landline numbers. Contact us to change it."*
 
 <Info>
   You don't choose the call type manually anymore — it's inferred from the list. As soon as the agent has at least one 400 number in rotation, it automatically switches to calling only from 400 numbers.
 </Info>
 
-### Adding Caller IDs
+#### Number Type Badges
 
-The **Add numbers** button opens a picker with the Caller IDs available for the agent's account:
+Every number in the panel is labeled with its type, so you can tell at a glance what you're working with:
+
+| Badge | Meaning |
+|-------|---------|
+| **400** | Landline-style number from Meetzy's compliant pool, used for commercial campaigns |
+| **Mobile** | Mobile phone number |
+| **800/900** | Toll-free or premium-rate number |
+| **Landline** | Standard geographic landline number |
+| **Foreign** | Number from a country different from the agent's main market |
+
+<Info>
+  400 numbers are highlighted with a distinct green badge, since adding one changes the agent's calling behavior to "only 400 numbers".
+</Info>
+
+### Adding Numbers from Your Account
+
+The **Add numbers** button opens a picker with the verified Caller IDs available in the agent's account — including numbers already in use by other agents:
 
 <Steps>
   <Step title="Click Add numbers">
     Open the picker from the Outbound numbers panel.
   </Step>
-  <Step title="Select available numbers">
-    Check one or more available Caller IDs from the list. Unavailable numbers are shown separately with the reason they can't be added yet.
+  <Step title="Browse available numbers">
+    By default, the list hides numbers already assigned to other agents to keep things simple. If you need one of those, toggle **Show numbers already in use** to reveal them, each marked with a note like *"Already used by 2 of your agents"*.
+  </Step>
+  <Step title="Select multiple numbers">
+    Check as many numbers as you need. Numbers that can't be added yet appear in a separate section with the reason why (for example, pending verification).
+  </Step>
+  <Step title="Use Select all 400 as a shortcut">
+    If you just want to load up on compliant 400 numbers, click **Select all 400** to check every available 400 number in one click (numbers already shared with other agents are excluded from this shortcut to avoid accidental overlaps).
   </Step>
   <Step title="Confirm">
-    The selected numbers are added to the rotation immediately, and the panel reflects the new status banner.
+    The selected numbers are added to the rotation immediately. The panel reports how many were added and refreshes the status banner — if this introduces the agent's first 400 number, you'll see a note that the agent now calls only from 400 numbers.
   </Step>
 </Steps>
 
@@ -103,9 +127,18 @@ Use **Copy to other agents** to quickly replicate this agent's numbers across yo
     Choose one or more agents to receive this agent's numbers.
   </Step>
   <Step title="Confirm copy">
-    The system attempts to add the numbers to each selected agent and reports the result per agent: added, no changes needed, not allowed, or an error.
+    The system attempts to add the numbers to each selected agent and reports the result per agent.
   </Step>
 </Steps>
+
+Each target agent gets one of these outcomes:
+
+| Result | Meaning |
+|--------|---------|
+| **Added** | The numbers were successfully added to that agent's rotation |
+| **No changes needed** | The agent already had all of those numbers |
+| **Not allowed** | The copy was blocked for that agent (for example, a locked customer-service agent that can't receive 400 numbers) |
+| **Error** | Something went wrong adding one or more numbers; details are shown per number |
 
 <Warning>
   Copying numbers may change the calling behavior of the target agent if it introduces a 400 number for the first time — the target agent will then also call only from 400 numbers.
@@ -120,7 +153,7 @@ If you want to use a number you already own (such as your office line) as a call
     Click **Add your own number** in the Outbound numbers panel.
   </Step>
   <Step title="Enter the phone number">
-    Type the number you own, in international format (e.g. `+34910000000`), and optionally give it a friendly name.
+    Type the number you own, in international format (e.g. `+34910000000`), and optionally give it a friendly name (e.g. "Main office") so it's easy to recognize later in the rotation list.
   </Step>
   <Step title="Request the call">
     Click **Call me with the code**. Meetzy places a call to that number.
@@ -136,6 +169,10 @@ If you want to use a number you already own (such as your office line) as a call
 <Warning>
   400 numbers can't receive this verification call. If you need a 400 number added, open a request to the Meetzy team instead of using self-verification.
 </Warning>
+
+<Info>
+  If the call fails or you miss it, simply click **Call me with the code** again to request a new call and a new code.
+</Info>
 
 <Info>
   If the verified number can't be assigned to this specific agent (for example, due to account rules), it still becomes available for your other agents and the panel will explain why.
@@ -569,6 +606,15 @@ For verified Caller IDs:
   </Accordion>
   <Accordion title="If I copy numbers to another agent, will it affect that agent's calling behavior?">
     It can. If the copied numbers include a 400 number and the target agent didn't have one before, that agent will also start calling only from 400 numbers.
+  </Accordion>
+  <Accordion title="Why don't I see numbers that other agents are already using in the Add numbers picker?">
+    By default, numbers already assigned to other agents in your account are hidden to keep the list simple. Toggle **Show numbers already in use** in the picker to reveal them along with which agents are using them.
+  </Accordion>
+  <Accordion title="What does Select all 400 do exactly?">
+    It checks every available 400 number that isn't already shared with another agent, so you can add a full batch of compliant numbers in one click without manually reviewing each one.
+  </Accordion>
+  <Accordion title="Can I give my own verified number a custom name?">
+    Yes, when verifying your own number you can optionally set a friendly name (e.g. "Main office") so it's easier to recognize later in the rotation list.
   </Accordion>
 </AccordionGroup>
 
