@@ -6,20 +6,34 @@ icon: 'user-lock'
 
 ## Descripción General
 
-Meetzy utiliza un sistema basado en permisos para controlar lo que cada miembro del equipo puede hacer dentro de la plataforma. Los permisos se asignan individualmente al invitar o editar miembros.
+Meetzy utiliza un sistema basado en permisos para controlar lo que cada miembro del equipo puede hacer dentro de la plataforma. Los permisos se asignan individualmente al invitar o editar miembros, y además cada miembro tiene un **rol de cuenta** que determina su nivel general dentro de la jerarquía de la cuenta.
 
-## Rol de Administrador de Cuenta
+## Roles de Cuenta
 
-Además de los permisos individuales, un miembro puede ser promovido a **Administrador de cuenta**. Este rol le otorga acceso a las secciones de gestión del equipo y de tokens, exactamente igual que el propietario de la cuenta.
+Cada miembro de tu equipo pertenece a uno de estos tres roles de cuenta:
+
+| Rol | Descripción |
+|-----|-------------|
+| **Owner (Propietario)** | La persona que creó la cuenta. Tiene acceso total e irrestricto a todas las secciones, incluyendo Team, Token Manager y el saldo de la cuenta. No puede ser eliminado ni degradado. |
+| **Admin (Administrador)** | Un miembro promovido por el propietario. Obtiene acceso a **Team** y **Token Manager**, igual que el propietario. |
+| **Member (Miembro)** | Un miembro estándar. Su acceso depende exclusivamente de los permisos individuales configurados para él. |
 
 <Info>
-Un miembro promovido a Administrador de cuenta puede acceder a **Team** (gestión de miembros) y a **Token Manager**, sin importar los permisos individuales que tenga activados en las secciones anteriores.
+Verás tu propio rol reflejado en la parte superior de la página **Team**, con una etiqueta que indica si eres el *owner* o un *admin* de la cuenta.
 </Info>
 
-Ten en cuenta que este rol amplía específicamente el acceso a esas dos áreas de gestión de cuenta. El resto de permisos (edición de agentes, Editor Avanzado, CRM, grabaciones, minutos facturables, campañas de WhatsApp y acceso a agentes) sigue funcionando de forma independiente y debe configurarse por separado según lo que ese miembro necesite hacer.
+### Rol de Administrador de Cuenta
+
+Además de los permisos individuales, un miembro puede ser promovido a **Admin**. Este rol le otorga acceso a las secciones de gestión del equipo y de tokens, exactamente igual que el propietario de la cuenta.
+
+<Info>
+Un miembro promovido a Admin puede acceder a **Team** (gestión de miembros) y a **Token Manager**, sin importar los permisos individuales que tenga activados en las secciones anteriores.
+</Info>
+
+Ten en cuenta que este rol amplía específicamente el acceso a esas dos áreas de gestión de cuenta. El resto de permisos (edición de agentes, Editor Avanzado, CRM, grabaciones, minutos facturables, saldo de la cuenta, campañas de WhatsApp y acceso a agentes) sigue funcionando de forma independiente y debe configurarse por separado según lo que ese miembro necesite hacer.
 
 <Warning>
-Otorga el rol de Administrador de cuenta con cuidado. Un Administrador de cuenta puede invitar, editar y eliminar a otros miembros del equipo, así como gestionar los tokens de la cuenta.
+Otorga el rol de Admin con cuidado. Un Admin puede invitar, editar y eliminar a otros miembros del equipo, así como gestionar los tokens de la cuenta. Solo el propietario de la cuenta puede promover o degradar a otros miembros entre los roles Admin y Member.
 </Warning>
 
 ## Permisos Disponibles
@@ -87,6 +101,21 @@ Los miembros con este permiso pueden:
 - Ver consumo de minutos facturables
 - Acceder a reportes de uso
 
+### Can View Account Balance
+
+| Estado | Nivel de Acceso |
+|--------|-----------------|
+| ✅ Activado | Puede ver el saldo disponible de la cuenta |
+| ❌ Desactivado | Sin acceso al saldo de la cuenta |
+
+Los miembros con este permiso pueden:
+- Ver el saldo actual disponible en la cuenta
+- Consultar el histórico de consumo relacionado con el saldo
+
+<Info>
+Este permiso está pensado para acompañar a **Can view billable minutes**: normalmente se activan juntos, ya que el saldo de la cuenta se consume directamente a partir de los minutos facturables generados por las llamadas. Puedes activar uno sin el otro si solo quieres que un miembro vea el uso en minutos sin revelar el saldo económico disponible, o viceversa.
+</Info>
+
 ### Can View Recordings
 
 | Estado | Nivel de Acceso |
@@ -144,6 +173,7 @@ Aquí hay combinaciones comunes de permisos para diferentes roles:
 - ❌ Can use advanced editor
 - ❌ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 
 Ideal para: Líderes de equipo que necesitan monitorear llamadas sin hacer cambios.
@@ -153,6 +183,7 @@ Ideal para: Líderes de equipo que necesitan monitorear llamadas sin hacer cambi
 - ❌ Can use advanced editor
 - ❌ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 
 Ideal para: Miembros del equipo que manejan configuración básica de agentes.
@@ -162,6 +193,7 @@ Ideal para: Miembros del equipo que manejan configuración básica de agentes.
 - ✅ Can use advanced editor
 - ❌ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 
 Ideal para: Miembros técnicos responsables del desarrollo de agentes.
@@ -171,23 +203,35 @@ Ideal para: Miembros técnicos responsables del desarrollo de agentes.
 - ❌ Can use advanced editor
 - ✅ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 - ✅ Can send WhatsApp campaigns
 
 Ideal para: Miembros de marketing o ventas que gestionan campañas salientes.
+
+### Finance / Billing
+- ❌ Can edit agents
+- ❌ Can use advanced editor
+- ❌ Can access CRM
+- ✅ Can view billable minutes
+- ✅ Can view account balance
+- ❌ Can view recordings
+
+Ideal para: Miembros responsables de controlar el gasto y el saldo disponible de la cuenta.
 
 ### Acceso Completo
 - ✅ Can edit agents
 - ✅ Can use advanced editor
 - ✅ Can access CRM
 - ✅ Can view billable minutes
+- ✅ Can view account balance
 - ✅ Can view recordings
 - ✅ Can send WhatsApp campaigns
 
 Ideal para: Administradores de cuenta y miembros senior del equipo.
 
 <Info>
-Recuerda que, además de estos permisos, un miembro puede tener adicionalmente el rol de **Administrador de cuenta**, lo cual le da acceso a Team y Token Manager sin necesidad de otro permiso específico.
+Recuerda que, además de estos permisos, un miembro puede tener adicionalmente el rol de cuenta **Admin**, lo cual le da acceso a Team y Token Manager sin necesidad de otro permiso específico. Solo el **Owner** puede asignar o quitar este rol.
 </Info>
 
 ## Sincronizar Permisos
@@ -204,11 +248,19 @@ Esto actualiza los tokens de autenticación del miembro con los permisos más re
 
 <AccordionGroup>
   <Accordion title="¿Puedo crear roles personalizados?">
-    Actualmente, Meetzy usa permisos individuales en lugar de roles predefinidos. Puedes combinar permisos para crear cualquier nivel de acceso que necesites.
+    Actualmente, Meetzy combina un rol de cuenta (owner / admin / member) con permisos individuales en lugar de roles totalmente personalizables. Puedes combinar permisos para crear casi cualquier nivel de acceso que necesites.
   </Accordion>
 
-  <Accordion title="¿Qué diferencia hay entre el rol de Administrador de cuenta y los permisos individuales?">
-    El rol de Administrador de cuenta es independiente de los permisos individuales (editar agentes, CRM, grabaciones, etc.). Solo determina si el miembro puede acceder a **Team** y **Token Manager** para gestionar al resto del equipo y los tokens de la cuenta. El resto de capacidades se sigue controlando con los toggles de permisos descritos arriba.
+  <Accordion title="¿Cuál es la diferencia entre owner, admin y member?">
+    El **owner** es quien creó la cuenta y tiene acceso total permanente. El **admin** es un miembro promovido por el owner que obtiene acceso a Team y Token Manager, pero cuyo acceso al resto de funciones sigue dependiendo de sus permisos individuales. El **member** es un rol estándar cuyo acceso depende por completo de los permisos individuales que se le asignen.
+  </Accordion>
+
+  <Accordion title="¿Qué diferencia hay entre el rol de Admin y los permisos individuales?">
+    El rol de Admin es independiente de los permisos individuales (editar agentes, CRM, grabaciones, etc.). Solo determina si el miembro puede acceder a **Team** y **Token Manager** para gestionar al resto del equipo y los tokens de la cuenta. El resto de capacidades se sigue controlando con los toggles de permisos descritos arriba.
+  </Accordion>
+
+  <Accordion title="¿Qué diferencia hay entre 'Can view billable minutes' y 'Can view account balance'?">
+    "Can view billable minutes" controla el acceso a las estadísticas de uso (duración de llamadas, minutos consumidos, reportes). "Can view account balance" controla específicamente el acceso al saldo económico disponible en la cuenta. Ambos permisos suelen activarse juntos porque el saldo se consume en función de los minutos facturables, pero puedes activarlos de forma independiente si quieres separar quién ve el uso técnico de quién ve el impacto económico.
   </Accordion>
 
   <Accordion title="¿Por qué no puedo ver el toggle de permiso CRM?">

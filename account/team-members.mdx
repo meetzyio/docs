@@ -25,7 +25,7 @@ The members list displays:
 | **Role badge** | **Admin** or **Member**, shown next to the name |
 | **Invite pending badge** | Appears if the member hasn't signed in yet |
 | **Email** | Member's email address |
-| **Actions** | Edit permissions, Change email, Change password, Resend invite, Promote/Demote, Remove |
+| **Actions** | Edit permissions, Change email, Change password, Resend invite, Sync permissions, Promote/Demote, Remove |
 
 <Info>
 A gray status dot and an **Invite pending** badge next to a member's name mean they have not yet accepted their invitation or signed in for the first time. Once they log in, the dot turns green and the badge disappears.
@@ -53,7 +53,7 @@ Every invitation now includes a **role selector** with two options:
 | **Admin** | Full account administrator. Can manage team members, agents, and (if enabled) API tokens, just like the account owner |
 
 <Warning>
-Only grant the **Admin** role to people you fully trust. Admins can invite, edit, promote, and remove other team members, including other admins.
+Only grant the **Admin** role to people you fully trust. Admins can invite, edit, promote, and remove other team members, including other admins — unless the owner-only restriction described below applies.
 </Warning>
 
 ### Permission Settings
@@ -98,6 +98,16 @@ Click **Edit permissions** on any member to modify their settings:
 4. Change agent assignments
 5. Click **Save changes**
 
+## Who Can Act on Whom
+
+The actions available in the **⋮** menu depend on the relationship between the person performing the action and the account owner:
+
+<Warning>
+**Only the account owner can act on another admin.** If you are an admin (not the owner), the actions menu for other admins is restricted — you won't see options like **Change email**, **Change password**, **Promote/Demote**, or **Remove** on their row. Plain members remain fully manageable by any admin.
+</Warning>
+
+This rule prevents admins from editing, demoting, or removing each other, keeping that level of control exclusive to the account owner.
+
 ## Promote or Demote an Admin
 
 You can change a member's role directly from the actions menu, without opening the full edit modal:
@@ -116,7 +126,7 @@ You can change a member's role directly from the actions menu, without opening t
 </Steps>
 
 <Warning>
-You cannot demote or remove yourself, and the account owner's role cannot be changed. This prevents accidentally locking yourself — or everyone else — out of the account.
+You cannot demote or remove yourself, and the account owner's role cannot be changed. This prevents accidentally locking yourself — or everyone else — out of the account. Additionally, only the owner can promote or demote another admin.
 </Warning>
 
 ## Resend a Pending Invitation
@@ -148,21 +158,49 @@ This updates where the member signs in and receives notifications. The member ma
 
 Administrators can reset a member's password:
 
-1. Click **Change Password** on the member
-2. Enter the new password (minimum 6 characters)
-3. Click **Update Password**
+1. Open the **actions menu** (⋮) on the member's row
+2. Click **Change password**
+3. Enter the new password (minimum 6 characters)
+4. Click **Update Password**
 
 The member will need to use the new password on their next login.
 
+## Sync Firebase Permissions
+
+If a member's permissions in Meetzy don't seem to match what they can actually do — for example, after enabling **Can use advanced editor** — you can force a resync of their Firebase authentication claims:
+
+1. Open the **actions menu** (⋮) on the member's row
+2. Click **Sync permissions**
+
+<Info>
+This option only appears for members who have **Can use advanced editor** enabled. It refreshes the permission claims stored in their authentication token, which is useful if changes aren't reflected after their next login.
+</Info>
+
 ## Remove a Member
 
-To remove a team member:
+Removing a member now includes an extra confirmation step to decide what happens to their **personal routines** (any automations or playbooks created under their individual profile).
 
-1. Click **Remove** on the member's row
-2. Confirm the removal in the dialog
+<Steps>
+  <Step title="Start the removal">
+    Open the **actions menu** (⋮) on the member's row and click **Remove**.
+  </Step>
+  <Step title="Review their personal routines">
+    A confirmation dialog loads the member's personal routines, if any. For each routine, choose what should happen to it:
+    - **Move to the account**: The routine is transferred to the main account, paused, so nothing runs unexpectedly
+    - **Move to a workspace**: Assign the routine to a specific workspace you select from the list
+    - **Delete**: Permanently remove the routine along with the member
+  </Step>
+  <Step title="Confirm the removal">
+    Review your choices and confirm. Any routine you didn't explicitly reassign is automatically moved to the account in a paused state.
+  </Step>
+</Steps>
+
+<Info>
+If the member has no personal routines, or the routine data can't be determined, the dialog skips straight to a simple removal confirmation.
+</Info>
 
 <Warning>
-Removing a member is permanent and cannot be undone. All their data and access will be permanently deleted.
+Removing a member is permanent and cannot be undone. All their data and access will be permanently deleted, except for routines you chose to move to the account or a workspace. Remember that only the account owner can remove another admin — admins cannot remove each other.
 </Warning>
 
 ## Search Members
@@ -178,3 +216,4 @@ Use the search bar to find members by name:
 3. **Watch pending invites**: Follow up or resend invitations that stay pending for too long
 4. **Regular audits**: Periodically review member roles, permissions, and remove inactive users
 5. **Secure passwords**: Use strong passwords when creating accounts without email invitations
+6. **Plan routine ownership before removing a member**: Decide in advance whether a departing member's routines should move to the account, go to a specific workspace, or be deleted, to avoid losing important automations

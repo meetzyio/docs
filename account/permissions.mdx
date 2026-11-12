@@ -12,15 +12,19 @@ Meetzy uses a permission-based system to control what each team member can do wi
 A member can now be promoted to **Account Admin**, a role with full access to the account equivalent to the owner's, with the only exception being billing management. This role change is managed from the **Team** screen.
 </Note>
 
-## Account Admin Role
+## Account Roles
 
-In addition to individual feature permissions, Meetzy supports an account-level role upgrade: **Account Admin**.
+Every member of an account holds one of three roles. These roles determine the overall level of access a person has, independent of the individual feature permissions described later in this page.
 
 | Role | Access Level |
 |------|--------------|
-| **Owner** | Full access to the account, including billing and subscription management |
-| **Account Admin** | Full access to the account, equivalent to the owner, **except for billing** |
-| **Member** | Access defined individually by the permissions below |
+| **Owner** | Full access to the account, including billing and subscription management. There is only one owner per account. |
+| **Admin** | Full access to the account, equivalent to the owner, **except for billing**. Can manage the team, invite members, and promote others to Admin. |
+| **Member** | Access defined individually by the feature permissions described below. Cannot access the Team screen or manage other members. |
+
+<Warning>
+Only the **Owner** can modify or demote another **Admin**. Admins can invite and manage regular members, but they cannot edit, demote, or remove another Admin's role — that action is reserved exclusively for the account owner. This prevents admins from removing each other's elevated access.
+</Warning>
 
 ### How to promote a member to Account Admin
 
@@ -108,6 +112,21 @@ Members with this permission can:
 - See billable minutes consumption
 - Access usage reports
 
+### Can View Account Balance
+
+| Status | Access Level |
+|--------|--------------|
+| ✅ Enabled | Can see the current account balance |
+| ❌ Disabled | No access to balance information |
+
+Members with this permission can:
+- View the account's remaining credit/balance
+- Understand how much budget is available before topping up
+
+<Note>
+**Can view account balance** is a companion toggle to **Can view billable minutes**: it becomes available (and is typically enabled) together with that permission, since balance visibility only makes sense alongside usage data. Enable both together when a member needs the full financial picture, or leave both disabled to fully hide billing-related information from a member.
+</Note>
+
 ### Can View Recordings
 
 | Status | Access Level |
@@ -169,6 +188,7 @@ Here are common permission combinations for different roles:
 - ❌ Can use advanced editor
 - ❌ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 
 Best for: Team leads who need to monitor calls without making changes.
@@ -178,6 +198,7 @@ Best for: Team leads who need to monitor calls without making changes.
 - ❌ Can use advanced editor
 - ❌ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 
 Best for: Team members who handle basic agent configuration.
@@ -187,6 +208,7 @@ Best for: Team members who handle basic agent configuration.
 - ✅ Can use advanced editor
 - ❌ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 
 Best for: Technical team members responsible for agent development.
@@ -196,6 +218,7 @@ Best for: Technical team members responsible for agent development.
 - ❌ Can use advanced editor
 - ✅ Can access CRM
 - ❌ Can view billable minutes
+- ❌ Can view account balance
 - ✅ Can view recordings
 - ✅ Can send WhatsApp campaigns
 
@@ -206,6 +229,7 @@ Best for: Marketing or sales team members managing outbound campaigns.
 - ✅ Can use advanced editor
 - ✅ Can access CRM
 - ✅ Can view billable minutes
+- ✅ Can view account balance
 - ✅ Can view recordings
 - ✅ Can send WhatsApp campaigns
 
@@ -229,11 +253,15 @@ This updates the member's authentication tokens with the latest permissions from
 
 <AccordionGroup>
   <Accordion title="Can I create custom roles?">
-    Currently, Meetzy uses individual permissions rather than predefined roles, with the exception of the Account Admin role. You can combine permissions to create any access level you need.
+    Currently, Meetzy uses individual permissions rather than predefined roles, with the exception of the Owner/Admin/Member account roles. You can combine permissions to create any access level you need.
   </Accordion>
 
   <Accordion title="What's the difference between the owner and an Account Admin?">
     An Account Admin has full access to the account, just like the owner, with one exception: they cannot manage billing or the subscription. Everything else, including team management, is available to them.
+  </Accordion>
+
+  <Accordion title="Can an Admin demote or edit another Admin?">
+    No. Only the account **Owner** can change the role of another Admin (for example, demoting them back to Member). This restriction keeps admins from removing each other's elevated access and ensures the owner always retains ultimate control over the account.
   </Accordion>
 
   <Accordion title="Where do I change a member's role to Account Admin?">
@@ -242,6 +270,10 @@ This updates the member's authentication tokens with the latest permissions from
 
   <Accordion title="Why can't I see the CRM permission toggle?">
     The CRM permission toggle is only visible if you (as the administrator) have CRM access enabled on your own account.
+  </Accordion>
+
+  <Accordion title="Why does 'Can view account balance' appear next to billable minutes?">
+    The balance permission is designed as a companion to **Can view billable minutes**, since seeing the account balance only makes sense together with usage data. Toggle them together depending on how much financial visibility you want to grant a member.
   </Accordion>
   
   <Accordion title="Do permissions apply immediately?">

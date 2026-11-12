@@ -28,7 +28,7 @@ La lista de miembros muestra:
 | **Nombre** | Nombre completo, cargo y etiqueta de rol (**Admin** o **Member**) |
 | **Email** | Dirección de correo electrónico |
 | **Estado** | Badge **Invite pending** cuando el miembro todavía no ha activado su cuenta |
-| **Acciones** | Menú con Edit permissions, Change email, Change password, Resend invite, Promote/Demote y Remove |
+| **Acciones** | Menú con Edit permissions, Change email, Change password, Resend invite, Sync permissions, Promote/Demote y Remove |
 
 <Info>
 Cuando un miembro aparece como **Invite pending**, significa que aún no ha iniciado sesión por primera vez. Puedes reenviarle el email de invitación en cualquier momento desde el menú de acciones.
@@ -120,6 +120,10 @@ Desde el menú de acciones de cada miembro puedes cambiar su nivel de acceso rá
 Al degradar a un administrador, perderá inmediatamente el acceso a la gestión de miembros y tokens, aunque conservará el resto de sus permisos configurados.
 </Warning>
 
+<Note>
+Estas acciones no están disponibles sobre tu propio usuario ni, en el caso de **Demote**, sobre el propietario (**owner**) de la cuenta.
+</Note>
+
 ## Cambiar Email de un Miembro
 
 A diferencia de versiones anteriores, ya no es necesario eliminar y volver a invitar a un miembro para actualizar su dirección de correo:
@@ -144,6 +148,14 @@ Si un miembro no recibió o perdió su email de invitación, puedes reenviarlo f
 Esta opción solo está disponible para miembros que aún no han activado su cuenta.
 </Note>
 
+## Sincronizar Permisos
+
+Cuando un miembro tiene acceso al **Editor Avanzado**, puede ocurrir que sus permisos no se reflejen de inmediato en todas las sesiones activas (por ejemplo, tras cambiar sus agentes asignados). En estos casos, usa **Sync permissions** en el menú de acciones para forzar la actualización de sus credenciales de acceso sin necesidad de que el miembro cierre y vuelva a iniciar sesión.
+
+<Info>
+Esta opción solo aparece para miembros con **Can use advanced editor** activado.
+</Info>
+
 ## Cambiar Contraseña del Miembro
 
 Los administradores pueden restablecer la contraseña de un miembro:
@@ -159,10 +171,25 @@ El miembro deberá usar la nueva contraseña en su próximo inicio de sesión.
 Para eliminar un miembro del equipo:
 
 1. Haz clic en **Remove** en el menú de acciones del miembro
-2. Confirma la eliminación en el diálogo
+2. Si el miembro tiene **rutinas personales** (agentes/playbooks creados por él y no compartidos con el resto del equipo), se abrirá un paso adicional para decidir qué hacer con cada una antes de confirmar la eliminación
+3. Confirma la eliminación en el diálogo
+
+### Qué hacer con las rutinas personales
+
+Cuando un miembro con rutinas personales va a ser eliminado, Meetzy te muestra la lista de esas rutinas para que elijas, una por una, su destino:
+
+| Opción | Resultado |
+|--------|-----------|
+| **Mover a la cuenta** (por defecto) | La rutina pasa a pertenecer a la cuenta general, en estado **pausado**, y queda disponible para reasignarla más adelante |
+| **Mover a un workspace** | La rutina se transfiere a un workspace específico que elijas de la lista disponible |
+| **Eliminar** | La rutina se elimina de forma permanente junto con el miembro |
+
+<Info>
+Si no eliges ninguna opción para una rutina, se aplicará automáticamente el comportamiento por defecto: se moverá a la cuenta y quedará en pausa.
+</Info>
 
 <Warning>
-Eliminar un miembro es permanente y no puede deshacerse. Todos sus datos y accesos serán eliminados permanentemente.
+Eliminar un miembro es permanente y no puede deshacerse. Todos sus datos y accesos serán eliminados permanentemente, y las rutinas que elijas **Eliminar** también se perderán sin posibilidad de recuperación.
 </Warning>
 
 ## Buscar Miembros
@@ -176,5 +203,6 @@ Usa la barra de búsqueda para encontrar miembros por nombre:
 1. **Principio de mínimo privilegio**: Solo otorga permisos que los miembros realmente necesiten
 2. **Roles de administrador con cuidado**: Reserva el rol **Admin** para personas de confianza que necesiten gestionar el equipo
 3. **Acceso específico a agentes**: Asigna miembros solo a agentes con los que trabajen
-4. **Auditorías regulares**: Revisa periódicamente el acceso de miembros, invitaciones pendientes y elimina usuarios inactivos
-5. **Contraseñas seguras**: Usa contraseñas fuertes cuando crees cuentas sin invitación por email
+4. **Revisa las rutinas personales antes de eliminar**: Antes de quitar a un miembro, decide conscientemente si sus rutinas deben pasar a un workspace, quedar en pausa en la cuenta o eliminarse
+5. **Auditorías regulares**: Revisa periódicamente el acceso de miembros, invitaciones pendientes y elimina usuarios inactivos
+6. **Contraseñas seguras**: Usa contraseñas fuertes cuando crees cuentas sin invitación por email
